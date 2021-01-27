@@ -1,1309 +1,495 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title> [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:url" content="https://doc.luatos.wiki/page/31/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-679" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/16/679/" class="article-date">
-  <time class="dt-published" datetime="2020-01-16T12:29:39.000Z" itemprop="datePublished">2020-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/16/679/">【小技巧】关于时间戳和rtos.tick()的一点使用心得</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>众所周知，os.time()输出的是时间戳，而rtos.tick()是每秒16384个tick。那么这二者有什么用途呢？</p><p><br></p><p>通常而言，如果是需要严格的时间认证，那么必须使用os.time()，至于说同步时钟的方法有很多，可以参考：http://oldask.openluat.com/article/30</p><p>但是，不论使用哪个方法，都会出现一个问题：<b>同步成功前后产生巨大的差值，可能导致程序逻辑运行错误</b>。</p><p><br></p><h2>避免错误</h2><p>如何避免时钟同步前后产生的差值，导致程序错误呢？</p><p><br></p><p><b>方法一、使用rtos.tick()</b></p><p>之前的方式：</p><blockquote><p>a=os.time()</p><p><span style="background-color: rgb(255, 255, 0);">-- 时钟同步后，os.time()瞬间增加成千上万，后边的if会判断为true，并执行</span><br></p><p>if os.time()-a&gt;20 then xxxx end</p></blockquote><p><br></p><p>现在的方式：</p><blockquote><p>a=rtos.tick()</p><p><span style="background-color: rgb(255, 255, 0);">-- 时钟同步后，os.time()瞬间增加成千上万，但是并不影响rtos.tick()，后边的if逻辑不会出错，程序正常执行</span></p><p>if rtos.tick()-a&gt;20*16384 then xxxx</p></blockquote><p>如此一来，使用rtos就可以完美的计时，且不用担心时钟同步后导致错误了。<br></p><p>但是需要注意，rtos.tick()，根据底层和模块不同，脉冲次数与归零周期不同。其中非float底层，rtos.tick()默认归零时间是38小时，float底层rtos.tick()是72小时。</p><p><br></p><p><b>方法二、使用os.time()</b></p><p>如果程序需要稳定运行，无法接收rtos.tick()定期归零，那么有两个方法避免：</p><p>1、记录rtos.tick()归零行为，并把原值做处理</p><blockquote><p>local iLstTick=0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="background-color: rgb(255, 255, 0);">--记录最后一次tick值，开机默认是0</span><br></p><p>local bTickReset=false&nbsp;&nbsp;&nbsp; <span style="background-color: rgb(255, 255, 0);">--记录刚刚是否tick重置过</span><br></p><p>sys.timerStart(function()&nbsp;&nbsp;&nbsp;<span style="background-color: rgb(255, 255, 0);"> --timer，用于判断tick是否重置</span></p><p>&nbsp;&nbsp;&nbsp; if rtos.tick()&lt;25000 and iLstTick~=0 then</p><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bTickReset=true </p><p>&nbsp;&nbsp;&nbsp; end</p><p>&nbsp;&nbsp;&nbsp; iLstTick=rtos.tick()</p><p>end, 1000)<br></p><p>local iRecTick&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --设置变量，记录tick</p><p><span style="background-color: rgb(255, 255, 0);">--判断间隔时间是否符合条件，并执行代码</span></p><p>if bTickReset==true then</p><p>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: rgb(255, 255, 0);">--需要根据底层判断最长，否则可能出错，这里用的是72小时，即4,294,967,295‬</span><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: inherit;">iRecTick = </span><span style="background-color: inherit;"><span style="background-color: inherit;"></span>iRecTick-4294967295‬</span></p><p>&nbsp;&nbsp;&nbsp; bTickReset=false<span style="background-color: inherit;"><br></span>end<br></p><p>if rtos.tick()-iRecTick&gt;30*16384 then</p><p>&nbsp;&nbsp;&nbsp; --your code</p><p>end</p></blockquote><p><br></p><p>2、记录os.time()同步前后的差值，并将它加入到运算中</p><blockquote><p>local iOldTimeStamp,iLastTimeStamp=0, 0</p><p>sys.timerStart(function()</p><p>&nbsp;&nbsp;&nbsp;&nbsp;if os.time()&lt;1500000000 then&nbsp;&nbsp;&nbsp; <span style="background-color: rgb(255, 255, 0);">--如果ntp同步成功，肯定大于150000000</span><br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOldTimeStamp=os.time()</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iLastTimeStamp=os.time()</p><p>&nbsp;&nbsp;&nbsp; else</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if iLastTimeStamp&lt;1500000000 then iLastTimeStamp=os.time() end<br></p><p>&nbsp;&nbsp;&nbsp; end</p><p>end, 1000)<br></p><p>--现在获得了同步前后的差值就是iLastTimeStamp-iOldTimeStamp</p><p>local a <span style="background-color: rgb(255, 255, 0);">--假设a是标的</span></p><p><span style="background-color: inherit;">if a &lt;1500000000 then<span style="background-color: inherit;"> a=a+</span>iLastTimeStamp-iOldTimeStamp end&nbsp;&nbsp;&nbsp;<span style="background-color: rgb(255, 255, 0);"> --这里加上同步前后的差值，就不会影响a的值</span></span></p><p>if os.time()-a&gt;30 then&nbsp;&nbsp;&nbsp; <br></p><p>&nbsp;&nbsp;&nbsp;&nbsp;--your code</p><p>end<br></p></blockquote><p><br></p><p><br></p>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/16/679/" data-id="ckkfmdgd200abvkcghfxvhf1z" data-title="【小技巧】关于时间戳和rtos.tick()的一点使用心得" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-678" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/16/678/" class="article-date">
-  <time class="dt-published" datetime="2020-01-15T19:24:08.000Z" itemprop="datePublished">2020-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="container">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/16/678/">合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（上）</a>
-    </h1>
-  
 
-      </header>
+
+
+  <div class="article">
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>##现有问题</p>
-<p>合宙早期的2G物联网模块都有标准的显示库文件，支持I2C，SPI等接口的多种型号显示屏，使用起来非常的方便，但是对于4G的物联网模块，合宙的底层库并没有提供现成的显示库供用户使用，这在很多场景下不太方便。 怎么能够让4G模块也能简单方便进行显示输出，这是一个问题。</p>
-<p>##现有解决方案</p>
-<p>目前使用合宙4G模块的客户们普遍有三种方式来间接实现4G模块的屏幕显示功能。</p>
-<p>方式1：外挂STM32单片机，使用Air720系列模块作为Modem，这种方法开发灵活，显示效果好，大客户往往采用。 但是需要同时掌握C语言编程熟悉和AT编程的高阶程序员才能使用。而且因为外挂了STM32，电路板的原件数和复杂程度都有所提高。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_20551.jpg"><br>方式2：串口屏，串口屏是目前新兴的一种显示模块，Air720可以通过UART接口给串口屏发送指令显示中文和图片。这种方法虽然很方便，但是市售的串口屏幕使用并不怎么方便，还需要额外的软件配置后才能使用，价格也偏高，一般起码要30块钱，且不能满足稳定供货。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_98202.jpg"><br>方式3：使用树莓派等linux上位机，通过Air720HI,Air720GI网卡封装的模块上网，实现物联网控制功能，这个方法灵活性最高，但成本起步起码要300元。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_88905.jpg"></p>
-<p>##问题分析</p>
-<p>物联网设备的大多数应用场合是偏工业实用的，并不需要十分优美流畅的显示界面，而仅仅是显示一些输出信息，对于这样的需求，竟然没有现成的方案可以满足需求。 因此我便考虑可不可以自己动手开发一款这样的产品。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67085.jpg"></p>
-<p>##功能设计<br>现在合宙商城的Air202F正在搞促销，每片只要10.8元，而1.8寸的 128*160的SPI串口屏模块市场有家店铺也仅卖10块钱，两项加在一起仅20块，就能让Air720实现基本的文字显示功能真的很划算。 说做就做，于是我就用手头的东西捣鼓起来了。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_46706.jpg"></p>
-<p>##硬件实现<br>我这里做实验用的是Air202 S6核心板和1.8寸ST7735S显示屏来实现。 驱动显示屏的连接方式参考了Air202硬件手册，需要连接7根线，其中两根电源线，5根信号线。下面是具体的连接方式。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22958.jpg"></p>
-<p>##调试及编程环境</p>
-<p>在编写项目的lua软件的时候可以先不接Air720模块，采用PC的串口调试程序连接USB转串口线进行调试，连接方法会简单，调试也比较方便。 为了烧写程序还需要连接USB_HOST到电脑上，您可以买两根CH340串口线，或者就要稍麻烦一点调试时临时更换连接线，用哪方方法这个由您自己决定。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97042.jpg"></p>
-<p>下面是Lua代码</p>
-<p>muart.lua 源码</p>
-<pre><code>初始化串口，并从串口接收要显示的字符串
-
-require &quot;utils&quot;
-require &quot;pm&quot;
-module(..., package.seeall)
-
--------------------------------------------- 配置串口 --------------------------------------------
--- 串口ID,串口读缓冲区
-local UART_ID, sendQueue = 1, &#123;&#125;
--- 串口超时，串口准备好后发布的消息
-local uartimeout, recvReady = 500, &quot;UART_RECV_ID&quot;
---保持系统处于唤醒状态，不会休眠
-pm.wake(&quot;mcuart&quot;)
-uart.setup(UART_ID, 115200, 8, uart.PAR_NONE, uart.STOP_1)
-uart.on(1, &quot;receive&quot;, function(uid, length)
-    table.insert(sendQueue, uart.read(uid, length))
-    sys.timerStart(sys.publish, uartimeout, recvReady)
-end)
-
--- 向串口发送收到的字符串
-sys.subscribe(recvReady, function()
-    local str = table.concat(sendQueue)
-    log.info(&quot;uart read length:&quot;, #str, str)
-    -- 串口写缓冲区最大1460
-    for i = 1, #str, 1460 do
-        uart.write(UART_ID, str:sub(i, i + 1460 - 1))
-        --显示字符串
-        ui.showText(str)
-    end
-    -- 串口的数据读完后清空缓冲区
-    sendQueue = &#123;&#125;
-end)
-</code></pre>
-<p>ui.lua 源码</p>
-<pre><code>module(...,package.seeall)
-
-require&quot;uiWin&quot;
-require&quot;prompt&quot;
-require&quot;idle&quot;
-
-local buff=&quot;&quot;
-
-function clr()
-    --清空LCD显示缓冲区
-    disp.clear()
-    --刷新LCD显示缓冲区到LCD屏幕上
-    disp.update()
-end
-
---显示字符串
-function showText(text,s)
-    --清空LCD显示缓冲区
-    --disp.clear()
-    --设置页眉字体颜色
-    lcd.setcolor(0x001F)
-    --设置黑色图片背景
-    disp.putimage(&quot;/ldata/logo_&quot;..(lcd.BPP==1 and &quot;mono.bmp&quot; or &quot;color.png&quot;),lcd.BPP==1 and 41 or 0,lcd.BPP==1 and 18 or 0)
-    --disp.setbkcolor(BLACK)
-    --显示页眉文字
-    disp.puttext(&quot;---UART Port1---&quot;,0,0)
-    lcd.setcolor(0xFFFF)
-    --显示正文文字
-    if (line==nil) then
-        disp.puttext(text,0,32)
-    else
-        disp.puttext(text,0,(line+1)*16)
-    end
-    disp.update()
-end
-
---显示启动时的缺省文字
-showText(&quot;UART DISPLAY    V0.01&quot;)
-</code></pre>
-<p>##电脑测试</p>
-<p>最终的实物连线是这样的：</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_92910.jpg"></p>
-<p>由于Air202本身支持完整的中文字库，因此通过串口发送GB2312的汉字编码也可以被正确识别。下面我们将完整的程序烧录到S6核心板中，源文件在文末附上的地址可以下载到。 打开电源会看到 UART DISPLAY V0.01字样。然后使用LLC串口调试助手，并以115200速率连接，发送 “你好”。在屏幕上这时候就可以看到您发送的字符串了。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_11750.jpg"><br>##总结</p>
-<p>本文实现了用Air202完成串口屏的功能，在下此文章中，我将把做好的串口屏和Air720SL开发板连接起来实现完整的屏幕显示通讯。 这个项目在Github上已经建立了目录，并上传了本文所述的Lua脚本代码和硬件连线图。 如果您有兴趣和我一起完善他，就快来关注吧。 也欢迎您加我 QQ：64034373 共同探讨 。</p>
-<p>##开源项目地址</p>
-<p>UART_DISPLAY 开源项目地址：<a target="_blank" rel="noopener" href="https://github.com/miuser00/202uartdisplay">https://github.com/miuser00/202uartdisplay</a></p>
-<p>LLCCom 开源项目地址：<a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/16/678/" data-id="ckkfmdgd200aavkcgaki8ge19" data-title="合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（上）" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-677" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/14/677/" class="article-date">
-  <time class="dt-published" datetime="2020-01-13T16:14:24.000Z" itemprop="datePublished">2020-01-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/14/677/">合宙2G、4G模块供电、取电杂谈</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>##写在最前面</p>
-<p>最近受合宙技术社区管理员Delectate之邀写一篇关于如何正确给合宙模块供电以及如何从模块正常取电的文章。 这的确是合宙物联网模块新手经常遇到的一个头疼问题，甚至很多合宙的大客户在量产后因为物料，生产工艺以及使用环境发生变化时也能遭遇麻烦。所以对于供电问题的深入分析非常有必要。 其实另一位社区专家稀饭放姜老师是这方面的高手，他在Bilibili站也有专门的电源设计视频讲解的很详细。 毕竟已经答应了大佬的要求，不得不就硬着头写一下，但这方面我确实知识有限，所以只能给遇到问题的初学者写篇抛砖引玉的文章，算共同探讨解决问题的思路吧。</p>
-<p>##模块供电要求</p>
-<p>遇事不决先看硬件说明书，这是Delectate在进行社区网友技术辅导时候的一句口头禅。 做电源设计也不例外，硬件手册里一个最基本的部分就是供电，供电是模块稳定工作的大前提。 是一款优秀电路设计的根基。 以合宙最新出品的4G全网通模块Air720SL为例</p>
-<h3 id="Air720SL-供电要求"><a href="#Air720SL-供电要求" class="headerlink" title="Air720SL 供电要求"></a>Air720SL 供电要求</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_87127.jpg"><br>硬件文档中明确指出4G模块的供电电压范围为3.3-4.3V，且在突发模式下的最大负载电流有1.8A，考虑到电路除了模块以外，还有其余的外围电路，因此输入电源至少需要有2A的余量才能保证电路的正常工作，这一点是需要格外注意的。</p>
-<h3 id="Air202-F-供电要求"><a href="#Air202-F-供电要求" class="headerlink" title="Air202(F) 供电要求"></a>Air202(F) 供电要求</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13680.jpg"></p>
-<p>对于2G模块，供电电压范围比4G模块稍窄为3.4V-4.2V，突发模式下的最大负载电流为1.6A，比4G模块稍低，但也差不许多，输入电源同样建议有2A的余量。</p>
-<p>##供电设计常见误区</p>
-<p>一般认为5V 2A是驱动模块的最低电源要求，但就有的设计者为了节约成本自作聪明使用1A甚至更小功率的开关电源驱动模块，测试时也没发现问题，但是这样做是有极大风险的，原因如下：</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80096.jpg"></p>
-<p>1）模块的PA（射频功放）的发射功率是一个可变值，因此不同的基站信号强度下（主要看设备天线质量和距离基站的距离）耗电量差别很大。所以实验室没有问题，在现场恶劣的环境中往往就不行了。 因为弱信号下，模块突发耗电量增高了几倍。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_34167.jpg"></p>
-<p>2）另一些工程师知道PA的大电流往往是突发模式下，于是就采用加大电容的方式进行补偿，常见的是使用1000uF的铝电解电容，希望可以弥补小功率电源的不足。但是这样做虽然有帮助，但作用有限，因为电解电容的ESR不够。 以1000uF 6.3V电容为例，ESR大约为0.2Ohm，当PA发射的时候假定模块Sink电流为1.5A，而外部电源一时跟不上供电，而靠电容放电维持工作，那么仅电容内阻带来的压降就有0.3V，再加上周边的走线电阻，模块极容易重启。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62320.jpg"></p>
-<p>3）过流保护，开关电源当过载时，高频磁芯会饱和形成短路烧毁初级震荡管，因此大多数DC-DC芯片都有过流检测，确保在电流超过供电需求时切断电源或限流进行保护。这更加恶化了模块供电，相当于直接切断了供电，而电容的蓄能是不可能维持模块工作的，因此导致模块掉电重启。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13436.jpg"></p>
-<p>##正确的供电方法</p>
-<p>如何给模块供电的问题，硬件说明书同样给出了便利的两种解决方案，我仅举例最常见的JW5033S 开关型DC-DC电源电路为例，因为这款电路使用率最高。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70104.jpg"><br>这款电路虽然看起来比较简单，但是由于工作在500KHz以上的频率，因此走线稍不小心就会导致寄生振荡，使电路失效，此处建议可以参考稀饭放姜的Layout设计，他在iRTU群的群文件里开源了，群号为：952343033。 当然您也可以参考JW5033的官方建议layout，参考设计书在文末附件中。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_52095.jpg"></p>
-<p>通常为了保险起见，我会在DC_IN和VBAT上再额外并联一个100uF的钽电容，以提高电源的瞬态响应能力。 外部输入电源5V-15V，功率不低于10W，这样做就比较可靠了。</p>
-<p>##好消息</p>
-<p>如果您觉得自己动手进行高频布线比较麻烦，或者是工期紧张不想尝试高风险电路设计，好消息来了。我刚刚从合宙消息灵通人士那得知合宙原厂正在试产一款采用TO-252封装的DC-DC模块。产品使用非常简单，和我们常用的最简单的三端稳压器 7805，1117等完全相同，可以直接代替上面的DC-DC电路：</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15992.jpg"></p>
-<p>模块的原图图如下：</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84180.jpg"></p>
-<p>对比上面的复杂电路，是不是顿时感觉清爽了许多。 据称这款模块的最大工作电流为2A，完全符合合宙2G、4G通讯模块使用，另外还提供从3.3V-5V的几档不同输入电压的子型号，这款模块听说马上就要面世了，和我一起期待吧。<br>##如何取电</p>
-<p>使用模块的时候，我们为了和内外部IO口进行电平转换，总需要一些常见的电压，比如1.8V，3.3V等，很多人为了安全起见往往会额外的使用LDO来实现，这样做肯定是最安全的，其实模块本身也提供一些自带的小电流电压输出端口供用户使用，下面我做一简要介绍。</p>
-<p>###4G模块取电</p>
-<p>目前Air720SL由于固件能力所限，所有的IO口仅支持1.8V电平，因此无论是UART，I2C 如果和外部3.3V电平进行匹配都需要有 1.8V和3.3V 的供电，幸运的是模块本身都有提供,1.8V可以从V_GLOBAL_1V8取得，3.3V可以从GPLDO6取得，目前V008版本固件GPLDO6为3.15V，使用软件指令可以打开使用  Luat指令为：[pmd.ldoset(3,pmd.VLDO6)] ，当3.3V输入使用基本没问题。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99831.jpg"></p>
-<p>###2G模块取电</p>
-<p>Air202(F)的IO口为2.8V电平，本身可以兼容3.3V电平的UART，I2C外部设备。 模块也提供了一个小功率的2.8V 10mA的LDO可以给外部供电，可以用于对IO口进行上拉，下拉驱动按钮开关之用。 使用时要格外小心，不要超过额定负载，否则会牵连内部IO参考电位，带来模块的异常重启。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57222.jpg"></p>
-<p>##用二极管降压是否可行</p>
-<p>很多机智无比的工程师发现硅二极管的压降为0.6-1V，用5V供电时，恰好可以把5V电压降压到4-4.4V，基本落在模块的正常工作电压范围内，这样是否可行呢。答案是可行，也不可行，因为要分情况。 以常见的1N4007为例，他的V-A曲线如下，请看第2条常温线。 100mA时，压降为0.7V，1.5A时，压降为1V，二极管因为工作电流不同带来的电压波动约为0.3V，因此：</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80713.jpg"></p>
-<ol>
-<li>用作烧写程序，可行！ 因为烧写模块时，仅有AP数字电路是工作的，PA属于截止状态，工作电流在烧写过程中变化不太大，一般来说都能正常完成模块烧写。</li>
-</ol>
-<p>2） 用来驱动模块日常工作，不可行！ 前面讲到，因为突发传输时PA的功耗较大，且功率随信号强度波动很大，如果用二极管降压，会造成模块电压的极大波动，这种波动即使不低于模块的最低工作电压，仍然会导致模块重启，造成这种的原因虽然不清楚，但实验证明是屡有发生的。因此 正常的生产环境，模块必须配备足功率的DC-DC或LDO电路才能保证模块正常工作。</p>
-<p>##用电脑的USB口给模块供电行不行</p>
-<p>实话说，我大多数时候其实就是用USB口给模块供电完成调试的，因为我的笔记本USB口的输出电流为1A，且能承受一定的短期超载。 其实PC机USB接口的spec规定USB口输出电压为4.75-5.25V，最大输出电流为500mA。 所以在很多设计余量不足的电脑上使用USB口供电就会遇到问题，幸运的是在4G的开发板上通常预留了两个microUSB接口，可以一个接电脑，一个接外部的5V 2A电源，就比较可靠了。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_79240.jpg"></p>
-<p>对于2G的开发板，或者您打算使用实验开关电源对4G开发板进行供电，可以利用板载的5V插针外接电源，效果是一样的。</p>
-<p>除此之外还有一招，如果您无论怎么供电都发现模块没法正常被识别，也许是U口的问题。建议不要使用PC台式机前置USB连接模块，因为机箱内部的USB传输电缆往往引入额外的压降和干扰从而使模块无法工作通信，换到后置主板上的USB口往往能解决。</p>
-<p>希望这篇文章能帮助您和我自己在今后的开发中少一些电源方面的麻烦，发挥出合宙模块的优秀性能来实现您自己的项目产出。 祝您项目顺利，开发愉快。</p>
-<p>##参考资料</p>
-<p>JW5033 Datasheet及设计参考手册：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PnswaQ6QItQeh3BXpAa0-w">https://pan.baidu.com/s/1PnswaQ6QItQeh3BXpAa0-w</a> 提取码：ybea</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/14/677/" data-id="ckkfmdgd100a9vkcg3yq9hoil" data-title="合宙2G、4G模块供电、取电杂谈" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-676" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/11/676/" class="article-date">
-  <time class="dt-published" datetime="2020-01-11T04:17:46.000Z" itemprop="datePublished">2020-01-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/11/676/">淘宝夹子报警器上仿冒合宙Air202E模块的研究</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>##本文由来</p>
-<p>作为一个合宙产品的忠实用户，每天逛QQ群看新闻是必须要做的事情。 昨天在QQ群偶然看到了这样一个图片，引起了我的极大兴趣。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99943.jpg"></p>
-<p>我看到这个图的第一印象是，Air202怎么长胖了，难道Air202出了假货，跟原厂工程师确认了一下，这个是假货这件事情是真实不虚的。 看来在中国只要是好东西都有人山寨，这句话也是真实不虚的。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56533.jpg"></p>
-<p>##真假Air202模块辨认方法</p>
-<p>我手头刚好有一片S6核心板，上面有一片Air202E，应该是长这样的！这两款无论从PCB的颜色到板型都长得完全不一样。 于是我马上进行详细了解分析，结果如下：这款板子上有几点上可以看出是假冒的：</p>
-<p>1） Logo，合宙出品的Air202 Logo 中间印的应该为 Luat 而不是Junuo（Junuo这是个什么鬼，马上百度一下，根本不存在的），这是一个不存在的虚构品牌。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57427.jpg"></p>
-<ol start="2">
-<li>型号，合宙出品的Air202的虚拟卡版本Air202E是不需要外置卡的，电路上应该有一个Ipex-3代插座。而他这一款电路上却板载有一片E-sim芯片，证明这款芯片内部根本没有内置esim卡（注意：新版Air202E因为内置了E-sim卡，占用了芯片引脚，外面是不能再外挂一片芯片的），Air202的外置SIM卡版本为Air202S，而不是Air202E</li>
-</ol>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30101.jpg"></p>
-<p>3）外形，合宙出品的Air202各个型号电路底板都是蓝色的，而非绿色，标签采用丝印喷涂+激光一体成型。 新出产的内置Sim卡版本应该为Air202S （不含Esim卡），或者Air202Se（内含Esim流量卡)。 合宙的加工基地经过特殊的设计和工艺优化把模块体积压缩到业界最小，这个是其他公司做不到的，所以假的Air202虽然不含内置流量卡，但体积却更肥大一些,标签则是用不干胶贴上的。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44718.jpg"></p>
-<p>##深入分析</p>
-<p>正在我奇怪这些模块来历的时候，又有好心的朋友为我带来了最新的事件动向，他得到了一片山寨的Air202E，并进行了拆解。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_11188.jpg"></p>
-<p>正品的上海合宙模块采用的是大陆紫光展锐自主研发的物联网单芯片方案RDA8955，而拆解的假冒Air202E使用的是台湾著名山寨芯片厂商联发科出品的MT2503DV</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_74031.jpg"></p>
-<p>这位朋友还告诉我，前不久因为小黄车倒闭风波，市场上冒出了不少拆解下来报废共享单车锁，都是几万套起步的，价格非常低。 锁上面使用的另一家移动物联网厂商生产的模块，而这次他拆解到的模块和报废共享车锁上用的模块形状大小都很相似，很有可能是同一批报废物料。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_52088.jpg"></p>
-<p>##总结</p>
-<p>发文之前，我本来因为好奇心特意从淘宝上以48购得一套仿冒夹子报警器，想研究一下。现在意识到没准买到的是一个报废原件改装过的产品，内心真是无比的郁闷。 希望你不要和我有同样的遭遇。 开发物联网产品买物联网模块也要尽量的找原厂销售，远离报废仿冒产品。</p>
-<p>感谢您阅读本文，如果有兴趣交流报警器相关的技术知识欢迎加我 QQ：64034373</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/11/676/" data-id="ckkfmdgd100a8vkcg060hhkft" data-title="淘宝夹子报警器上仿冒合宙Air202E模块的研究" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-675" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/10/675/" class="article-date">
-  <time class="dt-published" datetime="2020-01-10T03:25:02.000Z" itemprop="datePublished">2020-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/10/675/">Air720S系列模块AT固件更新说明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>历代固件更新说明，持续更新：<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201223203438356_sw_file_20201209121725_AirM2M_720S_V616_LTE_AT.zip">AirM2M_720S_V616_LTE_AT.zip</a><br>版本说明：<br>1.添加设置防抖接口<br>2.支持 AT^HEARTBEATHEX 指令<br>3.合入usb_vbus_patch_20201201,1802S休眠后唤醒USB不正常<br>4.ssl链接发送接口返回值不正常<br>5.长按开机键开机检测问题</p>
-<hr>
-<p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201203170415750_AirM2M_720S_V600_LTE_AT.zip">AirM2M_720S_V600_LTE_AT.zip</a><br>1:720SL AT，需要 AT指令能设置RI的脉冲次数<br>2:720SL在主控端掉电休眠期休眠会异常重启<br>3:720SG 模块使用一段时间后会重启<br>4:EEMLTEINTER,EEMLTEINTRA,EEMLTEINTERRAT消息老是上报0<br>5:V0013 部分GPIO无法触发中断<br>6:设置GPIO66异常<br>7:修改注册上网后AT^SYSINFO 的业务域为1的问题<br>8:AT+GSMBUSY=1拒绝接听呼叫,移动卡没语音提示<br>9:修改cpnetapn=3返回error的问题<br>10:1802S系列模块第61引脚电压不正确</p>
-<hr>
-<p>AirM2M_720S_V569_LTE_AT:<br>1:合入NeZhaC_MSA_1.067.000 MSA,支持海外版本<br>2:新增 拒绝接听呼叫命令（+GSMBUSY）<br>3:AT+CPBF返回值不正确<br>4:AT+CPBS=1也能成功，超出取值范围<br>5:设置开机默认的电话本存储类型”SM”<br>6:HTTP POST 过程中 发送数据返回了很多个OK</p>
-<hr>
-<p>AirM2M_720S_V526_LTE_AT:<br>1.优化注网（因为LTE协议版本低导致某些地方注册不上4G网络问题）</p>
-<hr>
-<p>AirM2M_720S_V405_LTE_AT:</p>
-<p>1.增加AT/USB_BOOT 下载，加快开机速度<br>2.修改GetSysConfig错误问题<br>3.修改功耗过高问题<br>4.支持普冉FLAS</p>
-<hr>
-<p>AirM2M_720S_V380_LTE_AT：</p>
-<p>1.修改LTE 网络灯错误显示<br>2.ATE问题汇总<br>3.切换BAND 后默认承载变成1<br>4.修改无法连接vpn<br>5.添加AT+VBUCK1=2设置BUCK1电压为1.1V，修改设置BUCK1电压为1.1V后，过50ms会被修改为0.85V<br>6.{AT}uart流控支持保存到NV</p>
-<hr>
-<p>AirM2M_720S_V367_LTE_AT：</p>
-<p>1.添加GPIO17,用于进入或退出飞行模式<br>2.合上patch_20191115_1.064s_AirM2M_#9095_same_with_case8934_Lilei.7z   （重新激活默认承载的时候会先用临时的一路激活，这个临时的id不上报）<br>3.修改由于错误更新mcc 和mnc 导致联通卡无法获取位置信息<br>4.修改错误提交导致无法校准</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/10/675/" data-id="ckkfmdgd100a7vkcg1f9ga284" data-title="Air720S系列模块AT固件更新说明" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-674" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/09/674/" class="article-date">
-  <time class="dt-published" datetime="2020-01-08T18:20:17.000Z" itemprop="datePublished">2020-01-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/09/674/">上海合宙Luat Air720SL模块 入门指南（3）-GPIO下篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="Air720SL-是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。-模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率-150Mbps-和最大上行速率50Mbps。EVB-Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。"><a href="#Air720SL-是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。-模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率-150Mbps-和最大上行速率50Mbps。EVB-Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。" class="headerlink" title="Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。"></a>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。</h4><h2 id="本文要介绍的内容"><a href="#本文要介绍的内容" class="headerlink" title="本文要介绍的内容"></a>本文要介绍的内容</h2><p><a href="#1">1） Air720SL GPIO口介绍</a></p>
-<p><a href="#2">2） 编写代码，通过串口调试助手控制IO口输入状态</a></p>
-<p><a href="#2">3） 测试Air720SL 上电IO口初始状态及输入电平检测功能</a></p>
-<p><span id="1"></span></p>
-<h2 id="Air720-GPIO介绍"><a href="#Air720-GPIO介绍" class="headerlink" title="Air720 GPIO介绍"></a>Air720 GPIO介绍</h2><p>720SL 共有GPIO接口37个，电平均为1.8V 最大输出电流约2mA。 其中下侧引出GPIO口18个，上侧引出GPIO口为17个, 共35个，除被I2C2端口复用的GPIO49,50从右侧引脚单独引出外，上下两侧排针包括了模块所有GPIO，分布如下图</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95823.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_36028.png"></p>
-<h2 id="编写代码，通过串口调试助手控制IO口输入状态"><a href="#编写代码，通过串口调试助手控制IO口输入状态" class="headerlink" title="编写代码，通过串口调试助手控制IO口输入状态"></a>编写代码，通过串口调试助手控制IO口输入状态</h2><p>Air720系列最常见的接口为UART串口，其中Air720SL支持两个硬件串口和三个软串口，其中名为 “ASR Modem Device 3 AT” 可以映射到Luat编程环境，Lua环境下虚拟串口ID为129，波特率自适应。<br>GPIO口当作为输入状态下使用时可以通过软件配置成弱上拉，弱下拉，和无拉状态，可以弱电流输出，输出电流约5uA<br>下面我们定义一个简单的小指令来控制上下拉状态电平：</p>
-<pre><code>GPIO,&lt;port#&gt;,&lt;status&gt;
-</code></pre>
-<p>GPIO是关键字，port#是GPIO的序号，status为9代表无拉，status为8代表下拉低电平，status为7代表上拉高电平</p>
-<p><span id="2"></span><br>然后编写如下代码，进行GPIO输出测试</p>
-<p>DEMO.lua</p>
-<pre><code>require &quot;utils&quot;
-require &quot;pm&quot;
-require &quot;pins&quot;
-module(..., package.seeall)
-
---IO口状态发生改变时的IO中断响应函数
-function gpioIntFnc(msg)
-
-    --按照demo板对应的引脚排列打印IO口状态
-    local J2_Status_UP=pio11()..&quot;|&quot;..pio28()..&quot;|&quot;..pio26()..&quot;|&quot;..pio18()..&quot;|&quot;..&quot;G&quot;..&quot;|&quot;..&quot;A&quot;..&quot;|&quot;..pio64()..&quot;|&quot;..pio17()..&quot;|&quot;..&quot;U&quot;..&quot;|&quot;..pio20()..&quot;|&quot;..pio62()
-    local J2_Status_DN=pio10()..&quot;|&quot;..pio27()..&quot;|&quot;..pio25()..&quot;|&quot;..&quot;B&quot;..&quot;|&quot;..&quot;G&quot;..&quot;|&quot;..&quot;A&quot;..&quot;|&quot;..pio65()..&quot;|&quot;..&quot;U&quot;..&quot;|&quot;..pio23()..&quot;|&quot;..&quot;U&quot;..&quot;|&quot;..pio24()
-    local J1_Status_UP=pio38()..&quot;|&quot;..pio41()..&quot;|&quot;..pio40()..&quot;|&quot;..pio39()..&quot;|&quot;..pio52()..&quot;|&quot;..pio34()..&quot;|&quot;..pio33()..&quot;|&quot;..pio31()..&quot;|&quot;..pio32()..&quot;|&quot;..pio29()
-    local J1_Status_DN=&quot;V&quot;..&quot;|&quot;..pio37()..&quot;|&quot;..pio32()..&quot;|&quot;..pio51()..&quot;|&quot;..pio36()..&quot;|&quot;..pio35()..&quot;|&quot;..pio61()..&quot;|&quot;..&quot;G&quot;..&quot;|&quot;..pio30()..&quot;|&quot;..pio63()
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
-    log.info(&quot;J1&quot;,&quot;--------------------------------------------------&quot;)
-    log.info(&quot;J2_UP&quot;,J2_Status_UP)
-    log.info(&quot;J2_DN&quot;,J2_Status_DN)
-    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
-    log.info(&quot;J1_UP&quot;,J1_Status_UP)
-    log.info(&quot;J1_DN&quot;,J1_Status_DN)
-    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
-    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    log.info(&quot;-&quot;,&quot;&quot;)
-    if msg==cpu.INT_GPIO_POSEDGE then
-    --上升沿中断
-    else
-    --下降沿中断
-    end
-end
-
---初始化IO口状态
---------------------------------------------GPIO初始化---------------------------------------------
-pio11 = pins.setup(11, gpioIntFnc)
-pio10 = pins.setup(10, gpioIntFnc)
-pio28 = pins.setup(28, gpioIntFnc)
-pio27 = pins.setup(27, gpioIntFnc)
-pio26 = pins.setup(26, gpioIntFnc)
-pio25 = pins.setup(25, gpioIntFnc)
-pio18 = pins.setup(18, gpioIntFnc)
-pio64 = pins.setup(64, gpioIntFnc)
-pio65 = pins.setup(65, gpioIntFnc)
-
-pio17 = pins.setup(17, gpioIntFnc)
---pio22 = pins.setup(22, gpioIntFnc)
---pio66 = pins.setup(66, gpioIntFnc)
-pio23 = pins.setup(23, gpioIntFnc)
-pio20 = pins.setup(20, gpioIntFnc)
-
---pio21 = pins.setup(21, gpioIntFnc)
-
-pio62 = pins.setup(62, gpioIntFnc)
-pio24 = pins.setup(24, gpioIntFnc)
-
-pio38 = pins.setup(38, gpioIntFnc)
-pio41 = pins.setup(41, gpioIntFnc)
-pio37 = pins.setup(37, gpioIntFnc)
-pio40 = pins.setup(40, gpioIntFnc)
-pio42 = pins.setup(42, gpioIntFnc)
-pio39 = pins.setup(39, gpioIntFnc)
-
-pio51 = pins.setup(51, gpioIntFnc)
-pio52 = pins.setup(52, gpioIntFnc)
-pio36 = pins.setup(36, gpioIntFnc)
-pio34 = pins.setup(34, gpioIntFnc)
-pio35 = pins.setup(35, gpioIntFnc)
-pio33 = pins.setup(33, gpioIntFnc)
-pio61 = pins.setup(61, gpioIntFnc)
-pio31 = pins.setup(31, gpioIntFnc)
-pio32 = pins.setup(32, gpioIntFnc)
-pio30 = pins.setup(30, gpioIntFnc)
-pio29 = pins.setup(29, gpioIntFnc)
-pio63 = pins.setup(63, gpioIntFnc)
-
-pio49 = pins.setup(49, gpioIntFnc)
-pio50 = pins.setup(50, gpioIntFnc)
-
--------------------------------------------- 配置串口 --------------------------------------------
--- 串口ID,串口读缓冲区
-local UART_ID, sendQueue, writeBuff, writeBusy = 129, &#123;&#125;, &#123; &#123;&#125;, &#123;&#125; &#125;, false
--- 串口超时，串口准备好后发布的消息
-local uartimeout, recvReady = 25, &quot;UART_RECV_ID&quot;
---保持系统处于唤醒状态，不会休眠
-pm.wake(&quot;mcuart&quot;)
-uart.setup(UART_ID, 912600, 8, uart.PAR_NONE, uart.STOP_1, nil, 1)
-
-uart.on(UART_ID, &quot;receive&quot;, function(uid)
-    table.insert(sendQueue, uart.read(uid, 8192))
-    sys.timerStart(sys.publish, uartimeout, recvReady)
-end)
-
-
-
-function write(uid, str)
-    uart.write(uid, str)
-end
-
--- 向串口发送收到的字符串
-sys.subscribe(recvReady, function()
-    local str = table.concat(sendQueue)
-    -- 串口的数据读完后清空缓冲区
-
-    if (string.sub(str,1,4)==&quot;GPIO&quot;) then
-        --分割命令
-        local splitlist = &#123;&#125;
-        string.gsub(str, &#39;[^,]+&#39;, function(w) table.insert(splitlist, w) end)
-        --lua下标从1开始
-        local s_GPIO=splitlist[2]
-        local s_STATUS=splitlist[3]
-
-        local i_GPIO=tonumber(s_GPIO)
-        local i_STATUS=tonumber(s_STATUS)
-
-        --设置GPIO 上拉下拉无拉
-        pio.pin.setpull(i_STATUS,i_GPIO)
-
-    end
-    sendQueue = &#123;&#125;
-    log.info(&quot;uart read length:&quot;, #str,&quot;Port&quot;..UART_ID)
-    write(UART_ID, str..&quot;-&gt;OK&quot;)
-end)
-</code></pre>
-<p>main.lua</p>
-<pre><code>PROJECT = &quot;UART_GPIO_OUTPUT_TEST&quot;
-VERSION = &quot;1.0.0&quot;
-
---加载日志功能模块，并且设置日志输出等级
---如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
-require &quot;log&quot;
-LOG_LEVEL = log.LOGLEVEL_TRACE
-
-
-require &quot;net&quot;
---每1分钟查询一次GSM信号强度
---每1分钟查询一次基站信息
-net.startQueryAll(60000, 60000)
-
-
-require &quot;errDump&quot;
-errDump.request(&quot;udp://ota.airm2m.com:9072&quot;)
-
-
-require &quot;demo&quot;
-
---启动系统框架
-sys.init(0, 0)
-sys.run()
-</code></pre>
-<p>通过Luatools烧写脚本，并自动重启，然后打开LLC串口调试助手,输入指令</p>
-<pre><code>GPIO,28,7
-</code></pre>
-<p>即可将GPIO28，设置为上拉高电平</p>
-<p>输入指令</p>
-<pre><code>GPIO,28,8
-</code></pre>
-<p>即可将GPIO28,设置为下拉低电平</p>
-<p>输入指令</p>
-<pre><code>GPIO,28,9
-</code></pre>
-<p>即可将GPIO28,设置为无拉状态（高阻）</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_92015.jpg"></p>
-<p><span id="3"></span></p>
-<p>##测试Air720SL 上电IO口初始状态及输入电平检测功能</p>
-<p>我们利用板载的GND（低电位）和VG引脚（1.8V高电平）改变IO口输入电平，通过软件读取IO口状态变化。 外部通过电流表进行端口带负载测试得到驱动电流。 下图中得到的0为低电平，1为高电平。位置与DEMO板的J2，J1相对应。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56376.jpg"></p>
-<p>重复对所有的IO口进行上电及高低电平控制可以得到下表</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16885.jpg"></p>
-<p>DEMO板上测试结果输入可配置可采集的全功能引脚为22个，输入不可配置高低电平，但能作为输入采集信号的4个，上下拉可配置，但不能检测输入电平变化的引脚6个。</p>
-<p>总结一下：</p>
-<p>可以检测输入电平变化，并配置内部上拉下拉电路的输入端口共有22个，其中开机为下拉低电平15个，上拉高电平的为7个，驱动电流约为5微安</p>
-<p>至此Air720SL的GPIO输入状态介绍完毕，谢谢您的阅读。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/09/674/" data-id="ckkfmdgd000a6vkcg8kvp5hjn" data-title="上海合宙Luat Air720SL模块 入门指南（3）-GPIO下篇" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-673" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/07/673/" class="article-date">
-  <time class="dt-published" datetime="2020-01-07T14:19:14.000Z" itemprop="datePublished">2020-01-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/07/673/">上海合宙Luat Air720SL模块 入门指南（2）-GPIO上篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用进行介绍</p>
-<h2 id="本文要介绍的内容"><a href="#本文要介绍的内容" class="headerlink" title="本文要介绍的内容"></a>本文要介绍的内容</h2><p><a href="#1">1） Air720SL GPIO口介绍</a></p>
-<p><a href="#2">2） 编写代码，通过串口调试助手控制IO口输出状态</a></p>
-<p><a href="#2">3） 测试Air720SL 上电IO口初始状态</a></p>
-<p><span id="1"></span></p>
-<h2 id="Air720-GPIO介绍"><a href="#Air720-GPIO介绍" class="headerlink" title="Air720 GPIO介绍"></a>Air720 GPIO介绍</h2><p>720SL 共有GPIO接口37个，电平均为1.8V 最大输出电流约2mA。 其中下侧引出GPIO口18个，上侧引出GPIO口为17个, 共35个，除被I2C2端口复用的GPIO49,50从右侧引脚单独引出外，上下两侧排针包括了模块所有GPIO，分布如下图</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30716.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94840.png"></p>
-<h2 id="编写代码，通过串口调试助手控制IO口输出状态"><a href="#编写代码，通过串口调试助手控制IO口输出状态" class="headerlink" title="编写代码，通过串口调试助手控制IO口输出状态"></a>编写代码，通过串口调试助手控制IO口输出状态</h2><p>Air720系列最常见的接口为UART串口，其中Air720SL支持两个硬件串口和三个软串口，其中名为 “ASR Modem Device 3 AT” 可以映射到Luat编程环境，Lua环境下虚拟串口ID为129，波特率自适应。<br>下面我们定义一个简单的小指令来控制GPIO的电平：</p>
-<pre><code>GPIO,&lt;port#&gt;,&lt;status&gt;
-</code></pre>
-<p>GPIO是关键字，port#是GPIO的序号，status为1 代表高电平，status为0 代表低电平</p>
-<p><span id="2"></span><br>然后编写如下代码，进行GPIO输出测试</p>
-<p>DEMO.lua</p>
-<pre><code>--- 模块功能：GPIO 测试 DEMO.
--- @author openLuat
--- @module gpio.testGpioSingle
--- @license MIT
--- @copyright openLuat
--- @release 2020.01.07
-
-require &quot;utils&quot;
-require &quot;pm&quot;
-require &quot;pins&quot;
-module(..., package.seeall)
-
--------------------------------------------- 配置串口 --------------------------------------------
--- 串口ID,串口读缓冲区
-local UART_ID, sendQueue, writeBuff, writeBusy = 129, &#123;&#125;, &#123; &#123;&#125;, &#123;&#125; &#125;, false
--- 串口超时，串口准备好后发布的消息
-local uartimeout, recvReady = 25, &quot;UART_RECV_ID&quot;
---保持系统处于唤醒状态，不会休眠
-pm.wake(&quot;mcuart&quot;)
-uart.setup(UART_ID, 912600, 8, uart.PAR_NONE, uart.STOP_1, nil, 1)
-
-uart.on(UART_ID, &quot;receive&quot;, function(uid)
-    table.insert(sendQueue, uart.read(uid, 8192))
-    sys.timerStart(sys.publish, uartimeout, recvReady)
-end)
-
---串口写入
-function write(uid, str)
-    --软串口
-    uart.write(uid, str)
-end
--- 向串口发送收到的字符串
-sys.subscribe(recvReady, function()
-    local str = table.concat(sendQueue)
-    -- 串口的数据读完后清空缓冲区
-    if (string.sub(str,1,4)==&quot;GPIO&quot;) then
-        --拆分解析命令
-        local splitlist = &#123;&#125;
-        string.gsub(str, &#39;[^,]+&#39;, function(w) table.insert(splitlist, w) end)
-        --lua下标从1开始
-        local s_GPIO=splitlist[2]
-        local s_STATUS=splitlist[3]
-        --参数从字符串转换成数字
-        local i_GPIO=tonumber(s_GPIO)
-        local i_STATUS=tonumber(s_STATUS)
-        --设置GPIO
-        pins.setup(i_GPIO,i_STATUS)
-    end
-    sendQueue = &#123;&#125;
-    log.info(&quot;uart read length:&quot;, #str,&quot;Port&quot;)
-    --执行成功则回送指令，并附加OK
-    write(UART_ID, str..&quot;-&gt;OK&quot;)
-
-end)
-</code></pre>
-<p>main.lua</p>
-<pre><code>PROJECT = &quot;UART_GPIO_OUTPUT_TEST&quot;
-VERSION = &quot;1.0.0&quot;
-
---加载日志功能模块，并且设置日志输出等级
---如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
-require &quot;log&quot;
-LOG_LEVEL = log.LOGLEVEL_TRACE
-
-
-require &quot;net&quot;
---每1分钟查询一次GSM信号强度
---每1分钟查询一次基站信息
-net.startQueryAll(60000, 60000)
-
-
-require &quot;errDump&quot;
-errDump.request(&quot;udp://ota.airm2m.com:9072&quot;)
-
-
-require &quot;demo&quot;
-
---启动系统框架
-sys.init(0, 0)
-sys.run()
-</code></pre>
-<p>通过Luatools烧写脚本，并自动重启，然后打开LLC串口调试助手,输入指令</p>
-<pre><code>GPIO,32,1
-</code></pre>
-<p>即可将GPIO32，设置为高电平</p>
-<p>输入指令</p>
-<pre><code>GPIO,32,0
-</code></pre>
-<p>即可将GPIO32,设置为低电平</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53587.jpg"></p>
-<p><span id="3"></span><br>##测试Air720SL 上电IO口初始状态</p>
-<p>重复对所有的IO口进行上电及高低电平控制可以得到下表</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_98638.jpg"></p>
-<p>DEMO板上测试结果为受控IO口27个，有15个初始状态为弱下拉低电平，10个为弱上拉状态，2个为高电平</p>
-<p>总结一下：</p>
-<p>可以通过外围电路让开机保持在<strong>任意电平</strong>的引脚为<strong>25</strong>个，开机只能配置为<strong>高电平</strong>的<strong>2</strong>个。</p>
-<p>至此Air720SL的GPIO输出状态介绍完毕，谢谢您的阅读。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/07/673/" data-id="ckkfmdgd000a5vkcg6r7t04fw" data-title="上海合宙Luat Air720SL模块 入门指南（2）-GPIO上篇" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-672" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/06/672/" class="article-date">
-  <time class="dt-published" datetime="2020-01-06T08:05:45.000Z" itemprop="datePublished">2020-01-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/06/672/">稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。 上一篇文章中，我尝试使用手机客户端对Modbus继电器进行控制，今天我们换用开源PC端和Modbus 温湿度传感器 进行一次温湿度采集。</p>
-<h2 id="Modbus简介"><a href="#Modbus简介" class="headerlink" title="Modbus简介"></a>Modbus简介</h2><p>Modbus对设备的控制是通过对一系列寄存器的读写完成的。 设备地址是一个8bit的字节，规定了总线上要进行通讯的设备地址，最多可以有247个设备，地址为0的时候为广播地址，所有设备都应该进行解析，248-255是供用户扩展之用。 功能代码是具体执行的功能，数据部分是可变长度的整字节数据，报文尾部有一个双8Bit的CRC校验位。 当通讯命令发送至仪器时，符合相应地址码的设备接通讯命令，并除去地址码，读取信息，如果没有出错，则执行相应的任务；然后把执行结果返送给发送者。返送的信息中包括地址码、执行动作的功能码、执行动作后结果的数据以及错误校验码。如果出错就返回任何信息。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89650.jpg"></p>
-<p>本次实验以我购得的一个采用RS485接口的Modbus温湿度采集模块配合合宙出品的720D DTU大板进行试验。</p>
-<pre><code>--下行报文 （iRTU-&gt;Modbus温度湿度传感器）
-01 03 02 00 00 03 04 73
-</code></pre>
-<p>01-&gt;地址码，购买的设备默认起始为01，可以通过随机的PC程序进行配置。</p>
-<p>03-&gt;功能码，控制采集温湿度</p>
-<p>02-&gt;寄存器起始位，02 00 代表起始寄存器地址：采集 温度，湿度，露点温度</p>
-<p>03-&gt;读取的长度</p>
-<p>04 73-&gt;CRC16校验和</p>
-<pre><code>--上行报文 （Modbus-&gt;iRTU）
-01 03 06 01 0B 01 31 00 50 D5 6A
-</code></pre>
-<p>返回内容格式：</p>
-<p>01-&gt;地址码，购买的设备默认起始为01，可以通过随机的PC程序进行配置。</p>
-<p>03-&gt;功能码，控制采集温湿度</p>
-<p>06-&gt;返回的长度</p>
-<p>温度<br>01 0B-&gt; 0x010B=267 / 10 = 26.7℃；<br>湿度<br>01 31-&gt;0x0131 =305 / 10 = 30.5%RH。<br>露点温度<br>00 50-&gt;0x0050 =80 /10 = 8℃</p>
-<p>##电路连接方式</p>
-<p>本次试验电路测试中采用了我们熟悉的合宙原厂iRTU 硬件 720D 4G DTU大板，此款产品商城有售，内部采用合宙出品的Air720D移动双模通讯模块，电路采用极简设计，性能优秀，更更令人愉快的是硬件竟然是开源的。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84480.jpg"></p>
-<p>下图是本次实验用到的物料</p>
-<p>Air720D DTU大板 X1</p>
-<p>SD123-T10 Modbus温湿度传感器 X1</p>
-<p>USB转RS485转接头 X1</p>
-<p>电话线 1盘</p>
-<p>导线 X 6</p>
-<p>9V DC直流电源 X1 （含电源接头）</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67840.jpg"></p>
-<p>下面是连线方式，其中RS485转换头和传输线仅供配置用，配置完成后可以移除。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59121.jpg"></p>
-<p>##实现方法</p>
-<p>第一步：按照上图将电路连接完成，完成后如下图所示效果</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57625.jpg"></p>
-<p>第二步：编写上下行数据流模板</p>
-<p>下行数据流模板(DTU-&gt;Modbus传感器)，该模板用于将手机发送的继电器控制指令翻译为Modbus继电器的控制报文。</p>
-<pre><code>--Download steam
-function
-    local str=...
-    local dat=str:sub(40,-3)
-    local ret=&quot;&quot;
-    if (dat:sub(1,4)==&quot;temp&quot;) then
-        ret= string.fromHex(&quot;01 03 02 00 00 03 04 73&quot;)
-    else
-        ret =dat
-    end
-    return ret
-end
-</code></pre>
-<p>上行数据流模板(Modbus传感器-&gt;DTU)，该模板用于将Modbus传感器采集到的数据翻译成MTCP报文，发送给PC端。</p>
-<pre><code>--Upload stream
-function
-
-    local a=...
-
-    local ret=&quot;&quot;
-    local str=&quot;&quot;
-
-    if (a:sub(1,2)==string.fromHex(&quot;01 03&quot;)) then
-        local num1=(a:sub(4,4):byte()*255+a:sub(5,5):byte())/10
-        local num2=(a:sub(6,6):byte()*255+a:sub(7,7):byte())/10
-        local temp=tostring(num1,10)
-        local  humd=tostring(num2,10)
-        str=&quot;Temperature:&quot;..temp..&quot; Humedity:&quot;..humd
-    else
-        str=string.toHex(a, &quot; &quot;)
-    end
-
-    local totallen=41+str:len()
-    local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
-
-return ret
-end
-</code></pre>
-<p>第三步：配置iRTU</p>
-<p>将编写好的上下行数据流模板和Upws服务器参数通过串口工具配置到DTU</p>
-<p>服务器设置：</p>
-<p>1） 配置iRTU为UDP传输模式，服务器地址为 box.miuser.net，DPU端口为7101</p>
-<p>2） 每隔10S发送一次心跳包，心跳包的内容为 005501B01000000000100000000000000011234iRTUUPWs 1.0.000</p>
-<p>3） 使用数据通道1通过数据模板进行透传，并绑定到到iRTU串口1</p>
-<p>第四步，打开LLCCOM调试工具，将以上配置信息通过串口工具写入iRTU</p>
-<pre><code>config,writeconfig,&#123;&quot;fota&quot;:0,&quot;uartReadTime&quot;:&quot;25&quot;,&quot;flow&quot;:&quot;&quot;,&quot;param_ver&quot;:&quot;1&quot;,&quot;pwrmod&quot;:&quot;normal&quot;,&quot;password&quot;:&quot;&quot;,&quot;netReadTime&quot;:&quot;0&quot;,&quot;passon&quot;:1,&quot;nolog&quot;:&quot;0&quot;,&quot;plate&quot;:0,&quot;reg&quot;:0,&quot;convert&quot;:0,&quot;uconf&quot;:[[1,&quot;115200&quot;,8,2,0,&quot;&quot;],[2,&quot;115200&quot;,8,2,0,&quot;&quot;]],&quot;conf&quot;:[[&quot;udp&quot;,&quot;005501B01000000000100000000000000011234iRTUUPWs 1.0.000&quot;,10,&quot;box.miuser.net&quot;,7101,1,&quot;&quot;,&quot;&quot;,&quot;&quot;],[],[],[],[],[],[]],&quot;preset&quot;:&#123;&quot;number&quot;:&quot;&quot;,&quot;delay&quot;:&quot;&quot;,&quot;smsword&quot;:&quot;&quot;&#125;,&quot;apn&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;cmds&quot;:[[],[]],&quot;pins&quot;:[],&quot;gps&quot;:&#123;&quot;pio&quot;:[],&quot;fun&quot;:[]&#125;,&quot;upprot&quot;:[&quot;--Upload stream\nfunction \n\n    local a=...\n\n    local ret=\&quot;\&quot;\n    local str=\&quot;\&quot;\n\n    if (a:sub(1,2)==string.fromHex(\&quot;01 03\&quot;)) then \n        local num1=(a:sub(4,4):byte()*255+a:sub(5,5):byte())/10       \n        local num2=(a:sub(6,6):byte()*255+a:sub(7,7):byte())/10       \n        local temp=tostring(num1,10)\n        local  humd=tostring(num2,10)        \n        str=\&quot;Temp:\&quot;..temp..\&quot; Humedity:\&quot;..humd          \n    else\n        str=string.toHex(a, \&quot; \&quot;)\n    end\n\n    local totallen=41+str:len()\n    local ret=string.format(\&quot;%04d\&quot;,totallen)..\&quot;01\&quot;..\&quot;C\&quot;..\&quot;01\&quot;..\&quot;0000000001\&quot;..\&quot;0000000000000001\&quot;..\&quot;1234\&quot;..str..\&quot;05\&quot;\n\nreturn ret\nend &quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;dwprot&quot;:[&quot;--Download steam\nfunction\n    local str=...\n    local dat=str:sub(40,-3)\n    local ret=\&quot;\&quot;\n    if (dat:sub(1,4)==\&quot;temp\&quot;) then\n        ret= string.fromHex(\&quot;01 03 02 00 00 03 04 73\&quot;)\n    else \n        ret =dat\n    end\n    return ret\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;warn&quot;:&#123;&quot;adc0&quot;:[],&quot;adc1&quot;:[],&quot;vbatt&quot;:[],&quot;gpio&quot;:[]&#125; &#125;
-</code></pre>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35767.jpg"></p>
-<p>第五步，运行UDP Demo。在命令行里输入temp,可以看到温湿度被采集了回来，向传感器 哈一口气，可以明显看到湿度上升。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65975.jpg"></p>
-<p>第六步，最终效果</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53184.jpg"></p>
-<p>温湿度采集用途很广，配合上一期的Modbus继电器就可以构成完整的大棚温湿度采集方案了。而且更加聪明的你一定注意到的是，并不需要配置两个DTU，只需要自行修改传感器的地址，合并Modbus上下行数据流模板就可以用一个DTU同时采集温湿度并控制网络继电器。 这个就需要您自己试试喽，如果有问题也欢迎和我讨论，我的QQ：64034373，加好友注明您的目的，谢谢。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
-<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1bnpWMISqglnLyXnZt5ISEg">https://pan.baidu.com/s/1bnpWMISqglnLyXnZt5ISEg</a> 提取码：kshz</p>
-<p>本文参考资料如下：</p>
-<p>1 iRTU项目开源地址</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
-<p>2 UPWS项目开源地址</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
-<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
-<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/06/672/" data-id="ckkfmdgd000a4vkcgb4ug9x6k" data-title="稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-671" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/05/671/" class="article-date">
-  <time class="dt-published" datetime="2020-01-05T15:06:23.000Z" itemprop="datePublished">2020-01-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/05/671/">批量生产时如何进行GPS生产测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>通常在生产测试时可以用两种方式测试GPS功能，一种是用仪器做GPS的传导测试；另一种为实网下通过读取搜星数和信噪比来判断GPS功能是否正常。</p>
-<hr>
-<h3 id="传导测试"><a href="#传导测试" class="headerlink" title="传导测试"></a>传导测试</h3><blockquote>
-<p>传导测试是通过8960综测仪直接连接主板的GPS天线连接器进行测试。这种方式测试前需要将GPS天线去掉直接连接GPS天线连接器，因此适用于GPS天线用IPEX连接器与主板相连的方式。如果是陶瓷天线直接焊接在主板上则不适合这种方式。</p>
-</blockquote>
-<h5 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h5><ol>
-<li>测试工具：<a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20200105210329_GPS%E4%BF%A1%E5%99%AA%E6%AF%94%E6%B5%8B%E8%AF%951.0.3_SDM.rar" title="GPS信噪比测试工具">GPS信噪比测试工具</a></li>
-<li>PC电脑</li>
-<li>8960综测仪</li>
-<li>待测主板</li>
-<li>连接主板GPS输出串口信号的串口线或者生产夹具</li>
-</ol>
-<h5 id="2-主板连接"><a href="#2-主板连接" class="headerlink" title="2. 主板连接"></a>2. 主板连接</h5><p>通TTL转USB串口线或者生产夹具连接待测主板的GPS_TXD串口（GPS_RXD不要接）。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26249.png"></p>
-<h5 id="2-仪器设置"><a href="#2-仪器设置" class="headerlink" title="2. 仪器设置"></a>2. 仪器设置</h5><ol>
-<li><p>在仪器初始化界面，按F1选择CW模式。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_83974.png"></p>
-</li>
-<li><p>按F10选择GPS模式<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85538.png"></p>
-</li>
-<li><p>按F7，将GPS POWER设置为-125dBm<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_43334.png"></p>
-</li>
-</ol>
-<h5 id="2-工具配置"><a href="#2-工具配置" class="headerlink" title="2. 工具配置"></a>2. 工具配置</h5><ol>
-<li><p>将夹具GPS模组的串口线插入电脑，点击运行GPS信噪比测试1.0.2.exe程序；按下图所示选择正确的串口以及波特率，点击打开串口，建立连接。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_60241.png"><br><code>注意：GPS模块air530系列波特率为9600；GPS+GSM模块Air8XX系列波特率为115200</code></p>
-</li>
-<li><p>将夹具GPS RF端口测试头用RF CABLE和Agilent8960 RF端口RF IN/OUT连接。将待测板开机，正常几秒钟内出现下图所示的测试结果。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_43343.png"></p>
-</li>
-<li><p>目标值设置<br>工具默认的目标值为43到50之间，这个值可以根据实际情况修改，修改方法，打开工具的目录<code>GPS信噪比测试1.0.3_SDM\config</code>。记事本打开user.conf文件，修改里面的最大值最小值即可。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51076.png"></p>
-</li>
-</ol>
-<hr>
-<h3 id="实网测试"><a href="#实网测试" class="headerlink" title="实网测试"></a>实网测试</h3><blockquote>
-<p>如果没有仪器，或者GPS天线之间焊接在主板上的情况，可以用实际的GPS信号来测试，通过模块在搜星时输出的GPS原始数据中读取最大信噪比已经卫星数可以在定位之前就可以判断GPS部分的好坏。这样就不需要等到定位，极大缩短了测试时间</p>
-</blockquote>
-<p>通常工厂进行生产时通常在室内，是无法接收到GPS卫星接收信号的，因此要提前安装<strong>GPS转发器</strong>，将GPS信号引入室内生产车间。<br>实际网测试适用于组装完成后的整机测试，有事不太方便用夹具连接GPS管脚，这时就需要在主板固件中开发测试模式，在生产测试时进入测试模式，通过主板的主控来读取GPS相关的信息来判断GPS是否正常。当然如果整机中有因此GPS管脚信号，也可以连接PC用上文的GPS信噪比测试工具来测试，但是注意测试时的信噪比区间要以实际金板测试的信噪进行调整。</p>
-<h4 id="如何读取信噪比和搜星数"><a href="#如何读取信噪比和搜星数" class="headerlink" title="如何读取信噪比和搜星数"></a>如何读取信噪比和搜星数</h4><p>GPS输出的原始数据是按照NME0183 的标准协议格式。<br>协议请参考：<br><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/NMEA%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E.docx">http://www.openluat.com/Product/file/800/NMEA%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E.docx</a><br>我们可以从GPS_TX管脚直接读到这些值<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_28211.png"><br>可以通过单片机或者其他PC工具解析这些值，从何可以设定测试通过的阈值比如卫星数大于等于3而且最高信噪比大于40等（<code>注意设定搜星数不要小于2，避免一些假信号的干扰。设定这些阈值一定要拿几块正常主板实际测量取平均值后作为判断的中心值</code>）。这样的话就可以在GPS定位前就可以判断GPS功能的好坏，大大节省了测试时间。<br>对于lua版本，直接调用获取卫星数量和最大信噪比的接口即可：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 获取所有可见卫星的最大信号强度</span></span><br><span class="line"><span class="comment">-- @return number strength，最大信号强度</span></span><br><span class="line"><span class="comment">-- @usage gps.getMaxSignalStrength()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMaxSignalStrength</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> maxSignalStrength</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- 获取可见卫星的个数</span></span><br><span class="line"><span class="comment">-- @return number count，可见卫星的个数</span></span><br><span class="line"><span class="comment">-- @usage gps.getViewedSateCnt()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewedSateCnt</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tonumber</span>(viewedGpsSateCnt)+<span class="built_in">tonumber</span>(viewedBdSateCnt)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/05/671/" data-id="ckkfmdgd000a3vkcg4wh3a3iu" data-title="批量生产时如何进行GPS生产测试" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-670" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/04/670/" class="article-date">
-  <time class="dt-published" datetime="2020-01-04T11:12:07.000Z" itemprop="datePublished">2020-01-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/04/670/">稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。在前几篇的文章里，我讲述了如何使用手机客户端和PC客户端通过UPWs服务器向iRTU控制器发送透传指令。 今天这篇文章是上两篇文章的一个实际应用，在本文中，我将介绍将iRTU与市面上的一款Modbus继电器相连实现远程开关继电器的功能。</p>
-<h2 id="Modbus简介"><a href="#Modbus简介" class="headerlink" title="Modbus简介"></a>Modbus简介</h2><p>Modbus是由Modicon（现为施耐德电气公司的一个品牌）在1979年发明的，是全球第一个真正用于工业现场的总线协议。 直到如今，Modbus在各个工业场合依然被广泛采用，下面简单的介绍一下Modbus的报文格式</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_18812.jpg"></p>
-<p>Modbus对设备的控制是通过对一系列寄存器的读写完成的。 设备地址是一个8bit的字节，规定了总线上要进行通讯的设备地址，最多可以有247个设备，地址为0的时候为广播地址，所有设备都应该进行解析，248-255是供用户扩展之用。 功能代码是具体执行的功能，数据部分是可变长度的整字节数据，报文尾部有一个双8Bit的CRC校验位。 当通讯命令发送至仪器时，符合相应地址码的设备接通讯命令，并除去地址码，读取信息，如果没有出错，则执行相应的任务；然后把执行结果返送给发送者。返送的信息中包括地址码、执行动作的功能码、执行动作后结果的数据以及错误校验码。如果出错就返回任何信息。</p>
-<p>下面以我购得的一个具有4路输出的Modbus继电器模块所采用的通讯报文</p>
-<pre><code>--下行报文 （iRTU-&gt;Modbus继电器）
-01 05 00 00 FF 00 98 35
-</code></pre>
-<p>01-&gt;地址码，购买的设备默认起始为01，模块上有一个5位的拨码开关，通过调节增加地址，比如 ON|OFF|OFF|OFF|OFF的地位为02</p>
-<p>05-&gt;功能码，控制打开继电器</p>
-<p>00 00-&gt;寄存器起始位，00 00 代表第一个继电器， 00 01 代表第二个， 00 10 代表第三个，0011 代表第四个</p>
-<p>98 35-&gt;CRC16校验和</p>
-<pre><code>--上行报文 （Modbus-&gt;iRTU）
-FE 05 00 00 FF 00 98 35
-</code></pre>
-<p>返回内容与发送内容相同，证明执行成功，如果执行不成功，则没有返回</p>
-<p>##电路连接方式</p>
-<p>本次试验电路测试中采用了合宙生态企业深圳飞思创生产的DTU400-485 4G三模iRTU，不久前商家搞活动促销以99元购得。</p>
-<p>该DTU终端内部采用合宙出品的Air720G全网通4G模块，功能与合宙出品的4G DTU大板基本相同，但额外外置一个5-36V的电源输入接口，使用起来非常方便。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80941.jpg"></p>
-<p>下图是本次实验用到的物料</p>
-<p>DTU400-485 X1</p>
-<p>CS-IO404 Modbus继电器 X1</p>
-<p>USB转RS485转接头 X1</p>
-<p>电话线 1盘</p>
-<p>导线 X 4</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_38702.jpg"></p>
-<p>下面是连线方式，其中RS485转换头和传输线仅供配置用，配置完成后可以移除。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_61025.jpg"></p>
-<p>##实现方法</p>
-<p>第一步：按照上图将电路连接完成，完成后如下图所示效果</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44703.jpg"></p>
-<p>第二步：编写上下行数据流模板</p>
-<p>下行数据流模板(DTU-&gt;Modbus继电器)，该模板用于将手机发送的继电器控制指令翻译为Modbus继电器的控制报文。</p>
-<pre><code>--Download steam
-function
-
-    local str=...
-    --从MTCP协议中拆出命令
-    local dat=str:sub(40,-3)
-    local ret=&quot;&quot;
-
-    --判断发送的指令，是否与预置指令一致，如果一致则下发响应的Modbus命令
-    if (dat:sub(1,8)==&quot;relay1on&quot;) then
-
-        --Modbus地址 01，命令：控制继电器 05，第一个继电器 0000，动作：打开 FF00 ，校验和 8C3A
-        ret= string.fromHex(&quot;01 05 00 00 FF 00 8C 3A&quot;)
-    elseif (dat:sub(1,8)==&quot;relay2on&quot;) then
-        ret= string.fromHex(&quot;01 05 00 01 FF 00 DD FA&quot;)
-    elseif (dat:sub(1,8)==&quot;relay3on&quot;) then
-        ret= string.fromHex(&quot;01 05 00 02 FF 00 6D FB&quot;)
-    elseif (dat:sub(1,8)==&quot;relay4on&quot;) then
-        ret= string.fromHex(&quot;01 05 00 03 FF 00 3C 3B&quot;)
-
-    elseif (dat:sub(1,9)==&quot;relay1off&quot;) then
-        --Modbus地址 01，命令：控制继电器 05，第一个继电器 0000，动作：关闭 0000 ，校验和 CDCA
-        ret= string.fromHex(&quot;01 05 00 00 00 00 CD CA&quot;)
-    elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
-        ret= string.fromHex(&quot;01 05 00 01 00 00 9C 0A&quot;)
-    elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
-        ret= string.fromHex(&quot;01 05 00 02 00 00 6C 0A&quot;)
-    elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
-        ret= string.fromHex(&quot;01 05 00 03 00 00 3D CA&quot;)
-    else
-        ret =dat
-    end
-
-return ret
-
-end
-</code></pre>
-<p>上行数据流模板(Modbus继电器-&gt;DTU)，该模板用于将Modbus继电器返回的报文翻译成手机的回报信息。</p>
-<pre><code>--Upload stream
-function
-
-local a=...
-
-local ret=&quot;&quot;
-local str=&quot;&quot;
-
---判断报文是否为继电器状态返回
-if (a:sub(1,2)==string.fromHex(&quot;01 05&quot;)) then
-    --第4位是继电器编号
-    local relayNO=a:sub(4,4):byte()
-    --第5位是继电器状态，0为关闭 255是打开
-    local relayStatus=a:sub(5,5):byte()
-    local no=tostring(relayNO,10)
-    local stat
-    if (relayStatus==255) then stat=&quot;ON&quot; else stat=&quot;OFF&quot; end
-    str=&quot;Relay NO.:&quot;..no..&quot; Status is:&quot;..stat
-else
-    str=string.toHex(a, &quot; &quot;)
-end
-
-local totallen=41+str:len()
-local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
-
-return ret
-
-end
-</code></pre>
-<p>第三步：配置iRTU</p>
-<p>将编写好的上下行数据流模板和Upws服务器参数通过串口工具配置到DTU</p>
-<p>服务器设置：</p>
-<p>1） 配置iRTU为UDP传输模式，服务器地址为 box.miuser.net，DPU端口为7101</p>
-<p>2） 每隔10S发送一次心跳包，心跳包的内容为 005501B01000000000100000000000000011234iRTUUPWs 1.0.000</p>
-<p>3） 使用数据通道1通过数据模板进行透传，并绑定到到iRTU串口1</p>
-<p>4） 串口1 波特率设置为9600bps，停止位1，奇偶校验无</p>
-<p>第四步，打开LLCCOM调试工具，将以上配置信息通过串口工具写入iRTU</p>
-<pre><code>config,writeconfig,&#123;&quot;fota&quot;:0,&quot;uartReadTime&quot;:&quot;25&quot;,&quot;flow&quot;:&quot;&quot;,&quot;param_ver&quot;:&quot;1&quot;,&quot;pwrmod&quot;:&quot;normal&quot;,&quot;password&quot;:&quot;&quot;,&quot;netReadTime&quot;:&quot;300&quot;,&quot;passon&quot;:1,&quot;nolog&quot;:&quot;0&quot;,&quot;plate&quot;:0,&quot;reg&quot;:0,&quot;convert&quot;:0,&quot;uconf&quot;:[[1,&quot;9600&quot;,8,2,0,&quot;&quot;],[2,&quot;115200&quot;,8,2,0,&quot;&quot;]],&quot;conf&quot;:[[&quot;udp&quot;,&quot;005501B01000000000100000000000000011234iRTUUPWs 1.0.000&quot;,10,&quot;box.miuser.net&quot;,7101,1,&quot;&quot;,&quot;&quot;,&quot;&quot;],[],[],[],[],[],[]],&quot;preset&quot;:&#123;&quot;number&quot;:&quot;&quot;,&quot;delay&quot;:&quot;&quot;,&quot;smsword&quot;:&quot;&quot;&#125;,&quot;apn&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;cmds&quot;:[[],[]],&quot;pins&quot;:[],&quot;gps&quot;:&#123;&quot;pio&quot;:[],&quot;fun&quot;:[]&#125;,&quot;upprot&quot;:[&quot;--Upload stream\nfunction \n\n    local a=...\n\n    local ret=\&quot;\&quot;\n    local str=\&quot;\&quot;\n\n    if (a:sub(1,2)==string.fromHex(\&quot;01 05\&quot;)) then \n        local relayNO=a:sub(4,4):byte()     \n        local relayStatus=a:sub(5,5):byte()\n        local no=tostring(relayNO,10)\n        local stat\n        if (relayStatus==255) then stat=\&quot;ON\&quot; else stat=\&quot;OFF\&quot; end        \n        str=\&quot;Relay NO.:\&quot;..no..\&quot; Status is:\&quot;..stat          \n    else\n        str=string.toHex(a, \&quot; \&quot;)\n    end\n\n    local totallen=41+str:len()\n    local ret=string.format(\&quot;%04d\&quot;,totallen)..\&quot;01\&quot;..\&quot;C\&quot;..\&quot;01\&quot;..\&quot;0000000001\&quot;..\&quot;0000000000000001\&quot;..\&quot;1234\&quot;..str..\&quot;05\&quot;\n\n    return ret\n    \nend &quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;dwprot&quot;:[&quot;--Download steam\nfunction\n\n    local str=...\n    local dat=str:sub(40,-3)\n    local ret=\&quot;\&quot;\n    if (dat:sub(1,8)==\&quot;relay1on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 00 FF 00 8C 3A\&quot;)\n    elseif (dat:sub(1,8)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 01 FF 00 DD FA\&quot;)\n    elseif (dat:sub(1,8)==\&quot;relay3on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 02 FF 00 6D FB\&quot;)\n    elseif (dat:sub(1,8)==\&quot;relay4on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 03 FF 00 3C 3B\&quot;)\n\n    elseif (dat:sub(1,9)==\&quot;relay1off\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 00 00 00 CD CA\&quot;)\n    elseif (dat:sub(1,9)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 01 00 00 9C 0A\&quot;)\n    elseif (dat:sub(1,9)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 02 00 00 6C 0A\&quot;)\n    elseif (dat:sub(1,9)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 03 00 00 3D CA\&quot;)\n    else \n        ret =dat\n    end\n\n    return ret\n\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;warn&quot;:&#123;&quot;adc0&quot;:[],&quot;adc1&quot;:[],&quot;vbatt&quot;:[],&quot;gpio&quot;:[]&#125; &#125;
-</code></pre>
-<p>默认串口速率为115200，打开LLC，把以上内容粘贴到发送框里，点击发送，即可。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53595.jpg"></p>
-<p>第五步，通过扫描二维码，对继电器进行控制。在命令行里输入relay1on,可以看到继电器被打开。再输入relay1off，可以看到继电器被关闭。</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96933.jpg"></p>
-<p>第六步，最终效果</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_74941.jpg"></p>
-<p>网络继电器的用途很广，现代农业里面的浇水施肥，基本上都是靠这个来控制的，不到两百块钱就可以控制220V水泵给自己家的地远程浇水了！ 您看过本文以后是不是心动了呢，那就赶快行动吧。 下一篇文章，我们将尝试使用同样的原理通过另一款温度传感器采集环境温湿度信息。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
-<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA">https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA</a> 提取码：a610</p>
-<p>本文参考资料如下：</p>
-<p>1 iRTU项目开源地址</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
-<p>2 UPWS项目开源地址</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
-<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
-<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/01/04/670/" data-id="ckkfmdgcz00a2vkcg32l86ps0" data-title="稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/30/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/32/">下一页 &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/16/678/">
+            合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（上）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>##现有问题
+合宙早期的2G物联网模块都有标准的显示库文件，支持I2C，SPI等接口的多种型号显示屏，使用起来非常的方便，但是对于4G的物联网模块，合宙的底层库并没有提供现成的显示库供用户使用，这在很多场景下不太方便。 怎么能够让4G模块也能简单方便进行显示输出，这是一个问题。
+##现有解决方案
+目...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-16
+            </span>
+          
+        </div>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/14/677/">
+            合宙2G、4G模块供电、取电杂谈
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>##写在最前面
+最近受合宙技术社区管理员Delectate之邀写一篇关于如何正确给合宙模块供电以及如何从模块正常取电的文章。 这的确是合宙物联网模块新手经常遇到的一个头疼问题，甚至很多合宙的大客户在量产后因为物料，生产工艺以及使用环境发生变化时也能遭遇麻烦。所以对于供电问题的深入分析非常有必要。 其...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-14
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/11/676/">
+            淘宝夹子报警器上仿冒合宙Air202E模块的研究
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>##本文由来
+作为一个合宙产品的忠实用户，每天逛QQ群看新闻是必须要做的事情。 昨天在QQ群偶然看到了这样一个图片，引起了我的极大兴趣。
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+我看到这个图的第一印象是，Air202怎么长胖了，难道Air202出了假货，跟原厂工程师确认了一下，这个是假货这件事情是真实不虚的。 看来在中国只要是好东西都有...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-11
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/10/675/">
+            Air720S系列模块AT固件更新说明
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>历代固件更新说明，持续更新：AirM2M_720S_V616_LTE_AT.zip版本说明：1.添加设置防抖接口2.支持 AT^HEARTBEATHEX 指令3.合入usb_vbus_patch_20201201,1802S休眠后唤醒USB不正常4.ssl链接发送接口返回值不正常5.长按开机键开机检...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-10
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/09/674/">
+            上海合宙Luat Air720SL模块 入门指南（3）-GPIO下篇
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-09
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/07/673/">
+            上海合宙Luat Air720SL模块 入门指南（2）-GPIO上篇
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-07
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/06/672/">
+            稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。 上一篇文章中，我尝试使用手机客户端对Modbus继电器进行控制，今天我们换用开源PC端和Modbus 温湿度传感器 进行一次温湿度采集。
+Modbus简介Modb...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-06
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/05/671/">
+            批量生产时如何进行GPS生产测试
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>通常在生产测试时可以用两种方式测试GPS功能，一种是用仪器做GPS的传导测试；另一种为实网下通过读取搜星数和信噪比来判断GPS功能是否正常。
+
+传导测试
+传导测试是通过8960综测仪直接连接主板的GPS天线连接器进行测试。这种方式测试前需要将GPS天线去掉直接连接GPS天线连接器，因此适用于GPS天...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-05
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/04/670/">
+            稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。在前几篇的文章里，我讲述了如何使用手机客户端和PC客户端通过UPWs服务器向iRTU控制器发送透传指令。 今天这篇文章是上两篇文章的一个实际应用，在本文中，我将介绍...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-04
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/01/03/669/">
+            合宙模块简易使用说明
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>###使用说明模块开机：
+
+给2G/4G模块vbat管脚提供模块工作范围内的直流电压（具体请参考各个模块的规格书种描述的电压范围），推荐用4V电压。主要供电电流能力要达到2A以上，以满足模块在射频工作时的瞬间抽载。
+RESET管脚不能被拉低，保持悬空即可。
+PWRKEY管脚拉低2S以上触发开机，或者...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-03
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+    <div class="pagenator">
+    
+    
+        <a class="extend prev" href="/page/30">上一页</a>
     
 
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/26">26</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/27">27</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/28">28</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/29">29</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/30">30</a>
+        
+    
+        
+            <span class="extend page-item page-item-select">31</span>
+        
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/32">32</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/33">33</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/34">34</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/35">35</a>
+        
+    
+    
+    
+    
+        <a class="extend next" href="/page/32">下一页</a>
+    
+</div>
 
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

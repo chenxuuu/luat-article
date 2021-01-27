@@ -1,102 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="准备姿势, update升级流程先看一眼链接哦, 对升级过程有个认识http:&#x2F;&#x2F;oldask.openluat.com&#x2F;article&#x2F;93 **升级流程  模块读取自身信息–拼接字符串–get请求服务器–服务器收到请求–处理请求–如果版本号低于最新版–返回200–模块下载升级包–下载成功自动重启–升级成功如果版本号大于等于最新版–返回404错误码–模块停止升级检查。  再次强调重点 服务器返回">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/10/15/478/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="准备姿势, update升级流程先看一眼链接哦, 对升级过程有个认识http:&#x2F;&#x2F;oldask.openluat.com&#x2F;article&#x2F;93 **升级流程  模块读取自身信息–拼接字符串–get请求服务器–服务器收到请求–处理请求–如果版本号低于最新版–返回200–模块下载升级包–下载成功自动重启–升级成功如果版本号大于等于最新版–返回404错误码–模块停止升级检查。  再次强调重点 服务器返回">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-10-15T09:20:03.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-478" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/10/15/478/" class="article-date">
-  <time class="dt-published" datetime="2018-10-15T09:20:03.000Z" itemprop="datePublished">2018-10-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="准备姿势-update升级流程"><a href="#准备姿势-update升级流程" class="headerlink" title="准备姿势, update升级流程"></a>准备姿势, update升级流程</h2><p>先看一眼链接哦, 对升级过程有个认识<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/93">http://oldask.openluat.com/article/93</a></p>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上</h1>
+<article class="post markdown-style">
+  <h2 id="准备姿势-update升级流程"><a href="#准备姿势-update升级流程" class="headerlink" title="准备姿势, update升级流程"></a>准备姿势, update升级流程</h2><p>先看一眼链接哦, 对升级过程有个认识<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/93">http://oldask.openluat.com/article/93</a></p>
 <p>**升级流程</p>
 <blockquote>
 <p>模块读取自身信息–拼接字符串–get请求服务器–服务器收到请求–处理请求–如果版本号低于最新版–返回200–模块下载升级包–下载成功自动重启–升级成功<br>如果版本号大于等于最新版–返回404错误码–模块停止升级检查。</p>
@@ -131,134 +100,160 @@
 <h3 id="java版-使用nutz实现"><a href="#java版-使用nutz实现" class="headerlink" title="java版(使用nutz实现)"></a>java版(使用nutz实现)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@IocBean</span><br><span class="line">@At(&quot;&#x2F;luat&quot;)</span><br><span class="line">public class LuatUpdateModule &#123;</span><br><span class="line"></span><br><span class="line">    @Fail(&quot;http:500&quot;)</span><br><span class="line">    @Ok(&quot;void&quot;)</span><br><span class="line">    @At(&quot;&#x2F;update&quot;)</span><br><span class="line">    public void update(String project_key, String imei, String firmware_name, String version, int need_oss_url, HttpServletResponse resp) throws FileNotFoundException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO 根据 imei 查出设备</span><br><span class="line">        &#x2F;&#x2F; TODO 根据设备查出升级计划</span><br><span class="line">        String expectVersion &#x3D; &quot;2.0.1&quot;;</span><br><span class="line">        &#x2F;&#x2F; 判断版本号</span><br><span class="line">        if (expectVersion.equalsIgnoreCase(version)) &#123;</span><br><span class="line">            resp.setStatus(404); &#x2F;&#x2F; 不需要升级</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        try (FileInputStream ins &#x3D; new FileInputStream(&quot;&#x2F;data&#x2F;luat&#x2F;update&#x2F;&quot; + expectVersion + &quot;&#x2F;update.bin&quot;)) &#123;</span><br><span class="line">            Streams.writeAndClose(resp.getOutputStream(), ins);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="php例子-由罗耀锋提供"><a href="#php例子-由罗耀锋提供" class="headerlink" title="php例子,由罗耀锋提供"></a>php例子,由<a target="_blank" rel="noopener" href="http://oldask.openluat.com/people/60">罗耀锋</a>提供</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionUpgrade</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="variable">$imei</span> = UtilsApp::getParamterByParamterName(<span class="string">&quot;imei&quot;</span>);</span><br><span class="line">	<span class="variable">$ver</span> = UtilsApp::getParamterByParamterName(<span class="string">&quot;version&quot;</span>);</span><br><span class="line">	<span class="variable">$updates</span> = CardUpgrade::find()-&gt;all();</span><br><span class="line">	<span class="keyword">foreach</span> ( <span class="variable">$updates</span> <span class="keyword">as</span> <span class="variable">$update</span>) &#123;</span><br><span class="line">		<span class="variable">$verInt</span> = intval(<span class="variable">$ver</span>);</span><br><span class="line">		<span class="variable">$updateVer</span> = intval(<span class="variable">$update</span>-&gt;ver);</span><br><span class="line">		<span class="keyword">if</span> (<span class="variable">$updateVer</span>&gt;<span class="variable">$verInt</span>) &#123;</span><br><span class="line">			Yii::<span class="variable">$app</span>-&gt;getResponse()-&gt;sendFile(Yii::<span class="variable">$app</span>-&gt;basePath . <span class="string">&#x27;/web/&#x27;</span> . <span class="variable">$update</span>-&gt;filepath, <span class="string">&#x27;update.bin&#x27;</span>);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	Yii::<span class="variable">$app</span>-&gt;response-&gt;statusCode=<span class="number">500</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="基于UDP的升级检查服务-python版"><a href="#基于UDP的升级检查服务-python版" class="headerlink" title="基于UDP的升级检查服务 python版"></a>基于UDP的升级检查服务 python版</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">device_upgrade_server.py</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">python3, ubuntu16.04, mysql.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">简单的升级服务，无数据校验等，仅供参考。</span></span><br><span class="line"><span class="string">升级的配置存在mysql，是由另外的网页程序实现的。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">需要安装sqlalchemy和gevent</span></span><br><span class="line"><span class="string">pip3 install sqlalchemy</span></span><br><span class="line"><span class="string">pip3 install gevent</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">mysql的python接口</span></span><br><span class="line"><span class="string">apt-get install python3-mysql.connector</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> gevent.server <span class="keyword">import</span> DatagramServer <span class="comment"># 使用gevent的udp服务器。也可以直接用socket收。</span></span><br><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey</span><br><span class="line">monkey.patch_all()</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level = logging.DEBUG)</span><br><span class="line">dbg = logging.debug</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_exception_info</span>():</span> <span class="comment"># 打印trace信息</span></span><br><span class="line">    <span class="comment">#dbg(type(sys.exc_info()[1]))</span></span><br><span class="line">    <span class="comment">#dbg(sys.exc_info()[1])</span></span><br><span class="line">    traceback.print_exc()</span><br><span class="line">    <span class="comment">#exc_type, exc_obj, exc_tb = sys.exc_info()</span></span><br><span class="line">    <span class="comment">#fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]</span></span><br><span class="line">    <span class="comment">#dbg(exc_type, fname, exc_tb.tb_lineno)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sqlalchemy</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql数据库配置</span></span><br><span class="line">DB = <span class="string">&#x27;mysql+mysqlconnector://name:password@127.0.0.1:3306/device_framework_upgrade&#x27;</span></span><br><span class="line">dbengine = create_engine(DB, echo = <span class="literal">False</span>, pool_size = <span class="number">512</span>, max_overflow = <span class="number">0</span>, pool_timeout = <span class="number">0</span>, pool_recycle = <span class="number">5</span>)</span><br><span class="line">Session = sessionmaker(bind = dbengine)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">device&#x27;s data look like &quot;862991443753386,A9335_V1723_B3633_WD1,1.1.8&quot; and &quot;Get6,12&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">数据格式</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1.recv [imei,project_name,version]</span></span><br><span class="line"><span class="string">2.send [LUAUPDATE,upgrade_id,package_count,last_package_size]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3.recv [Getn,upgrade_id]</span></span><br><span class="line"><span class="string">4.send [data]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">PACKAGE_SIZE = <span class="number">1022</span></span><br><span class="line"></span><br><span class="line">start_cmd_pattern = re.<span class="built_in">compile</span>(<span class="string">&quot;^(\d&#123;15&#125;),(\w+),(\d+\.\d+\.\d+)$&quot;</span>)</span><br><span class="line">get_cmd_pattern = re.<span class="built_in">compile</span>(<span class="string">&quot;^Get(\d+),(\d+)$&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SingleUpgradeServer</span>(<span class="params">DatagramServer</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, *args, **kwargs</span>):</span></span><br><span class="line">        DatagramServer.__init__(self, *args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span>(<span class="params">self, data_org, address</span>):</span> <span class="comment"># 接收数据</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            dbg(<span class="string">&#x27;=================================================&#x27;</span>)</span><br><span class="line">            dbg((<span class="string">&#x27;=== %s %s: got data_org&#x27;</span>) % (time.ctime(), address[<span class="number">0</span>]))</span><br><span class="line">            dbg(<span class="string">&#x27;=================================================&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 连接数据库</span></span><br><span class="line">            dbsession = Session()</span><br><span class="line"></span><br><span class="line">            data = data_org.decode(<span class="string">&#x27;ascii&#x27;</span>) <span class="comment"># ascii解码</span></span><br><span class="line">            dbg(data)</span><br><span class="line"></span><br><span class="line">            function = <span class="literal">None</span></span><br><span class="line">            reply = <span class="built_in">bytearray</span>()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 匹配命令</span></span><br><span class="line">            match = start_cmd_pattern.match(data)</span><br><span class="line">            <span class="keyword">if</span> match:</span><br><span class="line">                function = <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                match = get_cmd_pattern.match(data)</span><br><span class="line">                <span class="keyword">if</span> match:</span><br><span class="line">                    function = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            dbg(<span class="string">&#x27;function = &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(function))</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> function == <span class="number">0</span>: <span class="comment"># match start_cmd_pattern</span></span><br><span class="line">                imei, project_name, version = match.groups()</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 在数据库中根据项目名查找固件</span></span><br><span class="line">                upgrade = dbsession.execute(text(<span class="string">&quot;select * from device_framework_upgrade.single_upgrade where project_name = :project_name and status = 1&quot;</span>), &#123;<span class="string">&quot;project_name&quot;</span>:project_name&#125;).fetchone()</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> upgrade <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    reply = <span class="string">&quot;no upgrade&quot;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">                    dbg(<span class="string">&quot;no upgrade&quot;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 检查imei是否在升级范围内</span></span><br><span class="line">                in_range = <span class="literal">False</span></span><br><span class="line">                imei_ranges = dbsession.execute(text(<span class="string">&quot;select * from device_framework_upgrade.single_upgrade_imei_range where upgrade_id = :upgrade_id&quot;</span>), &#123;<span class="string">&quot;upgrade_id&quot;</span>:upgrade.<span class="built_in">id</span>&#125;).fetchall()</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> imei_range <span class="keyword">in</span> imei_ranges:</span><br><span class="line">                    <span class="keyword">if</span> imei_range.starting_imei &lt;= imei <span class="keyword">and</span> imei &lt;= imei_range.ending_imei:</span><br><span class="line">                        in_range = <span class="literal">True</span></span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> in_range:</span><br><span class="line">                    reply = <span class="string">&quot;imei range error&quot;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">                    dbg(<span class="string">&quot;range error&quot;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 检查设备版本号是否最新</span></span><br><span class="line">                v1, v2, v3 = upgrade[<span class="string">&quot;version&quot;</span>].split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">                server_version = (<span class="built_in">int</span>(v1) &lt;&lt; <span class="number">16</span>) + (<span class="built_in">int</span>(v2) &lt;&lt; <span class="number">8</span>) + <span class="built_in">int</span>(v3)</span><br><span class="line"></span><br><span class="line">                v1, v2, v3 = version.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">                device_version = (<span class="built_in">int</span>(v1) &lt;&lt; <span class="number">16</span>) + (<span class="built_in">int</span>(v2) &lt;&lt; <span class="number">8</span>) + <span class="built_in">int</span>(v3)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> device_version &gt;= server_version:</span><br><span class="line">                    reply = <span class="string">&quot;version error&quot;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">                    dbg(<span class="string">&quot;version error&quot;</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="comment"># 读取文件信息</span></span><br><span class="line">                    file_path = upgrade[<span class="string">&#x27;file_path&#x27;</span>]</span><br><span class="line">                    dbg(file_path)</span><br><span class="line">                    file_size = os.path.getsize(file_path)</span><br><span class="line"></span><br><span class="line">                    last_package_size = file_size % PACKAGE_SIZE</span><br><span class="line">                    package_count = <span class="built_in">int</span>(file_size / PACKAGE_SIZE)</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> last_package_size != <span class="number">0</span>:</span><br><span class="line">                        package_count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                    dbg((file_size, package_count, last_package_size))</span><br><span class="line"></span><br><span class="line">                    reply = (<span class="string">&quot;LUAUPDATE,%d,%d,%d&quot;</span> % (upgrade[<span class="string">&quot;id&quot;</span>], package_count, last_package_size)).encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">            <span class="keyword">elif</span> function == <span class="number">1</span>: <span class="comment"># match get_cmd_pattern</span></span><br><span class="line">                index, upgrade_id = match.groups()</span><br><span class="line">                dbg(<span class="string">&quot;get&quot;</span>)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 查找文件</span></span><br><span class="line">                upgrade = dbsession.execute(text(<span class="string">&quot;select * from device_framework_upgrade.single_upgrade where id = :id and status = 1&quot;</span>), &#123;<span class="string">&quot;id&quot;</span>:<span class="built_in">int</span>(upgrade_id)&#125;).fetchone()</span><br><span class="line"></span><br><span class="line">                file_path = upgrade[<span class="string">&#x27;file_path&#x27;</span>]</span><br><span class="line">                dbg(<span class="string">&quot;file is %s&quot;</span> % file_path)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 读取文件数据</span></span><br><span class="line">                fd = <span class="built_in">open</span>(file_path, <span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">                fd.seek((<span class="built_in">int</span>(index) - <span class="number">1</span>) * PACKAGE_SIZE)</span><br><span class="line">                reply = <span class="built_in">bytearray</span>([<span class="built_in">int</span>(<span class="built_in">int</span>(index) / <span class="number">256</span>), <span class="built_in">int</span>(index) % <span class="number">256</span>]) + fd.read(PACKAGE_SIZE)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                reply = <span class="string">&quot;unknown function&quot;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            dbg(<span class="string">&quot;error&quot;</span>)</span><br><span class="line">            print_exception_info()</span><br><span class="line">            reply = <span class="string">&quot;error all&quot;</span>.encode(<span class="string">&#x27;ascii&#x27;</span>)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            <span class="comment"># 回复数据给设备</span></span><br><span class="line">            self.socket.sendto(reply, address)</span><br><span class="line">            <span class="keyword">if</span> dbsession:</span><br><span class="line">                dbsession.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    dbg(<span class="string">&#x27;device_upgrade_server.py receiving datagrams on %s:%d&#x27;</span> % (<span class="string">&#x27;&#x27;</span>, <span class="number">2234</span>))</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 启动udp服务器</span></span><br><span class="line">        SingleUpgradeServer(<span class="string">&#x27;%s:%d&#x27;</span> % (<span class="string">&#x27;&#x27;</span>, <span class="number">2234</span>)).serve_forever()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        print_exception_info()</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/10/15/478/" data-id="ckkfmdgbi005yvkcg4ldzey3x" data-title="Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/10/15/479/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          阿里云影子文件操作指南
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/10/14/477/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Air720 4G LTE 开发板使用说明</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/10/15/479/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/10/14/477/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

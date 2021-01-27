@@ -1,178 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>Air202模块硬件设计手册V1.58 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Air202模块硬件设计手册V1.58 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="1. 绪论    本文档定义了Air202模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air202模块于无线应用。     1.1. 相关文档    表格1：相关文档   注意：所有文档均可在wiki.openluat.com下载                     2. 综述    Air202模块是四频段GSM&#x2F;GPRS模块，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Air202模块硬件设计手册V1.58">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/09/05/429/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="1. 绪论    本文档定义了Air202模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air202模块于无线应用。     1.1. 相关文档    表格1：相关文档   注意：所有文档均可在wiki.openluat.com下载                     2. 综述    Air202模块是四频段GSM&#x2F;GPRS模块，">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qykRJqBz5b8fa66526c42.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wC2SjLae5b8fa67987936.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CzAcOxoP5b8fa6bbe8346.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6MUjVjUu5b8fa6d2e1eaf.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rabOYKpI5b8fa77fe568e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-2CZX8Hy95b8fa79d23814.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DfxtalZD5b8fa8895bbb0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7bQDqNEI5b8fa8a1bb9d1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tBMGV6Py5b8fa8fbf3202.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-i5YSKqqG5b8fa914f11a6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wLrogR255b8fa93f16a41.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0haCbzkL5b8fa95949399.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-m1LnFUmD5b8fa97cc13e8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rxGapJwM5b8fa99bc69aa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UwFwyxEG5b8fa9f46185d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xmssuBfa5b8faa0eb6e8c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-D5RU6SoK5b8fb5d4efeb6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mKSSN0VU5b8fbbb2b3ac1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8oi6ewkD5b908d3fe173a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-23TQ3uNq5b908d635d7a4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-43tWbeNF5b908d7a70404.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-yZuPime95b908d9b9811b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NzxfsK5w5b908db4bcac8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-J4EUpH6k5b908dcab7a3b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Uzp7dDB25b908de29c678.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fCPSanxB5b908df45a2e0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RDST3ylx5b908e206bfd6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tmmE1KcC5b908e396185b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AsFbYXM55b908e6105566.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CtLKHID35b908e77d84aa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WPRqOxwz5b908e8a3ea9a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WJWSgJ9T5b908e9f4e93f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EKvqqpSk5b908f4c4d5b8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-piWPDXTN5b908f628fbd8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Z96L94X65b908f7606f45.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-e9vNGPkS5b908f897bb4d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-e7B759aR5b908f9c08de3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-BqCk6DHA5b908fc0e4eb9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4pROpqtk5b908fd7360a5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hImxkHZl5b908fe742852.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nHjvLJag5b908ffa1a12d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-toGo7fd05b90900c4d3e5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-GW9zOezL5b909022046da.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rSof13f45b90903e15262.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VCMQzpu95b90905493d5f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-9NS1Bxr65b90906d1ed7a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TY7cvtQ25b909087668c4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-To6C2xzD5b90909d2be86.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xkATBL7Z5b9090b5108bd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-y3Y5To285b9090c95b449.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SkqXy22m5b9091086b52d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-88avrDSS5b909115d1039.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4tUZjH9Z5b909141c94c4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4iktmQXc5b90915f7ffe7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4wsbjDCt5b90916ff06a1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UMoBhaeB5b90919045130.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7eSBfHu65b9091a2055dc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-oy3C61h35b9091bb333a2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-R6FaOOqm5b9091e038884.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6BmGwrhT5b9091f4721d2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UuDH9Qr45b909209948e3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EwJxOz365b909251c6541.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JfxT7T925b909263a00aa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DeeDVvuR5b9092c498269.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-74VU1z8b5b9092da63a6a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JI7jP5KN5b909313405f8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-e8slAMlj5b9093376127e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Tb4LVwA55b90935494980.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3fyb2PQm5b90939f648e5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-smwhH2TI5b9093f83579b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8Fz4uRRH5b9099e421e50.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kBY9NuFm5b909a68efd2c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wdowWXU25b909a7ca77db.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-C2nb297N5b909a94d7eeb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QtmuUEmj5b909aeea20b7.png">
-<meta property="article:published_time" content="2018-09-05T08:35:44.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qykRJqBz5b8fa66526c42.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-429" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/09/05/429/" class="article-date">
-  <time class="dt-published" datetime="2018-09-05T08:35:44.000Z" itemprop="datePublished">2018-09-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Air202模块硬件设计手册V1.58
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1><b><span style="font-family:'宋体';font-size:15pt;">1. </span></b><b><span style="font-family:'宋体';color:rgb(51,122,183);font-size:15pt;"><font>绪论</font></span></b></h1>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air202模块硬件设计手册V1.58</h1>
+<article class="post markdown-style">
+  <h1><b><span style="font-family:'宋体';font-size:15pt;">1. </span></b><b><span style="font-family:'宋体';color:rgb(51,122,183);font-size:15pt;"><font>绪论</font></span></b></h1>
 
 
 
@@ -1316,134 +1209,160 @@
 
 <p> </p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/09/05/429/" data-id="ckkfmdgfr00ewvkcgfv6o5cio" data-title="Air202模块硬件设计手册V1.58" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/09/06/431/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          [分享]调试信息打印出文件名和行号,建议LAUT 直接加入到底层,更快速定位到项目代码位置.
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/09/05/428/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">【码夫支付】微信支付宝对接详解</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/09/06/431/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/09/05/428/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

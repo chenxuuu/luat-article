@@ -1,108 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>air202luat二次开发设备接入阿里云（六） [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>air202luat二次开发设备接入阿里云（六） | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="记录设备接入阿里云的过程六，通过自己的服务器控制阿里云的设备之前说过通过阿里云下发指令控制设备，可是下发命令是在控制台里模拟的，这很不方便也不符合实际使用场景，所以就考虑怎么通过别的方式下发命令。1，流程分析，大体流程基本如下2，网页发送指令传递给服务器环境要求：一个公网ip，web开发环境（要求有后端语言的环境）其实就是很常见的前端页面传递请求后端处理，为了简单我就直接链接跳转到后端页面。&amp;lt">
-<meta property="og:type" content="article">
-<meta property="og:title" content="air202luat二次开发设备接入阿里云（六）">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/11/29/532/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="记录设备接入阿里云的过程六，通过自己的服务器控制阿里云的设备之前说过通过阿里云下发指令控制设备，可是下发命令是在控制台里模拟的，这很不方便也不符合实际使用场景，所以就考虑怎么通过别的方式下发命令。1，流程分析，大体流程基本如下2，网页发送指令传递给服务器环境要求：一个公网ip，web开发环境（要求有后端语言的环境）其实就是很常见的前端页面传递请求后端处理，为了简单我就直接链接跳转到后端页面。&amp;lt">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-11-ERSEgxv65bffba0e12bfa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-11-ILIJcly85bffccd5c3a7d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-11-r2gxHnDy5bffcd6040ea8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-11-TEZeEnfE5bffe7c109006.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-11-h2N62ZCu5bffe89f1fadc.png">
-<meta property="article:published_time" content="2018-11-29T13:35:21.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-11-ERSEgxv65bffba0e12bfa.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-532" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/11/29/532/" class="article-date">
-  <time class="dt-published" datetime="2018-11-29T13:35:21.000Z" itemprop="datePublished">2018-11-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      air202luat二次开发设备接入阿里云（六）
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p style="color: rgb(51, 51, 51);">记录设备接入阿里云的过程</p><p style="color: rgb(51, 51, 51);">六，通过自己的服务器控制阿里云的设备</p><p style="color: rgb(51, 51, 51);">之前说过通过阿里云下发指令控制设备，可是下发命令是在控制台里模拟的，这很不方便也不符合实际使用场景，所以就考虑怎么通过别的方式下发命令。</p><p style="color: rgb(51, 51, 51);">1，流程分析，大体流程基本如下</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-ERSEgxv65bffba0e12bfa.png" style="width: 117.5px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">2，网页发送指令传递给服务器</p><p style="color: rgb(51, 51, 51);">环境要求：一个公网ip，web开发环境（要求有后端语言的环境）</p><p style="color: rgb(51, 51, 51);">其实就是很常见的前端页面传递请求后端处理，为了简单我就直接链接跳转到后端页面。</p><pre style="">&lt;!DOCTYPE html&gt;
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">air202luat二次开发设备接入阿里云（六）</h1>
+<article class="post markdown-style">
+  <p style="color: rgb(51, 51, 51);">记录设备接入阿里云的过程</p><p style="color: rgb(51, 51, 51);">六，通过自己的服务器控制阿里云的设备</p><p style="color: rgb(51, 51, 51);">之前说过通过阿里云下发指令控制设备，可是下发命令是在控制台里模拟的，这很不方便也不符合实际使用场景，所以就考虑怎么通过别的方式下发命令。</p><p style="color: rgb(51, 51, 51);">1，流程分析，大体流程基本如下</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-ERSEgxv65bffba0e12bfa.png" style="width: 117.5px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">2，网页发送指令传递给服务器</p><p style="color: rgb(51, 51, 51);">环境要求：一个公网ip，web开发环境（要求有后端语言的环境）</p><p style="color: rgb(51, 51, 51);">其实就是很常见的前端页面传递请求后端处理，为了简单我就直接链接跳转到后端页面。</p><pre style="">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
@@ -114,134 +77,160 @@
     &lt;/a&gt;
 &lt;/body&gt;<br></pre><p style="color: rgb(51, 51, 51);">3，服务器根据前端请求通过api向阿里云发送指令</p><p style="color: rgb(51, 51, 51);">下载sdk，因为学习过php所以我使用的是php的sdk</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-ILIJcly85bffccd5c3a7d.png" style="width: 315.5px;" class="img-responsive">参照api写代码</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-r2gxHnDy5bffcd6040ea8.png" style="width: 369.5px;" class="img-responsive">在sdk根目录新建一个client.php</p><p style="color: rgb(51, 51, 51);"><span class="keyword parmname" style="padding: 0px; margin: 0px; font-family: monospace; font-weight: 700;">accessKeyId</span><span style="font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">即您的账号的AccessKeyId，</span><span class="keyword parmname" data-spm-anchor-id="a2c4g.11186623.2.i0.30ec49403TL9My" style="padding: 0px; margin: 0px; font-family: monospace; font-weight: 700;">accessSecret</span><span style="font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">即AccessKeyId对应的AccessKeySecret&nbsp;&nbsp;</span><a href="https://ak-console.aliyun.com/?spm=a2c4g.11186623.2.12.30ec49403TL9My" target="_blank">获取</a><br></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-TEZeEnfE5bffe7c109006.png" style="width: 431px;" class="img-responsive">新建一个send.php</p><p style="color: rgb(51, 51, 51);">根据阿里云产品的信息修改，其中要发送的数据要求转换成base64，可以在<a href="http://tool.oschina.net/encrypt?type=3" target="_blank">这里</a>转换</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-h2N62ZCu5bffe89f1fadc.png" style="width: 481px;" class="img-responsive">把这几个文件放到可以被调用到的地方</p><p style="color: rgb(51, 51, 51);">4，测试</p><p style="color: rgb(51, 51, 51);">首先将设备连接上阿里云，打开luatool工具打印调试信息，打开html文件，点击发送指令，luatool工具log中出现hello world</p><p style="color: rgb(51, 51, 51);"><br></p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/11/29/532/" data-id="ckkfmdgbw006zvkcg5gsja06n" data-title="air202luat二次开发设备接入阿里云（六）" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/02/533/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          air202luat二次开发设备接入阿里云（七）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/11/29/531/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">air202luat二次开发设备接入阿里云（五）</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/12/02/533/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/11/29/531/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

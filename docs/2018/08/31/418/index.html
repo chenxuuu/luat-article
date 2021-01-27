@@ -1,770 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>AirM2M 无线模块AT命令手册 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>AirM2M 无线模块AT命令手册 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="目 录    AirM2M 无线模块AT命令手册1  1AT 命令概述9  1.1文档目的9  1.2惯例和术语缩写9  1.3AT命令语法10  2常用AT 命令12  2.1查询制造商名称：AT+CGMI12  2.2查询模块型号：AT+CGMM12  2.3查询模块版本信息：AT+CGMR13  2.4查询IMEI号：AT+CGSN13  2.5查询SIM卡ICCID号码：AT+CCID">
-<meta property="og:type" content="article">
-<meta property="og:title" content="AirM2M 无线模块AT命令手册">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/08/31/418/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="目 录    AirM2M 无线模块AT命令手册1  1AT 命令概述9  1.1文档目的9  1.2惯例和术语缩写9  1.3AT命令语法10  2常用AT 命令12  2.1查询制造商名称：AT+CGMI12  2.2查询模块型号：AT+CGMM12  2.3查询模块版本信息：AT+CGMR13  2.4查询IMEI号：AT+CGSN13  2.5查询SIM卡ICCID号码：AT+CCID">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Y5OZ7Xr35b88f3c7c5e97.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-szYJmvAq5b88f46e50d9e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-UkTXq2ph5b88f4f6e9557.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-a5wXNZ6x5b890d8aa075e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-8QH28jiE5b890da74e139.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-w8hsSUuA5b890dc3a8fe6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-4jK0ob4N5b890df24ac9d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-RSPmnMzZ5b890e0428839.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-V06OZwrh5b890e14883ae.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Sm55ICai5b890e25e757a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Mcs9Wj6z5b890e8f8533f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-ARsiEG4B5b890e9f494c0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-wn7l9Kc45b890eb12b09d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-z8H7Xrer5b890ebf2d939.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-yY7wFuJp5b890ecd63d21.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-xNoM03kW5b890f034fdc4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-KoIJpHb15b8924502c46f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-zN52RR6E5b89245eedb74.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-xCiXmYwS5b89248878386.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-dkPlK0Sj5b8924be87c8c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-6qI6wsQi5b8924cfc259d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-G840tKtV5b892513bd776.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-kLrkNvD55b89252370511.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-1jSYfnOt5b89252fce06f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-5BzQ8n3C5b89254390661.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-rQn5qovi5b89255231f5d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-uVmtrqVL5b89256441426.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Q7qrJXpy5b8925713c159.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-qV8LoxfC5b8925816d039.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-dN4eZNbl5b89258d00db7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Cxqf2RTn5b8925cbebe08.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-1qP7RzYN5b8925db3fe24.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-KD2a0fhF5b8925f01e672.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-28PufOZo5b89266baabac.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-EJOOFBfV5b892684a07da.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-hVxlR0TE5b8926f9465e0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-UrlX2fJ65b892702f1516.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-rvz3bmtD5b8927355c1f1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-gblWsRq15b892748b1c8d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-GhfpxuAV5b8927565c93b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-7fZILCmF5b89276549960.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-QNGAnj7z5b89278299517.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-gvTDBzlT5b895d15d9960.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-xtnqhItF5b895d24954b5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-MgzmgdAQ5b895d4f35faf.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-LQRA1wOq5b895d5d83fec.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-IpHz0e5I5b895d77cad9d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-zdanbNkv5b895f20f39f6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-1Rz4Tx585b895f3739be7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-B3e9aFPz5b895f4fa4234.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-d2GlLgMb5b895f628f1f4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-5KLqI98P5b895f7aecee0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-E9kn70mK5b895f90b6430.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-HDRocFBC5b895fa09f16e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-RK3xgk7g5b895faeb7933.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-yXZEdVLk5b89652d535c3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-pJa7c5oQ5b89657680d97.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-9BIMysvX5b8965894196a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Pcfo5G165b89659c1ed6c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-hFRYs0km5b8965bc5c4fb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-i4GqDn9D5b8965ca09df5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-vMWU44dm5b8965df4b21d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Qvsq99Wc5b896615b5319.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-uG3hp2PH5b89663200174.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-PlgP79n35b896643579d9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-bPrrFxkc5b8972f8e3f5a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-0tOyn94A5b897318bd7bf.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-KbBmng6h5b89732adc6f4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-GhOaUxQT5b89734b36262.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-uDdShiRo5b89735785cec.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Jk2piC1N5b89736509188.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-khnYmeaR5b89737206fcc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-M8WIuTnt5b897380053ca.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Dq7uEQeT5b89738ba4d98.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Mga9d9iQ5b89739ad4c72.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-ebhCl2fI5b8973acb66a0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-GFe2oct95b8973be59da6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-R4MYdqst5b8973d21278a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-BOzDP06v5b8973e3b40a2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-66avxjb95b8975d166056.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-dtnJURHE5b89762e7b568.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-w9yH636c5b897641edc6e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Bg7AAbAz5b897674b8039.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-7NT4s1qy5b8976824031c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-ApHqdrl95b89776ac7625.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-7whjKyKA5b89777c0315c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-RczgyIiz5b89778c7eee0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-02TCQeqS5b8977ec042a6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-CZpMOGpy5b897807c48c7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-kAh0BkXz5b8978227cd20.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-tNJMbIYM5b897849e4f1a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-oKh5nNVK5b89785645178.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-F3ALf1025b89786c43dec.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-1s0Crtj05b89787f2dcaa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-SCFCeaV55b8978a7880ea.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Kyn4mYiB5b8978c524570.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-h72TboKX5b8978dc08b18.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-f75hoQ7Y5b8978eac18e9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-dPQZGrFJ5b8978fde91d7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-X52OjsyH5b89791bbf64c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-hSMTkPI35b8979434a2d3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-S8BVHySk5b897961aca95.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-shdGBcuJ5b8979743af7e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-FzuMHyn55b8979ab4bf74.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-2y0394rR5b8979b9d32a3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-2dAI3mDe5b8979fbacc92.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Jlt7xJxQ5b897a0c2476e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-hqXVjyBJ5b897a526e6fc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-tYKeeFI85b897a5e1fa2f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Gz0A5Rmm5b897a6ce5677.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-AwyV75yq5b897abbf3e19.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-AEdyqcpF5b897acee8100.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-ZlTJboVz5b897b9bce5fa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Edm3YHsN5b897b3f3a483.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Xm9yvkfp5b897bdd99991.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-rOcpbXP35b897bf836bd6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-sc8p2sWf5b897c040233d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-wWpag8cd5b897c10ee7f0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bqbSnCVx5b8aa87120235.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3a2AhLHl5b8aa87fde8b6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wRZEbuzM5b8aa8c1cdb51.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rdWNIqgO5b8aa8d2859c2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KrUgeMqL5b8aa8ecd2e6d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DnCacyRb5b8aa8ffbdf70.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-s51GyLJT5b8aa9148bc97.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5DMe4xCh5b8aa92471222.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UI9GwbC55b8aa938759b2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-OtDI2fTR5b8aa9a60de0f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-BtrUijkI5b8aa9b98c039.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uLsZDLH65b8aaa0ddfd11.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bEtZ12il5b8aaa7f53bf7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-j6R4XNkG5b8aaa950f908.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JluR1csE5b8aaaa151454.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DYzTZcOR5b8aaab2a7778.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Rq2C2wsV5b8aaac908d95.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-sVg1Qemq5b8aab0c9f43f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TXA1xDQW5b8aab213ed93.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qj2bzf3F5b8aab922dd38.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-l4LineRz5b8aab5d6eac4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JQJWBVNR5b8aabfd83ac5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZS1mDBAr5b8aac0a86f35.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-44WsefSY5b8aac1579268.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dRitwZpY5b8aac2cbf1c1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-slVYDSMV5b8aac3b6893a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Uv5gBujW5b8aac4921996.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0ZxUiXSd5b8aac5701c89.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-v5ue1aEB5b8aac66a2a11.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-egV0bYUH5b8abbd8d5c5b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-X0VTq4sw5b8abbe23ff56.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TRW6UFWC5b8abbf242568.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NoMZsLsr5b8abbfee7dd2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-j5D7NL3s5b8abc0993f62.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EocPaFkL5b8abc1b76a02.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-U07u7xes5b8abc2381796.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KuZlp2gK5b8abc2b177e3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8ku0mywH5b8abdfabfd86.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TyNzbKMy5b8abe1db1512.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RIgzgY2I5b8abe31ba96c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Avug4ten5b8abe48304da.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-p2SclZw95b8abe5833b10.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-R30RXkiw5b8abe6726653.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NXi3CHwv5b8abe7295aed.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-86SlhZWN5b8abe823d30b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-HGQKcPSO5b8abe92a3044.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5PfcZdEp5b8abea52448b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-craEarSu5b8abeb207c7e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-HgbfbuF65b8abec6ce61d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jyJ2BQej5b8acff62931e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tKWP74EC5b8ad0008bab3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FiIlO35e5b8ad00abd81b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1Px4VagU5b8ad01c06775.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-v8dDiJhS5b8ad02443653.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZeXQqZtX5b8ad0333f94b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-O3MXe9zA5b8ad03b7d8d9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6oSmGkCD5b8ad04d2a2c2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4tFgq1xO5b8ad05d16412.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jqPnYwKG5b8ad0698803b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dXaF2QDk5b8ad089d9eef.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-XK7ZPdH55b8ad0952528c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VKwr2zVD5b8ad0a0cc166.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-P4jtuKle5b8ad0ab273a1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VJt2hpVH5b8ad0b450262.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6s8omhKq5b8ad0e9102d8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RMQPBupm5b8ad0fb525bd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eAfusJ0h5b8ad10932b5c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nmgls5lx5b8ad1110b5ad.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-lDoPcPWT5b8ad11b52861.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-neuxdwz95b8ad12de73d4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4WfD6Ra85b8ad13c328fb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-V7OTRnuI5b8ad143eb18e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-e9MK4JM25b8ad14c698d3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1Md8suNh5b8ad15700658.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Un7i25EL5b8ad168e13f7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-x7WXojc85b8ad170178a8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-F2iSScWo5b8ad17a429a0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bw5PtcAf5b8ad183bda3b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-a3fm9YHU5b8ad18ab9f4d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ILdmXLRm5b8ad3b81dadc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NOaBcpVW5b8ad3bfc5075.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jQfTtfEh5b8ad3cbb121c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KMGojMQW5b8ad3d607ef0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KhOSqQvM5b8ad3e544c6f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qUIFqrsX5b8ad3fce9875.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gOpnRB3i5b8ad40435d5b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uMNqdA6m5b8ad41145e9d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QX7QN1nm5b8ad41c13860.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5EKLkBh75b8ad426092b0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-2aMmKN6x5b8ad43dc905d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bP0wKtGC5b8ad4488bb6c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QnDupYbd5b8ad4539444a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fM58urY65b8ad45c71e35.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-luujkIZ75b8ad4651adba.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KNlg7CWS5b8ad645cda02.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8FIjXuZK5b8ad64f06cb5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JdfMhGJW5b8ad65c883fc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-zyvW1la35b8ad66852097.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gr8NEAHF5b8ad67be71d4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-h3VmrJaX5b8ad761e8804.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uCbK4wYc5b8ad76bf226c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eBVwhgqb5b8ad77762482.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-yB0iCKHg5b8ad8019a7ac.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-modwqDUA5b8ad81db362b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CMgniTlv5b8ad82495e84.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-2xooaA8u5b8ad8bad4f8d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-omKLAaLF5b8b49a85d44e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZPy5r2CG5b8b49bfa4620.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-XUeKzuI95b8b49d76d28c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pyu1rtPJ5b8b49e81158e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-D1z9cnj65b8b49f3255aa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FoKwcyFa5b8b4a07dd21a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ugNowXlv5b8b4a39a173f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vCWzzA7R5b8b4a484b6eb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-She2uqEc5b8b4a590cf2d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Nyp8Im0A5b8b4a68e7072.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-t9cvppRO5b8b4a77de6f9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bmtjXXYE5b8b4a8614f85.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jGHnZE0I5b8b4a91aea52.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ojMpUKVl5b8b4aa826fdf.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-suuH2Prb5b8b4ab5ab332.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KqgQ24Z15b8b4adf22c71.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QdBkVA9I5b8b4ae91c8c4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0XQ75LfW5b8b4af12c548.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-InkezpGz5b8b4afa6a6cb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IefPFoX05b8b4b03d0f47.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kM2kutae5b8b4b1e64f6b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-esm8iQTC5b8b4b27b005a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-OEL2g7VJ5b8b4b37dacc1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1OytKxr85b8b4b4355887.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xD3Ey6Fq5b8b4b4f260cc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5q7iS28z5b8b4b6547619.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EbT4QGZp5b8b4e805fcbd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IoyuCMd15b8b50019672c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-u5Eb4B775b8b50ca3674a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-osBzPxR35b8b50e055c5d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-30LUv2965b8b510b170f8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cI4PBRLi5b8b5120549d7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ql04bJp15b8b5143efde1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KQ9LbRjz5b8bf31954bf0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KwwMolSE5b8bf352e9972.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1m8CTccN5b8bf3602d5b3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZDhgfld25b8bf38837156.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-W8KYI4FP5b8bf39e322fd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KKgwAczQ5b8bf3a79df75.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-F00Ob0hO5b8bf3e9658ea.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xFEwTijr5b8bf3f702c07.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TrhEWZVS5b8bf40423817.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jZqrp6SI5b8bf40e460a6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-MQEwLJEy5b8bf417076ec.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Su6EV7jU5b8bf449b9dcd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wOiNxv2r5b8bf45689daa.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0zWR898b5b8bf465253ea.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qetSoRr25b8bf476bb3fe.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qMkVHlIK5b8bf48571f6b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-GMvJA1DD5b8bf4c55e793.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5ZJXRqTM5b8bf4d488019.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-69HuhW8C5b8bf4eca3bdf.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Pe6oK6bW5b8bf5061c541.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Vozl1d3b5b8bf514e4a83.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tBIkvUbD5b8bf52d7f116.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1xS8n43e5b8bf53d7c71b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4g13vHlp5b8bf54825fe6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pcmle6Xm5b8bf558ac60e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UPXCA1xG5b8bf65555c7e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-At0N3PtN5b8bf84122c89.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-LhJIafQN5b8bf865e3241.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jw2VXI895b8bf901adfb1.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-o1ToSdht5b8bf91ded6d0.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aV9IZJ5V5b8bf936da571.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qchOZPVU5b8bf967222c4.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fQpi42m85b8bf997e7534.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Bt285PPK5b8bf9c90c967.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-l2Y114wI5b8bf9f0b0083.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kMEvnJkD5b8bfa17c7a19.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aGsw4lAL5b8bfa34a8aac.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VH5dqXcQ5b8bfa5377fe7.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-O81JSdUx5b8bfa9511867.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SVFTKsYo5b8bfaae219d5.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-atPuK4rb5b8bfae458326.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wewxLHPi5b8bfaf72e0cc.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-LgnvKZfR5b8bfbc0d11b7.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mg8ithWZ5b8bfbd7e8ec3.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-YpdBm9we5b8bfbebad08b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-2P3mQDaE5b8bfc0ccbf50.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kIDIlOG15b8bfcdc58ac9.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CFTiWScu5b8bfcf236e7b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-yQA7VO6s5b8bfd0be79ca.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-O8mUoe4X5b8bfd20404e5.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hkZUTN0a5b8bfd35c7f2d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-59VGj4gg5b8bfd6e9bedc.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-meB5EFkm5b8bfd86c0b0d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IxQaT8kT5b8bfda7a1df0.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NitF7piV5b8bfdbb7d497.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-PiXXkgF75b8bfdd0b0731.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4d4g2FPb5b8bfde3ccd5f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-yGtWU3Wk5b8bfdf2e1870.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FQLThSS05b8bfe09b1f34.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pFwiDt3Z5b8bfe1f205b4.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EscotxSu5b8bfe3ba429b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kBZv7ZUE5b8bfe524ef00.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-D7d3yHMQ5b8bfe683071f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-a9dC5j2a5b8bfe7e135ca.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-g56XFkZJ5b8bfea49c138.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mofDMRAH5b8bfeb618132.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-et4EYp4w5b8bfeca1a7e3.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-svA5M8oE5b8bfedc3edd4.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4XihRKx85b8bfef40207f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-HoxCbeVY5b8bff0be4263.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Cr1JnBlJ5b8bff203a98f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-POajbBPJ5b8bff476d2ca.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Vyb3GEx15b8bff5a8bc89.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pru2w4kv5b8bff805866b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-F5PoIJV85b8c00053a88c.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gH8jAHld5b8c001d08275.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KFSICfpL5b8c006a2e58d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RQOUfU0K5b8c009158856.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uKRdLnVP5b8c00b298249.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DRtnAEde5b8c00d8a483c.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gM9aBkfZ5b8c0117d1201.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-azfFfLAg5b8c014590912.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Bo1GkTmB5b8c016ba227e.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ueZLNVt25b8c01be5797b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DJW3hsW95b8c01ede5a76.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4wI9u9J95b8c0202a565d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wdQRboin5b8c022321c6f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-yHu3fD4m5b8c02345ffaa.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Hmcm9MZz5b8c0244c549c.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mNCxbsAh5b8c0258636ef.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7EvpYj1O5b8c027073617.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Mot400ch5b8c028550f5a.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-27DJTGb85b8c02990d448.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-edjNhQqs5b8c02aa1d288.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-drADlDUo5b8c02ce1aa31.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Tz6i6Nkg5b8c02f093a09.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bObe4b3Q5b8c03060a600.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-E81xeDNY5b8c0395252a7.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-lINGHBBD5b8c040818a77.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QxCD72oG5b8c042b59d88.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JCA00LmE5b8c0497d093b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RhpvpC9v5b8c04c4782a6.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-sXFDyeT15b8c04dac93f0.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-OQJbCOOX5b8c04e936a1d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nOqiylip5b8c04fd0e1d8.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-15XNtzjN5b8c05139ab96.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-moJcNA625b8c05245b353.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0xvOBCgw5b8c053e7e28c.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RaDbpMrj5b8c0560415a2.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gZGPeYdh5b8c05781cdd9.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AOFs8KXD5b8c0588dc26d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-GmE2c3G85b8c05a695928.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VLMDa5an5b8c05ba0facf.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KI7wrpUu5b8c05d2934de.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jfqJeKed5b8c060ab8025.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZCpJoVsS5b8c06423e81d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-sHZpXvf55b8c065b7357f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jFeABvPD5b8c068be6900.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6b6Ttg4k5b8c069c3762c.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NRXHzwCB5b8c06afd69d6.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WBfNNLdo5b8c06c38bd1d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-v60kjtee5b8c06efb2ce3.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TJKSDR5Z5b8c06ff84811.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6SNGHveY5b8c07107baa4.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-b5jvGHlZ5b8c072ae3c56.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hAJ4BshV5b8c073994667.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3JpfIPI75b8c074c15548.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NQHJMZZX5b8c0768b5eba.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1xBhKqKc5b8c077c41ff9.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CT2TnadO5b8c078f49ae3.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5gEcvVTJ5b8c07d6cf56e.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SQpfqX7O5b8c0800a9385.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AaRCh2tD5b8c0a31a28e2.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cIUgy77P5b8c0a4cee469.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aXtRhOxd5b8c0a828545f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DrwNtRaA5b8c0aa8b4e82.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-R8Eixd2i5b8c0ac98e432.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VUbEefN15b8c0ad9a337d.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gym4tlN65b8c0ae9d4aa6.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VwZ0OchI5b8c0b3466c5e.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZL4DIB9x5b8c0b431a44b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vk6DjrJN5b8c0b54cd9c0.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CFRV6xGa5b8c0be76d672.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3aQaYw1Q5b8c0c2f514dd.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-StsRNHzK5b8c0c7654fec.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DA9pF9I85b8c0c9317822.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-p7KUD4AT5b8c0ce0917c3.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AqFQJyl15b8c0cfebda2f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-XIvZOMx55b8c0d1431574.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-GCWo5JLQ5b8c0d262ed1b.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KHrvVdjV5b8c0d383c4f8.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1kQs79yq5b8c0d48df908.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uSMmTcE85b8c0d5a92c8a.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vcwqKmjA5b8c0d6d5836a.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-iAAah6EX5b8c0efe02fdf.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0EAWclA25b8c0f0edfe9f.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ycFkxayZ5b8c0f1f346a1.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fOxp2Ref5b8c0f2e2f36e.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-94fpKNmq5b8c0f3dc6303.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6G09R1AS5b8c0f4ca9cfe.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eLLXKmKx5b8c0f5d090f2.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-k9h9wK6G5b8c0f6ba3f20.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xhuyeRhX5b8c0f7b8cd01.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Xe3dsOMe5b8c0f8a1ef74.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-L521VoZ15b8c0f9a7f4df.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WBpF01UX5b8c0fbb1defc.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-G2fRVxze5b8c0fd6aa512.">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZRJVicoN5b8c9364acbce.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-o0Lm8mPn5b8c937a6c096.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-v0xZh5VT5b8c938e720dc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4GNPG37V5b8c93a1a52ba.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bGArkMYT5b8c93c198015.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7gP7fK1K5b8c93e627406.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3Aa5oDg75b8c93f5ac102.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Pp2iewHD5b8c943723cf7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jacM4mY85b8c94525760c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0qRKhFa95b8c946c585d5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WL0Q1QKY5b8c947c0f621.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jy0t2nLG5b8c948bdcfd5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-oXFzeG2o5b8c949bb0c9c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6TOtjfo25b8c94a9c3b2c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CPlb4gpl5b8c94bcadc44.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kcUhoxZJ5b8c94ce02104.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4RK48XBJ5b8c94dc49ba1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6tH1nv8b5b8c94f2884ff.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eHIKs0eA5b8c9501a6d85.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CYLbQUn75b8c951443217.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FcLJf9535b8c95220a5e0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jvTH5sCb5b8c9530a3d2d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mEuiPCAV5b8c95421ed8e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pkGfnJiR5b8c955340efd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kvv4Y3Yi5b8c9568d33ed.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NXNmj3X95b8c9577ac086.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WiRXLKN35b8c9588ebcef.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rN4fOORw5b8c95b134211.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hAl44wSo5b8c95ccdb8c6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-G30HD0Gw5b8c95dec1d37.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ilRNMIlp5b8c95eebb700.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-YL39bzjm5b8c960074ff1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dPGu9E165b8c9610f366d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WXR9U7Yr5b8c96216ee1b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AoefiGzX5b8c9631439e1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mln1l2ff5b8c964268efd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UsMRGXtI5b8c965262993.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-P9Fqy1b05b8c966222f1a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-w9Bcr70F5b8c9671bc271.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-0In4b7PZ5b8c967f8c34c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hiWTPYTK5b8c9690c0d30.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AXq79B3g5b8c96a295e74.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-C6HKHHd85b8c96b435b7c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UHxtcTaR5b8c96cb051e3.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hlSIFhsM5b8c96dfbae46.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SDlfn6YU5b8c96f1c282e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aw4Y9isF5b8c9702349bc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-PErAKnJj5b8c971162a3f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pi4q74zw5b8c972adafa5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8T75jVwY5b8c973aaecae.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Uh3xGIKG5b8c97563ac37.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-lPAJSHyz5b8c976924b01.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1Tq50HyJ5b8c977dc3043.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cf0xH1wb5b8c978d8ab61.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-h7De5Jxe5b8c979f33124.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vqmAIHFA5b8c97b330fe5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tQDBWYBP5b8c97c447542.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-PWgGtdxY5b8c97d64d0fc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mFso8jv15b8c97e8ed86d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-w4ZXbkdI5b8c97f8b502c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vUdpmD9p5b8c980e2000b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eOZP3TMC5b8c983523274.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mLYocinE5b8c9897dc1cf.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-MukqhH5X5b8c98ada8661.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kvksF7s25b8c98beedbdd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-guJkLaHN5b8c98d555c9e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kYqpcxtT5b8c98e42768b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-05cmJuLE5b8c98f170ff0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4T2zA4aQ5b8c9900b90b5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-i4RTgu295b8c99121195b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8GQ07doo5b8c99232375b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-O6EEvWEq5b8c9931dbc55.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EfTFJk3Q5b8c99429d70b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kSpsfY1r5b8c9951aef49.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-K8XLkP5A5b8c99633fb4b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SVLHduH35b8c996fcdb5a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Ch4msl3E5b8c997c198c8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bni9ld6L5b8c9989e4690.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-MSQgJfCL5b8c999b2fa99.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-k1HAgwLr5b8c99a946e70.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3sXZyLpO5b8c99b58c9f0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QfVD3F4o5b8c99c1f2f26.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bVm1NiKx5b8c99cf9ea6e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-39CpHZcd5b8c99dd4dd5d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-L0qzHYfJ5b8c99ed1090f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vQYWwn645b8c9a0606b16.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-x3Gv2XLy5b8c9a171ef46.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xkm4SNKf5b8c9a2603b78.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-YIhsJ4SJ5b8c9a34877fb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rc5u0tXC5b8c9a41b1b55.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-OZdb6M1f5b8c9a4fe42e6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mb0vbyV45b8c9a5caf82c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nGxZwZOy5b8c9a6ddf5d0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZKTgDXmP5b8c9a7d04c5f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FZ2mdpHz5b8c9a8b3a4bb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1LH0fLor5b8c9a9999925.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qFQ7nxNW5b8c9aab03587.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Lygo9kcO5b8c9ab85f215.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NC4UPfnr5b8c9ac75ad11.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4gFLcLTX5b8c9ad86d28b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tmPhaXXh5b8c9aeca4d61.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-b9OqLLLu5b8c9b0d67097.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DWlNa42d5b8c9b22cd6df.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WrpSs0NH5b8c9b4b49037.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kWfCREw25b8c9b5b9b51a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bYazyq4l5b8c9b69a0b43.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EDSMehSH5b8c9b787fb7c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Ultv4C3M5b8c9b932eb47.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-XqJLYC3W5b8c9ba4a39ac.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fRUZCvP65b8c9bb195f6b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-rOEmimMg5b8c9bc0e2954.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Hs4UX8885b8c9bd22f033.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JpZ2uQG45b8c9be310f0e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-k7GkJgqc5b8c9bf52b2e7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SIP0WxIf5b8c9c02b125f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-9hAy0njO5b8c9c1183b94.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-o2ZlBqrx5b8c9c28a9b3f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Td4TBVNZ5b8c9c35ed539.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bbaKO1op5b8c9c43b2c4f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QEU27zs55b8c9c5047b0c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wkPGJati5b8c9c62303e5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wVzVBxB55b8c9c70a622b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bAONilu45b8c9c7db9d63.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-2zUEZoRw5b8c9c8ed1e4e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8F4GHRn45b8c9c9ba994e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dmTMojRp5b8c9cab86467.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vvn8kLSi5b8c9cbeb31ed.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-z4PQK7wL5b8c9cce8ff49.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-deLeSYNW5b8c9ce223fdc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qUUvVnbT5b8c9d3329a4e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-l7zrRAUN5b8c9d4d2b292.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gtLjYqrs5b8c9d5bee475.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-c3Ps1g7V5b8c9d6b7dbdc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EMkSNQ0N5b8c9d7c3b4b7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Yc2YpdU35b8c9d88e9836.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-9Pme0PFa5b8c9da0168f8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3TJVgMQj5b8c9db260114.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cxNHKFyg5b8c9def6c80d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-BkGMUzTJ5b8c9e4a21a89.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VFe5SnQS5b8c9e5b57e26.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4LjXOhqW5b8c9e6a7b9e8.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-xi2OxCS25b8c9e78c6abc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-BbSWBbvR5b8c9e8875418.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dPIC5qO35b8c9e99cfae5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pBlM9nNP5b8c9eab85c77.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5js11qkF5b8c9ef77d175.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-MWBhOKEI5b8c9f03b88bc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-M1nFEdHb5b8c9f164553a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UQNYSaJR5b8c9f338b6d5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Ewjn6OmM5b8c9f5503189.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8gzXn5lu5b8c9f6bc7249.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-htqypAhr5b8c9f824e289.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZYqbscyz5b8c9f92899ac.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KwMPj4H25b8c9fa34a99c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SHndq0fu5b8c9fae23f7c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-I9DRH8xe5b8ca039b3fa7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IdShHonL5b8ca04b4c4ba.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uYyaRLgr5b8ca06112256.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Z8dtDUlW5b8ca07215a37.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-56mxKE2x5b8ca08c7a18f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-uMwh6m2k5b8ca0a663c78.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-tVEdItkL5b8ca0b9a6591.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IgOokZn05b8ca0ddd458f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-jlJTJ9nX5b8ca0ec001db.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-etI64Zyi5b8ca0f85ea94.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-valEu0GU5b8ca10661792.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VDVef3vj5b8ca1140ef05.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-oT7YRlmK5b8ca1229494b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AqQiWPpK5b8ca12f887a7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aOnCrwJL5b8ca14552305.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fdN5XlSg5b8ca15fab42c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZQ4D7l115b8ca171e6b56.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KLbmhUQZ5b8ca18128fa1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ioZhZnTO5b8ca19170305.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-MtgsonKJ5b8ca19daf4b7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7hJscqmJ5b8ca1ab7e74b.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dU1GWIJt5b8ca1bea1fcb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-SMRkDbzC5b8ca1cf41d35.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-woi7t3KD5b8ca20869abd.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-32JHXXiT5b8ca21f9a150.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZrnWt1x75b8ca233cc9d5.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ppKQUWu35b8ca24425482.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Z7CvdKRT5b8ca25ca8775.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-XpnIrvSJ5b8ca268d98b0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-9mtH2Eu25b8ca2795300f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7NAC8J8k5b8ca296528b4.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bOdxe7bE5b8ca2a62f2c9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3U3sZhkF5b8ca2b618989.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4VfU2kB95b8ca2ea72b6e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZgnbSM3l5b8ca2ff95743.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eNXk2xcG5b8ca30d6a43d.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ifAzoTvx5b8ca31d87eb0.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vzmyD0SB5b8ca32a54c4a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-u0nOCK6n5b8ca339d928c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Wrq4y5kJ5b8ca348cf3cc.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4n5xhSHo5b8ca35d0ee14.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VvtDcAR45b8ca36a35f92.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cfuFgyug5b8ca37ec9665.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-EdGxKrbn5b8ca38d7a314.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-kcIO7sTt5b8ca399f0e87.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-qBqkF9xh5b8ca3a7d13f9.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nU5UJXYp5b8ca3bc688ca.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-B4wa13t85b8ca3c8a58bb.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-YehkSsMo5b8ca3d668a25.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WAVCicTD5b8ca3e6f1235.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ExOOAXcU5b8ca3f9cc0ab.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-PHaFbTIf5b8ca40ecd510.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Fze3VcPL5b8ca422ef9c7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DPE9rslo5b8ca435622b1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pBFBrq4d5b8ca4423e448.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-veSmOSUG5b8ca45228458.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-k1galVx25b8ca46842617.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KUJvr09E5b8ca47b01fa2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-sYzz0Qoc5b8ca489cbb80.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nsc6qDFM5b8ca49b4f318.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DHiFDH3k5b8ca4acaf704.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6jKVgftB5b8ca4dd14cde.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6vaOjM5S5b8ca4ed0ef0a.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-d7RY936G5b8ca4fb51dc7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Diur0bWk5b8ca517e2d59.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QtfXIqGS5b8ca55826f80.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gDbvRe0m5b8ca5691d5f6.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aiWGuzdX5b8ca590ac387.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-VtopZy3F5b8ca5aa9f772.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-j6QdU1Yv5b8ca5e778907.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-zKJDZvNg5b8ca61a629c1.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KO3vRk2g5b8ca635d0fa2.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-dW8bW9825b8ca6506af05.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UT894Z775b8ca6701843c.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-wErt0R3Z5b8ca68899901.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6TbO9nqd5b8ca69f9367f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cShObvxH5b8ca6be6f019.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NwIY9TVP5b8ca6d9afbe7.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6b1OW6cB5b8ca6fd4c894.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hMhnC7iW5b8ca7210b25e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-E6cmP8Wz5b8ca738a2495.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-sgRtazGi5b8ca74e1873e.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-T8UFiOrl5b8ca7656cf20.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-cFio7Fln5b8ca7820cc03.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-DiwdfEZQ5b8ca79977a8f.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AqWbJn2s5b8ca7ae36773.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ziOEVCpE5b8ca7d4a1fbe.png">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-9iy2to1K5b8ca804d686f.png">
-<meta property="article:published_time" content="2018-08-31T05:43:41.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Y5OZ7Xr35b88f3c7c5e97.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-418" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/08/31/418/" class="article-date">
-  <time class="dt-published" datetime="2018-08-31T05:43:41.000Z" itemprop="datePublished">2018-08-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      AirM2M 无线模块AT命令手册
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p></p>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">AirM2M 无线模块AT命令手册</h1>
+<article class="post markdown-style">
+  <p></p>
 
 <p><b><span style="font-family:'宋体';font-size:14pt;"><font>目</font> <font>录</font></span></b></p>
 
@@ -6083,134 +5384,160 @@
 <p> </p>
 
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/08/31/418/" data-id="ckkfmdggv00fjvkcggm0x9lji" data-title="AirM2M 无线模块AT命令手册" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/09/02/419/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Air720模块Linux USB驱动以及PPP拨号说明
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/08/31/417/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">SIM卡的前世今生，以及不得不说的vSIM(纯软虚拟卡)</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/09/02/419/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/08/31/417/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

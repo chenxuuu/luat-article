@@ -1,231 +1,226 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>linux 常见问题解决方法 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>linux 常见问题解决方法 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="一. 模块插入linux 设备后发生了什么1. 一般模块对接的linux 协议是USB 协议，设备插入后，系统会检测出设备的标识:PID VID   （其中 VID 是 厂商识别码 PID 是产品识别码），此处不需要装驱动也可以识别，所以，我们排除插入无法识别的时候，先通过命令行命令   lsusb 我们的 1802&#x2F;1802S  vid pid 是 1286 4e3d ,8910  vid pi">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux 常见问题解决方法">
-<meta property="og:url" content="https://doc.luatos.wiki/2020/11/16/1850/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="一. 模块插入linux 设备后发生了什么1. 一般模块对接的linux 协议是USB 协议，设备插入后，系统会检测出设备的标识:PID VID   （其中 VID 是 厂商识别码 PID 是产品识别码），此处不需要装驱动也可以识别，所以，我们排除插入无法识别的时候，先通过命令行命令   lsusb 我们的 1802&#x2F;1802S  vid pid 是 1286 4e3d ,8910  vid pi">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-16T07:35:11.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.337Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-1850" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/11/16/1850/" class="article-date">
-  <time class="dt-published" datetime="2020-11-16T07:35:11.000Z" itemprop="datePublished">2020-11-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      linux 常见问题解决方法
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4><strong>一. 模块插入linux 设备后发生了什么</strong></h4><p>1. 一般模块对接的linux 协议是USB 协议，设备插入后，系统会检测出设备的标识:PID VID</p><p>   （其中 <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">VID </span></span></span>是 厂商识别码 <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">PID</span></span></span> 是产品识别码），此处不需要装驱动也可以识别，所以，我们排除插入无法识别的时候，先通过命令行命令</p><p></p><blockquote>   lsusb</blockquote><p></p><p></p><p> 我们的 1802/1802S  vid <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">pid </span></span></span>是 1286 4e3d ,8910  vid <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">pid</span></span></span> 是 1782 4e00</p><p></p><p></p><blockquote>   root@am:~# lsusb</blockquote><blockquote>   Bus 001 Device 022: ID 1782:4e00 Spreadtrum Communications Inc. </blockquote><blockquote>   Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</blockquote><blockquote>   Bus 002 Device 003: ID 0e0f:0002 VMware, Inc. Virtual USB Hub</blockquote><blockquote>   Bus 002 Device 002: ID 0e0f:0003 VMware, Inc. Virtual Mouse</blockquote><blockquote>   Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</blockquote><p></p><p>其中第二行 ，就是代表已经识别到8910模块了</p><p>查看模块是否已经识别，如这里没有识别到我们的模块，应该先排除硬件问题,</p><p>常见硬件问题</p><p>   1.USB 是否走线过长</p><p>   2.USB 是否VBUS 没有连接</p><p>   3.模块没开机</p><p>模块log 中怎么确认是否被识别</p><p>   1.8910 可以通过 搜索 “usb irq” ， “set address” 来判断，有这两个关键字之一的话，就代表模块已经被检测到了</p><p></p><h4> <strong>二. 检测到模块，linux 又发生了什么</strong></h4><p> 1.如果按照https://oldask.openluat.com/article/911 加入驱动，linux 发送 dmesg 会出现以下的显示</p><blockquote>   [ 1096.666348] usb 1-2.1: new high-speed USB device number 5 using uhci_hcd</blockquote><blockquote>   [ 1096.927459] usb 1-2.1: New USB device found, idVendor=1286, idProduct=4e3d</blockquote><blockquote>   [ 1096.927463] usb 1-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3</blockquote><blockquote>   [ 1096.927464] usb 1-2.1: Product: Mobile Composite Device Bus</blockquote><blockquote>   [ 1096.927465] usb 1-2.1: Manufacturer: Marvell</blockquote><blockquote>   [ 1096.927466] usb 1-2.1: SerialNumber: 200806006809080000</blockquote><blockquote>   [ 1096.992617] rndis_host 1-2.1:1.0 eth1: register &#x27;rndis_host&#x27; at usb-0000:02:00.0-2.1, RNDIS device, ac:d0:8c:63:40:9f</blockquote><blockquote>   [ 1097.018011] usbcore: registered new interface driver usbserial</blockquote><blockquote>   [ 1097.018166] usbcore: registered new interface driver usbserial_generic</blockquote><blockquote>   [ 1097.018173] usbserial: USB Serial support registered for generic</blockquote><blockquote>   [ 1097.021685] usbcore: registered new interface driver option</blockquote><blockquote>   [ 1097.021706] usbserial: USB Serial support registered for GSM modem (1-port)</blockquote><blockquote>   [ 1097.021744] option 1-2.1:1.2: GSM modem (1-port) converter detected</blockquote><blockquote>   [ 1097.021830] usb 1-2.1: GSM modem (1-port) converter now attached to ttyUSB0</blockquote><blockquote>   [ 1097.021844] option 1-2.1:1.3: GSM modem (1-port) converter detected</blockquote><blockquote>   [ 1097.021901] usb 1-2.1: GSM modem (1-port) converter now attached to ttyUSB1</blockquote><blockquote>   [ 1097.021909] option 1-2.1:1.4: GSM modem (1-port) converter detected</blockquote><blockquote>   [ 1097.021981] usb 1-2.1: GSM modem (1-port) converter now attached to ttyUSB2</blockquote><blockquote>   [ 1097.133556] rndis_host 1-2.1:1.0 eth24: renamed from eth1</blockquote><blockquote>   [ 1097.133775] systemd-udevd[7108]: renamed network interface eth1 to eth24</blockquote><blockquote>   [ 1097.554705] e1000: eth0 NIC Link is Down</blockquote><p>第5行，1-2.1 设备代表 挂在usb bus1 上 2.1 节点为 Marvell 的USB 设备</p><p>第7行代表8910 的 1-2.1:1.0 代表usb interface 0,被当做rndis 使用（其实interface 1 也是被rnids 使用）</p><p>第13、15、17行中的 1-2.1:1.2 、1-2.1:1.3 、1-2.1:1.4 代表 usb interface 2，3，4，分别枚举ttyUSB0，ttyUSB1，ttyUSB2(这个不固定，下面有介绍识别方法)</p><p>第19行，代表rndis 被设置成eth1 网卡</p><p></p><p>常见问题</p><p></p><p>为什么有rndis 的网卡出现没有tty 设备，因为没有按照https://oldask.openluat.com/article/911 添加驱动</p><p></p><h4><strong>三. linux设备上的RNDIS网卡使用</strong></h4><p>详情见连接：http://doc.openluat.com/article/453/0</p><p></p><h4><strong>四. rndis 无法上网的排查方法</strong></h4><p>1.能否检测到rndis 设备</p><p>       在命令行中输入 dmesg ,如此出现  rndis_host 1-1:1.0 eth1 这样的打印，则证明已经识别到了，(如果没有，可能是硬件问题，也可能是linux 真的不支持rndis http://oldask.openluat.com/article/79)</p><p>       此时查看ifconfig ,如果没有出现    rndis_host 1-1:1.0 eth1 中的 eth1 ，则发送ifconfig -a ,此时发现有eth1 但是 没有ip 地址，发送 udhcpc -i eh1  出现地址后，即可使用此网卡进行上网</p><p></p><p>2.出现设备网卡，但是无法上网</p><p>   a.ping IP 判断是否域名解析问题</p><p>   b.通过AT 指令来排查常见问题</p><p>   常用 AT :</p><p>   AT+CPIN?  查看卡是否在位</p><p>   AT+CEREG?  查看是否注册上网络</p><p>   AT+CSQ    查看信号值</p><p>   ATI  查看版本号</p><p></p><h4><strong>五. linux设备上的底层抓包</strong></h4><h4>(一.)  720U 底层抓包</h4><p>详情见连接：http://doc.openluat.com/article/720/0</p><p></p><p>(二.) 1802模块 LINUX下抓取底层log</p><p></p><p>​详情见连接：http://doc.openluat.com/article/627/0</p><p></p><h4><strong>六. 720U从HOST UART接口抓AP日志</strong></h4><p>详情见如下链接的第2部分说明</p><p></p><p>详情见链接：http://doc.openluat.com/article/725/0</p><p></p><h4><strong>七. 在linux下发AT的小工具</strong></h4><p>详情见链接：http://doc.openluat.com/article/645/0</p><p></p><p></p>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/11/16/1850/" data-id="ckkfmdga10022vkcggbmv8nwl" data-title="linux 常见问题解决方法" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/11/18/1862/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          AIR724的UART3如何用LUAT控制呢？ UART1、2 都正常，UART3没有数据
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/11/13/1842/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">MIT 6.824 Distributed Systems 分布式系统课程系列2 Lab2-Raft</div>
-    </a>
-  
-</nav>
+    <div class="container">
+        <h1 class="post-title">linux 常见问题解决方法</h1>
+<article class="post markdown-style">
+  <h4><strong>一. 模块插入linux 设备后发生了什么</strong></h4><p>1. 一般模块对接的linux 协议是USB 协议，设备插入后，系统会检测出设备的标识:PID VID</p><p>   （其中 <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">VID </span></span></span>是 厂商识别码 <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">PID</span></span></span> 是产品识别码），此处不需要装驱动也可以识别，所以，我们排除插入无法识别的时候，先通过命令行命令</p><p></p><blockquote>   lsusb</blockquote><p></p><p></p><p> 我们的 1802/1802S  vid <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">pid </span></span></span>是 1286 4e3d ,8910  vid <span style="color:#000000"><span style="font-size:16px"><span style="background-color:#ffffff">pid</span></span></span> 是 1782 4e00</p><p></p><p></p><blockquote>   root@am:~# lsusb</blockquote><blockquote>   Bus 001 Device 022: ID 1782:4e00 Spreadtrum Communications Inc. </blockquote><blockquote>   Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</blockquote><blockquote>   Bus 002 Device 003: ID 0e0f:0002 VMware, Inc. Virtual USB Hub</blockquote><blockquote>   Bus 002 Device 002: ID 0e0f:0003 VMware, Inc. Virtual Mouse</blockquote><blockquote>   Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</blockquote><p></p><p>其中第二行 ，就是代表已经识别到8910模块了</p><p>查看模块是否已经识别，如这里没有识别到我们的模块，应该先排除硬件问题,</p><p>常见硬件问题</p><p>   1.USB 是否走线过长</p><p>   2.USB 是否VBUS 没有连接</p><p>   3.模块没开机</p><p>模块log 中怎么确认是否被识别</p><p>   1.8910 可以通过 搜索 “usb irq” ， “set address” 来判断，有这两个关键字之一的话，就代表模块已经被检测到了</p><p></p><h4> <strong>二. 检测到模块，linux 又发生了什么</strong></h4><p> 1.如果按照https://oldask.openluat.com/article/911 加入驱动，linux 发送 dmesg 会出现以下的显示</p><blockquote>   [ 1096.666348] usb 1-2.1: new high-speed USB device number 5 using uhci_hcd</blockquote><blockquote>   [ 1096.927459] usb 1-2.1: New USB device found, idVendor=1286, idProduct=4e3d</blockquote><blockquote>   [ 1096.927463] usb 1-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3</blockquote><blockquote>   [ 1096.927464] usb 1-2.1: Product: Mobile Composite Device Bus</blockquote><blockquote>   [ 1096.927465] usb 1-2.1: Manufacturer: Marvell</blockquote><blockquote>   [ 1096.927466] usb 1-2.1: SerialNumber: 200806006809080000</blockquote><blockquote>   [ 1096.992617] rndis_host 1-2.1:1.0 eth1: register &#x27;rndis_host&#x27; at usb-0000:02:00.0-2.1, RNDIS device, ac:d0:8c:63:40:9f</blockquote><blockquote>   [ 1097.018011] usbcore: registered new interface driver usbserial</blockquote><blockquote>   [ 1097.018166] usbcore: registered new interface driver usbserial_generic</blockquote><blockquote>   [ 1097.018173] usbserial: USB Serial support registered for generic</blockquote><blockquote>   [ 1097.021685] usbcore: registered new interface driver option</blockquote><blockquote>   [ 1097.021706] usbserial: USB Serial support registered for GSM modem (1-port)</blockquote><blockquote>   [ 1097.021744] option 1-2.1:1.2: GSM modem (1-port) converter detected</blockquote><blockquote>   [ 1097.021830] usb 1-2.1: GSM modem (1-port) converter now attached to ttyUSB0</blockquote><blockquote>   [ 1097.021844] option 1-2.1:1.3: GSM modem (1-port) converter detected</blockquote><blockquote>   [ 1097.021901] usb 1-2.1: GSM modem (1-port) converter now attached to ttyUSB1</blockquote><blockquote>   [ 1097.021909] option 1-2.1:1.4: GSM modem (1-port) converter detected</blockquote><blockquote>   [ 1097.021981] usb 1-2.1: GSM modem (1-port) converter now attached to ttyUSB2</blockquote><blockquote>   [ 1097.133556] rndis_host 1-2.1:1.0 eth24: renamed from eth1</blockquote><blockquote>   [ 1097.133775] systemd-udevd[7108]: renamed network interface eth1 to eth24</blockquote><blockquote>   [ 1097.554705] e1000: eth0 NIC Link is Down</blockquote><p>第5行，1-2.1 设备代表 挂在usb bus1 上 2.1 节点为 Marvell 的USB 设备</p><p>第7行代表8910 的 1-2.1:1.0 代表usb interface 0,被当做rndis 使用（其实interface 1 也是被rnids 使用）</p><p>第13、15、17行中的 1-2.1:1.2 、1-2.1:1.3 、1-2.1:1.4 代表 usb interface 2，3，4，分别枚举ttyUSB0，ttyUSB1，ttyUSB2(这个不固定，下面有介绍识别方法)</p><p>第19行，代表rndis 被设置成eth1 网卡</p><p></p><p>常见问题</p><p></p><p>为什么有rndis 的网卡出现没有tty 设备，因为没有按照https://oldask.openluat.com/article/911 添加驱动</p><p></p><h4><strong>三. linux设备上的RNDIS网卡使用</strong></h4><p>详情见连接：http://doc.openluat.com/article/453/0</p><p></p><h4><strong>四. rndis 无法上网的排查方法</strong></h4><p>1.能否检测到rndis 设备</p><p>       在命令行中输入 dmesg ,如此出现  rndis_host 1-1:1.0 eth1 这样的打印，则证明已经识别到了，(如果没有，可能是硬件问题，也可能是linux 真的不支持rndis http://oldask.openluat.com/article/79)</p><p>       此时查看ifconfig ,如果没有出现    rndis_host 1-1:1.0 eth1 中的 eth1 ，则发送ifconfig -a ,此时发现有eth1 但是 没有ip 地址，发送 udhcpc -i eh1  出现地址后，即可使用此网卡进行上网</p><p></p><p>2.出现设备网卡，但是无法上网</p><p>   a.ping IP 判断是否域名解析问题</p><p>   b.通过AT 指令来排查常见问题</p><p>   常用 AT :</p><p>   AT+CPIN?  查看卡是否在位</p><p>   AT+CEREG?  查看是否注册上网络</p><p>   AT+CSQ    查看信号值</p><p>   ATI  查看版本号</p><p></p><h4><strong>五. linux设备上的底层抓包</strong></h4><h4>(一.)  720U 底层抓包</h4><p>详情见连接：http://doc.openluat.com/article/720/0</p><p></p><p>(二.) 1802模块 LINUX下抓取底层log</p><p></p><p>​详情见连接：http://doc.openluat.com/article/627/0</p><p></p><h4><strong>六. 720U从HOST UART接口抓AP日志</strong></h4><p>详情见如下链接的第2部分说明</p><p></p><p>详情见链接：http://doc.openluat.com/article/725/0</p><p></p><h4><strong>七. 在linux下发AT的小工具</strong></h4><p>详情见链接：http://doc.openluat.com/article/645/0</p><p></p><p></p>
 
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2020/11/18/1862/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2020/11/13/1842/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

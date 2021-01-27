@@ -1,836 +1,492 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title> [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:url" content="https://doc.luatos.wiki/page/43/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-556" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/03/04/556/" class="article-date">
-  <time class="dt-published" datetime="2019-03-04T08:18:13.000Z" itemprop="datePublished">2019-03-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/03/04/556/">判断SIM卡所属的运营商</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>SIM卡所属的运营商可通过查询sim卡的ismi前缀来判断</p>
-<h1 id="AT命令"><a href="#AT命令" class="headerlink" title="AT命令"></a>AT命令</h1><p>使用AT命令<code>AT+CIMI</code>可以得到sim卡的ismi</p>
-<h1 id="lua"><a href="#lua" class="headerlink" title="lua"></a>lua</h1><p>使用<code>sim.getImsi()</code>接口可以得到sim卡的ismi</p>
-<h1 id="前缀"><a href="#前缀" class="headerlink" title="前缀"></a>前缀</h1><p>46000,    “CHINA MOBILE”,     “CN”  中国移动<br>46001,    “CHN-CUGSM”,        “CN”  中国联通<br>46002,    “CHINA MOBILE”,     “CN”  中国移动</p>
-<p>其他前缀可以搜索<code>运营商PLMN对照表</code>来查看</p>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/03/04/556/" data-id="ckkfmdgc2007ivkcgasaxf9gt" data-title="判断SIM卡所属的运营商" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-555" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/03/01/555/" class="article-date">
-  <time class="dt-published" datetime="2019-03-01T04:37:31.000Z" itemprop="datePublished">2019-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="container">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/03/01/555/">Air720系列AT命令远程升级配置详细步骤</a>
-    </h1>
-  
 
-      </header>
+
+
+  <div class="article">
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="升级平台的配置"><a href="#升级平台的配置" class="headerlink" title="升级平台的配置"></a>升级平台的配置</h1><p>首先打开升级平台：<a target="_blank" rel="noopener" href="https://iot.openluat.com/">https://iot.openluat.com</a></p>
-<p>使用购买模块/开发板时使用的手机号作为用户名，密码默认为888888，登陆后台</p>
-<p><strong>注意，如果是官方平台购买的，并且登陆后台后已经有了一个默认720项目，可以直接去执行AT命令，并且无需设置productkey参数</strong></p>
-<p>登陆后，可以看到一个默认新建好的产品，如果没有，可以点击右上角的<code>创建新产品</code>新建一个，产品名任意：<br><a href="/static/editormd/php/../uploads/5_96216.jpg"><img src="/static/editormd/php/../uploads/5_96216.jpg"></a></p>
-<p>点击<code>进入产品</code>。</p>
-<p>打开<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/4g/Air720D.html">http://www.openluat.com/Product/4g/Air720D.html</a>，选择<code>资料下载</code>，在列表中找到<code>标准固件（AT指令, Linux网卡, 安卓RIL适配）</code>，直接下载此AT的zip压缩包：<br><a href="/static/editormd/php/../uploads/5_44807.jpg"><img src="/static/editormd/php/../uploads/5_44807.jpg"></a></p>
-<p>我们可以看到压缩包内有一些文件，请<code>选择和自己模块型号相同的bin文件</code>进行解压，我这里使用的是720D，所以我解压720D的bin文件：<br><a href="/static/editormd/php/../uploads/5_62301.jpg"><img src="/static/editormd/php/../uploads/5_62301.jpg"></a></p>
-<p>接着返回之前的iot升级平台，在左侧选择<code>固件升级</code>–<code>升级配置</code>–<code>新建项目</code>–<code>选择之前解压出来的bin文件</code>–<code>是否允许升级选“是”</code>–点击确定：</p>
-<p><a href="/static/editormd/php/../uploads/5_42898.jpg"><img src="/static/editormd/php/../uploads/5_42898.jpg"></a></p>
-<p>我们可以在新建好的项目右侧，点击<code>添加</code>，将我们要升级的设备imei添加进去</p>
-<blockquote>
-<p>也可以在上面那步勾选<code>升级全部设备</code>，这样所有使用该<code>productkey</code>的设备都会匹配升级</p>
-</blockquote>
-<h1 id="模块AT操作"><a href="#模块AT操作" class="headerlink" title="模块AT操作"></a>模块AT操作</h1><p>在模块开机后，使用<code>ATI</code>可以查看模块当前固件版本，请确保云平台设置的版本高于当前版本，才会升级：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[12:28:11.121]发→◇ATI</span><br><span class="line">□</span><br><span class="line">[12:28:11.124]收←◆ATI</span><br><span class="line"></span><br><span class="line">AirM2M_720D_V666_LTE_AT</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<p>请确保模块已经成功附着网络，使用<code>AT+UPGRADE</code>命令即可执行升级操作，下载完成后会自动进行重启，重启途中pwr灯会不停闪烁（如果模块没有绑定到任何项目，可以使用<code>AT+UPGRADE=&quot;KEY&quot;,&quot;你的项目的productkey&quot;</code>来强制把无归属模块绑定到项目）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">[12:28:40.576]发→◇AT+CGATT?</span><br><span class="line">□</span><br><span class="line">[12:28:40.651]收←◆AT+CGATT?</span><br><span class="line"></span><br><span class="line">+CGATT: 1</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line">[12:29:18.776]发→◇AT+UPGRADE</span><br><span class="line">□</span><br><span class="line">[12:29:18.781]收←◆AT+UPGRADE</span><br><span class="line"></span><br><span class="line">[12:29:19.075]收←◆</span><br><span class="line">OK</span><br><span class="line">+UPGRADEIND: 0</span><br><span class="line"></span><br><span class="line">[12:29:32.566]收←◆+UPGRADEIND: 10</span><br><span class="line"></span><br><span class="line">[12:29:41.820]收←◆+UPGRADEIND: 20</span><br><span class="line"></span><br><span class="line">[12:29:51.672]收←◆+UPGRADEIND: 30</span><br><span class="line"></span><br><span class="line">[12:30:01.163]收←◆+UPGRADEIND: 40</span><br><span class="line"></span><br><span class="line">[12:30:10.957]收←◆+UPGRADEIND: 50</span><br><span class="line"></span><br><span class="line">[12:30:20.463]收←◆+UPGRADEIND: 60</span><br><span class="line"></span><br><span class="line">[12:30:30.263]收←◆+UPGRADEIND: 70</span><br><span class="line"></span><br><span class="line">[12:30:40.213]收←◆+UPGRADEIND: 80</span><br><span class="line"></span><br><span class="line">[12:30:49.927]收←◆+UPGRADEIND: 90</span><br><span class="line"></span><br><span class="line">[12:31:14.689]收←◆+UPGRADEIND: 100</span><br><span class="line"></span><br><span class="line">[12:31:16.785]收←◆\0</span><br><span class="line">[12:31:19.832]收←◆</span><br><span class="line">+UPGRADEDL: 0</span><br><span class="line"></span><br><span class="line">[12:31:31.389]收←◆</span><br><span class="line">+UPGRADEDL: 10</span><br><span class="line"></span><br><span class="line">[12:31:37.050]收←◆</span><br><span class="line">+UPGRADEDL: 20</span><br><span class="line"></span><br><span class="line">[12:31:42.286]收←◆</span><br><span class="line">+UPGRADEDL: 30</span><br><span class="line"></span><br><span class="line">[12:31:47.510]收←◆</span><br><span class="line">+UPGRADEDL: 40</span><br><span class="line"></span><br><span class="line">[12:31:52.730]收←◆</span><br><span class="line">+UPGRADEDL: 50</span><br><span class="line"></span><br><span class="line">[12:31:57.922]收←◆</span><br><span class="line">+UPGRADEDL: 60</span><br><span class="line"></span><br><span class="line">[12:32:03.141]收←◆</span><br><span class="line">+UPGRADEDL: 70</span><br><span class="line"></span><br><span class="line">[12:32:08.353]收←◆</span><br><span class="line">+UPGRADEDL: 80</span><br><span class="line"></span><br><span class="line">[12:32:13.519]收←◆</span><br><span class="line">+UPGRADEDL: 90</span><br><span class="line"></span><br><span class="line">[12:32:17.617]收←◆</span><br><span class="line">+UPGRADEDL: 100</span><br><span class="line"></span><br><span class="line">[12:32:17.671]收←◆\0</span><br><span class="line">[12:32:26.256]收←◆UART Boot Completed</span><br></pre></td></tr></table></figure>
-<p>我们再用<code>ATI</code>命令检查模块版本，会发现成功升级为云平台设置的版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[12:32:31.008]发→◇AT</span><br><span class="line">□</span><br><span class="line">[12:32:33.993]收←◆</span><br><span class="line">OK</span><br><span class="line">[12:32:37.717]收←◆</span><br><span class="line">+NITZ: 19&#x2F;03&#x2F;01,04:32:37+32,0</span><br><span class="line"></span><br><span class="line">[12:32:39.024]发→◇ATI</span><br><span class="line">□</span><br><span class="line">[12:32:39.028]收←◆ATI</span><br><span class="line"></span><br><span class="line">AirM2M_720D_V742_LTE_AT</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="附"><a href="#附" class="headerlink" title="附"></a>附</h1><p>如果出错通过AT+UPGRADE? 返回的+UPGRADE后面第四个参数为错误码</p>
-<h2 id="升级失败错误码"><a href="#升级失败错误码" class="headerlink" title="升级失败错误码"></a>升级失败错误码</h2><p>3 ：无效的设备。找不到设备。</p>
-<p>17：无权限。设备会上报imei、固件名、项目key。服务器会以此查出设备、固件、项目三    条记录，如果    这三者不在同一个用户名下，就会认为无权限</p>
-<p>25：无效的项目</p>
-<p>26：无效的固件</p>
-<p>27：已经是最新版本。通过了前面的检查，但版本号已是最新，或没打开升级开关、没指定imei等。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/03/01/555/" data-id="ckkfmdgc2007hvkcgeqv3g8d1" data-title="Air720系列AT命令远程升级配置详细步骤" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-554" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/02/28/554/" class="article-date">
-  <time class="dt-published" datetime="2019-02-28T06:31:52.000Z" itemprop="datePublished">2019-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/02/28/554/">Air720系列4G模块AT版本专网卡使用说明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
-
-<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><a name="下载安装"></a><b><span style="font-size:14.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
-inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
-mso-font-kerning:18.0pt">一、如何区分专网卡</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
-微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
-
-</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">根据使用的网络类型来分，<span lang="EN-US">sim</span>卡可以分为公网卡和专网卡两种<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">如何判断<span lang="EN-US">sim</span>卡是公网卡还是专网卡，可按照如下顺序确认：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">1.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">咨询<span lang="EN-US">sim</span>卡供应商<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">2.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">如果<span lang="EN-US">apn</span>有账号、或者有密码、或者有加密类型，则可以认为是专网卡<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
-
-<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
-inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
-mso-font-kerning:18.0pt">二、专网卡如何设置</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
-微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt">APN<o:p></o:p></span></b></p>
-
-</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><span lang="EN-US" style="color: rgb(51, 51, 51); font-size: 9pt; font-family: 微软雅黑, sans-serif;">Cat.4模块&nbsp;</span><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, sans-serif; font-size: 12px;">V1349</span><span style="color: rgb(51, 51, 51); font-size: 9pt; font-family: 微软雅黑, sans-serif;">以及之后的版本，同时支持简单方式和复杂方式两种使用方式，建议使用简单方式</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size: 9pt; font-family: 微软雅黑, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><span style="font-family: 微软雅黑, sans-serif; font-size: 12px;">Cat.4模块&nbsp;</span><span lang="EN-US" style="font-size: 9pt; font-family: 微软雅黑, sans-serif;">V1349</span><span style="font-size: 9pt; font-family: 微软雅黑, sans-serif;">前的版本，仅支持复杂方式，并且仅支持<span lang="EN-US">4G</span>网络的专网卡，不支持<span lang="EN-US">2G</span>网络的专网卡</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; font-size: 14px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size: 6.5pt; font-family: 微软雅黑, sans-serif;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span lang="EN-US" style="font-size: 9pt; font-family: 微软雅黑, sans-serif;">Cat.1模块 仅支持</span><span style="font-size: 9pt; font-family: 微软雅黑, sans-serif;">简单方式</span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
-
-<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
-微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.1</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
-inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
-mso-font-kerning:0pt">、简单方式</span></b></p>
-
-</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">先看下设置专网<span lang="EN-US">APN</span>的指令说明<span lang="EN-US"><o:p></o:p></span></span></p><table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="margin-left: 26.7pt; background: rgb(242, 242, 242); border: none;">
- <tbody><tr>
-  <td width="666" valign="top" style="width:399.4pt;border:solid black 1.0pt;
-  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-themecolor:
-  text1;padding:0cm 5.4pt 0cm 5.4pt">
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">AT+CPNETAPN=mode,"apn name","user","pwd",authmode<o:p></o:p></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt"><o:p>&nbsp;</o:p></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">mode</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">：<span lang="EN-US">apn</span>参数操作类型<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：保存并重启生效<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：不保存立即生效<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：保存并立即生效<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：删除保存的参数<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">如果确定一直使用专网卡，建议<span lang="EN-US">mode</span>使用<span lang="EN-US">2<o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">如果可能使用专网卡，也可能使用公网卡，建议<span lang="EN-US">mode</span>使用<span lang="EN-US">1<o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt"><o:p>&nbsp;</o:p></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">apn name</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">为<span lang="EN-US">apn</span>名字，不可以为空<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">user</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">为<span lang="EN-US">apn</span>用户名，如果没有用户名，可以为空<span lang="EN-US">""<o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">pwd</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">为<span lang="EN-US">apn</span>密码，如果没有密码，可以为空<span lang="EN-US">""<o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt"><o:p>&nbsp;</o:p></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">authmode</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-  mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">：加密方式<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：不加密<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：<span lang="EN-US">PAP</span>加密<span lang="EN-US"><o:p></o:p></span></span></p>
-  <p class="MsoNormal" align="left" style="word-break: break-all;"><span lang="EN-US" style="font-size:7.5pt;font-family:
-  &quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
-  0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><span style="font-size:7.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt">：<span lang="EN-US">CHAP</span>加密</span><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-  宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></p>
-  </td>
- </tr>
-</tbody></table><p class="MsoNormal" align="left" style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;
-font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
-mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">此方式下专网卡<span lang="EN-US">APN</span>设置流程如下：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, sans-serif; font-size: 9pt; text-indent: -21pt;">发送</span><span lang="EN-US" style="color: rgb(51, 51, 51); font-family: 微软雅黑, sans-serif; font-size: 9pt; text-indent: -21pt;">AT+CPNETAPN=mode,"apn
-name","user","pwd",authmode</span><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, sans-serif; font-size: 9pt; text-indent: -21pt;">设置专网</span><span lang="EN-US" style="color: rgb(51, 51, 51); font-family: 微软雅黑, sans-serif; font-size: 9pt; text-indent: -21pt;">APN</span><span style="color: rgb(51, 51, 51); font-family: 微软雅黑, sans-serif; font-size: 9pt; text-indent: -21pt;">参数</span><br></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">以上步骤成功之后，使用<span lang="EN-US">AT+SAPBR</span>或者<span lang="EN-US">AT+CSTT</span>设置<span lang="EN-US">apn</span>时，还要再设置一次，仅设置专网卡<span lang="EN-US">apn name</span>即可，不用设置用户名<span lang="EN-US">user</span>和密码<span lang="EN-US">pwd<o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
-
-<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
-微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.2</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
-inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
-mso-font-kerning:0pt">、复杂方式</span></b><b><span lang="EN-US" style="font-size:
-11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
-
-</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
-微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
-font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
-mso-font-kerning:0pt">此方式操作较为复杂，不建议使用；故本章节做下简单描述<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">此方式下专网卡<span lang="EN-US">APN</span>设置流程如下：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">1.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">开机<span lang="EN-US">AT</span>通道就绪之后，发送<span lang="EN-US">AT*CGDFLT?</span>命令，返回<span lang="EN-US">*CGDFLT:
-"IP","apn name",0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1</span>，根据返回的第<span lang="EN-US">2</span>个参数<span lang="EN-US">"apn name"</span>来判断是否已经设置为正确的专网卡<span lang="EN-US">apn name<o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">1)<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">如果是的话，则专网卡<span lang="EN-US">APN</span>设置流程结束，之后根据特定业务执行特定处理流程即可，使用<span lang="EN-US">AT+SAPBR</span>或者<span lang="EN-US">AT+CSTT</span>设置<span lang="EN-US">apn</span>时，还要再设置一次<span lang="EN-US">apn</span>，仅设置专网卡<span lang="EN-US">apn name</span>即可，不需要设置用户名<span lang="EN-US">user</span>和密码<span lang="EN-US">pwd<o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">2)<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">如果否的话，继续第<span lang="EN-US">2</span>步<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">2.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">发送<span lang="EN-US">AT+AUTOAPN=0</span>命令关闭自动获取<span lang="EN-US">APN</span>功能，如果成功返回<span lang="EN-US">OK</span>应答<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">3.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">发送<span lang="EN-US">AT*CGDFLT=1,"IP","apn
-name",,,,,,,,,,,,,,,,,,1</span>命令设置专网卡<span lang="EN-US">apn name</span>，如果成功返回<span lang="EN-US">OK</span>应答<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">4.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">如果专网卡没有用户名和密码，则跳过本步骤<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: 0cm; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: 0cm; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">如果专网卡有用户名或者密码<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: 0cm; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">则发送<span lang="EN-US">AT*CGDFAUTH=1,auto_prot,"user name","password"</span>命令，如果成功返回<span lang="EN-US">OK</span>应答<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: 0cm; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">auto_prot</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">为加密方式：<span lang="EN-US">0-</span>不加密<span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp; 1-PAP</span>加密<span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2-CHAP</span>加密<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: 0cm; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">user name</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">为用户名，<span lang="EN-US">passwrod</span>为密码<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-微软雅黑;color:#333333;mso-font-kerning:0pt">5.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt">发送<span lang="EN-US">AT+RESET</span>命令重启，重启后继续从第<span lang="EN-US">1</span>步开始执行<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: 0cm; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;
-mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></p><p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
-宋体;color:#333333;mso-font-kerning:0pt"><o:p>&nbsp;</o:p></span></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/02/28/554/" data-id="ckkfmdgf100e4vkcgccr9hwr8" data-title="Air720系列4G模块AT版本专网卡使用说明" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-553" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/02/26/553/" class="article-date">
-  <time class="dt-published" datetime="2019-02-26T06:04:28.000Z" itemprop="datePublished">2019-02-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/02/26/553/">阿里云物联网平台mqtt测试工具</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>使用阿里云物联网平台mqtt连接需要计算user和password等参数比较麻烦，而且容易出错，所以今天分享一个自己写的小工具，可以用于计算连接参数</p><p>测试mqtt用的<span style="color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">MQTT.fx</span></p><p><span style="color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">1，下载并安装MQTT.fx软件。</span></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">Windows系统：&nbsp;<a title="" target="_blank" rel="noopener" href="http://mqtt-fx.software.informer.com/download/" data-spm-anchor-id="a2c4g.11186623.2.17" style="padding: 0px; margin: 0px; transition: color 0.2s ease 0s; color: rgb(0, 183, 211); background-image: initial; background-position: 0px 0px; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; outline: none;">http://mqtt-fx.software.informer.com/download/</a></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">Mac系统：&nbsp;<a target="_blank" rel="noopener" href="http://macdownload.informer.com/mqtt-fx/">http://macdownload.informer.com/mqtt-fx/</a><a title="" target="_blank" rel="noopener" href="http://macdownload.informer.com/mqtt-fx/" data-spm-anchor-id="a2c4g.11186623.2.18" style="padding: 0px; margin: 0px; transition: color 0.2s ease 0s; color: rgb(0, 183, 211); background-image: initial; background-position: 0px 0px; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; outline: none;"></a></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">2，在阿里云添加设备。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">这部分以前说过就不写了，如果新添加的可以选一键复制，我小工具支持一键解析</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">3，计算参数。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">我做了一个在线版本<a target="_blank" rel="noopener" href="http://mqtt.lovemcu.cn/">http://mqtt.lovemcu.cn/</a><a target="_blank" rel="noopener" href="http://mqtt.lovemcu.cn/"></a></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">主要两部分，上半部分是参数输入，下半部分是生成的参数</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-we0rwOtU5c74d3a3c32ab.png" style="width: 512.5px;" class="img-responsive"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-d1GTyDCT5c74d3b29af21.png" style="width: 313.5px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">把一键复制的参数粘贴到输入框里，一键生成即可。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">如果是提前创建的设备也可以复制相应参数粘贴，最后一键生成</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">4，连接。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">点击这里新建连接<br><img src="http://oldask.openluat.com/image/show/attachments-2019-02-KsHx7EhB5c74d4de1f8e1.png" style="width: 504px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-C23wgDP05c74d50fd7863.png" style="width: 512px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">填入参数</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-MUFyUX5Q5c74d5a70e7c7.png" style="width: 353.5px;" class="img-responsive">点击ok</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">点击连接即可</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-Liqk25Vr5c74d649cef04.png" style="width: 504px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">订阅</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-fEOzgx5U5c74d674408f3.png" style="width: 504px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">由于工具临时写的，代码写的很烂就不发出来丢人了，有需要源码的可以私信我</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/02/26/553/" data-id="ckkfmdgc1007gvkcgdllv0684" data-title="阿里云物联网平台mqtt测试工具" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-551" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/02/15/551/" class="article-date">
-  <time class="dt-published" datetime="2019-02-15T05:58:10.000Z" itemprop="datePublished">2019-02-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/02/15/551/">Air720系列-死机dump数据功能使用说明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">一、下载安装SecureCRT</span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">可通过百度云下载SecureCRT<font face="宋体">软件</font>，并按照文件包中的提示进行安装注册。</span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">链接<font face="Calibri">:&nbsp;</font></span><a href="https://pan.baidu.com/s/13lhILGSYB4Vilxqb9mo8Ng" target="_blank">https://pan.baidu.com/s/13lhILGSYB4Vilxqb9mo8Ng</a></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">提取码<font face="Calibri">: a3kt</font></span></p><p class="MsoNormal">二、模块死机时发送AT*EXASSERT=1会让模块不重启，此时设备管理器就出现一个新的端口号，如图所示：</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-iUvQq9GV5c6652d839ad5.png" style="width: 355px; height: 170.839px;" class="img-responsive"></p><p class="MsoNormal"><!--[if !supportLists]--><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">三、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">打开<font face="Calibri">SecureCRT</font><font face="宋体">软件选择</font><font face="Calibri">Quick connect</font><font face="宋体">选项或者使用快捷键</font><font face="Calibri">Alt+Q</font><font face="宋体">来配置连接数据</font></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-yQ97yfiX5c6652f9d6f99.png" style="width: 394px; height: 199.94px;" class="img-responsive"></p><p class="MsoNormal"><!--[if !supportLists]--><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">四、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">配置链接文件将<font face="Calibri">protocol</font><font face="宋体">设置为</font><font face="Calibri">serial</font><font face="宋体">，</font><font face="Calibri">port</font><font face="宋体">设置为设置为第二步中的新的端口号，</font><font face="Calibri">baud rate</font><font face="宋体">设置为</font><font face="Calibri">115200</font><font face="宋体">，点击</font><font face="Calibri">connet</font><font face="宋体">。</font></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-mrtPCU7z5c66533c0a17b.png" style="width: 25%;" class="img-responsive"></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">五、连接成功后选择<font face="Calibri">Transfer</font><font face="宋体">选项中的</font><font face="Calibri">Receive Ymodem...</font><font face="宋体">选项来</font><font face="Calibri">dump</font><font face="宋体">数据。</font></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-JSKQm8JY5c66535e4151a.png" style="width: 418px; height: 369.034px;" class="img-responsive"></p><p class="MsoNormal" align="justify" style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;mso-list:l0 level1 lfo1;"><!--[if !supportLists]--><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">六、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">dump<font face="宋体">数据时间较长，期间不要操作</font><font face="Calibri">SecureCRT</font><font face="宋体">软件</font></span></p><h3 style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;mso-list:l0 level1 lfo1;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-6XFOq8qa5c665378094f0.png" style="width: 342.633px; height: 541.359px;" class="img-responsive"></h3><p class="MsoNormal" align="justify" style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;mso-list:l0 level1 lfo1;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><h3 style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;"><span style="font-family: 宋体; font-size: 10.5pt; color: rgb(255, 0, 0);"><b>由于工具原因导致无法<font face="Calibri">dump &nbsp;Filesystem.bin</font><font face="宋体">文件，可以使用</font><font face="Calibri">ctrl+c</font><font face="宋体">退出。</font></b></span></h3><p class="MsoNormal" align="justify" style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" align="justify" style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;mso-list:l0 level1 lfo1;"><!--[if !supportLists]--><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">七、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;">dump<font face="宋体">出来的文件可以在</font><font face="Calibri">Options</font><font face="宋体">选项中的</font><font face="Calibri">Session Options</font><font face="宋体">看到下载的位置</font></span></p><p class="MsoNormal" align="justify" style="mso-pagination:none;text-align:justify;text-justify:inter-ideograph;mso-list:l0 level1 lfo1;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-8HT37P1C5c6653a51e38f.png" style="width: 443px; height: 264.157px;" class="img-responsive"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><font face="宋体"><br></font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><font face="宋体"><br></font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:10.5000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/02/15/551/" data-id="ckkfmdgc1007fvkcgam3k23yb" data-title="Air720系列-死机dump数据功能使用说明" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-550" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/02/14/550/" class="article-date">
-  <time class="dt-published" datetime="2019-02-14T10:32:40.000Z" itemprop="datePublished">2019-02-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/02/14/550/">乐易派 | 基于Luat+OneNet，快速实现物联网产品60天量产</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>                        &lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-vvxoVUL85c6541efed098.jpg&quot; class=&quot;img-responsive note-float-left&quot; style=&quot;text-align: left; width: 100%; float: left;&quot;&gt;&lt;/p&gt;&lt;section data-role=&quot;outer&quot; label=&quot;Powered by 135editor.com&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; color: rgb(51, 51, 51); font-family: -apple-system-font, BlinkMacSystemFont, &amp;quot;Helvetica Neue&amp;quot;, &amp;quot;PingFang SC&amp;quot;, &amp;quot;Hiragino Sans GB&amp;quot;, &amp;quot;Microsoft YaHei UI&amp;quot;, &amp;quot;Microsoft YaHei&amp;quot;, Arial, sans-serif; letter-spacing: 0.544px; text-align: justify; font-size: 16px; overflow-wrap: break-word !important;&quot;&gt;&lt;section data-role=&quot;outer&quot; label=&quot;Powered by 135editor.com&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;EasyDevice与Luat及OneNet的合作历史&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;深圳乐易派（EasyDevice）自2015年进入物联网产品开发代工领域以来，一直秉承“快速开发、快速量产”的准则，助力多个著名品牌，快速量产热门产品，抢占先机市场，取得成功。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;同时，乐易派不断改进开发流程、采购流程、试产流程、量产流程，逐步实现了“物联网产品，60天从需求到量产”的服务目标。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;上海合宙一直是乐易派物联网产品的2G/4G模块供应商。乐易派一路见证了合宙Luat将近三十多个版本的演进，目前已经将合宙Luat作为乐易派物联网产品的嵌入式软件技术框架来使用，积累了大量经验。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;OneNet物联网开放平台和乐易派的合作也已经超过三年，乐易派开发的物联网产品使用过OneNet平台的MQTT、EDP、HTTP、MBUS等几乎所有的接入协议。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;本文主要分享如何使用Luat和OneNet，快速构建物联网产品嵌入式端的软件，以及在量产过程中的下载管理，产品外投部署后的升级管理等方面的经验。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-foDrvyl85c6542342000e.jpg&quot; class=&quot;img-responsive note-float-left&quot; style=&quot;width: 100%; float: left;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;标准化0.0.0版本简化采购和烧写流程&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;乐易派按照量产定型的产品型号向合宙采购2G/4G模块，同时提供给合宙一个该产品的0.0.0版本的嵌入式软件（固件FW），合宙在模块产线上即将0.0.0版本烧写进2G/4G模块，然后交付给乐易派。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;所有产品的0.0.0版本固件，99%的代码相同，均由三个文件构成：main.lua，devreg.lua，cfg.lua。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;main.lua的代码结构采用了合宙Luat的标准模板，仅修改“PROJECT”产品名称。cfg.lua保存了产品所需的配置参数，其中包括产品向OneNet平台进行“设备注册”所必须的2个参数：“register_code”和“product_id”。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;devreg.lua的功能有两个：&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;其一，通过http协议，使用“register_code”和“product_id”参数向OneNet平台注册产品。产品的“name”统一使用模块的IMEI号，便于在OneNet后台进行查询和维护。OneNet平台返回2个参数：“device_id”和“api_key”，会被保存到cfg.lua中保存，用于产品每次接入OneNet平台时验证身份。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;其二，注册完后，运行update.request()，从合宙iot.openluat.com下载该产品的最新Luat应用版本。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;大量量产产品的生产批次多，每批生产之间有时间间隔，嵌入式固件又经常进行版本迭代，每次生产同步最新版本进行烧写容易出错。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;含有0.0.0版本固件的模块在PCB装焊完成后，首次加电即自动完成OneNet平台的设备注册，然后自动从合宙的固件远程升级服务器下载最新版本的固件覆盖0.0.0版本，自动完成烧写，不用任何人工参与，提高了效率，避免了差错。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;由于0.0.0版本的代码结构基本固定，每个产品其实只需要修改与合宙固件远程升级服务器有个的“PROJECT”参数，以及和OneNet平台“设备注册”流程有关的“register_code”和“product_id”参数，即可交付给合宙生产，永不修改，非常合适乐易派的多种产品、多批次生产、并行向合宙下单采购的特点，避免了烧写版本的差错。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-FN6JQyis5c6542548ec1f.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;通过rssi状态辅助运维&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;从0.0.1版本开始的Luat嵌入式固件，由main.lua，cfg.lua，app.lua等文件组成，其中main.lua和cfg.lua和0.0.0版本一样。而乐易派所有物联网产品的应用程序app.lua和衍生文件的代码，50%固化相同。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;物联网设备的上行信息称为“数据”，设备通过指定协议（例如MQTT）发送给OneNet平台，OneNet平台再自动推送给产品的应用服务器进行使用。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;物联网设备的下行信息称为“命令”，应用服务器通过API接口发送给OneNet平台，OneNet平台通过指定协议发送给物联网设备进行执行。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;乐易派在做系统设计时，将“数据”分成两类：“status”和“evnet”。“status”指随时都存在的信息（例如rssi，电压等），需要周期性上报。“event”指随机产生的信息（如人机交互等），产生后需要即时上报。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;rssi是“status”类必选数据之一，一般5分钟间隔周期上报，作为发送给应用服务器的“心跳”，用来指示物联网设备是否在线。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;同时，通过rssi可以了解设备的接入链路质量。如果链路质量一直很低，说明设备布放位置的网络覆盖不良，应该调整设备位置。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;在生产过程中，在统一的网络环境中观察rssi，可以筛选出天线不达标的产品，保证产品的天线出厂品质的一致性。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;通过BASIC通道广播运维命令&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;产品如果使用MQTT协议，除了OneNet定义的“$creq”“命令”通道（Topic）外，每个设备都会订阅（subscribe）一个“BASIC”自定义通道（Topic）。“命令”一般通过用户的应用服务器调用OneNet的API发给设备，如果乐易派希望对所有设备（包括部署后的设备）进行一次全体复位（或者全体设备更新固件），想通过用户的应用服务器发命令就很不方便。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;乐易派利用OneNet平台提供的MQTT Simulator，注册一个HOST设备，HOST通过“BASIC”通道广播“全体复位”（或者“全体升级”）的消息，触发全体设备执行，可以方便的实现运维和升级。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;通过NTP授时执行定时重启 提高可维护性&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;产品每次复位启动后，第一个动作并不是连接OneNet平台执行既定应用，而是连接一个NTP授时服务器，获得真实时间。真实时间一方面用做上报&quot;status&quot;和&quot;event&quot;的时间戳，更重要的是作为绝对时间，触发设备定时重启（例如一般无人使用的午夜2点）。这个功能在2G应用中尤其重要，目前2G的网络状况恶化，接入设备种类众多（例如大量的共享单车），会出现各种意外的GPRS信道堵塞（尤其是下载大量数据时），甚至逻辑卡死，并且不能自我恢复，必须从新断网后搜网才能解锁。定时重启机制保证即便设备链路卡死，也能够在固定的周期（例如一天）后复位恢复，大幅度降低人工干预的运维成本。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;通过OneNet的loc地图辅助运维&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;NTP授时后，还要通过合宙的LBS位置服务器，获取设备的大概位置，并作为“status”类必选参数之一上报。OneNet平台的设备管理后台有非常友好的位置（loc）地图匹配功能，可以直观查看每台设备的布放位置，辅助运维人员的工作。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;量产产品不能仅关注功能实现&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;每一种物联网产品各有不同的应用功能来实现其价值。但对于真正大量量产使用的物联网产品，可靠性、可生产性、可维护性、低廉的布放后运维成本，则是产品价值实现的基础保障。乐易派通过软件框架，将保障性措施全部规范化，只需要集中精力完成应用功能开发，即可快速进入量产阶段。目前一个产品的固件开发可以控制在一周内结案。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-JKlUgUk55c654269bdd80.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;借物联网生态赋能&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;乐易派在快速实行物联网产品量产过程中，大量借用了合宙（Luat框架、远程版本升级服务器、LBS定位数据库）和OneNet（MQTT Simulator、地图位置功能）提供的平台功能，整合进开发、量产、运维过程，提高整体效率，降低综合成本。随着近期Luatask的推出，乐易派又将Task的消息传递机制导入到框架中，进一步增强了系统的健壮性。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;“60天从需求到量产”，并非乐易派一家之功，而是善用物联网行业生态的能量，站在了巨人的肩膀上！&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-HGchnDTa5c65429935e4a.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;客户案例：2016年 | 物联网门禁&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;客户品牌：社区半径&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;开发时长：45天（含模具开发）&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;生产总量：20000台&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;应用成就：部署进入全国1200个小区的单元门控&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;相关技术：&lt;/p&gt;&lt;ul class=&quot;list-paddingleft-2&quot; style=&quot;margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-left: 2.2em; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;2G接入远程开门&amp;nbsp;&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;BLE短距开门&amp;nbsp;&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;NFC近场开门&lt;/p&gt;&lt;/li&gt;&lt;ul class=&quot;list-paddingleft-2&quot; style=&quot;margin-right: 0px; margin-left: 0px; padding-left: 30px; max-width: 100%; list-style-type: square; overflow-wrap: break-word !important;&quot;&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;小区卡开门&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;公交卡开门&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;银行卡开门&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;二代身份证开门&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-3nyOq9oZ5c6542b6a9d6e.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;客户案例：2017年 | 共享充电宝&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;客户品牌：Hi电&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;开发时长：35天&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;生产总量：50000台&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;应用成就：部署进入北、上、广、深、汉、宁、杭、蓉、渝、湘10大城市热点商圈&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;相关技术：&lt;/p&gt;&lt;ul class=&quot;list-paddingleft-2&quot; style=&quot;margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-left: 2.2em; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;2G接入远程开电&amp;nbsp;&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;大容量电池管理&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-phym80AB5c6542dbed8f0.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;客户案例：2018年 | 桌面广告终端&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;客户品牌：桌美宝&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;开发时长：60天（含模具开发）&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;生产总量：6000台&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;应用成就：部署进入深圳南宁12大热点商圈桌面&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;相关技术：&lt;/p&gt;&lt;ul class=&quot;list-paddingleft-2&quot; style=&quot;margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-left: 2.2em; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;2G接入远程&amp;nbsp;&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;图像处理及显示&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;广告远程发布平台（乐易派开发）&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-wkBi4c1l5c6542fcd0de9.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;客户案例：2018年 | 智能直饮水机（幼儿园专用）&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;span style=&quot;margin: 0px; padding: 0px; max-width: 100%; caret-color: red; overflow-wrap: break-word !important;&quot;&gt;客户品牌：聪聪喝水&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;开发时长：20天&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;生产总量：300台&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;应用成就：试点投放某地100所幼儿园&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;相关技术：&lt;/p&gt;&lt;ul class=&quot;list-paddingleft-2&quot; style=&quot;margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-left: 2.2em; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;4G接入远程&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&amp;nbsp;RFID智能水杯&amp;nbsp;&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;远程水机水杯管理平台（乐易派开发）&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; font-size: 14px; line-height: 1.75em; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-PjT95A8W5c65431a0a134.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 100%;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;section class=&quot;&quot; data-tools=&quot;135编辑器&quot; data-id=&quot;90150&quot; style=&quot;margin: 0px; padding: 0px; max-width: 100%; border-width: 0px; border-style: none; border-color: initial; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 10px auto; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;section style=&quot;margin: 0px; padding: 0px 0px 0px 5px; max-width: 100%; border-width: 0px 0px 1px 10px; border-style: solid; border-bottom-color: rgb(197, 36, 36); border-left-color: rgb(197, 36, 36); border-right-color: rgb(197, 36, 36); overflow-wrap: break-word !important;&quot;&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;接案咨询顾问：CTO/刘&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;“想做量产的是真客户，接了案子，保证量产”&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;“聊聊想法的是好朋友，集思广益，来日方长”&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;br style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;text-align: left; margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; overflow-wrap: break-word !important;&quot;&gt;&lt;strong style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important; background-color: rgb(255, 0, 0);&quot;&gt;TEL&amp;amp;VX : 13066888733&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;strong style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-jowJpBKN5c6543443f997.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 50%;&quot;&gt;&lt;strong style=&quot;margin: 0px; padding: 0px; max-width: 100%; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;&lt;p style=&quot;margin-bottom: 0px; padding: 0px; max-width: 100%; clear: both; min-height: 1em; color: rgb(51, 51, 51); font-family: -apple-system-font, BlinkMacSystemFont, &amp;quot;Helvetica Neue&amp;quot;, &amp;quot;PingFang SC&amp;quot;, &amp;quot;Hiragino Sans GB&amp;quot;, &amp;quot;Microsoft YaHei UI&amp;quot;, &amp;quot;Microsoft YaHei&amp;quot;, Arial, sans-serif; font-size: 17px; letter-spacing: 0.544px; text-align: center; overflow-wrap: break-word !important;&quot;&gt;&lt;br&gt;&lt;/p&gt;
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/02/14/550/" data-id="ckkfmdgf000e3vkcgdibk8nde" data-title="乐易派 | 基于Luat+OneNet，快速实现物联网产品60天量产" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-549" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/02/02/549/" class="article-date">
-  <time class="dt-published" datetime="2019-02-02T03:36:47.000Z" itemprop="datePublished">2019-02-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/02/02/549/">基于Air720的CPE</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>                        &lt;p&gt;&lt;b&gt;CPE是什么：&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;点击下载&lt;/span&gt;&lt;/b&gt;&lt;a href=&quot;http://oldask.openluat.com/file/attachments-2019-02-2r3mQzMg5c5512da6af12_Air720 CPE规格书.pdf&quot;&gt;Air720 CPE规格书.pdf&lt;/a&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;好理解的一个说法，“你家的无线路由器上多出一个4G通道，不用接有线宽带电脑和手机也能上网了”&lt;/p&gt;&lt;p&gt;&lt;img style=&quot;width: 175px;&quot; src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-5PNiEBUq5c550db2bf808.jpg&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;CPE百科：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;无线CPE就是一种接收wifi信号的无线终端接入设备，可取代无线网卡等无线客户端设备。可以接收无线路由器，无线AP，无线基站等的无线信号，是一种新型的无线终端接入设备。同时，它也是一种将高速4G信号转换成WiFi信号的设备，不过需要外接电源，但可支持同时上网的移动终端数量也较多。CPE可大量应用于农村，城镇，医院，单位，工厂，小区,物联网设备等接入，能节省铺设有线网络的费用。&lt;/p&gt;&lt;p&gt;&lt;img style=&quot;width: 151px;&quot; src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-tWaNG23Z5c550e345cbd2.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Air720 CPE 的来历和应用场景：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;我们都知道OpenLuat Air系列最具性价比Luat系统开放应用开发快速高效。一家生产和运营共享设备的公司需求如下，1.设备数量多成本要求严格，2.分布在全国的设备不方便布线，3.需求集中监管提供网络的CPE，这种需求背景下Air720 CPE产生了。&lt;img style=&quot;width: 320px;&quot; src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-IuRobtU15c5508148a684.jpg&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Air720 CPE软硬件组成说明：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;硬件，由于需要多个网口和WiFi，需要选用一个成熟价格合适开发技术资料丰富的路由方案，MT7688符合要求，它内部有物理交换机，是专业的路由器方案。&lt;br&gt;&lt;/p&gt;&lt;p&gt;软件，MT7688上运行OpenWrt Linux,Air720 通过USB RNDIS驱动无需开发就能运行。如果想学习其它平台OpenWrt Linux集成Air720，请参考 &lt;a href=&quot;http://oldask.openluat.com/article/82&quot;&gt;http://oldask.openluat.com/article/82&lt;/a&gt;&lt;/p&gt;&lt;p&gt;OpenWrt Linux可以运行全部的Linux应用，这样Air720 CPE就是一台Linux电脑，可以在上面做Linux二次开发和应用。&lt;/p&gt;&lt;p&gt;&lt;img style=&quot;width: 398px;&quot; src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-W2udWbQV5c550c3aad95d.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Air720 CPE规格：&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;点击下载&lt;/span&gt;&lt;/b&gt;&lt;a href=&quot;http://oldask.openluat.com/file/attachments-2019-02-diwCL2Y15c5512a6e31a1_Air720 CPE规格书.pdf&quot;&gt;Air720 CPE规格书.pdf&lt;/a&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Air720 4G CPE 是基于合宙Air720 4G模块，集成MT7688处理器，小体积，低功耗，最大限 度满足用户对性价比的需求。&lt;br&gt;Air720 4G CPE 系统采用openwrt Linux,,硬件尺寸只有 60*65*7mm,凭借4G无线网络与Linux 操作系统，使Air720 4G CPE成为一台级高性价比的4G网络嵌入式计算机，广范应用在CPE， Mifi，工业数据通信，路由器，安防等应用。&lt;br&gt;主要优势&lt;br&gt;超高性价比，可定制化；&lt;br&gt;功能强大 Linux可以运行所有的应用； &lt;br&gt;基于Linux二次开发应用； &lt;br&gt;内置标准路由器配置接口。&lt;br&gt;规格与参数&lt;br&gt;电源供电&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; PCBA物理尺寸 &lt;br&gt;5V 2A&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 60*65*7mm&lt;br&gt;4G无线&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 2.4G Wi-Fi&lt;br&gt;Air720 D/H/M/T/U&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; IEEE 802.11n 2.4GHz 150Mbps&lt;br&gt;WAN/LAN&lt;br&gt;10/ 100M Ethernet 2个&lt;br&gt;CPU MT7688/MT7628&lt;br&gt;MIPS24KEc 主频580MHz ,内置吞吐量1Gbps物理交换机&lt;br&gt;内存&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Flash &lt;br&gt;256Mbit 16-bit DDR1/ DDR2&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; SPI 64Mbit&lt;br&gt;可扩展接口&lt;br&gt;USB 2.0 host, I2C, I2S, SPI, PWM, UART, GPIO, PCIe and eMMC&lt;br&gt;软件&lt;br&gt;Linux kernel 3.18.45 Openwrt chaos_calmer 15.05.1&lt;br&gt;其它 &lt;br&gt;可选配MT7628支持GE网口，以及IEEE802.11 AC &lt;br&gt;WAN/LAN可以扩展到5个。&lt;/p&gt;&lt;p&gt;&lt;img style=&quot;width: 193px;&quot; src=&quot;http://oldask.openluat.com/image/show/attachments-2019-02-6uHN05I45c550dfbb7862.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Air720 CPE能为你做什么事情：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;&lt;b&gt;1.直接替换原来性价比低的4G路由器&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;2.充当4G物联网Linux计算机网关，在上面运行定制的物联网网关应用&lt;br&gt;&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;3.自定义复杂的路由应用，如ERP系统通过 VPN只与专网通信&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;4.基于MT7688 OpenWrt Linux软硬件系统二次开发其它应用&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;5.WAN与4G带宽叠加加速&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 0);&quot;&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;如有兴趣可以联系上海合宙深圳CPE研发中心：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;QQ群名称: Luat Air720 CPE交流&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;QQ群号: 827963649&lt;br&gt;&lt;/b&gt;&lt;br&gt;&lt;/p&gt;
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/02/02/549/" data-id="ckkfmdgc1007evkcga4wc1mwa" data-title="基于Air720的CPE" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-548" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/01/28/548/" class="article-date">
-  <time class="dt-published" datetime="2019-01-28T09:14:56.000Z" itemprop="datePublished">2019-01-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/01/28/548/">[HTTP] Luat 开发基于OneNET平台HTTP通讯 笔记（测试硬件为Air202）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>                        &lt;p&gt;详情：&lt;/p&gt;&lt;p&gt;https://open.iot.10086.cn/bbs/thread-35465-1-1.html&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/01/28/548/" data-id="ckkfmjka40009u0cg9lmh6629" data-title="[HTTP] Luat 开发基于OneNET平台HTTP通讯 笔记（测试硬件为Air202）" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-547" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/01/28/547/" class="article-date">
-  <time class="dt-published" datetime="2019-01-28T03:57:56.000Z" itemprop="datePublished">2019-01-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/01/28/547/">在core中添加自己的lua模块</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="下载core"><a href="#下载core" class="headerlink" title="下载core"></a>下载core</h1><p>打开<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/gprs/Air202.html">http://www.openluat.com/Product/gprs/Air202.html</a>–&gt; 资料下载 –&gt; 下载源码<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_55567.png"></p>
-<p>把压缩包里的文件解压到一个位置</p>
-<h1 id="添加模块"><a href="#添加模块" class="headerlink" title="添加模块"></a>添加模块</h1><p>假设新增的模块叫<code>test</code>，调用<code>test.get(a)</code>返回<code>a+1</code>后的值</p>
-<p>在<code>core\cust_src\elua\modules\src</code>新建一个文件<code>test.c</code>：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33061.png"></p>
-<p>放入如下示例代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lua.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lualib.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lauxlib.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;platform.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;auxmods.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lrotable.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">test_get</span><span class="params">( lua_State *L )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> number = luaL_checkinteger( L, <span class="number">1</span> );</span><br><span class="line"></span><br><span class="line">    lua_pushinteger( L, number + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Module function map</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lrodefs.h&quot;</span></span></span><br><span class="line"><span class="keyword">const</span> LUA_REG_TYPE test_map[] =</span><br><span class="line">&#123;</span><br><span class="line">  &#123; LSTRKEY( <span class="string">&quot;get&quot;</span> ),  LFUNCVAL( test_get ) &#125;,</span><br><span class="line">  &#123; LNILKEY, LNILVAL &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">LUALIB_API <span class="keyword">int</span> <span class="title">luaopen_test</span><span class="params">( lua_State *L )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  luaL_register( L, AUXLIB_TEST, test_map );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接着，打开文件<code>core\cust_src\elua\modules\include\auxmods.h</code><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40113.png"></p>
-<p>在合适位置加上：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> AUXLIB_TEST  <span class="meta-string">&quot;test&quot;</span></span></span><br><span class="line"><span class="function">LUALIB_API <span class="title">int</span> <span class="params">( luaopen_test )</span><span class="params">( lua_State *L )</span></span>;</span><br></pre></td></tr></table></figure>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67503.png"></p>
-<p>打开<code>core\cust_src\elua\platform\coolsand\include\platform_conf.h</code><br>在合适位置加上<code>_ROM( AUXLIB_TEST, luaopen_test, test_map ) \</code><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22902.png"></p>
-<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>下载csdtk4，解压到c盘根目录：<br><a target="_blank" rel="noopener" href="https://1dv.papapoi.com/%E8%BD%AF%E4%BB%B6/csdk%E7%9B%B8%E5%85%B3/CSDTK4.7z">https://1dv.papapoi.com/%E8%BD%AF%E4%BB%B6/csdk%E7%9B%B8%E5%85%B3/CSDTK4.7z</a></p>
-<p>运行<code>core\project\你需要的lua运行版本\build\ cust_build.bat</code>编译即可<br>运行<code>core\project\你需要的lua运行版本\build\ cust_clean.bat</code>可完全重新编译<br>Lod文件可在<code>core\hex\你需要的lua运行版本\</code>目录找到</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40263.png"></p>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24078.png"></p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24783.png"></p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_31509.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/01/28/547/" data-id="ckkfmdgc0007cvkcg9oo38qvv" data-title="在core中添加自己的lua模块" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-546" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/01/19/546/" class="article-date">
-  <time class="dt-published" datetime="2019-01-19T04:38:58.000Z" itemprop="datePublished">2019-01-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/01/19/546/">使用Air202/720/GPS系列模块快速接入物联网视频教程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>本系列教程包括 合宙资源介绍，下载； Luatools使用方法,驱动安装,以及物联网 快速接入，阿里云，百度云，OneNET ，MQTT ,TCP，SSL 数据流模版使用方法。</p><p>每集大概5-10分钟，基本上每集都没有太多关联性，可以让你画半天时间从嵌入式（单片机开发等）快速链接各种云和服务器。<br></p><p><br></p><p>B站直接视频点播：</p><p><a href="https://www.bilibili.com/video/av41012302/?p=1" target="_blank">https://www.bilibili.com/video/av41012302/?p=1</a><br></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/01/19/546/" data-id="ckkfmdgc0007bvkcg631t60bp" data-title="使用Air202/720/GPS系列模块快速接入物联网视频教程" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/42/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><a class="page-number" href="/page/45/">45</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/44/">下一页 &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/03/01/555/">
+            Air720系列AT命令远程升级配置详细步骤
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>升级平台的配置首先打开升级平台：https://iot.openluat.com
+使用购买模块/开发板时使用的手机号作为用户名，密码默认为888888，登陆后台
+注意，如果是官方平台购买的，并且登陆后台后已经有了一个默认720项目，可以直接去执行AT命令，并且无需设置productkey参数
+登陆后...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-03-01
+            </span>
+          
+        </div>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/02/28/554/">
+            Air720系列4G模块AT版本专网卡使用说明
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+一、如何区分专网卡
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 根据使用的网络类型来分，sim卡可以分为公网卡和专网卡两种&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-02-28
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/02/26/553/">
+            阿里云物联网平台mqtt测试工具
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>使用阿里云物联网平台mqtt连接需要计算user和password等参数比较麻烦，而且容易出错，所以今天分享一个自己写的小工具，可以用于计算连接参数测试mqtt用的MQTT.fx1，下载并安装MQTT.fx软件。Windows系统：&amp;nbsp;http://mqtt-fx.software.info...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-02-26
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/02/15/551/">
+            Air720系列-死机dump数据功能使用说明
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>一、下载安装SecureCRT可通过百度云下载SecureCRT软件，并按照文件包中的提示进行安装注册。链接:&amp;nbsp;https://pan.baidu.com/s/13lhILGSYB4Vilxqb9mo8Ng提取码: a3kt二、模块死机时发送AT*EXASSERT=1会让模块不重启，此时设...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-02-15
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/02/14/550/">
+            乐易派 | 基于Luat+OneNet，快速实现物联网产品60天量产
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;http://oldask.openluat.com/image/show/attachments-2019-02-vvxoVUL85c6541efed098.jpg&amp;quot; class=&amp;qu...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-02-14
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/02/02/549/">
+            基于Air720的CPE
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;b&amp;gt;CPE是什么：&amp;lt;span style=&amp;quot;background-color: rgb(255, 255, 0);&amp;quot;&amp;gt;点击下载&amp;lt;/span&amp;gt;&amp;lt;/b&amp;gt;&amp;lt;a hr...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-02-02
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/01/28/548/">
+            [HTTP] Luat 开发基于OneNET平台HTTP通讯 笔记（测试硬件为Air202）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                        &amp;lt;p&amp;gt;详情：&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;https://open.iot.10086.cn/bbs/thread-35465-1-1.html&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;/p&amp;gt;
+
+...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-01-28
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/01/28/547/">
+            在core中添加自己的lua模块
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>下载core打开http://www.openluat.com/Product/gprs/Air202.html–&amp;gt; 资料下载 –&amp;gt; 下载源码
+把压缩包里的文件解压到一个位置
+添加模块假设新增的模块叫test，调用test.get(a)返回a+1后的值
+在core\cust_src\el...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-01-28
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/01/19/546/">
+            使用Air202/720/GPS系列模块快速接入物联网视频教程
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>本系列教程包括 合宙资源介绍，下载； Luatools使用方法,驱动安装,以及物联网 快速接入，阿里云，百度云，OneNET ，MQTT ,TCP，SSL 数据流模版使用方法。每集大概5-10分钟，基本上每集都没有太多关联性，可以让你画半天时间从嵌入式（单片机开发等）快速链接各种云和服务器。B站直接...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-01-19
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/01/16/545/">
+            用AIR202 通过I2C读取SHT30 数据
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>SHT30 目前 应该算是比较主流的温湿传感器，据说小米的温湿传感器也是使用同款，其中SHT30-DIS 采用I2C方式进行通信，最近开发一款产品需要采集温湿度，我采用AIR202+SHT30方案，从网络上搜索不到用lua语言开发SHT30的方案，只能自已摸索，通过合宙技术的支持，顺利读取到数据，特...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-01-16
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+    <div class="pagenator">
+    
+    
+        <a class="extend prev" href="/page/42">上一页</a>
     
 
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/38">38</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/39">39</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/40">40</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/41">41</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/42">42</a>
+        
+    
+        
+            <span class="extend page-item page-item-select">43</span>
+        
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/44">44</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/45">45</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/46">46</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/47">47</a>
+        
+    
+    
+    
+    
+        <a class="extend next" href="/page/44">下一页</a>
+    
+</div>
 
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

@@ -1,150 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>浅谈物联网开发 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>浅谈物联网开发 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="@TOC 1 基础知识1.1 物联网是个啥物联网，都不用解释，看字面就知道，就是物体和物体之间的联网，英文就叫做 Internet of Things，简称 IOT。这个称谓是为了有别于电脑，手机之间的联网， 因为电脑，手机都是人来操作的，所以电脑手机之间的联网，可以理解为人和人的联网，也就是互联网和移动互联网。在 2015年以前， 还没有 IOT 这个名字，但是有 M2M 这个概念。 M2M 就">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浅谈物联网开发">
-<meta property="og:url" content="https://doc.luatos.wiki/2021/01/26/2415/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="@TOC 1 基础知识1.1 物联网是个啥物联网，都不用解释，看字面就知道，就是物体和物体之间的联网，英文就叫做 Internet of Things，简称 IOT。这个称谓是为了有别于电脑，手机之间的联网， 因为电脑，手机都是人来操作的，所以电脑手机之间的联网，可以理解为人和人的联网，也就是互联网和移动互联网。在 2015年以前， 还没有 IOT 这个名字，但是有 M2M 这个概念。 M2M 就">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111165846661_p1.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111165958103_p2.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170012243_p3.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113084226509_111.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170207011_20201212220322983_diagram.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170237387_p5.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170318843_p6.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170350135_p7.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170424806_p8.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170439089_p9.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110231515334_22222.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110235619885_444.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110235400248_3333.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111172722066_P31.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111172906802_P32.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111172951521_P33.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173015646_P34.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173041876_P35.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173154334_P36.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173344102_P37.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173418093_P38.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173451841_P39.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173548677_P40.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173608452_P41.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173634328_P42.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173701793_P45.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173724288_P46.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173745387_P47.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173810254_P48.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173832166_P49.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173902082_P410.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173922740_P411.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174006268_P412.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174030191_P413.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174052751_P414.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174109374_P415.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174132302_P416.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174201329_P417.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111180203030_P419.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111180249740_P420.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111180311523_P421.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111180336305_P422.jpg">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230212431186_55.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230210615740_11.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230211040673_44.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230211050385_22.png">
-<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230211212012_33.png">
-<meta property="article:published_time" content="2021-01-26T02:26:41.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111165846661_p1.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-2415" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/01/26/2415/" class="article-date">
-  <time class="dt-published" datetime="2021-01-26T02:26:41.000Z" itemprop="datePublished">2021-01-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      浅谈物联网开发
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">浅谈物联网开发</h1>
+<article class="post markdown-style">
+  <p>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
 <h1 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1 基础知识"></a>1 基础知识</h1><h2 id="1-1-物联网是个啥"><a href="#1-1-物联网是个啥" class="headerlink" title="1.1 物联网是个啥"></a>1.1 物联网是个啥</h2><p>物联网，都不用解释，看字面就知道，就是物体和物体之间的联网，英文就叫做 Internet of Things，简称 IOT。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111165846661_p1.png" alt="undefined" title="undefined"><br>这个称谓是为了有别于电脑，手机之间的联网， 因为电脑，手机都是人来操作的，所以电脑手机之间的联网，可以理解为人和人的联网，也就是互联网和移动互联网。<br>在 2015年以前， 还没有 IOT 这个名字，但是有 M2M 这个概念。 M2M 就是 machine to machine 的意思，机器和机器之间的通信。在 2015 年的某个时间，有个中国人，具体是谁不知道了，在某个国际会议上， 提出了 IOT 的说法，但是据他说，IOT 也不是他提出来的， 而是 1991 年有麻省理工学院的 Kevin Ashton 教授提出来的，只不过当时提出来的时候，没什么人关注。从此以后， 世人都说 IOT， 没人再说 M2M 这个词了。对于通信从业者来说，物和物之间联网，具有无限大的想象力。长久以来，没人知道物联网是干啥的，只知道它是个很牛掰的行业。也就是这几年，物联网突然火起来了，为什么火起来，也没人知道。很可能是因为手机付钱方便了之后，对联网的物体付费更快了，所以突然联网收费的设备多起来了，从共享单车开始，无人售货机，共享充电宝<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111165958103_p2.jpg" alt="undefined" title="undefined"></p>
 <h3 id="1-1-1-物联网的核心价值"><a href="#1-1-1-物联网的核心价值" class="headerlink" title="1.1.1 物联网的核心价值"></a>1.1.1 物联网的核心价值</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111170012243_p3.jpg" alt="undefined" title="undefined"><br>人和人之间，通过互联网，提升了沟通效率，促进了人类能力的大发展。<br>物和物之间联网， 有什么好处呢？<br>物和物之间联网，有利于人类更好的了解物体；<br>一棵荒漠里面的珍贵的树木，如果能够联网，人类不需要花费很多费用去亲临现场，也可以很容易的知道这棵树的生长状况；<br>危险环境的设备如果联网，人类可以很容易监控设备的运行状态，不需要亲临仙境，承担生命的风险。<br>人类可以更容易操控设备<br>如果一台叉车能够联网， 人只要坐在控制房里面，就可以远程操控这台叉车，不用坐在驾驶室里面， 忍受高温或者高寒的环境；<br>自行车，充电宝，实现了联网，人类在任何有单车和充电宝的地方，用手机扫码一下，就可以使用充电宝和单车的服务，只需要付租金，不需要购买一个单车或者充电宝；<br>煤气表，水表，电表联网之后，自动把计量信息上报云端服务器，服务器自动就可以出账单给到用户，用户直接付款即可，不需要人工再去用户家里面抄表；<br>人类可以更方便的收集行业数据，方便决策<br>物体联网之后，每天都上报数据，这些数据日积月累， 形成大数据，方便人类做决策。<br>格力出厂的每一个空调， 都具备了联网能力，这些空调销售到各个渠道，渠道销售到各个用户家里。通过这么多空调的数据上报，格力就可以很容易的知道， 空调都销售到了哪些地区，所以格力可以更方便做供应链的决策；<br>腾讯通过把联网的收款喇叭销售到各个商户，这些喇叭每天上报交易数据，腾讯可以很容易知道商户的分布，生意好坏，所以更容易针对各个地区进行商业布局。<br>总而言之，物和物之间的联网，是在人和物之间，建立纽带，不仅提升物体的运行效率，也提升人类活动的效率。</p>
 <h3 id="1-1-2-物联网构成"><a href="#1-1-2-物联网构成" class="headerlink" title="1.1.2 物联网构成"></a>1.1.2 物联网构成</h3><p>物体联网的目的是上报数据，以及做设备的控制，管理。<br>要达到这个目标， 物联网除了传统的物体之外，还需要有数据采集，设备控制，通信模块，云端应用，以及人机界面。</p>
@@ -321,134 +242,160 @@
 <h3 id="4-3-4功能模块"><a href="#4-3-4功能模块" class="headerlink" title="4.3.4功能模块"></a>4.3.4功能模块</h3><p>1.常见外设功能<br>ADC，GPIO，PWM，I2C，SPI，UART，SDIO，LCD，Camera等<br>2.音频播放功能；<br>支持文件播放和流播放；支持mp3、amr，wav数据格式；<br>3.蓝牙功能模块；<br>支持4.2版本的双模蓝牙（经典蓝牙/低功耗蓝牙），支持主模式、从模式、广播模式；<br>支持低功耗蓝牙广播、扫描<br>支持低功耗蓝牙主、从设备连接<br>支持低功耗蓝牙数据透传<br>支持低功耗蓝牙ibeacon<br>支持经典蓝牙设备搜索、配对、连接（开发中）<br>支持经典蓝牙数据透传（开发中）<br>4.加解密算法功能模块；<br>支持base64、md5、sha1、sha256、hmac_md5、hmac_sha1、hmac_sha256、crc8、crc16、crc32、aes、des、des3、xxtea、rsa、rsa_sha256<br>5.WiFi定位<br>wifi热点扫描功能模块；<br>支持wifi热点扫描，可用于wifi定位；不支持wifi数据传输；<br>6.二维码功能模块；<br>支持二维码的生成和显示；<br>7.文字转语音（tts）功能模块；<br>支持tts播放；<br>8.图形库功能模块；<br>支持按钮、标签、容器、菜单等丰富的控件；<br>9.文件操作功能模块；<br>支持文件的创建、读、写、删除；<br>10.远程升级功能模块；<br>支持合宙iot服务器或者自定义http服务器远程升级；<br>11.数据传输功能<br>支持TCP/UDP/HTTP/FTP/MQTT/PPP等常用的数据传输协议，满足大部分产品需求。</p>
 <h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>物联网应用场景广泛，使用环境复杂，用户应根据自己的实际需求与现场条件选择最适合的产品。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2021/01/26/2415/" data-id="ckkfmdgff00ekvkcgbddx1gvn" data-title="浅谈物联网开发" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/01/26/2417/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Air720S系列_luat二次开发固件（ 底层软件+上层脚本）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/01/25/2406/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">promise浅析</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2021/01/26/2417/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2021/01/25/2406/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

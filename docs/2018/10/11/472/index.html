@@ -1,242 +1,226 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>Linux服务器下安装Tomcat8服务器详细教程 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Linux服务器下安装Tomcat8服务器详细教程 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用。$ d&#x2F; w+ z6 I0 E8 R+ G0 R&quot; W对于创客进行物联网方面的发明创造时，可以将用java语言编写的web应用程序部署到Tomcat服务器中，这绝对是一个不错的选择。那么在这篇文章中，我将去在自己的Linux服务器上安装Tomcat8，当你想要">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Linux服务器下安装Tomcat8服务器详细教程">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/10/11/472/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用。$ d&#x2F; w+ z6 I0 E8 R+ G0 R&quot; W对于创客进行物联网方面的发明创造时，可以将用java语言编写的web应用程序部署到Tomcat服务器中，这绝对是一个不错的选择。那么在这篇文章中，我将去在自己的Linux服务器上安装Tomcat8，当你想要">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg">
-<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg">
-<meta property="article:published_time" content="2018-10-11T07:05:55.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-472" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/10/11/472/" class="article-date">
-  <time class="dt-published" datetime="2018-10-11T07:05:55.000Z" itemprop="datePublished">2018-10-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Linux服务器下安装Tomcat8服务器详细教程
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用<font color="#136ec2" style="word-wrap: break-word;"><font face="arial, 宋体, sans-serif" style="word-wrap: break-word;"><a href="http://baike.baidu.com/view/899.htm" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">服务器</a></font></font>，在中小型系统和并发访问用户不是很多的场合下被普遍使用。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">$ d/ w+ z6 I0 E8 R+ G0 R" W</font><br style="word-wrap: break-word;"></font></p><p><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#ff00ff" style="word-wrap: break-word;">对于创客进行物联网方面的发明创造时，可以将用java语言编写的web应用程序部署到Tomcat服务器中，这绝对是一个不错的选择。那么在这篇文章中，我将去在自己的Linux服务器上安装Tomcat8，当你想要按照我的步骤去在自己服务器上安装Tomcat服务器时，请先确保一下条件：</font></font></p><p><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">. D( z6 b8 U# K) Y</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、你有自己的Linux系统服务器，我的服务器是Centos 6.8 64位系统。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">0 ]) v9 I( C% I% d</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、你已经在服务器上安装了JDK，我的服务器已经安装了JDK，版本为jdk1.8.0_65。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">! l1 c5 m* c# y+ g&nbsp;&nbsp;K6 V. j&amp; k</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2 n&nbsp;&nbsp;b+ G) q3 }0 ^* A( Z' d, }2 h</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font color="#ff0000" style="word-wrap: break-word;">具备上面两个前提条件后，接下来，看我如何安装Tomcat8：</font></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、首先要到tomcat官网，找到tomcat8的下载连接。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">tomcat官网地址为：<a href="http://tomcat.apache.org/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">http://tomcat.apache.org/</a></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">; C5 x5 r! r+ f&nbsp;&nbsp;f. r: L</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">' a0 e* G4 c* ?&nbsp;&nbsp;q# \&nbsp;&nbsp;`# s- C</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">进入tomcat官网后，找到下载界面，如下所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6 T; r! Y! c6 ^+ [3 c! ]. {* V&nbsp;&nbsp;N+ w0 [</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1417" aid="1417" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg" zoomfile="data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg" file="data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg" class="zoom" width="274" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">找到tar.gz这个文件，并获取下载地址，例如我这用的是傲游云浏览器，tar.gz后就弹出下载页面，就有下载地址，复制一下。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&amp; t" t9 m1 U" K1 ?</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、使用putty软件连接服务器，进入输入 cd /web/eoair/download 进入download目录。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">: n&amp; B&amp; z+ H&amp; F5 k; \</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">; \0 s) R+ N2 R6 G8 A$ o</font><br style="word-wrap: break-word;"></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">3、输入 wget&nbsp;<font color="#336699" style="word-wrap: break-word;">http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.0.28/bin/apache-tomcat-8.0.28.tar.gz</font>&nbsp;下载tomcat8的压缩文件包。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( a# y4 u0 u, t* y4 T/ h$ J</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">wget是Linux的下载命令，wget后面是tomcat8压缩包的url地址。tomcat官网有时候更新版本，也许这个url会失效，那么大家应该自己去官网找正确的url。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">7 ]2 \&amp; C) B! c9 ]# v1 d</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">7 W: E! Z) p. X: O% ~2 Z) L6 ~</font><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">8 S% D, ^9 _9 f. v$ V, K0 G3 v</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">等待下载完毕，输入 ll 查看文件，如下所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1418" aid="1418" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg" zoomfile="data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg" file="data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">$ K+ g8 c3 E0 s* C7 d- o6 M</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5 d6 T4 x" z/ k&nbsp;&nbsp;j# A</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看到上图中有 apache-tomcat-8.0.28.tar.gz ，这个就是我们刚才下载的tomcat8压缩包文件。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1 Z1 m% ~, n' Q" t* m+ k</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4、接下来，输入 tar -zxvf apache-tomcat-8.0.28.tar.gz&nbsp;&nbsp;将tomcat8的压缩文件进行解压，解压后，输入 ll 查看 文件情况如下:</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&nbsp;&nbsp;u3 c8 [- x, m% N</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1420" aid="1420" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg" zoomfile="data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg" file="data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看上图，蓝色的那个路径就是解压出来的。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">2 G3 S0 c) X$ R( B/ S' ^</font><br style="word-wrap: break-word;"></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5、解压出来的tomcat8名字太长了，给他给一下，输入 mv apache-tomcat-8.0.28 tomcat8 ，将其改为tomcat8，然后输入ll 查看一下如下图所示:</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1421" aid="1421" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg" zoomfile="data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg" file="data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">! M# p0 @) {1 ~</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看上图，蓝色的那个已经修改成功。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&nbsp;&nbsp;d3 }" f: P! _1 H" E! a3 M( W5 E</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">- H/ \7 `9 b' _6 A4 N! h</font><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">$ c&amp; k1 p% R( e</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6、输入 cd / 回到服务器根目录，输入 mv /web/eoair/download/tomcat8&nbsp;&nbsp;/web/eoair 将tomcat8转移到eoair目录下。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入 cd /web/eoair 进入eoair目录，然后输入 ll 查看文件如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">: f8 d0 _8 R" t$ O+ {" M: H</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1422" aid="1422" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg" zoomfile="data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg" file="data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg" class="zoom" width="550" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">从上图中可以看出，在eoair目录下已经有了tomcat8，这说明转移成功。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"># W( N* D&nbsp;&nbsp;K4 ^</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">7 E4 R; N/ B: F</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">7、download目录已经没有用了，那么将其删除，输入 rm -rf /web/eoair/download 接可以删除download目录及其内部的文件了。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6 l$ n! A% O7 U</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">* G: {1 C6 P1 d</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font color="#ff0000" style="word-wrap: break-word;">截至到这，tomcat8已经算是安装好了，可是还没结束，接下来需要为tomcat8配置环境变量：</font></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、输入vim /etc/profile 打开profile文件，按下键盘上的i键进入编辑模式，在profile文件内容的最下边，添加 export CATALINA_HOME=/web/eoair/tomcat8 如下图所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1423" aid="1423" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg" zoomfile="data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg" file="data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg" class="zoom" width="539" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">CATALINA_HOME的值是tomcat8的目录，别写错了。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"># W&nbsp;&nbsp;[8 V% S&amp; ]# _' W</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入完毕后，按一下键盘上的Esc键，然后按住shift键同时按:键，然后输入wq并回车，就可以保存并退出profile文件。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1 m% i; X2 [8 \( B. y0 y</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、输入 source /etc/profile&nbsp;&nbsp;可以让修改过的profile文件立即生效。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( C' t, V" n&amp; n$ K3 N</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">3、接下来就可以启动tomcat服务器了。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入 cd /web/eoair/tomcat8/bin 进入tomcat服务器的bin目录下，然后输入ll 查看文件，我们可以找到一个startup.sh的文件，这个文件就是tomcat的启动文件，如下图所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1424" aid="1424" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg" zoomfile="data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg" file="data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg" class="zoom" width="507" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/ m/ w8 B% e&amp; _</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( M- u' _( `' W) U</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入 ./startup.sh 并回车，可以看到如下界面：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1425" aid="1425" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg" zoomfile="data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg" file="data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">+ v- u$ }&nbsp;&nbsp;N7 H. b&amp; i. Q</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看到上面界面，说明Tomcat启动成功。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">. @7 ~- b$ O/ l</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4、虽然Tomcat启动成功，但是不能确定配置没问题，接下来，验证一下。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/ ]9 `&nbsp;&nbsp;\7 S6 C2 R&amp; N</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">打开你的浏览器，输入你的服务器IP地址或域名，由于Tomcat服务器默认占用8080端口，因此浏览器地址栏的输入格式是：IP:8080 或 你的域名:8080 ，由于我已经为服务器绑定域名为<a href="http://www.58check.com/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com</a>，因此我在浏览器地址栏输入&nbsp;<a href="http://www.58check.com:8080/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com:8080</a>&nbsp;然后就看到了Tomcat的默认主页如下图所示，这就说明一切Ok，Tomcat服务器已经可以使用了:</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&nbsp;&nbsp;r( X" [: W, G; G" K&amp; B</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1426" aid="1426" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg" zoomfile="data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg" file="data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg" class="zoom" width="310" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">0 U6 q) W2 Y6 P7 L4 W. ?/ l</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1427" aid="1427" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg" zoomfile="data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg" file="data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op><br></p>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/10/11/472/" data-id="ckkfmdgee00cxvkcgcmcb2rk4" data-title="Linux服务器下安装Tomcat8服务器详细教程" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/10/11/473/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Linux服务器安装Apache服务器和PHP环境教程
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/10/11/471/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Linux服务器安装JAVA环境</div>
-    </a>
-  
-</nav>
+    <div class="container">
+        <h1 class="post-title">Linux服务器下安装Tomcat8服务器详细教程</h1>
+<article class="post markdown-style">
+  <p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用<font color="#136ec2" style="word-wrap: break-word;"><font face="arial, 宋体, sans-serif" style="word-wrap: break-word;"><a href="http://baike.baidu.com/view/899.htm" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">服务器</a></font></font>，在中小型系统和并发访问用户不是很多的场合下被普遍使用。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">$ d/ w+ z6 I0 E8 R+ G0 R" W</font><br style="word-wrap: break-word;"></font></p><p><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#ff00ff" style="word-wrap: break-word;">对于创客进行物联网方面的发明创造时，可以将用java语言编写的web应用程序部署到Tomcat服务器中，这绝对是一个不错的选择。那么在这篇文章中，我将去在自己的Linux服务器上安装Tomcat8，当你想要按照我的步骤去在自己服务器上安装Tomcat服务器时，请先确保一下条件：</font></font></p><p><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">. D( z6 b8 U# K) Y</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、你有自己的Linux系统服务器，我的服务器是Centos 6.8 64位系统。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">0 ]) v9 I( C% I% d</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、你已经在服务器上安装了JDK，我的服务器已经安装了JDK，版本为jdk1.8.0_65。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">! l1 c5 m* c# y+ g&nbsp;&nbsp;K6 V. j&amp; k</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2 n&nbsp;&nbsp;b+ G) q3 }0 ^* A( Z' d, }2 h</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font color="#ff0000" style="word-wrap: break-word;">具备上面两个前提条件后，接下来，看我如何安装Tomcat8：</font></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、首先要到tomcat官网，找到tomcat8的下载连接。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">tomcat官网地址为：<a href="http://tomcat.apache.org/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">http://tomcat.apache.org/</a></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">; C5 x5 r! r+ f&nbsp;&nbsp;f. r: L</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">' a0 e* G4 c* ?&nbsp;&nbsp;q# \&nbsp;&nbsp;`# s- C</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">进入tomcat官网后，找到下载界面，如下所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6 T; r! Y! c6 ^+ [3 c! ]. {* V&nbsp;&nbsp;N+ w0 [</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1417" aid="1417" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg" zoomfile="data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg" file="data/attachment/forum/201511/20/184339r21ud2m3023dq7kk.jpg" class="zoom" width="274" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">找到tar.gz这个文件，并获取下载地址，例如我这用的是傲游云浏览器，tar.gz后就弹出下载页面，就有下载地址，复制一下。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&amp; t" t9 m1 U" K1 ?</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、使用putty软件连接服务器，进入输入 cd /web/eoair/download 进入download目录。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">: n&amp; B&amp; z+ H&amp; F5 k; \</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">; \0 s) R+ N2 R6 G8 A$ o</font><br style="word-wrap: break-word;"></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">3、输入 wget&nbsp;<font color="#336699" style="word-wrap: break-word;">http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.0.28/bin/apache-tomcat-8.0.28.tar.gz</font>&nbsp;下载tomcat8的压缩文件包。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( a# y4 u0 u, t* y4 T/ h$ J</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">wget是Linux的下载命令，wget后面是tomcat8压缩包的url地址。tomcat官网有时候更新版本，也许这个url会失效，那么大家应该自己去官网找正确的url。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">7 ]2 \&amp; C) B! c9 ]# v1 d</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">7 W: E! Z) p. X: O% ~2 Z) L6 ~</font><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">8 S% D, ^9 _9 f. v$ V, K0 G3 v</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">等待下载完毕，输入 ll 查看文件，如下所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1418" aid="1418" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg" zoomfile="data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg" file="data/attachment/forum/201511/20/185237xvqnnqmvc7ew7cc8.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">$ K+ g8 c3 E0 s* C7 d- o6 M</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5 d6 T4 x" z/ k&nbsp;&nbsp;j# A</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看到上图中有 apache-tomcat-8.0.28.tar.gz ，这个就是我们刚才下载的tomcat8压缩包文件。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1 Z1 m% ~, n' Q" t* m+ k</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4、接下来，输入 tar -zxvf apache-tomcat-8.0.28.tar.gz&nbsp;&nbsp;将tomcat8的压缩文件进行解压，解压后，输入 ll 查看 文件情况如下:</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&nbsp;&nbsp;u3 c8 [- x, m% N</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1420" aid="1420" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg" zoomfile="data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg" file="data/attachment/forum/201511/20/190920nu9urk44um014k4b.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看上图，蓝色的那个路径就是解压出来的。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">2 G3 S0 c) X$ R( B/ S' ^</font><br style="word-wrap: break-word;"></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5、解压出来的tomcat8名字太长了，给他给一下，输入 mv apache-tomcat-8.0.28 tomcat8 ，将其改为tomcat8，然后输入ll 查看一下如下图所示:</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1421" aid="1421" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg" zoomfile="data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg" file="data/attachment/forum/201511/20/191107bii5xififxcusxzn.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">! M# p0 @) {1 ~</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看上图，蓝色的那个已经修改成功。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&nbsp;&nbsp;d3 }" f: P! _1 H" E! a3 M( W5 E</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">- H/ \7 `9 b' _6 A4 N! h</font><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">$ c&amp; k1 p% R( e</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6、输入 cd / 回到服务器根目录，输入 mv /web/eoair/download/tomcat8&nbsp;&nbsp;/web/eoair 将tomcat8转移到eoair目录下。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入 cd /web/eoair 进入eoair目录，然后输入 ll 查看文件如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">: f8 d0 _8 R" t$ O+ {" M: H</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1422" aid="1422" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg" zoomfile="data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg" file="data/attachment/forum/201511/20/191647p14o8i09zv7u97kg.jpg" class="zoom" width="550" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">从上图中可以看出，在eoair目录下已经有了tomcat8，这说明转移成功。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"># W( N* D&nbsp;&nbsp;K4 ^</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">7 E4 R; N/ B: F</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">7、download目录已经没有用了，那么将其删除，输入 rm -rf /web/eoair/download 接可以删除download目录及其内部的文件了。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6 l$ n! A% O7 U</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">* G: {1 C6 P1 d</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font color="#ff0000" style="word-wrap: break-word;">截至到这，tomcat8已经算是安装好了，可是还没结束，接下来需要为tomcat8配置环境变量：</font></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、输入vim /etc/profile 打开profile文件，按下键盘上的i键进入编辑模式，在profile文件内容的最下边，添加 export CATALINA_HOME=/web/eoair/tomcat8 如下图所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1423" aid="1423" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg" zoomfile="data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg" file="data/attachment/forum/201511/20/192952j4vmfc47hxcrz6xm.jpg" class="zoom" width="539" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">CATALINA_HOME的值是tomcat8的目录，别写错了。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"># W&nbsp;&nbsp;[8 V% S&amp; ]# _' W</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入完毕后，按一下键盘上的Esc键，然后按住shift键同时按:键，然后输入wq并回车，就可以保存并退出profile文件。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1 m% i; X2 [8 \( B. y0 y</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、输入 source /etc/profile&nbsp;&nbsp;可以让修改过的profile文件立即生效。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( C' t, V" n&amp; n$ K3 N</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">3、接下来就可以启动tomcat服务器了。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入 cd /web/eoair/tomcat8/bin 进入tomcat服务器的bin目录下，然后输入ll 查看文件，我们可以找到一个startup.sh的文件，这个文件就是tomcat的启动文件，如下图所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1424" aid="1424" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg" zoomfile="data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg" file="data/attachment/forum/201511/20/193900g8n5363h6piaqzw3.jpg" class="zoom" width="507" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/ m/ w8 B% e&amp; _</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( M- u' _( `' W) U</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入 ./startup.sh 并回车，可以看到如下界面：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1425" aid="1425" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg" zoomfile="data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg" file="data/attachment/forum/201511/20/194040gbotlv5bnhnjr1nd.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">+ v- u$ }&nbsp;&nbsp;N7 H. b&amp; i. Q</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">看到上面界面，说明Tomcat启动成功。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">. @7 ~- b$ O/ l</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4、虽然Tomcat启动成功，但是不能确定配置没问题，接下来，验证一下。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/ ]9 `&nbsp;&nbsp;\7 S6 C2 R&amp; N</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">打开你的浏览器，输入你的服务器IP地址或域名，由于Tomcat服务器默认占用8080端口，因此浏览器地址栏的输入格式是：IP:8080 或 你的域名:8080 ，由于我已经为服务器绑定域名为<a href="http://www.58check.com/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com</a>，因此我在浏览器地址栏输入&nbsp;<a href="http://www.58check.com:8080/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com:8080</a>&nbsp;然后就看到了Tomcat的默认主页如下图所示，这就说明一切Ok，Tomcat服务器已经可以使用了:</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&nbsp;&nbsp;r( X" [: W, G; G" K&amp; B</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1426" aid="1426" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg" zoomfile="data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg" file="data/attachment/forum/201511/20/194410i34kvev9hy1knk3f.jpg" class="zoom" width="310" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">0 U6 q) W2 Y6 P7 L4 W. ?/ l</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1427" aid="1427" src="http://bbs.qdclab.com/data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg" zoomfile="data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg" file="data/attachment/forum/201511/20/194515ccw9xbn3cxhooyw3.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op><br></p>
 
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/10/11/473/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/10/11/471/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

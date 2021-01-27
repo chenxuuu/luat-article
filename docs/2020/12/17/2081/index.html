@@ -1,231 +1,226 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>合宙Cat1超低功耗方案 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>合宙Cat1超低功耗方案 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="一、超低功耗是什么超低功耗是相对于低功耗而言的。考虑到模块大部分应用场景：系统休眠后，依然需要隔一段时间进行数据收发，来上报设备的状态。所以传统的低功耗数据只具备一定的参考意义，实际业务场景下，并不能达到这个数值。超低功耗是针对【隔段时间收发数据】这一场景的特定优化，来降低产品的整体功耗。特别说明：不管是进入低功耗还是超低功耗状态，都不会丢失服务器发来的数据。二、能降低多少功耗合宙Cat1 AT标">
-<meta property="og:type" content="article">
-<meta property="og:title" content="合宙Cat1超低功耗方案">
-<meta property="og:url" content="https://doc.luatos.wiki/2020/12/17/2081/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="一、超低功耗是什么超低功耗是相对于低功耗而言的。考虑到模块大部分应用场景：系统休眠后，依然需要隔一段时间进行数据收发，来上报设备的状态。所以传统的低功耗数据只具备一定的参考意义，实际业务场景下，并不能达到这个数值。超低功耗是针对【隔段时间收发数据】这一场景的特定优化，来降低产品的整体功耗。特别说明：不管是进入低功耗还是超低功耗状态，都不会丢失服务器发来的数据。二、能降低多少功耗合宙Cat1 AT标">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-17T13:08:51.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-2081" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/12/17/2081/" class="article-date">
-  <time class="dt-published" datetime="2020-12-17T13:08:51.000Z" itemprop="datePublished">2020-12-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      合宙Cat1超低功耗方案
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2><span style="color:#000000">一、超低功耗是什么</span></h2><p>超低功耗是相对于低功耗而言的。考虑到模块大部分应用场景：系统休眠后，依然需要隔一段时间进行数据收发，来上报设备的状态。所以传统的低功耗数据只具备一定的参考意义，实际业务场景下，并不能达到这个数值。超低功耗是针对【隔段时间收发数据】这一场景的特定优化，来降低产品的整体功耗。</p><p><strong>特别说明：不管是进入低功耗还是超低功耗状态，都不会丢失服务器发来的数据。</strong></p><h2><span style="color:#000000">二、能降低多少功耗</span></h2><p>合宙Cat1 AT标准固件，在实网下测量的功耗数据如下：</p><p></p><table border="1" style="border-collapse: collapse"><colgroup><col width="0"></col><col width="0"></col><col width="0"></col><col width="0"></col><col width="0"></col></<colgroup><tr><td style="text-align:center;" colSpan="2" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">测试项</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">移动BAND40</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">联通BAND1</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">电信BAND1</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">样机数量</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">3PCS</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1#</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1#</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1#</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">信号质量</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CESQ</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">67</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">61</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">68</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="3"><span style="font-size:14px"><span style="color:#000000">飞行模式(mA)</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">底电流</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.2</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.2</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.2</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CFUN=0</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CFUN=4</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">工作电流(mA)</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">IDLE模式</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">12.37</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">11.98</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">12.72</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">休眠电流(mA)</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CSCLK=2</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.96</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.72</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">2.71</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">TCP心跳包保活(mA)</span></span><br/><span style="font-size:14px"><span style="color:#000000">（默认设置）</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1分钟一次</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">10.17</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">9.32</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">8.29</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">TCP心跳包保活(mA)</span></span><br/><span style="font-size:14px"><span style="color:#000000">（超低功耗AT*RTIME=1）</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1分钟一次</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">3.95</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">3.76</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">4.41</span></span></td></tr></table><p>从最后两行对比结果看，超低功耗模式下，<strong>心跳包保活场景功耗降低了一半以上。</strong></p><p><strong>注意：实际测量数据会受网络信号、是否已经注册上网、外围是否接了设备因素影响，如果差异比较大建议先断开外围设备，进入飞行模式对比一下数据。</strong></p><h2><span style="color:#000000">三、什么时候用</span></h2><p>超低功耗可用于大多数的数传业务场景。这些场景有一个共同的特点：需要传输数据的时候利用网络进行数据传输，传输完成后，设备进入心跳包保活状态。超低功耗正是针对心跳保活功耗的优化来实现整体功耗的降低。典型产品场景有：云喇叭、监控摄像头、共享设备、远程控制等。</p><h2><span style="color:#000000">四、怎么用</span></h2><p>首先，打开进入低功耗休眠模式，让设备空闲状态下进入低功耗状态；其次，通过AT命令AT*RTIME打开超低功耗模式。下面以AT版本为例，设置步骤如下：</p><p>1，打开低功耗模式：AT+CSCLK=2</p><p>2，关闭网络灯：AT+CNETLIGHT=0</p><p>3，关闭日志： AT^TRACECTRL=0,0和AT^TRACECTRL=1,0</p><p>4，设置串口立即休眠：AT+WAKETIM=1</p><p>5，设置超低功耗：AT*RTIME=2</p><p>步骤1-4参考通用AT指令手册。</p><p>下面单独介绍一下超低功耗AT指令：</p><p>AT*RTIME=&lt;n&gt;</p><p><span style="color:#333333">该命令设置后会被保存到NV中，掉电后存储。</span></p><p><strong><span style="font-size:12px"><span style="color:#444444">语法规则：</span></span></strong></p><p></p><table border="1" style="border-collapse: collapse"><colgroup><col width="0"></col><col width="0"></col><col width="0"></col></<colgroup><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">命令类型</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">语法</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">返回</span></span></td></tr><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">设置命令</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT*RTIME=&lt;wait_time&gt;</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">OK</span></span></td></tr><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">查询命令</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT*RTIME？</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">*RTIME: &lt;wait_time&gt; OK</span></span></td></tr></table><p><strong><span style="font-size:12px"><span style="color:#444444">参数定义：</span></span></strong></p><p></p><table border="1" style="border-collapse: collapse"><colgroup><col width="0"></col><col width="0"></col><col width="0"></col><col width="0"></col></<colgroup><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">参数</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">定义</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">取值</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">对取值的说明</span></span></td></tr><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">&lt;wait_time&gt;</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">在数传模式下，等待多长时间进入休眠状态</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">0~20</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">单位:秒，0表示关闭。</span></span></td></tr></table><p>信号正常情况下，&lt;n&gt;值越短功耗就越低，建议设置为2。如果实际使用环境信号比较差，数据收发经常出现重传延迟，那这个值就需要改大。</p><p><br/></p><h2><span style="color:#000000">五、哪个版本才支持</span></h2><p>AT版本&gt;=V301716</p><p>Lua版本&gt;=V3024</p><p>CSDK版&gt;= 2020-12-19提交 <a href="https://gitee.com/openLuat/Luat_CSDK_Air724U" target="">https://gitee.com/openLuat/Luat_CSDK_Air724U</a></p><p></p><h2><span style="color:#000000">六、要注意什么</span></h2><p>1，在进行CTA/GCF等测试认证的时候需要关闭该功能。</p><p>2，如果心跳包比较频繁，不如10秒一次，那就不建议开启这个功能，极端情况下可能会导致设备断网。</p><p>3，如果数传是基于UDP这种非可靠传输，打开这个功能后，丢包概率会变大。<br/></p><p><br/></p><p><br/></p><p><br/></p><p><br/></p>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/12/17/2081/" data-id="ckkfmdgab002tvkcgdi49b8um" data-title="合宙Cat1超低功耗方案" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/12/21/2092/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          合宙Cat1模块能支持各种Sim卡的哪些功能
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/12/17/2080/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">3、Linux常用技巧：解决Linux下USB设备节点ttyUSB名不固定的问题，生成固定USB转串口设备节点</div>
-    </a>
-  
-</nav>
+    <div class="container">
+        <h1 class="post-title">合宙Cat1超低功耗方案</h1>
+<article class="post markdown-style">
+  <h2><span style="color:#000000">一、超低功耗是什么</span></h2><p>超低功耗是相对于低功耗而言的。考虑到模块大部分应用场景：系统休眠后，依然需要隔一段时间进行数据收发，来上报设备的状态。所以传统的低功耗数据只具备一定的参考意义，实际业务场景下，并不能达到这个数值。超低功耗是针对【隔段时间收发数据】这一场景的特定优化，来降低产品的整体功耗。</p><p><strong>特别说明：不管是进入低功耗还是超低功耗状态，都不会丢失服务器发来的数据。</strong></p><h2><span style="color:#000000">二、能降低多少功耗</span></h2><p>合宙Cat1 AT标准固件，在实网下测量的功耗数据如下：</p><p></p><table border="1" style="border-collapse: collapse"><colgroup><col width="0"></col><col width="0"></col><col width="0"></col><col width="0"></col><col width="0"></col></<colgroup><tr><td style="text-align:center;" colSpan="2" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">测试项</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">移动BAND40</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">联通BAND1</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">电信BAND1</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">样机数量</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">3PCS</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1#</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1#</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1#</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">信号质量</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CESQ</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">67</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">61</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">68</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="3"><span style="font-size:14px"><span style="color:#000000">飞行模式(mA)</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">底电流</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.2</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.2</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.2</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CFUN=0</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CFUN=4</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.21</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">工作电流(mA)</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">IDLE模式</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">12.37</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">11.98</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">12.72</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">休眠电流(mA)</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT+CSCLK=2</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.96</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1.72</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">2.71</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">TCP心跳包保活(mA)</span></span><br/><span style="font-size:14px"><span style="color:#000000">（默认设置）</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1分钟一次</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">10.17</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">9.32</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">8.29</span></span></td></tr><tr><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">TCP心跳包保活(mA)</span></span><br/><span style="font-size:14px"><span style="color:#000000">（超低功耗AT*RTIME=1）</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">1分钟一次</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">3.95</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">3.76</span></span></td><td style="text-align:center;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">4.41</span></span></td></tr></table><p>从最后两行对比结果看，超低功耗模式下，<strong>心跳包保活场景功耗降低了一半以上。</strong></p><p><strong>注意：实际测量数据会受网络信号、是否已经注册上网、外围是否接了设备因素影响，如果差异比较大建议先断开外围设备，进入飞行模式对比一下数据。</strong></p><h2><span style="color:#000000">三、什么时候用</span></h2><p>超低功耗可用于大多数的数传业务场景。这些场景有一个共同的特点：需要传输数据的时候利用网络进行数据传输，传输完成后，设备进入心跳包保活状态。超低功耗正是针对心跳保活功耗的优化来实现整体功耗的降低。典型产品场景有：云喇叭、监控摄像头、共享设备、远程控制等。</p><h2><span style="color:#000000">四、怎么用</span></h2><p>首先，打开进入低功耗休眠模式，让设备空闲状态下进入低功耗状态；其次，通过AT命令AT*RTIME打开超低功耗模式。下面以AT版本为例，设置步骤如下：</p><p>1，打开低功耗模式：AT+CSCLK=2</p><p>2，关闭网络灯：AT+CNETLIGHT=0</p><p>3，关闭日志： AT^TRACECTRL=0,0和AT^TRACECTRL=1,0</p><p>4，设置串口立即休眠：AT+WAKETIM=1</p><p>5，设置超低功耗：AT*RTIME=2</p><p>步骤1-4参考通用AT指令手册。</p><p>下面单独介绍一下超低功耗AT指令：</p><p>AT*RTIME=&lt;n&gt;</p><p><span style="color:#333333">该命令设置后会被保存到NV中，掉电后存储。</span></p><p><strong><span style="font-size:12px"><span style="color:#444444">语法规则：</span></span></strong></p><p></p><table border="1" style="border-collapse: collapse"><colgroup><col width="0"></col><col width="0"></col><col width="0"></col></<colgroup><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">命令类型</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">语法</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">返回</span></span></td></tr><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">设置命令</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT*RTIME=&lt;wait_time&gt;</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">OK</span></span></td></tr><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">查询命令</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">AT*RTIME？</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">*RTIME: &lt;wait_time&gt; OK</span></span></td></tr></table><p><strong><span style="font-size:12px"><span style="color:#444444">参数定义：</span></span></strong></p><p></p><table border="1" style="border-collapse: collapse"><colgroup><col width="0"></col><col width="0"></col><col width="0"></col><col width="0"></col></<colgroup><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">参数</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">定义</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">取值</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">对取值的说明</span></span></td></tr><tr><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">&lt;wait_time&gt;</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">在数传模式下，等待多长时间进入休眠状态</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">0~20</span></span></td><td style="text-align:left;" colSpan="1" rowSpan="1"><span style="font-size:14px"><span style="color:#000000">单位:秒，0表示关闭。</span></span></td></tr></table><p>信号正常情况下，&lt;n&gt;值越短功耗就越低，建议设置为2。如果实际使用环境信号比较差，数据收发经常出现重传延迟，那这个值就需要改大。</p><p><br/></p><h2><span style="color:#000000">五、哪个版本才支持</span></h2><p>AT版本&gt;=V301716</p><p>Lua版本&gt;=V3024</p><p>CSDK版&gt;= 2020-12-19提交 <a href="https://gitee.com/openLuat/Luat_CSDK_Air724U" target="">https://gitee.com/openLuat/Luat_CSDK_Air724U</a></p><p></p><h2><span style="color:#000000">六、要注意什么</span></h2><p>1，在进行CTA/GCF等测试认证的时候需要关闭该功能。</p><p>2，如果心跳包比较频繁，不如10秒一次，那就不建议开启这个功能，极端情况下可能会导致设备断网。</p><p>3，如果数传是基于UDP这种非可靠传输，打开这个功能后，丢包概率会变大。<br/></p><p><br/></p><p><br/></p><p><br/></p><p><br/></p>
 
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2020/12/21/2092/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2020/12/17/2080/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

@@ -1,1825 +1,527 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title> [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:url" content="https://doc.luatos.wiki/page/29/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-695" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/18/695/" class="article-date">
-  <time class="dt-published" datetime="2020-02-18T12:33:09.000Z" itemprop="datePublished">2020-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/18/695/">合宙模块LUA相关资料汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="1-目录"><a href="#1-目录" class="headerlink" title="1. 目录"></a>1. 目录</h1><ul>
-<li><strong>1. 目录</strong></li>
-<li><strong>[2. LUA二次开发](#2. LUA二次开发)</strong><ul>
-<li><strong>2.1</strong> [新手教程](#2.1 新手教程)</li>
-<li><strong>2.2</strong> [进阶教程](#2.2 进阶教程)</li>
-<li><strong>2.3</strong> [LUA开发环境](#2.3 LUA开发环境)<ul>
-<li><strong>2.3.1</strong> [LUA固件](#2.3.1 LUA固件)</li>
-<li><strong>2.3.2</strong> [LUA相关调试工具](#2.3.2 LUA相关调试工具)</li>
-</ul>
-</li>
-<li><strong>2.4</strong> [LUA相关文章](#2.4 LUA相关文章)</li>
-<li><strong>2.5</strong> [LUA开发实例](#2.5 LUA开发实例)</li>
-</ul>
-</li>
-<li><strong>[3. 产品资料](#3. 产品资料)</strong><ul>
-<li><strong>3.1 [2G模块（GPRS / GPRS+GNSS）](#3.1 2G模块（GPRS / GPRS+GNSS）)</strong><ul>
-<li><strong>3.1.1</strong> [硬件文档](#3.1.1 硬件文档)</li>
-<li><strong>3.1.2</strong> [2G 开发板](#3.1.2 2G开发板)</li>
-<li><strong>3.1.3</strong> [产品证书](#3.1.3 产品证书)</li>
-</ul>
-</li>
-<li><strong>3.2 [4G模块](#3.2 4G模块)</strong><ul>
-<li><strong>3.2.1</strong> [硬件文档](#3.2.1 硬件文档)</li>
-<li><strong>3.2.2</strong> [4G 开发板](#3.2.2 4G开发板)</li>
-<li><strong>3.2.3</strong> [产品证书](#3.2.3 产品证书)</li>
-<li><strong>3.2.4</strong> [相关工具](#3.2.4 相关工具)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>[4. 调试相关教程](#4. 调试相关教程)</strong></li>
-</ul>
-<h1 id="2-LUA二次开发"><a href="#2-LUA二次开发" class="headerlink" title="2. LUA二次开发"></a>2. LUA二次开发</h1><ul>
-<li><h2 id="2-1-新手教程"><a href="#2-1-新手教程" class="headerlink" title="2.1 新手教程"></a>2.1 新手教程</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">手把手教你用lua实现第一个功能</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0#2G%E6%A8%A1%E5%9D%97%E7%83%A7%E5%86%99%E6%95%99%E7%A8%8B%EF%BC%88Air2xx%E7%B3%BB%E5%88%97%E3%80%81Air8xx%E7%B3%BB%E5%88%97%EF%BC%89%EF%BC%9A">如何下载lua固件和调试</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">如何批量下载固件</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">如何进行空中升级</a></li>
-</ul>
-</li>
-<li><h2 id="2-2-进阶教程"><a href="#2-2-进阶教程" class="headerlink" title="2.2 进阶教程"></a>2.2 进阶教程</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://wiki.openluat.com/">合宙官方 lua 开发综合教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.runoob.com/lua/lua-tutorial.html">lua 语法基本教程</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/959">结合实践的Lua语法学习工具：LUATeach</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h2 id="2-3-LUA开发环境"><a href="#2-3-LUA开发环境" class="headerlink" title="2.3 LUA开发环境"></a>2.3 LUA开发环境</h2></li>
-<li><h3 id="2-3-1-LUA固件"><a href="#2-3-1-LUA固件" class="headerlink" title="2.3.1 LUA固件"></a>2.3.1 LUA固件</h3></li>
-<li><h4 id="2-3-1-1-2G模块固件"><a href="#2-3-1-1-2G模块固件" class="headerlink" title="2.3.1.1 2G模块固件"></a>2.3.1.1 2G模块固件</h4><ul>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/core_V0038.zip">底层软件 CORE v0038</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/script_LuaTask_V2.3.5.zip">上层软件 LuaTask v2.3.5 (Demo + Lib)（推荐）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/script_V1.2.3.zip">上层软件 lustScript v1.2.3 (Demo + Lib) </a></li>
-</ul>
-</li>
-<li><h4 id="2-3-1-2-4G模块固件"><a href="#2-3-1-2-4G模块固件" class="headerlink" title="2.3.1.2 4G模块固件"></a>2.3.1.2 4G模块固件</h4></li>
-<li><h4 id="CAT4"><a href="#CAT4" class="headerlink" title="CAT4:"></a>CAT4:</h4></li>
-<li><h5 id="AIR720系列"><a href="#AIR720系列" class="headerlink" title="AIR720系列"></a>AIR720系列</h5><ul>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/core_V0032.zip">底层软件 COREV 0032</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/script_LuaTask_V2.2.9.zip">上层软件 LuaTask v2.2.9 (Demo + Lib)</a></li>
-</ul>
-</li>
-<li><h5 id="AIR720S系列"><a href="#AIR720S系列" class="headerlink" title="AIR720S系列"></a>AIR720S系列</h5><ul>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802s/core_V0010.zip">底层软件 CORE_v0010</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/script_LuaTask_V2.2.9.zip">上层软件 LuaTask v2.2.9 (Demo + Lib)</a></li>
-</ul>
-</li>
-<li><h4 id="CAT1"><a href="#CAT1" class="headerlink" title="CAT1:"></a>CAT1:</h4></li>
-<li><h4 id="cat-1应用手册"><a href="#cat-1应用手册" class="headerlink" title="cat 1应用手册"></a><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6" title="cat 1应用手册">cat 1应用手册</a></h4></li>
-<li><h5 id="AIR720U系列"><a href="#AIR720U系列" class="headerlink" title="AIR720U系列"></a>AIR720U系列</h5><ul>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/1334/0">底层软件 CORE v0019</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/1334/0">上层软件 LuaTask v2.3.4 (Demo + Lib)</a></li>
-</ul>
-</li>
-<li><h3 id="2-3-2-LUA相关调试工具"><a href="#2-3-2-LUA相关调试工具" class="headerlink" title="2.3.2 LUA相关调试工具"></a>2.3.2 LUA相关调试工具</h3><ul>
-<li><h5 id="2G模块调试工具"><a href="#2G模块调试工具" class="headerlink" title="2G模块调试工具"></a>2G模块调试工具</h5></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/luatools-redirect.html">Luat 下载调试工具 v1.6.4</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4#2G%E6%A8%A1%E5%9D%97%E7%83%A7%E5%86%99%E6%95%99%E7%A8%8B%EF%BC%88Air2xx%E7%B3%BB%E5%88%97%E3%80%81Air8xx%E7%B3%BB%E5%88%97%EF%BC%89%EF%BC%9A">LuaTools 使用说明</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/custools-redirect.html">量产多口批量升级工具 v2.5（包含使用说明）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/cooltools.7z">RDA 平台 2G 模块底层日志调试抓取工具（coolwatcher）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/63">coolWatcher工具使用说明</a></li>
-<li><h5 id="4G-CAT4模块调试工具"><a href="#4G-CAT4模块调试工具" class="headerlink" title="4G CAT4模块调试工具"></a>4G CAT4模块调试工具</h5></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/lte.html">4G 模块 PC 端 USB 驱动</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/92">USB 驱动安装教程</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/luatools-redirect.html">Luat 下载调试工具4G v1.6.4</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4#2G%E6%A8%A1%E5%9D%97%E7%83%A7%E5%86%99%E6%95%99%E7%A8%8B%EF%BC%88Air2xx%E7%B3%BB%E5%88%97%E3%80%81Air8xx%E7%B3%BB%E5%88%97%EF%BC%89%EF%BC%9A">Luatools 使用说明</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/ASR%E5%B9%B3%E5%8F%B0core%E5%AE%A2%E6%88%B7%E5%8D%87%E7%BA%A7%E5%B7%A5%E5%85%B7V1.3_Air720%E7%B3%BB%E5%88%97.7z">ASR 平台量产多口升级工具 v1.3（包含使用说明）</a><h5 id="4G-CAT1模块调试工具"><a href="#4G-CAT1模块调试工具" class="headerlink" title="4G CAT1模块调试工具"></a>4G CAT1模块调试工具</h5></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z">723/724U系列PC端USB驱动</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/luatoolsV2-redirect.html">Luat 下载调试工具4G v2</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">Luatools v2烧录教程（适用于2G、4G Cat.1、4G Cat.4模块）</a></li>
-</ul>
-</li>
-<li><h2 id="2-4-LUA相关文章"><a href="#2-4-LUA相关文章" class="headerlink" title="2.4 LUA相关文章"></a>2.4 LUA相关文章</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4">Luat 系列教程：1、下载调试工具 LuaTools 的使用指南</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/11">Luat 系列教程：2、控制 LED 灯</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/14">Luat 系列教程：3、LUAT 程序的基本时序</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/15">Luat 系列教程：4、学会使用并看懂 luatools 的 trace 信息</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/16">Luat 系列教程：5、socket 代码详解</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/24">Luat 系列教程：6、mqtt 代码详解</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/25">Luat 系列教程：7、串口收发</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/178">在 core 底层中添加自己的 lua 模块</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/930">Air 系列模块 Lua 版本应用运行框架概述</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/924">Air 系列模块 Lua 版本串口功能汇总</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/927">Air 系列模块 Lua 版本 nvm 功能汇总</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/899">luat i2c 驱动 mpu6050 获取数据</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/904">使用 Lua 脚本连接华为云物联网服务</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/905">vscode 入门推荐配置（lua 开发使用）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/34">如何获取 HTTP Demo 文件夹下的 ca.crt 文件</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/75">luat 程序如何实现延时运行</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/76">针对 nvm demo 的特殊说明</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/132">如何生成随机数</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/152">不使用 Float LOD 如何求绝对值</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/93">详解 Air202 / Air80x 的 Luat 升级流程</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/107">Luat 全系列模块支持免费 OTA 远程升级，并提供例程将该功能部署到自己服务器上</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/878">非官方的自建 OTA 升级平台(Java 版),免费,开源</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/894">详解 lua 的 string 与 hex 数据(十六进制)</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/929">lua 软件模拟 spi</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/872">Luat 使用 rc522 读写门禁卡 (RFID)</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/167">Luat 读写 SD卡 / TF卡,通过 fatfs 模块</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/129">调用隐藏的 zlib 库,压缩数据,减少流量消耗</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/108">阿里云影子文件操作指南</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/877">阿里云 ota 示例</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/51">Air2xx/Air8xx 系列模块的开机、关机和重启</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/39">【阿里云】如何向模块批量写入 DeviceSecret 呢？</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/30">同步时模块时钟的N种方法</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/912">Air 系列模块同步时间功能汇总</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/44">Luat 的内存那点事</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/166">理解 Lua 语言中的点、冒号与 self</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/110">Air202F（64Mb ROM 模块）Flash 空间划分说明</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/153">air202 luat 二次开发设备接入阿里云（一）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/154">air202 luat 二次开发设备接入阿里云（二）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/156">air202 luat 二次开发设备接入阿里云（三）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/157">air202 luat 二次开发设备接入阿里云（四）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/161">air202 luat 二次开发设备接入阿里云（五）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/162">air202 luat 二次开发设备接入阿里云（六）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/163">air202 luat 二次开发设备接入阿里云（七）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/177">使用 Air202 / Air720 / GPS 系列模块快速接入物联网视频教程</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/893">合宙 air202 连接使用 MQTT 连接移动 OneNet 教程</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/904">使用 Lua 脚本连接华为云物联网服务</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/943">使用 lua 生成 Code128 条形码数据（用于微信、支付宝付款码）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/924">Air 系列模块Lua版本串口功能汇总</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20191028111108_808_DEMO.zip" title="808协议对接DEMO（限Air8XX系列模块）">808协议对接DEMO（限Air8XX系列模块）</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">关于时间戳和rtos.tick()的一点使用心得</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">sys.waitUntil与sys.waitUntilExt的区别</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">Air系列模块Luat版本如何使用http.request接口</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">如何批量下载lua固件</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">724UG开发板播放mp3、图片源码</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">720S系列使用阿里云升级过程中遇到的坑</a></li>
-</ul>
-</li>
-<li><h2 id="2-4-lua开发实例"><a href="#2-4-lua开发实例" class="headerlink" title="2.4 lua开发实例"></a>2.4 lua开发实例</h2></li>
-<li><h4 id="A5323-2G-维码器"><a href="#A5323-2G-维码器" class="headerlink" title="A5323 (2G 维码器)"></a>A5323 (2G 维码器)</h4><ul>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/df_%E8%AE%BE%E8%AE%A1_20180306_172115_465704_A5323_A14_%E8%AE%BE%E8%AE%A1%E6%96%87%E4%BB%B6_20171219_1730.zip">硬件设计资料</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20190919185310_%E7%A0%81%E5%A4%AB%E6%94%AF%E4%BB%98%E6%A8%A1%E5%9D%97%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8EV1.0.2.pdf.zip">通信协议文档</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20190919185917_script.zip">脚本源代码</a></li>
-</ul>
-</li>
-<li><h4 id="A5329-4G-维码器"><a href="#A5329-4G-维码器" class="headerlink" title="A5329 (4G 维码器)"></a>A5329 (4G 维码器)</h4><ul>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20190919190615_A5329_4G_A11.zip">硬件设计资料</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20190919191045_%E7%A0%81%E5%A4%AB%E6%94%AF%E4%BB%98%E6%A8%A1%E5%9D%97%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8EV1.0.2.pdf.zip">通信协议文档</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20190919185917_script.zip">脚本源代码</a></li>
-</ul>
-</li>
-<li><h4 id="A9352-车载定位器-GPS-traker"><a href="#A9352-车载定位器-GPS-traker" class="headerlink" title="A9352 (车载定位器 GPS traker)"></a>A9352 (车载定位器 GPS traker)</h4><ul>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20191023141128_Luat_GPS_Tracker_Air800_20180717.zip">全套设计资料</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="3-产品资料"><a href="#3-产品资料" class="headerlink" title="3. 产品资料"></a>3. 产品资料</h1><ul>
-<li><h2 id="3-1-2G模块（GPRS-GPRS-GNSS）"><a href="#3-1-2G模块（GPRS-GPRS-GNSS）" class="headerlink" title="3.1 2G模块（GPRS / GPRS+GNSS）"></a>3.1 2G模块（GPRS / GPRS+GNSS）</h2></li>
-<li><h3 id="3-1-1-硬件文档"><a href="#3-1-1-硬件文档" class="headerlink" title="3.1.1 硬件文档"></a>3.1.1 硬件文档</h3><ul>
-<li><h4 id="通用硬件资料"><a href="#通用硬件资料" class="headerlink" title="通用硬件资料"></a>通用硬件资料</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/doc/PCB_ANT.7z">2G 模块板载天线封装</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/doc/Luat%E6%A8%A1%E5%9D%97%E9%98%BB%E6%8A%97%E7%BA%BF%E5%8F%8A%E5%A4%A9%E7%BA%BF%E8%AE%BE%E8%AE%A1%E5%BB%BA%E8%AE%AE_V1.0.pdf">Luat 模块阻抗线及天线设计建议 v1.0</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/Luat%E4%B8%93%E7%94%A8%E7%9C%8B%E9%97%A8%E7%8B%97%E8%8A%AF%E7%89%87%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8CV1.6.pdf">Luat 专用看门狗芯片设计手册 v1.6</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/NMEA%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E.docx">GPS NMEA 数据格式说明</a></p>
-</li>
-<li><h4 id="Air202-模块"><a href="#Air202-模块" class="headerlink" title="Air202 模块"></a>Air202 模块</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202/Luat_GPRS%E6%A8%A1%E5%9D%97Air202%E8%A7%84%E6%A0%BC%E4%B9%A620180716.pdf">产品简介</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202/Air202_%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8C_V1.58.pdf">Air202 硬件设计手册 v1.58</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202/Air202_PADS.zip">Air202 模块原理图 PCB 封装（PADS 9.5 格式）</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202/Air202%E4%B8%89%E6%B8%A9%E4%B8%89%E5%8E%8BRF%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A_1.2.xls">三温三压 RF 测试报告 1.2</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202/Air202%E5%B0%84%E9%A2%91%E5%B8%B8%E8%A7%84%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A1.2%EF%BC%88GSM4%E9%A2%91%EF%BC%89.xls">射频常规测试报告 1.2（GSM 4频）</a></p>
-</li>
-<li><h4 id="Air208S-模块"><a href="#Air208S-模块" class="headerlink" title="Air208S 模块"></a>Air208S 模块</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/208s/Luat_GPRS%E6%A8%A1%E5%9D%97Air208S%E8%A7%84%E6%A0%BC%E4%B9%A620180716.pdf">产品简介</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/208s/Air208S_%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8C_V1.09.pdf">Air208S 硬件设计手册 v1.09</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/208s/Air208_PADS.zip">Air208 模块原理图 PCB 封装（PADS 9.5 格式)</a></p>
-</li>
-<li><h4 id="Air268F-模块"><a href="#Air268F-模块" class="headerlink" title="Air268F 模块"></a>Air268F 模块</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/268/Air268F%E6%A8%A1%E5%9D%97%E7%A1%AC%E4%BB%B6%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8CV1.05.pdf">Air268F 硬件设计手册 v1.05</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/268/Air268_PADS.zip">Air268F 模块原理图 PCB 封装（PADS 9.5 格式）</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/268/Air268_DEMO_0718.pdf">Air268F 模块参考设计 (PDF)</a></p>
-</li>
-<li><h4 id="Air800-模块"><a href="#Air800-模块" class="headerlink" title="Air800 模块"></a>Air800 模块</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Luat_GPRS%E5%AE%9A%E4%BD%8D%E4%BA%8C%E5%90%88%E4%B8%80%E6%A8%A1%E5%9D%97Air800%E8%A7%84%E6%A0%BC%E4%B9%A620180716.pdf">产品简介</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Air800_%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8C_V1.75.pdf">Air800 硬件设计手册 v1.75</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Air800_PADS.zip">Air800 模块原理图 PCB 封装（PADS 9.5)</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Air800%E5%8F%82%E8%80%83%E8%AE%BE%E8%AE%A1_20170609.rar">Air800 参考设计</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Air800%E4%BA%94%E6%B8%A9%E4%B8%89%E5%8E%8BRF%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A_1.1.xls">Air800 五温三压 RF 测试报告 1.1</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Air800%E5%B0%84%E9%A2%91%E5%B8%B8%E8%A7%84%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A1.3%EF%BC%88GSM4%E9%A2%91%EF%BC%89.xls">Air800 射频常规测试报告 1.3（GSM 4频）</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/Air800%20GPS%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A.docx">Air800 GPS 性能测试报告</a></p>
-</li>
-<li><h4 id="Air530-gps-模块"><a href="#Air530-gps-模块" class="headerlink" title="Air530(gps) 模块"></a>Air530(gps) 模块</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/GK9501-doc.rar">GPS相关调试工具以及使用说明相关资料</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/964">Air800系列模块如何下载GPS固件</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">批量生产时如何进行GPS生产测试</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/963">GPS信噪比测试方法</a></p>
-</li>
-</ul>
-</li>
-<li><h3 id="3-1-2-2G开发板"><a href="#3-1-2-2G开发板" class="headerlink" title="3.1.2 2G开发板"></a>3.1.2 2G开发板</h3><ul>
-<li><h4 id="S5-Air202-开发板"><a href="#S5-Air202-开发板" class="headerlink" title="S5(Air202) 开发板"></a>S5(Air202) 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s5/EVB_Air202_S5_A12_DEMO_V1.02.pcb">Air202 S5 开发板 PCB</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s5/EVB_Air202_S5_A12_DEMO_V1.02.sch">Air202 S5 开发板原理图（参考设计）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s5/Air202%E6%A8%A1%E5%9D%97S5%E5%BC%80%E5%8F%91%E6%9D%BF%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8Ev1.4.pdf">Air202 S5 开发板使用说明 v1.4</a></li>
-<li><h4 id="S6-Air202-开发板"><a href="#S6-Air202-开发板" class="headerlink" title="S6(Air202) 开发板"></a>S6(Air202) 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s6/Air202_S6_A12_PADS.7z">Air202 S6 开发板原理图和 PCB 设计文件</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s6/S6-PADS.zip">Air202 S6 开发板封装</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s6/Luat%E6%A0%B8%E5%BF%83%E6%9D%BFS6%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BFV1.2.pdf">Air202 S6 开发板使用说明 v1.2</a></li>
-<li><h4 id="LuatBoard-S9-Air202-开发板"><a href="#LuatBoard-S9-Air202-开发板" class="headerlink" title="LuatBoard S9 (Air202) 开发板"></a>LuatBoard S9 (Air202) 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s9/LuatBoard-%E5%8E%9F%E7%90%86%E5%9B%BE.pdf">Air202 LuatBoard(S9) 原理图</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s9/LuatBoard-%E8%AF%B4%E6%98%8E%E4%B9%A6.pdf">Air202 S9 开发板使用说明</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s9/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A5%E6%8F%90%E7%A4%BA%E5%92%8C%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E.pdf">S9 小程序接提示和接口说明</a></li>
-<li><h4 id="S268F-Air268F-开发板"><a href="#S268F-Air268F-开发板" class="headerlink" title="S268F(Air268F) 开发板"></a>S268F(Air268F) 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/268/Air268_DEMO_0718.pdf">Air268F 模块参考设计 (PDF)</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s268f/Air268F%E6%A8%A1%E5%9D%97S268F%E5%BC%80%E5%8F%91%E6%9D%BF%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8EV1.1.pdf">Air268F 模块 S268F 开发板使用说明 v1.1</a></li>
-<li><h4 id="M4-Air800-开发板"><a href="#M4-Air800-开发板" class="headerlink" title="M4(Air800) 开发板"></a>M4(Air800) 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800m4/EVB_Air800_M4_A12_DEMO%28PADS%E7%89%88%29.7z">Air800 M4 开发板原理图 PCB (PADS 版)</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800m4/Air800%E5%BC%80%E5%8F%91%E6%9D%BFM4%20Lua%E5%BC%80%E5%8F%91%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BFV1.01.pdf">Air800 M4 开发板使用手册 v1.01</a></li>
-<li><h4 id="开发板串口驱动"><a href="#开发板串口驱动" class="headerlink" title="开发板串口驱动"></a>开发板串口驱动</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/driver/CP210x_Universal_Windows_Driver.zip">CP2102 串口芯片驱动</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/202s9/CH341SER.EXE">CH341SER.EXE</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/ft232/ftdi_ft232_drive.rar">ftdi_ft232_drive</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/batdl/PL2303_Prolific_DriverInstaller_v1190.zip">PL2303_Prolific_DriverInstaller_v1190</a></li>
-</ul>
-</li>
-<li><h3 id="3-1-3-产品证书"><a href="#3-1-3-产品证书" class="headerlink" title="3.1.3 产品证书"></a>3.1.3 产品证书</h3><ul>
-<li><h4 id="Air202"><a href="#Air202" class="headerlink" title="Air202"></a>Air202</h4></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20191018110743_Air202_CCC%E8%AF%81%E4%B9%A620191018.jpg">Air202 3C 证书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20180115141653_Air202%20Rohs%E6%8A%A5%E5%91%8A.pdf">Air202 RoHS 证书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20190513102312_Air202%E5%9E%8B%E5%8F%B7%E6%A0%B8%E5%87%86%E8%AF%81.pdf">Air202 型号核准</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20171225172018_Air202%20CE%20NB%E8%AF%81%E4%B9%A6.pdf">Air202 CE NB 证书</a></li>
-<li><h4 id="Air208"><a href="#Air208" class="headerlink" title="Air208"></a>Air208</h4></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20181130163318_%E4%B8%8A%E6%B5%B7%E5%90%88%E5%AE%99208-3C%E8%AF%81%E4%B9%A6-%E4%B8%AD.jpg">Air208 3C 证书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20180428135900_AIR208%20FCC%E8%AF%81%E4%B9%A6.pdf">Air208 FCC 证书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20180305111944_Air208%20%E5%9E%8B%E5%8F%B7%E6%A0%B8%E5%87%86%E8%AF%81.pdf">Air208 型号核准</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20180224102735_Air208%20CE%E8%AF%81%E4%B9%A6.pdf">Air208 CE NB 证书</a></li>
-<li><h4 id="Air800"><a href="#Air800" class="headerlink" title="Air800"></a>Air800</h4></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20190724151827_Air800_CCC%E8%AF%81%E4%B9%A6.rar">Air800 3C 证书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20181130163246_Air800-Rohs%E6%8A%A5%E5%91%8A.pdf">Air800 RoHS 证书</a></li>
-<li><h4 id="GPS-相关"><a href="#GPS-相关" class="headerlink" title="GPS 相关"></a>GPS 相关</h4></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h2 id="3-2-4G模块"><a href="#3-2-4G模块" class="headerlink" title="3.2 4G模块"></a>3.2 4G模块</h2></li>
-<li><h3 id="3-2-1-硬件文档"><a href="#3-2-1-硬件文档" class="headerlink" title="3.2.1 硬件文档"></a>3.2.1 硬件文档</h3></li>
-<li><h4 id="CAT1-1"><a href="#CAT1-1" class="headerlink" title="CAT1:"></a>CAT1:</h4><ul>
-<li><h4 id="Air720UG-720UH"><a href="#Air720UG-720UH" class="headerlink" title="Air720UG/720UH"></a>Air720UG/720UH</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/Air720UH_Air720UG_%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_2020417.pdf">产品规格书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919105914134_Air720UH_Air720UG_%E6%A8%A1%E5%9D%97%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8C_V1.9.pdf">Air720UH_Air720UG_模块硬件设计手册_V1.9</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/AIR720UH_Air720UG%20%E5%B0%81%E8%A3%85%EF%BC%88PADS9.5%E6%A0%BC%E5%BC%8F%EF%BC%89.zip">Air720UG/Air720UH_封装（PADS9.5格式）</a></li>
-<li><h4 id="Air724UG-723UG"><a href="#Air724UG-723UG" class="headerlink" title="Air724UG/723UG"></a>Air724UG/723UG</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/Air724UG_Air723UG_%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20200417.pdf">产品规格书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919110032904_Air724UG_Air723UG_%E6%A8%A1%E5%9D%97%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8CV2.1.pdf">Air724UG_Air723UG_模块硬件设计手册V2.1</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/Air724UG_Air723UG_%E5%B0%81%E8%A3%85%EF%BC%88PADS9.5%E6%A0%BC%E5%BC%8F%EF%BC%89.zip">Air724UG/Air723UG_封装（PADS9.5格式）</a></li>
-</ul>
-</li>
-<li><h4 id="CAT4-1"><a href="#CAT4-1" class="headerlink" title="CAT4:"></a>CAT4:</h4><ul>
-<li><h4 id="Air720X-Air720H-HA-G-GA-D-DA"><a href="#Air720X-Air720H-HA-G-GA-D-DA" class="headerlink" title="Air720X(Air720H/HA/G/GA/D/DA)"></a>Air720X(Air720H/HA/G/GA/D/DA)</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/Air720x%283229%29%E7%B3%BB%E5%88%97%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20190909.pdf">产品简介</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/%E5%90%88%E5%AE%99Luat%204G%E6%A8%A1%E5%9D%97%E9%80%89%E5%9E%8B%E6%89%8B%E5%86%8C20181116.jpg">4G 模块选型手册</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/Air720x%283229%29%E7%B3%BB%E5%88%97%E6%A8%A1%E5%9D%97%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8CV1.28.pdf">Air720x(3229) 系列模块硬件设计手册 v1.28</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720d/Air720D_PADS%E7%89%88%E6%9C%AC.rar">Air720X 模块原理图 PCB 封装（PADS9.5)</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">Air720系列 GPIO口默认状态</a></p>
-</li>
-<li><h4 id="Air720SL"><a href="#Air720SL" class="headerlink" title="Air720SL"></a>Air720SL</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720sl/Air720SL%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20191029.pdf">产品简介</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919110106351_%E5%90%88%E5%AE%994G%E6%A8%A1%E5%9D%97%E9%80%89%E5%9E%8B%E8%A1%A82020072301.pdf">4G模块选型表</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720sl/Air720SL_%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8C_V1.00.pdf">Air720SL_硬件手册_V1.00</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720sl/Air720SL_%E5%B0%81%E8%A3%85%E5%BA%93(PADS9.5%E6%A0%BC%E5%BC%8F.zip">Air720SL_封装库（PADS9.5)</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://lceda.cn/luat/evb_air720sl_a11">720SL参考设计</a></p>
-</li>
-<li><h4 id="Air720SH-720SG"><a href="#Air720SH-720SG" class="headerlink" title="Air720SH/720SG"></a>Air720SH/720SG</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919110129025_Air720SH_3229_%E7%B3%BB%E5%88%97%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20200114.pdf">Air720SH_3229_系列模块产品规格书</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919110147478_Air720SG_3229_%E7%B3%BB%E5%88%97%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20200114.pdf">Air720SG_3229_系列模块产品规格书</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919110205204_%E5%90%88%E5%AE%994G%E6%A8%A1%E5%9D%97%E9%80%89%E5%9E%8B%E8%A1%A82020072301.pdf">4G模块选型表</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200919110225164_Air720SH_Air720SG_Air720SD_%E6%A8%A1%E5%9D%97%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%89%8B%E5%86%8CV1.03.pdf">Air720SH_Air720SG_Air720SD_模块硬件设计手册V1.03</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720sh/Air720SH&SG_PADS%E7%89%88%E6%9C%AC.zip">Air720SH/SG_封装库（PADS9.5)</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720sh/%E5%8F%82%E8%80%83%E8%AE%BE%E8%AE%A1.zip">Air720SH/SG_参考设计</a></p>
-</li>
-<li><h4 id="Air720X-mini-PCI-E封装"><a href="#Air720X-mini-PCI-E封装" class="headerlink" title="Air720X mini PCI-E封装"></a>Air720X mini PCI-E封装</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720dminipcie/Luat_LTE_MiNiPCIe_Air720DI_%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20181122.pdf">Luat LTE MiNiPCIe Air720X 系列 模块产品规格书</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/Air720DI_Air720HI_SCHPCB%28MiniPCIE%29.7z">mini PCI-E 开发板原理图 PCB 资料</a></p>
-</li>
-<li><h4 id="Air720S-mini-PCI-E相关"><a href="#Air720S-mini-PCI-E相关" class="headerlink" title="Air720S mini PCI-E相关"></a>Air720S mini PCI-E相关</h4></li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720shminipcie/Luat_LTE_MiNiPCIe_Air720SHI_%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20191218.pdf">Luat LTE MiNiPCIe Air720SHI 模块产品规格书</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/720sgminipcie/Luat_LTE_MiNiPCIe_Air720SGI_%E6%A8%A1%E5%9D%97%E4%BA%A7%E5%93%81%E8%A7%84%E6%A0%BC%E4%B9%A6_20191220.pdf">Luat LTE MiNiPCIe Air720SGI 模块产品规格书</a></p>
-</li>
-</ul>
-</li>
-<li><h3 id="3-2-2-4G开发板"><a href="#3-2-2-4G开发板" class="headerlink" title="3.2.2 4G开发板"></a>3.2.2 4G开发板</h3><ul>
-<li>####Air724/723 UG系列 （S724/S723） 开发板</li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/EVB_Air724UG_Air7232UG_A11_%E8%AE%BE%E8%AE%A1%E6%96%87%E4%BB%B6_20200319%EF%BC%88PADS9.5%E6%A0%BC%E5%BC%8F%EF%BC%89.zip">Air724UG/723UG 开发板（参考设计）</a></li>
-<li>####Air720UG/720UH系列  开发板</li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/EVB_Air720_A13.pdf">Air720UG/720UH 开发板（参考设计）</a></li>
-<li><h4 id="Air720系列-（S720）-开发板"><a href="#Air720系列-（S720）-开发板" class="headerlink" title="Air720系列 （S720） 开发板"></a>Air720系列 （S720） 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/EVB_Air720_A13_DEMO_pads.7z">Air720 开发板原理图 PCB 资料（参考设计）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/EVB_Air720_A13.pdf">Air720 开发板原理图 PDF 版</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/Air720%204G%20LTE%20%E5%BC%80%E5%8F%91%E6%9D%BF%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8EV1.3.pdf">Air720 开发板使用说明 v1.3</a></li>
-<li><h4 id="Air720SL-S720SL-开发板"><a href="#Air720SL-S720SL-开发板" class="headerlink" title="Air720SL (S720SL) 开发板"></a>Air720SL (S720SL) 开发板</h4></li>
-<li><a target="_blank" rel="noopener" href="https://lceda.cn/luat/evb_air720sl_a11">Air720 开发板原理图 PCB 资料（参考设计）</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802s/Air720SL%204G%20LTE%20%E5%BC%80%E5%8F%91%E6%9D%BF%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8EV1.0.pdf">Air720SL 开发板使用说明 v1.0</a></li>
-<li><a target="_blank" rel="noopener" href="https://oldask.openluat.com/search?word=720SL">合宙Luat Air720SL开发板（EVB_Air720SL）初体验 （1）</a></li>
-</ul>
-</li>
-<li><h3 id="3-2-3-产品证书"><a href="#3-2-3-产品证书" class="headerlink" title="3.2.3 产品证书"></a>3.2.3 产品证书</h3><ul>
-<li><h4 id="Air720"><a href="#Air720" class="headerlink" title="Air720"></a>Air720</h4></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20190711100823_Air720-CCC%E8%AF%81%E4%B9%A6.rar">Air720 3C 证书</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20190321142025_Air720-Rohs%E6%8A%A5%E5%91%8A.pdf">Air720 RoHS 报告</a></li>
-<li><a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/pc_file_20190924170004_Air720%E5%9E%8B%E5%8F%B7%E6%A0%B8%E5%87%86%E8%AF%81.jpg">Air720 型号核准</a><h1 id="4-调试相关教程"><a href="#4-调试相关教程" class="headerlink" title="4. 调试相关教程"></a>4. 调试相关教程</h1></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/27">Air 系列模块重启原因分析及应对策略（一）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/28">Air 系列模块重启原因分析及应对策略（二）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/29">Air 系列模块重启原因分析及应对策略（三）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/31">GPRS 如何防范掉线</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/17">Air202 / Air800 等 GPRS 模块无法下载问题分析步骤</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/19">Air202 / Air800 模块异常掉电重启问题分析不完全指南</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/21">Air202 / Air800 通话或录音出现电流噪音（TDD 噪音）问题分析与讨论</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/182">Air720 系列-死机 dump 数据功能使用说明</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/909">Air720 系列 Lua 版本异常分析说明（死机、重启、网络、socket）</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/910">Air720 系列 4G 模块软件异常死机后，如何 dump 死机现场数据</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/914">Air208 在西安某地区连接服务器失败问题分析过程</a></li>
-<li><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/960">2G/4G模块开机SIM卡接口各信号波形对比</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">如何判主板的4G/2G信号接收性能的好坏</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/664/0">如何获得 Altium Design (AD)格式的开发板图纸和模块封装</a></li>
-</ul>
-</li>
-</ul>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/18/695/" data-id="ckkfmdgek00divkcg9kz8fp91" data-title="合宙模块LUA相关资料汇总" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-694" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/17/694/" class="article-date">
-  <time class="dt-published" datetime="2020-02-17T06:40:26.000Z" itemprop="datePublished">2020-02-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="container">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/17/694/">6、合宙Air模块Luat开发：又是一种新的外设之ADC模数转换，现在我们可以采集模拟量数据了</a>
-    </h1>
-  
 
-      </header>
+
+
+  <div class="article">
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<blockquote>
-<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
-</blockquote>
-<blockquote>
-<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-</blockquote>
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
-<p>GPIO的输入和输出我们已经讲完了，大家只要认真看过我的前几篇博客，相信掌握GPIO是使用方法不是什么难事</p>
-</blockquote>
-<blockquote>
-<p>上篇博文我们讲到了，数字量输入采集<code>也就是GPIO输入</code>，数字量采集只能采集一些开关量，这可以解决绝大部分的问题，但是数字量采集也不是万能的，在遇到某些特殊的传感器时，也会感到无能为力<br><img src="https://img-blog.csdnimg.cn/20200217083126903.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</blockquote>
-<blockquote>
-<p>不是所有的传感器都是数字量输出的，也是有很多传感器是模拟量输出的，那到底什么是模拟量呢</p>
-</blockquote>
-<ul>
-<li>模拟量传感器发出的是连续信号，用电压、电流、电阻等表示被测参数的大小。比如<code>温度传感器、压力传感器、光敏电阻、声敏电阻</code>等都是常见的模拟量传感器<br><img src="https://img-blog.csdnimg.cn/2020021710535543.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200217105637363.png" alt="在这里插入图片描述"></li>
-</ul>
-<blockquote>
-<p>既然这类模拟量传感器输出的是模拟信号，那么就不能使用常规的数字量输入功能进行采集，需采用新的功能<code>ADC模数转换</code>进行采集</p>
-</blockquote>
-<ul>
-<li>ADC是Analog-to-Digital Converter的缩写。指模/数转换器或者模拟/数字转换器。是指将连续变量的模拟信号转换为离散的数字信号的器件。</li>
-<li>典型的模拟数字转换器将模拟信号转换为表示一定比例电压值的数字信号。</li>
-</ul>
-<blockquote>
-<p>在单片机上实现模拟量采集有如下两种方法</p>
-</blockquote>
-<ul>
-<li>在某些单片机上没有ADC硬件接口，比如STC89C51就没有硬件ADC接口。如果想要实现模拟量采集就需要用AD采集芯片，ADC0804就是一种逐次比较型的A/D转换器，它可以把模拟量信号转化为数字量信号，被单片机读取，而不需要单片机具有硬件ADC功能。不过这种ADC采用并口通讯，比较占用普通IO口，GPIO不足的情况还可以使用ET2046采集，这款芯片通讯占用IO较少，价格也相对较高。<br><img src="https://img-blog.csdnimg.cn/20200217133705708.png" alt="在这里插入图片描述"></li>
-<li>还有一种就是硬件ADC功能，比如我们的合宙AIR720SL就带了两路硬件ADC采集功能，如果两路不够用的话，还可以使用ET2046进扩充，至于怎么扩充这里就不做讲解了，大家自行了解，下面我们开始来重点讲Air720SL的硬件ADC使用功能</li>
-</ul>
-<h1 id="二、了解Air720SL硬件设计手册adc部分"><a href="#二、了解Air720SL硬件设计手册adc部分" class="headerlink" title="二、了解Air720SL硬件设计手册adc部分"></a>二、了解Air720SL硬件设计手册adc部分</h1><blockquote>
-<p>打开Air720Sl硬件设计手册找到如下部分<br><img src="https://img-blog.csdnimg.cn/20200217135814264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里要注意的是，Air720SL系列芯片ADC和Air720x系列芯片这两者的电气特性不一样，测量范围也不一样，不要搞错了，否者会烧坏芯片<br>因为我现在还在老家出不去，没有设备供我具体测试，所以等会我就只测量GND看是否有反应，精度也没法测试，测量结果不具有代表性<br>具体使用的话，还是需要自己参考设计手册另行测试的</p>
-</blockquote>
-<h1 id="三、编写测试程序"><a href="#三、编写测试程序" class="headerlink" title="三、编写测试程序"></a>三、编写测试程序</h1><blockquote>
-<p>Air720SL拥有两路硬件ADC功能，分别是GPIO62对应ADC0，GPIO63对应ADC1，两者的电气特性完全一致，分辨率也都是12位</p>
-</blockquote>
-<blockquote>
-<p>首先使用前我们需要包含官方提供的adc驱动库<code>require &quot;adc&quot;</code>，然后才可以使用相关库函数</p>
-</blockquote>
-<blockquote>
-<p>ADC0的测试程序如下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">ADC0_Task</span><span class="params">()</span></span></span><br><span class="line">    local adcValue, voltValue = 0, 0</span><br><span class="line">    local result = adc.open(<span class="number">0</span>)--打开ADC通道<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC0_Task&quot;</span>, <span class="string">&quot;ADC0_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">0</span>)--读取通道<span class="number">0</span>的值</span><br><span class="line">        --adc.read接口返回的voltval放大了<span class="number">3</span>倍，所以需要除以<span class="number">3</span>还原成原始电压</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 0的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">0</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>ADC1的测试程序如下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">ADC1_Task</span><span class="params">()</span></span></span><br><span class="line">    local adcValue, voltValue = 0, 0</span><br><span class="line">    local result = adc.open(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC1_Task&quot;</span>, <span class="string">&quot;ADC1_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 1的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">1</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>可以看出来，官方的库封装的很简洁，只需要三个函数就能实现模拟量采集<br>ADC0的测试代码和ADC1的测试代码几乎完全一样，没有什么区别，下面我们直接下载完整的测试程序进行测试</p>
-</blockquote>
-<h1 id="四、下载完整的代码到Air720Sl开发板"><a href="#四、下载完整的代码到Air720Sl开发板" class="headerlink" title="四、下载完整的代码到Air720Sl开发板"></a>四、下载完整的代码到Air720Sl开发板</h1><blockquote>
-<p>这里我们直接贴出全部代码</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line">--[[</span><br><span class="line">如果使用UART输出日志，打开这行注释的代码<span class="string">&quot;--log.openTrace(true,1,115200)&quot;</span>即可，根据自己的需求修改此接口的参数</span><br><span class="line">如果要彻底关闭脚本中的输出日志（包括调用<span class="built_in">log</span>模块接口和Lua标准print接口输出的日志），执行<span class="built_in">log</span>.openTrace(<span class="literal">false</span>,第二个参数跟调用openTrace接口打开日志的第二个参数相同)，例如：</span><br><span class="line"><span class="number">1</span>、没有调用过sys.opntrace配置日志输出端口或者最后一次是调用<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,nil,<span class="number">921600</span>)配置日志输出端口，此时要关闭输出日志，直接调用<span class="built_in">log</span>.openTrace(<span class="literal">false</span>)即可</span><br><span class="line"><span class="number">2</span>、最后一次是调用<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,<span class="number">1</span>,<span class="number">115200</span>)配置日志输出端口，此时要关闭输出日志，直接调用<span class="built_in">log</span>.openTrace(<span class="literal">false</span>,<span class="number">1</span>)即可</span><br><span class="line">]]</span><br><span class="line">--<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,<span class="number">1</span>,<span class="number">115200</span>)</span><br><span class="line">require <span class="string">&quot;adc&quot;</span></span><br><span class="line"></span><br><span class="line">local function ADC0_Task()</span><br><span class="line">    local adcValue, voltValue = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    local result = adc.open(<span class="number">0</span>)--打开ADC通道<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC0_Task&quot;</span>, <span class="string">&quot;ADC0_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">0</span>)--读取通道<span class="number">0</span>的值</span><br><span class="line">        --adc.read接口返回的voltval放大了<span class="number">3</span>倍，所以需要除以<span class="number">3</span>还原成原始电压</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 0的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">0</span>)</span><br><span class="line">end</span><br><span class="line">local function ADC1_Task()</span><br><span class="line">    --初始化GPIO 比如GPIO_38</span><br><span class="line">    local adcValue, voltValue = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    local result = adc.open(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC1_Task&quot;</span>, <span class="string">&quot;ADC1_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 1的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">1</span>)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    sys.taskInit(ADC0_Task)</span><br><span class="line">    sys.taskInit(ADC1_Task)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>下载程序后，我们将ADC0和ADC1的引脚同时接地引脚在这<img src="https://img-blog.csdnimg.cn/20200217141907494.png" alt="在这里插入图片描述"></p>
-</blockquote>
-<blockquote>
-<p>能够看到ADC1成功检测到了低电平，输出的数据是0。而ADC0却没有任何反应.。<br>这里我也分开单独测试过均没有测试成功。也许是官方的底层固件出了bug，目前我使用的是v0008版本的固件，下个版本也许会修复这个问题，使用的话建议暂时避开ADC0<br><img src="https://img-blog.csdnimg.cn/20200217141937348.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</blockquote>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><h2 id="1、官方的adc库函数"><a href="#1、官方的adc库函数" class="headerlink" title="1、官方的adc库函数"></a>1、官方的adc库函数</h2><ul>
-<li>adc.open(0)–打开ADC通道0</li>
-<li>adcValue, voltValue = adc.read(0)–读取通道0的值，读取之前必须先打开ADC0</li>
-<li>adc.close(0)–关闭ADC通道0</li>
-<li>ADC1的使用方法与ADC0一直，换个参数即可</li>
-</ul>
-<blockquote>
-<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/17/694/" data-id="ckkfmdgd500aovkcg9eqshpfa" data-title="6、合宙Air模块Luat开发：又是一种新的外设之ADC模数转换，现在我们可以采集模拟量数据了" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-693" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/16/693/" class="article-date">
-  <time class="dt-published" datetime="2020-02-16T05:32:39.000Z" itemprop="datePublished">2020-02-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/16/693/">5、合宙Air模块Luat开发：GPIO输入常见的两种使用方法及其优劣性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<blockquote>
-<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
-</blockquote>
-<blockquote>
-<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-</blockquote>
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
-<p>上一篇博文我们讲到了将GPIO初始化为输出功能用来驱动LED或者其他外设，这篇博文我们来继续讲讲GPIO剩下的另外一个功能——输入功能</p>
-</blockquote>
-<blockquote>
-<p>既然是智能设备，那就需要和外界交互信息。获取外界消息的方法有很多。<br>通过互联网访问是一种获取信息的方式。<br><img src="https://img-blog.csdnimg.cn/20200216132129638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>还有是通过自身的传感器或者按钮开关，获取传感信息，也是一种获取信息的方式，它们输出的信号是开关量<br><img src="https://img-blog.csdnimg.cn/20200216132030279.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200216132307740.png" alt="在这里插入图片描述"><br>通过互联网获取信息，我们后面的博客在讲，先不急。<br>我们今天来讲一讲，怎么利用GPIO的输入功能来获取外界的开关信号。</p>
-</blockquote>
-<h1 id="二、编写程序"><a href="#二、编写程序" class="headerlink" title="二、编写程序"></a>二、编写程序</h1><blockquote>
-<p>利用GPIO的输入功能获取开关信号有两种方法，一种是查询法，另外一种是中断法，我们依次讲解</p>
-</blockquote>
-<h2 id="1、查询法"><a href="#1、查询法" class="headerlink" title="1、查询法"></a>1、查询法</h2><blockquote>
-<p>顾名思义，查询法就是不停的查询GPIO的状态，不管开关有没有按下，我都去查询，查询到什么就是什么，我没有查询的时候，你按了也没有用，这种方法的实时性比较低。<br>具体使用方法如下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">GPIO_Input_init</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    local KEY1 </span>= pins.setup(<span class="number">27</span>, nil, pio.PULLUP)--将GPIO27初始化为输入上拉</span><br><span class="line">	local LED1 = pins.setup(<span class="number">64</span>, <span class="number">0</span>)--将GPIO64初始化为输出</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> KEY1() == <span class="number">0</span> then--如果KEY1被接地，那么就点亮LED1</span><br><span class="line">			LED1(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			LED1(<span class="number">0</span>)--否则熄灭LED1</span><br><span class="line">		end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)--一秒查询一次</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>查询法用起来比较简单需要不停的去查询<br>假如延时过短，就会出现任务切换频繁，执行效率低，cpu一直在忙着查询。<br>延时时间过长就会出现实时性低，比如我上面的代码key1接通后运气不好的时候需要等一秒钟才会有反应，不建议在对事件敏感的时候使用</p>
-</blockquote>
-<h2 id="2、中断法"><a href="#2、中断法" class="headerlink" title="2、中断法"></a>2、中断法</h2><blockquote>
-<p>中断我对它的理解是，他的优先级高于普通函数，可以打断正在执行的低优先级中断，和普通任务。<br>有打断的意思，只要正在执行的任务优先级比它低，当中断来临时就可以被打断，转而去执行中断函数。<br>中断的原则是快进快出，不能在里面执行复杂的事情，否则会影响其他任务执行。相对普通任务实时性较高，适用于对事件敏感的情况<br>在Air720SL中GPIO输入中断的使用方法如下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">local LED2</span><br><span class="line">function GPIO_Exti_cb(msg)--中断回调函数</span><br><span class="line">    <span class="keyword">if</span> msg == cpu.INT_GPIO_POSEDGE then--如果当前中断是上升沿触发</span><br><span class="line">        LED2(<span class="number">0</span>)--熄灭LED2</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        LED2(<span class="number">1</span>)--否则点亮LED2</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function GPIO_Exti_init()</span><br><span class="line">    local KEY2 = pins.setup(<span class="number">28</span>, GPIO_Exti_cb, pio.PULLUP)--将GPIO28初始化为输入上拉，并且启用中断回调</span><br><span class="line">	LED2 = pins.setup(<span class="number">65</span>, <span class="number">0</span>)--将GPIO65初始化为输出</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>中断的使用方法相比查询到要显得麻烦一下，需要多写一个函数，代码量比较多，但是好处就是实时性高。</p>
-</blockquote>
-<h1 id="三、下载完整的代码到Air720Sl开发板"><a href="#三、下载完整的代码到Air720Sl开发板" class="headerlink" title="三、下载完整的代码到Air720Sl开发板"></a>三、下载完整的代码到Air720Sl开发板</h1><blockquote>
-<p>这里我们直接贴出全部代码</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;pins&quot;</span></span><br><span class="line"></span><br><span class="line">local function GPIO_Input_init()</span><br><span class="line">    local KEY1 = pins.setup(<span class="number">27</span>, nil, pio.PULLUP)--将GPIO27初始化为输入上拉</span><br><span class="line">	local LED1 = pins.setup(<span class="number">64</span>, <span class="number">0</span>)--将GPIO64初始化为输出</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> KEY1() == <span class="number">0</span> then--如果KEY1被接地，那么就点亮LED1</span><br><span class="line">			LED1(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			LED1(<span class="number">0</span>)--否则熄灭LED1</span><br><span class="line">		end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)--一秒查询一次</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local LED2</span><br><span class="line">function GPIO_Exti_cb(msg)--中断回调函数</span><br><span class="line">    <span class="keyword">if</span> msg == cpu.INT_GPIO_POSEDGE then--如果当前中断是上升沿触发</span><br><span class="line">        LED2(<span class="number">0</span>)--熄灭LED2</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        LED2(<span class="number">1</span>)--否则点亮LED2</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function GPIO_Exti_init()</span><br><span class="line">    local KEY2 = pins.setup(<span class="number">28</span>, GPIO_Exti_cb, pio.PULLUP)--将GPIO28初始化为输入上拉，并且启用中断回调</span><br><span class="line">	LED2 = pins.setup(<span class="number">65</span>, <span class="number">0</span>)--将GPIO65初始化为输出</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">	sys.wait(<span class="number">10000</span>)</span><br><span class="line">    sys.taskInit(GPIO_Input_init)</span><br><span class="line">	sys.taskInit(GPIO_Exti_init)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>下载程序后运行结果如下，GPIO27控制LED1，GPIO28控制LED2.<br>GPIO27使用一秒查询一次，反应速度感觉明显有卡顿<br>GPIO28采用中断，几乎感觉不出来有延时<br><img src="https://img-blog.csdnimg.cn/20200216125954531.gif" alt="在这里插入图片描述"></p>
-</blockquote>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><h2 id="1、官方的pins库函数"><a href="#1、官方的pins库函数" class="headerlink" title="1、官方的pins库函数"></a>1、官方的pins库函数</h2><ul>
-<li>pins.setup(28, GPIO_Exti_cb, pio.PULLUP)–将GPIO28初始化为输入上拉，并且启用中断回调</li>
-<li>pins.setup(27, nil, pio.PULLUP)–将GPIO27初始化为输入上拉</li>
-</ul>
-<h2 id="2、两种使用方法的环境"><a href="#2、两种使用方法的环境" class="headerlink" title="2、两种使用方法的环境"></a>2、两种使用方法的环境</h2><ul>
-<li>查询法适用于普通场景，对事件敏感度不高的情况，查询不建议太过于频繁，一般按钮的话500ms查询一次，速度都还可以接收，</li>
-<li>中断法适用于强实时性场所，比如某些设备的<code>急停按钮</code>这就不能用查询法了，这类按钮对事件要求比较严格，用中断可以满足要求</li>
-</ul>
-<blockquote>
-<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/16/693/" data-id="ckkfmdgd500anvkcg2scjg9yl" data-title="5、合宙Air模块Luat开发：GPIO输入常见的两种使用方法及其优劣性" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-24" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/14/24/" class="article-date">
-  <time class="dt-published" datetime="2020-02-14T11:38:48.000Z" itemprop="datePublished">2020-02-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/14/24/">上海合宙Luat Air720SL模块 入门指南（7）-I2C接</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="1）I2C总线简介"><a href="#1）I2C总线简介" class="headerlink" title="1）I2C总线简介"></a>1）I2C总线简介</h2><p>I2C总线是由Philips公司在1982年提出的一种简单、双向二线制同步串行总线。它只需要两根线即可在连接于总线上的器件之间传送信息。</p>
-<p>I2C接口是以主从方式工作的,这种模式通常有一个主器件和一个或多个从器件，分别由SDA(串行数据线)和SCL(串行时钟线)及上拉电阻组成。通过对SCL和SDA线高低电平时序的控制，来产生I2C总线协议所需要的信号进行数据传递。在总线空闲状态时，这两根线一般被上面所接的上拉电阻拉高，保持高电平。</p>
-<p>I2C总线上的设备通过不同的I2C地址进行区分，地址定义为7位 A6-A0，由于整字节为8位，因此在单片机上往往用8位表示，分为大端对齐和小端对齐。</p>
-<p>I2C总线上的每一个设备都可以作为主设备或者从设备，而且每一个设备都会对应一个唯一的地址(地址可以从器件的数据手册查询），主从设备之间就通过这个地址来确定与哪个器件进行通信，在通常的应用中，我们把带I2C总线接口的模块作为主设备，把挂接在总线上的其他设备都作为从设备。</p>
-<p>I2C总线上可挂接的设备数量受总线的最大电容400pF 限制，如果所挂接的是相同型号的器件，则还受器件地址位的限制。</p>
-<p>I2C总线数据传输速率在标准模式下可达100kbit/s，快速模式下可达400kbit/s，高速模式下可达3.4Mbit/s。一般通过I2C总线接口可编程时钟来实现传输速率的调整，同时也跟所接的上拉电阻的阻值有关。</p>
-<p>I2C总线上的主设备与从设备之间以字节(8位)为单位进行双向的数据传输。</p>
-<p>下图为基本电路连接示意图。 在物理连接上，各个设备是对等的。 在逻辑上，分主设备和从设备，主设备负责控制时钟和数据线进行通信控制，从设备负责正确响应主设备的时钟信号在数据线上收发数据。</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193633034_I2C.jpg" alt="alt"></p>
-<h2 id="2-SMBus总线简介"><a href="#2-SMBus总线简介" class="headerlink" title="2) SMBus总线简介"></a>2) SMBus总线简介</h2><p>I2C总线协议有一个姊妹协议SMBus，是由Intel在1995提出的，与I2C总线在协议细节上有所差别，但多数支持I2C的硬件设备兼容SMBus协议。下面是二者区别：</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193645949_i2csmbus.jpg" alt="alt"></p>
-<p>可以看到，在一定的速率和工作电压范围内二者协议是兼容。</p>
-<h2 id="2）I2C的基本时序"><a href="#2）I2C的基本时序" class="headerlink" title="2）I2C的基本时序"></a>2）I2C的基本时序</h2><p>总线上数据的传输必须以一个起始信号作为开始条件，以一个结束信号作为传输的停止条件。起始和结束信号总是由主设备产生。总线在空闲状态时，SCL和SDA都保持着高电平，当SCL为高电平而SDA由高到低的跳变，表示产生一个起始条件；当SCL为高而SDA由低到高的跳变，表示产生一个停止条件。在起始条件产生后，总线处于忙状态，由本次数据传输的主从设备独占，其他I2C器件无法访问总线；而在停止条件产生后，本次数据传输的主从设备将释放总线，总线再次处于空闲状态。如图所示：</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193656110_timing1.png" alt="alt"></p>
-<p>主设备在SCL线上产生每个时钟脉冲的过程中将在SDA线上传输一个数据位，当一个字节按数据位从高位到低位的顺序传输完后，紧接着从设备将控制SDA线，回传给主设备一个应答位ACK，或非应答位NACK。 0表示应答ACK，数据传输正常，1表示非应答NACK，表示数据传输终止。</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193707883_timing2.png" alt="alt"></p>
-<p>主设备在传输有效数据之前要先指定从设备的地址，地址指定的过程和上面数据传输的过程一样，设备的地址是7位，添加一个最低位用来表示接下来数据传输的方向，0表示主设备向从设备写数据，1表示主设备向从设备读数据。</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193716450_timing3.png" alt="alt"></p>
-<h2 id="3-I2C实际应用"><a href="#3-I2C实际应用" class="headerlink" title="3) I2C实际应用"></a>3) I2C实际应用</h2><p>对I2C总线的操作实际就是主从设备之间的读写操作。大致可分为以下三种操作情况：</p>
-<p>第一，主设备往从设备中写数据。数据传输格式如下</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193725984_rw1.png" alt="alt"></p>
-<p>第二，主设备从从设备中读数据。数据传输格式如下</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193735939_rw2.png" alt="alt"></p>
-<p> 第三，主从设备连续进行读写操作，即主设备往从设备中写数据，然后重启起始条件，紧接着从从设备中读取数据；或者是主设备从从设备中读数据，然后重启起始条件，紧接着主设备往从设备中写数据。重启条件为，应答位后，从机拉低SCL。</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193746930_rw3.png" alt="alt"></p>
-<h2 id="4-I2C总线的测试方法"><a href="#4-I2C总线的测试方法" class="headerlink" title="4) I2C总线的测试方法"></a>4) I2C总线的测试方法</h2><p>对于I2C总线，由于每个字节的传输需要从设备进行应答，因此必须使用支持I2C总线的设备进行总线测试，比较常见的有I2C设备有Flash芯片24C01等。</p>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200214193842958_24c01.png" alt="alt"></p>
-<p>在下一篇文章，我用Luat编程方式编写驱动对I2C总线进行相关测试。 感谢您的耐心阅读。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/14/24/" data-id="ckkfmdgau0049vkcg14m8diw0" data-title="上海合宙Luat Air720SL模块 入门指南（7）-I2C接" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-692" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/14/692/" class="article-date">
-  <time class="dt-published" datetime="2020-02-14T06:43:08.000Z" itemprop="datePublished">2020-02-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/14/692/">4、合宙Air模块Luat开发：用GPIO输出功能实现一个简单的LED灯闪烁</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<blockquote>
-<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
-</blockquote>
-<blockquote>
-<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-</blockquote>
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
-<p>本系列教程选择使用Luat在模块上进行二次开发，那么就要把Air720SL模块当作一个普通的单片机来学。</p>
-</blockquote>
-<blockquote>
-<p>既然我们谈到了单片机那么驱动外设是必不可少的，单片机的外设有很多中，常见的有GPIO，UART，IIC，ADC，DAC，SPI等等。<br>就拿我们的Air720SL来讲，其拥有的外设也不少，可玩性还是很高的。<br><img src="https://img-blog.csdnimg.cn/20200214121656756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>如果仅仅把它当作一个通讯模块来用，显得有点浪费。<br>既然厂商开发了这么多外设功能，那我们要想办法把他用起来，而不是放在那里吃灰，要想方设法榨干它的身体</p>
-</blockquote>
-<blockquote>
-<p>俗话说得好，不学爬怎么学跑呢，对吧。<br>学习也是一样，我们要从简单的学起不是上来就干最难的。<br>在上面这么多种外设中，GPIO无疑是最简单的，最容易的，也是最基本的，而GPIO又有输入和输出的功能。<br>想要点亮一个灯，那就需要用到GPIO的输出功能。那我们现在闲话少说，开始学习新的内容</p>
-</blockquote>
-<h1 id="二、磨刀不误砍柴工"><a href="#二、磨刀不误砍柴工" class="headerlink" title="二、磨刀不误砍柴工"></a>二、磨刀不误砍柴工</h1><h2 id="1、怎么才能点亮一个灯"><a href="#1、怎么才能点亮一个灯" class="headerlink" title="1、怎么才能点亮一个灯"></a>1、怎么才能点亮一个灯</h2><blockquote>
-<p>我们这里就长话短说，想要灯亮首先得满足led灯的电压要求，其次还要形成足够的电流，led才能点亮。<br>在我们的开发板这里我们就不需要考虑这些，官方的就是计算好的，我们只需要让它形成电流即可，形成电流的条件是在led两端要有压差</p>
-</blockquote>
-<blockquote>
-<p>现在我们打开开发板原理图，找到指示灯模块，如下图所示<br><img src="https://img-blog.csdnimg.cn/20200214123820350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>从原理图得知，LED实际上是由三极管控制的<br>如果想要LED1和LED2两端形成压差，那就要使三极管导通<br>在本图中三极管导通的条件是Vb&gt;Ve，Ve=0，那么就需要Vb&gt;0<br><img src="https://img-blog.csdnimg.cn/20200214143011480.png" alt="在这里插入图片描述"><br>而Vb的电压是由GPIO输出经过电阻分压，而形成的，也就是说，要想LED点亮，那么GPIO需要输出高电平，我们分别控制GPIO64和GPIO65就能控制LED</p>
-</blockquote>
-<h2 id="2、尝试点亮一个灯"><a href="#2、尝试点亮一个灯" class="headerlink" title="2、尝试点亮一个灯"></a>2、尝试点亮一个灯</h2><blockquote>
-<p>既然知道了应该怎样才能点亮一个灯，那我们现在就来试一下，验证刚才的分析对不对<br>首先我们需要包含一个库<code>pin</code>库，<code>require &quot;pins&quot;</code>才能使用GPIO驱动相关的库函数<br>然后在main程序里写入如下代码</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">user_main</span><span class="params">()</span></span></span><br><span class="line">    --初始化GPIO 比如GPIO_64</span><br><span class="line">    local LED1 = pins.setup(<span class="number">64</span>, <span class="number">0</span>)</span><br><span class="line">	local LED2 = pins.setup(<span class="number">65</span>, <span class="number">0</span>)</span><br><span class="line">	LED1(<span class="number">1</span>)--让指示灯亮</span><br><span class="line">	LED2(<span class="number">1</span>)--让指示灯亮</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>下载测试程序，等待片刻LED1（第二个灯）和LED2（第三个灯）成功点亮，<code>第一个灯是电源灯，不控制的话开机就会亮</code><br><img src="https://img-blog.csdnimg.cn/20200214131242363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>接下来我们测量一下GPIO64的引脚电平，果然是高电平点亮LED，说明我们刚才的分析没有问题<br><img src="https://img-blog.csdnimg.cn/20200214132321971.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</blockquote>
-<h1 id="三、下载完整的代码到Air720Sl开发板"><a href="#三、下载完整的代码到Air720Sl开发板" class="headerlink" title="三、下载完整的代码到Air720Sl开发板"></a>三、下载完整的代码到Air720Sl开发板</h1><blockquote>
-<p>这里我们直接贴出全部代码</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;pins&quot;</span></span><br><span class="line">local function LED0()</span><br><span class="line">    --初始化GPIO 比如GPIO_64</span><br><span class="line">    local ledpin = pins.setup(<span class="number">64</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        ledpin(<span class="number">1</span>)--让指示灯亮<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">        ledpin(<span class="number">0</span>); --让指示灯灭<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">LED1</span><span class="params">()</span></span></span><br><span class="line">    --初始化GPIO 比如GPIO_65</span><br><span class="line">    local ledpin = pins.setup(<span class="number">65</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">5</span> <span class="keyword">do</span></span><br><span class="line">        ledpin(<span class="number">1</span>)--让指示灯亮<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">        ledpin(<span class="number">0</span>); --让指示灯灭<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">user_main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	sys.<span class="title">wait</span><span class="params">(<span class="number">10000</span>)</span></span></span><br><span class="line"><span class="function">    sys.<span class="title">taskInit</span><span class="params">(LED0)</span></span></span><br><span class="line"><span class="function">    sys.<span class="title">taskInit</span><span class="params">(LED1)</span></span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>下载程序后运行结果如下，LED1和LED2以1HZ频率闪烁，LED2闪烁5次后停止<br><img src="https://img-blog.csdnimg.cn/20200214140728460.gif" alt="在这里插入图片描述"></p>
-</blockquote>
-<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><h2 id="1、官方的pins库函数"><a href="#1、官方的pins库函数" class="headerlink" title="1、官方的pins库函数"></a>1、官方的pins库函数</h2><ul>
-<li>pins.setup(pin, val, pull)：配置GPIO模式</li>
-<li>pins.close(pin)：关闭GPIO模式</li>
-<li>GPIO的操作直接使用setup函数的返回值即可</li>
-</ul>
-<h2 id="2、学会驱动GPIO输出有什么作用"><a href="#2、学会驱动GPIO输出有什么作用" class="headerlink" title="2、学会驱动GPIO输出有什么作用"></a>2、学会驱动GPIO输出有什么作用</h2><ul>
-<li>直接驱动LED灯</li>
-<li>直接驱动继电器，间接控制插座或者其他强电开关，实现自动控制</li>
-<li>在没有硬件IIC的芯片上，可以使用GPIO输入和输出功能，模拟软件IIC</li>
-<li>这里只列出了三种比较常用的用法，其他用法还有很多，需要自己摸索</li>
-</ul>
-<blockquote>
-<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/14/692/" data-id="ckkfmdgd500amvkcg0lqddt7r" data-title="4、合宙Air模块Luat开发：用GPIO输出功能实现一个简单的LED灯闪烁" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-691" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/13/691/" class="article-date">
-  <time class="dt-published" datetime="2020-02-13T03:53:00.000Z" itemprop="datePublished">2020-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/13/691/">3、合宙Air模块Luat开发：实现用&#34;Printf&#34;把文字格式化以后直接输出</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<blockquote>
-<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
-</blockquote>
-<blockquote>
-<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-</blockquote>
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
-<p>在我的第二篇博文中<code>2、Air720SL模块Luat开发：第一个Luat的Hello World（在目录出可找到入口）</code>我们用了一下<br><code>print</code>函数实现打印Hello World到日志</p>
-</blockquote>
-<blockquote>
-<p>在Lua语法中print函数可以接收任意字符串实现输出字符到日志<br>1、可以直接输出数字<code>print(123)</code>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20200213105046567.png" alt="在这里插入图片描述"><br>2、也可以直接字符<code> print(&quot;abc&quot;)</code>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20200213105213956.png" alt="在这里插入图片描述"><br>3、还可以混合输出<code>print(&quot;abc&quot;..123)</code>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20200213105321335.png" alt="在这里插入图片描述"></p>
-</blockquote>
-<blockquote>
-<p>但是<code>print</code>这个函数并不能用来格式化输出<br>如果我要输出一个可变化的字符串，不是说<code>print</code>函数不行，它也可以，但是却比较麻烦<br>比如我要输出下面这样一段字符串，其中标红的是需要随时改变的变量<br>Hello <code>Tom</code>!my name is:<code>YXCN</code>,I am <code>30</code> years old now</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local other=<span class="string">&quot;Tom&quot;</span></span><br><span class="line">local name=<span class="string">&quot;YXCN&quot;</span></span><br><span class="line">local age=<span class="number">30</span></span><br><span class="line">print(<span class="string">&quot;Hello &quot;</span>..other..<span class="string">&quot;!&quot;</span>..<span class="string">&quot;my name is:&quot;</span>..name..<span class="string">&quot;,&quot;</span>..<span class="string">&quot;I am &quot;</span>..age..<span class="string">&quot; years old now&quot;</span>)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>用<code>print</code>输出，需要写一大段，还要自己用<code>..</code>组织字符串连接，一共用了八个字符串连接符，用了六对双引号<br>这个例子还好只有三个变量，就已经显得有点复杂，如果变量一多，想都不敢想。<br>这样写法阅读起来也是及其困难的，无法直接得出变量是什么类型的，可能是字符串，也可能是数字，还得回去看变量到底是什么值，这节课我们就一起学习一下怎么用Lua实现C语言的Printf格式化输出的功能</p>
-</blockquote>
-<h1 id="二、Printf格式化函数输出实现"><a href="#二、Printf格式化函数输出实现" class="headerlink" title="二、Printf格式化函数输出实现"></a>二、Printf格式化函数输出实现</h1><blockquote>
-<p>在Lua里面没有<code>printf</code>函数，直接写会报错<br><img src="https://img-blog.csdnimg.cn/20200213111500236.png" alt="在这里插入图片描述"></p>
-</blockquote>
-<blockquote>
-<p>这里我们需要自己实现一下，代码如下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">printf</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	<span class="title">print</span><span class="params">(<span class="built_in">string</span>.format(...))</span></span></span><br><span class="line"><span class="function">end</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>现在我们一起来试一下Hello <code>Tom</code>!my name is:<code>YXCN</code>,I am <code>30</code> years old now输出有多简单</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">printf</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	<span class="title">print</span><span class="params">(<span class="built_in">string</span>.format(...))</span></span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">local other</span>=<span class="string">&quot;Tom&quot;</span></span><br><span class="line">local name=<span class="string">&quot;YXCN&quot;</span></span><br><span class="line">local age=<span class="number">30</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Hello %s ! my name is: %s , I am %d years old now&quot;</span>,other,name,age)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>对比两行<code>print</code>和<code>printf</code>的输出函数，<code>printf</code>函数格式化输出只用的一对双引号，结构清晰，能从语句中直接得出，需要输出的是什么格式的数据，很显然第一个转义码%s和第二个转义码%s代表的是字符串，第三个转义码%d代表的是数字<br>在Lua软件上直接输出结果如下，说明语法上是行得通的<br><img src="https://img-blog.csdnimg.cn/20200213112732472.png" alt="在这里插入图片描述"></p>
-</blockquote>
-<blockquote>
-<p>这里给出Lua支持所有的转义码</p>
-</blockquote>
-<ul>
-<li>%c - 接受一个数字, 并将其转化为ASCII码表中对应的字符</li>
-<li>%d, %i - 接受一个数字并将其转化为有符号的整数格式</li>
-<li>%o - 接受一个数字并将其转化为八进制数格式</li>
-<li>%u - 接受一个数字并将其转化为无符号整数格式</li>
-<li>%x - 接受一个数字并将其转化为十六进制数格式, 使用小写字母</li>
-<li>%X - 接受一个数字并将其转化为十六进制数格式, 使用大写字母</li>
-<li>%e - 接受一个数字并将其转化为科学记数法格式, 使用小写字母e</li>
-<li>%E - 接受一个数字并将其转化为科学记数法格式, 使用大写字母E</li>
-<li>%f - 接受一个数字并将其转化为浮点数格式</li>
-<li>%g(%G) - 接受一个数字并将其转化为%e(%E, 对应%G)及%f中较短的一种格式</li>
-<li>%q - 接受一个字符串并将其转化为可安全被Lua编译器读入的格式</li>
-<li>%s - 接受一个字符串并按照给定的参数格式化该字符串</li>
-</ul>
-<blockquote>
-<p>下面我们将程序下载到开发板验证</p>
-</blockquote>
-<h1 id="三、下载程序到Air720Sl开发板"><a href="#三、下载程序到Air720Sl开发板" class="headerlink" title="三、下载程序到Air720Sl开发板"></a>三、下载程序到Air720Sl开发板</h1><blockquote>
-<p>这里我们直接贴出全部代码</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line">local function <span class="built_in">printf</span>(...)</span><br><span class="line">	print(<span class="built_in">string</span>.format(...))</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">	local other=<span class="string">&quot;Tom&quot;</span></span><br><span class="line">	local name=<span class="string">&quot;YXCN&quot;</span></span><br><span class="line">	local age=<span class="number">30</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Hello %s ! my name is: %s , I am %d years old now&quot;</span>,other,name,age)</span><br><span class="line">		age = age + <span class="number">1</span>--一秒加一岁</span><br><span class="line">		sys.wait(<span class="number">1000</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>下载程序后运行结果如下，一秒加一岁，现在已经240多岁了，哈哈<br><img src="https://img-blog.csdnimg.cn/20200213113713240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/13/691/" data-id="ckkfmdgd500alvkcg8ttahsnu" data-title="3、合宙Air模块Luat开发：实现用&#34;Printf&#34;把文字格式化以后直接输出" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-690" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/12/690/" class="article-date">
-  <time class="dt-published" datetime="2020-02-12T15:50:19.000Z" itemprop="datePublished">2020-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/12/690/">2、合宙Air模块Luat开发：第一个Luat的Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<blockquote>
-<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
-</blockquote>
-<blockquote>
-<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-</blockquote>
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
-<p>学习过C语言的朋友应该很清楚（没有学过可以直接跳过前言，以下纯属闲聊），C语言入门第一课就是HelloWorld，下面的这段代码大家都不陌生</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world!\n&quot;</span>);</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在c语言里，想要使用printf函数就需要包含<code>#include &lt;stdio.h&gt;</code>，<br>想要程序能够运行，那需要有main函数，程序以main函数作为程序入口，开始执行</p>
-</blockquote>
-<blockquote>
-<p>而Lua是一个脚本语言，相比C语言要少了很多限制，它可以不需要main函数，甚至参数可以不用定义，直接使用，系统会根据里面的值，自动创建一个对应的变量存储它，用起来十分方便。<br>直接写一个<code>str=“abc”</code>系统会自动给这个数据创建一个String类型的变量存储<br>直接写一个<code>str=123</code>系统会自动给这个数据创建一个Number类型的变量存储<br>开始运行时直接从上到下顺序执行（下面这段程序，是我随便打出来的，没有什么实际意义）</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tab1=&#123;&#125;</span><br><span class="line">print(tab2.key1)</span><br><span class="line">print(tab2[<span class="string">&quot;key1&quot;</span>])</span><br><span class="line">print(tab2.key2)</span><br><span class="line">print(tab3[<span class="number">1</span>])</span><br><span class="line">print(tab3[<span class="number">2</span>])</span><br><span class="line">print(tab3[<span class="number">3</span>])</span><br><span class="line">print(tab3[<span class="number">4</span>])</span><br><span class="line">tab1.key1=<span class="string">&quot;www.baidu.com&quot;</span></span><br><span class="line">print(tab1[<span class="string">&quot;key1&quot;</span>])</span><br><span class="line">print(tab1.key1)</span><br><span class="line">tab1[<span class="string">&quot;key2&quot;</span>]=<span class="string">&quot;haha&quot;</span></span><br><span class="line">print(tab1[<span class="string">&quot;key2&quot;</span>])</span><br><span class="line">print(tab1.key2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>我们这里也不例外，我选择将HelloWorld作为本系列教程的第一个程序，<br>闲话扯了这么多，下面开始正式我们的Helloworld例程</p>
-</blockquote>
-<h1 id="二、新建一个工程"><a href="#二、新建一个工程" class="headerlink" title="二、新建一个工程"></a>二、新建一个工程</h1><h2 id="1、创建文件"><a href="#1、创建文件" class="headerlink" title="1、创建文件"></a>1、创建文件</h2><blockquote>
-<p>在一个自己能找到的地方，比如桌面，实际随便哪里都行，新建一个文件夹，命名为0_HelloWorld<br><img src="https://img-blog.csdnimg.cn/20200212222315435.png" alt="在这里插入图片描述"><br>进去新建一个文本文档命名为main.lua，注意后缀名，最好是.lua，不要是.txt，其他的后缀名我也没试过<br><img src="https://img-blog.csdnimg.cn/20200212222624121.png" alt="在这里插入图片描述"></p>
-</blockquote>
-<h2 id="2、编写程序"><a href="#2、编写程序" class="headerlink" title="2、编写程序"></a>2、编写程序</h2><blockquote>
-<p>双击main.lua打开复制如下代码，然后<code>保存</code></p>
-</blockquote>
-<blockquote>
-<p>这里有些朋友可能会说，你刚才在前言上面不是说可以不用main函数吗，这里怎么有个<code>user_main()</code><br>没错确实可以不用main函数，不信等会你测试完成我的代码后，可以自己试，不会有任何问题<br>我这里利用系统任务创建了一个main函数，可能是因为我有强迫症吧<br>我个人觉得lua虽然可以直接写程序，但是文件一多，程序就显得比较乱<br>这是我的个人原因，我习惯有一个函数能够统一运行用户程序代码，以后的教程我放出来的程序都会是这个程序格式<br>可以将下面这段程序理解为一个工程模板，以后的程序我都是在这个模板上面改的</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">		print(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">		sys.wait(<span class="number">1000</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架，下面不要随便动</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>这个程序的主逻辑很简单，在一个死循环里面<code>while true do</code>不停的做<code>print(&quot;Hello World&quot;)</code>输出，然后延时1000ms，继续循环</p>
-</blockquote>
-<ul>
-<li>print(“Hello World”)：输出函数</li>
-<li>sys.wait(1000)：阻塞延时函数单位毫秒</li>
-<li>sys.taskInit(user_main)：创建一个任务，这里创建的是user_main()</li>
-<li>sys.init(0, 0)：系统框架初始化</li>
-<li>sys.run()：系统开始运行</li>
-</ul>
-<h2 id="3、下载脚本"><a href="#3、下载脚本" class="headerlink" title="3、下载脚本"></a>3、下载脚本</h2><blockquote>
-<p>打开LuaTools(不知道这是什么东西的，去看我的第一篇博客<code>1、Air720SL模块Luat开发：环境搭建</code>，从本文的目录处可找到入口)<br><img src="https://img-blog.csdnimg.cn/20200212231613579.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击右边蓝色按钮<code>下载Lua脚本</code><img src="https://img-blog.csdnimg.cn/2020021223165889.png" alt="在这里插入图片描述">进入如下界面<br><img src="https://img-blog.csdnimg.cn/20200212231800607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击添加脚本，添加刚才写的程序<br><img src="https://img-blog.csdnimg.cn/20200212231856340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击下载脚本，会弹出如下界面<br><img src="https://img-blog.csdnimg.cn/20200212231941488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>直接点击确定，下载器会自动完成脚本库的添加，并且进入下载状态<br><img src="https://img-blog.csdnimg.cn/2020021223203293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>按下复位按钮，程序开始下载，等待下载完成<br><img src="https://img-blog.csdnimg.cn/20200212232143469.png" alt="在这里插入图片描述"><br>关闭下载界面，回到主界面，选择USB打印，并且打开端口<img src="https://img-blog.csdnimg.cn/202002122322121.png" alt="在这里插入图片描述"><br>系统会打印一些无关的消息，我们的<code>Hello World</code>就藏在里面<br><img src="https://img-blog.csdnimg.cn/20200212232405188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>自己要是不想找的话，那就等一会，系统会逐渐停止抽搐<br><img src="https://img-blog.csdnimg.cn/20200212232639885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">直到满屏的<code>Hello World</code>出现，我们的第一个例程到此结束</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/12/690/" data-id="ckkfmdgd400akvkcgg74ie9y3" data-title="2、合宙Air模块Luat开发：第一个Luat的Hello World" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-689" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/12/689/" class="article-date">
-  <time class="dt-published" datetime="2020-02-12T15:46:44.000Z" itemprop="datePublished">2020-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/12/689/">1、合宙Air模块Luat开发：环境搭建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<blockquote>
-<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
-</blockquote>
-<blockquote>
-<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-</blockquote>
-<h1 id="一、环境搭建前准备"><a href="#一、环境搭建前准备" class="headerlink" title="一、环境搭建前准备"></a>一、环境搭建前准备</h1><h2 id="1、准备硬件"><a href="#1、准备硬件" class="headerlink" title="1、准备硬件"></a>1、准备硬件</h2><blockquote>
-<p>为了避免不必要的麻烦，这里我选用的是合宙商城推出的的Air720SL开发板。<br>相比720x系列，720sl开发板内置了一张esim卡，不需要自己在另外购买物联卡，<br>该开发板在淘宝和合宙商城都有出售。价格199软妹币，还可以接受。</p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/20200212204008504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="Air720SL开发板"></p>
-<ul>
-<li>淘宝链接：<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-22403489719.51.3d727118bUwz0j&id=610853578601">淘宝购买点我</a></li>
-<li>合宙商城：<a target="_blank" rel="noopener" href="http://m.openluat.com/product/1192">商城购买点我</a>，也可关注合宙的微信公众号自行购买</li>
-</ul>
-<h2 id="2、准备软件"><a href="#2、准备软件" class="headerlink" title="2、准备软件"></a>2、准备软件</h2><ul>
-<li>Windows USB驱动下载：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/AirM2M_USB_Download&Com_Driver_for_4G_V1.0.0.4.7z">点我</a></li>
-<li>Luat下载调试工具1.6.4：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/LuaTools%201.6.4_4G.7z">点我</a></li>
-<li>底层软件CORE V0008：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802s/core_V0008.zip">点我</a></li>
-<li>上层软件luaTask V2.2.7 (Demo + Lib)：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/script_LuaTask_V2.2.7.zip">点我</a></li>
-</ul>
-<blockquote>
-<p>上面4个链接全部下载，如下图所示<br><img src="https://img-blog.csdnimg.cn/20200212210602349.png" alt="在这里插入图片描述"><br>全部解压</p>
-</blockquote>
-<h1 id="二、开始环境搭建"><a href="#二、开始环境搭建" class="headerlink" title="二、开始环境搭建"></a>二、开始环境搭建</h1><blockquote>
-<h2 id="1、安装驱动"><a href="#1、安装驱动" class="headerlink" title="1、安装驱动"></a>1、安装驱动</h2><p> 打开解压后的AirM2M_USB_Download&amp;Com_Driver_for_4G_V1.0.0.4<br> <img src="https://img-blog.csdnimg.cn/20200212211006986.png" alt="在这里插入图片描述"><br> 根据自己的操作系统位数，选中安装程序，如下图所示。<br> 基于x64那就选择DrvInstaller_x64安装<br> 基于x86那就选择DrvInstaller安装<br> 我这里电脑是64位的，所以选择DrvInstaller_x64安装程序<br> <img src="https://img-blog.csdnimg.cn/20200212211325596.png" alt="在这里插入图片描述"><br> 安装成功后将开发板插上电脑，将开关拨到On，并且按下开机键，稍等一会正常情况下，开发板三个灯都会正常亮起，并伴随着闪烁<br> <img src="https://img-blog.csdnimg.cn/20200212212145553.png" alt="在这里插入图片描述">&gt;<img src="https://img-blog.csdnimg.cn/20200212212058300.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200212213241185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p> 打开，设备管理器查看端口，是否有如下三个设备，如果没有，那就是驱动没有安装成功，回去重新安装驱动<br> <img src="https://img-blog.csdnimg.cn/20200212212243174.png" alt="在这里插入图片描述"></p>
-</blockquote>
-<p>**注意：如果是win10系统，需要禁用驱动程序强制签名，否则安装失败，自行百度相关教程这里不多做赘述</p>
-<h2 id="2、下载底层软件"><a href="#2、下载底层软件" class="headerlink" title="2、下载底层软件"></a>2、下载底层软件</h2><p> 开发板出厂自带AT固件，我们需要的是Luat二次开发，所以需要替换底层固件</p>
-<blockquote>
-<p>打开解压后的LuaTools<br><img src="https://img-blog.csdnimg.cn/20200212212708156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择运行LuaTools.exe，可能会自动更新，允许即可，等待片刻<br><img src="https://img-blog.csdnimg.cn/20200212212944418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择右上角绿色图标下载CORE(.blf)<img src="https://img-blog.csdnimg.cn/20200212213333976.png" alt="在这里插入图片描述">打开后如下图所示<br><img src="https://img-blog.csdnimg.cn/2020021221342430.png" alt="在这里插入图片描述"><br>选择浏览文件，选中打开刚才下载的底层固件core_V0008里面的Luat_V0008_ASR1802S中的Luat_V0008_ASR1802S.blf。还有一个Float版本是支持小数运算的，运行会占用更多ram，我们暂时不需要进行小数运算，所以选则正常版本<br><img src="https://img-blog.csdnimg.cn/20200212213606704.png" alt="在这里插入图片描述"><br>去掉勾选的usb_boot，Air720sl支持usb_boot下载，但是可能是我的操作原因，失败率相对较高，用起来很不方便，这里推荐去掉usb_boot，然后点击下载<br><img src="https://img-blog.csdnimg.cn/20200212213921600.png" alt="在这里插入图片描述"><br>只需按一下开发板上的重启按钮即可<img src="https://img-blog.csdnimg.cn/20200212214015907.png" alt="在这里插入图片描述">就是下面的那一个红色按钮，这时开发板会进入下载状态，不要有任何操作，等待下载完成即可<br><img src="https://img-blog.csdnimg.cn/20200212214116698.png" alt="在这里插入图片描述"><br>关闭下载窗口，发现主窗口，上面的状态已经由AT变成了Luat，软件版本也不一样了<br><img src="https://img-blog.csdnimg.cn/20200212214236967.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200212214224975.png" alt="在这里插入图片描述"><br>到此为止，Luat开发环境搭建完成</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/12/689/" data-id="ckkfmdgd400aivkcg39o4gxme" data-title="1、合宙Air模块Luat开发：环境搭建" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-22" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/10/22/" class="article-date">
-  <time class="dt-published" datetime="2020-02-10T14:53:07.000Z" itemprop="datePublished">2020-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/10/22/">合宙Air系列模块外部总线接口常见用法-SPI总线，下</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Air720SL模块-SPI接口简介"><a href="#Air720SL模块-SPI接口简介" class="headerlink" title="Air720SL模块 SPI接口简介"></a>Air720SL模块 SPI接口简介</h2><p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210225140369_module.jpg></img></p>
-<h2 id="nRF24L01简介"><a href="#nRF24L01简介" class="headerlink" title="nRF24L01简介"></a>nRF24L01简介</h2><p>nRF24L01 是一款工作在2.4~2.5GHz 世界通用ISM 频段的单片无线收发器芯片无线收发器，下面是芯片信息,以及参考电路</p>
-<p>工作电压                        1.9~3.6V</p>
-<p>最大发射功率                     0 dBm</p>
-<p>发射模式下电流消耗0dBm         11.3 mA</p>
-<p>接收模式下电流消耗2000kbps     12.3 mA</p>
-<p>掉电模式下电流消耗                900 nA</p>
-<p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210225158421_circuit.jpg></img></p>
-<p>查阅nRF24L01的工作电压可知，可以使芯片工作在2.0V，即可匹配Air720SL的1.8V的IO电平。小功率的可调LDO很多，如AMS1117-ADJ，这里就不多介绍了。</p>
-<p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210225214159_io.jpg></img></p>
-<p>连接示意图如下：</p>
-<p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210225239535_conn.jpg></img></p>
-<p>下面是发射端的代码：</p>
-<p>主程序</p>
-<pre><code>-- Example 1: nrf24 transmitter
--- Features: fixed payload length
-
-r = require(&quot;nrf24&quot;)
-
-r.nrf24_hw_init()
-r.nrf24_init_node()
-
-r.nrf24_stop_listening()
-r.nrf24_set_channel(50)
-r.nrf24_set_xmit_address(&#123;0x0a, 0x0b, 0x0c, 0x0d, 0x0e&#125;)
-r.nrf24_set_recv_address(&#123;0x0a, 0x0b, 0x0c, 0x0d, 0x0e&#125;)
-r.nrf24_set_payload_size(15)
-
-i=0
---发送Demo
-r.nrf24_power_up()
-sys.timerLoopStart(function()
-    r.nrf24_reset()
-
-    local s_send=&quot;ABC&quot;..i
-    log.info(&quot;nrf24l01&quot;,&quot;xmit packet...&quot;, table.concat(string.utf8ToTable(s_send)))
-    r.nrf24_send_packet(string.utf8ToTable(s_send))
-    i=i+1
-
-end,1000)
-
-
-function gpio61IntFnc(msg)
-
-end
-
---GPIO61配置为中断，可通过getGpio61Fnc()获取输入电平，产生中断时，自动执行gpio61IntFnc函数
-getGpio61Fnc = pins.setup(61,gpio61IntFnc)
-</code></pre>
-<p>nRF24L01 底层驱动</p>
-<pre><code>-- nRF24 module 此代码参考了github开源项目 https://github.com/geomatsi/nodemcu-tests
-
-local modname = ...
-local M = &#123;&#125;
-
-_G[modname] = M
-
-require &quot;pins&quot;
-
---
--- module constants
---
-
--- nRF24 commands
-local R_REGISTER    = 0x00
-local W_REGISTER    = 0x20
-local REGISTER_MASK    = 0x1F
-local R_RX_PL_WID    = 0x60
-local R_RX_PAYLOAD    = 0x61
-local W_TX_PAYLOAD    = 0xA0
-local FLUSH_TX        = 0xE1
-local FLUSH_RX        = 0xE2
-local NOP        = 0xFF
-
--- nRF24 register map
-local CONFIG      = 0x00
-local SETUP_RETR  = 0x04
-local RF_CH       = 0x05
-local RF_SETUP    = 0x06
-local STATUS      = 0x07
-local RX_ADDR_P0  = 0x0A
-local TX_ADDR     = 0x10
-local RX_PW_P0    = 0x11
-local DYNPD       = 0x1C
-local FEATURE     = 0x1D
-local EN_RXADDR   = 0x02
-local FIFO_STATUS = 0x17
-
--- register bits
-local ARD        = 4
-local ARC        = 0
-local RF_PWR_LOW    = 1
-local RF_PWR_HIGH    = 2
-local RF_DR_LOW        = 5
-local RF_DR_HIGH    = 3
-local EN_CRC        = 3
-local CRCO        = 2
-local RX_DR        = 6
-local TX_DS        = 5
-local MAX_RT        = 4
-local PRIM_RX        = 0
-local PWR_UP        = 1
-local EN_DPL        = 2
-local ERX_P0        = 0
-local RX_EMPTY        = 0
-
---
--- module locals
---
-
-local PAYLOAD = 0
-local CE_PIN = 63
-local CS_PIN = 34
-
-local function stringtoTable(str)
-    local table = &#123;&#125;
-    for i=1,#str do
-        table[i] = string.sub(str,i,i)
-    end
-    return table
-end
-
--- set NRF24 CE gpio level
-local function nrf24_ce(value)
-    local level = (value &gt; 0) and 1 or 0
-    pins.setup(CE_PIN,level)
-end
-
--- set NRF24 CSN gpio level
-local function nrf24_csn(value)
-    local level = (value &gt; 0) and 1 or 0
-    pins.setup(CS_PIN,level)
-end
-
--- reverse 5byte pipe address
-local function reverse_addr(addr_in)
-    local addr_out = &#123;&#125;
-    for i = 1, 5 do
-        addr_out[i] = addr_in[5 - i + 1] or 0x0
-    end
-
-    return addr_out
-end
-
---
--- module exports
---
-
--- init nrf24 module
-function M.nrf24_hw_init()
-
-    --打开SPI引脚的供电
-    pmd.ldoset(6,pmd.LDO_VMMC)
-    spi.setup(0,0,0,8,110000,1)
-    pins.setup(CE_PIN,1)
-    pins.setup(CS_PIN,1)
-end
-
-function M.nrf24_reset()
-    status = bit.bor(bit.lshift(1, RX_DR), bit.lshift(1, TX_DS), bit.lshift(1, MAX_RT))
-    M.nrf24_write_register(STATUS, status)
-end
-
---发送一条指令
-function M.nrf24_send_cmd(cmd)
-    nrf24_csn(0)
-    local ret=0
-    ret=spi.send(0,string.char(cmd))
-    nrf24_csn(1)
-    return ret
-end
-
---发送一条请求,并返回单字节数据
-function M.nrf24_send_req(req)
-    nrf24_csn(0)
-    local rsp=spi.send_recv(0, string.char(req)..string.char(0xff))
-    nrf24_csn(1)
-    return string.byte(rsp:sub(2,2))
-end
-
---发送一条请求，并返回指定字节长度的数据
-function M.nrf24_msend_req(req, len)
-    input = &#123;&#125;
-    for i = 1, len do
-        input[i] = string.char(0xff)
-    end
-
-    nrf24_csn(0)
-    local output=spi.send_recv(0, string.char(req)..table.concat(input))
-    nrf24_csn(1)
-    return stringtoTable(output:sub(2,-1))
-end
---发送一条命令，并返回状态
-function M.nrf24_msend_cmd(cmd, values)
-    nrf24_csn(0)
-    local ret=spi.send_recv(0,string.char(cmd)..table.concat(values))
-    nrf24_csn(1)
-
-    return string.byte(ret:sub(1,1))
-end
-
---获取状态
-function M.nrf24_get_status()
-    nrf24_csn(0)
-    local status=spi.send_recv(0, string.char(NOP))
-    nrf24_csn(1)
-    return string.byte(status)
-end
-
---读取单个寄存器的值
-function M.nrf24_read_register(reg)
-    nrf24_csn(0)
-    local register=string.char(bit.bor(R_REGISTER, bit.band(REGISTER_MASK, reg)))
-    local ret=spi.send_recv(0,register..string.char(0xff))
-    nrf24_csn(1)
-    return string.byte(ret:sub(2,2))
-end
-
---读取多个寄存器的值
-function M.nrf24_mread_register(reg, len)
-    input = &#123;&#125;
-    for i = 1, len do
-        input[i] = string.char(0xff)
-    end
-    nrf24_csn(0)
-    local register=string.char(bit.bor(R_REGISTER, bit.band(REGISTER_MASK, reg)))
-    local output=spi.send_recv(0,register..table.concat(input))
-    nrf24_csn(1)
-    return stringtoTable(output:sub(2,-1))
-end
-
---写入单个寄存器的值
-function M.nrf24_write_register(reg, value)
-    nrf24_csn(0)
-    local register=string.char(bit.bor(W_REGISTER, bit.band(REGISTER_MASK, reg)))
-    local ret=spi.send_recv(0,register..string.char(value))
-    nrf24_csn(1)
-    return string.byte(ret)
-end
-
---写入多个寄存器的值
-function M.nrf24_mwrite_register(reg, values)
-    nrf24_csn(0)
-    local register=string.char(bit.bor(W_REGISTER, bit.band(REGISTER_MASK, reg)))
-    local ret=spi.send_recv(0,register..table.concat(values))
-    nrf24_csn(1)
-    return string.byte(ret:sub(1,1))
-end
-
-
-function M.nrf24_stop_listening()
-    config = M.nrf24_read_register(CONFIG)
-    config = bit.band(config, bit.bnot(bit.lshift(1, PRIM_RX)))
-    M.nrf24_write_register(CONFIG, config)
-
-    M.nrf24_mwrite_register(RX_ADDR_P0, &#123;0x0, 0x0, 0x0, 0x0, 0x0&#125;)
-    M.nrf24_mwrite_register(TX_ADDR, &#123;0x0, 0x0, 0x0, 0x0, 0x0&#125;)
-end
-
-function M.nrf24_start_listening()
-    config = M.nrf24_read_register(CONFIG)
-    config = bit.bor(config, bit.lshift(1, PRIM_RX), bit.lshift(1, PWR_UP))
-    M.nrf24_write_register(CONFIG, config)
-
-    status = bit.bor(bit.lshift(1, RX_DR), bit.lshift(1, TX_DS), bit.lshift(1, MAX_RT))
-    M.nrf24_write_register(STATUS, status)
-
-    nrf24_ce(1);
-    rtos.sleep(130)
-end
-
-function M.nrf24_set_xmit_address(address)
-    ---- address is 5bytes length
-    ---- address is written inversely
-    addr = reverse_addr(address)
-
-    M.nrf24_mwrite_register(RX_ADDR_P0, addr)
-    M.nrf24_mwrite_register(TX_ADDR, addr)
-end
-
--- TODO: support all 6 rx pipes
-function M.nrf24_set_recv_address(address)
-    ---- address is 5bytes length
-    ---- address is written inversely
-    addr = reverse_addr(address)
-
-    M.nrf24_mwrite_register(RX_ADDR_P0, addr)
-
-    pipes = M.nrf24_read_register(EN_RXADDR)
-    pipes = bit.bor(pipes, bit.lshift(1, ERX_P0))
-    M.nrf24_write_register(EN_RXADDR, pipes)
-end
-
--- TODO: support all 6 rx pipes
-function M.nrf24_data_available()
-    status = M.nrf24_get_status()
-    result = M.nrf24_read_register(FIFO_STATUS)
-    --log.info(&quot;irf24&quot;,&quot;Show me FIFO STATUS &quot;,result)
-    data_ready = 0
-    if (bit.isclear(result, RX_EMPTY)) then
-        -- TODO: get pipe which received data
-        -- pipe_num = ( status &gt;&gt; RX_P_NO ) &amp; BIN(111);
-        M.nrf24_write_register(STATUS, bit.lshift(1, RX_DR))
-        if (bit.isset(status, TX_DS)) then
-            M.nrf24_write_register(STATUS, bit.lshift(1, TX_DS))
-        end
-
-        data_ready = 1
-    end
-
-    return data_ready
-end
-
-function M.nrf24_get_dynamic_payload_size()
-
-    size = M.nrf24_send_req(R_RX_PL_WID)
-
-    if (size &gt; 32) then
-        -- radio noise received, dropping
-        M.nrf24_send_cmd(FLUSH_RX)
-        size = 0
-    end
-
-    return size
-end
-
--- TODO: support all 6 rx pipes
-function M.nrf24_data_read()
-
-    if (PAYLOAD == 0) then
-        len = M.nrf24_get_dynamic_payload_size()
-    else
-        len = PAYLOAD
-    end
-
-    output = M.nrf24_msend_req(R_RX_PAYLOAD, len)
-    return output
-end
-
-function M.nrf24_set_payload_size(payload_size)
-    PAYLOAD = payload_size
-
-    if (PAYLOAD &gt; 32) then
-        PAYLOAD = 32
-    end
-
-    if (PAYLOAD &lt; 1) then
-        PAYLOAD = 1
-    end
-
-    M.nrf24_write_register(RX_PW_P0, PAYLOAD)
-end
-
-function M.nrf24_set_dynamic_payload()
-    PAYLOAD = 0
-
-    -- FIXME: we may need to enable writing to FEATURE register
-
-    value = M.nrf24_read_register(FEATURE)
-    value = bit.bor(value, bit.lshift(1, EN_DPL))
-    M.nrf24_write_register(FEATURE, value)
-
-    -- enable dynamic payload for all the pipes
-    M.nrf24_write_register(DYNPD, 0x3f)
-end
-
-function M.nrf24_set_channel(channel)
-    M.nrf24_write_register(RF_CH, channel)
-end
-
-function M.nrf24_power_up()
-    config = M.nrf24_read_register(CONFIG);
-    config = bit.bor(config, bit.lshift(1, PWR_UP))
-    M.nrf24_write_register(CONFIG, config)
-end
-
-function M.nrf24_send_packet(data)
-    xmit_data = &#123;&#125;
-    xmit_len = 32
-
-    -- set packet length for non-dynamic payload
-    if PAYLOAD &gt; 0 then
-        xmit_len = PAYLOAD
-    end
-
-    for i = 1, xmit_len do
-        if (data[i] ~= nil) then
-            xmit_data[i] = data[i]
-        else
-            if PAYLOAD == 0 then
-                break
-            end
-            xmit_data[i] = 0x0
-        end
-    end
-
-    -- write packet to FIFO
-    M.nrf24_msend_cmd(W_TX_PAYLOAD, xmit_data)
-
-    -- xmit packet
-    nrf24_ce(1);
-    rtos.sleep(15)
-    nrf24_ce(0);
-end
-
--- simple client node setup
-function M.nrf24_init_node()
-    nrf24_ce(0)
-
-    -- let the radio some time to warm-up
-    rtos.sleep(500)
-
-    -- set maximum PA level
-    setup = M.nrf24_read_register(RF_SETUP)
-    setup = bit.bor(setup, bit.lshift(1, RF_PWR_LOW), bit.lshift(1, RF_PWR_HIGH))
-    M.nrf24_write_register(RF_SETUP, setup)
-
-    -- set data rate to 1Mbps
-    setup = M.nrf24_read_register(RF_SETUP)
-    setup = bit.band(setup, bit.bnot(bit.bor(bit.lshift(1, RF_DR_LOW), bit.lshift(1, RF_DR_HIGH))))
-    M.nrf24_write_register(RF_SETUP, setup)
-
-    -- set 16bit CRC
-    config = M.nrf24_read_register(CONFIG)
-    config = bit.bor(config, bit.lshift(1, EN_CRC), bit.lshift(1, CRCO))
-    M.nrf24_write_register(CONFIG, config)
-
-    -- configure retries
-    M.nrf24_write_register(SETUP_RETR, bit.bor(bit.lshift(bit.band(10, 0xf), ARD), bit.lshift(bit.band(0, 0xf), ARC)))
-
-    -- disable dynamic payloads
-    M.nrf24_write_register(DYNPD, 0);
-
-    -- reset current status
-    M.nrf24_write_register(STATUS, bit.bor(bit.lshift(1, RX_DR), bit.lshift(1, TX_DS), bit.lshift(1, MAX_RT)))
-
-    -- flush buffers
-    M.nrf24_send_cmd(FLUSH_RX)
-    M.nrf24_send_cmd(FLUSH_TX)
-end
-
-
-return M
-</code></pre>
-<p>此代码的作用是以15字节固定字长发送英文字母ABC+1位随机整数。接收代码的底层函数上文已经包括，但上层lua脚本尚未编写，有兴趣的朋友可以试试自行编写测试，谢谢。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/10/22/" data-id="ckkfmdgaj003dvkcg6uw5d3md" data-title="合宙Air系列模块外部总线接口常见用法-SPI总线，下" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-21" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/02/10/21/" class="article-date">
-  <time class="dt-published" datetime="2020-02-10T07:20:17.000Z" itemprop="datePublished">2020-02-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/02/10/21/">上海合宙Luat Air720SL模块 入门指南（2）-GPIO</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="本文要介绍的内容"><a href="#本文要介绍的内容" class="headerlink" title="本文要介绍的内容"></a>本文要介绍的内容</h2><p><a href="#1">1） Air720SL GPIO口介绍</a></p>
-<p><a href="#2">2） 编写代码，通过串口调试助手控制IO口输出状态</a></p>
-<p><a href="#2">3） 测试Air720SL 上电IO口初始状态</a></p>
-<p><span id="1"></span></p>
-<h2 id="Air720-GPIO介绍"><a href="#Air720-GPIO介绍" class="headerlink" title="Air720 GPIO介绍"></a>Air720 GPIO介绍</h2><p>720SL 共有GPIO接口37个，电平均为1.8V 最大输出电流约2mA。 其中下侧引出GPIO口18个，上侧引出GPIO口为17个, 共35个，除被I2C2端口复用的GPIO49,50从右侧引脚单独引出外，上下两侧排针包括了模块所有GPIO，分布如下图</p>
-<p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210151916375_gpio.jpg></img><br><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210151939283_GPIO.png></img></p>
-<h2 id="编写代码，通过串口调试助手控制IO口输出状态"><a href="#编写代码，通过串口调试助手控制IO口输出状态" class="headerlink" title="编写代码，通过串口调试助手控制IO口输出状态"></a>编写代码，通过串口调试助手控制IO口输出状态</h2><p>Air720系列最常见的接口为UART串口，其中Air720SL支持两个硬件串口和三个软串口，其中名为 “ASR Modem Device 3 AT” 可以映射到Luat编程环境，Lua环境下虚拟串口ID为129，波特率自适应。<br>下面我们定义一个简单的小指令来控制GPIO的电平：</p>
-<pre><code>GPIO,&lt;port#&gt;,&lt;status&gt;
-</code></pre>
-<p>GPIO是关键字，port#是GPIO的序号，status为代表高电平，status为0代表低电平</p>
-<p><span id="2"></span><br>然后编写如下代码，进行GPIO输出测试</p>
-<p>DEMO.lua</p>
-<pre><code>--- 模块功能：GPIO 测试 DEMO.
--- @author openLuat
--- @module gpio.testGpioSingle
--- @license MIT
--- @copyright openLuat
--- @release 2020.01.07
-
-require &quot;utils&quot;
-require &quot;pm&quot;
-require &quot;pins&quot;
-module(..., package.seeall)
-
--------------------------------------------- 配置串口 --------------------------------------------
--- 串口ID,串口读缓冲区
-local UART_ID, sendQueue, writeBuff, writeBusy = 129, &#123;&#125;, &#123; &#123;&#125;, &#123;&#125; &#125;, false
--- 串口超时，串口准备好后发布的消息
-local uartimeout, recvReady = 25, &quot;UART_RECV_ID&quot;
---保持系统处于唤醒状态，不会休眠
-pm.wake(&quot;mcuart&quot;)
-uart.setup(UART_ID, 912600, 8, uart.PAR_NONE, uart.STOP_1, nil, 1)
-
-uart.on(UART_ID, &quot;receive&quot;, function(uid)
-    table.insert(sendQueue, uart.read(uid, 8192))
-    sys.timerStart(sys.publish, uartimeout, recvReady)
-end)
-
---串口写入
-function write(uid, str)
-    --软串口
-    uart.write(uid, str)
-end
--- 向串口发送收到的字符串
-sys.subscribe(recvReady, function()
-    local str = table.concat(sendQueue)
-    -- 串口的数据读完后清空缓冲区
-    if (string.sub(str,1,4)==&quot;GPIO&quot;) then
-        --拆分解析命令
-        local splitlist = &#123;&#125;
-        string.gsub(str, &#39;[^,]+&#39;, function(w) table.insert(splitlist, w) end)
-        --lua下标从1开始
-        local s_GPIO=splitlist[2]
-        local s_STATUS=splitlist[3]
-        --参数从字符串转换成数字
-        local i_GPIO=tonumber(s_GPIO)
-        local i_STATUS=tonumber(s_STATUS)
-        --设置GPIO
-        pins.setup(i_GPIO,i_STATUS)
-    end
-    sendQueue = &#123;&#125;
-    log.info(&quot;uart read length:&quot;, #str,&quot;Port&quot;)
-    --执行成功则回送指令，并附加OK
-    write(UART_ID, str..&quot;-&gt;OK&quot;)
-
-end)
-</code></pre>
-<p>main.lua</p>
-<pre><code>PROJECT = &quot;UART_GPIO_OUTPUT_TEST&quot;
-VERSION = &quot;1.0.0&quot;
-
---加载日志功能模块，并且设置日志输出等级
---如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
-require &quot;log&quot;
-LOG_LEVEL = log.LOGLEVEL_TRACE
-
-
-require &quot;net&quot;
---每1分钟查询一次GSM信号强度
---每1分钟查询一次基站信息
-net.startQueryAll(60000, 60000)
-
-
-require &quot;errDump&quot;
-errDump.request(&quot;udp://ota.airm2m.com:9072&quot;)
-
-
-require &quot;demo&quot;
-
---启动系统框架
-sys.init(0, 0)
-sys.run()
-</code></pre>
-<p>通过Luatools烧写脚本，并自动重启，然后打开LLC串口调试助手,输入指令</p>
-<pre><code>GPIO,32,1
-</code></pre>
-<p>即可将GPIO32，设置为高电平</p>
-<p>输入指令</p>
-<pre><code>GPIO,32,0
-</code></pre>
-<p>即可将GPIO32,设置为低电平</p>
-<p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210151856193_llc.jpg></img></p>
-<p><span id="3"></span><br>##测试Air720SL 上电IO口初始状态</p>
-<p>重复对所有的IO口进行上电及高低电平控制可以得到下表</p>
-<p><img id="portrait" src=http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200210152005826_ioout2.jpg></img></p>
-<p>DEMO板上测试结果为受控IO口27个，有15个初始状态为弱下拉低电平，10个为弱上拉状态，2个为高电平</p>
-<p>总结一下：</p>
-<p>可以通过外围电路让开机保持在<strong>任意电平</strong>的引脚为<strong>25</strong>个，开机只能配置为<strong>高电平</strong>的<strong>2</strong>个。</p>
-<p>至此Air720SL的GPIO输出状态介绍完毕，谢谢您的阅读。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/02/10/21/" data-id="ckkfmdgac002wvkcg35v7596x" data-title="上海合宙Luat Air720SL模块 入门指南（2）-GPIO" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/28/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/30/">下一页 &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/17/694/">
+            6、合宙Air模块Luat开发：又是一种新的外设之ADC模数转换，现在我们可以采集模拟量数据了
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+
+本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
+
+
+先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-17
+            </span>
+          
+        </div>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/16/693/">
+            5、合宙Air模块Luat开发：GPIO输入常见的两种使用方法及其优劣性
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
+
+
+先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-16
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/14/24/">
+            上海合宙Luat Air720SL模块 入门指南（7）-I2C接
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1）I2C总线简介I2C总线是由Philips公司在1982年提出的一种简单、双向二线制同步串行总线。它只需要两根线即可在连接于总线上的器件之间传送信息。
+I2C接口是以主从方式工作的,这种模式通常有一个主器件和一个或多个从器件，分别由SDA(串行数据线)和SCL(串行时钟线)及上拉电阻组成。通过对...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-14
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/14/692/">
+            4、合宙Air模块Luat开发：用GPIO输出功能实现一个简单的LED灯闪烁
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+
+本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
+
+
+先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-14
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/13/691/">
+            3、合宙Air模块Luat开发：实现用&#34;Printf&#34;把文字格式化以后直接输出
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+
+本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
+
+
+先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-13
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/12/690/">
+            2、合宙Air模块Luat开发：第一个Luat的Hello World
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+
+本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
+
+
+先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-12
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/12/689/">
+            1、合宙Air模块Luat开发：环境搭建
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+
+本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
+
+
+先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-12
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/10/22/">
+            合宙Air系列模块外部总线接口常见用法-SPI总线，下
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>Air720SL模块 SPI接口简介
+nRF24L01简介nRF24L01 是一款工作在2.4~2.5GHz 世界通用ISM 频段的单片无线收发器芯片无线收发器，下面是芯片信息,以及参考电路
+工作电压                        1.9~3.6V
+最大发射功率           ...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-10
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/10/21/">
+            上海合宙Luat Air720SL模块 入门指南（2）-GPIO
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>本文要介绍的内容1） Air720SL GPIO口介绍
+2） 编写代码，通过串口调试助手控制IO口输出状态
+3） 测试Air720SL 上电IO口初始状态
+
+Air720 GPIO介绍720SL 共有GPIO接口37个，电平均为1.8V 最大输出电流约2mA。 其中下侧引出GPIO口18个，上侧引出...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-10
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/02/10/20/">
+            上海合宙Luat 模块 Air720SL开发板 入门指南（1）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>本文要实现的内容1） 给开发板添加必要的附属器件
+2） 安装开发环境
+
+##设置开发板
+我司提供的开发板是这样的
+
+您需要自行添加排针排母以方便实用。 需要的配套元件如下：
+1）2.54mm排针：1X2 4个，1X4 1个，1X3 1个
+2）2.54mm排母： 2X11 一个，2X10 1个
+再备用...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-02-10
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+    <div class="pagenator">
+    
+    
+        <a class="extend prev" href="/page/28">上一页</a>
     
 
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/24">24</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/25">25</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/26">26</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/27">27</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/28">28</a>
+        
+    
+        
+            <span class="extend page-item page-item-select">29</span>
+        
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/30">30</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/31">31</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/32">32</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/33">33</a>
+        
+    
+    
+    
+    
+        <a class="extend next" href="/page/30">下一页</a>
+    
+</div>
 
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

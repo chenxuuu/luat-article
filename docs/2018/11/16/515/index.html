@@ -1,257 +1,226 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>12-系统教程演示(WIFI模块) [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>12-系统教程演示(WIFI模块) | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;9955765.html前几节作为基础教程和系统教程的开端，有了前面的基础才更好的学习基础教程和系统教程。 整体的系统教程是STM32采集温湿度数据，通过WIFI或者GPRS模块远程转发给APP曲线动态显示。APP上有一个按钮，通过远程下发指令控制STM32的一个引脚输出高低电平，然后控制USB灯 拿到系统教程以后，可以把">
-<meta property="og:type" content="article">
-<meta property="og:title" content="12-系统教程演示(WIFI模块)">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/11/16/515/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;9955765.html前几节作为基础教程和系统教程的开端，有了前面的基础才更好的学习基础教程和系统教程。 整体的系统教程是STM32采集温湿度数据，通过WIFI或者GPRS模块远程转发给APP曲线动态显示。APP上有一个按钮，通过远程下发指令控制STM32的一个引脚输出高低电平，然后控制USB灯 拿到系统教程以后，可以把">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115230919109-470508460.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231214322-2068244627.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231342692-1420959299.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231404651-717689296.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231507695-665053942.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231546453-2135447706.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231600136-1356061855.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231704898-1364100041.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231833610-1674692489.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232001906-2003922265.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232011904-869521868.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232053674-1776637524.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232405724-1087224370.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232440727-422043474.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232554021-606050119.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232619600-1702296232.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232911601-1780106199.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233026013-1648768508.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233115385-1144808547.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233247361-417166978.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233313434-243054927.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233408810-4526937.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233610127-1913873688.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233647703-1676505039.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233712979-760087127.png">
-<meta property="article:published_time" content="2018-11-16T07:13:27.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.359Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115230919109-470508460.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-515" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/11/16/515/" class="article-date">
-  <time class="dt-published" datetime="2018-11-16T07:13:27.000Z" itemprop="datePublished">2018-11-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      12-系统教程演示(WIFI模块)
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <a href="https://www.cnblogs.com/yangfengwu/p/9955765.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9955765.html</span></a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">前几节作为基础教程和系统教程的开端，有了前面的基础才更好的学习基础教程和系统教程。</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">整体的系统教程是STM32采集温湿度数据，通过WIFI或者GPRS模块远程转发给APP曲线动态显示。</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">APP上有一个按钮，通过远程下发指令控制STM32的一个引脚输出高低电平，然后控制USB灯</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">拿到系统教程以后，可以把第一节的源码下载，然后安装APP，实现远程测温和控制，这一节就演示一下</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">先下载STM32程序，</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115230919109-470508460.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231214322-2068244627.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231342692-1420959299.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">复位一下</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231404651-717689296.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231507695-665053942.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231546453-2135447706.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231600136-1356061855.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231704898-1364100041.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">用调试助手测试一下通信</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">2S打印一次采集的温湿度数据</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231833610-1674692489.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"> 控制USB灯亮</span></p><div class="cnblogs_code" style="background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: "Courier New" !important; font-size: 12px !important;"><pre style="margin-bottom: 0px; font-family: "Courier New" !important; font-size: 12px !important;">{data:<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">switch</span>,bit:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>,status:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>}</pre></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232001906-2003922265.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232011904-869521868.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">熄灭</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><div class="cnblogs_code" style="background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: "Courier New" !important; font-size: 12px !important;"><pre style="margin-bottom: 0px; font-family: "Courier New" !important; font-size: 12px !important;">{data:<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">switch</span>,bit:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>,status:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>}</pre></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232053674-1776637524.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"> 现在下载WIFI程序</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232405724-1087224370.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232440727-422043474.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232554021-606050119.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232619600-1702296232.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232911601-1780106199.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233026013-1648768508.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233115385-1144808547.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233247361-417166978.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233313434-243054927.png" alt="" style="max-width: 900px; height: auto;">  <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233408810-4526937.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233610127-1913873688.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233647703-1676505039.png" alt="" style="max-width: 900px; height: auto;">    <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233712979-760087127.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">这一节写的够多的了，下一节演示GPRS</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">资料链接</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">链接：<a href="https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw</a> 密码：p9qs</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">基础教程源码链接如果失效,请在淘宝介绍中下载,由于链接还是失效,请联系卖家,谢谢</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025</a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <a href="https://www.cnblogs.com/yangfengwu/p/9966901.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9966901.html</span></a></p>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/11/16/515/" data-id="ckkfmdgeh00d5vkcgdvxodsrj" data-title="12-系统教程演示(WIFI模块)" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/11/16/516/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          13-系统教程演示(GPRS模块)
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/11/16/514/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">11-WiFi模块开发，下载运行第一个程序</div>
-    </a>
-  
-</nav>
+    <div class="container">
+        <h1 class="post-title">12-系统教程演示(WIFI模块)</h1>
+<article class="post markdown-style">
+  <p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <a href="https://www.cnblogs.com/yangfengwu/p/9955765.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9955765.html</span></a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">前几节作为基础教程和系统教程的开端，有了前面的基础才更好的学习基础教程和系统教程。</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">整体的系统教程是STM32采集温湿度数据，通过WIFI或者GPRS模块远程转发给APP曲线动态显示。</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">APP上有一个按钮，通过远程下发指令控制STM32的一个引脚输出高低电平，然后控制USB灯</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">拿到系统教程以后，可以把第一节的源码下载，然后安装APP，实现远程测温和控制，这一节就演示一下</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">先下载STM32程序，</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115230919109-470508460.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231214322-2068244627.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231342692-1420959299.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">复位一下</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231404651-717689296.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231507695-665053942.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231546453-2135447706.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231600136-1356061855.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231704898-1364100041.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">用调试助手测试一下通信</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">2S打印一次采集的温湿度数据</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115231833610-1674692489.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"> 控制USB灯亮</span></p><div class="cnblogs_code" style="background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: "Courier New" !important; font-size: 12px !important;"><pre style="margin-bottom: 0px; font-family: "Courier New" !important; font-size: 12px !important;">{data:<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">switch</span>,bit:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>,status:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>}</pre></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232001906-2003922265.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232011904-869521868.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">熄灭</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><div class="cnblogs_code" style="background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: "Courier New" !important; font-size: 12px !important;"><pre style="margin-bottom: 0px; font-family: "Courier New" !important; font-size: 12px !important;">{data:<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">switch</span>,bit:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>,status:<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>}</pre></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232053674-1776637524.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"> 现在下载WIFI程序</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232405724-1087224370.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232440727-422043474.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232554021-606050119.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232619600-1702296232.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115232911601-1780106199.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233026013-1648768508.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233115385-1144808547.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233247361-417166978.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233313434-243054927.png" alt="" style="max-width: 900px; height: auto;">  <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233408810-4526937.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233610127-1913873688.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233647703-1676505039.png" alt="" style="max-width: 900px; height: auto;">    <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115233712979-760087127.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">这一节写的够多的了，下一节演示GPRS</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">资料链接</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">链接：<a href="https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw</a> 密码：p9qs</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">基础教程源码链接如果失效,请在淘宝介绍中下载,由于链接还是失效,请联系卖家,谢谢</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025</a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <a href="https://www.cnblogs.com/yangfengwu/p/9966901.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9966901.html</span></a></p>
 
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/11/16/516/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/11/16/514/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

@@ -1,1661 +1,510 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title> [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:url" content="https://doc.luatos.wiki/page/35/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-639" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/11/04/639/" class="article-date">
-  <time class="dt-published" datetime="2019-11-04T15:36:38.000Z" itemprop="datePublished">2019-11-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/11/04/639/">稀饭放姜 iRTU 学习日记 （-1）：什么是iRTU</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>                        &lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;iRTU 是物联网技术社区专家“稀饭放姜”设计，上海合宙物联网出品的一款功能强大使用极其简单的DTU/RTU开源模组。&lt;/p&gt;&lt;p&gt;借助不到10条交互指令，就可以实现绝大部分物联网的通讯需求，极大简化用户开发物联网产品的步骤，大幅度减少开发时间。&lt;/p&gt;&lt;p&gt;IRTU 目前有两个版本 2G版 和 4G版本，软硬件电路完全开源，合宙官方提供商品化裸板。&lt;/p&gt;&lt;p&gt;基本功能&lt;/p&gt;&lt;p&gt;1. 支持TCP/UDP/MQTT/MODBUS RTU/HTTP 协议&lt;/p&gt;&lt;p&gt;2. 支持百度云(数据型/设备型)/阿里云(自动注册/一型一密/一机一密)/腾讯云/中国移动物联网平台(DTU 协议/MQTT 协议/MODBUS 协议)(独家功能)&lt;/p&gt;&lt;p&gt;3. 支持RS485 数据传输,串口最高速率921600bps&lt;/p&gt;&lt;p&gt;4. 支持网页批量配置,支持导出设置,支持本地配置软件配置&lt;/p&gt;&lt;p&gt;5. 支持注册包,心跳包功能&lt;/p&gt;&lt;p&gt;6. 宽电压9-24VDC 供电&lt;/p&gt;&lt;p&gt;7. 支持限流功能,节省宝贵的手机卡流量&lt;/p&gt;&lt;p&gt;8. 支持自定义数据流模板,可以使用lua 语言来完成简单的通信逻辑,无需单片机,节省成本.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;B站教程：&lt;/span&gt;&lt;a href=&quot;https://www.bilibili.com/video/av41012302&quot; target=&quot;_blank&quot; style=&quot;outline: none; color: rgb(12, 94, 156); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1; background-color: rgb(255, 255, 255);&quot;&gt;https://www.bilibili.com/video/av41012302&lt;/a&gt;&lt;br style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;硬件教程：&lt;/span&gt;&lt;a href=&quot;https://www.bilibili.com/video/av45341487&quot; target=&quot;_blank&quot; style=&quot;outline: none; color: rgb(12, 94, 156); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1; background-color: rgb(255, 255, 255);&quot;&gt;https://www.bilibili.com/video/av45341487&lt;/a&gt;&lt;br style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;工具教程：&lt;/span&gt;&lt;a href=&quot;https://www.bilibili.com/video/av50453083&quot; target=&quot;_blank&quot; style=&quot;outline: none; color: rgb(12, 94, 156); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1; background-color: rgb(255, 255, 255);&quot;&gt;https://www.bilibili.com/video/av50453083&lt;/a&gt;&lt;br style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;Luat开发教程：&lt;/span&gt;&lt;a href=&quot;https://www.bilibili.com/video/av50827315&quot; target=&quot;_blank&quot; style=&quot;outline: none; color: rgb(12, 94, 156); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1; background-color: rgb(255, 255, 255);&quot;&gt;https://www.bilibili.com/video/av50827315&lt;/a&gt;&lt;br style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;源码：&lt;/span&gt;&lt;a href=&quot;https://github.com/hotdll/iRTU&quot; target=&quot;_blank&quot; style=&quot;outline: none; color: rgb(12, 94, 156); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1; background-color: rgb(255, 255, 255);&quot;&gt;https://github.com/hotdll/iRTU&lt;/a&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;&lt;span class=&quot;Apple-converted-space&quot;&gt; &lt;/span&gt;&lt;/span&gt;&lt;br style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;&lt;span style=&quot;color: rgb(128, 128, 128); font-family: 微软雅黑, Tahoma, 宋体; font-variant-numeric: normal; font-variant-east-asian: normal; line-height: 22px; widows: 1;&quot;&gt;开源代码仅供参考,无支持。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;项目QQ群: 合宙Luat(稀饭放姜iRTU)  952343033&lt;/p&gt;&lt;p&gt;群内有丰富的开发资料和DTU/RTU业内资深大佬提供相关技术支持。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-</code></pre>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/11/04/639/" data-id="ckkfmdgcq0099vkcg8w59c1lo" data-title="稀饭放姜 iRTU 学习日记 （-1）：什么是iRTU" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-637" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/10/28/637/" class="article-date">
-  <time class="dt-published" datetime="2019-10-28T04:05:05.000Z" itemprop="datePublished">2019-10-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="container">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/10/28/637/">Air800模块如何烧录GPS芯片软件</a>
-    </h1>
-  
 
-      </header>
+
+
+  <div class="article">
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <div>1、下载烧录工具：http://www.openluat.com/Product/file/800/fpdnload_GPS_20180125_VIB.rar</div><div>2、下载gps固件：http://www.openluat.com/Product/file/800/GK9501_Release_GB_1.4_20180224_115200.bin</div><div>3、解压烧录工具，运行fpupgrade.exe，按照下图配置</div><div><img src="http://oldask.openluat.com/image/show/attachments-2019-10-8rI5uMKX5db668d14a479.png" class="img-responsive" style="width: 954px;"><br></div>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/10/28/637/" data-id="ckkfmdgcq0098vkcgc7si929m" data-title="Air800模块如何烧录GPS芯片软件" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-636" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/10/25/636/" class="article-date">
-  <time class="dt-published" datetime="2019-10-25T09:56:48.000Z" itemprop="datePublished">2019-10-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/10/25/636/">GPS信噪比测试方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不少用户在使用GPS或者GPS+GSM模块时会遇到无法定位或者定位困难的问题，如何定位问题？如何判断是否是GPS信号的接收不到造成的问题？下文提供了一个通过GPS调试工具去监控模块GPS部分的接收信噪比的方法。</p>
-<hr>
-<h3 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h3><p>首先需要找到模块的GPS信号的输出管脚，合宙模块部分模块的GPS_TX管脚如下：</p>
-<p><strong>AIR800</strong>:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93140.png"></p>
-<p><strong>AIR801</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68932.png"></p>
-<p><strong>AIR868</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_82105.png"></p>
-<p>GPS_TXD，用TTL转USB串口线（逻辑电平3.3V）连接到模块的GPS_TXD管脚。并且连接到PC上</p>
-<pre><code> 注意：只需要TTL串口线的RX与GPS_TXD连接以及地线连接即可，TTL的TX不需要连接。避免串口线对GPS数据串口正常数据传输的干扰。
-</code></pre>
-<h3 id="软件工具安装"><a href="#软件工具安装" class="headerlink" title="软件工具安装"></a>软件工具安装</h3><p>下载<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/GK9501-doc.rar">GPS调试工具</a><br>运行软件</p>
-<blockquote>
-<p>注意：要在管理员模式下运行</p>
-</blockquote>
-<p>选择对应串口，波特率设置为115200，点击连接。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89032.png"></p>
-<p>然后设备开机运行，GPS打开后工具界面上就会显示GPS的相关信息。signal区域的柱状条纹即表示GPS的接收信噪比。<strong>通常最大信噪比大于40的卫星有2颗以上算是比较好，如果明显低于这个信噪比就要考虑优化了。</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96977.png"></p>
-<h3 id="如何提高信噪比"><a href="#如何提高信噪比" class="headerlink" title="如何提高信噪比"></a>如何提高信噪比</h3><p>导致信噪比低的因素有很多，比如天线方面，环境方面，但是常见的原因是主板或者外部的干扰。</p>
-<p>** 电源干扰：**<br>通常主板上的开关电源由于频率高，能量大很容易对GPS的信噪比造成干扰。主要是通过排除法去定位这样的问题。通过开关电源工作时测试的信噪比和开关电源工关闭时外接干净直流电源时的信噪比对比可以定位是否时电源由于。如果定位到时开关电源导致信噪比降低，可以做如下措施进行优化：</p>
-<ol>
-<li>调整开关电源的开关频率。不同的DCDC开关频率落在GPS频段内的高频分量能量不同通过尝试去找到一个相对干扰较小的频率。</li>
-<li>调整PCB，天线远离开关电源区域，中间用地铜箔保护。</li>
-</ol>
-<p>** 天线走线太长：**<br>如果天线走线太长，而且没有做PCB主控控制，会导致GPS信号衰减过大。改善方法：</p>
-<ol>
-<li> PCB主控控制，且尽量缩短走线长度。</li>
-<li>增加GPS低噪声放大电路。</li>
-</ol>
-<p><strong>（未完待续）</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/10/25/636/" data-id="ckkfmdgcp0096vkcg8zgyck9p" data-title="GPS信噪比测试方法" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-635" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/10/24/635/" class="article-date">
-  <time class="dt-published" datetime="2019-10-24T08:42:53.000Z" itemprop="datePublished">2019-10-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/10/24/635/">vscode上的LUAT代码自动补全插件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年的时候，有一个插件叫做<code>emLuaIde</code>（<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/38">http://oldask.openluat.com/article/38</a>）实现了自动补全lua接口代码的功能。 但是这个插件已经有一年多没有更新了，而且插件的补全数据也有部分的错误信息。</p>
-<p>于是我就花了半个多小时时间，做了一款新的代码自动补全插件，支持LUAT<strong>接口文档里有的所有接口</strong>。</p>
-<p>而且这个代码补全配置数据是由另一个lua代码自动生成的，有兴趣的具体可以参考<a target="_blank" rel="noopener" href="https://github.com/chenxuuu/documentGenerator/blob/master/documentGenerator/vscode.lua">这里</a>。这一点也从根本上解决了接口手动整理费时费力、更新慢、容易出错的问题。</p>
-<h1 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h1><p>直接在vscode插件仓库里搜<code>LUAT</code>即可找到（认准作者：chenxuuu），点击安装即可使用</p>
-<p><a href="/static/editormd/php/../uploads/5_59721.png"><img src="/static/editormd/php/../uploads/5_59721.png"></a></p>
-<h1 id="效果演示"><a href="#效果演示" class="headerlink" title="效果演示"></a>效果演示</h1><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95514.gif"></p>
-<p>后面又更新了支持tab键切换参数的功能</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57755.gif"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/10/24/635/" data-id="ckkfmdgcp0095vkcg5rl83qlp" data-title="vscode上的LUAT代码自动补全插件" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-634" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/10/10/634/" class="article-date">
-  <time class="dt-published" datetime="2019-10-10T12:33:27.000Z" itemprop="datePublished">2019-10-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/10/10/634/">2G/4G模块开机SIM卡接口各信号波形对比</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>我们在用Air系列的2G/4G模块进行开发时，常会遇到SIM卡不识别的问题，文章下面会列举出正常模块在开机后SIM卡未插入情况下各个SIM卡管脚的波形，以便对比测量，来判断是否是模块SIM管脚部分硬件损坏。</p>
-<hr>
-<h3 id="4G模块"><a href="#4G模块" class="headerlink" title="4G模块"></a>4G模块</h3><ul>
-<li><strong>SIM_VDD</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70835.png"></p>
-<blockquote>
-<pre><code> 在模块开机后10到15s左右，SIM_VDD会拉高到1.8V左右，开始找卡，如果未能与SIM卡通信成功，则短时关闭再拉高到3V左右去找卡，如果还未找到，就关闭SIM_VDD。
- 整个过程持续6S，
-</code></pre>
-</blockquote>
-<ul>
-<li><strong>SIM_DATA</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_37808.png"></p>
-<blockquote>
-<pre><code>SIM_DATA与SIM_VDD 类似会依次从1.8V到3V拉高，整个过程持续2S左右
-</code></pre>
-</blockquote>
-<ul>
-<li><strong>SIM_CLK</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24834.png"></p>
-<blockquote>
-<pre><code> SIM_CLK起震，幅度依次从1.8V到3.0V持续时间为2S左右
-</code></pre>
-</blockquote>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62250.png"></p>
-<blockquote>
-<pre><code>放大后的SIM_CLK波形，频率为3.4MHZ左右。
-</code></pre>
-</blockquote>
-<ul>
-<li><strong>SIM_RST</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97709.png"></p>
-<blockquote>
-<pre><code>SIM_RST与SIM_DATA一致，依次从1.8V到3V拉高，整个过程持续2S左右。
-</code></pre>
-</blockquote>
-<hr>
-<h3 id="2G模块"><a href="#2G模块" class="headerlink" title="2G模块"></a>2G模块</h3><ul>
-<li><strong>SIM_VDD</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96645.png"></p>
-<blockquote>
-<pre><code>2G模块在开机2S左右，SIM管脚就开始动作了，比4G要快很多。
-SIM_VDD依次从1.8V 到3.0V，未识别卡后就会关闭，整个过程只有120mS，很快。
-</code></pre>
-</blockquote>
-<ul>
-<li><strong>SIM_DATA</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22618.png"></p>
-<blockquote>
-<pre><code>SIM_DATA与SIM_VDD基本一直，持续时间120ms。
-</code></pre>
-</blockquote>
-<ul>
-<li><strong>SIM_CLK</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65650.png"></p>
-<blockquote>
-<pre><code>SIM_CLK起震后也是分为两个阶段，1.8v和3V阶段，持续时间110ms。
-</code></pre>
-</blockquote>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53961.png"></p>
-<blockquote>
-<pre><code>放大后频率3.2MHZ
-</code></pre>
-</blockquote>
-<ul>
-<li><strong>SIM_RST</strong></li>
-</ul>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33841.png"></p>
-<blockquote>
-<pre><code>SIM_RST会起来两个短脉冲，也是1.8V和3.0V，持续时间100ms。
-</code></pre>
-</blockquote>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>4G与2G模块在SIM卡未插入的情况下开机后都会进行两个阶段的找卡动作，先识别1.8Vsim卡，如果识别则会提高电压至3.0V，如果仍然未找到SIM卡则关闭SIM_VDD电源。</li>
-<li>整个过程4G模块会比2G模块持续时间长，2G模块只有120mS左右，如果示波器时间设置太大，容易漏掉。</li>
-<li>了解了正常情况下的SIM卡波形，就有助于我们测量判断异常的情况</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/10/10/634/" data-id="ckkfmdgcp0094vkcg4xk90fwi" data-title="2G/4G模块开机SIM卡接口各信号波形对比" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-633" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/10/10/633/" class="article-date">
-  <time class="dt-published" datetime="2019-10-10T03:46:48.000Z" itemprop="datePublished">2019-10-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/10/10/633/">结合实践的Lua语法学习工具：LUATeach</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>软件下载地址（最新版）：<a target="_blank" rel="noopener" href="https://ci.appveyor.com/project/chenxuuu/luateach/build/artifacts">https://ci.appveyor.com/project/chenxuuu/luateach/build/artifacts</a><br>开源地址：<a target="_blank" rel="noopener" href="https://github.com/chenxuuu/LUATeach">https://github.com/chenxuuu/LUATeach</a></p>
-<h1 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h1><h2 id="1-知识点一一介绍"><a href="#1-知识点一一介绍" class="headerlink" title="1. 知识点一一介绍"></a>1. 知识点一一介绍</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_64416.jpg"></p>
-<h2 id="2-快速入门Lua的交互式教程，题目可实时运行Lua进行检查"><a href="#2-快速入门Lua的交互式教程，题目可实时运行Lua进行检查" class="headerlink" title="2. 快速入门Lua的交互式教程，题目可实时运行Lua进行检查"></a>2. 快速入门Lua的交互式教程，题目可实时运行Lua进行检查</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78126.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_55746.jpg"></p>
-<h2 id="3-自带lua脚本运行器，测试lua代码的好帮手"><a href="#3-自带lua脚本运行器，测试lua代码的好帮手" class="headerlink" title="3. 自带lua脚本运行器，测试lua代码的好帮手"></a>3. 自带lua脚本运行器，测试lua代码的好帮手</h2><blockquote>
-<p>支持基础的Luat Task框架任务功能</p>
-</blockquote>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12798.gif"></p>
-<hr>
-<p>题目采用纯Lua代码编写，欢迎向该项目贡献题目</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/10/10/633/" data-id="ckkfmdgco0093vkcg6xw60dnj" data-title="结合实践的Lua语法学习工具：LUATeach" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-631" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/09/25/631/" class="article-date">
-  <time class="dt-published" datetime="2019-09-25T02:57:19.000Z" itemprop="datePublished">2019-09-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/09/25/631/">支持iRTU的GPS功能的开源服务端</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>源码地址: <a target="_blank" rel="noopener" href="https://gitee.com/wendal/irtu-gps">https://gitee.com/wendal/irtu-gps</a></p>
-<p>基于<a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">iRTU</a>项目,实现GPS数据的接收和展示</p>
-<p>服务器信息: gps.nutz.cn 端口 19002 前端页面地址是 <a target="_blank" rel="noopener" href="http://gps.nutz.cn/">http://gps.nutz.cn/</a> 预编译包可以”发行版”页面找到</p>
-<p>技术特点:</p>
-<ol>
-<li>基于smart-socket的高性能io框架,轻松支持10w设备同时在线</li>
-<li>直接支持iRTU内置的JSON注册包</li>
-<li>无缝支持GPS的json数据包和hex数据包, 推荐选用hex,节省流量,性能更高</li>
-<li>自动建表,自动初始化. 默认配置H2数据库, 无需额外安装. 可按需要使用其他数据库</li>
-<li>基于NutzBoot,单个jar即可运行, 无需web容器,内存占用最低可到48mb</li>
-<li>配套微信小程序 <a target="_blank" rel="noopener" href="https://gitee.com/wendal/irtu-gps-miniapp">https://gitee.com/wendal/irtu-gps-miniapp</a> 欢迎试用<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_42420.jpg"></li>
-</ol>
-<h2 id="iRTU配置实例"><a href="#iRTU配置实例" class="headerlink" title="iRTU配置实例"></a>iRTU配置实例</h2><ul>
-<li>所需硬件: Air800 M4开发板, 或 A9532L车载GPS定位器. 前者在 <a target="_blank" rel="noopener" href="http://m.openluat.com/">http://m.openluat.com</a> 有售, 后者开源可自行打样.</li>
-<li>工具软件: Luatools最新版, 可到 <a target="_blank" rel="noopener" href="http://www.openluat.com/">http://www.openluat.com</a> 的产品中心下载</li>
-<li>底层软件: iRTU 1.8.7 <a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU/releases">https://github.com/hotdll/iRTU/releases</a></li>
-<li>刷机教程: <a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4">http://oldask.openluat.com/article/4</a></li>
-<li>QQ支持群: 合宙Luat(稀饭放姜iRTU) 952343033</li>
-</ul>
-<p>使用上述材料刷机为iRTU固件后,请联系”稀饭放姜”,把imei和账号发给他, 将设备加入到你的账号下.</p>
-<p>配置页面 <a target="_blank" rel="noopener" href="http://dtu.openluat.com/">http://dtu.openluat.com</a> 账号名为手机号码,密码默认是888888</p>
-<h3 id="配置注册包为JSON"><a href="#配置注册包为JSON" class="headerlink" title="配置注册包为JSON"></a>配置注册包为JSON</h3><p>建议新建一个分组来存放新的配置信息.</p>
-<p>json注册包才包含imei, 用于服务器识别设备.<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24661.jpg"></p>
-<h3 id="配置串口1和串口2-均为115200-8N1"><a href="#配置串口1和串口2-均为115200-8N1" class="headerlink" title="配置串口1和串口2,均为115200 8N1"></a>配置串口1和串口2,均为115200 8N1</h3><p>串口常规设置<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33686.jpg"></p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78117.jpg"></p>
-<h3 id="配置网络通道"><a href="#配置网络通道" class="headerlink" title="配置网络通道"></a>配置网络通道</h3><p>配置为demo服务器的地址,用通道2!!!<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68338.jpg"></p>
-<h3 id="配置GPS参数"><a href="#配置GPS参数" class="headerlink" title="配置GPS参数"></a>配置GPS参数</h3><p>绑定通道2</p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_90324.jpg"></p>
-<h3 id="重启设备并访问前端页面"><a href="#重启设备并访问前端页面" class="headerlink" title="重启设备并访问前端页面"></a>重启设备并访问前端页面</h3><ul>
-<li>记得把设备的分组改成上面的配置分组.</li>
-<li>重启设备(断电重启或者复位)后, 设备会获取到信息的配置信息, 然后再次重启</li>
-<li>待设备再次启动完成后, 网络灯慢闪, 打开前端页面(例如demo页面 <a target="_blank" rel="noopener" href="http://gps.nutz.cn/">http://gps.nutz.cn</a> ),输入imei, 若定位成功, 即可看到设备的当前位置.</li>
-<li>提醒: 室内无GPS信号,请到室外空旷处.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/09/25/631/" data-id="ckkfmdgcn0092vkcgahnigyoe" data-title="支持iRTU的GPS功能的开源服务端" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-630" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/09/23/630/" class="article-date">
-  <time class="dt-published" datetime="2019-09-23T07:05:40.000Z" itemprop="datePublished">2019-09-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/09/23/630/">使用lua生成Code128条形码数据（用于微信、支付宝付款码）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>这篇文章是紧接着上一篇文章的：<a target="_blank" rel="noopener" href="https://www.chenxublog.com/2018/09/22/wechat-alipay-barcode-code128.html" title="简单解析微信、支付宝，付款码的条形码生成原理">简单解析微信、支付宝，付款码的条形码生成原理</a></p>
-<p>本文中，会演示如何使用上篇文章所讲到的条形码数据生成方法，使用lua语言来生成相关的数据</p>
-<p>本文为了方便描述，同样使用<code>b</code>代表一条黑色像素宽度的线，<code>s</code>代表一条白色像素宽度的线，当<code>bs</code>组合时，中间不留任何缝隙</p>
-<p>首先我们先制作几个函数，来生成<code>bs</code>字符串，以便后期生成条形码</p>
-<p>首先声明我们需要用到的数据，编码格式：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> codes = &#123;&#125;</span><br><span class="line"><span class="keyword">local</span> codeStartC = <span class="string">&quot;bbsbssbbbss&quot;</span> <span class="comment">--C</span></span><br><span class="line">codes[<span class="number">0</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">1</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">2</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">3</span>+<span class="number">1</span>] = <span class="string">&quot;bssbssbbsss&quot;</span></span><br><span class="line">codes[<span class="number">4</span>+<span class="number">1</span>] = <span class="string">&quot;bssbsssbbss&quot;</span></span><br><span class="line">codes[<span class="number">5</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">6</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbssbsss&quot;</span></span><br><span class="line">codes[<span class="number">7</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbsssbss&quot;</span></span><br><span class="line">codes[<span class="number">8</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">9</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbssbsss&quot;</span></span><br><span class="line">codes[<span class="number">10</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbsssbss&quot;</span></span><br><span class="line">codes[<span class="number">11</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbssbss&quot;</span></span><br><span class="line">codes[<span class="number">12</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbssbbbss&quot;</span></span><br><span class="line">codes[<span class="number">13</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbsbbbss&quot;</span></span><br><span class="line">codes[<span class="number">14</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">15</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">16</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">17</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">18</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">19</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbsbbbss&quot;</span></span><br><span class="line">codes[<span class="number">20</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">21</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">22</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">23</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">24</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">25</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">26</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">27</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">28</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">29</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">30</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">31</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">32</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">33</span>+<span class="number">1</span>] = <span class="string">&quot;bsbsssbbsss&quot;</span></span><br><span class="line">codes[<span class="number">34</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">35</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">36</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbsssbsss&quot;</span></span><br><span class="line">codes[<span class="number">37</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">38</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">39</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbsssbsss&quot;</span></span><br><span class="line">codes[<span class="number">40</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">41</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">42</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbsbbbsss&quot;</span></span><br><span class="line">codes[<span class="number">43</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbsssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">44</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">45</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">46</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">47</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">48</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">49</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbsssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">50</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">51</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">52</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">53</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">54</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">55</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">56</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsssbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">57</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">58</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">59</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsssbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">60</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">61</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbssssbs&quot;</span></span><br><span class="line">codes[<span class="number">62</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsssbsbs&quot;</span></span><br><span class="line">codes[<span class="number">63</span>+<span class="number">1</span>] = <span class="string">&quot;bsbssbbssss&quot;</span></span><br><span class="line">codes[<span class="number">64</span>+<span class="number">1</span>] = <span class="string">&quot;bsbssssbbss&quot;</span></span><br><span class="line">codes[<span class="number">65</span>+<span class="number">1</span>] = <span class="string">&quot;bssbsbbssss&quot;</span></span><br><span class="line">codes[<span class="number">66</span>+<span class="number">1</span>] = <span class="string">&quot;bssbssssbbs&quot;</span></span><br><span class="line">codes[<span class="number">67</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">68</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">69</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbssbssss&quot;</span></span><br><span class="line">codes[<span class="number">70</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbssssbss&quot;</span></span><br><span class="line">codes[<span class="number">71</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbsbssss&quot;</span></span><br><span class="line">codes[<span class="number">72</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbssssbs&quot;</span></span><br><span class="line">codes[<span class="number">73</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">74</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">75</span>+<span class="number">1</span>] = <span class="string">&quot;bbssssbssbs&quot;</span></span><br><span class="line">codes[<span class="number">76</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbsbssss&quot;</span></span><br><span class="line">codes[<span class="number">77</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">78</span>+<span class="number">1</span>] = <span class="string">&quot;bbssssbsbss&quot;</span></span><br><span class="line">codes[<span class="number">79</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">80</span>+<span class="number">1</span>] = <span class="string">&quot;bsbssbbbbss&quot;</span></span><br><span class="line">codes[<span class="number">81</span>+<span class="number">1</span>] = <span class="string">&quot;bssbsbbbbss&quot;</span></span><br><span class="line">codes[<span class="number">82</span>+<span class="number">1</span>] = <span class="string">&quot;bssbssbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">83</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">84</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">85</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">86</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbssbss&quot;</span></span><br><span class="line">codes[<span class="number">87</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbssbsbss&quot;</span></span><br><span class="line">codes[<span class="number">88</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbssbssbs&quot;</span></span><br><span class="line">codes[<span class="number">89</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">90</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">91</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">92</span>+<span class="number">1</span>] = <span class="string">&quot;bsbsbbbbsss&quot;</span></span><br><span class="line">codes[<span class="number">93</span>+<span class="number">1</span>] = <span class="string">&quot;bsbsssbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">94</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">95</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">96</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">97</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">98</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">99</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">100</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">101</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">102</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">103</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbssssbss&quot;</span><span class="comment">--codeStartA</span></span><br><span class="line">codes[<span class="number">104</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbssbssss&quot;</span><span class="comment">--codeStartB</span></span><br><span class="line">codes[<span class="number">106</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbbbsbsbb&quot;</span>  <span class="comment">--end</span></span><br></pre></td></tr></table></figure>
-<p>按C条形码生成规则，处理偶数长度的字符串：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--生成code128C字符串</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">makeCode128C</span><span class="params">(s)</span></span></span><br><span class="line">    <span class="keyword">if</span> s:<span class="built_in">len</span>() % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">log</span>.warn(<span class="string">&quot;barcode.makeCode128C&quot;</span>,<span class="string">&quot;code not right&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,s:<span class="built_in">len</span>()/<span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,s:<span class="built_in">sub</span>(i*<span class="number">2</span><span class="number">-1</span>,i*<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> check = <span class="number">105</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        check = check + i * codeTemp[i]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    check = check % <span class="number">103</span></span><br><span class="line">    <span class="keyword">local</span> result = codeStartC</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        result = result..codes[codeTemp[i]+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    result = result..codes[check+<span class="number">1</span>]..codes[<span class="number">106</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;barcode.makeCode128C&quot;</span>,result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>当出现奇数长度字符串时，按C+A拼接生成条形码，并且加入判断，字符串长度为偶数时，使用上面的函数处理：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--生成code128C+A混合字符串，如长度为偶数，只生成C类型条码</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">makeCode128</span><span class="params">(s)</span></span></span><br><span class="line">    <span class="keyword">if</span> s:<span class="built_in">len</span>() == <span class="number">0</span> <span class="keyword">or</span> s == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> s:<span class="built_in">len</span>() % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> makeCode128C(s)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,s:<span class="built_in">len</span>()/<span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,s:<span class="built_in">sub</span>(i*<span class="number">2</span><span class="number">-1</span>,i*<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> other = <span class="built_in">tonumber</span>(s:<span class="built_in">sub</span>(s:<span class="built_in">len</span>())) + <span class="number">16</span></span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,<span class="number">101</span>)</span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,other)</span><br><span class="line">    <span class="keyword">local</span> check = <span class="number">105</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        check = check + i * codeTemp[i]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    check = check % <span class="number">103</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> result = codeStartC</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        result = result..codes[codeTemp[i]+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    result = result..codes[check+<span class="number">1</span>]..codes[<span class="number">106</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;barcode.makeCode128C+A&quot;</span>,result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>这样，我们就可以得到类似于<code>bsbbsbsbbbbbsbbbs...</code>这样的一串字符串了，接下来要实现显示功能，这里用到了合宙luat的disp库：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- code128 c型条形码显示函数，横向显示</span></span><br><span class="line"><span class="comment">-- @string s，需要显示的字符串，必须为数字，字符个数为偶数个</span></span><br><span class="line"><span class="comment">-- @number x，显示的初始x坐标</span></span><br><span class="line"><span class="comment">-- @number y，显示的初始y坐标</span></span><br><span class="line"><span class="comment">-- @number height，显示的二维码高度</span></span><br><span class="line"><span class="comment">-- @return nil</span></span><br><span class="line"><span class="comment">-- @usage</span></span><br><span class="line"><span class="comment">-- showCode128CX(&quot;12345678&quot;,0,0,20)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showCode128CX</span><span class="params">(s,x,y,height)</span></span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = makeCode128(s)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> codeTemp <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,codeTemp:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;b&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x+i<span class="number">-1</span>,y,x+i<span class="number">-1</span>,y+height,<span class="number">0x0000</span>)</span><br><span class="line">        <span class="keyword">elseif</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;s&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x+i<span class="number">-1</span>,y,x+i<span class="number">-1</span>,y+height,<span class="number">0xffff</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- code128 c型条形码显示函数，竖向显示</span></span><br><span class="line"><span class="comment">-- @string s，需要显示的字符串，必须为数字，字符个数为偶数个</span></span><br><span class="line"><span class="comment">-- @number x，显示的初始x坐标</span></span><br><span class="line"><span class="comment">-- @number y，显示的初始y坐标</span></span><br><span class="line"><span class="comment">-- @number width，显示的二维码高度</span></span><br><span class="line"><span class="comment">-- @return nil</span></span><br><span class="line"><span class="comment">-- @usage</span></span><br><span class="line"><span class="comment">-- showCode128CY(&quot;12345678&quot;,0,0,20)</span></span><br><span class="line"><span class="comment">-- barcode.showCode128CY(&quot;123412341234123456&quot;,10,10,40)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showCode128CY</span><span class="params">(s,x,y,width)</span></span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = makeCode128(s)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> codeTemp <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,codeTemp:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;b&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x,y+i<span class="number">-1</span>,x+width,y+i<span class="number">-1</span>,<span class="number">0x0000</span>)</span><br><span class="line">        <span class="keyword">elseif</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;s&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x,y+i<span class="number">-1</span>,x+width,y+i<span class="number">-1</span>,<span class="number">0xffff</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>为了方便，再加上一个显示数字的功能，字体需要按自己需求来准备：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--摆放横向数字</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">placeNumber</span><span class="params">(s,x,y)</span></span></span><br><span class="line">    <span class="keyword">local</span> oldFont = disp.setfont(disp.font_12x6)</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,s:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        disp.puttext(s:<span class="built_in">sub</span>(i,i),x,y-(i<span class="number">-1</span>)*<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    disp.setfont(oldFont)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>最终效果如下：<br><img src="http://oldask.openluat.com/file/attachments-2019-09-WvoAetTQ5d886e35c05ff_QQ%E6%88%AA%E5%9B%BE20180922163123.jpg"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/09/23/630/" data-id="ckkfmdgcn0091vkcg4ncu8kpx" data-title="使用lua生成Code128条形码数据（用于微信、支付宝付款码）" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-629" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/09/23/629/" class="article-date">
-  <time class="dt-published" datetime="2019-09-23T06:56:30.000Z" itemprop="datePublished">2019-09-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/09/23/629/">code128条形码生成规则和原理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="付款码用的条形码编码规则"><a href="#付款码用的条形码编码规则" class="headerlink" title="付款码用的条形码编码规则"></a>付款码用的条形码编码规则</h1><p>条形码编码规则有不少，付款码现在用的是<code>Code128</code>编码规则。</p>
-<h2 id="Code128编码的特性"><a href="#Code128编码的特性" class="headerlink" title="Code128编码的特性"></a>Code128编码的特性</h2><ul>
-<li><p>具有A、B、C三种不同的编码类型，可提供标准ASCII中128个字元的编码使用</p>
-</li>
-<li><p>允许双向扫描（正着反着都能扫）</p>
-</li>
-<li><p>可自行决定是否加上检验位（但付款码必须要校验位）</p>
-</li>
-<li><p>条码长度可调，但包括开始位和结束位在内，不可超过232个字元（付款码也就十几二十位数字）</p>
-</li>
-<li><p>同一个128码，可以由A、B、C三种不同编码规则互换，既可扩大字元选择的范围，也可缩短编码的长度（这点<code>十分重要</code>，后面会讲到）</p>
-</li>
-</ul>
-<h2 id="优先选用的编码规则"><a href="#优先选用的编码规则" class="headerlink" title="优先选用的编码规则"></a>优先选用的编码规则</h2><p>由于编码规则越复杂，二维码就越复杂，所以条形码编码优先使用的是Code128C这个编码规则。</p>
-<p>Code128C将数字两个两个组合在一起，大大减小了条码的复杂度。</p>
-<h2 id="code128的编码规则"><a href="#code128的编码规则" class="headerlink" title="code128的编码规则"></a>code128的编码规则</h2><p>为了方便表达，我们用<code>b</code>代表一条黑色像素宽度的线，<code>s</code>代表一条白色像素宽度的线，当<code>bs</code>组合时，中间不留任何缝隙</p>
-<p>ABC三种编码的编码表如下，后面会用到这张表：</p>
-<table>
-<thead>
-<tr>
-<th align="center">ID</th>
-<th align="center">Code128A</th>
-<th align="center">Code128B</th>
-<th align="center">Code128C</th>
-<th align="center">BandCode</th>
-<th align="center">编码值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">SP</td>
-<td align="center">SP</td>
-<td align="center">0</td>
-<td align="center">212222</td>
-<td align="center">bbsbbssbbss</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">!</td>
-<td align="center">!</td>
-<td align="center">1</td>
-<td align="center">222122</td>
-<td align="center">bbssbbsbbss</td>
-</tr>
-<tr>
-<td align="center">2</td>
-<td align="center">“</td>
-<td align="center">“</td>
-<td align="center">2</td>
-<td align="center">222221</td>
-<td align="center">bbssbbssbbs</td>
-</tr>
-<tr>
-<td align="center">3</td>
-<td align="center">#</td>
-<td align="center">#</td>
-<td align="center">3</td>
-<td align="center">121223</td>
-<td align="center">bssbssbbsss</td>
-</tr>
-<tr>
-<td align="center">4</td>
-<td align="center">$</td>
-<td align="center">$</td>
-<td align="center">4</td>
-<td align="center">121322</td>
-<td align="center">bssbsssbbss</td>
-</tr>
-<tr>
-<td align="center">5</td>
-<td align="center">%</td>
-<td align="center">%</td>
-<td align="center">5</td>
-<td align="center">131222</td>
-<td align="center">bsssbssbbss</td>
-</tr>
-<tr>
-<td align="center">6</td>
-<td align="center">&amp;</td>
-<td align="center">&amp;</td>
-<td align="center">6</td>
-<td align="center">122213</td>
-<td align="center">bssbbssbsss</td>
-</tr>
-<tr>
-<td align="center">7</td>
-<td align="center">‘</td>
-<td align="center">‘</td>
-<td align="center">7</td>
-<td align="center">122312</td>
-<td align="center">bssbbsssbss</td>
-</tr>
-<tr>
-<td align="center">8</td>
-<td align="center">(</td>
-<td align="center">(</td>
-<td align="center">8</td>
-<td align="center">132212</td>
-<td align="center">bsssbbssbss</td>
-</tr>
-<tr>
-<td align="center">9</td>
-<td align="center">)</td>
-<td align="center">)</td>
-<td align="center">9</td>
-<td align="center">221213</td>
-<td align="center">bbssbssbsss</td>
-</tr>
-<tr>
-<td align="center">10</td>
-<td align="center">*</td>
-<td align="center">*</td>
-<td align="center">10</td>
-<td align="center">221312</td>
-<td align="center">bbssbsssbss</td>
-</tr>
-<tr>
-<td align="center">11</td>
-<td align="center">+</td>
-<td align="center">+</td>
-<td align="center">11</td>
-<td align="center">231212</td>
-<td align="center">bbsssbssbss</td>
-</tr>
-<tr>
-<td align="center">12</td>
-<td align="center">,</td>
-<td align="center">,</td>
-<td align="center">12</td>
-<td align="center">112232</td>
-<td align="center">bsbbssbbbss</td>
-</tr>
-<tr>
-<td align="center">13</td>
-<td align="center">-</td>
-<td align="center">-</td>
-<td align="center">13</td>
-<td align="center">122132</td>
-<td align="center">bssbbsbbbss</td>
-</tr>
-<tr>
-<td align="center">14</td>
-<td align="center">.</td>
-<td align="center">.</td>
-<td align="center">14</td>
-<td align="center">122231</td>
-<td align="center">bssbbssbbbs</td>
-</tr>
-<tr>
-<td align="center">15</td>
-<td align="center">/</td>
-<td align="center">/</td>
-<td align="center">15</td>
-<td align="center">113222</td>
-<td align="center">bsbbbssbbss</td>
-</tr>
-<tr>
-<td align="center">16</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">16</td>
-<td align="center">123122</td>
-<td align="center">bssbbbsbbss</td>
-</tr>
-<tr>
-<td align="center">17</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">17</td>
-<td align="center">123221</td>
-<td align="center">bssbbbssbbs</td>
-</tr>
-<tr>
-<td align="center">18</td>
-<td align="center">2</td>
-<td align="center">2</td>
-<td align="center">18</td>
-<td align="center">223211</td>
-<td align="center">bbssbbbssbs</td>
-</tr>
-<tr>
-<td align="center">19</td>
-<td align="center">3</td>
-<td align="center">3</td>
-<td align="center">19</td>
-<td align="center">221132</td>
-<td align="center">bbssbsbbbss</td>
-</tr>
-<tr>
-<td align="center">20</td>
-<td align="center">4</td>
-<td align="center">4</td>
-<td align="center">20</td>
-<td align="center">221231</td>
-<td align="center">bbssbssbbbs</td>
-</tr>
-<tr>
-<td align="center">21</td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">21</td>
-<td align="center">213212</td>
-<td align="center">bbsbbbssbss</td>
-</tr>
-<tr>
-<td align="center">22</td>
-<td align="center">6</td>
-<td align="center">6</td>
-<td align="center">22</td>
-<td align="center">223112</td>
-<td align="center">bbssbbbsbss</td>
-</tr>
-<tr>
-<td align="center">23</td>
-<td align="center">7</td>
-<td align="center">7</td>
-<td align="center">23</td>
-<td align="center">312131</td>
-<td align="center">bbbsbbsbbbs</td>
-</tr>
-<tr>
-<td align="center">24</td>
-<td align="center">8</td>
-<td align="center">8</td>
-<td align="center">24</td>
-<td align="center">311222</td>
-<td align="center">bbbsbssbbss</td>
-</tr>
-<tr>
-<td align="center">25</td>
-<td align="center">9</td>
-<td align="center">9</td>
-<td align="center">25</td>
-<td align="center">321122</td>
-<td align="center">bbbssbsbbss</td>
-</tr>
-<tr>
-<td align="center">26</td>
-<td align="center">:</td>
-<td align="center">:</td>
-<td align="center">26</td>
-<td align="center">321221</td>
-<td align="center">bbbssbssbbs</td>
-</tr>
-<tr>
-<td align="center">27</td>
-<td align="center">;</td>
-<td align="center">;</td>
-<td align="center">27</td>
-<td align="center">312212</td>
-<td align="center">bbbsbbssbss</td>
-</tr>
-<tr>
-<td align="center">28</td>
-<td align="center">&lt;</td>
-<td align="center">&lt;</td>
-<td align="center">28</td>
-<td align="center">322112</td>
-<td align="center">bbbssbbsbss</td>
-</tr>
-<tr>
-<td align="center">29</td>
-<td align="center">=</td>
-<td align="center">=</td>
-<td align="center">29</td>
-<td align="center">322211</td>
-<td align="center">bbbssbbssbs</td>
-</tr>
-<tr>
-<td align="center">30</td>
-<td align="center">&gt;</td>
-<td align="center">&gt;</td>
-<td align="center">30</td>
-<td align="center">212123</td>
-<td align="center">bbsbbsbbsss</td>
-</tr>
-<tr>
-<td align="center">31</td>
-<td align="center">?</td>
-<td align="center">?</td>
-<td align="center">31</td>
-<td align="center">212321</td>
-<td align="center">bbsbbsssbbs</td>
-</tr>
-<tr>
-<td align="center">32</td>
-<td align="center">@</td>
-<td align="center">@</td>
-<td align="center">32</td>
-<td align="center">232121</td>
-<td align="center">bbsssbbsbbs</td>
-</tr>
-<tr>
-<td align="center">33</td>
-<td align="center">A</td>
-<td align="center">A</td>
-<td align="center">33</td>
-<td align="center">111323</td>
-<td align="center">bsbsssbbsss</td>
-</tr>
-<tr>
-<td align="center">34</td>
-<td align="center">B</td>
-<td align="center">B</td>
-<td align="center">34</td>
-<td align="center">131123</td>
-<td align="center">bsssbsbbsss</td>
-</tr>
-<tr>
-<td align="center">35</td>
-<td align="center">C</td>
-<td align="center">C</td>
-<td align="center">35</td>
-<td align="center">131321</td>
-<td align="center">bsssbsssbbs</td>
-</tr>
-<tr>
-<td align="center">36</td>
-<td align="center">D</td>
-<td align="center">D</td>
-<td align="center">36</td>
-<td align="center">112313</td>
-<td align="center">bsbbsssbsss</td>
-</tr>
-<tr>
-<td align="center">37</td>
-<td align="center">E</td>
-<td align="center">E</td>
-<td align="center">37</td>
-<td align="center">132113</td>
-<td align="center">bsssbbsbsss</td>
-</tr>
-<tr>
-<td align="center">38</td>
-<td align="center">F</td>
-<td align="center">F</td>
-<td align="center">38</td>
-<td align="center">132311</td>
-<td align="center">bsssbbsssbs</td>
-</tr>
-<tr>
-<td align="center">39</td>
-<td align="center">G</td>
-<td align="center">G</td>
-<td align="center">39</td>
-<td align="center">211313</td>
-<td align="center">bbsbsssbsss</td>
-</tr>
-<tr>
-<td align="center">40</td>
-<td align="center">H</td>
-<td align="center">H</td>
-<td align="center">40</td>
-<td align="center">231113</td>
-<td align="center">bbsssbsbsss</td>
-</tr>
-<tr>
-<td align="center">41</td>
-<td align="center">I</td>
-<td align="center">I</td>
-<td align="center">41</td>
-<td align="center">231311</td>
-<td align="center">bbsssbsssbs</td>
-</tr>
-<tr>
-<td align="center">42</td>
-<td align="center">J</td>
-<td align="center">J</td>
-<td align="center">42</td>
-<td align="center">112133</td>
-<td align="center">bsbbsbbbsss</td>
-</tr>
-<tr>
-<td align="center">43</td>
-<td align="center">K</td>
-<td align="center">K</td>
-<td align="center">43</td>
-<td align="center">112331</td>
-<td align="center">bsbbsssbbbs</td>
-</tr>
-<tr>
-<td align="center">44</td>
-<td align="center">L</td>
-<td align="center">L</td>
-<td align="center">44</td>
-<td align="center">132131</td>
-<td align="center">bsssbbsbbbs</td>
-</tr>
-<tr>
-<td align="center">45</td>
-<td align="center">M</td>
-<td align="center">M</td>
-<td align="center">45</td>
-<td align="center">113123</td>
-<td align="center">bsbbbsbbsss</td>
-</tr>
-<tr>
-<td align="center">46</td>
-<td align="center">N</td>
-<td align="center">N</td>
-<td align="center">46</td>
-<td align="center">113321</td>
-<td align="center">bsbbbsssbbs</td>
-</tr>
-<tr>
-<td align="center">47</td>
-<td align="center">O</td>
-<td align="center">O</td>
-<td align="center">47</td>
-<td align="center">133121</td>
-<td align="center">bsssbbbsbbs</td>
-</tr>
-<tr>
-<td align="center">48</td>
-<td align="center">P</td>
-<td align="center">P</td>
-<td align="center">48</td>
-<td align="center">313121</td>
-<td align="center">bbbsbbbsbbs</td>
-</tr>
-<tr>
-<td align="center">49</td>
-<td align="center">Q</td>
-<td align="center">Q</td>
-<td align="center">49</td>
-<td align="center">211331</td>
-<td align="center">bbsbsssbbbs</td>
-</tr>
-<tr>
-<td align="center">50</td>
-<td align="center">R</td>
-<td align="center">R</td>
-<td align="center">50</td>
-<td align="center">231131</td>
-<td align="center">bbsssbsbbbs</td>
-</tr>
-<tr>
-<td align="center">51</td>
-<td align="center">S</td>
-<td align="center">S</td>
-<td align="center">51</td>
-<td align="center">213113</td>
-<td align="center">bbsbbbsbsss</td>
-</tr>
-<tr>
-<td align="center">52</td>
-<td align="center">T</td>
-<td align="center">T</td>
-<td align="center">52</td>
-<td align="center">213311</td>
-<td align="center">bbsbbbsssbs</td>
-</tr>
-<tr>
-<td align="center">53</td>
-<td align="center">U</td>
-<td align="center">U</td>
-<td align="center">53</td>
-<td align="center">213131</td>
-<td align="center">bbsbbbsbbbs</td>
-</tr>
-<tr>
-<td align="center">54</td>
-<td align="center">V</td>
-<td align="center">V</td>
-<td align="center">54</td>
-<td align="center">311123</td>
-<td align="center">bbbsbsbbsss</td>
-</tr>
-<tr>
-<td align="center">55</td>
-<td align="center">W</td>
-<td align="center">W</td>
-<td align="center">55</td>
-<td align="center">311321</td>
-<td align="center">bbbsbsssbbs</td>
-</tr>
-<tr>
-<td align="center">56</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">56</td>
-<td align="center">331121</td>
-<td align="center">bbbsssbsbbs</td>
-</tr>
-<tr>
-<td align="center">57</td>
-<td align="center">Y</td>
-<td align="center">Y</td>
-<td align="center">57</td>
-<td align="center">312113</td>
-<td align="center">bbbsbbsbsss</td>
-</tr>
-<tr>
-<td align="center">58</td>
-<td align="center">Z</td>
-<td align="center">Z</td>
-<td align="center">58</td>
-<td align="center">312311</td>
-<td align="center">bbbsbbsssbs</td>
-</tr>
-<tr>
-<td align="center">59</td>
-<td align="center">[</td>
-<td align="center">[</td>
-<td align="center">59</td>
-<td align="center">332111</td>
-<td align="center">bbbsssbbsbs</td>
-</tr>
-<tr>
-<td align="center">60</td>
-<td align="center">\</td>
-<td align="center">\</td>
-<td align="center">60</td>
-<td align="center">314111</td>
-<td align="center">bbbsbbbbsbs</td>
-</tr>
-<tr>
-<td align="center">61</td>
-<td align="center">]</td>
-<td align="center">]</td>
-<td align="center">61</td>
-<td align="center">221411</td>
-<td align="center">bbssbssssbs</td>
-</tr>
-<tr>
-<td align="center">62</td>
-<td align="center">^</td>
-<td align="center">^</td>
-<td align="center">62</td>
-<td align="center">431111</td>
-<td align="center">bbbbsssbsbs</td>
-</tr>
-<tr>
-<td align="center">63</td>
-<td align="center">_</td>
-<td align="center">_</td>
-<td align="center">63</td>
-<td align="center">111224</td>
-<td align="center">bsbssbbssss</td>
-</tr>
-<tr>
-<td align="center">64</td>
-<td align="center">NUL</td>
-<td align="center">`</td>
-<td align="center">64</td>
-<td align="center">111422</td>
-<td align="center">bsbssssbbss</td>
-</tr>
-<tr>
-<td align="center">65</td>
-<td align="center">SOH</td>
-<td align="center">a</td>
-<td align="center">65</td>
-<td align="center">121124</td>
-<td align="center">bssbsbbssss</td>
-</tr>
-<tr>
-<td align="center">66</td>
-<td align="center">STX</td>
-<td align="center">b</td>
-<td align="center">66</td>
-<td align="center">121421</td>
-<td align="center">bssbssssbbs</td>
-</tr>
-<tr>
-<td align="center">67</td>
-<td align="center">ETX</td>
-<td align="center">c</td>
-<td align="center">67</td>
-<td align="center">141122</td>
-<td align="center">bssssbsbbss</td>
-</tr>
-<tr>
-<td align="center">68</td>
-<td align="center">EOT</td>
-<td align="center">d</td>
-<td align="center">68</td>
-<td align="center">141221</td>
-<td align="center">bssssbssbbs</td>
-</tr>
-<tr>
-<td align="center">69</td>
-<td align="center">ENQ</td>
-<td align="center">e</td>
-<td align="center">69</td>
-<td align="center">112214</td>
-<td align="center">bsbbssbssss</td>
-</tr>
-<tr>
-<td align="center">70</td>
-<td align="center">ACK</td>
-<td align="center">f</td>
-<td align="center">70</td>
-<td align="center">112412</td>
-<td align="center">bsbbssssbss</td>
-</tr>
-<tr>
-<td align="center">71</td>
-<td align="center">BEL</td>
-<td align="center">g</td>
-<td align="center">71</td>
-<td align="center">122114</td>
-<td align="center">bssbbsbssss</td>
-</tr>
-<tr>
-<td align="center">72</td>
-<td align="center">BS</td>
-<td align="center">h</td>
-<td align="center">72</td>
-<td align="center">122411</td>
-<td align="center">bssbbssssbs</td>
-</tr>
-<tr>
-<td align="center">73</td>
-<td align="center">HT</td>
-<td align="center">i</td>
-<td align="center">73</td>
-<td align="center">142112</td>
-<td align="center">bssssbbsbss</td>
-</tr>
-<tr>
-<td align="center">74</td>
-<td align="center">LF</td>
-<td align="center">j</td>
-<td align="center">74</td>
-<td align="center">142211</td>
-<td align="center">bssssbbssbs</td>
-</tr>
-<tr>
-<td align="center">75</td>
-<td align="center">VT</td>
-<td align="center">k</td>
-<td align="center">75</td>
-<td align="center">241211</td>
-<td align="center">bbssssbssbs</td>
-</tr>
-<tr>
-<td align="center">76</td>
-<td align="center">FF</td>
-<td align="center">I</td>
-<td align="center">76</td>
-<td align="center">221114</td>
-<td align="center">bbssbsbssss</td>
-</tr>
-<tr>
-<td align="center">77</td>
-<td align="center">CR</td>
-<td align="center">m</td>
-<td align="center">77</td>
-<td align="center">413111</td>
-<td align="center">bbbbsbbbsbs</td>
-</tr>
-<tr>
-<td align="center">78</td>
-<td align="center">SO</td>
-<td align="center">n</td>
-<td align="center">78</td>
-<td align="center">241112</td>
-<td align="center">bbssssbsbss</td>
-</tr>
-<tr>
-<td align="center">79</td>
-<td align="center">SI</td>
-<td align="center">o</td>
-<td align="center">79</td>
-<td align="center">134111</td>
-<td align="center">bsssbbbbsbs</td>
-</tr>
-<tr>
-<td align="center">80</td>
-<td align="center">DLE</td>
-<td align="center">p</td>
-<td align="center">80</td>
-<td align="center">111242</td>
-<td align="center">bsbssbbbbss</td>
-</tr>
-<tr>
-<td align="center">81</td>
-<td align="center">DC1</td>
-<td align="center">q</td>
-<td align="center">81</td>
-<td align="center">121142</td>
-<td align="center">bssbsbbbbss</td>
-</tr>
-<tr>
-<td align="center">82</td>
-<td align="center">DC2</td>
-<td align="center">r</td>
-<td align="center">82</td>
-<td align="center">121241</td>
-<td align="center">bssbssbbbbs</td>
-</tr>
-<tr>
-<td align="center">83</td>
-<td align="center">DC3</td>
-<td align="center">s</td>
-<td align="center">83</td>
-<td align="center">114212</td>
-<td align="center">bsbbbbssbss</td>
-</tr>
-<tr>
-<td align="center">84</td>
-<td align="center">DC4</td>
-<td align="center">t</td>
-<td align="center">84</td>
-<td align="center">124112</td>
-<td align="center">bssbbbbsbss</td>
-</tr>
-<tr>
-<td align="center">85</td>
-<td align="center">NAK</td>
-<td align="center">u</td>
-<td align="center">85</td>
-<td align="center">124211</td>
-<td align="center">bssbbbbssbs</td>
-</tr>
-<tr>
-<td align="center">86</td>
-<td align="center">SYN</td>
-<td align="center">v</td>
-<td align="center">86</td>
-<td align="center">411212</td>
-<td align="center">bbbbsbssbss</td>
-</tr>
-<tr>
-<td align="center">87</td>
-<td align="center">ETB</td>
-<td align="center">w</td>
-<td align="center">87</td>
-<td align="center">421112</td>
-<td align="center">bbbbssbsbss</td>
-</tr>
-<tr>
-<td align="center">88</td>
-<td align="center">CAN</td>
-<td align="center">x</td>
-<td align="center">88</td>
-<td align="center">421211</td>
-<td align="center">bbbbssbssbs</td>
-</tr>
-<tr>
-<td align="center">89</td>
-<td align="center">EM</td>
-<td align="center">y</td>
-<td align="center">89</td>
-<td align="center">212141</td>
-<td align="center">bbsbbsbbbbs</td>
-</tr>
-<tr>
-<td align="center">90</td>
-<td align="center">SUB</td>
-<td align="center">z</td>
-<td align="center">90</td>
-<td align="center">214121</td>
-<td align="center">bbsbbbbsbbs</td>
-</tr>
-<tr>
-<td align="center">91</td>
-<td align="center">ESC</td>
-<td align="center">{</td>
-<td align="center">91</td>
-<td align="center">412121</td>
-<td align="center">bbbbsbbsbbs</td>
-</tr>
-<tr>
-<td align="center">92</td>
-<td align="center">FS</td>
-<td align="center">竖线分隔符</td>
-<td align="center">92</td>
-<td align="center">111143</td>
-<td align="center">bsbsbbbbsss</td>
-</tr>
-<tr>
-<td align="center">93</td>
-<td align="center">GS</td>
-<td align="center">}</td>
-<td align="center">93</td>
-<td align="center">111341</td>
-<td align="center">bsbsssbbbbs</td>
-</tr>
-<tr>
-<td align="center">94</td>
-<td align="center">RS</td>
-<td align="center">~</td>
-<td align="center">94</td>
-<td align="center">131141</td>
-<td align="center">bsssbsbbbbs</td>
-</tr>
-<tr>
-<td align="center">95</td>
-<td align="center">US</td>
-<td align="center">DEL</td>
-<td align="center">95</td>
-<td align="center">114113</td>
-<td align="center">bsbbbbsbsss</td>
-</tr>
-<tr>
-<td align="center">96</td>
-<td align="center">FNC3</td>
-<td align="center">FNC3</td>
-<td align="center">96</td>
-<td align="center">114311</td>
-<td align="center">bsbbbbsssbs</td>
-</tr>
-<tr>
-<td align="center">97</td>
-<td align="center">FNC2</td>
-<td align="center">FNC2</td>
-<td align="center">97</td>
-<td align="center">411113</td>
-<td align="center">bbbbsbsbsss</td>
-</tr>
-<tr>
-<td align="center">98</td>
-<td align="center">SHIFT</td>
-<td align="center">SHIFT</td>
-<td align="center">98</td>
-<td align="center">411311</td>
-<td align="center">bbbbsbsssbs</td>
-</tr>
-<tr>
-<td align="center">99</td>
-<td align="center">CODEC</td>
-<td align="center">CODEC</td>
-<td align="center">99</td>
-<td align="center">113141</td>
-<td align="center">bsbbbsbbbbs</td>
-</tr>
-<tr>
-<td align="center">100</td>
-<td align="center">CODEB</td>
-<td align="center">FNC4</td>
-<td align="center">CODEB</td>
-<td align="center">114131</td>
-<td align="center">bsbbbbsbbbs</td>
-</tr>
-<tr>
-<td align="center">101</td>
-<td align="center">FNC4</td>
-<td align="center">CODEA</td>
-<td align="center">CODEA</td>
-<td align="center">311141</td>
-<td align="center">bbbsbsbbbbs</td>
-</tr>
-<tr>
-<td align="center">102</td>
-<td align="center">FNC1</td>
-<td align="center">FNC1</td>
-<td align="center">FNC1</td>
-<td align="center">411131</td>
-<td align="center">bbbbsbsbbbs</td>
-</tr>
-<tr>
-<td align="center">103</td>
-<td align="center">StartA</td>
-<td align="center">StartA</td>
-<td align="center">StartA</td>
-<td align="center">211412</td>
-<td align="center">bbsbssssbss</td>
-</tr>
-<tr>
-<td align="center">104</td>
-<td align="center">StartB</td>
-<td align="center">StartB</td>
-<td align="center">StartB</td>
-<td align="center">211214</td>
-<td align="center">bbsbssbssss</td>
-</tr>
-<tr>
-<td align="center">105</td>
-<td align="center">StartC</td>
-<td align="center">StartC</td>
-<td align="center">StartC</td>
-<td align="center">211232</td>
-<td align="center">bbsbssbbbss</td>
-</tr>
-<tr>
-<td align="center">106</td>
-<td align="center">Stop</td>
-<td align="center">Stop</td>
-<td align="center">Stop</td>
-<td align="center">2331112</td>
-<td align="center">bbsssbbbsbsbb</td>
-</tr>
-</tbody></table>
-<p>对于某种条码的编码规则为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">开始位 + 后面所有的数据按顺序拼接 + 校验位 + 结束位</span><br></pre></td></tr></table></figure>
-<p>编码的103-106为起始位于结束位，只会在开头或结尾出现</p>
-<p>我们首先使用一个简单的例子来解释如何使用三种编码方式进行条形码的编码：</p>
-<blockquote>
-<p>需要编码成条形码的数据：<code>1346</code></p>
-</blockquote>
-<h3 id="对于Code128A编码："><a href="#对于Code128A编码：" class="headerlink" title="对于Code128A编码："></a>对于Code128A编码：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">起始位（StartA：bbsbssssbss）+</span><br><span class="line">数据位（Code128A中的1：bssbbbssbbs）+</span><br><span class="line">数据位（Code128A中的3：bbssbsbbbss）+</span><br><span class="line">数据位（Code128A中的4：bbssbssbbbs）+</span><br><span class="line">数据位（Code128A中的6：bbssbbbsbss）+</span><br><span class="line">校验位（(StartA的id + Code128A中的1的id*1 + Code128A中的3的id*2 + Code128A中的4的id*3 + Code128A中的6的id*4) % 103 &#x3D; (103 + 17*1 + 19*2 + 20*3 + 22*4) % 103 &#x3D; 自己算去吧：Code128A中对应的id值所表示的编码）</span><br><span class="line">停止位（Stop：bbsssbbbsbsbb）</span><br></pre></td></tr></table></figure>
-<h3 id="对于Code128B编码："><a href="#对于Code128B编码：" class="headerlink" title="对于Code128B编码："></a>对于Code128B编码：</h3><p>B类编码和A几乎完全一样，只有起始位和校验位所使用的开头不一样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">起始位（StartB：bbsbssbssss）+</span><br><span class="line">数据位（Code128B中的1：bssbbbssbbs）+</span><br><span class="line">数据位（Code128B中的3：bbssbsbbbss）+</span><br><span class="line">数据位（Code128B中的4：bbssbssbbbs）+</span><br><span class="line">数据位（Code128B中的6：bbssbbbsbss）+</span><br><span class="line">校验位（(StartB的id + Code128B中的1的id*1 + Code128B中的3的id*2 + Code128B中的4的id*3 + Code128B中的6的id*4) % 103 &#x3D; (104 + 17*1 + 19*2 + 20*3 + 22*4) % 103 &#x3D; 自己算去吧：Code128B中对应的id值所表示的编码）</span><br><span class="line">停止位（Stop：bbsssbbbsbsbb）</span><br></pre></td></tr></table></figure>
-<h3 id="对于Code128C编码："><a href="#对于Code128C编码：" class="headerlink" title="对于Code128C编码："></a>对于Code128C编码：</h3><p>Code128C编码时，只能编码数字内容，并且在编码前会将偶数个的数字两个两个分为一组，进行编码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">起始位（StartC：bbsbssbbbss）+</span><br><span class="line">数据位（Code128C中的13：bssbbsbbbss）+</span><br><span class="line">数据位（Code128C中的46：bsbbbsssbbs）+</span><br><span class="line">校验位（(StartC的id + 数据位1*1 + 数据位2*2) % 103 &#x3D; (105 + 13*1 + 46*2) % 103 &#x3D; 自己算去吧：Code128C中对应的值所表示的编码）</span><br><span class="line">停止位（Stop：bbsssbbbsbsbb）</span><br></pre></td></tr></table></figure>
-<p>这时候就应该可以明白，为什么付款码优先使用的是Code128C编码了。</p>
-<h2 id="实际的例子"><a href="#实际的例子" class="headerlink" title="实际的例子"></a>实际的例子</h2><p>95270078用Code128A表示的结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bbsbssssbss开头</span><br><span class="line">bbbssbsbbss数据位</span><br><span class="line">bbsbbbssbss数据位</span><br><span class="line">bbssbbbssbs数据位</span><br><span class="line">bbbsbbsbbbs数据位</span><br><span class="line">bssbbbsbbss数据位</span><br><span class="line">bssbbbsbbss数据位</span><br><span class="line">bbbsbbsbbbs数据位</span><br><span class="line">bbbsbssbbss数据位</span><br><span class="line">bbsbbbssbss校验位</span><br><span class="line">bbsssbbbsbsbb停止位</span><br></pre></td></tr></table></figure>
-<p>即：<code>bbsbssssbssbbbssbsbbssbbsbbbssbssbbssbbbssbsbbbsbbsbbbsbssbbbsbbssbssbbbsbbssbbbsbbsbbbsbbbsbssbbssbbsbbbssbssbbsssbbbsbsbb</code></p>
-<h1 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h1><p>在实际按此方法使用的过程中，也遇到了一个坑，下面就简单讲一下这个坑人的地方</p>
-<h2 id="生成偶数位数字的条形码"><a href="#生成偶数位数字的条形码" class="headerlink" title="生成偶数位数字的条形码"></a>生成偶数位数字的条形码</h2><p>这个简单，直接用<code>Code128C</code>编码方式编码即可，不再重复说明</p>
-<h2 id="生成奇数位数字的条形码"><a href="#生成奇数位数字的条形码" class="headerlink" title="生成奇数位数字的条形码"></a>生成奇数位数字的条形码</h2><p>这个需求在一开始听到之后，我是十分疑惑的：完全不可能嘛！Code128C编码怎么可能生成一个奇数位数字的条形码呢？</p>
-<p>不过在bing中翻阅过不少资料后，发现这个是可行的，原因在文章开头也讲到了：</p>
-<blockquote>
-<p>同一个128码，可以由A、B、C三种不同编码规则互换，既可扩大字元选择的范围，也可缩短编码的长度</p>
-</blockquote>
-<p>也就是说，我们可以在Code128C的编码中插入Code128A编码，以此来实现奇数位数字的表示，同时保证条形码不会太复杂，具体如下。</p>
-<p>首先我们假定一个数字吧：<code>7434012</code></p>
-<p>第一步需要将数字分组：74、34、01、2</p>
-<p>两位数的部分就用Code128C表示，一位数的部分就用Code128A表示。那么问题来了，校验位怎么求呢？这里经过查阅资料，校验位是要把Code128A的编码值也算进去，按code128C的校验值计算方法来计算。。。</p>
-<p>具体编码结构如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Code128C的开始位</span><br><span class="line">数据位74</span><br><span class="line">数据位34</span><br><span class="line">数据位01</span><br><span class="line">Code128C编码中的&#96;CODEA&#96;（id为101）</span><br><span class="line">数据位（Code128A中的2，id为18）</span><br><span class="line">校验位&#x3D;(StartC的id:105 + 74*1 + 34*2 + 1*3 + CODEA的id:101*4 + Code128A中2的id:18*5) % 103</span><br><span class="line">停止位</span><br></pre></td></tr></table></figure>
-<p>其他编码方式开头，中途更换编码方式的算法也可以进行类推。</p>
-<h1 id="END"><a href="#END" class="headerlink" title="END"></a>END</h1><p>既然条码生成算法讲完了，下一篇文章就可以使用lua来生成条形码，显示到屏幕上面了</p>
-<p>如果文章有错误，请在下方留言，谢谢！</p>
-<p>搬运自<a target="_blank" rel="noopener" href="https://www.chenxublog.com/2018/09/22/wechat-alipay-barcode-code128.html">简单解析微信、支付宝，付款码的条形码生成原理 - 晨旭的博客</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/09/23/629/" data-id="ckkfmdgcm008zvkcg3o695732" data-title="code128条形码生成规则和原理" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-628" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/09/17/628/" class="article-date">
-  <time class="dt-published" datetime="2019-09-17T14:41:34.000Z" itemprop="datePublished">2019-09-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2019/09/17/628/">Air系列模块常见问题列表（持续更新）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>                        &lt;h1&gt;&lt;a href=&quot;http://doc.openluat.com/article/638/0&quot;&gt;&lt;b&gt;请点击我打开新链接阅读&lt;/b&gt;&lt;/a&gt;&lt;/h1&gt;
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/09/17/628/" data-id="ckkfmdgcn0090vkcg69of77fw" data-title="Air系列模块常见问题列表（持续更新）" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/34/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/36/">下一页 &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/10/28/637/">
+            Air800模块如何烧录GPS芯片软件
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1、下载烧录工具：http://www.openluat.com/Product/file/800/fpdnload_GPS_20180125_VIB.rar2、下载gps固件：http://www.openluat.com/Product/file/800/GK9501_Release_GB_1....</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-10-28
+            </span>
+          
+        </div>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/10/25/636/">
+            GPS信噪比测试方法
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>前言不少用户在使用GPS或者GPS+GSM模块时会遇到无法定位或者定位困难的问题，如何定位问题？如何判断是否是GPS信号的接收不到造成的问题？下文提供了一个通过GPS调试工具去监控模块GPS部分的接收信噪比的方法。
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+硬件连接首先需要找到模块的GPS信号的输出管脚，合宙模块部分模块的GPS_TX管脚...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-10-25
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/10/24/635/">
+            vscode上的LUAT代码自动补全插件
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>前言去年的时候，有一个插件叫做emLuaIde（http://oldask.openluat.com/article/38）实现了自动补全lua接口代码的功能。 但是这个插件已经有一年多没有更新了，而且插件的补全数据也有部分的错误信息。
+于是我就花了半个多小时时间，做了一款新的代码自动补全插件，支持...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-10-24
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/10/10/634/">
+            2G/4G模块开机SIM卡接口各信号波形对比
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>我们在用Air系列的2G/4G模块进行开发时，常会遇到SIM卡不识别的问题，文章下面会列举出正常模块在开机后SIM卡未插入情况下各个SIM卡管脚的波形，以便对比测量，来判断是否是模块SIM管脚部分硬件损坏。
+
+4G模块
+SIM_VDD
+
+
+
+ 在模块开机后10到15s左右，SIM_VDD会拉高到1....</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-10-10
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/10/10/633/">
+            结合实践的Lua语法学习工具：LUATeach
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>软件下载地址（最新版）：https://ci.appveyor.com/project/chenxuuu/luateach/build/artifacts开源地址：https://github.com/chenxuuu/LUATeach
+主要功能1. 知识点一一介绍
+2. 快速入门Lua的交互式教程...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-10-10
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/09/25/631/">
+            支持iRTU的GPS功能的开源服务端
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>项目介绍源码地址: https://gitee.com/wendal/irtu-gps
+基于iRTU项目,实现GPS数据的接收和展示
+服务器信息: gps.nutz.cn 端口 19002 前端页面地址是 http://gps.nutz.cn/ 预编译包可以”发行版”页面找到
+技术特点:
+
+基于sm...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-09-25
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/09/23/630/">
+            使用lua生成Code128条形码数据（用于微信、支付宝付款码）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>这篇文章是紧接着上一篇文章的：简单解析微信、支付宝，付款码的条形码生成原理
+本文中，会演示如何使用上篇文章所讲到的条形码数据生成方法，使用lua语言来生成相关的数据
+本文为了方便描述，同样使用b代表一条黑色像素宽度的线，s代表一条白色像素宽度的线，当bs组合时，中间不留任何缝隙
+首先我们先制作几个函...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-09-23
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/09/23/629/">
+            code128条形码生成规则和原理
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>付款码用的条形码编码规则条形码编码规则有不少，付款码现在用的是Code128编码规则。
+Code128编码的特性
+具有A、B、C三种不同的编码类型，可提供标准ASCII中128个字元的编码使用
+
+允许双向扫描（正着反着都能扫）
+
+可自行决定是否加上检验位（但付款码必须要校验位）
+
+条码长度可调，但包...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-09-23
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/09/17/628/">
+            Air系列模块常见问题列表（持续更新）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                        &amp;lt;h1&amp;gt;&amp;lt;a href=&amp;quot;http://doc.openluat.com/article/638/0&amp;quot;&amp;gt;&amp;lt;b&amp;gt;请点击我打开新链接阅读&amp;lt;/b&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/h1&amp;gt;
+...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-09-17
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2019/09/12/627/">
+            抓取4G模块底层log
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>有些时候需要抓取模块底层log分析问题，就需要编译diag.zip工具一般情况下diag能够自动识别到设备文件，只需要调用./diag logname就能抓取log。也可以手动指定设备文件./diag logname - - /dev/ttyUSB2设备文件名视情况更改
+...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-09-12
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+    <div class="pagenator">
+    
+    
+        <a class="extend prev" href="/page/34">上一页</a>
     
 
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/30">30</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/31">31</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/32">32</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/33">33</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/34">34</a>
+        
+    
+        
+            <span class="extend page-item page-item-select">35</span>
+        
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/36">36</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/37">37</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/38">38</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/39">39</a>
+        
+    
+    
+    
+    
+        <a class="extend next" href="/page/36">下一页</a>
+    
+</div>
 
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

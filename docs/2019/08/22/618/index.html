@@ -1,109 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>关于Windows/Linux系统下如何用USB口抓取4G模块底层Trace？ [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>关于Windows/Linux系统下如何用USB口抓取4G模块底层Trace？ | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="4G模块 无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace1.windows系统下1.1前提条件####1.1.1电脑安装好Windows USB驱动USB驱动下载链接：http:&#x2F;&#x2F;www.openluat.com&#x2F;Product&#x2F;file&#x2F;asr1802&#x2F;lte.html安装教程：http:&#x2F;&#x2F;doc.openluat.com&#x2F;article&#x2F;463&#x2F;0 1.1.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="关于Windows&#x2F;Linux系统下如何用USB口抓取4G模块底层Trace？">
-<meta property="og:url" content="https://doc.luatos.wiki/2019/08/22/618/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="4G模块 无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace1.windows系统下1.1前提条件####1.1.1电脑安装好Windows USB驱动USB驱动下载链接：http:&#x2F;&#x2F;www.openluat.com&#x2F;Product&#x2F;file&#x2F;asr1802&#x2F;lte.html安装教程：http:&#x2F;&#x2F;doc.openluat.com&#x2F;article&#x2F;463&#x2F;0 1.1.">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_45695.png">
-<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_19558.png">
-<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_16664.png">
-<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_63324.png">
-<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_30707.png">
-<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_13483.png">
-<meta property="article:published_time" content="2019-08-22T08:48:54.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_45695.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-618" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/08/22/618/" class="article-date">
-  <time class="dt-published" datetime="2019-08-22T08:48:54.000Z" itemprop="datePublished">2019-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      关于Windows/Linux系统下如何用USB口抓取4G模块底层Trace？
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h5 id="4G模块-无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace"><a href="#4G模块-无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace" class="headerlink" title="4G模块 无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace"></a>4G模块 无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace</h5><h2 id="1-windows系统下"><a href="#1-windows系统下" class="headerlink" title="1.windows系统下"></a>1.windows系统下</h2><h3 id="1-1前提条件"><a href="#1-1前提条件" class="headerlink" title="1.1前提条件"></a>1.1前提条件</h3><p>####1.1.1电脑安装好Windows USB驱动<br>USB驱动下载链接：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/lte.html">http://www.openluat.com/Product/file/asr1802/lte.html</a><br>安装教程：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/463/0">http://doc.openluat.com/article/463/0</a></p>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">关于Windows/Linux系统下如何用USB口抓取4G模块底层Trace？</h1>
+<article class="post markdown-style">
+  <h5 id="4G模块-无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace"><a href="#4G模块-无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace" class="headerlink" title="4G模块 无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace"></a>4G模块 无论固件是AT版本，还是lua版本，用户都可以用USB口抓取模块底层trace</h5><h2 id="1-windows系统下"><a href="#1-windows系统下" class="headerlink" title="1.windows系统下"></a>1.windows系统下</h2><h3 id="1-1前提条件"><a href="#1-1前提条件" class="headerlink" title="1.1前提条件"></a>1.1前提条件</h3><p>####1.1.1电脑安装好Windows USB驱动<br>USB驱动下载链接：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/lte.html">http://www.openluat.com/Product/file/asr1802/lte.html</a><br>安装教程：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/463/0">http://doc.openluat.com/article/463/0</a></p>
 <h4 id="1-1-2下载luatools工具"><a href="#1-1-2下载luatools工具" class="headerlink" title="1.1.2下载luatools工具"></a>1.1.2下载luatools工具</h4><p>luatools下载链接：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/luatools-redirect.html">http://www.openluat.com/Product/file/asr1802/luatools-redirect.html</a><br>备注：Luatools工具无需安装，直接运行luatools.exe文件即可使用; 工具下载后，如图所示，先升级工具版本至最新，确认模式是4G，<img src="http://doc.openluat.com/api/static/editormd/uploads/5_45695.png"></p>
 <h3 id="1-2通过模块USB口抓底层日志"><a href="#1-2通过模块USB口抓底层日志" class="headerlink" title="1.2通过模块USB口抓底层日志"></a>1.2通过模块USB口抓底层日志</h3><h4 id="1-2-1步骤如下"><a href="#1-2-1步骤如下" class="headerlink" title="1.2.1步骤如下"></a>1.2.1步骤如下</h4><h5 id="1-2-1-1如果板子上有模块USB接口（类似4G开发板），就用USB线将开发板USB口和PC连接；如果是贴片模块，就需要在模块端飞线，VBUS、USB-DM、USB-DP、GND-4个引脚引出来，接电脑。"><a href="#1-2-1-1如果板子上有模块USB接口（类似4G开发板），就用USB线将开发板USB口和PC连接；如果是贴片模块，就需要在模块端飞线，VBUS、USB-DM、USB-DP、GND-4个引脚引出来，接电脑。" class="headerlink" title="1.2.1.1如果板子上有模块USB接口（类似4G开发板），就用USB线将开发板USB口和PC连接；如果是贴片模块，就需要在模块端飞线，VBUS、USB_DM、USB_DP、GND 4个引脚引出来，接电脑。"></a>1.2.1.1如果板子上有模块USB接口（类似4G开发板），就用USB线将开发板USB口和PC连接；如果是贴片模块，就需要在模块端飞线，VBUS、USB_DM、USB_DP、GND 4个引脚引出来，接电脑。</h5><h5 id="1-2-1-2如果抓取的trace内容与RNDIS功能无关，建议禁用RNDIS功能，避免上报太多垃圾信息，方法：Windows-设备管理器，点击网络适配器，右键，禁用设备。"><a href="#1-2-1-2如果抓取的trace内容与RNDIS功能无关，建议禁用RNDIS功能，避免上报太多垃圾信息，方法：Windows-设备管理器，点击网络适配器，右键，禁用设备。" class="headerlink" title="1.2.1.2如果抓取的trace内容与RNDIS功能无关，建议禁用RNDIS功能，避免上报太多垃圾信息，方法：Windows 设备管理器，点击网络适配器，右键，禁用设备。"></a>1.2.1.2如果抓取的trace内容与RNDIS功能无关，建议禁用RNDIS功能，避免上报太多垃圾信息，方法：Windows 设备管理器，点击网络适配器，右键，禁用设备。</h5><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19558.png"></p>
 <h5 id="1-2-1-3双击luatools-exe，打开luatools工具软件，升级工具，检查设置"><a href="#1-2-1-3双击luatools-exe，打开luatools工具软件，升级工具，检查设置" class="headerlink" title="1.2.1.3双击luatools.exe，打开luatools工具软件，升级工具，检查设置"></a>1.2.1.3双击luatools.exe，打开luatools工具软件，升级工具，检查设置</h5><h5 id="1-2-1-4模块上电开机，正常连接且模块开机后，设备管理器会出现以下端口"><a href="#1-2-1-4模块上电开机，正常连接且模块开机后，设备管理器会出现以下端口" class="headerlink" title="1.2.1.4模块上电开机，正常连接且模块开机后，设备管理器会出现以下端口"></a>1.2.1.4模块上电开机，正常连接且模块开机后，设备管理器会出现以下端口</h5><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16664.png"></p>
@@ -112,134 +74,160 @@
 <p>备注：点文件-&gt;保存trace，可以修改一些设置。比如单个trace文件的大小，以及trace保存的文件夹。一般无需修改，用缺省值即可。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13483.png"></p>
 <h2 id="2-Linux系统下抓取模块底层日志"><a href="#2-Linux系统下抓取模块底层日志" class="headerlink" title="2.Linux系统下抓取模块底层日志"></a>2.Linux系统下抓取模块底层日志</h2><h3 id="2-1步骤如下："><a href="#2-1步骤如下：" class="headerlink" title="2.1步骤如下："></a>2.1步骤如下：</h3><h4 id="2-1-1将附件diagsaver-c编译后生成的程序放到主控系统上"><a href="#2-1-1将附件diagsaver-c编译后生成的程序放到主控系统上" class="headerlink" title="2.1.1将附件diagsaver.c编译后生成的程序放到主控系统上"></a>2.1.1将附件diagsaver.c编译后生成的程序放到主控系统上</h4><h4 id="2-1-2主控加载模块的USB虚拟串口成功以后，在命令行下立即运行：DiagSaver-dev-ttyUSB2-log文件路径-（如果只有一个shell就加上-amp-切换到后台）"><a href="#2-1-2主控加载模块的USB虚拟串口成功以后，在命令行下立即运行：DiagSaver-dev-ttyUSB2-log文件路径-（如果只有一个shell就加上-amp-切换到后台）" class="headerlink" title="2.1.2主控加载模块的USB虚拟串口成功以后，在命令行下立即运行：DiagSaver /dev/ttyUSB2 log文件路径 （如果只有一个shell就加上&amp;切换到后台）"></a>2.1.2主控加载模块的USB虚拟串口成功以后，在命令行下立即运行：DiagSaver /dev/ttyUSB2 log文件路径 （如果只有一个shell就加上&amp;切换到后台）</h4><h4 id="2-1-3测试完成以后把diagsaver保存的日志（运行时指定的路径）导出"><a href="#2-1-3测试完成以后把diagsaver保存的日志（运行时指定的路径）导出" class="headerlink" title="2.1.3测试完成以后把diagsaver保存的日志（运行时指定的路径）导出"></a>2.1.3测试完成以后把diagsaver保存的日志（运行时指定的路径）导出</h4><p>附件：<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163652806_0tpikkrK5d5e55aba7907_DiagSaver.c" title="DiagSaver.c">DiagSaver.c</a></p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2019/08/22/618/" data-id="ckkfmdgck008tvkcg5box261p" data-title="关于Windows/Linux系统下如何用USB口抓取4G模块底层Trace？" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/08/22/619/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          物联网大佬竞赛复习题
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/08/21/617/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Air系列模块Lua版本应用运行框架概述</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2019/08/22/619/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2019/08/21/617/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

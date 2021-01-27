@@ -1,104 +1,71 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title>Luat系列教程：6、mqtt代码详解 [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat系列教程：6、mqtt代码详解 | Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="写在前面：由于本人并未学习过具体原理，所以本文可能会有多处常识性错误，如有发现请留言指出，谢谢！    阅读本文需要具有的技能：看过该系列前几篇文章或明白前几篇文章内容的熟悉lua语法，尤其是数组部分可以明白字符串、字节码之间的区别可以自己实践操作对mqtt通讯有基本的了解用过这东西  官方demo代码官方代码可以在github(https:&#x2F;&#x2F;github.com&#x2F;openLuat&#x2F;Luat_">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Luat系列教程：6、mqtt代码详解">
-<meta property="og:url" content="https://doc.luatos.wiki/2018/08/27/406/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="写在前面：由于本人并未学习过具体原理，所以本文可能会有多处常识性错误，如有发现请留言指出，谢谢！    阅读本文需要具有的技能：看过该系列前几篇文章或明白前几篇文章内容的熟悉lua语法，尤其是数组部分可以明白字符串、字节码之间的区别可以自己实践操作对mqtt通讯有基本的了解用过这东西  官方demo代码官方代码可以在github(https:&#x2F;&#x2F;github.com&#x2F;openLuat&#x2F;Luat_">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Iyg9g3vU5b83d12d58d3d.png">
-<meta property="article:published_time" content="2018-08-27T10:24:14.000Z">
-<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Iyg9g3vU5b83d12d58d3d.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-406" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/08/27/406/" class="article-date">
-  <time class="dt-published" datetime="2018-08-27T10:24:14.000Z" itemprop="datePublished">2018-08-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Luat系列教程：6、mqtt代码详解
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <blockquote>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Luat系列教程：6、mqtt代码详解</h1>
+<article class="post markdown-style">
+  <blockquote>
 <p>写在前面：<br>由于本人并未学习过具体原理，所以本文可能会有多处常识性错误，如有发现请留言指出，谢谢！</p>
 </blockquote>
 <hr>
@@ -175,134 +142,160 @@
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span><span class="string">&quot;misc&quot;</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;mqtt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--测试用的服务器信息，按需求自己改</span></span><br><span class="line"><span class="keyword">local</span> mqttip,mqttport,mqttuser,mqttpassword,mqttheartbeat = <span class="string">&quot;x.x.x.x&quot;</span>,<span class="string">&quot;xxxx&quot;</span>,<span class="string">&quot;user&quot;</span>,<span class="string">&quot;password&quot;</span>,<span class="number">600</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--数据发送的消息队列</span></span><br><span class="line"><span class="keyword">local</span> msgQuene = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">insertMsg</span><span class="params">(topic,payload,qos,user)</span></span></span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(msgQuene,&#123;t=topic,p=payload,q=qos,user=user&#125;)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waitForSend</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> #msgQuene &gt; <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mqttOutMsgProc</span><span class="params">(mqttClient)</span></span></span><br><span class="line">    <span class="keyword">while</span> #msgQuene&gt;<span class="number">0</span> <span class="keyword">do</span>    <span class="comment">--数组大于零？</span></span><br><span class="line">        <span class="keyword">local</span> outMsg = <span class="built_in">table</span>.<span class="built_in">remove</span>(msgQuene,<span class="number">1</span>)<span class="comment">--取出并删除一个元素</span></span><br><span class="line">        <span class="keyword">local</span> result = mqttClient:publish(outMsg.t,outMsg.p,outMsg.q)<span class="comment">--推送对应的mqtt消息</span></span><br><span class="line">        <span class="keyword">if</span> outMsg.user <span class="keyword">and</span> outMsg.user.cb <span class="keyword">then</span>  <span class="comment">--如果存在回调函数</span></span><br><span class="line">            outMsg.user.cb(result,outMsg.user.para)<span class="comment">--执行回调函数</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> result <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mqttInMsgProc</span><span class="params">(mqttClient)</span></span></span><br><span class="line">    <span class="keyword">local</span> result,data</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        result,data = mqttClient:receive(<span class="number">2000</span>)</span><br><span class="line">        <span class="comment">--接收到数据</span></span><br><span class="line">        <span class="keyword">if</span> result <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;mqttTest.mqttInMsgProc&quot;</span>,data.topic,<span class="built_in">string</span>.toHex(data.payload))</span><br><span class="line">            <span class="comment">--TODO：根据需求自行处理data.payload</span></span><br><span class="line">            <span class="keyword">if</span> data.topic == <span class="string">&quot;/s/test/&quot;</span>..misc.getImei() <span class="keyword">and</span> data.payload == <span class="string">&quot;ok&quot;</span> <span class="keyword">then</span></span><br><span class="line">                insertMsg(<span class="string">&quot;/d/test/&quot;</span>..misc.getImei(),<span class="string">&quot;done&quot;</span>)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="comment">--如果msgQuene中有等待发送的数据，则立即退出本循环</span></span><br><span class="line">            <span class="keyword">if</span> waitForSend() <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">true</span> <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">or</span> data==<span class="string">&quot;timeout&quot;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--启动mqtt客户端任务</span></span><br><span class="line">sys.taskInit(</span><br><span class="line"><span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> retryConnectCnt = <span class="number">0</span>   <span class="comment">--失败次数统计</span></span><br><span class="line">        <span class="comment">--是否获取到了分配的ip(是否连上网)</span></span><br><span class="line">        <span class="keyword">if</span> socket.isReady() <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">local</span> imei = misc.getImei()</span><br><span class="line">            <span class="comment">--新建一个mqtt对象</span></span><br><span class="line">            <span class="keyword">local</span> mqttClient = mqtt.client(imei,mqttheartbeat,mqttuser,mqttpassword)</span><br><span class="line">            <span class="comment">--尝试连接指定服务器</span></span><br><span class="line">            <span class="keyword">if</span> mqttClient:connect(mqttip,mqttport,<span class="string">&quot;tcp&quot;</span>) <span class="keyword">then</span></span><br><span class="line">                <span class="comment">--连接成功</span></span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;mqttTest.mqttClient&quot;</span>,<span class="string">&quot;connect success&quot;</span>)</span><br><span class="line">                retryConnectCnt = <span class="number">0</span> <span class="comment">--失败次数清零</span></span><br><span class="line">                <span class="comment">--订阅主题</span></span><br><span class="line">                <span class="keyword">if</span> mqttClient:subscribe(&#123;[<span class="string">&quot;/s/test/&quot;</span>..imei]=<span class="number">0</span>&#125;) <span class="keyword">then</span></span><br><span class="line">                    insertMsg(<span class="string">&quot;/d/test/&quot;</span>..misc.getImei(),sim.getIccid())</span><br><span class="line">                    <span class="comment">--循环处理接收和发送的数据</span></span><br><span class="line">                    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">not</span> mqttInMsgProc(mqttClient) <span class="keyword">then</span></span><br><span class="line">                            <span class="built_in">log</span>.<span class="built_in">error</span>(<span class="string">&quot;mqttTest.mqttInMsgProc error&quot;</span>)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">not</span> mqttOutMsgProc(mqttClient) <span class="keyword">then</span></span><br><span class="line">                            <span class="built_in">log</span>.<span class="built_in">error</span>(<span class="string">&quot;mqttTest.mqttOutMsgProc error&quot;</span>)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                    <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;mqttTest.mqttClient&quot;</span>,<span class="string">&quot;connect fail&quot;</span>)<span class="comment">--连接失败</span></span><br><span class="line">                retryConnectCnt = retryConnectCnt+<span class="number">1</span> <span class="comment">--失败次数加一</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="comment">--断开MQTT连接</span></span><br><span class="line">            mqttClient:disconnect()</span><br><span class="line">            <span class="keyword">if</span> retryConnectCnt&gt;=<span class="number">5</span> <span class="keyword">then</span></span><br><span class="line">                link.shut()</span><br><span class="line">                retryConnectCnt=<span class="number">0</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            sys.wait(<span class="number">5000</span>)</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">--没连上网</span></span><br><span class="line">            <span class="comment">--等待网络环境准备就绪，超时时间是5分钟</span></span><br><span class="line">            sys.waitUntil(<span class="string">&quot;IP_READY_IND&quot;</span>,<span class="number">300000</span>)</span><br><span class="line">            <span class="comment">--等完了还没连上？</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> socket.isReady() <span class="keyword">then</span></span><br><span class="line">                <span class="comment">--进入飞行模式，20秒之后，退出飞行模式</span></span><br><span class="line">                net.switchFly(<span class="literal">true</span>)</span><br><span class="line">                sys.wait(<span class="number">20000</span>)</span><br><span class="line">                net.switchFly(<span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="验证功能"><a href="#验证功能" class="headerlink" title="验证功能"></a>验证功能</h1><p>我没条件测试这玩意儿。。。谁有空帮我测试下的？</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2018/08/27/406/" data-id="ckkfmdgec00cpvkcg43bpb8wy" data-title="Luat系列教程：6、mqtt代码详解" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/08/27/407/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          Luat系列教程：7、串口收发
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/08/27/405/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Air720模块硬件设计手册V1.03</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/08/27/407/">上一篇</a>
     
 
-  
     
-
-  
+    <p>上次更新 2021-01-28</p>
     
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+        <a class="extend next post-next" href="/2018/08/27/405/">下一篇</a>
+    
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>

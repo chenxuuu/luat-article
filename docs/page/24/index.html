@@ -1,1011 +1,546 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
+  <title> [ Luat doc 社区文章静态页面镜像 ]</title>
   
-  <title>Luat doc 社区文章静态页面镜像</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:url" content="https://doc.luatos.wiki/page/24/index.html">
-<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="chenxuuu">
-<meta property="article:tag" content="lua">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+    <!-- stylesheets list from config.yml -->
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
+      <link rel="stylesheet" href="/css/iLiKE.css">
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
   
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
 <meta name="generator" content="Hexo 5.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
       </div>
     </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-730" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/05/06/730/" class="article-date">
-  <time class="dt-published" datetime="2020-05-06T13:39:36.000Z" itemprop="datePublished">2020-05-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/05/06/730/">11、合宙Air模块Luat开发：通过http协议获取天气信息</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
-<p>&emsp;&emsp;本系列博客，理论上适用于合宙的<code>Air202、Air268、Air720x、Air720S</code>以及最近发布的<code>Air720U</code>（我还没拿到样机，应该也能支持）。</p>
-<p>&emsp;&emsp;先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获。</p>
-<p>&emsp;&emsp;我使用的是<code>Air720SL</code>模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;最近我又变懒了许多，本来计划这篇博客应该是在上篇博客JSON讲完后紧接着继续讲的。相当于一个JSON的实战，用来做一下练习。可惜的是计划赶不上变化，懒惰使我把这篇博客硬生生的拖了一个多月才写完，罪过罪过。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506181339854.png" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;说到天气预报，我想起来我小时候的一件事，具体是几十年前的事情我都忘了。就忽略时间单纯的说说这件事吧。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506181414553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;在很久很久以前，我爸妈在家做农活的时候，尤其是夏天，天黑得比较晚。我爸妈在地里做农活，那时候天不完全黑下来正常情况下一般不会提前回来，等天黑之后也就七点半了，回来烧烧饭吃完就八点多。</p>
-<p>&emsp;&emsp;这时候出现一个问题天气预报错过了怎么办，不知道天气就不好安排明天干什么。尤其是雷阵雨，有时候开着大太阳雨就下来了，我经历过好几次晒着被子突然就下雨了，然后就狗比了。</p>
-<p>&emsp;&emsp;不知道天气预报很麻烦，那时候又没有智能手机不能上网查天气预报，我又不在家，错过天气预报那就是错过了。后来我就给我妈的手机订阅了一个天气预报的服务，一天一条短信通知。一个月下来好像是6块钱，现在看6块钱啥也不是，也就一瓶饮料。那时候不得了一块钱能买两个大饼，六块钱就是我一个星期的早饭，是真贵啊。仔细算算一个月下来也就六块钱也还可以接受。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020050618130757.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;后来有了智能手机可以上网查询天气预报了，虽然现在我也不用下地干活，但是不知道天气预报会让我不安。直到现在我手机里面第一屏永远都是天气预报。</p>
-<p>&emsp;&emsp;有时候我也想这些软件是怎么获得天气预报的呢，不用猜了这肯定是和网络有关。你说巧不巧，我们现在用的合宙的模块就可以联网。既然可以联网那就有办法能够知道天气预报怎么获取，只不过它没有图形化的操作系统，能够使用的工具那就是代码。</p>
-<p>&emsp;&emsp;闲话扯了这么多，朕倦了，回归正题。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020050618121455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="二、现在是正事了"><a href="#二、现在是正事了" class="headerlink" title="二、现在是正事了"></a>二、现在是正事了</h1><h2 id="2-1-http简述"><a href="#2-1-http简述" class="headerlink" title="2.1 http简述"></a>2.1 http简述</h2><p>&emsp;&emsp;长话短说，本篇博客主要是使用http协议发送get请求，获取天气预报的信息然后进行解析打印出来。一般情况下get请求的信息里面的body内容都是JSON字符串，这就用到了我上篇博客说讲到的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/105285966">JSON字符串的生成与解析</a>，在学习新的知识的基础上，顺便对上篇博客所学的内容进行一下复习。</p>
-<p>&emsp;&emsp;有关http相关知识，我这里就不讲了，自行去了解。一句话概括就是http其实是基于tcp，只不过带上了http规定的的通讯报文格式。在进行一次连接后立即关闭，是一个短连接。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506183922775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;有兴趣的小伙伴可以使用tcp的连接，带上http的通讯报文。模拟一下http协议是怎么交互信息的。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506184054893.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;今天我就不模拟了，因为合宙官方已经封装了http协议的通讯包（合宙牛逼，破音~！！）。我们直接拿来用就行了。</p>
-<p>&emsp;&emsp;知道了怎么才能获取信息后，还得知道向谁要。我本来是准备使用京东的api平台的天气服务，请求数据下来一看一大堆数据那家伙叫一个多，解析起来不方便。对于小白来讲那也许就是从入门到放弃了。经过再三考虑选择心知天气，体验了一下效果还不错，body报文挺简洁的。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506183520216.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="2-2-查询文档获取请求地址"><a href="#2-2-查询文档获取请求地址" class="headerlink" title="2.2 查询文档获取请求地址"></a>2.2 查询文档获取请求地址</h2><p>&emsp;&emsp;官方给出了示例，北京今天和未来 4 天的预报<a target="_blank" rel="noopener" href="https://api.seniverse.com/v3/weather/daily.json?%60key%60=SQfjxV9fAdBJq9jDr&amp;%60location%60=beijing&amp;%60language%60=zh-Hans&amp;%60unit%60=c&amp;%60start%60=0&amp;%60days%60=5">https://api.seniverse.com/v3/weather/daily.json?`key`=SQfjxV9fAdBJq9jDr&amp;`location`=beijing&amp;`language`=zh-Hans&amp;`unit`=c&amp;`start`=0&amp;`days`=5</a></p>
-<p>&emsp;&emsp;要注意的是，获取指定城市未来最多 15 天每天的白天和夜间预报，以及昨日的历史天气。付费用户可获取全部数据，<code>免费用户只返回 3 天天气预报</code>。</p>
-<p>&emsp;&emsp;然后对照下表替换，自己的信息，对于我们学习的话，一般情况下只需要替换<code>key</code>和<code>location</code>。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506184338693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;有的同学要是懒的话，干脆不用替换。直接用官方的示例api就行了。我就是这种懒人，什么都不改，直接用，管他三七二十一，反正是学习。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200506192702959.png" alt="在这里插入图片描述"></p>
-<h2 id="2-3-测试API"><a href="#2-3-测试API" class="headerlink" title="2.3 测试API"></a>2.3 测试API</h2><p>&emsp;&emsp;复制2.2小节里面提到的API，直接在浏览器地址栏粘贴访问，得到如下内容。<br><img src="https://img-blog.csdnimg.cn/2020050620393287.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;复制到JSON校验地址进行格式化检验，可以知道请求API后，服务器返回的数据确实是json字符串。<br><img src="https://img-blog.csdnimg.cn/20200506204644779.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>&emsp;&emsp;或者开启浏览器的开发者模式，选择网络标签，进行抓包。浏览器会自动将返回的body数据进行    JSON解析预览。<br><img src="https://img-blog.csdnimg.cn/20200506204440886.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="三、编写测试程序"><a href="#三、编写测试程序" class="headerlink" title="三、编写测试程序"></a>三、编写测试程序</h1><p>&emsp;&emsp;编写http代码之前，需要引用<code>require &quot;http&quot;</code>包</p>
-<h2 id="3-1、编写http请求程序"><a href="#3-1、编写http请求程序" class="headerlink" title="3.1、编写http请求程序"></a>3.1、编写http请求程序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">Test_Task</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    local key </span>= <span class="string">&quot;SQfjxV9fAdBJq9jDr&quot;</span></span><br><span class="line">    local location = <span class="string">&quot;beijing&quot;</span></span><br><span class="line">    local language = <span class="string">&quot;zh-Hans&quot;</span></span><br><span class="line">    local unit = <span class="string">&quot;c&quot;</span></span><br><span class="line">    local start = <span class="string">&quot;0&quot;</span></span><br><span class="line">    local days = <span class="string">&quot;5&quot;</span></span><br><span class="line">    local url = <span class="built_in">string</span>.format(<span class="string">&quot;https://api.seniverse.com/v3/weather/daily.json?key=%s&amp;location=%s&amp;language=%s&amp;unit=%s&amp;start=%s&amp;days=%s&quot;</span>, key, location, language, unit, start, days)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        http.request(<span class="string">&quot;GET&quot;</span>, url, nil, nil, nil, nil, cbFnc)</span><br><span class="line">        sys.wait(<span class="number">30000</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="3-2、编写JSON解析程序"><a href="#3-2、编写JSON解析程序" class="headerlink" title="3.2、编写JSON解析程序"></a>3.2、编写JSON解析程序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">cbFnc</span><span class="params">(result, prompt, head, body)</span></span></span><br><span class="line"><span class="function">    <span class="built_in">log</span>.<span class="title">info</span><span class="params">(<span class="string">&quot;cbFnc&quot;</span>, result, prompt)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> result <span class="keyword">and</span> body then</span></span><br><span class="line"><span class="function">        <span class="built_in">log</span>.<span class="title">info</span><span class="params">(<span class="string">&quot;cbFnc&quot;</span>, <span class="string">&quot;bodyLen=&quot;</span> .. body:len())</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">        local tjsondata, result, errinfo = json.decode(body)</span><br><span class="line">        <span class="function"><span class="keyword">if</span> result <span class="keyword">and</span> <span class="title">type</span><span class="params">(tjsondata)</span> </span>== <span class="string">&quot;table&quot;</span> then</span><br><span class="line">            local results = tjsondata[<span class="string">&quot;results&quot;</span>][<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">            local name = results[<span class="string">&quot;location&quot;</span>][<span class="string">&quot;name&quot;</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;name:&quot;</span>, name)</span><br><span class="line"></span><br><span class="line">            local daily1 = results[<span class="string">&quot;daily&quot;</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;date:&quot;</span>, daily1[<span class="string">&quot;date&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_day:&quot;</span>, daily1[<span class="string">&quot;text_day&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_night:&quot;</span>, daily1[<span class="string">&quot;text_night&quot;</span>])</span><br><span class="line"></span><br><span class="line">            local daily2 = results[<span class="string">&quot;daily&quot;</span>][<span class="number">2</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;date:&quot;</span>, daily2[<span class="string">&quot;date&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_day:&quot;</span>, daily2[<span class="string">&quot;text_day&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_night:&quot;</span>, daily2[<span class="string">&quot;text_night&quot;</span>])</span><br><span class="line"></span><br><span class="line">            local daily3 = results[<span class="string">&quot;daily&quot;</span>][<span class="number">3</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;date:&quot;</span>, daily3[<span class="string">&quot;date&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_day:&quot;</span>, daily3[<span class="string">&quot;text_day&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_night:&quot;</span>, daily3[<span class="string">&quot;text_night&quot;</span>])</span><br><span class="line"></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;last_update:&quot;</span>, results[<span class="string">&quot;last_update&quot;</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;testJson.decode error&quot;</span>, errinfo)</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<h1 id="四、下载完整程序到开发板验证"><a href="#四、下载完整程序到开发板验证" class="headerlink" title="四、下载完整程序到开发板验证"></a>四、下载完整程序到开发板验证</h1><p>&emsp;&emsp;完整代码在此，自取</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;http&quot;</span></span><br><span class="line"></span><br><span class="line">local function cbFnc(result, prompt, head, body)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;cbFnc&quot;</span>, result, prompt)</span><br><span class="line">    <span class="keyword">if</span> result <span class="keyword">and</span> body then</span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;cbFnc&quot;</span>, <span class="string">&quot;bodyLen=&quot;</span> .. body:len())</span><br><span class="line"></span><br><span class="line">        local tjsondata, result, errinfo = json.decode(body)</span><br><span class="line">        <span class="keyword">if</span> result <span class="keyword">and</span> type(tjsondata) == <span class="string">&quot;table&quot;</span> then</span><br><span class="line">            local results = tjsondata[<span class="string">&quot;results&quot;</span>][<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">            local name = results[<span class="string">&quot;location&quot;</span>][<span class="string">&quot;name&quot;</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;name:&quot;</span>, name)</span><br><span class="line"></span><br><span class="line">            local daily1 = results[<span class="string">&quot;daily&quot;</span>][<span class="number">1</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;date:&quot;</span>, daily1[<span class="string">&quot;date&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_day:&quot;</span>, daily1[<span class="string">&quot;text_day&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_night:&quot;</span>, daily1[<span class="string">&quot;text_night&quot;</span>])</span><br><span class="line"></span><br><span class="line">            local daily2 = results[<span class="string">&quot;daily&quot;</span>][<span class="number">2</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;date:&quot;</span>, daily2[<span class="string">&quot;date&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_day:&quot;</span>, daily2[<span class="string">&quot;text_day&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_night:&quot;</span>, daily2[<span class="string">&quot;text_night&quot;</span>])</span><br><span class="line"></span><br><span class="line">            local daily3 = results[<span class="string">&quot;daily&quot;</span>][<span class="number">3</span>]</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;date:&quot;</span>, daily3[<span class="string">&quot;date&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_day:&quot;</span>, daily3[<span class="string">&quot;text_day&quot;</span>])</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;text_night:&quot;</span>, daily3[<span class="string">&quot;text_night&quot;</span>])</span><br><span class="line"></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;last_update:&quot;</span>, results[<span class="string">&quot;last_update&quot;</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;testJson.decode error&quot;</span>, errinfo)</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">local function Test_Task()</span><br><span class="line"></span><br><span class="line">    local key = <span class="string">&quot;SQfjxV9fAdBJq9jDr&quot;</span></span><br><span class="line">    local location = <span class="string">&quot;beijing&quot;</span></span><br><span class="line">    local language = <span class="string">&quot;zh-Hans&quot;</span></span><br><span class="line">    local unit = <span class="string">&quot;c&quot;</span></span><br><span class="line">    local start = <span class="string">&quot;0&quot;</span></span><br><span class="line">    local days = <span class="string">&quot;5&quot;</span></span><br><span class="line">    local url = <span class="built_in">string</span>.format(<span class="string">&quot;https://api.seniverse.com/v3/weather/daily.json?key=%s&amp;location=%s&amp;language=%s&amp;unit=%s&amp;start=%s&amp;days=%s&quot;</span>, key, location, language, unit, start, days)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        http.request(<span class="string">&quot;GET&quot;</span>, url, nil, nil, nil, nil, cbFnc)</span><br><span class="line">        sys.wait(<span class="number">30000</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    sys.wait(<span class="number">10000</span>)</span><br><span class="line">    sys.taskInit(Test_Task)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;下载完成后打开监视功能，接收到的天气数据解析成功，有能力的小伙伴可以试试将解析出来的数据显示在oled屏幕上，做个UI比这逼格更高。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">17.820</span>] [I]-[socket:connect-coreid,prot,addr,port,cert,timeout] <span class="number">0</span> TCPSSL api.seniverse.com <span class="number">443</span> nil <span class="number">120</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.346</span>] [I]-[socket:on_response:] <span class="number">0</span> SOCKET_CONNECT <span class="number">0</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.361</span>] [I]-[socket:connect: connect ok]</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.375</span>] [D]-[socket.send] total <span class="number">161</span> bytes first <span class="number">30</span> bytes GET /v3/weather/daily.json?key</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.500</span>] [I]-[socket:on_response:] <span class="number">0</span> SOCKET_SEND <span class="number">0</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.507</span>] [I]-[cbFnc] <span class="literal">true</span> <span class="number">200</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.511</span>] [I]-[cbFnc] bodyLen=<span class="number">995</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.522</span>] [I]-[name:] 北京</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.525</span>] [I]-[date:] <span class="number">2020</span><span class="number">-05</span><span class="number">-06</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.537</span>] [I]-[text_day:] 多云</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.541</span>] [I]-[text_night:] 小雨</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.552</span>] [I]-[date:] <span class="number">2020</span><span class="number">-05</span><span class="number">-07</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.556</span>] [I]-[text_day:] 小雨</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.568</span>] [I]-[text_night:] 小雨</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.572</span>] [I]-[date:] <span class="number">2020</span><span class="number">-05</span><span class="number">-08</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.584</span>] [I]-[text_day:] 阴</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.588</span>] [I]-[text_night:] 多云</span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.598</span>] [I]-[last_update:] <span class="number">2020</span><span class="number">-05</span><span class="number">-06</span>T17:<span class="number">25</span>:<span class="number">53</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.602</span>] [I]-[socket:sock_close] <span class="number">0</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">18.614</span>] [I]-[socket:on_response:] <span class="number">0</span> SOCKET_CLOSE <span class="number">0</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-05</span><span class="number">-06</span> <span class="number">20</span>:<span class="number">54</span>:<span class="number">26.219</span>] DBG: print com USB 断开连接 COM4 CommError (<span class="number">31</span>),[WinError <span class="number">0</span>] 操作成功完成。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
-</blockquote>
-
-      
+</div>
     </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/05/06/730/" data-id="ckkfmdgdf00bgvkcgc9jrhdot" data-title="11、合宙Air模块Luat开发：通过http协议获取天气信息" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-729" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/05/05/729/" class="article-date">
-  <time class="dt-published" datetime="2020-05-05T07:46:44.000Z" itemprop="datePublished">2020-05-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="container">
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/05/05/729/">合宙 Air 724UG模组（4G Cat.1通信模组）测试过程</a>
-    </h1>
-  
 
-      </header>
+
+
+  <div class="article">
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1.环境准备"></a>1.环境准备</h1><h2 id="1-1-硬件准备"><a href="#1-1-硬件准备" class="headerlink" title="1.1. 硬件准备"></a>1.1. 硬件准备</h2><p>Air724UG官方开发板+一条USB线：<br><img src="https://img-blog.csdnimg.cn/20200503101523433.png"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200503100114172.png"><br>Air724UG/Air723UG 支持多种开发方式，如USB上网、标准AT、 Lua脚本二次开发等。</p>
-<p>使用串口AT开发的接法如下：</p>
-<p>① 使用USB线连接开发板下方标识UART字样的USB口；<br>② 将旁边的拨动开关拨到UART1一侧；<br>③ 按下开机键，直至左下角红色LED亮起；</p>
-<p>查看电脑设备管理器，可以看到端口即为连接正常：<br><img src="https://img-blog.csdnimg.cn/20200503100444365.png"></p>
-<p>使用USB连接PC的接法如下：</p>
-<p>① 使用USB线连接开发板上方标识USB字样的USB口；<br>② 将旁边的拨动开关拨到ON一侧；<br>③ 按下开机键，直至左下角红色LED亮起；</p>
-<p>如果正确安装了驱动，查看电脑设备管理器，则可以看到端口：<br><img src="https://img-blog.csdnimg.cn/2020050314355481.png" alt="在这里插入图片描述"></p>
-<h2 id="1-2-软件准备"><a href="#1-2-软件准备" class="headerlink" title="1.2. 软件准备"></a>1.2. 软件准备</h2><ul>
-<li>QCOM串口助手</li>
-<li>Air724UG模组测试AT命令脚本(Air724UG.ini)</li>
-<li>Windows USB 驱动</li>
-</ul>
-<h2 id="1-3-文档准备"><a href="#1-3-文档准备" class="headerlink" title="1.3. 文档准备"></a>1.3. 文档准备</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/103/0">上海合宙Luat 模块 Air724开发板 入门指南（1）</a></li>
-<li><a href="">Luat 4G模块AT命令手册V4.1.6.pdf</a></li>
-</ul>
-<h1 id="2-模组信号查询与网络查询AT指令"><a href="#2-模组信号查询与网络查询AT指令" class="headerlink" title="2. 模组信号查询与网络查询AT指令"></a>2. 模组信号查询与网络查询AT指令</h1><h2 id="AT"><a href="#AT" class="headerlink" title="AT"></a>AT</h2><p>指令：AT</p>
-<p>功能：测试AT指令功能是否正常</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CPIN"><a href="#AT-CPIN" class="headerlink" title="AT+CPIN?"></a>AT+CPIN?</h2><p>指令：AT+CPIN?</p>
-<p>功能：查询SIM卡是否正常，返回ready则表示SIM卡正常</p>
-<p>示例，如果SIM卡插入成功，则返回结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CPIN?</span><br><span class="line"></span><br><span class="line">+CPIN: READY</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<p>如果未插入SIM卡，则返回结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CPIN?</span><br><span class="line"></span><br><span class="line">+CME ERROR: 10</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CSQ"><a href="#AT-CSQ" class="headerlink" title="AT+CSQ"></a>AT+CSQ</h2><p>指令：AT+CSQ</p>
-<p>功能：查询模组的信号强度，第一个值为0-31则正常，99为不正常，第二个参数是信道误码率 bit error rate， 只有通话建立后， 才能获知该值。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CSQ</span><br><span class="line"></span><br><span class="line">+CSQ: 19,99</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CREG"><a href="#AT-CREG" class="headerlink" title="AT+CREG?"></a>AT+CREG?</h2><p>指令：AT+CREG?</p>
-<p>功能：查询模组是否注册上GSM网络，+CREG:0,1 表示已注册上本地网，+CREG:0,5表示注册上漫游网。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CREG?</span><br><span class="line"></span><br><span class="line">+CREG: 0,1</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CGREG"><a href="#AT-CGREG" class="headerlink" title="AT+CGREG?"></a>AT+CGREG?</h2><p>指令：AT+CERGE?</p>
-<p>功能：查询模组是否注册上GPRS网络，+CGREG:0,1 表示已注册上本地网，+CGREG:0,5表示注册上漫游网。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CGREG?</span><br><span class="line"></span><br><span class="line">+CGREG: 0,1</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h1 id="3-激活移动场景"><a href="#3-激活移动场景" class="headerlink" title="3. 激活移动场景"></a>3. 激活移动场景</h1><blockquote>
-<p>必须在查询GPRS网络已正常注册网络的情况下进行本节实验！</p>
-</blockquote>
-<h2 id="AT-CIPMUX-0"><a href="#AT-CIPMUX-0" class="headerlink" title="AT+CIPMUX=0"></a>AT+CIPMUX=0</h2><p>指令：AT+CIPMUX=0</p>
-<p>功能：设置为单路连接</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPMUX&#x3D;0</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CIPMODE-0"><a href="#AT-CIPMODE-0" class="headerlink" title="AT+CIPMODE=0"></a>AT+CIPMODE=0</h2><p>指令：AT+CIPMUX=0</p>
-<p>功能：设置为非透传模式</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPMUX&#x3D;0</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CSTT-”CMNET”"><a href="#AT-CSTT-”CMNET”" class="headerlink" title="AT+CSTT=”CMNET”"></a>AT+CSTT=”CMNET”</h2><p>指令：AT+CSTT=”CMNET”</p>
-<p>功能：设置GPRS的APN，移动CMNET，联通UNINET</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CSTT&#x3D;&quot;CMNET&quot;</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CIPHEAD"><a href="#AT-CIPHEAD" class="headerlink" title="AT+CIPHEAD"></a>AT+CIPHEAD</h2><p>指令：AT+CIPHEAD=1</p>
-<p>功能：设置接收到消息时显示IP头，格式为：”+IPD,data length:”</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPHEAD&#x3D;1</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CIPSHUT"><a href="#AT-CIPSHUT" class="headerlink" title="AT+CIPSHUT"></a>AT+CIPSHUT</h2><p>指令：AT+CIPSHUT</p>
-<p>功能：关闭移动场景</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPSHUT</span><br><span class="line"></span><br><span class="line">SHUT OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CIICR"><a href="#AT-CIICR" class="headerlink" title="AT+CIICR"></a>AT+CIICR</h2><p>指令：AT+CIICR</p>
-<p>功能：激活移动场景</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CIICR</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h2 id="AT-CIFSR"><a href="#AT-CIFSR" class="headerlink" title="AT+CIFSR"></a>AT+CIFSR</h2><p>指令：AT+CIFSR</p>
-<p>功能：查询本机IP地址</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AT+CIFSR</span><br><span class="line"></span><br><span class="line">10.152.75.128</span><br></pre></td></tr></table></figure>
-<h1 id="4-基于-TCP-协议连接远程服务器通信实例"><a href="#4-基于-TCP-协议连接远程服务器通信实例" class="headerlink" title="4. 基于 TCP 协议连接远程服务器通信实例"></a>4. 基于 TCP 协议连接远程服务器通信实例</h1><h2 id="4-1-搭建远程TCP服务器"><a href="#4-1-搭建远程TCP服务器" class="headerlink" title="4.1. 搭建远程TCP服务器"></a>4.1. 搭建远程TCP服务器</h2><p>首先我们需要搭建一个TCP服务器，有两种方式：</p>
-<ul>
-<li>在服务器上使用Python、Java、C#等语言自行编写服务器程序；</li>
-<li>在本地PC上使用网络调试助手开启TCP服务器；</li>
-</ul>
-<p>因为Air724模组直接注册的是公网ip地址，所以这里我们使用第一种方式，在Linux服务器上运行一个Python编写的tcp测试服务器：</p>
-<blockquote>
-<p>本地PC使用的是局域网，公网不可以直接根据ip地址访问到本PC，需要进行内网穿透，不推荐使用。</p>
-</blockquote>
-<p>这里的Python程序如下：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tcpserver.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">host = <span class="string">&#x27;&#x27;</span></span><br><span class="line">port = <span class="number">8902</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建server socket</span></span><br><span class="line">server_socket = socket(AF_INET,SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绑定socket监听地址</span></span><br><span class="line">server_addr = (host,port)</span><br><span class="line">server_socket.bind(server_addr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始监听，最大允许连接数5</span></span><br><span class="line">server_socket.listen(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理连接请求</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">&#x27;waiting for connect...&#x27;</span>)</span><br><span class="line">        <span class="comment">#阻塞等待客户端的连接</span></span><br><span class="line">        client_socket, client_addr = server_socket.accept()</span><br><span class="line">        <span class="comment"># 连接成功后，打印客户端信息</span></span><br><span class="line">        print(<span class="string">&#x27;a client connnect from:&#x27;</span>, client_addr)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">            <span class="comment"># 向客户端发送数据</span></span><br><span class="line">            client_socket.send(<span class="string">&#x27;Hello, client!&#x27;</span>.encode())</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 接收客户端的数据</span></span><br><span class="line">            data = client_socket.recv(<span class="number">1024</span>)</span><br><span class="line">            print(<span class="string">&#x27;recv data is &#x27;</span>, data.decode())</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 接收到quit则关闭socket</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">&quot;quit&quot;</span> <span class="keyword">in</span> data.decode():</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 关闭socket</span></span><br><span class="line">        client_socket.close()</span><br><span class="line">        server_socket.close()</span><br><span class="line">        print(<span class="string">&quot;socket closed.&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    client_socket.close()</span><br><span class="line">    server_socket.close()</span><br><span class="line">    print(<span class="string">&quot;socket closed.&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tcp-server.py</span><br></pre></td></tr></table></figure>
-<p>效果如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200501142103783.png"></p>
-<h1 id="4-2-模组连接服务器"><a href="#4-2-模组连接服务器" class="headerlink" title="4.2. 模组连接服务器"></a>4.2. 模组连接服务器</h1><p>使用AT命令连接TCP服务器，其中第一个参数是协议类型，“TCP”则表示使用TCP协议，第二个参数是TCP服务器ip地址，也可以使用域名，最一个参数是TCP服务器开启监听的端口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPSTART&#x3D;&lt;mode&gt;,&lt;IPaddress&gt;,&lt;port&gt;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPSTART&#x3D;&quot;TCP&quot;,117.50.111.72,8902</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">+CSCON: 1</span><br><span class="line"></span><br><span class="line">CONNECT OK</span><br></pre></td></tr></table></figure>
-<p>连接之后，在服务器端也可以看到：<br><img src="https://img-blog.csdnimg.cn/20200503113911291.png" alt="在这里插入图片描述"></p>
-<h2 id="4-2-模组接收消息"><a href="#4-2-模组接收消息" class="headerlink" title="4.2. 模组接收消息"></a>4.2. 模组接收消息</h2><p>模组连接到服务器后，服务器会自动发送消息，所以接收到后打印出了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+CSCON: 1</span><br><span class="line">+IPD,14:Hello, client!</span><br></pre></td></tr></table></figure>
-<h2 id="4-3-模组主动发送消息"><a href="#4-3-模组主动发送消息" class="headerlink" title="4.3. 模组主动发送消息"></a>4.3. 模组主动发送消息</h2><p>使用如下的命令即可向TCP服务器发送消息，首先设置要发送数据的字节数，等待模组返回<code>&gt;</code>后，输入要发送的数据即可，如果发送的数据超过了设置的n个字节，则只发送前n个字节，后面的数据被认为是无效数据，不会发送：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPSEND&#x3D;&lt;length&gt;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPSEND</span><br><span class="line"></span><br><span class="line">&gt; hello</span><br><span class="line"></span><br><span class="line">SEND OK</span><br></pre></td></tr></table></figure>
-<p>发送成功看服务器上运行的TCP服务器是否收到：<br><img src="https://img-blog.csdnimg.cn/20200503114300522.png"></p>
-<h2 id="4-4-关闭TCP连接"><a href="#4-4-关闭TCP连接" class="headerlink" title="4.4. 关闭TCP连接"></a>4.4. 关闭TCP连接</h2><p>通信完毕之后，可以使用下面的命令关闭TCP连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPCLOSE&#x3D;&lt;id&gt;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AT+CIPCLOSE</span><br><span class="line"></span><br><span class="line">CLOSE OK</span><br><span class="line"></span><br><span class="line">+CSCON: 1</span><br></pre></td></tr></table></figure>
-
-<p><font color="red"><strong>接收更多精彩文章及资源推送，欢迎订阅我的微信公众号：『mculover666』。</strong></font><br><img src="https://img-blog.csdnimg.cn/20200202092055136.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/05/05/729/" data-id="ckkfmdgdf00bfvkcgbgvr7t4t" data-title="合宙 Air 724UG模组（4G Cat.1通信模组）测试过程" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-227" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/05/01/227/" class="article-date">
-  <time class="dt-published" datetime="2020-05-01T03:48:02.000Z" itemprop="datePublished">2020-05-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/05/01/227/">Air720U Lua软件版本说明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Lua软件版本现在有4个版本："><a href="#Lua软件版本现在有4个版本：" class="headerlink" title="Lua软件版本现在有4个版本："></a>Lua软件版本现在有4个版本：</h3><h3 id="目前最新版本为V0009，主要区别如下："><a href="#目前最新版本为V0009，主要区别如下：" class="headerlink" title="目前最新版本为V0009，主要区别如下："></a>目前最新版本为V0009，主要区别如下：</h3><h4 id="Luat-V0009-RDA8910"><a href="#Luat-V0009-RDA8910" class="headerlink" title="Luat_V0009_RDA8910"></a>Luat_V0009_RDA8910</h4><p>不支持TTS功能 不支持FLOAT运算 LUA脚本可用空间为720KB</p>
-<p>用在不需要TTS播报功能和不需要FLOAT运算的场合</p>
-<h4 id="Luat-V0009-RDA8910-FLOAT"><a href="#Luat-V0009-RDA8910-FLOAT" class="headerlink" title="Luat_V0009_RDA8910_FLOAT"></a>Luat_V0009_RDA8910_FLOAT</h4><p>不支持TTS功能 支持FLOAT运算 LUA脚本可用空间为720KB</p>
-<p>用在不需要TTS播报功能和需要FLOAT运算的场合</p>
-<h4 id="Luat-V0009-RDA8910-TTS"><a href="#Luat-V0009-RDA8910-TTS" class="headerlink" title="Luat_V0009_RDA8910_TTS"></a>Luat_V0009_RDA8910_TTS</h4><p>支持TTS功能 不支持FLOAT运算 LUA脚本可用空间为426KB</p>
-<p>用在需要TTS播报功能和不需要FLOAT运算的场合</p>
-<h4 id="Luat-V0009-RDA8910-TTS-FLOAT"><a href="#Luat-V0009-RDA8910-TTS-FLOAT" class="headerlink" title="Luat_V0009_RDA8910_TTS_FLOAT"></a>Luat_V0009_RDA8910_TTS_FLOAT</h4><p>支持TTS功能 支持FLOAT运算 LUA脚本可用空间为426KB<br>用在需要TTS播报功能和需要FLOAT运算的场合</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/05/01/227/" data-id="ckkfmdgan003nvkcg7x5oa4cc" data-title="Air720U Lua软件版本说明" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-225" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/29/225/" class="article-date">
-  <time class="dt-published" datetime="2020-04-29T06:45:09.000Z" itemprop="datePublished">2020-04-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/29/225/">合宙luat自动化测试脚本</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h2><ul>
-<li>随着合宙模块越做越好，客户的逐渐增长。相信有越来越多的朋友用上了合宙luat 4G模块。 但很多时候，我们会面临人手不足，个人玩家时间不够。自动化也显得愈发关键了。</li>
-<li>脚本只适用于合宙模块</li>
-<li>脚本是在linux环境下开发的，推荐在linux系统下使用。 windows使用需要改一些脚本内容</li>
-<li>脚本通过Python编写，一些自动识别等功能由C语言实现（感谢开发部大佬）</li>
-<li>脚本开源， <a target="_blank" rel="noopener" href="https://gitee.com/zzr002/721test">gitee地址</a><h2 id="2、准备工作"><a href="#2、准备工作" class="headerlink" title="2、准备工作"></a>2、准备工作</h2></li>
-<li>使用git工具下载脚本</li>
-<li>内核编译，比较繁琐 坑也多（推荐使用ubuntu16.04 内核版本需要升级，推荐4.15！！！ 高版本5.多内核问题较多）<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/419/0">内核编译教程</a></li>
-<li>合宙luat 4G模块<h2 id="3、脚本使用"><a href="#3、脚本使用" class="headerlink" title="3、脚本使用"></a>3、脚本使用</h2></li>
-<li>脚本usb口已经做了自动识别ppp拨号口，AT口， diag口， 串口没有做自动化识别需要手动改。</li>
-</ul>
-<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200429142012729_A056566B287E66F5F40C1414E41F6046.jpg" alt="alt"></p>
-<h2 id="4、脚本优点"><a href="#4、脚本优点" class="headerlink" title="4、脚本优点"></a>4、脚本优点</h2><ul>
-<li>对于use口虚拟出的3个口都做了自动识别功能</li>
-<li>将长时间，大工作量的测试交给脚本来做，省心</li>
-<li>对于长时间ppp ping，rndis ping等操作。对有效数值，作分析图分析ping延时情况。可以很直观观察</li>
-<li>……<h2 id="5、脚本缺点"><a href="#5、脚本缺点" class="headerlink" title="5、脚本缺点"></a>5、脚本缺点</h2></li>
-<li>因为之前的测试脚本AT版本较为完善，所以这个版本AT测试写的不够好。而且AT命令行较少，需要读者自己手动添加</li>
-<li>cmux口，因为linux或内核编译问题。 cmux口并没有做自动识别问题</li>
-<li>本脚本linux下使用，如果要在windows下使用，需要读者有一定的python功底</li>
-<li>cmux虚拟化口之后，需要自己手动关闭</li>
-<li>……<h2 id="6、尾言"><a href="#6、尾言" class="headerlink" title="6、尾言"></a>6、尾言</h2></li>
-<li>因个人水平有限，希望大家可以多多指正。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/29/225/" data-id="ckkfmdgal003hvkcga1c43teb" data-title="合宙luat自动化测试脚本" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-727" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/26/727/" class="article-date">
-  <time class="dt-published" datetime="2020-04-26T06:32:43.000Z" itemprop="datePublished">2020-04-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/26/727/">720SX系列模块量产升级（夹具烧录）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="1-软件工具"><a href="#1-软件工具" class="headerlink" title="1.软件工具"></a>1.软件工具</h2><h3 id="1-1固件生成工具（luatoolsv2-点击此处下载"><a href="#1-1固件生成工具（luatoolsv2-点击此处下载" class="headerlink" title="1.1固件生成工具（luatoolsv2) 点击此处下载"></a>1.1固件生成工具（luatoolsv2) <a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/luatoolsV2-redirect.html" title="点击此处下载">点击此处下载</a></h3><h3 id="1-2量产夹具烧录工具（ASR平台CORE客户升级工具V2-0）点击此处下载"><a href="#1-2量产夹具烧录工具（ASR平台CORE客户升级工具V2-0）点击此处下载" class="headerlink" title="1.2量产夹具烧录工具（ASR平台CORE客户升级工具V2.0）点击此处下载"></a>1.2量产夹具烧录工具（ASR平台CORE客户升级工具V2.0）<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200426155633055_ASR%E5%B9%B3%E5%8F%B0CORE%E5%AE%A2%E6%88%B7%E5%8D%87%E7%BA%A7%E5%B7%A5%E5%85%B7V2.0.7z" title="点击此处下载">点击此处下载</a></h3><h3 id="1-3-下载USB驱动点击此处，阅读安装教程并下载驱动"><a href="#1-3-下载USB驱动点击此处，阅读安装教程并下载驱动" class="headerlink" title="1.3 下载USB驱动点击此处，阅读安装教程并下载驱动"></a>1.3 下载USB驱动<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/lte.html" title="点击此处下载">点击此处，阅读安装教程并下载驱动</a></h3><h4 id="1-3-1夹具上usbboot不按，模块开机后，正常情况下，设备管理器显示如下图："><a href="#1-3-1夹具上usbboot不按，模块开机后，正常情况下，设备管理器显示如下图：" class="headerlink" title="1.3.1夹具上usbboot不按，模块开机后，正常情况下，设备管理器显示如下图："></a>1.3.1夹具上usbboot不按，模块开机后，正常情况下，设备管理器显示如下图：</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_17203.png"></p>
-<h4 id="1-3-2按下夹具上的usbboot，模块开机，正常情况下，设备管理器显示如下图："><a href="#1-3-2按下夹具上的usbboot，模块开机，正常情况下，设备管理器显示如下图：" class="headerlink" title="1.3.2按下夹具上的usbboot，模块开机，正常情况下，设备管理器显示如下图："></a>1.3.2按下夹具上的usbboot，模块开机，正常情况下，设备管理器显示如下图：</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_52950.png"></p>
-<h2 id="2-操作步骤（烧录单个720SG测试如下）"><a href="#2-操作步骤（烧录单个720SG测试如下）" class="headerlink" title="2.操作步骤（烧录单个720SG测试如下）"></a>2.操作步骤（烧录单个720SG测试如下）</h2><h3 id="2-1更新luatoolsv2版本工具至最新版本后，合成量产文件，量产文件默认放在Luatools-V2根目录–》量产文件夹下。"><a href="#2-1更新luatoolsv2版本工具至最新版本后，合成量产文件，量产文件默认放在Luatools-V2根目录–》量产文件夹下。" class="headerlink" title="2.1更新luatoolsv2版本工具至最新版本后，合成量产文件，量产文件默认放在Luatools V2根目录–》量产文件夹下。"></a>2.1更新luatoolsv2版本工具至最新版本后，合成量产文件，量产文件默认放在Luatools V2根目录–》量产文件夹下。</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_32284.png"></p>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49510.png"></p>
-<h3 id="2-2将luatoolsv2工具合成的量产文件放在ASR平台CORE客户升级工具V2-0软件目录的根目录下"><a href="#2-2将luatoolsv2工具合成的量产文件放在ASR平台CORE客户升级工具V2-0软件目录的根目录下" class="headerlink" title="2.2将luatoolsv2工具合成的量产文件放在ASR平台CORE客户升级工具V2.0软件目录的根目录下"></a>2.2将luatoolsv2工具合成的量产文件放在ASR平台CORE客户升级工具V2.0软件目录的根目录下</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_81828.png"></p>
-<h3 id="2-3修改ASR平台CORE客户升级工具V2-0软件-config目录下的param-ini文件"><a href="#2-3修改ASR平台CORE客户升级工具V2-0软件-config目录下的param-ini文件" class="headerlink" title="2.3修改ASR平台CORE客户升级工具V2.0软件 config目录下的param.ini文件"></a>2.3修改ASR平台CORE客户升级工具V2.0软件 config目录下的param.ini文件</h3><h4 id="download-number-修改同时下载最大数"><a href="#download-number-修改同时下载最大数" class="headerlink" title="download_number 修改同时下载最大数"></a>download_number 修改同时下载最大数</h4><h4 id="modleType-修改下载模块类型-720SG-720SH-720SL-，（注意不能填错！！！）"><a href="#modleType-修改下载模块类型-720SG-720SH-720SL-，（注意不能填错！！！）" class="headerlink" title="modleType 修改下载模块类型(720SG,720SH,720SL)，（注意不能填错！！！）"></a>modleType 修改下载模块类型(720SG,720SH,720SL)，（注意不能填错！！！）</h4><h4 id="core-是第一步放入的core-名"><a href="#core-是第一步放入的core-名" class="headerlink" title="core 是第一步放入的core 名"></a>core 是第一步放入的core 名</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65668.png"></p>
-<h3 id="2-4-装好模块和夹具，依次检查供电（建议用稳压源供电）和usb连接，确认正常后，双击main-exe，，按下夹具usbboot键，点击软件开始键，给模块重新上电，模块开机，开始下载固件"><a href="#2-4-装好模块和夹具，依次检查供电（建议用稳压源供电）和usb连接，确认正常后，双击main-exe，，按下夹具usbboot键，点击软件开始键，给模块重新上电，模块开机，开始下载固件" class="headerlink" title="2.4 装好模块和夹具，依次检查供电（建议用稳压源供电）和usb连接，确认正常后，双击main.exe，，按下夹具usbboot键，点击软件开始键，给模块重新上电，模块开机，开始下载固件"></a>2.4 装好模块和夹具，依次检查供电（建议用稳压源供电）和usb连接，确认正常后，双击main.exe，，按下夹具usbboot键，点击软件开始键，给模块重新上电，模块开机，开始下载固件</h3><p> 模块放置如下图：<img src="http://doc.openluat.com/api/static/editormd/uploads/5_56384.jpg"><br>开始烧录如图：<img src="http://doc.openluat.com/api/static/editormd/uploads/5_81748.png"><br>烧录成功，如下图所示：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63008.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/26/727/" data-id="ckkfmdgdf00bevkcg7vsbg1wt" data-title="720SX系列模块量产升级（夹具烧录）" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-726" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/23/726/" class="article-date">
-  <time class="dt-published" datetime="2020-04-23T13:06:04.000Z" itemprop="datePublished">2020-04-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/23/726/">https 访问 根证书 证书导出</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <pre><code>                        &lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;现象描述：用720H 访问一个https链接，一直访问不了，浏览器能正常访问显示，但是720H访问百度和淘宝都能正常。用例程里面自带的证书ca.crt&amp;nbsp; 也不能访问自建的https，从自建网站上下载了证书也访问不了自建的https。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;问题解决：用浏览器打开https正常显示后，找到网站证书，选择根证书导出（&lt;span style=&quot;background-color: rgb(255, 0, 0);&quot;&gt;一定要是根证书&lt;/span&gt;），我之前导出的是子证书不好使。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;原因分析：例程里面的ca.crt没有包含自建网站的根证书，导致不能访问自建的https&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;小疑问：为什么百度不用证书也能访问，百度也是用的是https？？？？？？？？？？？？？&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://oldask.openluat.com/image/show/attachments-2020-04-qfOLmsjv5ea1922037546.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 667px;&quot;&gt;&lt;img src=&quot;https://oldask.openluat.com/image/show/attachments-2020-04-3rJWMUr05ea1922dda9c2.jpg&quot; class=&quot;img-responsive&quot; style=&quot;width: 251.5px;&quot;&gt;&lt;br&gt;&lt;/p&gt;
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/23/726/" data-id="ckkfmdgdc00bdvkcgfkk82ojv" data-title="https 访问 根证书 证书导出" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-725" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/23/725/" class="article-date">
-  <time class="dt-published" datetime="2020-04-23T10:37:32.000Z" itemprop="datePublished">2020-04-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/23/725/">Air720U系列/Air724U/Air723U系列 Cat.1 模块抓底层日志教程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="1-用Luatools-V2工具抓底层日志"><a href="#1-用Luatools-V2工具抓底层日志" class="headerlink" title="1. 用Luatools V2工具抓底层日志"></a>1. 用Luatools V2工具抓底层日志</h3><p>合宙官方调试工Luatools V2，除了可以进行升级固件操作，还可以用来抓取底层的日志，详细操作如下：</p>
-<ol>
-<li>下载<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/luatoolsV2-redirect.html" title="Luatools V2">Luatools V2</a>后打开，并且允许工具升级。</li>
-<li>安装<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z" title="USB驱动">USB驱动</a></li>
-<li>用USB线直接连接模块的USB管脚到PC的USB接口<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12742.jpg"></li>
-<li>打开luatools，勾选4G USB打印<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_42120.png"></li>
-<li>给模块上的会自动有打印<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_38565.png"></li>
-<li>在选项中做如下修改<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200915093856176_%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200915093707.png"></li>
-<li>在luatool v2\log\4gdiag目录下可以看到正在自动生成.bin和.tra文件，大小正在正在增加说明正在生成底层日志<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_79277.gif"></li>
-<li>需要停止，只需要关闭luatool即可<br>其中.bin为AP日志，.tra为CP日志</li>
-</ol>
-<hr>
-<h3 id="2-从HOST-UART接口抓AP日志"><a href="#2-从HOST-UART接口抓AP日志" class="headerlink" title="2. 从HOST UART接口抓AP日志"></a>2. 从HOST UART接口抓AP日志</h3><p>在一些应用场合，USB被占用了，无法通过USB在抓底层日志的情况下，还可以通过HOST UART接口抓取AP日志，步骤如下：</p>
-<ol>
-<li><p>下载<a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200428182924_8910_coolwatch_win32_R2.0.0002.7z" title="cooltool">cooltool</a>工具</p>
-</li>
-<li><p>用USB转TTL数据线连接模块的UART1管脚<br>Air720U：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40469.png"><br>Air724U:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65362.png"></p>
-</li>
-<li><p>模块开机后，通过串口工具发AT^TRACECTRL=0,1,3 这个指令，将日志打开之后关机<br><code> 注意：AT^TRACECTRL=0,1,3是永久生效的，可以断电保存</code></p>
-</li>
-<li><p>用USB转TTL数据线连接模块的HOST UART管脚<br>Air720U:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_20712.png"><br>Air724U:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_10973.png"></p>
-</li>
-<li><p>打开cooltool<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_50568.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_90011.png"></p>
-</li>
-<li><p>打开trace栏<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13067.gif"></p>
-</li>
-<li><p>模块开机，日志会在trace栏中打印出来<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_23567.gif"></p>
-</li>
-<li><p>抓到想要的日志后，点击保存即可<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_54285.gif"></p>
-</li>
-</ol>
-<hr>
-<h3 id="3-Android-amp-LINUX-主控抓底层日志方法"><a href="#3-Android-amp-LINUX-主控抓底层日志方法" class="headerlink" title="3. Android &amp; LINUX 主控抓底层日志方法"></a>3. Android &amp; LINUX 主控抓底层日志方法</h3><p>详细请见<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/720/0">http://doc.openluat.com/article/720/0</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/23/725/" data-id="ckkfmdgdc00bcvkcg5qqwbwmr" data-title="Air720U系列/Air724U/Air723U系列 Cat.1 模块抓底层日志教程" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-724" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/22/724/" class="article-date">
-  <time class="dt-published" datetime="2020-04-22T03:05:25.000Z" itemprop="datePublished">2020-04-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/22/724/">Air724UG GPIO口默认电平状态</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th align="center">GPIO口</th>
-<th align="center">默认状态</th>
-<th align="center">波形</th>
-<th align="center">备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">GPIO_5</td>
-<td align="center">高</td>
-<td align="center">图一</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_17</td>
-<td align="center">高</td>
-<td align="center">图一</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_16</td>
-<td align="center">高</td>
-<td align="center">图一</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_20</td>
-<td align="center">高</td>
-<td align="center">图一</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_21</td>
-<td align="center">高</td>
-<td align="center">图一</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_22</td>
-<td align="center">高</td>
-<td align="center">图一</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><font color="f1b10d">GPIO_26</font></td>
-<td align="center"><font color="f1b10d">高</font></td>
-<td align="center"><font color="f1b10d">图五</font></td>
-<td align="center"><font color="f1b10d">上电后632ms出现上拉到3v左右，持续704MS后出现下拉 </font></td>
-</tr>
-<tr>
-<td align="center">GPIO_25</td>
-<td align="center">高</td>
-<td align="center">图三</td>
-<td align="center">上电后出现610MS上拉，710MS左右出现下拉</td>
-</tr>
-<tr>
-<td align="center">GPIO_24</td>
-<td align="center">高</td>
-<td align="center">图四</td>
-<td align="center">上电后出现610MS上拉，710MS左右出现下拉</td>
-</tr>
-<tr>
-<td align="center">GPIO_28</td>
-<td align="center">高</td>
-<td align="center">图四</td>
-<td align="center">上电后出现610MS上拉，710MS左右出现下拉</td>
-</tr>
-<tr>
-<td align="center">GPIO_27</td>
-<td align="center">高</td>
-<td align="center">图四</td>
-<td align="center">上电后出现610MS上拉，710MS左右出现下拉</td>
-</tr>
-<tr>
-<td align="center">GPIO_14</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_15</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_19</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_18</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_3</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_2</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_0</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_9</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_12</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_10</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_11</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_6</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_4</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_1</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GPIO_23</td>
-<td align="center">低</td>
-<td align="center">图二</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<hr>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_98617.png"><br>图一</p>
-<hr>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68805.png"><br>图二</p>
-<hr>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_87885.png"><br>图三</p>
-<hr>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12512.png"><br>图四</p>
-<hr>
-<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_25598.png"><br>图五</p>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/22/724/" data-id="ckkfmdgdc00bbvkcgdy9t2zg8" data-title="Air724UG GPIO口默认电平状态" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-166" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/19/166/" class="article-date">
-  <time class="dt-published" datetime="2020-04-19T13:06:37.000Z" itemprop="datePublished">2020-04-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/19/166/">树莓派使用合宙4G模块环境搭建指南</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><ul>
-<li>相信很多朋友都陆续收到了团购的Air724UG开发板，笔者之前经常用Ubuntu使用合宙的4G模块，正好最近同时在研究树莓派的各种用法，不如研究一下如何在树莓派上使用合宙4G模块，通过树莓派向模块发送AT命令，通过模块的RNDIS或ECM网卡让树莓派网上冲浪，那么闲话少说，Let’s go!</li>
-<li>笔者手中的树莓派型号为树莓派3B，其他树莓派型号操作大同小异哦。</li>
-<li>笔者编译的是树莓派官方系统<strong>Raspbian</strong>，<strong>内核版本为4.19.x</strong>,其它系统以及其他内核情况不在本文描述中哦。</li>
-<li>建议输入命令部分全程使用<strong>root用户</strong>操作哦，配置<code>root</code>密码方式为<code>sudo passwd</code></li>
-<li>笔者也是在很多人的帮助下，参考了很多教程才总结出的这篇文章。感谢帮助笔者完成这篇文章的朋友们！</li>
-</ul>
-<hr>
-<h2 id="2-树莓派准备流程"><a href="#2-树莓派准备流程" class="headerlink" title="2.树莓派准备流程"></a>2.树莓派准备流程</h2><ul>
-<li>需要用到的物品</li>
-<li>树莓派1台</li>
-<li>树莓派可以使用的SD卡1张</li>
-<li>读卡器1个</li>
-<li>首先将树莓派刷入官方最新Raspbian系统➡️<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian系统下载地址戳我哦</a><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419191438207_raspbian%E4%B8%8B%E8%BD%BD.png" alt="raspbian"><br>下载好之后会得到一个格式为zip的压缩包，他其实就是官方系统的镜像，使用镜像写入工具写入树莓派使用的SD卡，写入SD卡前如果SD卡没有重要数据需要备份的话，建议先使用SDFormat格式化一下➡️<a target="_blank" rel="noopener" href="https://www.sdcard.org/downloads/formatter/">SDFormat下载地址戳我哦</a> ，具体操作这里就不赘述了。<br>接下来到了写入镜像的环节，笔者这里使用的工具是balenaEtcher➡️<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">balenaEtcher下载地址戳我哦</a> ，因为界面好看还傻瓜式啊2333，选好刚刚下载好的镜像和要写入的SD卡就可以Flash啦！这里要做的就是等待写入完成就好了。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419192003325_balenaEtcher.png" alt="alt"></li>
-<li>镜像写入完成之后，不要急着弹出SD卡，打开SD卡在Windows资源管理器中挂载的boot分区，新建一个名字为ssh的空白文件，<strong>划重点，文件的名字只有ssh，不要任何后缀哦</strong>，新建好之后就可以把SD卡插入树莓派了，接下来，笔者建议大家使用网线连接树莓派到路由器哦，因为树莓派的WiFi不是那么稳定，所以保险起见，笔者选择了网线连接，也就省略了WiFi连接方式的教程，有需要的朋友可以自行百度树莓派如何使用WiFi。</li>
-<li>由于上一步新建了空白ssh文件的操作，现在我们使用任意SSH工具就可以连接到树莓派终端了，在路由器的后台查看一下树莓派的IP地址。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419192745343_pi_ip.png" alt="alt"><br>怎么使用SSH工具这里就不赘述了，<strong>Raspbian默认的用户名为pi，密码为raspberry</strong>，至此你手里的树莓派已经具备了我们编译内核的环境了！</li>
-</ul>
-<hr>
-<h2 id="3-编译内核"><a href="#3-编译内核" class="headerlink" title="3.编译内核"></a>3.编译内核</h2><ul>
-<li>不做任何修改的树莓派官方系统在将树莓派与开发板通过USB连接之后只能使用RNDIS功能，并不能正确识别到开发板USB枚举出的所有端口，为了能让树莓派通过usb_AT端口发送AT命令，通过usb_modem端口进行ppp的拨号上网，通过usb_diag端口进行trace的捕捉，我们有必要对内核中的usb驱动进行一些修改来正确识别usb枚举的端口。</li>
-<li>首先要安装一些必备的工具<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install git bc bison flex libssl-dev make</span><br></pre></td></tr></table></figure>
-树莓派默认的apt源不是很快，笔者这里建议大家更换清华源➡️<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/raspbian/">更换方法戳我哦</a></li>
-<li>然后我们去获取一下树莓派内核的源代码，放在用户目录即可<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth=1 https://github.com/raspberrypi/linux</span><br></pre></td></tr></table></figure>
-这里clone速度应该会很慢，建议大家通过代理的方式clone，Linux如何设置代理，大家可以百度搜索相关教程。<br>这里获取到的内核版本为默认分支上的4.19.x，笔者在写这篇文章时的获取到的内核版本为<strong>4.19.115-v7+</strong></li>
-<li>获取到内核源代码之后就进入了最为关键的配置内核环节，根据你手中的树莓派型号执行相应的命令，比方说笔者这里的3B，执行的就是中间的那三条命令。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419194115041_config_kernel.png" alt="alt"></li>
-<li>执行结束之后，当前内核源代码已经进行了最基本的配置，之后我们要修改两个内核文件以实现合宙4G模块的支持。（考虑到这两个文件修改起来比较麻烦又容易写错，所以这里笔者直接提供了这两个修改后的文件，放在了万恶的百度网盘➡️<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1h2_kBvFp-U1DQo2BwhilXg">下载戳我</a>   密码是：yr13）</li>
-<li>首先要修改的是drivers/usb/serial/option.c这个文件，具体修改位置见下图<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195152290_optionc1.png" alt="optionc1"><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195505153_optionc2.png" alt="optionc2"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195803877_optionc3.png" alt="optionc3"></li>
-<li>其次要修改的文件为drivers/usb/serial/usb_wwan.c这个文件，具体修改位置见下图<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419200323118_usb_wwan1.png" alt="usb_wwan"></li>
-<li>至此，内核文件的修改已完成</li>
-<li>接下来需要在make menuconfig的界面进行图形化修改配置</li>
-<li>回到内核源代码的根目录执行<code>make menuconfig</code>进入内核配置的图形界面。</li>
-<li>首先我们先开启RNDIS相关的支持，在menuconfig界面按下键盘上的<code>/</code>输入RNDIS进行搜索，请确保搜索结果中与RNDIS相关的选项状态为y或m。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419201206861_rndismakemenuconfig.png" alt="rndis">如果这里状态不是<strong>y或m</strong>说明此项功能并没有打开，请根据相应的没有打开的<strong>Symbol的Location</strong>找到相关选项，<strong>相关选项的名称为Prompt后面的名称</strong>，通过按下键盘上的<strong>空格（Space）</strong>启用，或在展开相关选项之后，在相关选项中找到要打开的选项再次按下<strong>空格</strong>打开。</li>
-<li>有使用ECM网卡需求的朋友，可以参考RNDIS的内容打开ECM相关的支持，这里给一张参考图<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202035295_ecmmakemenuconfig.png" alt="ecm"></li>
-<li>打开ppp相关也是同理<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202317978_pppmakemenuconfig.png" alt="ppp"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202614391_pppmakemenuconfig2.png" alt="ppp"></li>
-<li>使用CMUX功能的同学一定要注意打开<strong>N_GSM</strong>这一项<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202752689_n_gsm.png" alt="n_gsm"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202944428_n_gsm2.png" alt="n_gsm"></li>
-<li>经过上面的操作，内核就已经全部修改完成了，接下来要进行编译操作了，通过以下命令进行内核的编译和安装。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">make -j4 zImage modules dtbs</span><br><span class="line">make modules_install</span><br><span class="line">cp arch/arm/boot/dts/*.dtb /boot/</span><br><span class="line">cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/</span><br><span class="line">cp arch/arm/boot/dts/overlays/README /boot/overlays/</span><br><span class="line">cp arch/arm/boot/zImage /boot/$KERNEL.img</span><br></pre></td></tr></table></figure>
-经过大概一个多小时的编译，执行成功之后重启你的树莓派，重新登陆，键入<code>uname -a</code>查看内核版本，是不是已经更新到了我们修改后编译的版本！<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204001717_uname.png" alt="alt"></li>
-</ul>
-<hr>
-<h2 id="4-成果验证"><a href="#4-成果验证" class="headerlink" title="4.成果验证"></a>4.成果验证</h2><ul>
-<li>连接合宙4G模块开发板USB接口，给模块开发板上电开机，等待模块开机完成之后，在树莓派终端键入<code>ls /dev/ttyUSB*</code>看看是不是已经能够成功识别到模块枚举的三个USB端口了！按照枚举顺序依次为AT，modem，diag。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204346670_usb_enum.png" alt="alt"></li>
-<li>键入<code>ifconfig</code>查看是否有rndis网卡。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204500713_ifconfig.png" alt="alt"></li>
-<li>关于CMUX以及PPP的使用方法就不在本篇赘述了，之后会再出一篇使用说明。</li>
-<li>迫不及待地尝试一下AT口功能是否正常，这里使用minicom，没有安装的朋友可以通过<code>apt install minicom</code>安装，使用<code>minicom -D /dev/ttyUSB0</code>打开AT口发送AT命令测试。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204914616_minicom.png" alt="alt"></li>
-</ul>
-<hr>
-<h2 id="5-总结以及参考资料"><a href="#5-总结以及参考资料" class="headerlink" title="5.总结以及参考资料"></a>5.总结以及参考资料</h2><ul>
-<li>至此，树莓派已经可以使用合宙4G模块的所有功能了，用起来还是比较爽的，比较值得注意的地方是内核文件的修改，以及menuconfig的配置，一定要细心又有耐心哦，如果读者有任何问题可以在这篇文章下面与我交流鸭2333</li>
-<li>ask.openluat.com相关文章</li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/419/0">http://doc.openluat.com/article/419/0</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/453/0">http://doc.openluat.com/article/453/0</a></li>
-<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/698/0">http://doc.openluat.com/article/698/0</a></li>
-<li>树莓派官方教程 <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/documentation/linux/kernel/building.md">https://www.raspberrypi.org/documentation/linux/kernel/building.md</a></li>
-<li>特别鸣谢@小神龙,@nerv.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/19/166/" data-id="ckkfmdg9p0015vkcg7f3bevlo" data-title="树莓派使用合宙4G模块环境搭建指南" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-723" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/04/19/723/" class="article-date">
-  <time class="dt-published" datetime="2020-04-19T09:08:54.000Z" itemprop="datePublished">2020-04-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/19/723/">自制Air720SL板USB接口无法识别的填坑备忘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>参照Air720SL开发板做了一个Air720SL的小板，由于USB接口平时不需使用，仅在调试下载时使用，所以用来4个测试点的方法引出，并加了TVS和串了0欧电阻。</p><p>在使用是用测试夹子接触上测试点进行程序下载调试。</p><p><br></p><p>板子做好了，自己DIY焊上所有器件，拉低PWRKEY开机正常，用夹子夹住测试点，夹子探针通过杜邦线连接USB电缆，插电脑USB口，提示无法识别USB设备，</p><p>识别出一个未知设备来。</p><p><br></p><p>查板子走线，如果按照USB的90欧差分阻抗设计要求，PCB走线是不满足要求的，且USB的D-/D+线下方地平面也不完整。但改板周期长，还有没有其他错误也需要一并修改，</p><p>但不认USB也没法进行下面工作。</p><p>经在群里请教，由于板子比较小，USB走线很短，不符合差分走线要求也不一定是问题关键，排查步骤：</p><p>1. 去掉夹子，直接把USB线焊在模块引脚上，上电仍不认，仔细一查，USB线有4色（红：VBUS，黑：GND，白：D-，绿：D+）,原来把D+-焊反了，改正后USB识别正常。</p><p>2. 继续焊远一点，把USB线焊在4个测试点上，仍识别正常。</p><p>看来板子上走线尚可，后续再优化，此问题是由于测试夹子引入导致，后续没有再测试如果直接从夹子探针上接入USB线效果如果。有待后续测试。</p><p><br></p><p>记录一下，以供有类似问题的伙伴们参考。<br></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://doc.luatos.wiki/2020/04/19/723/" data-id="ckkfmdgdb00b9vkcgb0ur642b" data-title="自制Air720SL板USB接口无法识别的填坑备忘" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/23/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/25/">下一页 &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/05/05/729/">
+            合宙 Air 724UG模组（4G Cat.1通信模组）测试过程
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1.环境准备1.1. 硬件准备Air724UG官方开发板+一条USB线：
+Air724UG/Air723UG 支持多种开发方式，如USB上网、标准AT、 Lua脚本二次开发等。
+使用串口AT开发的接法如下：
+① 使用USB线连接开发板下方标识UART字样的USB口；② 将旁边的拨动开关拨到UART1...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-05-05
+            </span>
+          
+        </div>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 chenxuuu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/05/01/227/">
+            Air720U Lua软件版本说明
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>Lua软件版本现在有4个版本：目前最新版本为V0009，主要区别如下：Luat_V0009_RDA8910不支持TTS功能 不支持FLOAT运算 LUA脚本可用空间为720KB
+用在不需要TTS播报功能和不需要FLOAT运算的场合
+Luat_V0009_RDA8910_FLOAT不支持TTS功能 支...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-05-01
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/29/225/">
+            合宙luat自动化测试脚本
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1、前言
+随着合宙模块越做越好，客户的逐渐增长。相信有越来越多的朋友用上了合宙luat 4G模块。 但很多时候，我们会面临人手不足，个人玩家时间不够。自动化也显得愈发关键了。
+脚本只适用于合宙模块
+脚本是在linux环境下开发的，推荐在linux系统下使用。 windows使用需要改一些脚本内容
+...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-29
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/26/727/">
+            720SX系列模块量产升级（夹具烧录）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1.软件工具1.1固件生成工具（luatoolsv2) 点击此处下载1.2量产夹具烧录工具（ASR平台CORE客户升级工具V2.0）点击此处下载1.3 下载USB驱动点击此处，阅读安装教程并下载驱动1.3.1夹具上usbboot不按，模块开机后，正常情况下，设备管理器显示如下图：
+1.3.2按下夹具...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-26
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/23/726/">
+            https 访问 根证书 证书导出
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;现象描述：用720H 访问一个https链接，一直访问不了，浏览器能正常访问显示，但是720H访问百度和淘宝都能正常。用例程里面自带的证书ca.crt&amp;amp;nbsp; 也不...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-23
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/23/725/">
+            Air720U系列/Air724U/Air723U系列 Cat.1 模块抓底层日志教程
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1. 用Luatools V2工具抓底层日志合宙官方调试工Luatools V2，除了可以进行升级固件操作，还可以用来抓取底层的日志，详细操作如下：
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+下载Luatools V2后打开，并且允许工具升级。
+安装USB驱动
+用USB线直接连接模块的USB管脚到PC的USB接口
+打开luatools，勾...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-23
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/22/724/">
+            Air724UG GPIO口默认电平状态
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>
+
+
+GPIO口
+默认状态
+波形
+备注
+
+
+
+GPIO_5
+高
+图一
+
+
+
+GPIO_17
+高
+图一
+
+
+
+GPIO_16
+高
+图一
+
+
+
+GPIO_20
+高
+图一
+
+
+
+GPIO_21
+高
+图一
+
+
+
+GPIO_22
+高
+图一
+
+
+
+GPIO_26
+高
+图五
+上电后632ms出现上拉到3v左右，持...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-22
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/19/166/">
+            树莓派使用合宙4G模块环境搭建指南
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1.前言
+相信很多朋友都陆续收到了团购的Air724UG开发板，笔者之前经常用Ubuntu使用合宙的4G模块，正好最近同时在研究树莓派的各种用法，不如研究一下如何在树莓派上使用合宙4G模块，通过树莓派向模块发送AT命令，通过模块的RNDIS或ECM网卡让树莓派网上冲浪，那么闲话少说，Let’s go...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-19
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/19/723/">
+            自制Air720SL板USB接口无法识别的填坑备忘
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>参照Air720SL开发板做了一个Air720SL的小板，由于USB接口平时不需使用，仅在调试下载时使用，所以用来4个测试点的方法引出，并加了TVS和串了0欧电阻。在使用是用测试夹子接触上测试点进行程序下载调试。板子做好了，自己DIY焊上所有器件，拉低PWRKEY开机正常，用夹子夹住测试点，夹子探针...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-19
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2020/04/19/722/">
+            android   so库合集
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>so集合.7z
+...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-04-19
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+    <div class="pagenator">
+    
+    
+        <a class="extend prev" href="/page/23">上一页</a>
     
 
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/19">19</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/20">20</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/21">21</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/22">22</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/23">23</a>
+        
+    
+        
+            <span class="extend page-item page-item-select">24</span>
+        
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/25">25</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/26">26</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/27">27</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/28">28</a>
+        
+    
+    
+    
+    
+        <a class="extend next" href="/page/25">下一页</a>
+    
+</div>
 
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
 </body>
 </html>
