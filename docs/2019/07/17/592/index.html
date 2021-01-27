@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇） | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="教你用Air720 模块通过AT指令以MQTTS方式连接华为云(上篇) 生成MQTTS连接参数上篇创建了真实测试设备，需要记录下设备ID和密匙，用于生成连接参数。1.设备ID9e352064-f339-45e3-842d-ab7b276164142.密匙4aa2c87b6696ee37ce83 点击确定后进入在线调测页面 点击左侧菜单设备管理，可以看到设备列表中，刚创建的设备状态是离线。一会儿使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇）">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/07/17/592/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="教你用Air720 模块通过AT指令以MQTTS方式连接华为云(上篇) 生成MQTTS连接参数上篇创建了真实测试设备，需要记录下设备ID和密匙，用于生成连接参数。1.设备ID9e352064-f339-45e3-842d-ab7b276164142.密匙4aa2c87b6696ee37ce83 点击确定后进入在线调测页面 点击左侧菜单设备管理，可以看到设备列表中，刚创建的设备状态是离线。一会儿使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_34803.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_50453.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_40999.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_78142.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_39842.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_59655.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_39029.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_95641.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_91475.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_75366.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_80611.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_33822.jpg">
+<meta property="article:published_time" content="2019-07-17T14:45:57.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_34803.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-592" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/17/592/" class="article-date">
+  <time class="dt-published" datetime="2019-07-17T14:45:57.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/902">教你用Air720 模块通过AT指令以MQTTS方式连接华为云(上篇)</a></p>
+<h1 id="生成MQTTS连接参数"><a href="#生成MQTTS连接参数" class="headerlink" title="生成MQTTS连接参数"></a>生成MQTTS连接参数</h1><p>上篇创建了真实测试设备，需要记录下设备ID和密匙，用于生成连接参数。<br><img src="/static/editormd/php/../uploads/5_34803.jpg" alt="![](/static/editormd/php/../uploads/5_49337.jpg)"><br>1.设备ID<br><code>9e352064-f339-45e3-842d-ab7b27616414</code><br>2.密匙<br><code>4aa2c87b6696ee37ce83</code></p>
+<p>点击确定后进入在线调测页面<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_50453.jpg"></p>
+<p>点击左侧菜单设备管理，可以看到设备列表中，刚创建的设备状态是离线。一会儿使用Air720连接成功后，就变成在线状态了。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40999.jpg"><br>点击左侧对接信息，可得到MQTT的连接ip和好、端口号<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78142.jpg"></p>
+<h2 id="MQTT连接参数"><a href="#MQTT连接参数" class="headerlink" title="MQTT连接参数"></a>MQTT连接参数</h2><p>根据文档<a target="_blank" rel="noopener" href="https://support.huaweicloud.com/api-IoT/iot_06_3009.html" title="MQTT CONNECT连接鉴权">MQTT CONNECT连接鉴权</a>，摘要如下：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39842.jpg"></p>
+<p>cliendID=9e352064-f339-45e3-842d-ab7b27616414_0_0_2019071713<br>Username=9e352064-f339-45e3-842d-ab7b27616414<br>Password=162298e5d1aee9a239ea5b5fd711c31393d1a4b05e7cea5eba912e6c26b3305e</p>
+<blockquote>
+<p>上面的Password的值为使用“HMACSHA256”算法以时间戳为秘钥，对secret进行加密后的值。secret为注册设备时平台返回的secret，也就是上面创建设备时生成密匙。</p>
+</blockquote>
+<p>这里给出一段使用Python生成上述参数的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> pytz</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> hmac</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">HMACSHA256</span>(<span class="params">message,key</span>):</span></span><br><span class="line">    <span class="keyword">return</span> hmac.new(key.encode(<span class="string">&#x27;utf-8&#x27;</span>),message.encode(<span class="string">&#x27;utf-8&#x27;</span>),hashlib.sha256).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地时间转换为UTC</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">local_to_utc</span>(<span class="params">local_ts, utc_format=<span class="string">&#x27;%Y%m%d%H&#x27;</span></span>):</span></span><br><span class="line">    local_tz = pytz.timezone(<span class="string">&#x27;Asia/Chongqing&#x27;</span>)</span><br><span class="line">    local_dt = local_tz.localize(local_ts)</span><br><span class="line">    utc_dt = local_dt.astimezone(pytz.utc)</span><br><span class="line">    <span class="keyword">return</span> utc_dt.strftime(utc_format)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_utc_timstamp</span>():</span></span><br><span class="line">    local_tz=pytz.timezone(<span class="string">&#x27;Asia/Shanghai&#x27;</span>)</span><br><span class="line">    local_dt=local_tz.localize(datetime.datetime.now())</span><br><span class="line">    utc_dt=local_dt.astimezone(pytz.utc)</span><br><span class="line">    <span class="keyword">return</span> utc_dt.strftime(<span class="string">&#x27;%Y%m%dT%H%M%SZ&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	deviceId=<span class="string">&#x27;9e352064-f339-45e3-842d-ab7b27616414&#x27;</span></span><br><span class="line">    secret = <span class="string">&#x27;4aa2c87b6696ee37ce83&#x27;</span></span><br><span class="line">	utctimestamp = local_to_utc(datetime.datetime.now())</span><br><span class="line">    clientId = <span class="string">&#x27;_&#x27;</span>.join([deviceId , <span class="string">&#x27;0&#x27;</span> , <span class="string">&#x27;0&#x27;</span> , utctimestamp])</span><br><span class="line">    print(clientId)</span><br><span class="line">    password = HMACSHA256(secret , utctimestamp)</span><br><span class="line">    print(password)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用上述参数和地址及端口号，已经CA证书就可以成功连接到华为云了。<br>这时回到设备管理页面，可以看到设备状态已经变为在线。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59655.jpg"></p>
+<h2 id="Topic订阅、发布"><a href="#Topic订阅、发布" class="headerlink" title="Topic订阅、发布"></a>Topic订阅、发布</h2><p>订阅和发布，参考文档说明<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39029.jpg"><br>根据上面描述，<br>设备如果要从平台获取消息和数据，需要在登录成功后发起mqtt消息订阅topic<br>设备订阅：订阅消息topic格式为：“/huawei/v1/devices/9e352064-f339-45e3-842d-ab7b27616414/command/json”<br>设备如果要通过MQTT通道上报数据，需要发给指定的topic<br>上报消息的topic格式为：“/huawei/v1/devices/9e352064-f339-45e3-842d-ab7b27616414/data/json”</p>
+<p>订阅上述topic后，进入设备调试页面<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95641.jpg"><br>从应用模拟界面发toggle字段命令”ON”,点击发送<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_91475.jpg"><br>从sscom的Air720串口接收可以看到，模块收到华为云平台下发的JSON格式的命令。toggle的值是“ON”<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_75366.jpg"></p>
+<h2 id="Air720数据上报"><a href="#Air720数据上报" class="headerlink" title="Air720数据上报"></a>Air720数据上报</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80611.jpg"></p>
+<p>根据这个说明，结合设备的Profile订阅，数据上报的格式为<br>MQTT Topic: /huawei/v1/devices/9e352064-f339-45e3-842d-ab7b27616414/data/json<br>Air720发送的payload：<br>{<br>    “msgType”: “deviceReq”,<br>    “data”: [<br>    {<br>        “serviceId”: “ServiceWin”,<br>        “serviceData”: {<br>            “Status”: 0<br>        },<br>        “eventTime”: “ 20170915T121603Z”<br>    }<br>    ]<br>}</p>
+<p>设备发送后，在应用模拟端收到status数据0<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33822.jpg"></p>
+<p>通过上述内容，实现了一个MQTTS的连接，订阅，上报的过程，后续就可以根据业务需求具体实现一个物联网应用了。其他华为云的功能不再赘述，自己挖掘一下吧。</p>
+<p>当然Air720模块还有其他很强大的功能，特别是支持Lua，强大的二次开发能力，实时技术支持，软件开源包括底层C代码，和Lua代码，值得我们去细细研究。</p>
+<p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/902">教你用Air720 模块通过AT指令以MQTTS方式连接华为云(上篇)</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/07/17/592/" data-id="ckkfmdgcf008fvkcgaqpw0w7z" data-title="教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇）" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/18/593/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          使用Lua脚本连接华为云物联网服务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/15/591/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">教你用Air720 模块通过AT指令以MQTTS方式连接华为云（上篇）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

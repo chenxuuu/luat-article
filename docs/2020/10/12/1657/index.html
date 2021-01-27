@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air530Z GPS/北斗定位模块_设计指导手册_V1.1 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@[TOC] 1. 模块整体说明Air530Z模块是一款高性能BDS&#x2F;GNSS多模卫星导航模块，支持多种卫星导航系统，包括中国的北斗卫星导航系统BDS，美国的GPS，俄罗斯的GLONASS，并实现多系统联合定位。 Air530Z 和 Air530 的封装完全兼容，区别在于Air530Z 采用的是中科微的AT6558R 方案，而Air530采用的是国科的GK9501方案。从Air530切换到Air5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air530Z GPS&#x2F;北斗定位模块_设计指导手册_V1.1">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/10/12/1657/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="@[TOC] 1. 模块整体说明Air530Z模块是一款高性能BDS&#x2F;GNSS多模卫星导航模块，支持多种卫星导航系统，包括中国的北斗卫星导航系统BDS，美国的GPS，俄罗斯的GLONASS，并实现多系统联合定位。 Air530Z 和 Air530 的封装完全兼容，区别在于Air530Z 采用的是中科微的AT6558R 方案，而Air530采用的是国科的GK9501方案。从Air530切换到Air5">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024154240934_Air530Z%E7%AE%A1%E8%84%9A%E5%9B%BE.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024162520645_%E6%97%A0%E6%BA%90%E5%A4%A9%E7%BA%BF.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201010162022866_666666.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024161915561_%E6%9C%89%E6%BA%90%E5%A4%A9%E7%BA%BF3.3V.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024162036115_%E6%9C%89%E6%BA%90%E5%A4%A9%E7%BA%BF5V.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201010162803887_7777777.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201010163028298_qqqqqq.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201012145930342_ZKW.png">
+<meta property="article:published_time" content="2020-10-12T07:59:41.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024154240934_Air530Z%E7%AE%A1%E8%84%9A%E5%9B%BE.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1657" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/10/12/1657/" class="article-date">
+  <time class="dt-published" datetime="2020-10-12T07:59:41.000Z" itemprop="datePublished">2020-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air530Z GPS/北斗定位模块_设计指导手册_V1.1
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[TOC]</p>
+<h1 id="1-模块整体说明"><a href="#1-模块整体说明" class="headerlink" title="1. 模块整体说明"></a>1. 模块整体说明</h1><p>Air530Z模块是一款高性能BDS/GNSS多模卫星导航模块，支持多种卫星导航系统，包括中国的北斗卫星导航系统BDS，美国的GPS，俄罗斯的GLONASS，并实现多系统联合定位。</p>
+<p>Air530Z 和 Air530 的封装完全兼容，区别在于Air530Z 采用的是中科微的AT6558R 方案，而Air530采用的是国科的GK9501方案。<br>从Air530切换到Air530Z 注意事项：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/2296/0">http://doc.openluat.com/article/2296/0</a></p>
+<p>Air530Z 内部集成了3.3V有源天线供电电路和检测电路；</p>
+<p>Air530Z模块的尺寸极小，只有12.9X9.9X2.3mm，可以方便的嵌入到各种应用场景。</p>
+<h1 id="2-资料下载"><a href="#2-资料下载" class="headerlink" title="2. 资料下载"></a>2. 资料下载</h1><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201224171924797_Air530Z_%E5%8E%9F%E7%90%86%E5%9B%BEPCB%E5%B0%81%E8%A3%85.zip">Air530Z_原理图PCB封装.zip</a></p>
+<p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201024170220041_%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7_GnssToolKit3.zip">调试工具_GnssToolKit3.zip</a></p>
+<p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20210108201847389_CASIC%E5%A4%9A%E6%A8%A1%E5%8D%AB%E6%98%9F%E5%AF%BC%E8%88%AA%E6%8E%A5%E6%94%B6%E6%9C%BA%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83-20210108.pdf">协议规范 - CASIC多模卫星导航接收机</a></p>
+<p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201024170240169_AGPS%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.zip">AGPS使用说明.zip</a></p>
+<h1 id="3-模块性能"><a href="#3-模块性能" class="headerlink" title="3. 模块性能"></a>3. 模块性能</h1><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>指标项</th>
+<th>典型值</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定位时间  [测试条件1]</td>
+<td>纯硬件冷启动</td>
+<td>≤32</td>
+<td>s</td>
+</tr>
+<tr>
+<td>定位时间  [测试条件1]</td>
+<td>纯硬件热启动</td>
+<td>&lt;1</td>
+<td>s</td>
+</tr>
+<tr>
+<td>定位时间  [测试条件1]</td>
+<td>纯硬件重新捕获</td>
+<td>&lt;1</td>
+<td>s</td>
+</tr>
+<tr>
+<td>定位时间  [测试条件1]</td>
+<td>软件辅助A-GNSS（秒定位）</td>
+<td>&lt;5</td>
+<td>s</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>冷启动</td>
+<td>-148</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>热启动</td>
+<td>-156</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>重新捕获</td>
+<td>-160</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>跟踪</td>
+<td>-162</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>水平定位精度</td>
+<td>2</td>
+<td>m</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>速度精度</td>
+<td>0.1</td>
+<td>m/s</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>授时精度</td>
+<td>30</td>
+<td>ns</td>
+</tr>
+<tr>
+<td>功耗  [测试条件4]</td>
+<td>捕获电流值 VCC=3.3V</td>
+<td>33.3</td>
+<td>mA</td>
+</tr>
+<tr>
+<td>功耗  [测试条件4]</td>
+<td>跟踪电流值 VCC=3.3V</td>
+<td>29.2</td>
+<td>mA</td>
+</tr>
+<tr>
+<td>功耗 （电池备份电流）</td>
+<td>VCC=0  VBACKUP=3.3V</td>
+<td>9</td>
+<td>uA</td>
+</tr>
+<tr>
+<td>功耗 （休眠模式电流）</td>
+<td>VCC=3.3V  ON_OFF=0</td>
+<td>6.4</td>
+<td>mA</td>
+</tr>
+<tr>
+<td>工作温度</td>
+<td></td>
+<td>-35℃- 85℃</td>
+<td></td>
+</tr>
+<tr>
+<td>储存温度</td>
+<td></td>
+<td>-55℃- 100℃</td>
+<td></td>
+</tr>
+<tr>
+<td>湿度</td>
+<td></td>
+<td>5%  - 95%</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>注：以上结果为GPS/北斗双模工作模式<br>[测试条件1]： 接收卫星个数大于6，所有卫星信号强度为-130dBm，测试10次取平均值，定位误差小于10米。<br>[测试条件2]：外接LNA噪声系数0.8，接收卫星个数大于6，五分钟之内锁定或者不失锁条件下的接收信号强度值。<br>[测试条件3]：开阔没有遮挡环境，连续24小时开机测试，50%CEP。<br>[测试条件4]：接收卫星个数大于6，所有卫星信号强度为-130dBm。</p>
+<h1 id="4-模块管脚图"><a href="#4-模块管脚图" class="headerlink" title="4.模块管脚图"></a>4.模块管脚图</h1><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024154240934_Air530Z%E7%AE%A1%E8%84%9A%E5%9B%BE.png"></p>
+<table>
+<thead>
+<tr>
+<th><strong>Pin脚编号</strong></th>
+<th><strong>Pin脚定义</strong></th>
+<th><strong>Pin脚描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>GPS_ANT</td>
+<td>GPS天线输入</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ON_OFF</td>
+<td>输入，内部上拉。拉低关闭模块，正常工作保持高电平或悬空；</td>
+</tr>
+<tr>
+<td>4</td>
+<td>VCC</td>
+<td>主电源，供电输入范围2.7-3.6V，推荐采用3.3V供电</td>
+</tr>
+<tr>
+<td>5</td>
+<td>VBACKUP</td>
+<td>备份电源的输入，推荐外接一个可充电的3V纽扣电池或法拉电容，以支持热启动定位；若不需要热启动功能，该管脚可悬空；注意钮扣电池或法拉电容的最大可充电电压应大于 VCC+0.3V</td>
+</tr>
+<tr>
+<td>6</td>
+<td>RESERVED</td>
+<td>保留管脚，悬空处理</td>
+</tr>
+<tr>
+<td>7</td>
+<td>RESERVED</td>
+<td>保留管脚，悬空处理</td>
+</tr>
+<tr>
+<td>8</td>
+<td>TXD</td>
+<td>串口TX，输出GPS NMEA格式定位数据，默认波特率9600bps，最大支持256000bps</td>
+</tr>
+<tr>
+<td>9</td>
+<td>RXD</td>
+<td>串口RX</td>
+</tr>
+<tr>
+<td>10</td>
+<td>RESERVED</td>
+<td>保留管脚，悬空处理</td>
+</tr>
+<tr>
+<td>11</td>
+<td>BDS_GLONASS</td>
+<td>工作模式选择，高电平或悬空时为BDS+GPS;   低电平时为GPS+GLONASS。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+<tr>
+<td>13</td>
+<td>1PPS</td>
+<td>授时管脚，One pulse per second</td>
+</tr>
+<tr>
+<td>14</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+</tbody></table>
+<h1 id="5-参考设计电路"><a href="#5-参考设计电路" class="headerlink" title="5.参考设计电路"></a>5.参考设计电路</h1><p>参考电路：最简模式<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024162520645_%E6%97%A0%E6%BA%90%E5%A4%A9%E7%BA%BF.png"></p>
+<p>设计注意事项</p>
+<ol>
+<li>   VCC供电电压范围2.7-3.6V，典型3.3V供电，如果需要热启动快速定位，则VBACKUP外接一个可充电的钮扣电池或者法拉电容，注意钮扣电池或法拉电容的最大可充电电压应大于 VCC+0.3V。模块内部集成了涓流充电电路和防反向二极管。如果不需要热启动， VBACKUP可悬空。</li>
+<li>   模块尽量靠近GPS天线放置，天线走线保持50欧姆阻抗匹配，走线尽量短，避免锐角。</li>
+<li>   GPS 天线可以使用25X25X4mm 尺寸的无源陶瓷天线。</li>
+<li>   串口TXD,RXD是 3.3V TTL 电平，用户可用此串口接收定位信息数据。</li>
+<li>   本模块是温度敏感设备，温度剧烈变化会导致其性能降低，使用中尽量远离高温器件与大功率发热器件。</li>
+</ol>
+<h1 id="6-GPS天线"><a href="#6-GPS天线" class="headerlink" title="6.GPS天线"></a>6.GPS天线</h1><p>GPS天线可根据需要选择无源天线或有源天线，有源天线相比无源天线效果好，但是成本高。</p>
+<h2 id="6-1-无源天线"><a href="#6-1-无源天线" class="headerlink" title="6.1 无源天线"></a>6.1 无源天线</h2><p>如果采用无源天线，建议天线与模块之间的走线尽可能的短，最理想的情况是GPS模块直接放置在天线的背面，使模块的天线焊盘和GPS天线馈点之间零距离，如下图所示：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201010162022866_666666.png"></p>
+<h2 id="6-2-有源天线"><a href="#6-2-有源天线" class="headerlink" title="6.2 有源天线"></a>6.2 有源天线</h2><p>Air530Z模块内部集成了3.3V有源天线供电电路和检测电路， 可以给外部有源天线馈电。并根据馈电电流的大小，指示有源天线的状态。有源天线检测电路还提供了短路保护，通过限制给有源天线馈电的电流，保护芯片和有源天线不被损坏。检测电路定义了三种状态，当电流小于设定值时，指示天线开路；当电流大于设定值时，指示天线正常；当电流过大或者发生短路时，指示天线过流。<br>天线接入的默认最小检测电流为 2.5mA，短路保护的限流电流默认为 50mA。</p>
+<p><strong>采用有源天线时要注意有源天线的供电范围</strong>，当使用的有源天线的供电是3.3V时，模块可以直接给有源天线进行馈电，参考电路如下所示：<br><strong>3.3V有源天线参考电路</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024161915561_%E6%9C%89%E6%BA%90%E5%A4%A9%E7%BA%BF3.3V.png"></p>
+<p>当采用的有源天线供电为5V时，需使用外部供电，此时需串接一颗47nH电感，并联一颗1000pF的电容，同时还需要加一颗100pF 的隔直电容，参考电路如下所示：<br><strong>5V有源天线参考电路</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201024162036115_%E6%9C%89%E6%BA%90%E5%A4%A9%E7%BA%BF5V.png"></p>
+<h1 id="7-模块外形尺寸"><a href="#7-模块外形尺寸" class="headerlink" title="7. 模块外形尺寸"></a>7. 模块外形尺寸</h1><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201010162803887_7777777.png"></p>
+<p>模块尺寸为12.9mm&#42;9.9mm&#42;2.3mm；</p>
+<h1 id="8-模块推荐PCB封装尺寸图"><a href="#8-模块推荐PCB封装尺寸图" class="headerlink" title="8.模块推荐PCB封装尺寸图"></a>8.模块推荐PCB封装尺寸图</h1><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201010163028298_qqqqqq.png"></p>
+<p>说明：<br>为方便邮票孔焊接，邮票孔焊盘需外延至少0.5mm，模块封装尺寸建议为12.9mm&#42;10.9mm;<br>Air530Z封装下载链接如下：<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201224171924797_Air530Z_%E5%8E%9F%E7%90%86%E5%9B%BEPCB%E5%B0%81%E8%A3%85.zip">Air530Z_原理图PCB封装.zip</a></p>
+<h1 id="9-NMEA0183协议"><a href="#9-NMEA0183协议" class="headerlink" title="9. NMEA0183协议"></a>9. NMEA0183协议</h1><p>AIR530Z模块支持NMEA 0183 V4.1协议并兼容以前版本，关于NMEA 0183 V4.1的详细信息请参照NMEA 0183 V4.1官方文档。</p>
+<h2 id="9-1-NMEA-自定义消息"><a href="#9-1-NMEA-自定义消息" class="headerlink" title="9.1 NMEA 自定义消息"></a>9.1 NMEA 自定义消息</h2><p><strong>CAS00</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS00</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>将当前配置信息保存到 FLASH 中，即使接收机完全断电，FLASH中的信息不丢失。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS00*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS00*01</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS00</td>
+<td>字符串</td>
+<td>消息 ID，语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>3</td>
+<td><CR> <LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS01</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS01</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>设置串口通信波特率。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS01,br*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS01,1*1D</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS01</td>
+<td>字符串</td>
+<td>消息 ID，语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>br</td>
+<td>数字</td>
+<td>波特率配置。   0=4800bps   1=9600bps   2=19200bps   3=38400bps   4=57600bps   5=115200bps</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;）所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS02</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS02</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>设置定位更新率。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS02,fixInt*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS02,1000*2E</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS02</td>
+<td>字符串</td>
+<td>消息 ID， 语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>fixInt</td>
+<td>数值</td>
+<td>定位更新时间间隔，单位为 ms。   1000= 更新率为1Hz，       每秒输出1个定位点                  &nbsp;500=更新率为2Hz，每秒输出2个定位点 &nbsp;250=更新率为4Hz，每秒输出4个定位点 200=更新率为5Hz，每秒输出5个定位点 &nbsp; 100=更新率为10Hz，每秒输出10个定位点</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS03</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS03</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>设置要求输出或停止输出的 NMEA 语句。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS03,nGGA,nGLL,nGSA,nGSV,nRMC,nVTG,nZDA,nANT,nDHV,nLPS,res1,r   es2,nUTC,nGST,res3,res4,res5,nTIM*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS03,1,1,1,1,1,1,1,1,0,0,,,1,1,,,,1*33</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS03</td>
+<td>字符串</td>
+<td>消息 ID，语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>nGGA</td>
+<td>数值</td>
+<td>GGA 输出频率， 语句输出频率是以定位更新率为基准的，n（0~9）表示每 n 次定位输出一次， 0 表示不输出该语句，空则保持原有配置。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>nGLL</td>
+<td>数值</td>
+<td>GLL 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>4</td>
+<td>nGSA</td>
+<td>数值</td>
+<td>GSA 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>5</td>
+<td>nGSV</td>
+<td>数值</td>
+<td>GSV 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>6</td>
+<td>nRMC</td>
+<td>数值</td>
+<td>RMC 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>7</td>
+<td>nVTG</td>
+<td>数值</td>
+<td>VTG 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>8</td>
+<td>nZDA</td>
+<td>数值</td>
+<td>ZDA 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>9</td>
+<td>nANT</td>
+<td>数值</td>
+<td>ANT 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>10</td>
+<td>nDHV</td>
+<td>数值</td>
+<td>DHV 输出频率，同 nGGA</td>
+</tr>
+<tr>
+<td>11</td>
+<td>nLPS</td>
+<td>数值</td>
+<td>LPS 输出频率， 同 nGGA</td>
+</tr>
+<tr>
+<td>12</td>
+<td>res1</td>
+<td>数值</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>13</td>
+<td>res2</td>
+<td>数值</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>14</td>
+<td>nUTC</td>
+<td>数值</td>
+<td>UTC 输出频率， 同 nGGA</td>
+</tr>
+<tr>
+<td>15</td>
+<td>nGST</td>
+<td>数值</td>
+<td>GST 输出频率， 同 nGST</td>
+</tr>
+<tr>
+<td>16</td>
+<td>res3</td>
+<td>数值</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>17</td>
+<td>res4</td>
+<td>数值</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>18</td>
+<td>res5</td>
+<td>数值</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>19</td>
+<td>nTIM</td>
+<td>数值</td>
+<td>TIM（PCAS60） 输出频率， 同 nGGA</td>
+</tr>
+<tr>
+<td>20</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>21</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS04</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS04</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>配置工作系统。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS04,mode*hh<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS04,3&#42;1A 北斗和 GPS 双模   $PCAS04,1&#42;18 单 GPS 工作模式   $PCAS04,2&#42;1B 单北斗工作模式</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS04</td>
+<td>字符串</td>
+<td>消息 ID， 语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>mode</td>
+<td>数字</td>
+<td>工作系统配置。对于特点的产品型号支持下面的部分配置。   1=GPS   2=BDS   3=GPS+BDS   4=GLONASS   5=GPS+GLONASS   6=BDS+GLONASS   7=GPS+BDS+GLONASS</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS05</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS05</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>设置 NMEA 协议类型选择。 多模导航接收机的协议类型比较繁多， 数据协议标准也比较多， 本接收机产品可以支持多种协议（可选配置） 。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS05,ver*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS05,1*19</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS05</td>
+<td>字符串</td>
+<td>消息 ID， 语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>mode</td>
+<td>数字</td>
+<td>NMEA 协议类型选择（备注[1]）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p>备注[1] NMEA 协议类型选择</p>
+<table>
+<thead>
+<tr>
+<th>2</th>
+<th>兼容 NMEA 4.1 以上版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td>兼容中国交通运输信息中心的 BDS/GPS 双模协议，兼容 NMEA 2.3 以上版本， 兼容NMEA4.0 协议</td>
+</tr>
+<tr>
+<td>9</td>
+<td>兼容单 GPS NMEA0183 协议， 兼容 NMEA 2.2 版本</td>
+</tr>
+</tbody></table>
+<p><strong>CAS06</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS06</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>查询产品信息</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS06,info*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS06,0*1B</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS06</td>
+<td>字符串</td>
+<td>消息 ID， 语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>info</td>
+<td>数字</td>
+<td>查询产品的信息类型  &nbsp;&nbsp;&nbsp;&nbsp;0=查询固件版本号 &nbsp;&nbsp;1=查询硬件型号及序列号 &nbsp;2=查询多模接收机的工作模式 &nbsp;3=查询产品的客户编号 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5=查询升级代码信息</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS10</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>接收机重启</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS10,rs*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS10,0&#42;1C 热启动   $PCAS10,1&#42;1D 温启动   $PCAS10,2&#42;1E 冷启动   $PCAS10,3&#42;1F 出厂启动</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS10</td>
+<td>字符串</td>
+<td>消息 ID，语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>rs</td>
+<td>数字</td>
+<td>启动模式配置。   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0=热启动。 不使用初始化信息备份存储中的所有数据有效。   1=温启动。 不使用初始化信息， 清除星历。2=冷启动。 不使用初始化信息,清除备份存储中除配置外的所有数据。 &nbsp;3=出厂启动。 清除内存所有数据，并将接收机复位   至出厂默认配置。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;）所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+<tr>
+<td><strong>CAS12</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS12</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>接收机待机模式控制</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS12,stdbysec*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS12,60*28 接收机进入待机模式， 持续 60 秒后自动开机</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS12</td>
+<td>字符串</td>
+<td>消息 ID， 语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>stdbysec</td>
+<td>数值</td>
+<td>接收机进入待机模式的时间，  最大 65535 秒</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS20</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS20</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>在线升级指令</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS20*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS20*03</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS20</td>
+<td>字符串</td>
+<td>消息 ID，语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>3</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+<tr>
+<td><strong>CAS15</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS15</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>卫星系统控制指令，  可以配置是否接收系统中任何一颗卫星</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输入</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS15,X,YYYYYYYY*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS15,2,FFFFFFFF&#42;37， 开启北斗的 1-32 号卫星   $PCAS15,2,FFFFFFE0&#42;42， 开启北斗的 6-32 号卫星， 北斗 1-5 号卫星关闭   $PCAS15,4,FFFF&#42;31， 开启 SBAS 的  1-16 号卫星， 即 PRN=120-135   $PCAS15,5,1F&#42;47， 开启 QZSS 的  1-5 号卫星， 即 PRN=193， 194， 195， 199， 197</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS15</td>
+<td>字符串</td>
+<td>消息 ID，语句头</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SYS_ID</td>
+<td>1 个数字</td>
+<td>2=北斗 1-32 号卫星   3=北斗 33-64 号卫星   4=SBAS 卫星（1-19 号 SBAS 卫星，  对应 PRN 120-138号）   5=QZSS 卫星（1-5 号 QZSS 卫星，  对应 PRN 193，194， 195， 199， 197 号）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SV_MASK</td>
+<td>1 到 8 个 16 进制数值</td>
+<td>每个16进制字符控制4颗卫星， 最右边的控制1-4号卫星。16 进制字符转换为 4bit 二进制， 每 1bit 对应 1 颗卫星， 1=接收该卫星；  0=禁止。   举例： 3FFFFFE0， 表示禁止 31,32,1-5 号卫星。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>5</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>CAS60</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>CAS60</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>接收机时间信息。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输出</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$PCAS60,UTCtime,ddmmyyyy,wn,tow,timevalid,leaps,leapsValid&#42;CS</td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$PCAS60,091242.000,23122019,2085,119580,1,18,1&#42;33   $PCAS60,091222.000,23122019,,,0,,0&#42;33   $PCAS60,092011.000,23122019,2085,120029,1,,0&#42;33</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$PCAS60</td>
+<td>字符串</td>
+<td>消息 ID</td>
+</tr>
+<tr>
+<td>2</td>
+<td>UTCtime</td>
+<td>hhmmss.sss</td>
+<td>当前时刻的 UTC 时间， leapsValid 为 0,则采用默认 leaps 计算</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ddmmyyyy</td>
+<td>数值</td>
+<td>当前日月年</td>
+</tr>
+<tr>
+<td>4</td>
+<td>wn</td>
+<td>数值</td>
+<td>GPS 系统周数</td>
+</tr>
+<tr>
+<td>5</td>
+<td>tow</td>
+<td>数值</td>
+<td>GPS 系统周内秒</td>
+</tr>
+<tr>
+<td>6</td>
+<td>timeValid</td>
+<td>数值</td>
+<td>时间有效性(2/3/4/5 字段)， 1=有效，0=无效</td>
+</tr>
+<tr>
+<td>7</td>
+<td>leaps</td>
+<td>数值</td>
+<td>GPS 时间和 UTC 时间的差距,闰秒数</td>
+</tr>
+<tr>
+<td>8</td>
+<td>leapsValid</td>
+<td>数值</td>
+<td>闰秒数 leaps 有效性， 1=有效，0=无效</td>
+</tr>
+<tr>
+<td>9</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和之间（不包括$和） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>10</td>
+<td>字符</td>
+<td>回车与换行符</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="9-2-支持NMEA0183协议"><a href="#9-2-支持NMEA0183协议" class="headerlink" title="9.2 支持NMEA0183协议"></a>9.2 支持NMEA0183协议</h2><p>Air530Z支持NMEA0183 V4.1协议并兼容以前版本，关于NMEA0183 V4.1的详细信息可以参照NMEA 0183 V4.1官方文档。</p>
+<p>常见输出格式如下：<br>GGA：时间、位置、卫星数量<br>GSA：GPS接收机操作模式，定位使用的卫星，DOP值，定位状态<br>GSV：可见GPS卫星信息、仰角、方位角、信噪比<br>RMC：时间、日期、位置、速度<br>VTG：地面速度信息</p>
+<p><strong>语句标识符:</strong></p>
+<table>
+<thead>
+<tr>
+<th>标识符</th>
+<th>含  义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BD</td>
+<td>BDS,北斗二代卫星系统</td>
+</tr>
+<tr>
+<td>GP</td>
+<td>GPS</td>
+</tr>
+<tr>
+<td>GL</td>
+<td>GLONASS</td>
+</tr>
+<tr>
+<td>GA</td>
+<td>Galileo</td>
+</tr>
+<tr>
+<td>GN</td>
+<td>GNSS,全球导航卫星系统</td>
+</tr>
+</tbody></table>
+<p><strong>GGA</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>GGA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>接收机时间、  位置及定位相关的数据</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输出</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$-GGA,UTCtime,lat,uLat,lon,uLon,FS,numSv,HDOP,msl,uMsl,sep,uSep,diffAg   e,diffSta*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$GPGGA,235316.000,2959.9925,S,12000.0090,E,1,06,1.21,62.77,M,0.00,M,,*7B</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$–GGA</td>
+<td>字符串</td>
+<td>消息 ID，GGA 语句头，’–‘为系统标识</td>
+</tr>
+<tr>
+<td>2</td>
+<td>UTCtime</td>
+<td>hhmmss.sss</td>
+<td>当前定位的 UTC 时间</td>
+</tr>
+<tr>
+<td>3</td>
+<td>lat</td>
+<td>ddmm.mmmm</td>
+<td>纬度，  前 2 字符表示度， 后面的字符表示分</td>
+</tr>
+<tr>
+<td>4</td>
+<td>uLat</td>
+<td>字符</td>
+<td>纬度方向： N-北， S-南</td>
+</tr>
+<tr>
+<td>5</td>
+<td>lon</td>
+<td>dddmm.mmm   m</td>
+<td>经度，  前 3 字符表示度，后面的字符表示分</td>
+</tr>
+<tr>
+<td>6</td>
+<td>uLon</td>
+<td>字符</td>
+<td>经度方向：E-东，W-西</td>
+</tr>
+<tr>
+<td>7</td>
+<td>FS</td>
+<td>数值</td>
+<td>指示当前定位质量，该字段不应为空</td>
+</tr>
+<tr>
+<td>8</td>
+<td>numSv</td>
+<td>数值</td>
+<td>用于定位的卫星数目，00~24</td>
+</tr>
+<tr>
+<td>9</td>
+<td>HDOP</td>
+<td>数值</td>
+<td>水平精度因子（HDOP）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>msl</td>
+<td>数值</td>
+<td>海拔高度，即接收机天线相对于大地水准面的高度</td>
+</tr>
+<tr>
+<td>11</td>
+<td>uMsl</td>
+<td>字符</td>
+<td>高度单位，米，固定字符 M</td>
+</tr>
+<tr>
+<td>12</td>
+<td>sep</td>
+<td>数值</td>
+<td>参考椭球面与大地水准面之间的距离，“-” 表示大地水准面低于参考椭球面</td>
+</tr>
+<tr>
+<td>13</td>
+<td>uSep</td>
+<td>字符</td>
+<td>高度单位，米，固定字符 M</td>
+</tr>
+<tr>
+<td>14</td>
+<td>diffAge</td>
+<td>数值</td>
+<td>差分修正的数据龄期，  未使用 DGPS 时该域为空</td>
+</tr>
+<tr>
+<td>15</td>
+<td>diffSta</td>
+<td>数值</td>
+<td>差分参考站的ID</td>
+</tr>
+<tr>
+<td>16</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和，$和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>17</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>GSA</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>GSA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>用于定位的卫星编号与 DOP 信息。 不管是否定位或者是否有可用卫星， 都输出 GSA   语句； 当接收机处于多系统联合工作时， 每个系统的可用卫星对应一条 GSA 语句，   每条 GSA 语句都包含根据组合卫星系统得到的 PDOP、 HDOP 和 VDOP。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输出</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$–GSA,smode,FS{,SVID},PDOP,HDOP,VDOP*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$GPGSA,A,3,05,21,31,12,18,29,,,,,,,2.56,1.21,2.25*01</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$–GSA</td>
+<td>字符串</td>
+<td>消息 ID， GSA 语句头， ’–‘为系统标识</td>
+</tr>
+<tr>
+<td>2</td>
+<td>smode</td>
+<td>字符</td>
+<td>模式切换方式指示</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FS</td>
+<td>数字</td>
+<td>定位状态标志</td>
+</tr>
+<tr>
+<td>4</td>
+<td>{,SVID}</td>
+<td>数值</td>
+<td>用于定位的卫星编号，  该字段共显示 12 颗可用卫星编号，多于12 颗时只输出前12颗，不足 12 颗时不足的区域补空</td>
+</tr>
+<tr>
+<td>5</td>
+<td>PDOP</td>
+<td>数值</td>
+<td>位置精度因子（PDOP）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>HDOP</td>
+<td>数值</td>
+<td>水平精度因子（HDOP）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>VDOP</td>
+<td>数值</td>
+<td>垂直精度因子（VDOP）</td>
+</tr>
+<tr>
+<td>8</td>
+<td>systemId</td>
+<td>数值</td>
+<td>NMEA 所定义的 GNSS系统 ID号   仅 NMEA 4.1 及以上版本有效</td>
+</tr>
+<tr>
+<td>9</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>10</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>模式切换方式指示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M</td>
+<td>手动切换。  强制为 2D 或者 3D 工作模式</td>
+</tr>
+<tr>
+<td>A</td>
+<td>自动切换。  接收机自动切换 2D/3D 工作模式</td>
+</tr>
+<tr>
+<td>定位状态</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>1</td>
+<td>定位无效</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2D 定位</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3D 定位</td>
+</tr>
+<tr>
+<td>系统  ID</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>1</td>
+<td>GPS 系统</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GLONASS 系统</td>
+</tr>
+<tr>
+<td>4</td>
+<td>BDS 系统</td>
+</tr>
+</tbody></table>
+<p><strong>GSV</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>GSV</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>可见卫星的卫星编号及其仰角、  方位角、 载噪比等信息。 每条 GSV 语句中的{卫星编号,仰角,方位角,载噪比}参数组的数量可变，最多为  4 组， 最少为 0 组。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输出</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$–GSV,numMsg,msgNo,numSv{,SVID,ele,az,cn0}  *CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$GPGSV,3,1,10,25,68,053,47,21,59,306,49,29,56,161,49,31,36,265,49&#42;79   $GPGSV,3,2,10,12,29,048,49,05,22,123,49,18,13,000,49,01,00,000,49&#42;72   $GPGSV,3,3,10,14,00,000,03,16,00,000,27&#42;7C</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$–GSV</td>
+<td>字符串</td>
+<td>消息 ID， GSV 语句头， ’–‘为系统标识</td>
+</tr>
+<tr>
+<td>2</td>
+<td>numMsg</td>
+<td>字符</td>
+<td>语句总数。每条 GSV 语句最多输出 4 颗可见卫星信息，因此，当该系统可见卫星多于 4 颗时，将需要多条 GSV 语句。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>msgNo</td>
+<td>数字</td>
+<td>当前语句编号</td>
+</tr>
+<tr>
+<td>4</td>
+<td>numSv</td>
+<td>数值</td>
+<td>可见卫星总数</td>
+</tr>
+<tr>
+<td>5</td>
+<td>{,SVID,ele,   az,cn0}</td>
+<td>数值</td>
+<td>依次为:卫星编号;   仰角，  取值范围为 0<del>90， 单位是度;   方位角， 取值范围为 0</del>359，单位是度;   载噪比， 取值范围为 0~99， 单位是 dB-Hz，  如果没有跟踪到当前卫星，补空</td>
+</tr>
+<tr>
+<td>6</td>
+<td>signalId</td>
+<td>数值</td>
+<td>NMEA 所定义的 GNSS 信号 ID（0 代表全部信号）仅  NMEA 4.1 及以上版本有效</td>
+</tr>
+<tr>
+<td>7</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>8</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<p><strong>RMC</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>RMC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>推荐的最小定位信息</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输出</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$–RMC,UTCtime,status,lat,uLat,lon,uLon,spd,cog,date,mv,mvE,mode*CS<C   R><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$GPRMC,235316.000,A,2959.9925,S,12000.0090,E,0.009,75.020,020711,,,A&#42;45</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$–RMC</td>
+<td>字符串</td>
+<td>消息 ID， RMC 语句头， ’–‘为系统标识</td>
+</tr>
+<tr>
+<td>2</td>
+<td>UTCtime</td>
+<td>hhmmss.sss</td>
+<td>当前定位的 UTC 时间</td>
+</tr>
+<tr>
+<td>3</td>
+<td>status</td>
+<td>字符串</td>
+<td>位置有效标志。   V=接收机警告，  数据无效   A=数据有效</td>
+</tr>
+<tr>
+<td>4</td>
+<td>lat</td>
+<td>ddmm.mmmm</td>
+<td>纬度，前2字符表示度，后面的字符表示分</td>
+</tr>
+<tr>
+<td>5</td>
+<td>uLat</td>
+<td>字符</td>
+<td>纬度方向： N-北， S-南</td>
+</tr>
+<tr>
+<td>6</td>
+<td>lon</td>
+<td>dddmm.mmm   m</td>
+<td>经度，前3字符表示度，后面的字符表示分</td>
+</tr>
+<tr>
+<td>7</td>
+<td>uLon</td>
+<td>字符</td>
+<td>经度方向：E-东，W-西</td>
+</tr>
+<tr>
+<td>8</td>
+<td>spd</td>
+<td>数值</td>
+<td>对地速度，单位为节</td>
+</tr>
+<tr>
+<td>9</td>
+<td>cog</td>
+<td>数值</td>
+<td>对地真航向，单位为度</td>
+</tr>
+<tr>
+<td>10</td>
+<td>date</td>
+<td>ddmmyy</td>
+<td>日期（dd 为日，mm为月，yy 为年）</td>
+</tr>
+<tr>
+<td>11</td>
+<td>mv</td>
+<td>数值</td>
+<td>磁偏角，单位为度。固定为空</td>
+</tr>
+<tr>
+<td>12</td>
+<td>mvE</td>
+<td>字符</td>
+<td>磁偏角方向：E-东，W-西。固定为空</td>
+</tr>
+<tr>
+<td>13</td>
+<td>mode</td>
+<td>字符</td>
+<td>定位模式标志   仅 <em>NMEA 2.3</em> 及以上版本有效</td>
+</tr>
+<tr>
+<td>14</td>
+<td>navStatus</td>
+<td>字符</td>
+<td>导航状态标示符（V 表示系统不输出导航状态信息）   仅 NMEA 4.1 及以上版本有效</td>
+</tr>
+<tr>
+<td>15</td>
+<td>CS</td>
+<td>16进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>16</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>定位模式标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>自主模式</td>
+</tr>
+<tr>
+<td>E</td>
+<td>估算模式（航位推算）</td>
+</tr>
+<tr>
+<td>N</td>
+<td>数据无效</td>
+</tr>
+<tr>
+<td>D</td>
+<td>差分模式</td>
+</tr>
+<tr>
+<td>M</td>
+<td>未定位，  但存在外部输入或历史保存的位置</td>
+</tr>
+</tbody></table>
+<p><strong>VTG</strong></p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>VTG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描述</td>
+<td>对地速度与对地航向信息。</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>输出</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>$–VTG,cogt,T,cogm,M,sog,N,kph,K,mode*CS<CR><LF></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>$GPVTG,75.20,T,,M,0.009,N,0.017,K,A*02</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>名称</th>
+<th>格式</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$–VTG</td>
+<td>字符串</td>
+<td>消息 ID， VTG 语句头， ’–‘为系统标识</td>
+</tr>
+<tr>
+<td>2</td>
+<td>cogt</td>
+<td>数值</td>
+<td>对地真北航向，  单位为度</td>
+</tr>
+<tr>
+<td>3</td>
+<td>T</td>
+<td>字符</td>
+<td>真北指示，  固定为 T</td>
+</tr>
+<tr>
+<td>4</td>
+<td>cogm</td>
+<td>数值</td>
+<td>对地磁北航向，  单位为度</td>
+</tr>
+<tr>
+<td>5</td>
+<td>M</td>
+<td>字符</td>
+<td>磁北指示，  固定为 M</td>
+</tr>
+<tr>
+<td>6</td>
+<td>sog</td>
+<td>数值</td>
+<td>对地速度，  单位为节</td>
+</tr>
+<tr>
+<td>7</td>
+<td>N</td>
+<td>字符</td>
+<td>速度单位节，  固定为 N</td>
+</tr>
+<tr>
+<td>8</td>
+<td>kph</td>
+<td>数值</td>
+<td>对地速度，  单位为千米每小时</td>
+</tr>
+<tr>
+<td>9</td>
+<td>K</td>
+<td>字符</td>
+<td>速度单位，  千米每小时， 固定为 K</td>
+</tr>
+<tr>
+<td>10</td>
+<td>mode</td>
+<td>字符</td>
+<td>定位模式标志   仅 <em>NMEA 2.3</em> 及以上版本有效</td>
+</tr>
+<tr>
+<td>11</td>
+<td>CS</td>
+<td>16 进制数值</td>
+<td>校验和， $和&#42;之间（不包括$和&#42;） 所有字符的异或结果</td>
+</tr>
+<tr>
+<td>12</td>
+<td><CR><LF></td>
+<td>字符</td>
+<td>回车与换行符</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>定位模式标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>自主模式</td>
+</tr>
+<tr>
+<td>E</td>
+<td>估算模式（航位推算）</td>
+</tr>
+<tr>
+<td>N</td>
+<td>数据无效</td>
+</tr>
+<tr>
+<td>D</td>
+<td>差分模式</td>
+</tr>
+<tr>
+<td>M</td>
+<td>未定位，  但存在外部输入或历史保存的位置</td>
+</tr>
+</tbody></table>
+<h1 id="10-GNSS工具GnssToolKit3"><a href="#10-GNSS工具GnssToolKit3" class="headerlink" title="10 GNSS工具GnssToolKit3"></a>10 GNSS工具GnssToolKit3</h1><p>Gnss ToolKit3是一个专为Air530Z开发的GNSS工具，它为用户评估、控制Air530Z模块提供了一个易用、强大的可视化PC端工具。当然用户也可以使用诸如u-Center、PowerGPS等工具。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201012145930342_ZKW.png"></p>
+<table>
+<thead>
+<tr>
+<th>版本号</th>
+<th align="left">修改记录</th>
+<th align="left">日期</th>
+<th>作者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V1.0</td>
+<td align="left">新建</td>
+<td align="left">2020-10-12</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.1</td>
+<td align="left">更新休眠模式下的功耗数据为6.4mA</td>
+<td align="left">2020-12-10</td>
+<td>Loukanghua</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/10/12/1657/" data-id="ckkfmdgey00dsvkcggv1l5v6l" data-title="Air530Z GPS/北斗定位模块_设计指导手册_V1.1" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/13/1664/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Luat task 延时那些事
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/05/1625/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Lua 函数闭包那些事</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

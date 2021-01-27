@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>合宙AT指令发送短信 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="如果看过合宙的AT指令手册，我想你会知道合宙的AT发短信的模式：TEXT和PDU两种。首先来说说TEXT模式：这个模式不管是发送还是读取都是最简单的，也是很好理解的。但是它有个缺点就是无法发送中文，只能发送或接收ASCII码的数据。使用步骤很简单：1 、AT发送AT+CMGF&#x3D;1，设置为TEXT模式。2、在输AT+CMGS&#x3D;&quot;要发送的手机号&quot;&amp;nbsp;3、出现 “&gt;”符号后，再输入要发送的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合宙AT指令发送短信">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/12/24/539/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="如果看过合宙的AT指令手册，我想你会知道合宙的AT发短信的模式：TEXT和PDU两种。首先来说说TEXT模式：这个模式不管是发送还是读取都是最简单的，也是很好理解的。但是它有个缺点就是无法发送中文，只能发送或接收ASCII码的数据。使用步骤很简单：1 、AT发送AT+CMGF&#x3D;1，设置为TEXT模式。2、在输AT+CMGS&#x3D;&quot;要发送的手机号&quot;&amp;nbsp;3、出现 “&gt;”符号后，再输入要发送的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-12-2uUFpyuo5c20f0783ecff.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-12-hbcAx58G5c20f5a0006d5.png">
+<meta property="article:published_time" content="2018-12-24T15:09:37.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.359Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-12-2uUFpyuo5c20f0783ecff.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-539" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/12/24/539/" class="article-date">
+  <time class="dt-published" datetime="2018-12-24T15:09:37.000Z" itemprop="datePublished">2018-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      合宙AT指令发送短信
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>如果看过合宙的AT指令手册，我想你会知道合宙的AT发短信的模式：TEXT和PDU两种。</p><p>首先来说说TEXT模式：这个模式不管是发送还是读取都是最简单的，也是很好理解的。但是它有个缺点就是无法发送中文，只能发送或接收ASCII码的数据。</p><p>使用步骤很简单：1 、AT发送AT+CMGF=1，设置为TEXT模式。</p><p>2、在输AT+CMGS="要发送的手机号"&nbsp;</p><p>3、出现 “&gt;”符号后，再输入要发送的信息（注意只能ASCII码的字符）。</p><p>4、最后以16进制格式发送 1a&nbsp; 其代表ctrl-Z这命令<img src="http://oldask.openluat.com/image/show/attachments-2018-12-2uUFpyuo5c20f0783ecff.png" class="img-responsive" style="width: 303.5px;"></p><p>再来说说PDU模式：这个模式相对使用起来较复杂不如TEXT那么直观简单，但是所能做到的却更强，建议实际产品都采纳这种模式。</p><p>发送短信的步骤如下：</p><p>1、AT+CMGS=21 &nbsp; &nbsp; &nbsp; 21代表要发的字符串的长度，具体使用时要改变</p><p>2、出现 “&gt;”符号后，再输入要发送的信息（需要PDU的格式）例：0011000D9168*************0008AA068C228C22FF01&nbsp; &nbsp; &nbsp; ***号代表手机号码其格式为：单数手机号+F（双数号码不用加f）然后把其两两对换。例：10086变为0180f6&nbsp; &nbsp;。在这说明号码前面的91代表“+”这符号 68即86 和起来为+86。</p><p>在这里分享个在线的PDU转码工具：http://www.multisilicon.com/blog/a22201774~/pdu.htm</p><p>3、最后以16进制格式发送 1a 短信就发出</p><p>返回CMGS代表发送成功的数据量</p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-12-hbcAx58G5c20f5a0006d5.png" class="img-responsive" style="width: 207.5px;"></p><p>关于PDU编码，将放到其他的文章之中。搜PDU编码格式即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/12/24/539/" data-id="ckkfmdgby0074vkcg9sr9cijn" data-title="合宙AT指令发送短信" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/31/540/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          有哪些让人拍案叫绝的智障设计？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/19/538/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">面世就定价8000元，5G目前恐难以商用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

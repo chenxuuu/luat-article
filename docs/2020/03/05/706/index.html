@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>7、合宙Air模块Luat开发：定时器的使用方法 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录点击这里查看所有博文  本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。   先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！  一、前言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7、合宙Air模块Luat开发：定时器的使用方法">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/03/05/706/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录点击这里查看所有博文  本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。   先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！  一、前言">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200305135611222.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020030513125958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200305131225688.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200305135007146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-03-05T06:04:36.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200305135611222.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-706" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/03/05/706/" class="article-date">
+  <time class="dt-published" datetime="2020-03-05T06:04:36.000Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      7、合宙Air模块Luat开发：定时器的使用方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>一日不见如隔三秋，距离发布上篇博客<code>又是一种新的外设之ADC模数转换，现在我们可以采集模拟量数据了</code>已然过去了半个月，最近事情比较多，没有时间写博客，今天抽出一点时间写一篇有关Air720SL定时器的使用方法</p>
+</blockquote>
+<ul>
+<li>那么什么是定时器呢？</li>
+</ul>
+<blockquote>
+<p>定时器通俗的讲就相当于一个闹钟。<br>我们的手机里面都有闹钟，每天早上负责叫醒我们上班不要迟到。我们只要在手机里面设置好时间，然后可以按需选择每天都响，或者选择只响一次。作用是打断正在做的事（睡觉）。<br><img src="https://img-blog.csdnimg.cn/20200305135611222.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>在单片机系统中也是有定时器的。<br>而 定时器又分为两种，分别是硬件定时器和软件定时器<br>不管是51系列、stm32系列、avr系列、亦或是其他的单片机，它们在裸机编程上都是拥有硬件定时器的，一般硬件定时器数量有几个到十几个不等，占用的是硬件资源，</p>
+</blockquote>
+<ul>
+<li> 硬件定时器：一般硬件定时器集成在CPU的内部，有的可以使用外置的硬件定时器芯片，其使用的时基是系统内部的高速时钟源经过分频得到的，高速时钟源又是由外部晶振倍频得到，精度非常高，但是依赖硬件，能使用的数量有限</li>
+</ul>
+<blockquote>
+<p>如果涉及到了操作系统编程，软件定时器那就必不可少。</p>
+</blockquote>
+<ul>
+<li>软件定时器：一般软件定时器都是利用的是操作系统的延时阻塞性，在定时器启动和触发时记录下当前的系统时间，每隔一个时间片去查询下有没有到指定的定时时间，有的话就触发软件回调，精度相对硬件定时器要差得多，理论上是没有使用数量限制的，内存有多大，定时器就可以有多少</li>
+</ul>
+<blockquote>
+<p>我翻过Air720SL的硬件手册和API手册好像是没有看到有关硬件定时器的说明。<code>我没看到不代表没有，只是我不知道</code>，这里我就不多说了，本片博客主要是讲Air720SL模组Luat二次开发的软件定时器怎么使用</p>
+</blockquote>
+<h1 id="二、了解软件API"><a href="#二、了解软件API" class="headerlink" title="二、了解软件API"></a>二、了解软件API</h1><blockquote>
+<p>Luat官方给出的定时器相关API是包含在sys驱动库文件下的。也就是说想要使用软件定时器那就必须要先<code>require &quot;sys&quot;</code>。</p>
+</blockquote>
+<blockquote>
+<p>在4G模块上只能选择LuaTask框架<br><img src="https://img-blog.csdnimg.cn/2020030513125958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>但是在2G模块上，有另外一个选择，官方推荐的是使用LuaTask。如果用户使用的是第一版旧版本驱动库，是不能使用本篇博客所说的软件定时器的<br><img src="https://img-blog.csdnimg.cn/20200305131225688.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>接下来我会依次对Luat的软件定时器库做相应的讲解</p>
+</blockquote>
+<ul>
+<li> <code>sys.timerStart(timer0_Task, 15000)</code>  –开启一个定时器，这个定时器只会触发一次，分别传入定时回调函数和定时时间，就可以启用定时器</li>
+<li><code>time1 = sys.timerLoopStart(timer_Loop_Task, 2000)</code>  –开启一个循环定时器，开启成功会返回定时器句柄，可用于关闭定时器</li>
+<li><code>sys.timerStop(time1)</code>–使用time1的ID关闭time1，关闭某一个定时器</li>
+<li><code>sys.timerStopAll(timer_Loop_Task)</code>–timerStopAll关闭回调函数绑定的所有定时器</li>
+</ul>
+<h1 id="三、编写测试程序"><a href="#三、编写测试程序" class="headerlink" title="三、编写测试程序"></a>三、编写测试程序</h1><blockquote>
+<p>我这里就直接在main函数里面创建一个单次定时器，再创建四个循环定时器共用一个回调函数</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">user_main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    sys.<span class="title">taskInit</span><span class="params">(Test_Task)</span></span></span><br><span class="line"><span class="function">    sys.<span class="title">timerStart</span><span class="params">(timer0_Task, <span class="number">15000</span>)</span></span></span><br><span class="line"><span class="function">    time1 </span>= sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">1</span>)</span><br><span class="line">    sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">2</span>)</span><br><span class="line">    sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">3</span>)</span><br><span class="line">    sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">4</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>最后在定时器循环回调函数中，使用timerStop和 timerStopAll 进行分批关闭定时器</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">timer_Loop_Task</span><span class="params">(time_num)</span></span></span><br><span class="line"><span class="function">    <span class="built_in">log</span>.<span class="title">info</span><span class="params">(<span class="string">&quot;timer_Loop_Task当前的时间戳是:&quot;</span>, time_num, os.time())</span></span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> num </span>== <span class="number">5</span> then</span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;Close time1 with time1&#x27;s ID&quot;</span>)</span><br><span class="line">        sys.timerStop(time1)--使用time1的ID关闭time1</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">10</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;Close time2 with callback function and parameters:&quot;</span>)</span><br><span class="line">            sys.timerStop(timer_Loop_Task, <span class="number">2</span>)--以回调函数加参数关闭time2</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">if</span> num == <span class="number">15</span> then</span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;timerStopAll closes all timers bound to the callback function&quot;</span>)</span><br><span class="line">                sys.timerStopAll(timer_Loop_Task)--timerStopAll关闭回调函数绑定的所有定时器</span><br><span class="line">            end</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    <span class="keyword">if</span> time_num == <span class="number">4</span> then</span><br><span class="line">        num = num + <span class="number">1</span></span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h1 id="四、下载完整的代码到Air720Sl开发板"><a href="#四、下载完整的代码到Air720Sl开发板" class="headerlink" title="四、下载完整的代码到Air720Sl开发板"></a>四、下载完整的代码到Air720Sl开发板</h1><blockquote>
+<p>这里我们直接贴出全部代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line">--[[</span><br><span class="line">如果使用UART输出日志，打开这行注释的代码<span class="string">&quot;--log.openTrace(true,1,115200)&quot;</span>即可，根据自己的需求修改此接口的参数</span><br><span class="line">如果要彻底关闭脚本中的输出日志（包括调用<span class="built_in">log</span>模块接口和Lua标准print接口输出的日志），执行<span class="built_in">log</span>.openTrace(<span class="literal">false</span>,第二个参数跟调用openTrace接口打开日志的第二个参数相同)，例如：</span><br><span class="line"><span class="number">1</span>、没有调用过sys.opntrace配置日志输出端口或者最后一次是调用<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,nil,<span class="number">921600</span>)配置日志输出端口，此时要关闭输出日志，直接调用<span class="built_in">log</span>.openTrace(<span class="literal">false</span>)即可</span><br><span class="line"><span class="number">2</span>、最后一次是调用<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,<span class="number">1</span>,<span class="number">115200</span>)配置日志输出端口，此时要关闭输出日志，直接调用<span class="built_in">log</span>.openTrace(<span class="literal">false</span>,<span class="number">1</span>)即可</span><br><span class="line">]]</span><br><span class="line">--<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,<span class="number">1</span>,<span class="number">115200</span>)</span><br><span class="line">local function Test_Task()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;Test_Task_run&quot;</span>)</span><br><span class="line">        sys.wait(<span class="number">5000</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">function timer0_Task()</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;timer0_Task当前的时间戳是:&quot;</span>, os.time())</span><br><span class="line">end</span><br><span class="line">num = <span class="number">0</span>;</span><br><span class="line">time1 = <span class="number">0</span>;</span><br><span class="line"><span class="function">function <span class="title">timer_Loop_Task</span><span class="params">(time_num)</span></span></span><br><span class="line"><span class="function">    <span class="built_in">log</span>.<span class="title">info</span><span class="params">(<span class="string">&quot;timer_Loop_Task当前的时间戳是:&quot;</span>, time_num, os.time())</span></span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> num </span>== <span class="number">5</span> then</span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;Close time1 with time1&#x27;s ID&quot;</span>)</span><br><span class="line">        sys.timerStop(time1)--使用time1的ID关闭time1</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">10</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;Close time2 with callback function and parameters:&quot;</span>)</span><br><span class="line">            sys.timerStop(timer_Loop_Task, <span class="number">2</span>)--以回调函数加参数关闭time2</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">if</span> num == <span class="number">15</span> then</span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;timerStopAll closes all timers bound to the callback function&quot;</span>)</span><br><span class="line">                sys.timerStopAll(timer_Loop_Task)--timerStopAll关闭回调函数绑定的所有定时器</span><br><span class="line">            end</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    <span class="keyword">if</span> time_num == <span class="number">4</span> then</span><br><span class="line">        num = num + <span class="number">1</span></span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    sys.taskInit(Test_Task)</span><br><span class="line">    sys.timerStart(timer0_Task, <span class="number">15000</span>)</span><br><span class="line">    time1 = sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">1</span>)</span><br><span class="line">    sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">2</span>)</span><br><span class="line">    sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">3</span>)</span><br><span class="line">    sys.timerLoopStart(timer_Loop_Task, <span class="number">2000</span>, <span class="number">4</span>)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载程序后，打开Trace监视</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">05.074</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">1</span> <span class="number">1388505608</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">05.104</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505608</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">05.108</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505608</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">05.111</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505608</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">06.785</span>]:</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">06.790</span>]: SMS READY</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">07.053</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">1</span> <span class="number">1388505610</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">07.068</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505610</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">07.082</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505610</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">07.091</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505610</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">08.830</span>]: [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">09.055</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">1</span> <span class="number">1388505612</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">09.068</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505612</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">09.077</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505612</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">09.084</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505612</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">09.812</span>]:</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">09.814</span>]: +MPBK: <span class="number">1</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.041</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">1</span> <span class="number">1388505614</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.051</span>]: [I]-[Close time1 with time1<span class="number">&#x27;</span>s ID]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.065</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505614</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.076</span>]: [I]-[Close time1 with time1<span class="number">&#x27;</span>s ID]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.090</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505614</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.101</span>]: [I]-[Close time1 with time1<span class="number">&#x27;</span>s ID]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.104</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505614</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">11.106</span>]: [I]-[Close time1 with time1<span class="number">&#x27;</span>s ID]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">13.024</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505616</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">13.036</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505616</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">13.048</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505616</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">13.802</span>]: [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">13.805</span>]: [I]-[timer0_Task当前的时间戳是:] <span class="number">1388505617</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">15.013</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505618</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">15.026</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505618</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">15.038</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505618</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">17.000</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505620</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">17.012</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505620</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">17.022</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505620</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">18.786</span>]: [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">18.985</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505622</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">18.995</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505622</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">19.008</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505622</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">20.988</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">2</span> <span class="number">1388505624</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">21.002</span>]: [I]-[Close time2 with callback function <span class="keyword">and</span> parameters:]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">21.009</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505624</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">21.016</span>]: [I]-[Close time2 with callback function <span class="keyword">and</span> parameters:]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">21.022</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505624</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">21.028</span>]: [I]-[Close time2 with callback function <span class="keyword">and</span> parameters:]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">22.969</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505626</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">22.983</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505626</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">23.758</span>]: [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">24.966</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505628</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">24.980</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505628</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">26.962</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505630</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">26.978</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505630</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">28.741</span>]: [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">28.942</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505632</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">28.956</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">4</span> <span class="number">1388505632</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">30.941</span>]: [I]-[timer_Loop_Task当前的时间戳是:] <span class="number">3</span> <span class="number">1388505634</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">30.956</span>]: [I]-[timerStopAll closes all timers bound to the callback function]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>发现timer0 <code>[2020-03-05 13:47:13.805]: [I]-[timer0_Task当前的时间戳是:] 1388505617</code>       仅出现了一次，和程序里面写的一样，单次运行</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>在此处出现关闭id为1的定时器提示，ID1便停止输出，验证了<code>timerStop</code>正常执行<br><img src="https://img-blog.csdnimg.cn/20200305135007146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>在最后出现关闭所有定时器的提示<code>[2020-03-05 13:47:30.956]: [I]-[timerStopAll closes all timers bound to the callback function]</code>，后面便停止输出，验证了<code>timerStopAll</code>执行正确</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/03/05/706/" data-id="ckkfmdgd700avvkcg0x1w1p25" data-title="7、合宙Air模块Luat开发：定时器的使用方法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/05/707/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          8、合宙Air模块Luat开发：基于官方库的二次封装，使串口更加易用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/28/704/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air系列模块Luat版本如何使用http.request接口</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

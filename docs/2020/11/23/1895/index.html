@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>clamp/Lodash/“窗口滑动” | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="章述：我，一个程序员的“白日梦”，一行代码解决一个需求；吐槽：代码逻辑繁琐，脑细胞支撑不了 CSS（clamp）  场景：可能有一天你会想用一个css属性搭建一个自适应的项目（可能性还是比较小的。。。。但是确实存在实现该需求的东东） 使用 clamp() CSS函数，我们可以创建仅具有一个属性的响应式网站。 用法：clamp(minimum, preferred, maximum);三个属性：（属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="clamp&#x2F;Lodash&#x2F;“窗口滑动”">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/11/23/1895/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="章述：我，一个程序员的“白日梦”，一行代码解决一个需求；吐槽：代码逻辑繁琐，脑细胞支撑不了 CSS（clamp）  场景：可能有一天你会想用一个css属性搭建一个自适应的项目（可能性还是比较小的。。。。但是确实存在实现该需求的东东） 使用 clamp() CSS函数，我们可以创建仅具有一个属性的响应式网站。 用法：clamp(minimum, preferred, maximum);三个属性：（属">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d21729f447b4ca8be6cb27616e6b808~tplv-k3u1fbpfcp-zoom-1.image">
+<meta property="article:published_time" content="2020-11-23T03:13:17.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.337Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d21729f447b4ca8be6cb27616e6b808~tplv-k3u1fbpfcp-zoom-1.image">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1895" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/23/1895/" class="article-date">
+  <time class="dt-published" datetime="2020-11-23T03:13:17.000Z" itemprop="datePublished">2020-11-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      clamp/Lodash/“窗口滑动”
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>章述：我，一个程序员的“白日梦”，一行代码解决一个需求；<br>吐槽：代码逻辑繁琐，脑细胞支撑不了</p>
+<p><strong>CSS（clamp）</strong></p>
+<p><a href="undefined" title="undefined"><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d21729f447b4ca8be6cb27616e6b808~tplv-k3u1fbpfcp-zoom-1.image" alt="undefined" title="undefined"></a></p>
+<p>场景：可能有一天你会想用一个css属性搭建一个自适应的项目（可能性还是比较小的。。。。但是确实存在实现该需求的东东）</p>
+<p>使用 clamp() CSS函数，我们可以创建仅具有一个属性的响应式网站。</p>
+<p>用法：<br>clamp(minimum, preferred, maximum);<br>三个属性：（属性值的类型不确定：px/%/vw/rem……等等）<br>minimum 最小值：例如 16px<br>flexible 弹性值/首选值：例如 5vw<br>maximum 最大值：例如 34px</p>
+<p>h1 {<br>  font-size: clamp(16px, 5vw, 34px);<br>}<br>在此示例中，仅当该值大于 16px 且小于 34px 时,h1 字体大小值将为视口宽度的 5％。</p>
+<p>简单举例：<br>例如，如果你的视口宽度是 300px，你的 5vw 值将等于 15px，但是，你将该字体大小值限制为最小 16px，因此这就是将要发生的情况。<br>另一方面，如果你的视口宽度为 1400px，则 5vw 将高达 70px！但幸运的是，你将该最大值限制为 34px，因此它不会超过该值。</p>
+<p>一句话：比小取小，比大取大</p>
+<p><strong>Lodash</strong><br>社区链接：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/1730/0">http://doc.openluat.com/article/1730/0</a><br>官网链接：<a target="_blank" rel="noopener" href="https://www.lodashjs.com/">https://www.lodashjs.com/</a></p>
+<p><strong>”窗口滑动类“</strong><br>滑动窗口主要思路是维护一对指针，在一定条件内右移右指针扩大窗口大小直到窗口内的解不满足题意，此时我们需要根据情况移动左指针，重复移动左右指针的操作并在区间内求解，直到双指针不能再移动。<br>d：寻无重复最长子串长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var lengthOfLongestSubstring &#x3D; function(s) &#123;</span><br><span class="line">    &#x2F;&#x2F; 用于存储指针移动过程中的值</span><br><span class="line">    let map &#x3D; &#123;&#125;</span><br><span class="line">    &#x2F;&#x2F; 双指针</span><br><span class="line">    let left &#x3D; 0</span><br><span class="line">    let right &#x3D; 0</span><br><span class="line">    &#x2F;&#x2F; 结果</span><br><span class="line">    let count &#x3D; 0</span><br><span class="line">    &#x2F;&#x2F; 指针移动终止条件</span><br><span class="line">    while (right &lt; s.length) &#123;</span><br><span class="line">        const char &#x3D; s[right]</span><br><span class="line">        &#x2F;&#x2F; 根据题意我们需要寻找不重复的最长子串</span><br><span class="line">        &#x2F;&#x2F; 当 char 出现时我们需要移动左指针到重复字符的下一位</span><br><span class="line">        if (char in map) &#123;</span><br><span class="line">            left &#x3D; Math.max(left, map[char] + 1)</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 求解</span><br><span class="line">        count &#x3D; Math.max(count, right - left + 1)</span><br><span class="line">        &#x2F;&#x2F; 移动右指针并存下索引</span><br><span class="line">        map[char] &#x3D; right++</span><br><span class="line">    &#125;</span><br><span class="line">    return count</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>通用解法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let left &#x3D; 0</span><br><span class="line">let right &#x3D; 0</span><br><span class="line">while (right &lt; size) &#123;</span><br><span class="line">    获取当前索引数据</span><br><span class="line">    right++</span><br><span class="line">    更新操作</span><br><span class="line">    while (窗口需要缩小) &#123;</span><br><span class="line">        left++</span><br><span class="line">        移除操作</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>右指针右移后数据的更新<br>判断窗口何时需要缩小<br>左指针右移后数据的更新<br>根据题目求最优解</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/23/1895/" data-id="ckkfmdga30027vkcgc4hl7d2p" data-title="clamp/Lodash/“窗口滑动”" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/24/1899/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Express基本说明
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/22/1889/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">air302_mqtt2_uniapp_luatOS_demo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

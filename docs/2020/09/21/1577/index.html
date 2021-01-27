@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux Namespaces学习 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Linux Namespaces学习namespaces是linux内核的一个功能。顾名思义可以划分各种空间，提供某种程度的隔离，在系统各种“资源”下划分空间（组）。 例如pid的ns。pid一般是从1开始，形成一颗树，pid是唯一的。ns可以开辟一个新的空间，里面又是从1开始形成一颗新的树，两棵树存在相同的pid，但不会相互干扰。 https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Li">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Namespaces学习">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/09/21/1577/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="Linux Namespaces学习namespaces是linux内核的一个功能。顾名思义可以划分各种空间，提供某种程度的隔离，在系统各种“资源”下划分空间（组）。 例如pid的ns。pid一般是从1开始，形成一颗树，pid是唯一的。ns可以开辟一个新的空间，里面又是从1开始形成一颗新的树，两棵树存在相同的pid，但不会相互干扰。 https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Li">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-21T08:10:31.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1577" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/09/21/1577/" class="article-date">
+  <time class="dt-published" datetime="2020-09-21T08:10:31.000Z" itemprop="datePublished">2020-09-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux Namespaces学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Linux-Namespaces学习"><a href="#Linux-Namespaces学习" class="headerlink" title="Linux Namespaces学习"></a>Linux Namespaces学习</h1><p>namespaces是linux内核的一个功能。顾名思义可以划分各种空间，提供某种程度的隔离，在系统各种“资源”下划分空间（组）。</p>
+<p>例如pid的ns。pid一般是从1开始，形成一颗树，pid是唯一的。<br>ns可以开辟一个新的空间，里面又是从1开始形成一颗新的树，两棵树存在相同的pid，但不会相互干扰。</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Linux_namespaces">https://en.wikipedia.org/wiki/Linux_namespaces</a><br><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/namespaces.7.html">https://man7.org/linux/man-pages/man7/namespaces.7.html</a></p>
+<p>所有空间类型：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Namespace</th>
+<th align="left">Flag</th>
+<th align="left">Page</th>
+<th align="left">Isolates</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Cgroup</td>
+<td align="left">CLONE_NEWCGROUP</td>
+<td align="left">cgroup_namespaces(7)</td>
+<td align="left">Cgroup root directory</td>
+</tr>
+<tr>
+<td align="left">IPC</td>
+<td align="left">CLONE_NEWIPC</td>
+<td align="left">ipc_namespaces(7)</td>
+<td align="left">System V IPC, POSIX message queues</td>
+</tr>
+<tr>
+<td align="left">Network</td>
+<td align="left">CLONE_NEWNET</td>
+<td align="left">network_namespaces(7)</td>
+<td align="left">Network devices, stacks, ports, etc.</td>
+</tr>
+<tr>
+<td align="left">Mount</td>
+<td align="left">CLONE_NEWNS</td>
+<td align="left">mount_namespaces(7)</td>
+<td align="left">Mount points</td>
+</tr>
+<tr>
+<td align="left">PID</td>
+<td align="left">CLONE_NEWPID</td>
+<td align="left">pid_namespaces(7)</td>
+<td align="left">Process IDs</td>
+</tr>
+<tr>
+<td align="left">Time</td>
+<td align="left">CLONE_NEWTIME</td>
+<td align="left">time_namespaces(7)</td>
+<td align="left">Boot and monotonic clocks</td>
+</tr>
+<tr>
+<td align="left">User</td>
+<td align="left">CLONE_NEWUSER</td>
+<td align="left">user_namespaces(7)</td>
+<td align="left">User and group IDs</td>
+</tr>
+<tr>
+<td align="left">UTS</td>
+<td align="left">CLONE_NEWUTS</td>
+<td align="left">uts_namespaces(7)</td>
+<td align="left">Hostname and NIS domain name</td>
+</tr>
+</tbody></table>
+<p>linux默认给每个类型起一个ns。其他应用可根据需要起新的ns，或者加入某个ns。</p>
+<p>ns生命周期：<br>通常随ns里最后一个进程结束而结束。但也有几个例外情况。见<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/namespaces.7.html">https://man7.org/linux/man-pages/man7/namespaces.7.html</a></p>
+<p>namespaces是容器技术的一个基础。还有一个是cgroups，可精细地限制各种资源入cpu、内存、网络等。<br>docker主要是利用这两个功能实现的。</p>
+<hr>
+<p>查看当前进程的ns</p>
+<pre><code>xc@test:~/temp/ctn$ ls -l /proc/$$/ns
+total 0
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 cgroup -&gt; &#39;cgroup:[4026531835]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 ipc -&gt; &#39;ipc:[4026531839]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 mnt -&gt; &#39;mnt:[4026531840]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 net -&gt; &#39;net:[4026531992]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 pid -&gt; &#39;pid:[4026531836]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 pid_for_children -&gt; &#39;pid:[4026531836]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 user -&gt; &#39;user:[4026531837]&#39;
+lrwxrwxrwx 1 xc xc 0 Aug 29 16:59 uts -&gt; &#39;uts:[4026531838]&#39;
+</code></pre>
+<p>方括号里的是ns的id。两个进程的id相同就代表该类型在同一个ns。</p>
+<hr>
+<h3 id="unshare命令"><a href="#unshare命令" class="headerlink" title="unshare命令"></a>unshare命令</h3><p>unshare可以指定一个命令，同时新起ns，让命令在新的ns里运行。<br>详见unshare -h</p>
+<pre><code>sudo unshare -u bash
+</code></pre>
+<p>unshare运行一个bash，u参数新起uts空间，再查看当前进程ns，会发现uts空间发生改变。4026531838变成4026533018</p>
+<pre><code>root@test:/home/xc# ls -l /proc/$$/ns
+total 0
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 cgroup -&gt; &#39;cgroup:[4026531835]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 ipc -&gt; &#39;ipc:[4026531839]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 mnt -&gt; &#39;mnt:[4026531840]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 net -&gt; &#39;net:[4026531992]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 pid -&gt; &#39;pid:[4026531836]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 pid_for_children -&gt; &#39;pid:[4026531836]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 user -&gt; &#39;user:[4026531837]&#39;
+lrwxrwxrwx 1 root root 0 Aug 29 17:23 uts -&gt; &#39;uts:[4026533018]&#39;
+</code></pre>
+<hr>
+<h3 id="clone函数"><a href="#clone函数" class="headerlink" title="clone函数"></a>clone函数</h3><p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/clone.2.html">https://man7.org/linux/man-pages/man2/clone.2.html</a></p>
+<pre><code>int clone(int (*fn)(void *), void *stack, int flags, void *arg);
+</code></pre>
+<p>代码层面创建一个新进程，与fork类似。但是能提供更多控制能力。比如能指定父子进程是否共享虚拟地址空间等等。<br>可指定需要新建的空间，与上述空间类型对应。</p>
+<hr>
+<p>可以用代码模拟一下容器</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;sys/wait.h&gt; // waitpid
+#include &lt;unistd.h&gt; // execv
+
+const int STACK_SIZE = 1024 * 1024;
+
+char STACK[STACK_SIZE];
+
+char* const args[] = &#123;&quot;/bin/bash&quot;, NULL&#125;;
+
+int fun(void *)
+&#123;
+    std::cout&lt;&lt;&quot;fun&quot;&lt;&lt;std::endl;
+
+    auto result = execv(&quot;/bin/bash&quot;, args); // 容器内执行bash
+
+    return 0;
+&#125;
+
+int main()
+&#123;
+    std::cout&lt;&lt;&quot;main&quot;&lt;&lt;std::endl;
+
+    auto ctn_pid = clone(fun, STACK + STACK_SIZE, SIGCHLD | CLONE_NEWUTS , NULL); // 新建CLONE_NEWUTS空间
+
+    std::cout&lt;&lt;&quot;pid = &quot;&lt;&lt;ctn_pid&lt;&lt;std::endl; // 子进程pid
+
+    waitpid(ctn_pid, NULL, 0); // 等待容器进程结束
+
+    std::cout&lt;&lt;&quot;parent over&quot;&lt;&lt;std::endl;
+&#125;
+</code></pre>
+<p>这是个小框架。起一个新进程，只新建CLONE_NEWUTS空间。子进程里运行bash，相当于用bash跟容器环境交互。</p>
+<hr>
+<h3 id="UTS空间"><a href="#UTS空间" class="headerlink" title="UTS空间"></a>UTS空间</h3><p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/uts_namespaces.7.html">https://man7.org/linux/man-pages/man7/uts_namespaces.7.html</a></p>
+<p>在新的CLONE_NEWUTS空间里用hostname更改主机名不会影响原来的主机名。<br>新建时默认hostname同原主机</p>
+<p>运行程序后输入</p>
+<pre><code>hostname // 显示当前
+hostname wtf // 修改
+hostname // 显示当前。变为wtf。
+</code></pre>
+<p>再连上一个ssh终端，查看hostname发现没变。</p>
+<p>如果把CLONE_NEWUTS这个flag去掉，即不新建uts空间，会看到容器里改hostname后实际hostname会变。</p>
+<p>下面会在这个代码框架基础上做实验。</p>
+<hr>
+<h3 id="PID空间"><a href="#PID空间" class="headerlink" title="PID空间"></a>PID空间</h3><p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/pid_namespaces.7.html">https://man7.org/linux/man-pages/man7/pid_namespaces.7.html</a></p>
+<p>pid空间可实现不同空间的进程可以有相同的pid，可挂起/恢复空间里的进程等。<br>每个pid空间有个父空间，所有空间是一个树形结构。</p>
+<p>可加上CLONE_NEWPID新建pid空间，运行ps aux或top看结果。</p>
+<p>发现问题：做了pid新空间ps和htop这些命令还是会显示所有进程，并且是实际pid。如何做成docker一样只显示内部pid？<br>ps查的是/proc目录里的进程信息，只能识别mount者的pid空间。<br>挂载proc系统的进程是在容器外部的，所以看到的是容器外部主机的进程表。<br>必须要新起mount空间，在容器内部重新mount一下proc系统才行。</p>
+<hr>
+<h3 id="MOUNT空间"><a href="#MOUNT空间" class="headerlink" title="MOUNT空间"></a>MOUNT空间</h3><p><a target="_blank" rel="noopener" href="http://manpages.ubuntu.com/manpages/bionic/man7/mount_namespaces.7.html">http://manpages.ubuntu.com/manpages/bionic/man7/mount_namespaces.7.html</a></p>
+<p>mount空间可以使不同空间的挂载点相互隔离。<br>每个进程的挂载信息见<br><code>/proc/[pid]/mounts</code><br><code>/proc/[pid]/mountinfo</code><br><code>/proc/[pid]/mountstats</code><br>如果用clone，子进程默认会复制父进程的挂载信息。<br>如果用unshare，子进程默认会复制调用者前一个挂载空间的信息。</p>
+<hr>
+<h4 id="Root-Filesystem-Root-Directory"><a href="#Root-Filesystem-Root-Directory" class="headerlink" title="Root Filesystem/Root Directory"></a>Root Filesystem/Root Directory</h4><p><a target="_blank" rel="noopener" href="http://www.linfo.org/root_filesystem.html">http://www.linfo.org/root_filesystem.html</a><br>根文件系统/根目录。类unix系统都有个跟目录，包含/boot, /dev, /etc, /bin等等基本文件</p>
+<p>下载一个最小rootfs看一下<br><a target="_blank" rel="noopener" href="http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/x86_64/alpine-minirootfs-3.10.1-x86_64.tar.gz">http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/x86_64/alpine-minirootfs-3.10.1-x86_64.tar.gz</a></p>
+<p>解压后可看到linux典型的目录结构</p>
+<pre><code>bin/  dev/  etc/  home/  lib/  media/  mnt/  opt/  proc/  run/  sbin/  srv/  sys/  tmp/  usr/  var/
+</code></pre>
+<p>很多docker镜像都是基于某个linux最小系统。现在用这个rootfs来模拟一下。</p>
+<p><code>pivot_root</code>命令/接口<br><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/pivot_root.2.html">https://man7.org/linux/man-pages/man2/pivot_root.2.html</a></p>
+<p><code>pivot_root new_root put_old</code><br>c函数：<code>int pivot_root(const char *new_root, const char *put_old);</code></p>
+<p>把根文件系统的挂载设为put_old目录，把new_root设为当前根文件系统挂载。</p>
+<pre><code>sudo unshare -m bash      // 新mount空间
+mount --bind alpine ./alpine
+cd alpine                 // 进入alpine
+mkdir put_old             // 创建put_old目录
+pivot_root . put_old      // 此时根目录已经变为alpine目录。终端命令的路径可能也发生改变。比如直接输ls可能找不到命令，得用/bin/ls。
+                      // 原来得根目录映射到了put_old。ls put_old会显示根目录。
+cd /                      // 此时进入/根目录，看到的会是原先alpine目录。
+</code></pre>
+<p>这时用ps是看不到信息的，因为已经在新的根目录，/proc是空的，ps读不到信息。<br>需要把proc系统mount到/proc才行。</p>
+<pre><code>mount -t proc proc /proc
+</code></pre>
+<p>这样能看到所有进程信息了</p>
+<ul>
+<li>思考总结一下。linux应该是自己维护一个proc系统，开机mount到/proc目录，ps就只管读目录里的数据。所以容器里得手动mount一下proc，相当于模拟一下开机流程。查资料可证实。</li>
+</ul>
+<p><code>ps</code>相关信息<br><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/262177/how-does-the-ps-command-work">https://unix.stackexchange.com/questions/262177/how-does-the-ps-command-work</a><br><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/ps.1.html">https://man7.org/linux/man-pages/man1/ps.1.html</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Procfs#Linux">https://en.wikipedia.org/wiki/Procfs#Linux</a><br><a target="_blank" rel="noopener" href="https://www.kernel.org/doc/Documentation/filesystems/proc.txt">https://www.kernel.org/doc/Documentation/filesystems/proc.txt</a></p>
+<p>再看<code>mount</code>命令<br><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/mount.8.html">https://man7.org/linux/man-pages/man8/mount.8.html</a></p>
+<p>标准形式</p>
+<pre><code>mount -t type device dir
+</code></pre>
+<p>实际非常复杂。</p>
+<pre><code>mount -t proc proc /proc
+</code></pre>
+<p>t参数是指定文件系统类型，proc指特殊的proc系统。第二个proc据悉如果是proc系统的话会忽略，可以填任何字符。最后挂载目为/proc。</p>
+<p>把命令转为代码：</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;sys/wait.h&gt; // waitpid
+#include &lt;unistd.h&gt; // execv
+#include &lt;sys/mount.h&gt; // mount
+#include &lt;syscall.h&gt; // syscall
+#include &lt;sys/stat.h&gt; // mkdir
+
+const int STACK_SIZE = 1024 * 1024;
+
+char STACK[STACK_SIZE];
+
+char* const args[] = &#123;&quot;/bin/sh&quot;, NULL&#125;;
+
+void init_mns()
+&#123;
+    auto put_old = &quot;put_old&quot;;
+
+    int result = -1;
+
+    // pivot_root有一系列限制。详情见文档。这里mount一下确保不是MS_SHARED属性。
+    // 否则pivot_root会报EINVAL Invalid argument，非常恶心。
+    result = mount(NULL, &quot;/&quot;, NULL, MS_REC | MS_PRIVATE, NULL);
+    std::cout&lt;&lt;&quot;mount result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    // bind mount
+    // https://unix.stackexchange.com/questions/198590/what-is-a-bind-mount
+    result = mount(&quot;alpine&quot;, &quot;alpine&quot;, &quot;ext4&quot;, MS_BIND, &quot;&quot;);
+    std::cout&lt;&lt;&quot;mount result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    result = chdir(&quot;alpine&quot;);
+    std::cout&lt;&lt;&quot;chdir result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    result = mkdir(put_old, 0777);
+    std::cout&lt;&lt;&quot;mkdir result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        //exit(1);
+    &#125;
+
+    // pivot_root
+    result = syscall(SYS_pivot_root, &quot;.&quot;, put_old);
+    //result = pivot_root(&quot;.&quot;, put_old);
+    std::cout&lt;&lt;&quot;SYS_pivot_root result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    result = chdir(&quot;/&quot;);
+    std::cout&lt;&lt;&quot;chdir result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    result = mkdir(&quot;/proc&quot;, 0555);
+    std::cout&lt;&lt;&quot;mkdir result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        //exit(1);
+    &#125;
+
+    // mount proc系统到/proc目录
+    result = mount(&quot;proc&quot;, &quot;/proc&quot;, &quot;proc&quot;, 0, &quot;&quot;);
+    std::cout&lt;&lt;&quot;mount result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    // umount 清理老的根目录
+    result = umount2(put_old, MNT_DETACH);
+    std::cout&lt;&lt;&quot;umount2 result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+
+    result = rmdir(put_old);
+    std::cout&lt;&lt;&quot;rmdir result &quot;&lt;&lt;result&lt;&lt;std::endl;
+    if(result == -1)
+    &#123;
+        std::cout&lt;&lt;&quot;errno  &quot;&lt;&lt;errno&lt;&lt;std::endl;
+        exit(1);
+    &#125;
+&#125;
+
+int fun(void *)
+&#123;
+    std::cout&lt;&lt;&quot;fun&quot;&lt;&lt;std::endl;
+
+    init_mns();
+
+    auto result = execv(&quot;/bin/sh&quot;, args); // 容器内执行sh。不能再执行bash了，因为这个最小系统没有bash。
+
+    return 0;
+&#125;
+
+int main()
+&#123;
+    std::cout&lt;&lt;&quot;main&quot;&lt;&lt;std::endl;
+
+    auto ctn_pid = clone(fun, STACK + STACK_SIZE, SIGCHLD | CLONE_NEWUTS | CLONE_NEWPID | CLONE_NEWNS, NULL); // 新建uts pid mount空间
+
+    std::cout&lt;&lt;&quot;pid = &quot;&lt;&lt;ctn_pid&lt;&lt;std::endl; // 子进程pid
+
+    waitpid(ctn_pid, NULL, 0); // 等待容器进程结束
+
+    std::cout&lt;&lt;&quot;parent over&quot;&lt;&lt;std::endl;
+&#125;
+</code></pre>
+<p>运行后发现跟容器差不多了。ps和top只显示容器内的进程。</p>
+<hr>
+<h4 id="网络空间"><a href="#网络空间" class="headerlink" title="网络空间"></a>网络空间</h4><p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/network_namespaces.7.html">https://man7.org/linux/man-pages/man7/network_namespaces.7.html</a><br><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man4/veth.4.html">https://man7.org/linux/man-pages/man4/veth.4.html</a></p>
+<p>网络空间隔离了网络相关的系统资源：ip协议栈、路由表、防火墙信息、/proc/net、/sys/class/net、/proc/sys/net、端口等等。<br>一个网络设备只能存在于唯一的网络空间。</p>
+<h5 id="veth"><a href="#veth" class="headerlink" title="veth"></a>veth</h5><p>一对虚拟网络设备(virtual network(veth) device pair)(虚拟网卡)可提供类似pipe的机制来让不同的网络空间互通。<br>当一个网络空间死掉时，它包含的虚拟设备也会被销毁。</p>
+<pre><code>__________      __________
+|         |     |         |
+|  容器v1 |     |  容器v2  |
+|         |     |         |
+|——v1_in——|     |——v2_in——|
+     |               |
+|——v1_out——————————v2_out——|
+|        \       /         |
+|          bridge          |
+|            |      宿主机  |
+|———————————eth0———————————|
+             |
+             |
+          外部网络
+</code></pre>
+<p>这是个常见的容器网络结构<br>每个容器新起一个网络空间、新起一对veth，in端连接容器空间，out端连接宿主机空间的一个网桥。这样容器之间就可以通信。<br>再把网桥联通宿主机的网络设备，容器就可以与外网互联了。</p>
+<h5 id="网桥-linux-bridge"><a href="#网桥-linux-bridge" class="headerlink" title="网桥(linux bridge)"></a>网桥(linux bridge)</h5><p>是一个链接层的虚拟设备，用来联通各种网络设备。</p>
+<p>下面用shell命令配置容器网络<br>注意docker会大改iptables配置。不熟悉的话会很耗时。最好找个干净的机器做实验。</p>
+<p>ip命令(iproute2)<br><a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man8/ip.8.html">https://www.man7.org/linux/man-pages/man8/ip.8.html</a><br><a target="_blank" rel="noopener" href="https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf">https://access.redhat.com/sites/default/files/attachments/rh_ip_command_cheatsheet_1214_jcs_print.pdf</a></p>
+<p>ip netns 网络空间管理<br><a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man8/ip-netns.8.html">https://www.man7.org/linux/man-pages/man8/ip-netns.8.html</a></p>
+<p>ip link<br><a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man8/ip-link.8.html">https://www.man7.org/linux/man-pages/man8/ip-link.8.html</a></p>
+<p>查看网络接口列表</p>
+<pre><code>sudo ip link list
+</code></pre>
+<p>查看网络空间</p>
+<pre><code>sudo ip netns list
+</code></pre>
+<p>默认为空</p>
+<p>创建ns</p>
+<pre><code>sudo ip netns add v1
+sudo ip netns add v2
+
+sudo ip netns list 可看到新的空间
+</code></pre>
+<p>创建两对veth</p>
+<pre><code>sudo ip link add v1_out type veth peer name v1_in
+sudo ip link add v2_out type veth peer name v2_in
+</code></pre>
+<p>ip link list 可看到多了v1_out和v1_in，注意他们的形式：v1_in@v1_out和v1_out@v1_in。</p>
+<p>另起两个终端。在新的空间里执行bash(进入新的网络空间)</p>
+<pre><code>sudo ip netns exec v1 bash
+sudo ip netns exec v2 bash
+</code></pre>
+<p>在新空间里执行ip link list，看到只有一个lo接口。</p>
+<p>在宿主空间里分配in端给容器</p>
+<pre><code>sudo ip link set v1_in netns v1
+sudo ip link set v2_in netns v2
+</code></pre>
+<p>sudo ip link list 可以看到v1_in，v2_in没有了</p>
+<p>容器空间ip link list，可以看到出现了v1_in，v2_in</p>
+<p>这些接口默认都是DOWN的状态<br>down的状态下接口无法工作，比如回环设备lo默认是关的，ping 127.0.0.1不通。</p>
+<p>启动lo</p>
+<pre><code>ip link set dev lo up
+</code></pre>
+<p>发现127.0.0.1可以ping通</p>
+<p>容器空间里给in端添加地址</p>
+<pre><code>ip addr add 192.168.2.1/24 dev v1_in
+ip addr add 192.168.2.2/24 dev v2_in
+</code></pre>
+<p>24代表掩码255.255.255.0(二进制从头开始24个1)</p>
+<p>容器空间启动v1_in v2_in</p>
+<pre><code>ip link set dev v1_in up
+ip link set dev v2_in up
+</code></pre>
+<p>这时ifconfig可以看到v1_in和v2_in的详情</p>
+<p>列出所有网桥</p>
+<pre><code>sudo ip link list type bridge
+</code></pre>
+<p>添加网桥vbr</p>
+<pre><code>sudo ip link add vbr type bridge
+</code></pre>
+<p>把out端挂上vbr</p>
+<pre><code>sudo ip link set v1_out master vbr
+sudo ip link set v2_out master vbr
+</code></pre>
+<p>宿主空间启动out端</p>
+<pre><code>sudo ip link set dev v1_out up
+sudo ip link set dev v2_out up
+</code></pre>
+<p>给vbr一个ip</p>
+<pre><code>sudo ip addr add 192.168.2.100/24 brd + dev vbr
+</code></pre>
+<p>启动</p>
+<pre><code>sudo ip link set dev vbr up
+</code></pre>
+<p>从v1容器ping 192.168.2.2<br>可以ping通</p>
+<p>如果主机上装了docker，会改路由规则，默认会drop。ping不通<br>给vbr添加一下规则后可ping通。</p>
+<pre><code>sudo iptables -A FORWARD -i vbr -j ACCEPT
+</code></pre>
+<p>现在容器相互可ping通，容器和宿主机可ping通。</p>
+<p>但是容器中</p>
+<pre><code>ping 8.8.8.8
+ping 163.com
+</code></pre>
+<p>不通。连不到外网</p>
+<p>容器里查看路由</p>
+<pre><code>ip ro
+192.168.2.0/24 dev v2_in proto kernel scope link src 192.168.2.1
+</code></pre>
+<p>没有到外界的路由。</p>
+<p>ip route命令详解 <a target="_blank" rel="noopener" href="http://linux-ip.net/html/tools-ip-route.html">http://linux-ip.net/html/tools-ip-route.html</a></p>
+<p>两个容器里添加default路由，默认往vbr的地址192.168.2.100转。</p>
+<pre><code>ip route add default via 192.168.2.100
+</code></pre>
+<p>还是不行。因为vbr跟外界不通。<br>需要用iptables创建规则，把vbr跟外界联通。</p>
+<hr>
+<h3 id="Iptables"><a href="#Iptables" class="headerlink" title="Iptables"></a>Iptables</h3><p><a target="_blank" rel="noopener" href="https://linux.die.net/man/8/iptables">https://linux.die.net/man/8/iptables</a></p>
+<h5 id="链概念"><a href="#链概念" class="headerlink" title="链概念"></a>链概念</h5><pre><code>  ------kernel----------------------------------------------
+  |                                                        |
+--|--&gt;PREROUTING----&gt;选择路径----&gt;FORWARD----&gt;POSTROUTING---|-----&gt;
+  |                     |                          ^       |
+  |                     |                          |       |
+  |                   INPUT                      OUTPUT    |
+  |                     |                          |       |
+  ----------------------|--------------------------|--------
+                        |                          |
+  ------user------------|--------------------------|--------
+  |                     -----------&gt;&gt;&gt;&gt;&gt;&gt;----------|       |
+  ----------------------------------------------------------
+</code></pre>
+<p>其实就是几个时间节点：</p>
+<ol>
+<li><p><code>PREROUTING</code><br>包进来时</p>
+</li>
+<li><p><code>FORWARD</code><br>转发</p>
+</li>
+<li><p><code>INPUT</code><br>进入本地</p>
+</li>
+<li><p><code>OUTPUT</code><br>本地生成的包开始路由之前</p>
+</li>
+<li><p><code>POSTROUTING</code><br>包发出去之前</p>
+</li>
+</ol>
+<h5 id="表概念"><a href="#表概念" class="headerlink" title="表概念"></a>表概念</h5><ol>
+<li><code>filter</code></li>
+<li><code>nat</code></li>
+<li><code>mangle</code></li>
+<li><code>raw</code></li>
+</ol>
+<p>每个表可能会关注不同的链</p>
+<p>现在往nat表添加规则。把新建的网桥vbr做一个nat转换。从而跟外网联通。</p>
+<pre><code>sudo iptables -t nat -A POSTROUTING -s 192.168.2.100/24 -j MASQUERADE
+</code></pre>
+<p><code>-t nat</code>修改nat表</p>
+<p><code>-A POSTROUTING</code>往POSTROUTING链追加规则</p>
+<p><code>-s 192.168.2.100/24</code>源地址。这里的源定为vbr的地址</p>
+<p><code>-j MASQUERADE</code>规则的目的。</p>
+<p>MASQUERADE,自动识别目标地址，不用手动指定（貌似）<br><a target="_blank" rel="noopener" href="http://www.billauer.co.il/ipmasq-html.html">http://www.billauer.co.il/ipmasq-html.html</a><br><a target="_blank" rel="noopener" href="https://www.oreilly.com/openbook/linag2/book/ch11.html">https://www.oreilly.com/openbook/linag2/book/ch11.html</a></p>
+<pre><code>sudo iptables -t nat -L
+</code></pre>
+<p>查表可看到</p>
+<pre><code>Chain POSTROUTING (policy ACCEPT)
+target     prot opt source               destination
+MASQUERADE  all  --  192.168.2.0/24       anywhere
+</code></pre>
+<p>但是网络还是不行，因为没开启转发。</p>
+<pre><code>cat /proc/sys/net/ipv4/ip_forward
+</code></pre>
+<p>看到是0</p>
+<pre><code>sudo sysctl -w net.ipv4.ip_forward=1
+</code></pre>
+<p>开启后可以ping外网了</p>
+<hr>
+<p>代码实现<br>暂无</p>
+<hr>
+<h4 id="Python镜像"><a href="#Python镜像" class="headerlink" title="Python镜像"></a>Python镜像</h4><p>现在有网了，想试下运行pip。</p>
+<p>怎么做一个python最小rootf？</p>
+<p>之前用的是alpine linux系统。<br><a target="_blank" rel="noopener" href="https://alpinelinux.org/about/">https://alpinelinux.org/about/</a></p>
+<p>这是个非常流行的最小linux系统，docker镜像大小只有几Mb。只包含busybox等小工具。</p>
+<p>那么自然很多软件都会在这个镜像基础上做自己的镜像。</p>
+<p>对于python官方镜像，有alpine、buster、slim等等，就是区分了几种常用的基础镜像。<br>buster和slim都是从Debian镜像衍生出来。</p>
+<p>python的alpine镜像只有40多mb。如果要安装其他软件、用到apt等等，那只好用debian基础的，1G多。</p>
+<p>拉取镜像</p>
+<pre><code>sudo docker pull python:3.8.5-alpine
+</code></pre>
+<p>创建容器</p>
+<pre><code>sudo docker create python:3.8.5-alpine
+</code></pre>
+<p>docker export可以导出镜像到tar包</p>
+<pre><code>sudo docker export -o python-alpine.tar 8ce8
+</code></pre>
+<p>解压</p>
+<pre><code>sudo tar -xvf python-alpine.tar -C /home/xc/python-alpine
+</code></pre>
+<hr>
+<h4 id="镜像格式。存储格式。待续"><a href="#镜像格式。存储格式。待续" class="headerlink" title="镜像格式。存储格式。待续"></a>镜像格式。存储格式。待续</h4><p>fs<br>存储<br>ufs<br>层级结构<br>存储驱动：overlay2</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="http://ifeanyi.co/posts/linux-namespaces-part-1/">http://ifeanyi.co/posts/linux-namespaces-part-1/</a><br><a target="_blank" rel="noopener" href="https://platform9.com/blog/container-namespaces-deep-dive-container-networking/">https://platform9.com/blog/container-namespaces-deep-dive-container-networking/</a><br><a target="_blank" rel="noopener" href="https://rancher.com/learning-paths/introduction-to-container-networking/">https://rancher.com/learning-paths/introduction-to-container-networking/</a><br><a target="_blank" rel="noopener" href="https://dev.to/polarbit/how-docker-container-networking-works-mimic-it-using-linux-network-namespaces-9mj">https://dev.to/polarbit/how-docker-container-networking-works-mimic-it-using-linux-network-namespaces-9mj</a><br><a target="_blank" rel="noopener" href="https://ops.tips/blog/using-network-namespaces-and-bridge-to-isolate-servers/">https://ops.tips/blog/using-network-namespaces-and-bridge-to-isolate-servers/</a><br><a target="_blank" rel="noopener" href="http://linux-ip.net/html/tools-ip-route.html">http://linux-ip.net/html/tools-ip-route.html</a><br><a target="_blank" rel="noopener" href="https://blogs.igalia.com/dpino/2016/04/10/network-namespaces/">https://blogs.igalia.com/dpino/2016/04/10/network-namespaces/</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bakari/p/10443484.html">https://www.cnblogs.com/bakari/p/10443484.html</a><br><a target="_blank" rel="noopener" href="http://www.billauer.co.il/ipmasq-html.html">http://www.billauer.co.il/ipmasq-html.html</a></p>
+<hr>
+<p>brctl 命令<br>brctl已过时。<br>见<a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man8/brctl.8.html">https://www.man7.org/linux/man-pages/man8/brctl.8.html</a></p>
+<p>列出所有网桥<br>sudo brctl show</p>
+<p>添加网桥<br>sudo brctl addbr wtfbr</p>
+<p>启动网桥<br>sudo ip link set dev wtfbr up</p>
+<p>把宿主机的eth0挂上网桥。我第一次尝试时服务器崩溃重启。<br>sudo brctl addif wtfbr eth0</p>
+<p>把宿主机的v1_out挂上网桥<br>sudo brctl addif wtfbr v1_out</p>
+<p>–</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/09/21/1577/" data-id="ckkfmdge900cdvkcg08ba43zg" data-title="Linux Namespaces学习" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/23/1590/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          HTML5 WebSocket
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/16/1547/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">724UG支持串口烧程序吗？</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

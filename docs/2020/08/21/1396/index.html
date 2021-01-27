@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>合宙cat1模块如何发送心跳包，看这一篇就够了 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文适用于AT命令固件版本 合宙CAT1模块有两种方式实现心跳包的发送： 第一种：在TCP层实现这种方式是TCP协议层实现的，只适用于TCP链接。也就是说，这种实现方式不会对应用层的数据流产生任何影响，应用层也看不到心跳包的内容。 这种实现方式叫做TCP保活（TCP Keep-Alive），由+CIPTKA这个命令来实现。具体：   是否打开TCP保活功能0：关闭    1：开启  在时间内链接上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合宙cat1模块如何发送心跳包，看这一篇就够了">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/08/21/1396/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="本文适用于AT命令固件版本 合宙CAT1模块有两种方式实现心跳包的发送： 第一种：在TCP层实现这种方式是TCP协议层实现的，只适用于TCP链接。也就是说，这种实现方式不会对应用层的数据流产生任何影响，应用层也看不到心跳包的内容。 这种实现方式叫做TCP保活（TCP Keep-Alive），由+CIPTKA这个命令来实现。具体：   是否打开TCP保活功能0：关闭    1：开启  在时间内链接上">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201217114540365_CIPTKA.png">
+<meta property="article:published_time" content="2020-08-21T11:46:57.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201217114540365_CIPTKA.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1396" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/21/1396/" class="article-date">
+  <time class="dt-published" datetime="2020-08-21T11:46:57.000Z" itemprop="datePublished">2020-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      合宙cat1模块如何发送心跳包，看这一篇就够了
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>本文适用于AT命令固件版本</strong></p>
+<p>合宙CAT1模块有两种方式实现心跳包的发送：</p>
+<h5 id="第一种：在TCP层实现"><a href="#第一种：在TCP层实现" class="headerlink" title="第一种：在TCP层实现"></a>第一种：在TCP层实现</h5><p>这种方式是TCP协议层实现的，只适用于TCP链接。也就是说，这种实现方式不会对应用层的数据流产生任何影响，应用层也看不到心跳包的内容。</p>
+<p>这种实现方式叫做TCP保活（TCP Keep-Alive），由+CIPTKA这个命令来实现。具体：</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201217114540365_CIPTKA.png" alt="undefined" title="undefined"></p>
+<p><mode> 是否打开TCP保活功能<br>0：关闭    1：开启</p>
+<p><keepIdle> 在<keepIdle>时间内链接上无任何数据交互，则发送初始保活探针（initial keep-alive probe）<br>取值范围：30~7200  单位为秒，缺省值为7200</p>
+<p><keepInterval> 保活探针重传的间隔时间<br>取值范围：30~600  单位为秒，缺省值为75</p>
+<p><keepCount> 发送保活探针的最大数量<br>取值范围：1~9  单位为次，缺省值为9</p>
+<p>例如：AT+CIPTKA=1,120<br>打开TCP保活功能，<keepIdle>=120秒，其余参数为缺省值。意味着：<br>如果在120秒内TCP链接上没有任何数据交换，则设置端会发送初始保活探针，</p>
+<ul>
+<li><p>如果设置端收到对端回复的对初始保活探针的的ACK，则认为链接状态正常，会重置<keepIdle>这个timer。还有一种情况下也会重置此timer，那就是当应用层有数据收发时。</p>
+</li>
+<li><p>如果设置端没有收到对端回复的对初始保活探针的的ACK，则75秒后会重发一次保活探针；如果还没得到对端的ACK，则隔75秒再发，最多一共发送9次（含初始保活探针）。如果9次内得到了对端的ACK，则重置<keepIdle>这个timer；如果9次发完还没得到对端的ACK，则认为此TCP链接断连</p>
+</li>
+</ul>
+<p>oh，对了，一旦打开TKA功能，对当前存在的所有TCP链接都起作用。</p>
+<h5 id="第二种：在应用层实现"><a href="#第二种：在应用层实现" class="headerlink" title="第二种：在应用层实现"></a>第二种：在应用层实现</h5><p>这种方式是由设置端在应用层发心跳包来实现的。这种情况下对端的应用层会收到设置端的心跳包内容。这种方式TCP,UDP都适用，但是同时只能作用于一个链接。</p>
+<p>这种实现方式由^HEARTCONFIG、^HEARTBEAT（或^HEARTBEATHEX）共同作用来实现。举例如下（每个命令的具体定义请参考合宙AT命令文档）：</p>
+<ul>
+<li><p>单链接上发送普通心跳内容<br>AT^HEARTCONFIG=1,0,120<br>AT^HEARTBEAT=0,Heart-content<br>AT+CIPSTART=TCP,server,port<br>以上命令在单链接上每隔120秒发送一个内容为”Heart-content”的心跳包。</p>
+</li>
+<li><p>在多链接的第5条链接上发送HEX格式心跳内容<br>AT+CIPMUX=1<br>AT+CSTT<br>AT+CIICR<br>AT+CIFSR<br>AT+CIPSTART=3,TCP,server,port<br>AT^HEARTCONFIG=1,3,150<br>AT^HEARTBEATHEX=3,313233414243<br>以上命令在多链接的第三条链接上每隔150秒发送一个内容为”123ABC”的心跳包。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/08/21/1396/" data-id="ckkfmdg9d000kvkcgeonaf166" data-title="合宙cat1模块如何发送心跳包，看这一篇就够了" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/23/1402/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          菜鸟学写Cat1 Demo集（连载）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/20/1392/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">iRTU 固件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

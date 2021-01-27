@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>5、RDA8910CSDK二次开发：单次定时器和循环定时器 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录点击这里查看所有博文 &amp;emsp;&amp;emsp;本系列博客所诉资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。   本系列博客基于紫光">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5、RDA8910CSDK二次开发：单次定时器和循环定时器">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/05/21/738/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录点击这里查看所有博文 &amp;emsp;&amp;emsp;本系列博客所诉资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。   本系列博客基于紫光">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200521174519482.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200521190253853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-05-21T11:15:08.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200521174519482.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-738" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/05/21/738/" class="article-date">
+  <time class="dt-published" datetime="2020-05-21T11:15:08.000Z" itemprop="datePublished">2020-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      5、RDA8910CSDK二次开发：单次定时器和循环定时器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所诉资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>  本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>  先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>  我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><h2 id="1-1、那么什么是定时器呢？"><a href="#1-1、那么什么是定时器呢？" class="headerlink" title="1.1、那么什么是定时器呢？"></a>1.1、那么什么是定时器呢？</h2><p>  定时器通俗的讲就相当于一个闹钟。<br>  我们的手机里面都有闹钟，每天早上负责叫醒我们上班不要迟到。只需要在手机里面设置好时间，然后可以按需选择每天都响，或者选择只响一次。作用是打断正在做的事（睡觉）。<br><img src="https://img-blog.csdnimg.cn/20200521174519482.png" alt="在这里插入图片描述"><br>  在单片机系统中也是有定时器的。而定时器又分为两种，分别是硬件定时器和软件定时器。</p>
+<p>  不管是51系列、stm32系列、avr系列、亦或是其他的单片机，它们在裸机编程上都是拥有硬件定时器的，一般硬件定时器数量有几个到十几个不等，占用的是硬件资源。</p>
+<ul>
+<li> 硬件定时器：一般硬件定时器集成在CPU的内部，有的可以使用外置的硬件定时器芯片，其使用的时基是系统内部的高速时钟源经过分频得到的，高速时钟源又是由外部晶振倍频得到，精度非常高，但是依赖硬件，能使用的数量有限。</li>
+</ul>
+<p>  如果涉及到了操作系统编程，软件定时器那就必不可少。</p>
+<ul>
+<li>软件定时器：一般软件定时器都是利用的是操作系统的延时阻塞性，在定时器启动和触发时记录下当前的系统时间，每隔一个时间片去查询下有没有到指定的定时时间，有的话就触发软件回调，精度相对硬件定时器要差得多，理论上是没有使用数量限制的，内存有多大，定时器就可以有多少。</li>
+</ul>
+<h1 id="二、编写测试程序"><a href="#二、编写测试程序" class="headerlink" title="二、编写测试程序"></a>二、编写测试程序</h1><p>  RDA8910的CSDK并非是采用裸机编程，而是采用实时操作系统框架编程，上面前言说了既然涉及到了RTOS那sdk里面一般都会提供了软件定时器，那我们何不一起来看看呢。</p>
+<p>  使用定时器的驱动需要包含<code>#include &quot;am_openat.h&quot;&quot;</code>头文件，我们这里只用到了五个函数，分别是：</p>
+<blockquote>
+<p>/*<em>创建定时器<br>*@param        pFunc:        定时回调函数<br>*@param        pParameter:        作为参数传递给定时器到时处理函数<br>*@return            HANDLE：定时器句柄<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>HANDLE <code>OPENAT_create_timer</code>( PTIMER_EXPFUNC pFunc,PVOID pParameter);</li>
+</ul>
+<blockquote>
+<p>/*<em>启动单次运行定时器<br>*@param        hTimer:        定时器句柄，create_timer接口返回值<br>*@param        nMillisecondes:        定时器时间<br>*@return    TRUE:         成功<br>         FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>BOOL <code>OPENAT_start_timer0</code>( HANDLE hTimer,UINT32 nMillisecondes);</li>
+</ul>
+<blockquote>
+<p>/*<em>启动循环运行定时器<br>*@param        hTimer:        定时器句柄，create_timer接口返回值<br>*@param        nMillisecondes:        定时器时间<br>*@return    TRUE:         成功<br>         FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>BOOL <code>OPENAT_loop_start_timer</code>( HANDLE hTimer,UINT32 nMillisecondes);</li>
+</ul>
+<blockquote>
+<p>/**停止定时器<br><em>@param        hTimer:        定时器句柄，create_timer接口返回值<br>*@return    TRUE:         成功<br>         FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>BOOL <code>OPENAT_stop_timer</code>(HANDLE hTimer );</li>
+</ul>
+<blockquote>
+<p>/**删除定时器<br><em>@param        hTimer:        定时器句柄，create_timer接口返回值<br>*@return    TRUE:         成功<br>         FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>BOOL <code>OPENAT_delete_timer</code>(HANDLE hTimer);</li>
+</ul>
+<h2 id="2-1、编写主程序"><a href="#2-1、编写主程序" class="headerlink" title="2.1、编写主程序"></a>2.1、编写主程序</h2><p>  因为需要手动打开日志输出，在主程序中我选择在程序启动后让系统休眠一段时间，让我们不至于错过输出到日志信息。休眠时间到后会自动创建一个测试任务。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//系统休眠</span></span><br><span class="line">	iot_os_sleep(<span class="number">10000</span>);</span><br><span class="line">	<span class="comment">//创建一个任务</span></span><br><span class="line">	osiThreadCreate(<span class="string">&quot;TestTask&quot;</span>, TestTask, <span class="literal">NULL</span>, OSI_PRIORITY_NORMAL, <span class="number">2048</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-2、编写测试任务"><a href="#2-2、编写测试任务" class="headerlink" title="2.2、编写测试任务"></a>2.2、编写测试任务</h2><p>  在测试任务中，这里创建了两个定时器，一个是单次运行定时器，一个是循环定时器。</p>
+<p>  多个定时器可以公用一个定时回调函数通过创建定时器时传入的参数区分当前触发的中断是定时器几，也可以使用多个回调函数。</p>
+<p>  创建完成之后分别调用启动单次定时器函数<code>OPENAT_start_timer0</code>，和启动循环定时器函数<code>OPENAT_loop_start_timer</code>让定时器开始运行</p>
+<p>  创建完成之后调用线程离开函数<code>osiThreadExit</code>，系统会在合适的时间回收任务所占用的资源。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TestTask</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//创建两个个定时器</span></span><br><span class="line">	timer1 = OPENAT_create_timer(timer_handle, <span class="string">&quot;timer1&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span> (timer1 == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer1 create FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	timer2 = OPENAT_create_timer(timer_handle, <span class="string">&quot;timer2&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span> (timer2 == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer2 create FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//启动定时器1，为单次定时器</span></span><br><span class="line">	<span class="comment">//单次定时器运行结束后，会自动停止并且删除定时器</span></span><br><span class="line">	BOOL err = OPENAT_start_timer0(timer1, <span class="number">1000</span> * <span class="number">10</span>);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer1 start FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//启动定时器2，为循环定时器</span></span><br><span class="line">	err = OPENAT_loop_start_timer(timer2, <span class="number">1000</span> * <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer2 start FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//线程结束</span></span><br><span class="line">	osiThreadExit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-3、编写定时回调函数"><a href="#2-3、编写定时回调函数" class="headerlink" title="2.3、编写定时回调函数"></a>2.3、编写定时回调函数</h2><p>  在定时回调函数里面我们选择在定时器2进入中断5次后，重新创建并启动定时器1。我这里做过测试，如果不重新创建定时器1，直接启动会启动失败，那就说明一个问题单次运行定时器在触发一次回调后会自动退出定时器线程并且回收定时器资源。</p>
+<p>  当定时器2进入10次回调函数，选择停止定时器2的运行，并且回收定时器占用的资源。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_handle</span><span class="params">(<span class="keyword">void</span> *pParameter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL err = <span class="number">0</span>;</span><br><span class="line">	iot_debug_print(pParameter);</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">strcmp</span>(pParameter, <span class="string">&quot;timer2&quot;</span>) == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		timer2num += <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">switch</span> (timer2num)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">5</span>:<span class="comment">//当定时器2进入5次后重新创建定时器1，</span></span><br><span class="line">			<span class="comment">//不创建会出现不能启动，证明了单次定时器运行结束会自动停止并删除</span></span><br><span class="line">			timer1 = OPENAT_create_timer(timer_handle, <span class="string">&quot;timer1&quot;</span>);</span><br><span class="line">			<span class="keyword">while</span> (timer1 == <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				iot_debug_print(<span class="string">&quot;timer1 create FALSE&quot;</span>);</span><br><span class="line">				osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//启动定时器1，为单次定时器</span></span><br><span class="line">			err = OPENAT_start_timer0(timer1, <span class="number">1000</span> * <span class="number">10</span>);</span><br><span class="line">			<span class="keyword">while</span> (!err)</span><br><span class="line">			&#123;</span><br><span class="line">				iot_debug_print(<span class="string">&quot;timer1 start FALSE&quot;</span>);</span><br><span class="line">				osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">10</span>:<span class="comment">//当定时器2进入10次后停止并删除</span></span><br><span class="line">			<span class="comment">/* 停止定时器接口 */</span></span><br><span class="line">			OPENAT_stop_timer(timer2);</span><br><span class="line">			<span class="comment">/* 删除定时器接口 */</span></span><br><span class="line">			OPENAT_delete_timer(timer2);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="三、编译并下载程序"><a href="#三、编译并下载程序" class="headerlink" title="三、编译并下载程序"></a>三、编译并下载程序</h1><p>  完整代码在这，自取。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Author: your name</span></span><br><span class="line"><span class="comment"> * @Date: 2020-05-19 14:05:32</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-05-21 16:29:00</span></span><br><span class="line"><span class="comment"> * @LastEditors: Please set LastEditors</span></span><br><span class="line"><span class="comment"> * @Description: In User Settings Edit</span></span><br><span class="line"><span class="comment"> * @FilePath: \RDA8910_CSDK\USER\user_main.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;cs_types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_log.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_api.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_common.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_uart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_os.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_gpio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_pmd.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_adc.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_vat.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//timer  软件定时器</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HANDLE timer1 = <span class="literal">NULL</span>, timer2 = <span class="literal">NULL</span>;</span><br><span class="line">uint8 timer2num = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_handle</span><span class="params">(<span class="keyword">void</span> *pParameter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL err = <span class="number">0</span>;</span><br><span class="line">	iot_debug_print(pParameter);</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">strcmp</span>(pParameter, <span class="string">&quot;timer2&quot;</span>) == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		timer2num += <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">switch</span> (timer2num)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">5</span>:<span class="comment">//当定时器2进入5次后重新创建定时器1，</span></span><br><span class="line">			<span class="comment">//不创建会出现不能启动，证明了单次定时器运行结束会自动停止并删除</span></span><br><span class="line">			timer1 = OPENAT_create_timer(timer_handle, <span class="string">&quot;timer1&quot;</span>);</span><br><span class="line">			<span class="keyword">while</span> (timer1 == <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				iot_debug_print(<span class="string">&quot;timer1 create FALSE&quot;</span>);</span><br><span class="line">				osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//启动定时器1，为单次定时器</span></span><br><span class="line">			err = OPENAT_start_timer0(timer1, <span class="number">1000</span> * <span class="number">10</span>);</span><br><span class="line">			<span class="keyword">while</span> (!err)</span><br><span class="line">			&#123;</span><br><span class="line">				iot_debug_print(<span class="string">&quot;timer1 start FALSE&quot;</span>);</span><br><span class="line">				osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">10</span>:<span class="comment">//当定时器2进入10次后停止并删除</span></span><br><span class="line">			<span class="comment">/* 停止定时器接口 */</span></span><br><span class="line">			OPENAT_stop_timer(timer2);</span><br><span class="line">			<span class="comment">/* 删除定时器接口 */</span></span><br><span class="line">			OPENAT_delete_timer(timer2);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TestTask</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//创建两个个定时器</span></span><br><span class="line">	timer1 = OPENAT_create_timer(timer_handle, <span class="string">&quot;timer1&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span> (timer1 == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer1 create FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	timer2 = OPENAT_create_timer(timer_handle, <span class="string">&quot;timer2&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span> (timer2 == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer2 create FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//启动定时器1，为单次定时器</span></span><br><span class="line">	<span class="comment">//单次定时器运行结束后，会自动停止并且删除定时器</span></span><br><span class="line">	BOOL err = OPENAT_start_timer0(timer1, <span class="number">1000</span> * <span class="number">10</span>);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer1 start FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//启动定时器2，为循环定时器</span></span><br><span class="line">	err = OPENAT_loop_start_timer(timer2, <span class="number">1000</span> * <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;timer2 start FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//线程结束</span></span><br><span class="line">	osiThreadExit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//系统休眠</span></span><br><span class="line">	iot_os_sleep(<span class="number">10000</span>);</span><br><span class="line">	<span class="comment">//创建一个任务</span></span><br><span class="line">	osiThreadCreate(<span class="string">&quot;TestTask&quot;</span>, TestTask, <span class="literal">NULL</span>, OSI_PRIORITY_NORMAL, <span class="number">2048</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//退出提示</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">appimg_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	OSI_LOGI(<span class="number">0</span>, <span class="string">&quot;application image exit&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  查看输出，定时器1一共进入了2次中断。定时器2一共进入了10次中断，验证了程序运行是正确的。通过输出的时间戳也可以发现，定时器2连续两次进入回调其中间隔的时间并不是严格的2秒，说明软件定时器精度不高，但是也可以凑合使用。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200521190253853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/05/21/738/" data-id="ckkfmdgdh00bmvkcgdjxnafrz" data-title="5、RDA8910CSDK二次开发：单次定时器和循环定时器" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/05/22/739/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          6、RDA8910CSDK二次开发：一种新的外设----串口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/20/737/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">3、RDA8910CSDK二次开发：GPIO输入详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

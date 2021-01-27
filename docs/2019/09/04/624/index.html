@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air系列4G模块AT版本PDP使用汇总 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="&lt;div style&#x3D;&quot;border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; backgroun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air系列4G模块AT版本PDP使用汇总">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/09/04/624/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="&lt;div style&#x3D;&quot;border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; backgroun">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-09-GTxucYXa5d6f83019861e.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-09-Cgr0E9t75d6f832512251.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-09-YDWDgoSX5d6f833aa8837.png">
+<meta property="article:published_time" content="2019-09-04T09:26:45.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2019-09-GTxucYXa5d6f83019861e.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-624" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/09/04/624/" class="article-date">
+  <time class="dt-published" datetime="2019-09-04T09:26:45.000Z" itemprop="datePublished">2019-09-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air系列4G模块AT版本PDP使用汇总
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <pre><code>                        &lt;div style=&quot;border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;&quot;&gt;
+</code></pre>
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><a name="下载安装"></a><b><span style="font-size:14.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:18.0pt"="">一、移动设备如何上网</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"=""><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">MS</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">（移动台，可以是手机、无线通信模块等设备）要接入外部<span lang="EN-US">PDN</span>（外部分组数据网，包括企业内部网、<span lang="EN-US">Internet</span>、<span lang="EN-US">WAP</span>网站、行业内部网等），首先要具有一个<span lang="EN-US">IP</span>地址，称为<span lang="EN-US">PDP</span>地址，<span lang="EN-US">PDP</span>地址是用于<span lang="EN-US">PDN</span>识别<span lang="EN-US">MS</span>的<span lang="EN-US">PDP</span>上下文时使用的地址。<span lang="EN-US">MS</span>以后就通过这个<span lang="EN-US">IP</span>地址和<span lang="EN-US">PDN</span>进行数据通信，简化的通信图如下：</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-09-GTxucYXa5d6f83019861e.png" class="img-responsive" style="width: 50%;"><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"=""><span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"=""><v:shapetype id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter">
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0">
+  <v:f eqn="sum @0 1 0">
+  <v:f eqn="sum 0 0 @1">
+  <v:f eqn="prod @2 1 2">
+  <v:f eqn="prod @3 21600 pixelWidth">
+  <v:f eqn="prod @3 21600 pixelHeight">
+  <v:f eqn="sum @0 0 1">
+  <v:f eqn="prod @6 1 2">
+  <v:f eqn="prod @7 21600 pixelWidth">
+  <v:f eqn="sum @8 21600 0">
+  <v:f eqn="prod @7 21600 pixelHeight">
+  <v:f eqn="sum @10 21600 0">
+ </v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect">
+ <o:lock v:ext="edit" aspectratio="t">
+</o:lock></v:path></v:stroke></v:shapetype><v:shape id="_x0000_i1027" type="#_x0000_t75" alt="0_1290061989D7Fl (1).gif" style="width:415.2pt;height:104.4pt;visibility:visible;mso-wrap-style:square">
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.jpg" o:title="0_1290061989D7Fl (1)">
+</v:imagedata></v:shape></span><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";="" mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"=""><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">上图中各关键节点释义如下<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MS</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">：移动台，可以是手机、无线通信模块等设备<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BSS</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">：移动基站<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GGSN</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">：移动网关，和外部数据网络（包括企业内部网、<span lang="EN-US">Internet</span>、<span lang="EN-US">WAP</span>网站、行业内部网等）相连，<span lang="EN-US">MS</span>经由<span lang="EN-US">GGSN</span>就可以和外部数据网络“自由交谈”了<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PSTN</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">：外部数据网络（包括企业内部网、<span lang="EN-US">Internet</span>、<span lang="EN-US">WAP</span>网站、行业内部网等）<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""><o:p>&nbsp;</o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">若无特殊说明，在下文中用<span lang="EN-US">4G</span>模块来代表<span lang="EN-US">MS</span>，用基站来代表<span lang="EN-US">BSS</span>，用网关来代表<span lang="EN-US">GGSN</span>，用外部数据网络来代表<span lang="EN-US">PSTN<o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:18.0pt"="">二、什么是</span></b><b><span lang="EN-US" style="font-size:
+14.5pt;font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:18.0pt"="">PDP</span></b><b><span style="font-size:14.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:18.0pt"="">上下文</span></b><b><span lang="EN-US" style="font-size:
+14.5pt;font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:18.0pt"=""><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">由上文可知，<span lang="EN-US">4G</span>模块首先要请求网关分配一个<span lang="EN-US">IP</span>地址（称为<span lang="EN-US">PDP</span>地址，可以看做是移动网关内部的私有地址），然后才能经由网关和外部数据网络通信<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">这个请求网关分配地址的过程称为激活<span lang="EN-US">PDP </span>，<span lang="EN-US">PDP</span>地址就像开通有线电话时，开通工单上的电话号码，而<span lang="EN-US">PDP</span>上下文就是这张电话开通工单，上面不仅有分配给你的电话号码，还有这部电话对应的其他属性、其他功能的信息。<span lang="EN-US">PDP</span>上下文是一个结构<span lang="EN-US">,</span>而<span lang="EN-US">PDP</span>地址只是结构中的一个成员而已，除此之外，还包括<span lang="EN-US">QoS</span>、<span lang="EN-US">APN</span>等，这些都是<span lang="EN-US">PDP</span>上下文的内容<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">在<span lang="EN-US">PDP</span>上下文中，有一个重要的参数<span lang="EN-US">APN</span>，<span lang="EN-US">APN</span>是<span lang="EN-US">4G</span>模块用来告知网关要访问哪种外部数据网络（外部分组数据网，包括企业内部网、<span lang="EN-US">Internet</span>、<span lang="EN-US">WAP</span>网站、行业内部网等）；还是以刚才的开通电话为例，开通时要求“仅支持省内电话呼入呼出”、“仅支持国内电话呼入呼出”、“可全球呼入呼出”这个就相当于是电话单的<span lang="EN-US">APN<o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:18.0pt"="">三、</span></b><b><span lang="EN-US" style="font-size:
+14.5pt;font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:18.0pt"="">4G</span></b><b><span style="font-size:14.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:18.0pt"="">模块如何激活和去激活</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"="">PDP<o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">4G</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">模块最多支持<span lang="EN-US">8</span>路<span lang="EN-US">PDP</span>承载，这<span lang="EN-US">8</span>路<span lang="EN-US">PDP</span>承载可以是<span lang="EN-US">8</span>个独立的物理承载，也可以是多路共享<span lang="EN-US">1</span>个物理承载。怎么理解这个概念呢？要用到上文中提到的<span lang="EN-US">APN</span>，激活<span lang="EN-US">PDP</span>请求时，<span lang="EN-US">4G</span>模块会指定一个<span lang="EN-US">APN</span>（如果是通用的<span lang="EN-US">sim</span>卡，在<span lang="EN-US">AT</span>命令中，可以不再主动传入这个<span lang="EN-US">APN</span>参数，因为<span lang="EN-US">4G</span>模块固件会自动从网络端获取到正确的<span lang="EN-US">APN</span>），<span lang="EN-US">PDP</span>承载就根据<span lang="EN-US">APN</span>来决定是“直接使用之前已经激活的同名<span lang="EN-US">APN</span>的<span lang="EN-US">PDP</span>承载”还是“新激活一个<span lang="EN-US">PDP</span>承载”。例如：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">使用如下<span lang="EN-US">AT</span>命令，激活了一路<span lang="EN-US">id</span>为<span lang="EN-US">1</span>、<span lang="EN-US">APN</span>为自动获取的默认<span lang="EN-US">APN</span>的<span lang="EN-US">PDP</span>承载<span lang="EN-US"><o:p></o:p></span></span></p><table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="margin-left: 26.7pt; background: rgb(242, 242, 242); border: none;">
+ <tbody><tr>
+  <td width="666" valign="top" style="width:399.4pt;border:solid black 1.0pt;
+  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=3,1,"CONTYPE","GPRS"<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=3,1,"APN",""<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=1,1<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=2,1<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+SAPBR: 1,1,"10.55.40.48"<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK</span></span><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table><p class="MsoNormal" align="left" style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></span></p><p class="MsoNormal" align="left" style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">再使用如下<span lang="EN-US">AT</span>命令，激活了一路<span lang="EN-US">id</span>为<span lang="EN-US">2</span>、<span lang="EN-US">APN</span>为自动获取的默认<span lang="EN-US">APN</span>的<span lang="EN-US">PDP</span>承载<span lang="EN-US"><o:p></o:p></span></span></p><table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="margin-left: 26.7pt; background: rgb(242, 242, 242); border: none;">
+ <tbody><tr>
+  <td width="666" valign="top" style="width:399.4pt;border:solid black 1.0pt;
+  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=3,2,"CONTYPE","GPRS"<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=3,2,"APN",""<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=1,2<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=2,2<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+SAPBR: 2,1,"10.55.40.48"<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK</span></span><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table><p class="MsoNormal" align="left" style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"=""><o:p>&nbsp;</o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">可以看出，<span lang="EN-US">id</span>为<span lang="EN-US">2</span>的<span lang="EN-US">PDP</span>承载，<span lang="EN-US">IP</span>地址和<span lang="EN-US">id</span>为<span lang="EN-US">1</span>的<span lang="EN-US">PDP</span>承载完全一样<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">实际上，激活<span lang="EN-US">id</span>为<span lang="EN-US">2</span>的<span lang="EN-US">PDP</span>承载时，首先检查已经激活的其他路<span lang="EN-US">PDP</span>承载，发现<span lang="EN-US">id</span>为<span lang="EN-US">1</span>的<span lang="EN-US">PDP</span>承载已经激活，并且<span lang="EN-US">APN</span>相同，则直接映射到<span lang="EN-US">id</span>为<span lang="EN-US">1</span>的这一路物理承载，并不会向网关发起激活<span lang="EN-US">PDP</span>的请求；如果<span lang="EN-US">APN</span>不同，才会向网关发起新的<span lang="EN-US">PDP</span>激活请求。在实际应用场景中，我们所用的<span lang="EN-US">sim</span>卡基本上都是多路<span lang="EN-US">PDP</span>共享一个物理承载的情况。<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">接下来我们进入正题，详细讲解一下<span lang="EN-US">4G</span>模块如何激活和去激活<span lang="EN-US">PDP<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">在激活<span lang="EN-US">PDP</span>之前，模块必须先附着上数据网络，<span lang="EN-US">4G</span>模块开机后，会自动去附着数据网络，只要通过<span lang="EN-US">AT+CGATT</span>？轮询是否附着成功即可，附着上数据网络之后，就可以激活<span lang="EN-US">PDP</span>了<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4G</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">模块支持两套比较常用的通过<span lang="EN-US">AT</span>命令激活<span lang="EN-US">PDP</span>的方式，其中一套提供给<span lang="EN-US">socket</span>使用，另外一套提供给<span lang="EN-US">MQTT</span>、<span lang="EN-US">HTTP</span>、<span lang="EN-US">FTP</span>使用<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">3.1</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">socket</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">应用的激活</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">PDP</span></b><b><span style="font-size:
+11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:inherit;="" mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"="">方式</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";="" mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"=""><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">先来看个正常激活<span lang="EN-US">PDP</span>的<span lang="EN-US">AT</span>命令序列，请自行参考<span lang="EN-US">AT</span>手册理解<span lang="EN-US">AT</span>命令意义<span lang="EN-US"><o:p></o:p></span></span></p><table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="margin-left: 26.7pt; background: rgb(242, 242, 242); border: none;">
+ <tbody><tr>
+  <td width="666" valign="top" style="width:399.4pt;border:solid black 1.0pt;
+  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CPIN?<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+CPIN: READY&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">查询</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">sim</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">卡是否正常</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CGATT?<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+CGATT: 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">查询是否附着上数据网络，如果返回</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+CGATT: 0</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">表示未附着上</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CSTT=""&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">设置</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">APN</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">，此处</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">""</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">表示使用从网络端自动获取到的</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">APN<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CIICR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">发起激活</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">PDP</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">的请求</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CIFSR<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">10.159.1.145&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">请求到的</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">PDP</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">地址</span></span><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""><o:p>&nbsp;</o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">激活<span lang="EN-US">PDP</span>的流程图如下<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><img src="http://oldask.openluat.com/image/show/attachments-2019-09-Cgr0E9t75d6f832512251.png" class="img-responsive" style="width: 861px;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""> <v:shape id="图片_x0020_2" o:spid="_x0000_i1026" type="#_x0000_t75" alt="pdp激活（CIICR）.png" style="width:415.2pt;height:479.4pt;visibility:visible;
+ mso-wrap-style:square">
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image002.png" o:title="pdp激活（CIICR）">
+</v:imagedata></v:shape><o:p></o:p></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">3.2</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">socket</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">应用的去激活</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">PDP</span></b><b><span style="font-size:
+11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:inherit;="" mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"="">方式</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";="" mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"=""><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">PDP</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">激活成功之后，就可以发送<span lang="EN-US">socket</span>的<span lang="EN-US">AT</span>命令和服务器通信了，某些情况下，还需要执行去激活<span lang="EN-US">PDP</span>动作（发送<span lang="EN-US">AT+CIPSHUT</span>，参考<span lang="EN-US">3.1</span>章节的流程图），什么情况下，需要去激活<span lang="EN-US">PDP</span>呢？分为被动和主动两种场景：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">、被动场景：如果网络环境发生了异常变化（例如进入了一个没有信号的区域，拔掉天线，拔掉<span lang="EN-US">sim</span>卡等），一段时间后，<span lang="EN-US">4G</span>模块会产生一个<span lang="EN-US">+PDP: DEACT</span>的<span lang="EN-US">URC</span>提示，出现此提示说明已经激活的<span lang="EN-US">PDP</span>承载被网络端去激活了，此时仍然需要向<span lang="EN-US">4G</span>模块发送<span lang="EN-US">AT+CIPSHUT</span>命令主动关闭<span lang="EN-US">PDP <o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、主动场景，分为如下两种情况：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;color:#333333;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: " times="" new="" roman";"="">&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">在激活<span lang="EN-US">PDP</span>过程中，激活失败，此时需要主动去激活，然后再重新激活<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;color:#333333;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: " times="" new="" roman";"="">&nbsp; </span></span><!--[endif]--><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">socket</span><span style="font-size:
+9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">应用过程中出现失败，根据项目需要，可以执行主动去激活，然后再重新激活，重新执行<span lang="EN-US">socket</span>应用<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">3.3</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">http</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">mqtt</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">ftp</span></b><b><span style="font-size:
+11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:inherit;="" mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"="">应用的激活</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;="" color:#333333;mso-font-kerning:0pt"="">PDP</span></b><b><span style="font-size:
+11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:inherit;="" mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"="">方式</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";="" mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"=""><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">先来看个正常激活<span lang="EN-US">PDP</span>的<span lang="EN-US">AT</span>命令序列，请自行参考<span lang="EN-US">AT</span>手册理解<span lang="EN-US">AT</span>命令意义<span lang="EN-US"><o:p></o:p></span></span></p><table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="margin-left: 26.7pt; background: rgb(242, 242, 242); border: none;">
+ <tbody><tr>
+  <td width="666" valign="top" style="width:399.4pt;border:solid black 1.0pt;
+  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CPIN?<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+CPIN: READY&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">查询</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">sim</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">卡是否正常</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+CGATT?<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+CGATT: 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">查询是否附着上数据网络，如果返回</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+CGATT: 0</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">表示未附着上</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=3,1,"CONTYPE","GPRS"<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=3,1,"APN",""&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">设置</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">APN</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">，此处</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">""</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">表示使用从网络端自动获取到的</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">APN<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=1,1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">发起激活</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">PDP</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">的请求</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">AT+SAPBR=2,1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;//</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">注意：此命令仅仅查询</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">PDP</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">地址，可以不执行</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">+SAPBR: 1,1,"10.159.1.145"&nbsp;&nbsp;&nbsp; //</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">请求到的</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">PDP</span></span><span class="pln"><span style="font-size: 7.5pt; font-family: 宋体; border: 1pt none windowtext; padding: 0cm;">地址</span></span><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">OK</span></span><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""><o:p>&nbsp;</o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">激活<span lang="EN-US">PDP</span>的流程图如下<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img src="http://oldask.openluat.com/image/show/attachments-2019-09-YDWDgoSX5d6f833aa8837.png" class="img-responsive" style="width: 861px;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"=""> <v:shape id="图片_x0020_8" o:spid="_x0000_i1025" type="#_x0000_t75" alt="pdp激活（SAPBR）.png" style="width:415.2pt;height:489pt;visibility:visible;
+ mso-wrap-style:square">
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image003.png" o:title="pdp激活（SAPBR）">
+</v:imagedata></v:shape><o:p></o:p></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">3.4</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">http</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">mqtt</span></b><b><span style="font-size:11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:="" inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">ftp</span></b><b><span style="font-size:
+11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:inherit;="" mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"="">应用的去激活</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+" inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;="" color:#333333;mso-font-kerning:0pt"="">PDP</span></b><b><span style="font-size:
+11.5pt;font-family:" 微软雅黑","sans-serif";mso-ascii-font-family:inherit;="" mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"="">方式</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";="" mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:="" 0pt"=""><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:" inherit","serif";mso-fareast-font-family:="" 微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">PDP</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">激活成功之后，就可以执行<span lang="EN-US">http</span>、<span lang="EN-US">mqtt</span>、<span lang="EN-US">ftp</span>的<span lang="EN-US">AT</span>命令和服务器通信了，某些情况下，还需要执行去激活<span lang="EN-US">PDP</span>动作（发送<span lang="EN-US">AT+SAPBR=0,1</span>，参考<span lang="EN-US">3.3</span>章节的流程图），什么情况下，需要去激活<span lang="EN-US">PDP</span>呢？分为被动和主动两种场景：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">、被动场景：如果网络环境发生了异常变化（例如进入了一个没有信号的区域，拔掉天线，拔掉<span lang="EN-US">sim</span>卡等），一段时间后，<span lang="EN-US">4G</span>模块会产生一个<span lang="EN-US">+SAPBR 1: DEACT</span>的<span lang="EN-US">URC</span>提示，出现此提示说明已经激活的<span lang="EN-US">PDP</span>承载被网络端去激活了，此时仍然需要向<span lang="EN-US">4G</span>模块发送<span lang="EN-US">AT+SAPBR=0,1</span>命令主动关闭<span lang="EN-US">PDP <o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、主动场景，分为如下两种情况：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;color:#333333;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: " times="" new="" roman";"="">&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">在激活<span lang="EN-US">PDP</span>过程中，激活失败，此时需要主动去激活，然后再重新激活<span lang="EN-US"><o:p></o:p></span></span></p><p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;color:#333333;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: " times="" new="" roman";"="">&nbsp; </span></span><!--[endif]--><span lang="EN-US" style="font-size:9.0pt;font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:="" 宋体;color:#333333;mso-font-kerning:0pt"="">http</span><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"="">、<span lang="EN-US">mqtt</span>、<span lang="EN-US">ftp</span>应用过程中出现失败，根据项目需要，可以执行主动去激活，然后再重新激活，重新执行<span lang="EN-US">http</span>、<span lang="EN-US">mqtt</span>、<span lang="EN-US">ftp</span></span><span style="text-indent: -21pt; font-size: 9pt; font-family: 微软雅黑, sans-serif; color: rgb(51, 51, 51);">应用</span></p>
+
+<div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">四、常见问题</span></b><span lang="EN-US" style="font-size:
+6.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">4.1</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、重试多次</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">PDP</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">一直激活失败</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;
+color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div>
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">如果重试多次，<span lang="EN-US">PDP</span>一直激活失败，则尝试使用如下手段恢复：<span lang="EN-US"><o:p></o:p></span></span></p>
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">、使用<span lang="EN-US">RESET</span>引脚复位模块<span lang="EN-US"><o:p></o:p></span></span></p>
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">、极端情况下，直接给模块断电，再上电，<span lang="EN-US">POWER
+KEY</span>引脚拉低开机<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 63pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="font-size:9.0pt;
+font-family:" 微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;="" mso-font-kerning:0pt"=""><span lang="EN-US"><o:p></o:p></span></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/09/04/624/" data-id="ckkfmdgfm00euvkcgezstbe37" data-title="Air系列4G模块AT版本PDP使用汇总" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/05/625/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air系列4G模块AT版本MQTT应用说明
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/29/623/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">安卓7 安卓8 出现三角符号，但是可以上网 解决方案</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

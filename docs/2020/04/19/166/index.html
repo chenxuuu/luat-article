@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>树莓派使用合宙4G模块环境搭建指南 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1.前言 相信很多朋友都陆续收到了团购的Air724UG开发板，笔者之前经常用Ubuntu使用合宙的4G模块，正好最近同时在研究树莓派的各种用法，不如研究一下如何在树莓派上使用合宙4G模块，通过树莓派向模块发送AT命令，通过模块的RNDIS或ECM网卡让树莓派网上冲浪，那么闲话少说，Let’s go! 笔者手中的树莓派型号为树莓派3B，其他树莓派型号操作大同小异哦。 笔者编译的是树莓派官方系统Ra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派使用合宙4G模块环境搭建指南">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/04/19/166/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="1.前言 相信很多朋友都陆续收到了团购的Air724UG开发板，笔者之前经常用Ubuntu使用合宙的4G模块，正好最近同时在研究树莓派的各种用法，不如研究一下如何在树莓派上使用合宙4G模块，通过树莓派向模块发送AT命令，通过模块的RNDIS或ECM网卡让树莓派网上冲浪，那么闲话少说，Let’s go! 笔者手中的树莓派型号为树莓派3B，其他树莓派型号操作大同小异哦。 笔者编译的是树莓派官方系统Ra">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419191438207_raspbian%E4%B8%8B%E8%BD%BD.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419192003325_balenaEtcher.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419192745343_pi_ip.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419194115041_config_kernel.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195152290_optionc1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195505153_optionc2.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195803877_optionc3.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419200323118_usb_wwan1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419201206861_rndismakemenuconfig.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202035295_ecmmakemenuconfig.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202317978_pppmakemenuconfig.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202614391_pppmakemenuconfig2.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202752689_n_gsm.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202944428_n_gsm2.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204001717_uname.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204346670_usb_enum.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204500713_ifconfig.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204914616_minicom.png">
+<meta property="article:published_time" content="2020-04-19T13:06:37.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419191438207_raspbian%E4%B8%8B%E8%BD%BD.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-166" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/19/166/" class="article-date">
+  <time class="dt-published" datetime="2020-04-19T13:06:37.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      树莓派使用合宙4G模块环境搭建指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><ul>
+<li>相信很多朋友都陆续收到了团购的Air724UG开发板，笔者之前经常用Ubuntu使用合宙的4G模块，正好最近同时在研究树莓派的各种用法，不如研究一下如何在树莓派上使用合宙4G模块，通过树莓派向模块发送AT命令，通过模块的RNDIS或ECM网卡让树莓派网上冲浪，那么闲话少说，Let’s go!</li>
+<li>笔者手中的树莓派型号为树莓派3B，其他树莓派型号操作大同小异哦。</li>
+<li>笔者编译的是树莓派官方系统<strong>Raspbian</strong>，<strong>内核版本为4.19.x</strong>,其它系统以及其他内核情况不在本文描述中哦。</li>
+<li>建议输入命令部分全程使用<strong>root用户</strong>操作哦，配置<code>root</code>密码方式为<code>sudo passwd</code></li>
+<li>笔者也是在很多人的帮助下，参考了很多教程才总结出的这篇文章。感谢帮助笔者完成这篇文章的朋友们！</li>
+</ul>
+<hr>
+<h2 id="2-树莓派准备流程"><a href="#2-树莓派准备流程" class="headerlink" title="2.树莓派准备流程"></a>2.树莓派准备流程</h2><ul>
+<li>需要用到的物品</li>
+<li>树莓派1台</li>
+<li>树莓派可以使用的SD卡1张</li>
+<li>读卡器1个</li>
+<li>首先将树莓派刷入官方最新Raspbian系统➡️<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian系统下载地址戳我哦</a><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419191438207_raspbian%E4%B8%8B%E8%BD%BD.png" alt="raspbian"><br>下载好之后会得到一个格式为zip的压缩包，他其实就是官方系统的镜像，使用镜像写入工具写入树莓派使用的SD卡，写入SD卡前如果SD卡没有重要数据需要备份的话，建议先使用SDFormat格式化一下➡️<a target="_blank" rel="noopener" href="https://www.sdcard.org/downloads/formatter/">SDFormat下载地址戳我哦</a> ，具体操作这里就不赘述了。<br>接下来到了写入镜像的环节，笔者这里使用的工具是balenaEtcher➡️<a target="_blank" rel="noopener" href="https://www.balena.io/etcher/">balenaEtcher下载地址戳我哦</a> ，因为界面好看还傻瓜式啊2333，选好刚刚下载好的镜像和要写入的SD卡就可以Flash啦！这里要做的就是等待写入完成就好了。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419192003325_balenaEtcher.png" alt="alt"></li>
+<li>镜像写入完成之后，不要急着弹出SD卡，打开SD卡在Windows资源管理器中挂载的boot分区，新建一个名字为ssh的空白文件，<strong>划重点，文件的名字只有ssh，不要任何后缀哦</strong>，新建好之后就可以把SD卡插入树莓派了，接下来，笔者建议大家使用网线连接树莓派到路由器哦，因为树莓派的WiFi不是那么稳定，所以保险起见，笔者选择了网线连接，也就省略了WiFi连接方式的教程，有需要的朋友可以自行百度树莓派如何使用WiFi。</li>
+<li>由于上一步新建了空白ssh文件的操作，现在我们使用任意SSH工具就可以连接到树莓派终端了，在路由器的后台查看一下树莓派的IP地址。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419192745343_pi_ip.png" alt="alt"><br>怎么使用SSH工具这里就不赘述了，<strong>Raspbian默认的用户名为pi，密码为raspberry</strong>，至此你手里的树莓派已经具备了我们编译内核的环境了！</li>
+</ul>
+<hr>
+<h2 id="3-编译内核"><a href="#3-编译内核" class="headerlink" title="3.编译内核"></a>3.编译内核</h2><ul>
+<li>不做任何修改的树莓派官方系统在将树莓派与开发板通过USB连接之后只能使用RNDIS功能，并不能正确识别到开发板USB枚举出的所有端口，为了能让树莓派通过usb_AT端口发送AT命令，通过usb_modem端口进行ppp的拨号上网，通过usb_diag端口进行trace的捕捉，我们有必要对内核中的usb驱动进行一些修改来正确识别usb枚举的端口。</li>
+<li>首先要安装一些必备的工具<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install git bc bison flex libssl-dev make</span><br></pre></td></tr></table></figure>
+树莓派默认的apt源不是很快，笔者这里建议大家更换清华源➡️<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/raspbian/">更换方法戳我哦</a></li>
+<li>然后我们去获取一下树莓派内核的源代码，放在用户目录即可<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth=1 https://github.com/raspberrypi/linux</span><br></pre></td></tr></table></figure>
+这里clone速度应该会很慢，建议大家通过代理的方式clone，Linux如何设置代理，大家可以百度搜索相关教程。<br>这里获取到的内核版本为默认分支上的4.19.x，笔者在写这篇文章时的获取到的内核版本为<strong>4.19.115-v7+</strong></li>
+<li>获取到内核源代码之后就进入了最为关键的配置内核环节，根据你手中的树莓派型号执行相应的命令，比方说笔者这里的3B，执行的就是中间的那三条命令。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419194115041_config_kernel.png" alt="alt"></li>
+<li>执行结束之后，当前内核源代码已经进行了最基本的配置，之后我们要修改两个内核文件以实现合宙4G模块的支持。（考虑到这两个文件修改起来比较麻烦又容易写错，所以这里笔者直接提供了这两个修改后的文件，放在了万恶的百度网盘➡️<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1h2_kBvFp-U1DQo2BwhilXg">下载戳我</a>   密码是：yr13）</li>
+<li>首先要修改的是drivers/usb/serial/option.c这个文件，具体修改位置见下图<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195152290_optionc1.png" alt="optionc1"><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195505153_optionc2.png" alt="optionc2"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419195803877_optionc3.png" alt="optionc3"></li>
+<li>其次要修改的文件为drivers/usb/serial/usb_wwan.c这个文件，具体修改位置见下图<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419200323118_usb_wwan1.png" alt="usb_wwan"></li>
+<li>至此，内核文件的修改已完成</li>
+<li>接下来需要在make menuconfig的界面进行图形化修改配置</li>
+<li>回到内核源代码的根目录执行<code>make menuconfig</code>进入内核配置的图形界面。</li>
+<li>首先我们先开启RNDIS相关的支持，在menuconfig界面按下键盘上的<code>/</code>输入RNDIS进行搜索，请确保搜索结果中与RNDIS相关的选项状态为y或m。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419201206861_rndismakemenuconfig.png" alt="rndis">如果这里状态不是<strong>y或m</strong>说明此项功能并没有打开，请根据相应的没有打开的<strong>Symbol的Location</strong>找到相关选项，<strong>相关选项的名称为Prompt后面的名称</strong>，通过按下键盘上的<strong>空格（Space）</strong>启用，或在展开相关选项之后，在相关选项中找到要打开的选项再次按下<strong>空格</strong>打开。</li>
+<li>有使用ECM网卡需求的朋友，可以参考RNDIS的内容打开ECM相关的支持，这里给一张参考图<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202035295_ecmmakemenuconfig.png" alt="ecm"></li>
+<li>打开ppp相关也是同理<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202317978_pppmakemenuconfig.png" alt="ppp"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202614391_pppmakemenuconfig2.png" alt="ppp"></li>
+<li>使用CMUX功能的同学一定要注意打开<strong>N_GSM</strong>这一项<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202752689_n_gsm.png" alt="n_gsm"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419202944428_n_gsm2.png" alt="n_gsm"></li>
+<li>经过上面的操作，内核就已经全部修改完成了，接下来要进行编译操作了，通过以下命令进行内核的编译和安装。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">make -j4 zImage modules dtbs</span><br><span class="line">make modules_install</span><br><span class="line">cp arch/arm/boot/dts/*.dtb /boot/</span><br><span class="line">cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/</span><br><span class="line">cp arch/arm/boot/dts/overlays/README /boot/overlays/</span><br><span class="line">cp arch/arm/boot/zImage /boot/$KERNEL.img</span><br></pre></td></tr></table></figure>
+经过大概一个多小时的编译，执行成功之后重启你的树莓派，重新登陆，键入<code>uname -a</code>查看内核版本，是不是已经更新到了我们修改后编译的版本！<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204001717_uname.png" alt="alt"></li>
+</ul>
+<hr>
+<h2 id="4-成果验证"><a href="#4-成果验证" class="headerlink" title="4.成果验证"></a>4.成果验证</h2><ul>
+<li>连接合宙4G模块开发板USB接口，给模块开发板上电开机，等待模块开机完成之后，在树莓派终端键入<code>ls /dev/ttyUSB*</code>看看是不是已经能够成功识别到模块枚举的三个USB端口了！按照枚举顺序依次为AT，modem，diag。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204346670_usb_enum.png" alt="alt"></li>
+<li>键入<code>ifconfig</code>查看是否有rndis网卡。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204500713_ifconfig.png" alt="alt"></li>
+<li>关于CMUX以及PPP的使用方法就不在本篇赘述了，之后会再出一篇使用说明。</li>
+<li>迫不及待地尝试一下AT口功能是否正常，这里使用minicom，没有安装的朋友可以通过<code>apt install minicom</code>安装，使用<code>minicom -D /dev/ttyUSB0</code>打开AT口发送AT命令测试。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200419204914616_minicom.png" alt="alt"></li>
+</ul>
+<hr>
+<h2 id="5-总结以及参考资料"><a href="#5-总结以及参考资料" class="headerlink" title="5.总结以及参考资料"></a>5.总结以及参考资料</h2><ul>
+<li>至此，树莓派已经可以使用合宙4G模块的所有功能了，用起来还是比较爽的，比较值得注意的地方是内核文件的修改，以及menuconfig的配置，一定要细心又有耐心哦，如果读者有任何问题可以在这篇文章下面与我交流鸭2333</li>
+<li>ask.openluat.com相关文章</li>
+<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/419/0">http://doc.openluat.com/article/419/0</a></li>
+<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/453/0">http://doc.openluat.com/article/453/0</a></li>
+<li><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/698/0">http://doc.openluat.com/article/698/0</a></li>
+<li>树莓派官方教程 <a target="_blank" rel="noopener" href="https://www.raspberrypi.org/documentation/linux/kernel/building.md">https://www.raspberrypi.org/documentation/linux/kernel/building.md</a></li>
+<li>特别鸣谢@小神龙,@nerv.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/04/19/166/" data-id="ckkfmdg9p0015vkcg7f3bevlo" data-title="树莓派使用合宙4G模块环境搭建指南" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/22/724/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air724UG GPIO口默认电平状态
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/19/723/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">自制Air720SL板USB接口无法识别的填坑备忘</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

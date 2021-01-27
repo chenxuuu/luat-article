@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air720U系列/Air724U/Air723U系列 Cat.1 模块抓底层日志教程 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1. 用Luatools V2工具抓底层日志合宙官方调试工Luatools V2，除了可以进行升级固件操作，还可以用来抓取底层的日志，详细操作如下：  下载Luatools V2后打开，并且允许工具升级。 安装USB驱动 用USB线直接连接模块的USB管脚到PC的USB接口 打开luatools，勾选4G USB打印 给模块上的会自动有打印 在选项中做如下修改 在luatool v2\log\4g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air720U系列&#x2F;Air724U&#x2F;Air723U系列 Cat.1 模块抓底层日志教程">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/04/23/725/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="1. 用Luatools V2工具抓底层日志合宙官方调试工Luatools V2，除了可以进行升级固件操作，还可以用来抓取底层的日志，详细操作如下：  下载Luatools V2后打开，并且允许工具升级。 安装USB驱动 用USB线直接连接模块的USB管脚到PC的USB接口 打开luatools，勾选4G USB打印 给模块上的会自动有打印 在选项中做如下修改 在luatool v2\log\4g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_12742.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_42120.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_38565.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200915093856176_%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200915093707.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_79277.gif">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_40469.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_65362.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_20712.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_10973.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_50568.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_90011.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_13067.gif">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_23567.gif">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_54285.gif">
+<meta property="article:published_time" content="2020-04-23T10:37:32.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_12742.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-725" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/23/725/" class="article-date">
+  <time class="dt-published" datetime="2020-04-23T10:37:32.000Z" itemprop="datePublished">2020-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air720U系列/Air724U/Air723U系列 Cat.1 模块抓底层日志教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="1-用Luatools-V2工具抓底层日志"><a href="#1-用Luatools-V2工具抓底层日志" class="headerlink" title="1. 用Luatools V2工具抓底层日志"></a>1. 用Luatools V2工具抓底层日志</h3><p>合宙官方调试工Luatools V2，除了可以进行升级固件操作，还可以用来抓取底层的日志，详细操作如下：</p>
+<ol>
+<li>下载<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/luatoolsV2-redirect.html" title="Luatools V2">Luatools V2</a>后打开，并且允许工具升级。</li>
+<li>安装<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z" title="USB驱动">USB驱动</a></li>
+<li>用USB线直接连接模块的USB管脚到PC的USB接口<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12742.jpg"></li>
+<li>打开luatools，勾选4G USB打印<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_42120.png"></li>
+<li>给模块上的会自动有打印<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_38565.png"></li>
+<li>在选项中做如下修改<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200915093856176_%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200915093707.png"></li>
+<li>在luatool v2\log\4gdiag目录下可以看到正在自动生成.bin和.tra文件，大小正在正在增加说明正在生成底层日志<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_79277.gif"></li>
+<li>需要停止，只需要关闭luatool即可<br>其中.bin为AP日志，.tra为CP日志</li>
+</ol>
+<hr>
+<h3 id="2-从HOST-UART接口抓AP日志"><a href="#2-从HOST-UART接口抓AP日志" class="headerlink" title="2. 从HOST UART接口抓AP日志"></a>2. 从HOST UART接口抓AP日志</h3><p>在一些应用场合，USB被占用了，无法通过USB在抓底层日志的情况下，还可以通过HOST UART接口抓取AP日志，步骤如下：</p>
+<ol>
+<li><p>下载<a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200428182924_8910_coolwatch_win32_R2.0.0002.7z" title="cooltool">cooltool</a>工具</p>
+</li>
+<li><p>用USB转TTL数据线连接模块的UART1管脚<br>Air720U：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40469.png"><br>Air724U:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65362.png"></p>
+</li>
+<li><p>模块开机后，通过串口工具发AT^TRACECTRL=0,1,3 这个指令，将日志打开之后关机<br><code> 注意：AT^TRACECTRL=0,1,3是永久生效的，可以断电保存</code></p>
+</li>
+<li><p>用USB转TTL数据线连接模块的HOST UART管脚<br>Air720U:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_20712.png"><br>Air724U:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_10973.png"></p>
+</li>
+<li><p>打开cooltool<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_50568.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_90011.png"></p>
+</li>
+<li><p>打开trace栏<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13067.gif"></p>
+</li>
+<li><p>模块开机，日志会在trace栏中打印出来<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_23567.gif"></p>
+</li>
+<li><p>抓到想要的日志后，点击保存即可<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_54285.gif"></p>
+</li>
+</ol>
+<hr>
+<h3 id="3-Android-amp-LINUX-主控抓底层日志方法"><a href="#3-Android-amp-LINUX-主控抓底层日志方法" class="headerlink" title="3. Android &amp; LINUX 主控抓底层日志方法"></a>3. Android &amp; LINUX 主控抓底层日志方法</h3><p>详细请见<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/720/0">http://doc.openluat.com/article/720/0</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/04/23/725/" data-id="ckkfmdgdc00bcvkcg5qqwbwmr" data-title="Air720U系列/Air724U/Air723U系列 Cat.1 模块抓底层日志教程" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/23/726/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          https 访问 根证书 证书导出
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/22/724/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air724UG GPIO口默认电平状态</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

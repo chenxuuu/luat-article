@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>如何计算GPS的NMEA校验码 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="众所周知，GPS芯片输出的格式，是符合NMEA0183标准的。每一个语句的结尾，都要加上一个校验码。 如果校验码错误，上位机发给GPS芯片的命令，GPS芯片将直接抛弃；而上位机也不会理校验码错误的语句。但是很多开发者并不知道校验码是如何计算的，这对开发造成了一定的影响。所以本文就实操一下，给大家讲解如何计算。 首先我们来看一下一个标准的语句是什么样的： $GPGGA,092725.00,4717.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何计算GPS的NMEA校验码">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/18/447/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="众所周知，GPS芯片输出的格式，是符合NMEA0183标准的。每一个语句的结尾，都要加上一个校验码。 如果校验码错误，上位机发给GPS芯片的命令，GPS芯片将直接抛弃；而上位机也不会理校验码错误的语句。但是很多开发者并不知道校验码是如何计算的，这对开发造成了一定的影响。所以本文就实操一下，给大家讲解如何计算。 首先我们来看一下一个标准的语句是什么样的： $GPGGA,092725.00,4717.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_47197.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_27204.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_60262.png">
+<meta property="article:published_time" content="2018-09-18T10:03:11.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_47197.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-447" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/18/447/" class="article-date">
+  <time class="dt-published" datetime="2018-09-18T10:03:11.000Z" itemprop="datePublished">2018-09-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何计算GPS的NMEA校验码
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>众所周知，GPS芯片输出的格式，是符合NMEA0183标准的。每一个语句的结尾，都要加上一个校验码。</p>
+<p>如果校验码错误，上位机发给GPS芯片的命令，GPS芯片将直接抛弃；而上位机也不会理校验码错误的语句。但是很多开发者并不知道校验码是如何计算的，这对开发造成了一定的影响。所以本文就实操一下，给大家讲解如何计算。</p>
+<p>首先我们来看一下一个标准的语句是什么样的：<br><code> $GPGGA,092725.00,4717.11399,N,00833.91590,E,1,08,1.01,499.6,M,48.0,M,,*5b\r\n</code></p>
+<p>我们参与校验值计算的部分，是从 <strong>$</strong> 符号后起，到最后的不含 <strong>\r\n</strong> 的部分止。以上边的语句为例，参与计算的部分是：<br><code> GPGGA,092725.00,4717.11399,N,00833.91590,E,1,08,1.01,499.6,M,48.0,M,,</code></p>
+<p>我们接下来就以它为基础，看计算出来的结果是不是 <strong>5b</strong>。</p>
+<p>##原理<br>NMEA通讯协议所规定的通讯语句都已是以ASCII码为基础的，NMEA-0183协议语句的数据格式如下：“$”为语句起始标志；“，”为域分隔符；“ <em>”为校验和识别符，其后面的两位数为校验和，代表了“$”和“</em>”之间所有字符的按位异或值（不包括这两个字符）；“／”为终止符，所有的语句必须以来结束，也就是ASCII 字符的“回车”（十六进制的0D）和“换行”（十六进制的0A）<br><em>摘自 <a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/98269764.html">GPS的NMEA协议数据校验和是怎么算的</a></em></p>
+<p>##Python<br>如何在上位机检查校验码是否合法呢？不多说，直接上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checksum</span>(<span class="params">sentence</span>):</span></span><br><span class="line">    sentence = sentence.replace(<span class="string">&quot;\r&quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;\n&quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;$&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    nmeadata,cksum = re.split(<span class="string">&#x27;\*&#x27;</span>, sentence)</span><br><span class="line"></span><br><span class="line">    calc_cksum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> nmeadata:</span><br><span class="line">        calc_cksum ^= <span class="built_in">ord</span>(s)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nmeadata,<span class="string">&#x27;0x&#x27;</span>+cksum,<span class="built_in">hex</span>(calc_cksum)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    line = <span class="string">&quot;$GPGGA,092725.00,4717.11399,N,00833.91590,E,1,08,1.01,499.6,M,48.0,M,,*5b\n&quot;</span></span><br><span class="line">    data, cksum, calc_cksum = checksum(line)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> cksum != calc_cksum:</span><br><span class="line">        print(<span class="string">&quot;Error in checksum for: %s&quot;</span> % (data))</span><br><span class="line">        print(<span class="string">&quot;Checksums are %s and %s&quot;</span> % (cksum, calc_cksum))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">&quot;checksum is: %s&quot;</span> % (calc_cksum))</span><br></pre></td></tr></table></figure>
+<p>运行一下看看结果如何：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_47197.png"></p>
+<p>正如所料，输出5b；校验ok。</p>
+<p>##Lua<br>如何使用Lua给GPS芯片发控制指令呢？实际上gps.lua已经写好了相关的函数，开发者只需要直接调用即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span><span class="string">&quot;gps&quot;</span></span><br><span class="line">gps.<span class="built_in">write</span>(<span class="string">&quot;xxxx&quot;</span>, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+<p>函数原型如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-- GPS串口写命令操作</span><br><span class="line">-- @string cmd，GPS指令(cmd格式：&quot;$PGKC149,1,115200*&quot;或者&quot;$PGKC149,1,115200*XX\r\n&quot;)</span><br><span class="line">-- @bool isFull，cmd是否为完整的指令格式，包括校验和以及\r\n；true表示完整，false或者nil为不完整</span><br><span class="line">-- @return nil</span><br><span class="line">-- @usage gps.writeCmd(cmd)</span><br><span class="line">function writeCmd(cmd,isFull)</span><br><span class="line">    local tmp &#x3D; cmd</span><br><span class="line">    if not isFull then</span><br><span class="line">        tmp &#x3D; 0</span><br><span class="line">        for i&#x3D;2,cmd:len()-1 do</span><br><span class="line">            tmp &#x3D; bit.bxor(tmp,cmd:byte(i))</span><br><span class="line">        end</span><br><span class="line">        tmp &#x3D; cmd..(string.format(&quot;%02X&quot;,tmp)):upper()..&quot;\r\n&quot;</span><br><span class="line">    end</span><br><span class="line">    uart.write(uartID,tmp)</span><br><span class="line">    log.info(&quot;gps.writecmd&quot;,tmp)</span><br><span class="line">    --log.info(&quot;gps.writecmd&quot;,tmp:toHex())</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>开发者也可以使用以下代码测试校验值：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkSum</span><span class="params">(cmd)</span></span></span><br><span class="line">    <span class="keyword">local</span> tmp = cmd</span><br><span class="line"></span><br><span class="line">    tmp = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,cmd:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        tmp = bit.bxor(tmp,cmd:<span class="built_in">byte</span>(i))</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    tmp = cmd..(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%02X&quot;</span>,tmp)):<span class="built_in">upper</span>()..<span class="string">&quot;\r\n&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> tmp</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(checkSum(<span class="string">&quot;GPGGA,092725.00,4717.11399,N,00833.91590,E,1,08,1.01,499.6,M,48.0,M,,&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>下载到模块跑一下，看看输出的结果：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_27204.png"></p>
+<p>正如所料，输出5b；校验ok。</p>
+<p>##c<br>感谢开发者 维维宁(Q号940791105) 贡献代码：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_60262.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/18/447/" data-id="ckkfmdgba005avkcg2q2w37rg" data-title="如何计算GPS的NMEA校验码" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/22/448/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          解决OLED的二维码显示错误问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/17/446/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">MQTT主题的通配符</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

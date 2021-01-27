@@ -1,0 +1,2972 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air724UG_模块硬件设计手册_V2.2 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@[TOC] 1. 绪论本文档定义了Air724UG模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air724UG模块于无线应用。 2.综述2.1 型号信息表格1：模块支持频段列表    型号 Air724UG-NFM Air724UG-NFC Air724UG-MFM Air724UG-MFC    LTE-FDD B1&#x2F;B3&#x2F;B5&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air724UG_模块硬件设计手册_V2.2">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/05/26/383/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="@[TOC] 1. 绪论本文档定义了Air724UG模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air724UG模块于无线应用。 2.综述2.1 型号信息表格1：模块支持频段列表    型号 Air724UG-NFM Air724UG-NFC Air724UG-MFM Air724UG-MFC    LTE-FDD B1&#x2F;B3&#x2F;B5&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201022163817025_Air722UG_%E6%A1%86%E5%9B%BE.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824213858943_999.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814152306393_VBAT.jpg">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200707103953938_10.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518140827621_6.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518140938947_7.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200707104627468_11.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814155921457_%E5%BC%80%E6%9C%BA2.jpg">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518141653597_10.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814191705668_%E4%B8%8A%E7%94%B5%E5%BC%80%E6%9C%BA.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518142523298_11.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518143209192_12.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518143254809_13.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200806225845383_UART1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200806230222657_%E6%B5%81%E6%8E%A7.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521160512264_3.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200806222527958_USB.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162008118_5.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162307522_6.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162952552_7.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521163115440_8.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521163216934_9.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521163304211_10.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814171751085_LED.jpg">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814174553336_micphone.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210125231126919_Earphone1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210125231617210_Earphone2.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230180631973_%E8%80%B3%E6%9C%BA%E5%88%86%E7%B1%BB.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814175100417_Speaker.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814175842755_antenna.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521184012696_19.jpg">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200525161012573_22.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200525161501324_24.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200525162133431_26.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200707110755577_15.png">
+<meta property="article:published_time" content="2020-05-26T07:20:56.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201022163817025_Air722UG_%E6%A1%86%E5%9B%BE.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-383" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/05/26/383/" class="article-date">
+  <time class="dt-published" datetime="2020-05-26T07:20:56.000Z" itemprop="datePublished">2020-05-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air724UG_模块硬件设计手册_V2.2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[TOC]</p>
+<h1 id="1-绪论"><a href="#1-绪论" class="headerlink" title="1. 绪论"></a>1. 绪论</h1><p>本文档定义了Air724UG模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air724UG模块于无线应用。</p>
+<h1 id="2-综述"><a href="#2-综述" class="headerlink" title="2.综述"></a>2.综述</h1><h2 id="2-1-型号信息"><a href="#2-1-型号信息" class="headerlink" title="2.1 型号信息"></a>2.1 型号信息</h2><p>表格1：模块支持频段列表</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>Air724UG-NFM</th>
+<th>Air724UG-NFC</th>
+<th>Air724UG-MFM</th>
+<th>Air724UG-MFC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LTE-FDD</strong></td>
+<td>B1/B3/B5/B8</td>
+<td>B1/B3/B5/B8</td>
+<td>B1/B3/B5/B8</td>
+<td>B1/B3/B5/B8</td>
+</tr>
+<tr>
+<td><strong>LTE-TDD</strong></td>
+<td>B34/B38/B39/B40/B41</td>
+<td>B34/B38/B39/B40/B41</td>
+<td>B34/B38/B39/B40/B41</td>
+<td>B34/B38/B39/B40/B41</td>
+</tr>
+<tr>
+<td><strong>VOLTE</strong></td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><strong>Camera</strong></td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><strong>模拟语音</strong></td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><strong>贴片SIM卡</strong></td>
+<td>无内置贴片SIM卡</td>
+<td>无内置贴片SIM卡</td>
+<td>内置移动贴片SIM卡</td>
+<td>内置移动贴片SIM卡</td>
+</tr>
+<tr>
+<td><strong>蓝牙/WiFi scan</strong></td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><strong>模块尺寸</strong></td>
+<td>24*24mm</td>
+<td>24*24mm</td>
+<td>24*24mm</td>
+<td>24*24mm</td>
+</tr>
+<tr>
+<td><strong>封装</strong></td>
+<td>邮票孔+LGA</td>
+<td>邮票孔+LGA</td>
+<td>邮票孔+LGA</td>
+<td>邮票孔+LGA</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-主要性能"><a href="#2-2-主要性能" class="headerlink" title="2.2 主要性能"></a>2.2 主要性能</h2><table>
+<thead>
+<tr>
+<th><strong>特征</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>支持频段</strong></td>
+<td>见表2模块型号信息介绍</td>
+</tr>
+<tr>
+<td><strong>发射功率</strong></td>
+<td>•    LTE-TDD：Class3(23dBm+1/-3dB)        •LTE-FDD：Class3(23dBm+-2dB)</td>
+</tr>
+<tr>
+<td><strong>供电</strong></td>
+<td>•    VBAT 3.3V ~ 4.3V，典型值3.8V</td>
+</tr>
+<tr>
+<td><strong>LTE特性</strong></td>
+<td>•    最大支持non-CA  CAT1   •    支持VOLTE   •    支持1.4~20MHz射频带宽   •    LTE-FDD：最大上行速率 5Mbps，最大下行速率  10Mbps   •    LTE-TDD：上下行配置2  最大上行速率  2Mbps，最大下行速率  8Mbps    •    LTE-TDD：上下行配置1  最大上行速率  4Mbps，最大下行速率  6Mbps</td>
+</tr>
+<tr>
+<td><strong>网路协议特性</strong></td>
+<td>•     已支持TCP/UDP/PPP/FTP/HTTP/NITZ/CMUX/NDIS/NTP/HTTPS/PING/FTPS/FILE/MQTT   •     SMTP/SMTPS/MMS/DTMF开发中</td>
+</tr>
+<tr>
+<td><strong>USIM卡接口</strong></td>
+<td>• 支持USIM/SIM卡：1.8V和3V</td>
+</tr>
+<tr>
+<td><strong>USB接口</strong></td>
+<td>• 兼容  USB 2.0（只支持从模式），数据传输速率最大到 480Mbps   •     用于AT指令、数据传输、软件调试、软件升级  • USB 虚拟串口驱动：支持Windows 7/8.1/10，Linux  2.6.x/3.x/4.1，  Android 4.x/5.x/6.x/7.x 等操作系统下的  USB 驱动</td>
+</tr>
+<tr>
+<td><strong>串口</strong></td>
+<td>UART1：  • 用于AT命令和数据传输  • 最大波特率921600bps，默认115200bps  •     支持硬件流控（CTS/RTS）  UART2：  •     用于下载软件和射频校准，同时还用于和内部蓝牙通信  HOST UART：  •     用于输出调试信息  ZSP UART：  •     用于输出调试信息</td>
+</tr>
+<tr>
+<td><strong>SPI Camera</strong></td>
+<td>•     支持</td>
+</tr>
+<tr>
+<td><strong>SPI LCD</strong></td>
+<td>•     支持</td>
+</tr>
+<tr>
+<td><strong>键盘</strong></td>
+<td>•     支持6*6扫描键盘</td>
+</tr>
+<tr>
+<td><strong>天线接口</strong></td>
+<td>•     特性阻抗50欧姆</td>
+</tr>
+<tr>
+<td><strong>物理特性</strong></td>
+<td>•     尺寸：  Air724UG：24mm&#42;24mm&#42;2.3mm    •     重量：约2.6g</td>
+</tr>
+<tr>
+<td><strong>温度范围</strong></td>
+<td>•     正常工作温度：-35°C～+70°C  •     极限工作温度：-40°C～+85°C</td>
+</tr>
+<tr>
+<td><strong>RoHS</strong></td>
+<td>•     所有器件完全符合RoHS标准</td>
+</tr>
+<tr>
+<td><strong>封装</strong></td>
+<td>•     117个管脚，实际可用管脚详见管脚图</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-功能框图"><a href="#2-3-功能框图" class="headerlink" title="2.3 功能框图"></a>2.3 功能框图</h2><p>下图为Air724UG模块功能框图，阐述了其主要功能：<br>•    存储器<br>•    射频部分<br>•    电源管理<br>•    接口部分<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201022163817025_Air722UG_%E6%A1%86%E5%9B%BE.png"></p>
+<h2 id="2-4-评估版"><a href="#2-4-评估版" class="headerlink" title="2.4 评估版"></a>2.4 评估版</h2><p>为了有助于测试及使用模块，合宙提供一套评估板.</p>
+<h1 id="3-应用接口"><a href="#3-应用接口" class="headerlink" title="3.应用接口"></a>3.应用接口</h1><p>模块采用LCC封装，117个SMT焊盘管脚，以下章节将详细阐述Air724UG各接口的功能。</p>
+<h2 id="3-1-管脚描述"><a href="#3-1-管脚描述" class="headerlink" title="3.1 管脚描述"></a>3.1 管脚描述</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824213858943_999.png"><br>图表2：Air724UG管脚排列图（正视图）<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20210127141124797_Air724UG_%E7%AE%A1%E8%84%9A%E5%9B%BE.pdf">点击查看Air724UG高清管脚图</a></p>
+<p>表格2：管脚描述</p>
+<table>
+<thead>
+<tr>
+<th><strong>电源</strong></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>VBAT</td>
+<td>59 60</td>
+<td></td>
+<td>PI</td>
+<td>模块主电源VBAT=3.3V~4.3V</td>
+<td>VBAT</td>
+<td>1.模块在突发模式下的最大负载电流有1.8A 2.<strong>电压低于3.3V时射频指标会恶化</strong></td>
+</tr>
+<tr>
+<td>V_GLOBAL_1V8</td>
+<td>65</td>
+<td>ON</td>
+<td>PO</td>
+<td>输出1.8V IOmax=50mA</td>
+<td>V_GLOBAL_1V8</td>
+<td>1.如果不用则悬空 2.如果用这个管脚给外部供电， 推荐并联一个2~4.7uF的去耦电容， 负载电流不要超过50mA</td>
+</tr>
+<tr>
+<td>VMMC</td>
+<td>24</td>
+<td>ON</td>
+<td>PO</td>
+<td>输出1.6-3.2V， 默认电压是3.1V, IOmax=150mA</td>
+<td>VMMC</td>
+<td>给MMC供电，如果不用则悬空</td>
+</tr>
+<tr>
+<td>VCC_CAMA</td>
+<td>79</td>
+<td>OFF</td>
+<td>PO</td>
+<td>输出1.6-3.2V， 给Camera 提供模拟电压， 默认是1.8V, IOmax=100mA</td>
+<td>VCC_CAMA</td>
+<td>给Camera供电; 如果不用则悬空</td>
+</tr>
+<tr>
+<td>VCC_CAMD</td>
+<td>80</td>
+<td>OFF</td>
+<td>PO</td>
+<td>输出1.4-2.1V， 给Camera 提供数字电压， 默认是1.8V, IOmax=100mA</td>
+<td>VCC_CAMD</td>
+<td>给Camera供电; 如果不用则悬空</td>
+</tr>
+<tr>
+<td>VCC_LCD</td>
+<td>81</td>
+<td>OFF</td>
+<td>PO</td>
+<td>输出1.6-3.3V， 默认电压是1.8V, IOmax=200mA</td>
+<td>VCC_LCD</td>
+<td>给LCD供电; 如果不用则悬空</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>2 13 17  20 23 33   44 45 47  48 61 62  77 100 107  108 109  116 117</td>
+<td></td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>开关机</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>PWRKEY</td>
+<td>68</td>
+<td>INPUT PULL_UP</td>
+<td>I</td>
+<td>模块开机/关机控制脚， 内部上拉到VBAT</td>
+<td>VBAT</td>
+<td>1. 关机状态下把管脚拉低1.5s以上模块开机  2. 开机状态下把管脚拉低1.5s以上模块关机</td>
+</tr>
+<tr>
+<td>复位</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>RESET_IN_N</td>
+<td>1</td>
+<td>INPUT PULL_UP</td>
+<td>I</td>
+<td>模块复位； 内部上拉到VBAT</td>
+<td>VBAT</td>
+<td>1. 请注意此复位管脚内部上拉到VBAT， 而不是上拉到V_Globale_1V8 2. 内部上拉，把管脚拉低1s以上模块复位  3.如果不使用，建议加1uf电容到地</td>
+</tr>
+<tr>
+<td><strong>模块状态指示</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>NET_STATUS  (GPIO_1)</td>
+<td>58</td>
+<td>INPUT PULL_DOWN</td>
+<td>O</td>
+<td>网络状态指示</td>
+<td>VCC_LCD</td>
+<td>注意电压域是VCC_LCD;  不用则悬空</td>
+</tr>
+<tr>
+<td>NET_MODE  (GPIO_4)</td>
+<td>57</td>
+<td>INPUT PULL_DOWN</td>
+<td>O</td>
+<td>4G网络指示</td>
+<td>VCC_LCD</td>
+<td>注意电压域是VCC_LCD;  不用则悬空</td>
+</tr>
+<tr>
+<td>MODULE_STATUS  (GPIO_5)</td>
+<td>49</td>
+<td>INPUT PULL_DOWN</td>
+<td>O</td>
+<td>模块运行状态指示</td>
+<td>V_GLOBAL_1V8</td>
+<td>在开机400ms 后输出高电平；不用则悬空</td>
+</tr>
+<tr>
+<td>USB接口</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>USB_VBUS</td>
+<td>14</td>
+<td>INPUT PULL_DOWN</td>
+<td>I</td>
+<td>USB电源， USB插入检测, Vmax=5.25V Vmin=3.3V Vnorm=5.0V</td>
+<td>VBUS</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>USB_DP</td>
+<td>16</td>
+<td></td>
+<td>IO</td>
+<td>USB差分信号线正极</td>
+<td></td>
+<td>USB2.0， 走线控制90欧姆差分阻抗</td>
+</tr>
+<tr>
+<td>USB_DM</td>
+<td>15</td>
+<td></td>
+<td>IO</td>
+<td>USB差分信号线负极</td>
+<td></td>
+<td>USB2.0， 走线控制90欧姆差分阻抗</td>
+</tr>
+<tr>
+<td><strong>主串口UART1，用于AT</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>UART1_TXD</td>
+<td>36</td>
+<td></td>
+<td>O</td>
+<td>模块发送数据</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>UART1_RXD</td>
+<td>35</td>
+<td></td>
+<td>I</td>
+<td>模块接收数据</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>UART1_RTS  (GPIO_19)</td>
+<td>37</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>模块清除发送</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>UART1_CTS  (GPIO_18)</td>
+<td>38</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>DTE请求发送数据给模块</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>辅串口UART2，用于射频校准，同时与内部蓝牙相连</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>UART2_TXD  (GPIO_21)</td>
+<td>4</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>模块发送数据</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>UART2_RXD  (GPIO_20)</td>
+<td>3</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>模块接收数据</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>调试串口</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>HOST_TXD</td>
+<td>5</td>
+<td></td>
+<td>O</td>
+<td>输出AP log</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HOST_RXD</td>
+<td>6</td>
+<td></td>
+<td>I</td>
+<td>输出AP log</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>ZSP_UART_TXD  (GPIO_22)</td>
+<td>7</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>输出CP log</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>I2C</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>I2C2_SCL  (GPIO_14)</td>
+<td>32</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>I2C接口</td>
+<td>V_GLOBAL_1V8</td>
+<td>用作I2C时需外部1.8V上拉; 不用则悬空</td>
+</tr>
+<tr>
+<td>I2C2_SDA  (GPIO_15)</td>
+<td>31</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>I2C接口</td>
+<td>V_GLOBAL_1V8</td>
+<td>用作I2C时需外部1.8V上拉; 不用则悬空</td>
+</tr>
+<tr>
+<td><strong>模拟语音</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>SPK-</td>
+<td>18</td>
+<td></td>
+<td>O</td>
+<td>Speaker差分信号输出，可以直接驱动8欧姆Speaker，最大输出功率1W</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>SPK+</td>
+<td>19</td>
+<td></td>
+<td>O</td>
+<td>Speaker差分信号输出，可以直接驱动8欧姆Speaker，最大输出功率1W</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>EAR_P</td>
+<td>101</td>
+<td></td>
+<td>O</td>
+<td>听筒输出</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>EAR_N</td>
+<td>102</td>
+<td></td>
+<td>O</td>
+<td>听筒输出</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HP_R</td>
+<td>103</td>
+<td></td>
+<td>O</td>
+<td>耳机输出</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HP_L</td>
+<td>112</td>
+<td></td>
+<td>O</td>
+<td>耳机输出</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MIC-</td>
+<td>21</td>
+<td></td>
+<td>I</td>
+<td>麦克输入，已内置偏置电路</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MIC+</td>
+<td>22</td>
+<td></td>
+<td>I</td>
+<td>麦克输入，已内置偏置电路</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HEADMIC_N</td>
+<td>104</td>
+<td></td>
+<td>I</td>
+<td>麦克输入，需要加外部偏置电路</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HEADMIC_P</td>
+<td>113</td>
+<td></td>
+<td>I</td>
+<td>麦克输入，需要加外部偏置电路</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HEADMIC_BIAS</td>
+<td>114</td>
+<td></td>
+<td>O</td>
+<td>给HEADMIC 提供偏置电压</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HEADMIC_IN_DET</td>
+<td>105</td>
+<td></td>
+<td>I</td>
+<td>耳机按键检测</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>HP_DET</td>
+<td>106</td>
+<td></td>
+<td>I</td>
+<td>耳机插入检测</td>
+<td></td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>I2S <strong>接口</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>I2S2_LRCK</td>
+<td>74</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>用于切换左右声道的数据。LRCK为“0”表示正在传输的是左声道的数据，为“1”则表示正在传输的是右声道的数据。</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>I2S2_BCK</td>
+<td>75</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>I2S 时钟输出</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>I2S2_SDAT_OUT</td>
+<td>76</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>I2S 数据输出</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>I2S2_SDAT_IN</td>
+<td>83</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>I2S 数据输入</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>SIM卡接口0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>USIM_VDD</td>
+<td>12</td>
+<td></td>
+<td>P</td>
+<td>USIM卡供电</td>
+<td>USIM_VDD</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡</td>
+</tr>
+<tr>
+<td>USIM_DATA</td>
+<td>10</td>
+<td></td>
+<td>I/O</td>
+<td>USIM卡数据线</td>
+<td>USIM_VDD</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡</td>
+</tr>
+<tr>
+<td>USIM_CLK</td>
+<td>9</td>
+<td></td>
+<td>O</td>
+<td>USIM卡时钟线</td>
+<td>USIM_VDD</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡</td>
+</tr>
+<tr>
+<td>USIM_RST_N</td>
+<td>11</td>
+<td></td>
+<td>O</td>
+<td>USIM卡复位线</td>
+<td>USIM_VDD</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡</td>
+</tr>
+<tr>
+<td>USIM_CD  (GPIO_23)</td>
+<td>8</td>
+<td></td>
+<td>I</td>
+<td>USIM卡在位检测</td>
+<td>V_GLOBAL_1V8</td>
+<td>电压域是V_GLOBAL_1V8  不用则悬空</td>
+</tr>
+<tr>
+<td>SIM卡接口<strong>1</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>VSIM1</td>
+<td>72</td>
+<td>OFF</td>
+<td>P</td>
+<td>USIM卡供电</td>
+<td>VSIM1</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡  请注意因为Air724UG-MFM和Air724UG-MFC已经在SIM1接口上内置了贴片SIM卡，故SIM1 接口不可再外接SIM卡，也不可用作GPIO</td>
+</tr>
+<tr>
+<td>SIM1_DATA  (GPIO_30)</td>
+<td>70</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I/O</td>
+<td>USIM卡数据线</td>
+<td>VSIM1</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡  请注意因为Air724UG-MFM和Air724UG-MFC已经在SIM1接口上内置了贴片SIM卡，故SIM1 接口不可再外接SIM卡，也不可用作GPIO</td>
+</tr>
+<tr>
+<td>SIM1_CLK  (GPIO_29)</td>
+<td>69</td>
+<td>OUTPUT  LOW</td>
+<td>O</td>
+<td>USIM卡时钟线</td>
+<td>VSIM1</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡  请注意因为Air724UG-MFM和Air724UG-MFC已经在SIM1接口上内置了贴片SIM卡，故SIM1 接口不可再外接SIM卡，也不可用作GPIO</td>
+</tr>
+<tr>
+<td>SIM1_RST  (GPIO_31)</td>
+<td>71</td>
+<td>OUTPUT  LOW</td>
+<td>O</td>
+<td>USIM卡复位线</td>
+<td>VSIM1</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡  请注意因为Air724UG-MFM和Air724UG-MFC已经在SIM1接口上内置了贴片SIM卡，故SIM1 接口不可再外接SIM卡，也不可用作GPIO</td>
+</tr>
+<tr>
+<td>ADC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>ADC2</td>
+<td>63</td>
+<td></td>
+<td>I</td>
+<td>模数转换器, 输入范围0~VBAT</td>
+<td></td>
+<td>ADC分辨率12bits  不用则悬空</td>
+</tr>
+<tr>
+<td>ADC3</td>
+<td>64</td>
+<td></td>
+<td>I</td>
+<td>模数转换器, 输入范围0~VBAT</td>
+<td></td>
+<td>ADC分辨率12bits  不用则悬空</td>
+</tr>
+<tr>
+<td><strong>射频接口</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>LTE_ANT</td>
+<td>46</td>
+<td></td>
+<td>I/O</td>
+<td>LTE天线接口</td>
+<td></td>
+<td>50欧姆特性阻抗</td>
+</tr>
+<tr>
+<td>WiFi_ANT</td>
+<td>34</td>
+<td></td>
+<td>I/O</td>
+<td>蓝牙/WiFi Scan 共用天线接口</td>
+<td></td>
+<td>50欧姆特性阻抗</td>
+</tr>
+<tr>
+<td><strong>USB_BOOT</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>USB_BOOT  KEYIN0</td>
+<td>66</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>在开机之前上拉到V_GLOBAL_1V8，模块会强行进入USB下载模式 <strong>USB_BOOT 和 V_GLOBAL_1V8必须留测试点，方便后续升级软件</strong></td>
+<td>V_GLOBAL_1V8</td>
+<td>为了方便升级固件， 建议预留测试点</td>
+</tr>
+<tr>
+<td><strong>LCD</strong> <strong>接口</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>LCD_CS  WAKEUP_OUT  (GPIO_3)</td>
+<td>39</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 片选</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>LCD_CLK  AP_WAKEUP_MODULE  (GPIO_2)</td>
+<td>40</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 时钟信号</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>LCD_DATA  (GPIO_0)</td>
+<td>41</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 数据信号</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>LCD_FMARK</td>
+<td>42</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 帧同步信号</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>LCD_RST</td>
+<td>56</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 复位信号</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>LCD_SEL  NET_MODE  (GPIO_4)</td>
+<td>57</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 选择</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>LCD_DC  NET_STATUS  (GPIO_1)</td>
+<td>58</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>SPI LCD 数据命令选择</td>
+<td>VCC_LCD</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>键盘阵列</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>KEYIN0  USB_BOOT</td>
+<td>66</td>
+<td></td>
+<td>I</td>
+<td>扫描键盘输入0</td>
+<td>V_GLOBAL_1V8</td>
+<td>为了方便升级固件，建议预留测试点</td>
+</tr>
+<tr>
+<td>KEYIN1</td>
+<td>91</td>
+<td></td>
+<td>I</td>
+<td>扫描键盘输入1</td>
+<td>V_GLOBAL_1V8</td>
+<td>上电的时候不要上拉到1.8V，否则会进入测试模式，不正常开机，不用则悬空</td>
+</tr>
+<tr>
+<td>KEYIN2</td>
+<td>92</td>
+<td></td>
+<td>I</td>
+<td>扫描键盘输入2</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYIN3</td>
+<td>93</td>
+<td></td>
+<td>I</td>
+<td>扫描键盘输入3</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYIN4</td>
+<td>94</td>
+<td></td>
+<td>I</td>
+<td>扫描键盘输入4</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYIN5</td>
+<td>95</td>
+<td></td>
+<td>I</td>
+<td>扫描键盘输入5</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYOUT0</td>
+<td>96</td>
+<td></td>
+<td>O</td>
+<td>扫描键盘输出0</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYOUT1</td>
+<td>97</td>
+<td></td>
+<td>O</td>
+<td>扫描键盘输出1</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYOUT2</td>
+<td>98</td>
+<td></td>
+<td>O</td>
+<td>扫描键盘输出2</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYOUT3</td>
+<td>99</td>
+<td></td>
+<td>O</td>
+<td>扫描键盘输出3</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYOUT4  UART3_RXD</td>
+<td>89</td>
+<td></td>
+<td>O</td>
+<td>扫描键盘输出4</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>KEYOUT5  UART3_TXD</td>
+<td>90</td>
+<td></td>
+<td>O</td>
+<td>扫描键盘输出5</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>Camera</strong> <strong>接口</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>CAM_PWDN</td>
+<td>78</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>关闭Camera</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAM_RST</td>
+<td>84</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>重启Camera</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAM_REFCLK</td>
+<td>85</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>Camera 基准时钟</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAM_SCK</td>
+<td>86</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>SPI Camera 时钟输入</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAM_SI0</td>
+<td>87</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>SPI Camer数据输入0</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAM_SI1</td>
+<td>88</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>SPI Camer数据输入1</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAMI2C_SDA1  (GPIO_17)</td>
+<td>50</td>
+<td>INPUT  PULL_UP</td>
+<td>I/O</td>
+<td>Camera I2C</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>CAMI2C_SCL1</td>
+<td>51</td>
+<td>INPUT  PULL_UP</td>
+<td>O</td>
+<td>Camera I2C</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>SPI</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>SPI1_DOUT（GPIO_11）</td>
+<td>55</td>
+<td>INPUT  PULL_DOWN</td>
+<td>IO</td>
+<td>SPI 数据输出</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>SPI1_DIN（GPIO_12）</td>
+<td>53</td>
+<td>INPUT  PULL_DOWN</td>
+<td>IO</td>
+<td>SPI 数据输入</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>SPI1_CLK（GPIO_9）</td>
+<td>52</td>
+<td>INPUT  PULL_DOWN</td>
+<td>IO</td>
+<td>SPI 时钟输出</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>SPI1_CS（GPIO_10）</td>
+<td>54</td>
+<td>INPUT  PULL_DOWN</td>
+<td>IO</td>
+<td>SPI 片选</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>MMC</strong> <strong>接口</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>MMC1_DAT2（GPIO_27）</td>
+<td>25</td>
+<td>INPUT  PULL_UP</td>
+<td>IO</td>
+<td>数据线2</td>
+<td>VMMC</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MMC1_DAT3（GPIO_28）</td>
+<td>26</td>
+<td>INPUT  PULL_UP</td>
+<td>IO</td>
+<td>数据线3</td>
+<td>VMMC</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MMC1_CMD（GPIO_24）</td>
+<td>27</td>
+<td>INPUT  PULL_UP</td>
+<td>IO</td>
+<td>命令信号</td>
+<td>VMMC</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MMC1_CLK</td>
+<td>28</td>
+<td>OUTPUT  CLK</td>
+<td>IO</td>
+<td>时钟信号</td>
+<td>VMMC</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MMC1_DAT0（GPIO_25）</td>
+<td>29</td>
+<td>INPUT  PULL_UP</td>
+<td>IO</td>
+<td>数据线0</td>
+<td>VMMC</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>MMC1_DAT1（GPIO_26）</td>
+<td>30</td>
+<td>INPUT  PULL_UP</td>
+<td>IO</td>
+<td>数据线1</td>
+<td>VMMC</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>GPIO</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>AP_WAKEUP_MODULE  LCD_CLK  (GPIO_2)</td>
+<td>40</td>
+<td>INPUT  PULL_DOWN</td>
+<td>I</td>
+<td>唤醒模块</td>
+<td>VCC_LCD</td>
+<td>拉低唤醒模块</td>
+</tr>
+<tr>
+<td>WAKEUP_OUT  LCD_CS  (GPIO_3)</td>
+<td>39</td>
+<td>INPUT  PULL_DOWN</td>
+<td>O</td>
+<td>唤醒AP</td>
+<td>VCC_LCD</td>
+<td>具体功能参阅  <a href="#_WAKEUP_OUT">3.10 WAKEUP_OUT</a></td>
+</tr>
+<tr>
+<td>GPIO_7</td>
+<td>82</td>
+<td>INPUT  PULL_DOWN</td>
+<td>IO</td>
+<td>通用GPIO</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>GPIO_13</td>
+<td>43</td>
+<td>INPUT  PULL_DOWN</td>
+<td>IO</td>
+<td>请注意上电的时候不要把GPIO_13拉高到V_GLOBAL_1V8，  如果上电的时候拉高到V_GLOBAL_1V8，模块会进入校准模式，不正常开机</td>
+<td>V_GLOBAL_1V8</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td><strong>保留管脚</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>管脚名</td>
+<td>管脚号</td>
+<td>上电状态</td>
+<td>I/O</td>
+<td>管脚描述</td>
+<td>电压域</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>RESERVED</td>
+<td>67 110 111 115</td>
+<td></td>
+<td></td>
+<td>悬空处理</td>
+<td></td>
+<td>悬空处理</td>
+</tr>
+<tr>
+<td>PSM_EXT_INT</td>
+<td>73</td>
+<td></td>
+<td></td>
+<td>模块内部使用，悬空处理</td>
+<td></td>
+<td>悬空处理</td>
+</tr>
+</tbody></table>
+<h2 id="3-2-工作模式"><a href="#3-2-工作模式" class="headerlink" title="3.2 工作模式"></a>3.2 工作模式</h2><p>下表简要的叙述了接下来几章提到的各种工作模式。<br>表格3：工作模式</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>状态</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>正常工作</strong></td>
+<td>SLEEP</td>
+<td>在模块没有任何任务处理则会自动进入睡眠模式。睡眠模式下，模块的功耗会降到非常低，但模块仍然能够收发数据、短消息和来电。</td>
+</tr>
+<tr>
+<td><strong>正常工作</strong></td>
+<td>IDLE</td>
+<td>软件正常运行。模块注册上网络，没有数据，语音和短信交互。</td>
+</tr>
+<tr>
+<td><strong>正常工作</strong></td>
+<td>TALK/Data</td>
+<td>连接正常工作。有数据或者语音或者短信交互。此模式下，模块功耗取决于环境信号的强弱，动态DTX控制以及射频工作频率。</td>
+</tr>
+<tr>
+<td><strong>关机模式</strong></td>
+<td></td>
+<td>此模式下PMU停止给基带和射频供电，软件停止工作，串口不通，但VBAT管脚依然通电</td>
+</tr>
+<tr>
+<td><strong>最少功能模式</strong>(保持供电电压）</td>
+<td></td>
+<td>此模式下，射频和SIM卡都不工作，但是串口仍然可以访问</td>
+</tr>
+<tr>
+<td><strong>飞行模式</strong></td>
+<td></td>
+<td>AT+CFUN=4可以将模块设置为飞行模式，此模式下模块射频不工作</td>
+</tr>
+</tbody></table>
+<h2 id="3-3-电源供电"><a href="#3-3-电源供电" class="headerlink" title="3.3 电源供电"></a>3.3 电源供电</h2><h3 id="3-3-1-模块电源工作特性"><a href="#3-3-1-模块电源工作特性" class="headerlink" title="3.3.1 模块电源工作特性"></a>3.3.1 模块电源工作特性</h3><p> 在模块应用设计中，电源设计是很重要的一部分。由于射频发射时会在短时间有一个较大电流的的突发脉冲。在突发脉冲阶段内，电源必须能够提供高的峰值电流，不然有可能会引起供电电压的跌落。</p>
+<h3 id="3-3-2-减小电压跌落"><a href="#3-3-2-减小电压跌落" class="headerlink" title="3.3.2 减小电压跌落"></a>3.3.2 减小电压跌落</h3><p>   模块电源VBAT电压输入范围为3.3V~4.3V，但是模块在射频发射时通常会在VBAT电源上产生电源电压跌落现象，这是由于电源或者走线路径上的阻抗导致，一般难以避免。因此在设计上要特别注意模块的电源设计，。在VBAT输入端，建议并联一个低ESR(ESR=0.7Ω)的100uF的钽电容，以及100nF、33pF、10pF滤波电容（0603封装），VBAT输入端参考电路如图4所示。并且建议VBAT的PCB走线尽量短且足够宽，减小VBAT走线的等效阻抗，确保在最大发射功率时大电流下不会产生太大的电压跌落。建议VBAT走线宽度不少于2mm，并且走线越长，线宽越宽。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814152306393_VBAT.jpg"><br>图表5：VBAT输入参考电路</p>
+<h3 id="3-3-3-供电参考电路"><a href="#3-3-3-供电参考电路" class="headerlink" title="3.3.3 供电参考电路"></a>3.3.3 供电参考电路</h3><p>   电源设计对模块的供电至关重要，必须选择能够提供至少2A电流能力的电源。若输入电压跟模块的供电电压的压差不是很大，建议选择LDO作为供电电源。若输入输出之间存在比较大的压差，则使用开关电源转换器。<br>   <strong>LDO供电：</strong><br>下图是5V供电的参考设计，采用了Micrel公司的LDO，型号为MIC29302WU。它的输出电压是4.16V，负载电流峰值到3A。为确保输出电源的稳定，建议在输出端预留一个稳压管，并且靠近模块VBAT管脚摆放。建议选择反向击穿电压为5.1V，耗散功率为1W以上的稳压管。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200707103953938_10.png"><br>图表6：供电输入参考设计</p>
+<p><strong>DCDC供电：</strong><br>下图是DCDC开关电源的参考设计，采用的是杰华特公司的JW5033S 开关电源芯片，它的最大输出电流在2A，同时输入电压范围4.7V~20V。注意C25的选型要根据输入电压来选择耐压值。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518140827621_6.png"><br>图表 6：DCDC供电输入参考设计</p>
+<p>由于DC-DC芯片对布局和走线有要求，为了简化设计，也可以采用合宙开发的JW5033S电源模块：Air5033S来给4G模块供电：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518140938947_7.png"><br>图表 6：Air5033S供电输入参考设计</p>
+<h2 id="3-4-开关机"><a href="#3-4-开关机" class="headerlink" title="3.4 开关机"></a>3.4 开关机</h2><h3 id="3-4-1-开机"><a href="#3-4-1-开机" class="headerlink" title="3.4.1 开机"></a>3.4.1 开机</h3><p>   Air724UG 系列模块可以通过PWRKEY管脚开机。关机状态下长按开机键一段时间以上，模块会进入开机流程，软件会检测VBAT管脚电压若VBAT管脚电压大于软件设置的开机电压（3.1V），会继续开机动作直至系统开机完成；否则，会停止执行开机动作，系统会关机。</p>
+<h4 id="3-4-1-1-PWRKEY管脚开机"><a href="#3-4-1-1-PWRKEY管脚开机" class="headerlink" title="3.4.1.1 PWRKEY管脚开机"></a>3.4.1.1 PWRKEY管脚开机</h4><p>   VBAT上电后，PWRKEY管脚可以启动模块，把PWRKEY管脚拉低持续一段时间后（请参考时序图）之后开机，开机成功后PWRKEY管脚可以释放。可以通过检测 V_GLOBAL_1V8 管脚的电平来判别模块是否开机。推荐使用开集驱动电路来控制PWRKEY管脚。下图为参考电路：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200707104627468_11.png"><br>图表7：开集驱动参考开机电路</p>
+<p>另一种控制PWRKEY管脚的方法是直接使用一个按钮开关。按钮附近需放置一个TVS管用以ESD保护。下图为参考电路<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814155921457_%E5%BC%80%E6%9C%BA2.jpg"></p>
+<p>图表8：按键开机参考电路</p>
+<p>** 按键开机时序图：**<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518141653597_10.png"><br>  注意：模块在上电后600ms内会检测开机关机，600ms时间内拉低PWRKEY且大于1.2s能稳定开机。上电600ms后如果未检测到开机事件软件会进入关闭流程，此过程会持续1到2s，如果这个时候拉低PWRKEY将不会被检测到。因此，如果不能保证在上电600ms内拉低PWRKEY，为了确保能稳定开机建议PWRKEY时间适当加长，建议4S以上。</p>
+<h4 id="3-4-1-2-上电开机"><a href="#3-4-1-2-上电开机" class="headerlink" title="3.4.1.2 上电开机"></a>3.4.1.2 上电开机</h4><p>   将模块的PWRKEY直接接地可以实现上电自动开机功能。需要注意，在上电开机模式下，将无法关机，只要VBAT管脚的电压大于开机电压即使软件调用关机接口，模块仍然会再开机起来。另外，在此模式下，要想成功开机起来VBAT管脚电压仍然要大于软件设定的开机电压值（3.1V），如果不满足，模块会关闭，就会出现反复开关机的情况。</p>
+<p>由于 PWRKEY 管脚内部有上拉电阻，一直把 PWRKEY 拉低会增加大概200uA 的漏电流，如果要减少这个漏电流，可以将上电开机的电路改成下图中的方式：</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814191705668_%E4%B8%8A%E7%94%B5%E5%BC%80%E6%9C%BA.png"></p>
+<h3 id="3-4-2-关机"><a href="#3-4-2-关机" class="headerlink" title="3.4.2 关机"></a>3.4.2 关机</h3><p>以下的方式可以关闭模块：<br>•    正常关机：使用PWRKEY管脚关机<br>•    正常关机：通过AT指令AT+CPOWD关机<br>•    低压自动关机：模块检测到低压（3.1V以下）时关机</p>
+<h4 id="3-4-2-1-PWRKEY管脚关机"><a href="#3-4-2-1-PWRKEY管脚关机" class="headerlink" title="3.4.2.1 PWRKEY管脚关机"></a>3.4.2.1 PWRKEY管脚关机</h4><p>PWRKEY管脚拉低1.5s以上时间，模块会执行关机动作。<br>关机过程中，模块需要注销网络，注销时间与当前网络状态有关，经测定用时约2s~12s，因此建议延长12s后再进行断电或重启，以确保在完全断电之前让软件保存好重要数据。<br>时序图如下：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518142523298_11.png"></p>
+<h4 id="3-4-2-2-低电压自动关机"><a href="#3-4-2-2-低电压自动关机" class="headerlink" title="3.4.2.2 低电压自动关机"></a>3.4.2.2 低电压自动关机</h4><p>  模块在运行状态时当VBAT管脚电压低于软件设定的关机电压时（默认设置3V），软件会执行关机动作关闭模块，以防低电压状态下运行出现各种异常。</p>
+<h3 id="3-4-3-复位"><a href="#3-4-3-复位" class="headerlink" title="3.4.3 复位"></a>3.4.3 复位</h3><p>RESET_IN_N引脚可用于使模块复位。 拉低 RESET_IN_N 引脚 150ms 以上可使模块复位。 RESET_IN_N信号对干扰比较敏感， 因此建议在模块接口板上的走线应尽量的短，且需包地处理。<br><strong>参考电路：</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518143209192_12.png"><br><strong>时序图:</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518143254809_13.png"><br><strong>备注：</strong></p>
+<ol>
+<li> 复位功能建议仅在AT+CPOWD和PWRKEY关机失败后使用。</li>
+<li> 确保PWRKEY和RESET_IN_N引脚没有大负载电容。</li>
+<li> 如果不使用RESET_IN_N，建议并联1uf电容到地。</li>
+</ol>
+<h2 id="3-5-省电功能"><a href="#3-5-省电功能" class="headerlink" title="3.5 省电功能"></a>3.5 省电功能</h2><p>  根据系统需求，有两种方式可以使模块进入到低功耗的状态。对于AT版本使用“AT+CFUN”命令可以使模块进入最少功能状态。</p>
+<h3 id="3-5-1-最少功能模式-飞行模式"><a href="#3-5-1-最少功能模式-飞行模式" class="headerlink" title="3.5.1 最少功能模式/飞行模式"></a>3.5.1 最少功能模式/飞行模式</h3><p>最少功能模式可以将模块功能减少到最小程度，此模式可以通过发送“AT+CFUN=<fun>”命令来设置。<fun>参数可以选择0，1，4。<br>•    0：最少功能（关闭RF和SIM卡）；<br>•    1：全功能（默认）；<br>•    4：关闭RF发送和接收功能；<br>如果使用“AT+CFUN=0”将模块设置为最少功能模式，射频部分和SIM卡部分的功能将会关闭。而串口依然有效，但是与射频部分以及SIM卡部分相关的AT命令则不可用。<br>如果使用“AT+CFUN=4”设置模块，RF部分功能将会关闭，而串口依然有效。所有与RF部分相关的AT命令不可用。<br>模块通过“AT+CFUN=0”或者“AT+CFUN=4”设置以后，可以通过“AT+CFUN=1”命令设置返回到全功能状态。</p>
+<h3 id="3-5-2-睡眠模式（慢时钟模式）"><a href="#3-5-2-睡眠模式（慢时钟模式）" class="headerlink" title="3.5.2 睡眠模式（慢时钟模式）"></a>3.5.2 睡眠模式（慢时钟模式）</h3><p>对于LUAT版本，模块开机默认启动自动睡眠控制，在系统空闲的情况下会自动进入睡眠模式，可以通过定时器，IO中断，网络消息中断，闹钟中断等来唤醒。</p>
+<p>对于标准AT版本，对于睡眠模式的控制方法如下：</p>
+<h4 id="3-5-2-1-串口应用"><a href="#3-5-2-1-串口应用" class="headerlink" title="3.5.2.1 串口应用"></a>3.5.2.1 串口应用</h4><p>串口应用下支持两种睡眠模式：</p>
+<ul>
+<li> 睡眠模式1：通过AP_WAKEUP_MODULE管脚电平控制模块是否进入睡眠</li>
+<li> 睡眠模式2：模块在串口空闲一段时间后自动进入睡眠</li>
+</ul>
+<h5 id="3-5-2-1-1-睡眠模式1"><a href="#3-5-2-1-1-睡眠模式1" class="headerlink" title="3.5.2.1.1 睡眠模式1"></a>3.5.2.1.1 睡眠模式1</h5><p><strong>开启条件：</strong><br>  发送AT指令AT+CSCLK=1<br><strong>模块进入睡眠：</strong><br>  控制AP_WAKEUP_MODULE脚拉高，模块会进入睡眠模式1<br><strong>模块退出睡眠：</strong><br>  拉低AP_WAKEUP_MODULE脚50ms以上，模块会退出睡眠模式可以接受AT指令<br><strong>模块在睡眠模式1时的软件功能：</strong><br>  不响应AT指令，但是收到数据/短信/来电会有URC上报<br><strong>HOST睡眠时，模块收到数据/短信/来电如何唤醒HOST：</strong><br>  WAKEUP_OUT 信号</p>
+<h5 id="3-5-2-1-2-睡眠模式2"><a href="#3-5-2-1-2-睡眠模式2" class="headerlink" title="3.5.2.1.2 睡眠模式2"></a>3.5.2.1.2 睡眠模式2</h5><p><strong>开启条件：</strong><br>  发送AT指令AT+CSLCK=2<br><strong>模块进入睡眠：</strong><br>  串口空闲超过AT+WAKETIM配置的时间（默认5s），模块自动进入睡眠模式2<br><strong>模块退出睡眠：</strong><br>  串口连续发送AT直到模块回应时即退出睡眠模式2<br><strong>模块在睡眠模式2时的软件功能：</strong><br>  不响应AT指令，但是收到数据/短信/来电会有URC上报<br><strong>HOST睡眠时，模块收到数据/短信/来电如何唤醒HOST：</strong><br>  WAKEUP_OUT信号</p>
+<h4 id="3-5-2-2-USB应用"><a href="#3-5-2-2-USB应用" class="headerlink" title="3.5.2.2 USB应用"></a>3.5.2.2 USB应用</h4><p><strong>开启条件：</strong><br> HOST USB必须支持USB suspend/resume<br><strong>模块进入睡眠：</strong><br> HOST发起USB suspend<br><strong>模块退出睡眠：</strong><br> HOST发起USB resume<br><strong>HOST睡眠时，模块收到数据/短信/来电如何唤醒HOST：</strong><br> WAKEUP_OUT信号</p>
+<h2 id="3-6-模式切换汇总"><a href="#3-6-模式切换汇总" class="headerlink" title="3.6  模式切换汇总"></a>3.6  模式切换汇总</h2><p>表格4：模式切换汇总</p>
+<table>
+<thead>
+<tr>
+<th>当前模式</th>
+<th>下一模式</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>关机</td>
+<td>正常模式</td>
+<td>睡眠模式</td>
+</tr>
+<tr>
+<td>关机</td>
+<td></td>
+<td>使用PWRKEY开机</td>
+<td></td>
+</tr>
+<tr>
+<td>正常模式</td>
+<td>使用PWRKEY管脚，或VBAT电压低于关机电压</td>
+<td></td>
+<td>软件调用睡眠接口，AT版本不做动作30s自动休眠</td>
+</tr>
+<tr>
+<td>睡眠模式</td>
+<td>使用PWRKEY或VBAT电压低于关机电压</td>
+<td>GPIO管脚中断、定时器、接收短信或网络数据</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="3-7-串口"><a href="#3-7-串口" class="headerlink" title="3.7  串口"></a>3.7  串口</h2><p>  模块提供了五个通用异步收发器：主串口UART1、下载和校准串口UART2、通用串口UART3、调试串口HOST UART和ZSP UART。</p>
+<h3 id="3-7-1-UART1"><a href="#3-7-1-UART1" class="headerlink" title="3.7.1 UART1"></a>3.7.1 UART1</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART1_TXD</td>
+<td>36</td>
+<td>发送数据到DTE设备的RXD端</td>
+</tr>
+<tr>
+<td>UART1_RXD</td>
+<td>35</td>
+<td>从DTE设备TXD端接收数据</td>
+</tr>
+<tr>
+<td>UART1_RTS</td>
+<td>37</td>
+<td>DTE请求发送数据给DCE</td>
+</tr>
+<tr>
+<td>UART1_CTS</td>
+<td>38</td>
+<td>清除发送</td>
+</tr>
+</tbody></table>
+<p>表格5：UART1管脚定义</p>
+<p>UART1通常用来和模块进行AT指令通讯。UART1支持固定波特率和自适应波特率。自适应波特率支持范围9600bps到115200bps。</p>
+<p>在默认情况下，模块的硬件流控是关闭的。当客户需要硬件流控时，管脚RTS,CTS必须连接到客户端，AT命令“AT+IFC=2,2”可以用来打开硬件流控。AT命令“AT+IFC=0,0”可以用来关闭流控。具体请参考《AirM2M无线模块AT命令手册》。</p>
+<p>UART1的特点如下：<br>•    包括数据线TXD和RXD，硬件流控控制线RTS和CTS。<br>•    8个数据位，无奇偶校验，一个停止位。<br>•    硬件流控默认关闭。<br>•    用以AT命令传送，数传等。<br>•    支持波特率如下：1200,2400,4800,9600,14400,19200,28800,38400,57600,115200,230400,460800,921600bps<br>•    AT指令版本默认情况下模块是自适应波特率(AT+IPR=0)，在自适应波特率模式下，开机后初始化信息（开头是“RDY”）不会回发给主控机。在模块开机2-3秒后，可以给模块发送AT命令。主控机需首先发送“AT”字符给模块来训练主控机的波特率，此时模块会上报初始化信息，表明训练成功。用户可以发送一个“AT+IPR=x :&amp;W”命令给模块（x是波特率，比如9600），此命令的作用是设置一个固定的波特率并保存，在完成这些配置之后，每次模块开机以后，会自动串口返回URC初始化信息（开头是“RDY”）。</p>
+<p>为了更好的使用自适应波特率功能，以下的使用条件需要注意：</p>
+<p><strong>模块和上位机之间同步：</strong><br>自适应波特率功能开启情况下，当模块上电，在发送“AT”字符前最好等待 2~3秒钟。当模块上报开机初始化信息，表明波特率训练成功，和上位机完成了同步。<br>在自适应波特率模式下，主控器如果需要开机信息，必须首先进行同步。否则开机初始化信息将不会上报。<br><strong>自适应波特率操作配置：</strong><br>•    串口配置为8位数据位，无奇偶校验位，1位停止位（出厂配置）<br>•    模块开机时只有字符串“AT”可以训练波特率。（“at”、“At”或者“aT”无法被识别）<br>•    波特率训练成功后，可以识别大写、小写或大小写组合的AT命令。<br>•    自适应波特率模式下，如果模块开机没有先同步，如“RDY”，“+CFUN: 1”和“+CPIN: READY”这样的URC信息将不会上报。<br>•    不推荐在固定波特率模式时切换到自适应波特率模式。<br>•    在自适应波特率模式下，不推荐切换到软件多路复用模式。</p>
+<h3 id="3-7-2-UART2"><a href="#3-7-2-UART2" class="headerlink" title="3.7.2 UART2"></a>3.7.2 UART2</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART2_RXD</td>
+<td>3</td>
+<td>从DTE设备TXD端接收数据</td>
+</tr>
+<tr>
+<td>UART2_TXD</td>
+<td>4</td>
+<td>发送数据到DTE设备的RXD端</td>
+</tr>
+</tbody></table>
+<p>表格6：UART2管脚定义<br>UART2 可以用来下载软件和射频校准，同时UART2 还用来和内部的蓝牙进行通讯，如果用到了蓝牙功能，则UART2 不可用作其他用途。</p>
+<p>注意：UART2 在开机后会自动打印一段log，波特率921600，这段log不能通过修改软件来关闭，推荐优先使用UART3</p>
+<p>UART2打印的Log如下：<br>RDA8910m Boot_ROM V1.0-17b887ec<br>HW_CFG: 36<br>SW_CFG: 0<br>SE_CFG: 0<br>check flash img<br>load complete! checking……<br>Security Disabled<br>Check uImage  Done<br>Run …</p>
+<h3 id="3-7-3-UART3"><a href="#3-7-3-UART3" class="headerlink" title="3.7.3 UART3"></a>3.7.3 UART3</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART3_RXD</td>
+<td>89</td>
+<td>从DTE设备TXD端接收数据</td>
+</tr>
+<tr>
+<td>UART3_TXD</td>
+<td>90</td>
+<td>发送数据到DTE设备的RXD端</td>
+</tr>
+</tbody></table>
+<p>UART3 是一个通用串口，可以用作外接GPS等外设。</p>
+<h3 id="3-7-4-HOST-UART"><a href="#3-7-4-HOST-UART" class="headerlink" title="3.7.4 HOST UART"></a>3.7.4 HOST UART</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HOST_RXD</td>
+<td>6</td>
+<td>从DTE设备TXD端接收数据</td>
+</tr>
+<tr>
+<td>HOST_TXD</td>
+<td>5</td>
+<td>发送数据到DTE设备的RXD端</td>
+</tr>
+</tbody></table>
+<p>HOST UART 用来软件调试时输出AP trace</p>
+<h3 id="3-7-5-ZSP-UART"><a href="#3-7-5-ZSP-UART" class="headerlink" title="3.7.5 ZSP UART"></a>3.7.5 ZSP UART</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ZSP_UART_RXD</td>
+<td>7</td>
+<td>发送数据到DTE设备的RXD端</td>
+</tr>
+</tbody></table>
+<p>ZSP UART 用来软件调试时输出CP trace</p>
+<h3 id="3-7-6-串口连接方式"><a href="#3-7-6-串口连接方式" class="headerlink" title="3.7.6 串口连接方式"></a>3.7.6 串口连接方式</h3><p>串口的连接方式较为灵活，如下是三种常用的连接方式。</p>
+<p>三线制的串口请参考如下的连接方式：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200806225845383_UART1.png">图表9：串口三线制连接方式示意图</p>
+<p>带流控的串口连接请参考如下电路连接，此连接方式可提高大数据量传输的可靠性，防止数据丢失。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200806230222657_%E6%B5%81%E6%8E%A7.png">图表10：带流控的串口连接方式示意图</p>
+<h3 id="3-7-7-串口电压转换"><a href="#3-7-7-串口电压转换" class="headerlink" title="3.7.7 串口电压转换"></a>3.7.7 串口电压转换</h3><p>Air724UG模块的串口电平都是1.8V的，如果要和3.3V/5V 的MCU通信，必须要加电平转换电路：</p>
+<p>电平转换电路如下：<br>V_GLOBAL_1V8是模块输出的I/O电平电压。VDD_MCU是客户端的I/O电平电压。D2 选低导通压降的肖特基二极管。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521160512264_3.png"><br>也可以通过外加电平转换芯片来实现电压转换。</p>
+<h2 id="3-8-USB接口"><a href="#3-8-USB接口" class="headerlink" title="3.8  USB接口"></a>3.8  USB接口</h2><p>Air724UG的USB符合USB2.0规范，支持高速（480Mbps）和全速（12Mbps）模式。该接口可用于AT命令传送，数据传输，软件调试和软件升级</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USB_DP</td>
+<td>16</td>
+<td>USB差分数据正，需90欧姆差分阻抗</td>
+</tr>
+<tr>
+<td>USB_DM</td>
+<td>15</td>
+<td>USB差分数据负，需90欧姆差分阻抗</td>
+</tr>
+<tr>
+<td>VBUS</td>
+<td>14</td>
+<td>USB电源，用于USB插入检测。</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>17</td>
+<td>地</td>
+</tr>
+</tbody></table>
+<p>表格7：USB管脚定义</p>
+<p>USB接口参考设计电路如下：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200806222527958_USB.png" alt="USB 参考设计" title="USB 参考设计"></p>
+<p>注意事项如下：</p>
+<ol>
+<li>USB走线需要严格按照差分线控制，做到平行和等长；</li>
+<li>USB走线的阻抗需要控制到差分90欧姆；</li>
+<li>需要尽可能的减少USB走线的stubs，减少信号反射；</li>
+<li>在靠近USB连接器或者测试点的地方添加TVS保护管，由于USB的速率较高，需要注意TVS管的选型，保证选用的TVS保护管的寄生电容小于1pF</li>
+<li>VBUS作为USB插入检测，必须连接USB电源或者外接电源，否则USB无法被检测到，另外VBUS的检测电压要大于3.3V</li>
+</ol>
+<h2 id="3-9-SIM卡接口"><a href="#3-9-SIM卡接口" class="headerlink" title="3.9  SIM卡接口"></a>3.9  SIM卡接口</h2><p>SIM卡接口支持ETSI和IMT-2000卡规范，支持1.8V和3.0V USIM卡。</p>
+<h3 id="3-9-1-SIM接口"><a href="#3-9-1-SIM接口" class="headerlink" title="3.9.1 SIM接口"></a>3.9.1 SIM接口</h3><p>下表介绍了SIM的接口管脚定义。</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>USIM_VDD</strong></td>
+<td>12</td>
+<td>USIM卡供电电源。自动侦测SIM卡工作电压。精度3.0V±10%和1.8V±10%。最大供电电流10mA。</td>
+</tr>
+<tr>
+<td><strong>USIM_RST_N</strong></td>
+<td>11</td>
+<td>USIM卡复位脚</td>
+</tr>
+<tr>
+<td><strong>USIM_DATA</strong></td>
+<td>10</td>
+<td>USIM卡数据线</td>
+</tr>
+<tr>
+<td><strong>USIM_CLK</strong></td>
+<td>9</td>
+<td>USIM卡时钟线</td>
+</tr>
+<tr>
+<td><strong>USIM_CD</strong></td>
+<td>8</td>
+<td>USIM卡插拔检测</td>
+</tr>
+</tbody></table>
+<p>表格8：SIM0卡接口定义</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>VSIM1</strong></td>
+<td>72</td>
+<td>SIM1卡供电电源。自动侦测SIM卡工作电压。精度3.0V±10%和1.8V±10%。最大供电电流10mA。</td>
+</tr>
+<tr>
+<td><strong>SIM1_RST_N</strong></td>
+<td>71</td>
+<td>SIM1卡复位脚</td>
+</tr>
+<tr>
+<td><strong>SIM1_DATA</strong></td>
+<td>70</td>
+<td>SIM1卡数据线</td>
+</tr>
+<tr>
+<td><strong>SIM1_CLK</strong></td>
+<td>69</td>
+<td>SIM1卡时钟线</td>
+</tr>
+</tbody></table>
+<p>表格9：SIM1卡接口管脚定义</p>
+<h3 id="3-9-2-SIM0-和-SIM1（或者内置贴片SIM卡）切换逻辑"><a href="#3-9-2-SIM0-和-SIM1（或者内置贴片SIM卡）切换逻辑" class="headerlink" title="3.9.2 SIM0 和 SIM1（或者内置贴片SIM卡）切换逻辑"></a>3.9.2 SIM0 和 SIM1（或者内置贴片SIM卡）切换逻辑</h3><p>Air724UG-NFM 和 Air724UG-NFC 支持SIM0 和 SIM1双卡单待；<br>Air724UG-MFM 和 Air724UG-MFC 由于模块内部已经在SIM1接口上内置了贴片SIM卡，故SIM1 接口不可再外接SIM卡，也不可用作GPIO；</p>
+<p>模块开机后首先会去查询SIM0 接口上是否有插入SIM卡，如果检测到SIM0接口上的SIM卡，就会读取SIM0接口的卡信息去连接网络；如果SIM0接口上没有检测到SIM卡，则会再去检测SIM1 接口上是否有SIM卡（或者是内置贴片SIM卡），如果检测到SIM1接口上的SIM卡（或者是内置贴片SIM卡），就会读取SIM1接口的卡信息去连接网络；如果SIM1接口上也没有检测到SIM卡，则会报错，未插入SIM卡；</p>
+<p>SIM0 接口和SIM1 接口如果同时插入了SIM卡，默认会使用SIM0接口上的SIM卡，同时也可以通过AT+SIMCROSS 这个指令来切换；</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>SIM0</strong></th>
+<th><strong>SIM1</strong></th>
+<th><strong>默认使用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Air724UG-NFM/ Air724UG-NFC</strong></td>
+<td>插入SIM卡0</td>
+<td>插入SIM卡1</td>
+<td>SIM0</td>
+</tr>
+<tr>
+<td></td>
+<td>插入SIM卡0</td>
+<td>未插入SIM卡</td>
+<td>SIM0</td>
+</tr>
+<tr>
+<td></td>
+<td>未插入SIM卡</td>
+<td>插入SIM卡1</td>
+<td>SIM1</td>
+</tr>
+<tr>
+<td></td>
+<td>未插入SIM卡</td>
+<td>未插入SIM卡</td>
+<td>报错，未插入SIM卡</td>
+</tr>
+<tr>
+<td><strong>Air724UG-MFM/ Air724UG-MFC</strong></td>
+<td>插入SIM卡0</td>
+<td>有内置贴片SIM卡，不可以再外接，否则会出错！</td>
+<td>SIM0</td>
+</tr>
+<tr>
+<td></td>
+<td>未插入SIM卡</td>
+<td>同上</td>
+<td>内部贴片SIM卡</td>
+</tr>
+</tbody></table>
+<h3 id="3-9-3-SIM接口参考电路"><a href="#3-9-3-SIM接口参考电路" class="headerlink" title="3.9.3 SIM接口参考电路"></a>3.9.3 SIM接口参考电路</h3><p>下图是SIM接口的参考电路，使用6pin的SIM卡座。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162008118_5.png"><br>图表12：使用6pin SIM卡座参考电路图(SIM)</p>
+<p>如果需要用到sim卡在位检测，推荐电路如下。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162307522_6.png"><br>图表 13：使用带检测PIN SIM卡座参考电路图</p>
+<p>在SIM卡接口的电路设计中，为了确保SIM卡的良好的功能性能和不被损坏，在电路设计中建议遵循以下设计原则：<br>•    SIM卡座与模块距离摆件不能太远，越近越好，尽量保证SIM卡信号线布线不超过20cm。<br>•    SIM卡信号线布线远离RF线和VBAT电源线。。<br>•    为了防止可能存在的USIM_CLK信号对USIM_DATA信号的串扰，两者布线不要太靠近，在两条走线之间增加地屏蔽。且对USIM_RST_N信号也需要地保护。<br>•    为了保证良好的ESD保护，建议加TVS管，并靠近SIM卡座摆放。选择的ESD器件寄生电容不大于50pF。在模块和SIM卡之间也可以串联22欧姆的电阻用以抑制杂散EMI，增强ESD防护。SIM卡的外围电路必须尽量靠近SIM卡座。</p>
+<h2 id="3-10-WAKEUP-OUT"><a href="#3-10-WAKEUP-OUT" class="headerlink" title="3.10 WAKEUP_OUT"></a>3.10 WAKEUP_OUT</h2><table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WAKEUP_OUT</td>
+<td>39</td>
+<td>唤醒AP</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>WAKEUP_OUT应答</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>待机</td>
+<td>高电平</td>
+</tr>
+<tr>
+<td>语音呼叫</td>
+<td>变为低电平，之后：  （1）通话建立时变为高电平 （2）使用AT命令 ATH挂断语音，WAKEUP_OUT变为高电平 （3）呼叫方挂断，WAKEUP_OUT首先变为高电平，然后拉为低电平持续 120ms，收到自动回复 URC信息 “NO   CARRIER”，之后再变为高电平  （4）收到短信时变为高电平</td>
+</tr>
+<tr>
+<td>数据传输</td>
+<td>变为低电平，之后：  （1）数据连接建立时变为高电平 （2）      使用AT命令 ATH挂断数据连接，WAKEUP_OUT变为高电平 （3） 呼叫方挂断，WAKEUP_OUT首先变为高电平，然后拉为低电平持续 120ms，收到自动回复 URC信息 “NO   CARRIER”，之后再变为高电平 （4）收到短信时变为高电平</td>
+</tr>
+<tr>
+<td>短信</td>
+<td>当收到新的短信，WAKEUP_OUT变为低电平，持续 120ms，再变为高电平</td>
+</tr>
+<tr>
+<td>URC</td>
+<td>某些 URC信息可以触发WAKEUP_OUT拉低 120ms</td>
+</tr>
+</tbody></table>
+<p>表格10：WAKEUP_OUT信号动作</p>
+<p>如果模块用作主叫方，WAKEUP_OUT会保持高电平，收到URC信息或者短信时除外。而模块用作被叫方时，WAKEUP_OUT的时序如下所示：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162952552_7.png"><br>图表14：语音呼叫时模块用作被叫方 WAKEUP_OUT时序</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521163115440_8.png"><br>图表15：数据呼叫时模块用作被叫方WAKEUP_OUT时序</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521163216934_9.png"><br>图表16：模块主叫时WAKEUP_OUT时序</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521163304211_10.png"><br>图表17：收到URC信息或者短信时WAKEUP_OUT时序</p>
+<h2 id="3-11-网络状态指示"><a href="#3-11-网络状态指示" class="headerlink" title="3.11 网络状态指示"></a>3.11 网络状态指示</h2><p>Air724UG 分别用两个管脚信号来指示网络的状态。如下两表分别描述了管脚定义和不同网络状态下的逻辑电平变化：</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NET_MODE</strong></td>
+<td>57</td>
+<td>指示模块的4G网络状态</td>
+</tr>
+<tr>
+<td><strong>NET_STATUS</strong></td>
+<td>58</td>
+<td>指示模块的网络运行状态</td>
+</tr>
+</tbody></table>
+<p>表格11：网络指示管脚定义</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>管脚工作状态</th>
+<th>网络状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>** NET_MODE **</td>
+<td>高</td>
+<td>注册LTE网络</td>
+</tr>
+<tr>
+<td></td>
+<td>低</td>
+<td>其他</td>
+</tr>
+<tr>
+<td><strong>NET_STATUS</strong></td>
+<td>亮0.2秒，灭1.8秒</td>
+<td>搜网状态</td>
+</tr>
+<tr>
+<td></td>
+<td>亮1.8秒，灭0.2秒</td>
+<td>待机</td>
+</tr>
+<tr>
+<td></td>
+<td>亮0.125秒，灭0.125秒</td>
+<td>数据传输状态  注意：该状态提示仅限于PPP拨号成功或者AT指令主动激活PDP成功，RNDIS联网成功</td>
+</tr>
+</tbody></table>
+<p>表格12：指示网络管脚的工作状态</p>
+<p>参考电路如下图：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814171751085_LED.jpg">图表18：NET_LED参考电路</p>
+<h2 id="3-12-音频接口"><a href="#3-12-音频接口" class="headerlink" title="3.12 音频接口"></a>3.12 音频接口</h2><p>模块提供了两路模拟音频输入通道和三路模拟输出通道，支持通话、录音和播放等功能。</p>
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>接口名</th>
+<th>接口号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>麦克模拟输入AIN</strong></td>
+<td>MIC+</td>
+<td>22</td>
+<td>音频输入通道1，已内置麦克偏置电路</td>
+</tr>
+<tr>
+<td></td>
+<td>MIC-</td>
+<td>21</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>耳机麦克模拟输入AIN</strong></td>
+<td>HEADMIC_P</td>
+<td>113</td>
+<td>耳机麦克输入通道，需要外加麦克偏置电路</td>
+</tr>
+<tr>
+<td></td>
+<td>HEADMIC_N</td>
+<td>104</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>耳机输出AIN</strong></td>
+<td>HP_R</td>
+<td>103</td>
+<td>耳机右声道输出</td>
+</tr>
+<tr>
+<td></td>
+<td>HP_L</td>
+<td>112</td>
+<td>耳机左声道输出</td>
+</tr>
+<tr>
+<td><strong>听筒输出AIN</strong></td>
+<td>EAR_P</td>
+<td>101</td>
+<td>听筒输出正端</td>
+</tr>
+<tr>
+<td></td>
+<td>EAR_N</td>
+<td>102</td>
+<td>听筒输出负端</td>
+</tr>
+<tr>
+<td><strong>喇叭输出AOUT</strong></td>
+<td>SPK+</td>
+<td>19</td>
+<td>喇叭输出正端</td>
+</tr>
+<tr>
+<td></td>
+<td>SPK-</td>
+<td>18</td>
+<td>喇叭输出负端</td>
+</tr>
+</tbody></table>
+<p>AIN可以用作麦克风输入或模拟音频信号输入。麦克风通常选用驻极体麦克风。AIN是差分输入。<br>AOUT通道可以直接驱动8欧姆的喇叭。AOUT通道为差分输出。</p>
+<h3 id="3-12-1-防止TDD噪声和其它噪声"><a href="#3-12-1-防止TDD噪声和其它噪声" class="headerlink" title="3.12.1 防止TDD噪声和其它噪声"></a>3.12.1 防止TDD噪声和其它噪声</h3><p>手持话柄及免提的麦克风建议采用内置射频滤波双电容（如10pF和33pF）的驻极体麦克风，从干扰源头滤除射频干扰，会很大程度改善耦合TDD噪音。33pF电容用于滤除模块工作在900MHz频率时的高频干扰。如果不加该电容，在通话时候有可能会听到TDD噪声。同时10pF的电容是用以滤除工作在1800MHz频率时的高频干扰。需要注意的是，由于电容的谐振点很大程度上取决于电容的材料以及制造工艺，因此选择电容时，需要咨询电容的供应商，选择最合适的容值来滤除高频噪声。</p>
+<p>PCB板上的射频滤波电容摆放位置要尽量靠近音频器件或音频接口，走线尽量短，要先经过滤波电容再到其他点<br>天线的位置离音频元件和音频走线尽量远，减少辐射干扰，电源走线和音频走线不能平行，电源线尽量远离音频线。</p>
+<p>差分音频走线必须遵循差分信号的Layout规则。</p>
+<h3 id="3-12-2-麦克风接口参考电路"><a href="#3-12-2-麦克风接口参考电路" class="headerlink" title="3.12.2 麦克风接口参考电路"></a>3.12.2 麦克风接口参考电路</h3><p>AIN通道内置驻极体麦克风偏置电压。麦克风通道参考电路下图所示：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814174553336_micphone.png">图表19：AIN麦克风通道接口电路</p>
+<h3 id="3-12-3-耳机接口参考电路"><a href="#3-12-3-耳机接口参考电路" class="headerlink" title="3.12.3 耳机接口参考电路"></a>3.12.3 耳机接口参考电路</h3><p><strong>耳机参考电路一：</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210125231126919_Earphone1.png" alt="undefined" title="undefined"><br>上图是目前Air724UG 的开发板上采用的耳机接口电路：<br><code>HEADMIC_BIAS 给耳机麦克提供偏置电压；</code><br><code>HEADMIC_IN_DET 用来检测耳机按键，HEADMIC_IN_DET 内部是一个ADC，故 HEADMIC_IN_DET 还可以支持多功能按键；</code><br><code>HP_DET 用来检测耳机插入，当耳机插入时为低，当耳机拔出时为高；</code></p>
+<p>这个耳机电路存在一个弊端，由于耳机拔出后需要给22uF电容充电后HP_DET 才能为高，导致耳机拔出检测会延迟6-10秒左右的时间，故推荐将耳机电路修改成下面的参考电路二</p>
+<p><strong>耳机参考电路二：</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210125231617210_Earphone2.png" alt="undefined" title="undefined"><br>更换了耳机插座的型号，换成检测管脚是常开类型的耳机插座；<br><code>未插入耳机时，耳机插座的 Pin3 和 Pin4 之间处于断开状态，HP_DET 由内部拉高，为高电平；</code><br><code>插入耳机后，耳机插座的 Pin3 和 Pin4 之间导通，并连接到左声道的耳机喇叭，左声道的耳机喇叭等效于32欧姆的接地电阻，故 HP_DET 被拉低变成低电平；</code><br><code>拔出耳机后，耳机插座的 Pin3 和 Pin4 之间断开，因为不需要给22uF 的电容充电，HP_DET 马上变成了高电平，不会出现耳机拔出检测过慢的问题。</code></p>
+<p>耳机根据第3段和第4段的接线定义不同可以分为 国标OMTP 和 美标CTIA 两种，在设计耳机插座的电路后需要选择相应的耳机。<br>上面的两个耳机参考电路是按照国标OMTP设计的，故只能使用 OMTP标准的耳机。如果要使用美标CTIA的耳机，则需要把第3段、第4段的接线对换一下。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201230180631973_%E8%80%B3%E6%9C%BA%E5%88%86%E7%B1%BB.png" alt="undefined" title="undefined"></p>
+<h3 id="3-12-4-音频输出接口参考电路"><a href="#3-12-4-音频输出接口参考电路" class="headerlink" title="3.12.4 音频输出接口参考电路"></a>3.12.4 音频输出接口参考电路</h3><p>SPK音频输出接口可以直接与驱动8欧姆喇叭。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814175100417_Speaker.png">图表20：参考电路</p>
+<h3 id="3-12-5-音频电气特性"><a href="#3-12-5-音频电气特性" class="headerlink" title="3.12.5 音频电气特性"></a>3.12.5 音频电气特性</h3><table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>最小</strong></th>
+<th><strong>典型</strong></th>
+<th><strong>最大</strong></th>
+<th><strong>单位</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>工作电压</strong></td>
+<td>1.0</td>
+<td>1.25</td>
+<td>2.0</td>
+<td>V</td>
+</tr>
+<tr>
+<td><strong>工作电流</strong></td>
+<td></td>
+<td></td>
+<td>500</td>
+<td>μA</td>
+</tr>
+<tr>
+<td><strong>阻抗</strong></td>
+<td></td>
+<td>2.2</td>
+<td></td>
+<td>KΩ</td>
+</tr>
+</tbody></table>
+<p>表格14：驻极体麦克风典型特性参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+<th></th>
+<th>最小</th>
+<th>典型</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>AOUT</strong></td>
+<td>单端输出</td>
+<td>负载</td>
+<td></td>
+<td>8</td>
+<td></td>
+<td>Ω</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>参考电平</td>
+<td>0</td>
+<td></td>
+<td>2.4</td>
+<td>Vpp</td>
+</tr>
+<tr>
+<td></td>
+<td>差分输出</td>
+<td></td>
+<td></td>
+<td>8</td>
+<td></td>
+<td>Ω</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>参考电平</td>
+<td>0</td>
+<td></td>
+<td>4.8</td>
+<td>Vpp</td>
+</tr>
+</tbody></table>
+<p>表格15：音频输出接口典型特性参数</p>
+<h1 id="4-射频接口"><a href="#4-射频接口" class="headerlink" title="4.射频接口"></a>4.射频接口</h1><p>天线接口管脚定义如下：</p>
+<table>
+<thead>
+<tr>
+<th>管脚名称</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LTE_ANT</td>
+<td>46</td>
+<td>LTE天线接口</td>
+</tr>
+<tr>
+<td>WiFi_ANT</td>
+<td>34</td>
+<td>蓝牙/WiFi Scan 共用天线接口</td>
+</tr>
+</tbody></table>
+<p>表格16：RF_ANT管脚定义</p>
+<h2 id="4-1-射频参考电路"><a href="#4-1-射频参考电路" class="headerlink" title="4.1 射频参考电路"></a>4.1 射频参考电路</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200814175842755_antenna.png">图表21：射频参考电路<br>注意：<br>•    连接到模块RF天线焊盘的RF走线必须使用微带线或者其他类型的 RF走线，阻抗必须控制在50欧姆左右。</p>
+<h2 id="4-2-RF输出功率"><a href="#4-2-RF输出功率" class="headerlink" title="4.2 RF输出功率"></a>4.2 RF输出功率</h2><table>
+<thead>
+<tr>
+<th>频段</th>
+<th>最大</th>
+<th>最小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LTE FDD B1/B3/B5/B8</td>
+<td>23dBm +-2dB</td>
+<td>&lt;-44dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B34/B38/B39/B40/B41</td>
+<td>23dBm +-2dB</td>
+<td>&lt;-42dBm</td>
+</tr>
+</tbody></table>
+<p>表格17：RF传导功率</p>
+<h2 id="4-3-RF传导灵敏度"><a href="#4-3-RF传导灵敏度" class="headerlink" title="4.3 RF传导灵敏度"></a>4.3 RF传导灵敏度</h2><table>
+<thead>
+<tr>
+<th>频段</th>
+<th>接收灵敏度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LTE FDD B1(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B3(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B5(10M)</td>
+<td>&lt; -100dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B8(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B34(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B38(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B39(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B40(10M)</td>
+<td>&lt; -100dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B41(10M)</td>
+<td>&lt; -99dBm</td>
+</tr>
+</tbody></table>
+<p>表格18：RF传导灵敏度</p>
+<h2 id="4-4-推荐RF焊接方式"><a href="#4-4-推荐RF焊接方式" class="headerlink" title="4.4 推荐RF焊接方式"></a>4.4 推荐RF焊接方式</h2><p>如果连接外置天线的射频连接器是通过焊接方式与模块相连的，请务必注意连接线的剥线方式及焊接方法，尤其是地要焊接充分，请按照下图中正确的焊接方式进行操作，以避免因焊接不良引起线损增大。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521184012696_19.jpg"><br>图表22：射频焊接方式建议</p>
+<h1 id="5-电器特性，可靠性，射频特性"><a href="#5-电器特性，可靠性，射频特性" class="headerlink" title="5.电器特性，可靠性，射频特性"></a>5.电器特性，可靠性，射频特性</h1><h2 id="5-1-绝对最大值"><a href="#5-1-绝对最大值" class="headerlink" title="5.1 绝对最大值"></a>5.1 绝对最大值</h2><p>下表所示是模块数字、模拟管脚的电源供电电压电流最大耐受值。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>最小</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT</td>
+<td>-0.3</td>
+<td>4.7</td>
+<td>V</td>
+</tr>
+<tr>
+<td>USB_VBUS</td>
+<td>-0.3</td>
+<td>5.5</td>
+<td>V</td>
+</tr>
+<tr>
+<td>电源供电峰值电流</td>
+<td>0</td>
+<td>1</td>
+<td>A</td>
+</tr>
+<tr>
+<td>电源供电平均电流（TDMA一帧时间）</td>
+<td>0</td>
+<td>0.7</td>
+<td>A</td>
+</tr>
+<tr>
+<td>数字管脚处电压</td>
+<td>-0.3</td>
+<td>VDDIO+0.3</td>
+<td>V</td>
+</tr>
+</tbody></table>
+<p>表格19：绝对最大值</p>
+<h2 id="5-2-推荐工作条件"><a href="#5-2-推荐工作条件" class="headerlink" title="5.2 推荐工作条件"></a>5.2 推荐工作条件</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>最小</th>
+<th>典型</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT</td>
+<td>3.3</td>
+<td>3.8</td>
+<td>4.3</td>
+<td>V</td>
+</tr>
+<tr>
+<td>USB_VBUS</td>
+<td>3.3</td>
+<td>5.0</td>
+<td>5.25</td>
+<td>V</td>
+</tr>
+<tr>
+<td>电源供电峰值电流</td>
+<td></td>
+<td>0.7</td>
+<td>1</td>
+<td>A</td>
+</tr>
+</tbody></table>
+<p>表格20：推荐工作条件</p>
+<h2 id="5-3-工作温度"><a href="#5-3-工作温度" class="headerlink" title="5.3 工作温度"></a>5.3 工作温度</h2><table>
+<thead>
+<tr>
+<th>温度</th>
+<th>最低</th>
+<th>典型</th>
+<th>最高</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常工作温度</td>
+<td>-35</td>
+<td>25</td>
+<td>75</td>
+<td>℃</td>
+</tr>
+<tr>
+<td>受限工作温度</td>
+<td>-40~-35</td>
+<td></td>
+<td>75~85</td>
+<td>℃</td>
+</tr>
+<tr>
+<td>存储温度</td>
+<td>-45</td>
+<td></td>
+<td>90</td>
+<td>℃</td>
+</tr>
+</tbody></table>
+<p>表格21：工作温度</p>
+<h2 id="5-4-电源额度值"><a href="#5-4-电源额度值" class="headerlink" title="5.4 电源额度值"></a>5.4 电源额度值</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>条件</th>
+<th></th>
+<th>最小</th>
+<th>典型</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT</td>
+<td>供电电压</td>
+<td>电压必须在该范围之内，包括电压跌落，纹波和尖峰时</td>
+<td></td>
+<td>3.3</td>
+<td>3.8</td>
+<td>4.3</td>
+<td>V</td>
+</tr>
+<tr>
+<td>IVBAT</td>
+<td>平均供电电流</td>
+<td>漏电流</td>
+<td>第一次上电</td>
+<td></td>
+<td>30</td>
+<td></td>
+<td>uA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>开机后关机（RTC正常工作）</td>
+<td></td>
+<td>220</td>
+<td></td>
+<td>uA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>待机电流</td>
+<td>LTE-TDD  Pagingcycle=128</td>
+<td></td>
+<td>1.78</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>LTE-FDD  Pagingcycle=128</td>
+<td></td>
+<td>1.8</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>飞行模式      AT+CFUN=4</td>
+<td></td>
+<td></td>
+<td>1.39</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-FDD  B1</td>
+<td>TX power =23dbm   CH300, BW=20M</td>
+<td></td>
+<td>470</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm   CH300, BW=20M</td>
+<td></td>
+<td>151</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-FDD  B3</td>
+<td>TX power =23dbm  CH1575, BW=20M</td>
+<td></td>
+<td>514</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH1575, BW=20M</td>
+<td></td>
+<td>152</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-FDD  B5</td>
+<td>TX power =23dbm  CH2525, BW=20M</td>
+<td></td>
+<td>522</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH2525, BW=20M</td>
+<td></td>
+<td>138</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-FDD  B8</td>
+<td>TX power =23dbm  CH3625, BW=20M</td>
+<td></td>
+<td>624</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH3625, BW=20M</td>
+<td></td>
+<td>138</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-TDD  B34</td>
+<td>TX power =23dbm  CH36275, BW=20M</td>
+<td></td>
+<td>275</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH36275, BW=20M</td>
+<td></td>
+<td>115.4</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-TDD  B38</td>
+<td>TX power =23dbm  CH38000, BW=20M</td>
+<td></td>
+<td>290</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH38000, BW=20M</td>
+<td></td>
+<td>119.5</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-TDD  B39</td>
+<td>TX power =23dbm  CH38450, BW=20M</td>
+<td></td>
+<td>250.4</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH38450, BW=20M</td>
+<td></td>
+<td>100</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-TDD  B40</td>
+<td>TX power =23dbm  CH39150, BW=20M</td>
+<td></td>
+<td>316</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH39150, BW=20M</td>
+<td></td>
+<td>116</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>LTE-TDD  B41</td>
+<td>TX power =23dbm  CH40620, BW=20M</td>
+<td></td>
+<td>291</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>TX power =-42dbm  CH40620, BW=20M</td>
+<td></td>
+<td>119</td>
+<td></td>
+<td>mA</td>
+</tr>
+</tbody></table>
+<p>表格22：模块电源额度值</p>
+<h2 id="5-5-静电防护"><a href="#5-5-静电防护" class="headerlink" title="5.5 静电防护"></a>5.5 静电防护</h2><p>在模块应用中，由于人体静电，微电子间带电摩擦等产生的静电，通过各种途径放电给模块，可能会对模块造成一定的损坏，所以 ESD保护必须要重视，不管是在生产组装、测试，研发等过程，尤其在产品设计中，都应采取防 ESD保护措施。如电路设计在接口处或易受 ESD点增加 ESD保护，生产中带防ESD手套等。<br>下表为模块重点PIN脚的ESD耐受电压情况。</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>接触放电</th>
+<th>空气放电</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT,GND</td>
+<td>±5KV</td>
+<td>±10KV</td>
+</tr>
+<tr>
+<td>LTE_ANT</td>
+<td>±5KV</td>
+<td>±10KV</td>
+</tr>
+<tr>
+<td>Others</td>
+<td>±0.5KV</td>
+<td>±1KV</td>
+</tr>
+</tbody></table>
+<p>表格23：ESD性能参数（温度：25℃, 湿度：45%）</p>
+<h1 id="6-机械尺寸"><a href="#6-机械尺寸" class="headerlink" title="6 机械尺寸"></a>6 机械尺寸</h1><p>该章节描述模块的机械尺寸以及客户使用该模块设计的推荐封装尺寸。</p>
+<h2 id="6-1-模块机械尺寸"><a href="#6-1-模块机械尺寸" class="headerlink" title="6.1 模块机械尺寸"></a>6.1 模块机械尺寸</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200525161012573_22.png"><br>图表23：Air724UG尺寸图（单位：毫米）</p>
+<h2 id="6-2-推荐PCB封装"><a href="#6-2-推荐PCB封装" class="headerlink" title="6.2 推荐PCB封装"></a>6.2 推荐PCB封装</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200525161501324_24.png"><br>图表25：正视图，Air724UG/PCB封装（单位：毫米）<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201224150449929_Air724UG_Air723UG_%E5%8E%9F%E7%90%86%E5%9B%BEPCB%E5%B0%81%E8%A3%85.zip">点击下载Air724UG_原理图PCB封装</a></p>
+<p>注意：PCB板上模块和其他元器件之间的间距建议至少3mm；</p>
+<h1 id="7-存储和生产"><a href="#7-存储和生产" class="headerlink" title="7 存储和生产"></a>7 存储和生产</h1><h2 id="7-1-存储"><a href="#7-1-存储" class="headerlink" title="7.1 存储"></a>7.1 存储</h2><p>Air724UG以真空密封袋的形式出货。模块的存储需遵循如下条件：<br>环境温度低于40摄氏度，空气湿度小于90%情况下，模块可在真空密封袋中存放12个月。<br>当真空密封袋打开后，若满足以下条件，模块可直接进行回流焊或其它高温流程：<br>•    模块环境温度低于30摄氏度，空气湿度小于60%，工厂在72小时以内完成贴片。<br>•    空气湿度小于10%</p>
+<p>若模块处于如下条件，需要在贴片前进行烘烤：<br>•    当环境温度为23摄氏度（允许上下5摄氏度的波动）时，湿度指示卡显示湿度大于10%<br>•    当真空密封袋打开后，模块环境温度低于30摄氏度，空气湿度小于60%，但工厂未能在72小时以内完成贴片<br>•    当真空密封袋打开后，模块存储空气湿度大于10%<br>如果模块需要烘烤，请在125摄氏度下（允许上下5摄氏度的波动）烘烤48小时。<br>注意：模块的包装无法承受如此高温，在模块烘烤之前，请移除模块包装。如果只需要短时间的烘烤，请参考IPC/JEDECJ-STD-033规范。</p>
+<h2 id="7-2-生产焊接"><a href="#7-2-生产焊接" class="headerlink" title="7.2 生产焊接"></a>7.2 生产焊接</h2><p>用印刷刮板在网板上印刷锡膏，使锡膏通过网板开口漏印到 PCB上，印刷刮板力度需调整合适，为保证模块印膏质量，Air724UG模块焊盘部分对应的钢网厚度应为 0.2mm。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200525162133431_26.png"><br>图表27：印膏图</p>
+<p>为避免模块反复受热损伤，建议客户 PCB板第一面完成回流焊后再贴模块。推荐的炉温曲线图如下图所示：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200707110755577_15.png"><br>图表28：炉温曲线</p>
+<table>
+<thead>
+<tr>
+<th>版本号</th>
+<th align="left">修改记录</th>
+<th align="left">日期</th>
+<th>作者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V0.1</td>
+<td align="left">新建</td>
+<td align="left">2020-2-14</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.0</td>
+<td align="left">发布第一版</td>
+<td align="left">2020-2-26</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.1</td>
+<td align="left">更新管脚图</td>
+<td align="left">2020-3-4</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.2</td>
+<td align="left">增加SIM0  和 SIM1 接口的使用说明</td>
+<td align="left">2020-3-19</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.3</td>
+<td align="left">更新GPIO上电状态</td>
+<td align="left">2020-3-31</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.4</td>
+<td align="left">增加UART2  开机log的说明</td>
+<td align="left">2020-4-7</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.5</td>
+<td align="left">第56脚只能用作LCD_RST，不能用作GPIO或飞行模式控制</td>
+<td align="left">2020-4-16</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.6</td>
+<td align="left">增加功耗数据，并修正了一些错误</td>
+<td align="left">2020-5-7</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.7</td>
+<td align="left">增加了GPIO_13 的使用说明</td>
+<td align="left">2020-5-8</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.8</td>
+<td align="left">修改USB_BOOT  管脚的描述</td>
+<td align="left">2020-6-24</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V1.9</td>
+<td align="left">更新灵敏度指标数据</td>
+<td align="left">2020-7-7</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V2.0</td>
+<td align="left">更新框图</td>
+<td align="left">2020-7-14</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V2.1</td>
+<td align="left">删除GPIO_16，更新耳机参考电路</td>
+<td align="left">2020-8-7</td>
+<td>Loukanghua</td>
+</tr>
+<tr>
+<td>V2.2</td>
+<td align="left">Air723UG 停产，删除有关Air723UG 的资料</td>
+<td align="left">2020-11-9</td>
+<td>Loukanghua</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/05/26/383/" data-id="ckkfmdgfl00ervkcg9u5vgtm1" data-title="Air724UG_模块硬件设计手册_V2.2" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/05/26/742/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          8、RDA8910CSDK二次开发：以tcp客户端的身份去勾搭服务端
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/25/741/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">7、RDA8910CSDK二次开发：通过DNS解析迈向互联网的第一步</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

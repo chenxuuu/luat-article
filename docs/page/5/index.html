@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:url" content="https://doc.luatos.wiki/page/5/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2176" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2176/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T10:00:18.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2176/">git初始化操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="一、git初始化操作"><a href="#一、git初始化操作" class="headerlink" title="一、git初始化操作"></a>一、git初始化操作</h2><ol>
+<li><p>准备工作<br>准备工作：<br>在本地创建一个仓库<br>本地仓库<br>$ git init<br>$ git add  文件名 / 文件夹名 / .    （ .  表示全部）<br>$ git commit<br>$ git commit -m “描述”<br>//此处还需要告知<br>用户名<br>$ git config –global user.name ‘your name’<br>邮箱<br>$ git config –global user.email ‘ your email’<br>关联指定仓库<br>$ git remote add origin ‘仓库地址’<br>pull命令 (将Github 上的内容全部拉下来)<br>$ git pull –rebase origin master<br>push命令<br>$ git push origin master</p>
+<h2 id="二、git-分支操作"><a href="#二、git-分支操作" class="headerlink" title="二、git 分支操作"></a>二、git 分支操作</h2></li>
+<li><p> 查看分支 git branch</p>
+</li>
+<li><p>新建分支 git branch 分支名字</p>
+</li>
+<li><p>删除本地分支 git branch -d 分支名</p>
+</li>
+<li><p>删除远程服务器上的分支 git push origin -d 分支名</p>
+</li>
+<li><p>删除本地对远程分支的追踪 git branch -r -D origin/分支名</p>
+</li>
+<li><p>切换分支 git checkout 分支名</p>
+</li>
+<li><p>切换并创建分支 git checkout -b 分支名</p>
+</li>
+<li><p>合并分支 git merge 目的分支(即将目的分支合并进当前分支)</p>
+</li>
+<li><p>如果本地新建了一个分支 ，但是在远程没有。<br>这时候 push 和 pull 指令就无法确定该跟踪谁，一般来说我们都会使其跟踪远程同名分支，所以可以利用<code> git push --set-upstream origin branch_name</code> ，这样就可以自动在远程创建一个 branch_name 分支，然后本地分支会 track 该分支。后面再对该分支使用 push 和 pull 就自动同步。<br>git push –set-upstream origin 分支名</p>
+</li>
+<li><p>如果远程新建了一个分支，本地没有该分支。<br>可以利用 git checkout –track origin/分支名 ，这时本地会新建该分支 并且会自动跟踪远程的同名分支。<br>git checkout –track origin/分支名</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2176/" data-id="ckkfmdgai003bvkcg81zfecw9" data-title="git初始化操作" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2175" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2175/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T09:57:57.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2175/">axios的高阶用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="axios的高阶用法"><a href="#axios的高阶用法" class="headerlink" title="axios的高阶用法"></a>axios的高阶用法</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>Axios 是一个基于 promise 的 HTTP 库，可以在浏览器和 node.js 中使用。目前在我们的项目中主要使用axios向服务端发送请求，获取数据，并且可在请求中做很多的可控操作。更多详情可参考<a target="_blank" rel="noopener" href="http://www.axios-js.com/">axios官方文档</a></p>
+<h4 id="常见使用"><a href="#常见使用" class="headerlink" title="常见使用"></a>常见使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="function"><span class="title">login</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    axios.post(<span class="string">&quot;/info/api/user/loginin&quot;</span>,&#123;</span><br><span class="line">        username:<span class="string">&quot;admin&quot;</span>,</span><br><span class="line">        password:<span class="number">123</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是一个简单的使用axios的实现登录功能的实例。</p>
+<h4 id="抽离"><a href="#抽离" class="headerlink" title="抽离"></a>抽离</h4><p>从功能层面来说，这段代码可以完美完成任务，但是为了代码的可维护性和简便性，我们可以对axios相关的代码做进一步抽离。按照之前的编码习惯（小伙伴们也可以自行制定规范），我通常会在项目的src文件夹下新建<code>api</code>文件夹，并新建<code>axios.js</code>文件。</p>
+<p>以下为在<code>axios.js</code>文件下的操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;@/store/index&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;@/router/index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Message &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span></span><br><span class="line"><span class="keyword">let</span> http=&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baseUrl = process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span> ? <span class="string">&#x27;https://yoururl.com/&#x27;</span> : <span class="string">&#x27;/api&#x27;</span></span><br><span class="line"><span class="keyword">var</span> instance = Axios.create(&#123;</span><br><span class="line">    timeout: <span class="number">20000</span>,</span><br><span class="line">    baseUrl,</span><br><span class="line">    <span class="function"><span class="title">validateStatus</span>(<span class="params">status</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(status)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">400</span>:</span><br><span class="line">                Message.error(<span class="string">&#x27;请求出错&#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">401</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;授权失败，请重新登录&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="comment">// store.commit(&#x27;LOGIN_OUT&#x27;)</span></span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    Router.push(&#123;</span><br><span class="line">                        name: <span class="string">&#x27;Login&#x27;</span>,</span><br><span class="line">                        path: <span class="string">&#x27;/&#x27;</span></span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;, <span class="number">1000</span>)</span><br><span class="line">                store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>,<span class="literal">false</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">403</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;拒绝访问&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">404</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;请求错误,未找到该资源&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">500</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;服务端错误&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">instance.interceptors.request.use(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 请求头添加token</span></span><br><span class="line">        <span class="keyword">if</span>(store.state.userToken) &#123;</span><br><span class="line">            store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>, <span class="literal">true</span>)</span><br><span class="line">            config.headers.Authorization = <span class="string">`<span class="subst">$&#123;store.state.userToken&#125;</span>`</span>;</span><br><span class="line">            config.headers[<span class="string">&#x27;SHTC-TOKEN&#x27;</span>] = <span class="string">`<span class="subst">$&#123;store.state.userToken&#125;</span>`</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> config</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器及异常处理</span></span><br><span class="line">instance.interceptors.response.use(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> response.data</span><br><span class="line">    &#125;,</span><br><span class="line">    err =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(err &amp;&amp; err.response) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            err.Message = <span class="string">&#x27;连接服务器失败&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err.response)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求</span></span><br><span class="line">http.get = <span class="function"><span class="keyword">function</span>(<span class="params">url, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        instance</span><br><span class="line">            .get(baseUrl + url, options)</span><br><span class="line">            .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(response.code === <span class="number">200</span>) &#123;</span><br><span class="line">                    resolve(response.data)</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    Message.error(&#123;</span><br><span class="line">                        message: response.errorMsg</span><br><span class="line">                    &#125;)</span><br><span class="line">                    reject(response.errorMsg)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(e)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// post请求</span></span><br><span class="line">http.post = <span class="function"><span class="keyword">function</span>(<span class="params">url, data, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        instance</span><br><span class="line">            .post(baseUrl + url, data, options)</span><br><span class="line">            .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// store.mutations(&#x27;LOGIN_PAGE&#x27;,true);</span></span><br><span class="line">                <span class="keyword">if</span>(response.code === <span class="number">200</span>) &#123;</span><br><span class="line">                    store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>,<span class="literal">false</span>);</span><br><span class="line">                    <span class="comment">// store.mutations(&#x27;LOGIN_PAGE&#x27;, false)</span></span><br><span class="line">                    resolve(response.data);</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    Message.error(&#123;</span><br><span class="line">                        message: response.errorMsg</span><br><span class="line">                    &#125;)</span><br><span class="line">                    store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>, <span class="literal">false</span>)</span><br><span class="line">                    reject(response.errorMsg)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">                store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>,<span class="literal">false</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(e)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// todo</span></span><br><span class="line"><span class="comment">// put | patch | delete ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> http</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先我们在该文件中引入<code>axios</code>并实例化一个对象，可额外添加一些配置（超时时间、公共url、常见状态验证等等）；</li>
+<li>如果我们使用JWT式的请求交互方式的话，可以在请求拦截器上将token挂在上去；</li>
+<li>为了安全简便的使用返回数据，我们可以在响应拦截器上验证返回字段并将其中的<code>data</code>剥离后直接返回；</li>
+<li>新创建一个对象<code>http</code>，并将<code>axios</code>实例支持的请求方式按编写习惯封装为函数并挂载到<code>http</code>上</li>
+<li>导出<code>http</code>对象</li>
+</ul>
+<blockquote>
+<p>上述代码处于vue环境中，在react中使用时，部分代码须替换</p>
+</blockquote>
+<h4 id="抽离后的使用"><a href="#抽离后的使用" class="headerlink" title="抽离后的使用"></a>抽离后的使用</h4><p>在上述<code>axios.js</code>完成后，<code>api</code>文件夹下的剩余文件可按业务模块划分，这里以用户登录为例，在<code>api</code>下新建<code>user.js</code>，创建并暴露<code>login</code>函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&#x27;./index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用户登录</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(<span class="string">&#x27;/user/login&#x27;</span>,data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在页面组件上导入使用即可。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><code>axios</code>在前端业务上的使用广泛，合理的封装抽离可以使我们的开发事半功倍，同时也能提高项目结构的合理性。以上即为全部内容，如有出入，欢迎指正。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2175/" data-id="ckkfmdgah003avkcg9qgk6npi" data-title="axios的高阶用法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2173" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2173/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T09:32:01.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2173/">mysql的索引和优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul><li>索引</li><ul><li>主键索引</li><ul><li><span style="color:#121212">加速查询 + 列值唯一 + 不可以为null + 表中只有一个</span></li><li>主键索引是在主键上的索引，设置key的时候，sql会自动创建主键索引。</li></ul><li>普通索引</li><ul><li><span style="color:#121212">作用：仅加速查询</span></li><li>创建非主键列上字段的索引。         </li></ul><li>聚合索引</li><ul><li><span style="color:#121212">多列组合成一个索引，用于加速查询</span></li><li>一张表有多个索引，也成为复合索引。</li></ul><li>唯一索引</li><ul><li><span style="color:#121212">作用：加速查询 + 列值唯一 + 可以为null + 表中只有一个</span></li></ul><li>全文索引</li></ul></ul><h5 id="cdf978f3" data-lake-id="4ea76454d8549c6ef4836a4f86715dd0" data-wording="true">索引的语法</h5><p style="text-indent:2em;" data-lake-id="c7decbb81426e61b5d84738cc4dff52f" data-wording="true">查看某张表的索引：SHOW INDEX FROM 表名；</p><p style="text-indent:2em;" data-lake-id="15945592b2a5a1dfc2a4210674449380" data-wording="true">创建普通索引：ALTER TABLE 表名 ADD INDEX 索引名 (加索引的列)</p><p style="text-indent:2em;" data-lake-id="0e36c8ea895a88aad82a8784544b26e1" data-wording="true">创建聚合索引：ALTER TABLE 表名 ADD INDEX 索引名 (加索引的列1,加索引的列2)</p><p style="text-indent:2em;" data-lake-id="adeffab2a93c2dfd46dbc07746519a42" data-wording="true">删除某张表的索引：DROP INDEX 索引名 ON 表名;</p><h5 id="9a7b7b2c" data-lake-id="21156ee85772604f15bf5b18ad60c036" data-wording="true">索引的注意事项和优化</h5><p style="text-indent:2em;" data-lake-id="af5297e392aecf0535224823af470c88" data-wording="true">1、应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。</p><p style="text-indent:2em;" data-lake-id="6e9f858f0cb58048d2ca2db1f364c41e" data-wording="true">解释：</p><p style="text-indent:2em;" data-lake-id="703805d39de81e9bc0f3d2f09b61c28d" data-wording="true">不等于 也是一个很大的范围，和全盘扫描没啥区别。</p><p style="text-indent:2em;" data-lake-id="0800f809f86755574f8c09ff1f834def"><br/></p><p style="text-indent:2em;" data-lake-id="563c0865b49b15d9359514c4bceeeab0" data-wording="true">2、对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p><p style="text-indent:2em;" data-lake-id="421d4e73a25e50b3d2085fafcd07b211" data-wording="true">3、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描。</p><p style="text-indent:2em;" data-lake-id="0faf2b784d6572bd687c9342180b6d64" data-wording="true">解释:</p><p style="text-indent:2em;" data-lake-id="8a11cb7188070ae187aabb0da6aafdb3" data-wording="true">如果项目有非要用空值的话，可以在字段默认0。</p><p style="text-indent:2em;" data-lake-id="6ad2467fc79990ef07abd9663859cd0f" data-wording="true">4、尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描 如：</p><p style="text-indent:2em;" data-lake-id="81d2de9400db2eeeea4b11715dbb62cf" data-wording="true"><code><span style="color:#121212">select id from t where num=10 or num=20</span></code></p><p style="text-indent:2em;" data-lake-id="25845b2889b248118c8697259f317efd" data-wording="true">优化为;</p><p style="text-indent:2em;" data-lake-id="f6583481c065635856bb7bc977cfbca4" data-wording="true"><code><span style="color:#121212">select * from t where num=10 union select * from t where num=20;</span></code></p><p style="text-indent:2em;" data-lake-id="209ce2492241148c74502afbe47cecd3" data-wording="true"><span style="color:#121212">解释：</span></p><p style="text-indent:2em;" data-lake-id="1ad4b1010af502f95709bff8303abebd" data-wording="true">在查询条件中使用OR连接多个条件会导致索引失效，这时应该改为两次查询，然后用UNION ALL连接起来。</p><p style="text-indent:2em;" data-lake-id="3eb2b627313ffb1ceddece50a3a02aee" data-wording="true">5、下面的查询也将导致全表扫描：</p><p style="text-indent:2em;" data-lake-id="c06fc9d2f42d52d3297e9a18cd833476" data-wording="true"><code>select id from t where name like &quot;%zheng&quot;</code></p><p style="text-indent:2em;" data-lake-id="382f491fa72ffab76974f70b1ed7fdae" data-wording="true">优化为;</p><p style="text-indent:2em;" data-lake-id="bd5e2c8583bee2f6595c797748ae743b" data-wording="true"><code>select id from t where name like &quot;zheng%&quot;</code></p><p style="text-indent:2em;" data-lake-id="e9155c533da23629079ceb2c49fb6cae" data-wording="true">解释：</p><p style="text-indent:2em;" data-lake-id="7fe0ea69f14240069f9a5b276a1a7193" data-wording="true">%在mysql中作为一个通配符，既然作为通配符，模糊查询时需要一个一个进行匹配 如A,B,C,D,E,.... 匹配完了，才开始zheng这个模糊查询，就像在上海坐地铁一样，准备要做中科路，自己还要一条一条线去找那条线是去中科路的，如果一开始知道13号线通中科路的话，就会快的很多。</p><p style="text-indent:2em;" data-lake-id="8d61147930708dc079c5d3f498362909" data-wording="true">6、<span style="color:#121212">不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</span></p><p style="text-indent:2em;" data-lake-id="84a5bf0184cc8fe4530d5bdacfa91452" data-wording="true">7、 最左前缀集合，如：聚合索引 （a,b,c）</p><p style="text-indent:2em;" data-lake-id="d51efacd2bbf5d55040ac9b3f516818d" data-wording="true"><code>正确使用的索引语句</code></p><p style="text-indent:2em;" data-lake-id="6fcf69b0416733cd47f6de26f6b5e80d" data-wording="true"><code>select * from aaa where a = &quot;&quot; and b = &quot;&quot; and c = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="ed1ca6ed2233ff75977db45f021742a1" data-wording="true"><code>select * from aaa where a = &quot;&quot; and b = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="f3c93b12f5ac71852f1d6c5c692a4b1f" data-wording="true"><code>select * from aaa where a = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="6b049ed147047c813428d44554e46af5" data-wording="true"><code>不正确使用索引</code></p><p style="text-indent:2em;" data-lake-id="354bf4dee2de830f27deb7670fc95e1d" data-wording="true"><code>select * from aaa where c = &quot;&quot; and b = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="54633dd10ce5c9796e665a3886f0eaa9" data-wording="true"><code>select * from aaa where c = &quot;&quot; and a = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="6e324a881c9c233610b47c63ad3bad42" data-wording="true">看过以上sql可以看出来，创建了三个字段的索引等于创建了<span style="color:#121212">a、a,b、a,b,c三个索引</span></p><p data-lake-id="bab55d787f0866f3f83fb73b1f2cdc37" data-wording="true">8、短索引 </p><p data-lake-id="0257d51f684012927d74eaeaea6b9a5f"><br/></p><h5 data-lake-id="56eeb941838af7263351053d65d330cd" id="jQD8K" data-wording="true">问题</h5><p style="text-indent:2em;" data-lake-id="30871b52ca6235c1e5e77f19dafda431" data-wording="true">以前遇到一个问题，在数据量大的时候，因有一个字段是str类型，而我查询的时候是用int类型查询</p><p style="text-indent:2em;" data-lake-id="65ad9219c508b89c9b8a0cf723a991a5" data-wording="true"><code>select * from aaa where a = 123</code></p><p style="text-indent:2em;" data-lake-id="155f2cab5a7d72c3dc0a8b58d8322573" data-wording="true">查询一条数据在10s以上，明明有索引为什么那么慢，然后改成</p><p style="text-indent:2em;" data-lake-id="700f2a89dd4ce942ab160e38a9bc1a81" data-wording="true"><code>select * from aaa where a = &quot;123&quot;</code></p><p style="text-indent:2em;" data-lake-id="b42b91be1672df34f7c06ed39c51c068" data-wording="true">查询一条数据在1s之内，查阅资料才知道：</p><p style="text-indent:2em;" data-lake-id="f65a460937345bbfd340ce3f8cda8827" data-wording="true"><span style="color:#4d4d4d"><span style="font-size:16px">当MySQL中字段为int类型时，搜索条件where num=&quot;111&quot; 与where num=111都可以使用该字段的索引。</span></span></p><p style="text-indent:2em;" data-lake-id="d88c4511a6d13c27a857db783880835e" data-wording="true"><span style="color:#4d4d4d"><span style="font-size:16px">当MySQL中字段为str类型时，搜索条件where num=&quot;111&quot; 可以使用索引，where num=111 不可以使用索引。</span></span></p><p style="text-indent:2em;" data-lake-id="d7e5f8076a225ff23945b15a1c4ddfa5"><br/></p><p data-lake-id="258f929f20eaa47dada8e8c4753db84a" data-wording="true">总结：</p><p style="text-indent:2em;" data-lake-id="6a985c5273643c1f245cbb66480026fa" data-wording="true"><span style="color:#121212">如果=和in一起使用的话，mysql会帮助优化成最佳索引</span></p><p style="text-indent:2em;" data-lake-id="1a92ce8cd4c328bf19e07afcf53493eb" data-wording="true"><span style="color:#121212">尽量不要新建索引，适当扩展索引，索引也不是越多越好，对于更新，插入有所影响</span></p><p style="text-indent:2em;" data-lake-id="660aa9a5b93e2f90026cd1f49a35d157" data-wording="true"><span style="color:#121212">explain命令，准备运行一个sql时，先用explain命令看下sql的执行计划</span></p><p data-lake-id="a7842b6a6d688d0d0b90b112948385ca" data-wording="true"><span style="color:#121212">不能再where的左边进行函数或者表达式运算</span></p><p data-lake-id="ab41577d0b7121e0bdf9d008b057393b" data-wording="true"><span style="color:#121212">避免全盘查询</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2173/" data-id="ckkfmdgah0039vkcg8dksdxtt" data-title="mysql的索引和优化" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2172" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2172/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T09:28:44.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2172/">MIT 6.S081 操作系统课程系列1 Utilities</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="MIT-6-S081-操作系统课程系列1-Utilities"><a href="#MIT-6-S081-操作系统课程系列1-Utilities" class="headerlink" title="MIT 6.S081 操作系统课程系列1 Utilities"></a>MIT 6.S081 操作系统课程系列1 Utilities</h1><hr>
+<h3 id="课程主页：https-pdos-csail-mit-edu-6-828-2020-schedule-html"><a href="#课程主页：https-pdos-csail-mit-edu-6-828-2020-schedule-html" class="headerlink" title="课程主页：https://pdos.csail.mit.edu/6.828/2020/schedule.html"></a>课程主页：<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/schedule.html">https://pdos.csail.mit.edu/6.828/2020/schedule.html</a></h3><h3 id="课程目的"><a href="#课程目的" class="headerlink" title="课程目的"></a>课程目的</h3><ol>
+<li>理解操作系统的设计和实现</li>
+<li>能动手扩展一个小型os</li>
+<li>能动手实现系统应用</li>
+</ol>
+<p>这是mit的一套本科课程，希望能快速过一遍，扩展知识，查漏补缺。</p>
+<h3 id="RISC-V"><a href="#RISC-V" class="headerlink" title="RISC-V"></a>RISC-V</h3><ul>
+<li>RISC(Reduced Instruction Set Computer)精简指令集计算机。</li>
+<li>CISC(Complex Instruction Set Computer)复杂指令集计算机。</li>
+<li>可参考 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49176102">https://zhuanlan.zhihu.com/p/49176102</a><br>先有复杂指令集。越来越庞大、暴露各种缺点，就有了精简指令集。<br>risc不断进化，到了第五代，就是RISC-V。<br>RISC-V是开源的。人们可以在它基础上设计开发cpu。</li>
+</ul>
+<h3 id="xv6"><a href="#xv6" class="headerlink" title="xv6"></a>xv6</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/xv6.html">https://pdos.csail.mit.edu/6.828/2020/xv6.html</a></li>
+<li>xv6是mit开发的一个教学级别的操作系统，受Unix V6影响。作者都是业界大佬级别，质量有保证。</li>
+<li>本课程就用这个操作系统，会深入其代码。一共就五十几个代码文件。</li>
+<li>因为linux目前代码量巨大，很多层面上无从下手，那么从一个小而精的系统入手也是个很好的选择。<br>完成后希望能掌握一个os核心的框架。</li>
+<li>xv6的手册：<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/xv6/book-riscv-rev1.pdf">https://pdos.csail.mit.edu/6.828/2020/xv6/book-riscv-rev1.pdf</a></li>
+</ul>
+<h3 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/tools.html">https://pdos.csail.mit.edu/6.828/2020/tools.html</a></p>
+</li>
+<li><p>虚拟机里起ubuntu20.04</p>
+</li>
+<li><p>安装调试和模拟工具<br>sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu</p>
+</li>
+<li><p>下载课程代码<br>git clone git://g.csail.mit.edu/xv6-labs-2020</p>
+</li>
+</ul>
+<h3 id="实验流程"><a href="#实验流程" class="headerlink" title="实验流程"></a>实验流程</h3><p>切换到此次lab的分支<code>git checkout util</code>。<br>本次实验需要实现几个常用的shell命令。<br>需要参考user文件夹下已实现的命令。</p>
+<h4 id="1-sleep"><a href="#1-sleep" class="headerlink" title="1. sleep"></a>1. sleep</h4><ul>
+<li><p>判断一下参数。把第一个参数转成int。再调sleep(system call)即可。</p>
+</li>
+<li><p>改好代码后运行<code>make qemu</code>即可编译并运行xv6内核。如果编译有错会报错并停止。<br>内核运行起来后就会进入命令行界面，跟一般linux相似，但是很简陋，缺少各种功能。<br><code>ctrl-a</code>再按<code>x</code>退出内核。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;kernel&#x2F;types.h&quot;</span><br><span class="line">#include &quot;kernel&#x2F;stat.h&quot;</span><br><span class="line">#include &quot;user&#x2F;user.h&quot;</span><br><span class="line"></span><br><span class="line">int</span><br><span class="line">main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  if(argc !&#x3D; 2)</span><br><span class="line">  &#123;</span><br><span class="line">    fprintf(2, &quot;missing arg\n&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">    int ticks &#x3D; atoi(argv[1]);</span><br><span class="line">    fprintf(2, &quot;sleep %d ticks\n&quot;, ticks);</span><br><span class="line">    sleep(ticks);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-pingpong"><a href="#2-pingpong" class="headerlink" title="2. pingpong"></a>2. pingpong</h4><ul>
+<li>起两个pipe。fork。父子进程收发一下消息即可。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;kernel&#x2F;types.h&quot;</span><br><span class="line">#include &quot;kernel&#x2F;stat.h&quot;</span><br><span class="line">#include &quot;user&#x2F;user.h&quot;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    int p_read_pipe[2];</span><br><span class="line">    int c_read_pipe[2];</span><br><span class="line">    char buf;</span><br><span class="line">    char data &#x3D; &#39;G&#39;;</span><br><span class="line"></span><br><span class="line">    int pid;</span><br><span class="line"></span><br><span class="line">    if(pipe(p_read_pipe) &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        fprintf(2, &quot;p_read_pipe failed\n&quot;);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(pipe(c_read_pipe) &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        fprintf(2, &quot;c_read_pipe failed\n&quot;);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pid &#x3D; fork();</span><br><span class="line"></span><br><span class="line">    if(pid &#x3D;&#x3D; -1)&#123;</span><br><span class="line">        fprintf(2, &quot;fork failed\n&quot;);</span><br><span class="line">        exit(0);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(pid &#x3D;&#x3D; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        fprintf(2, &quot;child\n&quot;);</span><br><span class="line">        read(c_read_pipe[0], &amp;buf, 1);</span><br><span class="line">        fprintf(2, &quot;%d: received ping\n&quot;, getpid());</span><br><span class="line">        write(p_read_pipe[1], &amp;data, 1);</span><br><span class="line"></span><br><span class="line">        close(p_read_pipe[1]);</span><br><span class="line">        close(c_read_pipe[0]);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(pid &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        fprintf(2, &quot;parent\n&quot;);</span><br><span class="line">        write(c_read_pipe[1], &amp;data, 1);</span><br><span class="line">        read(p_read_pipe[0], &amp;buf, 1);</span><br><span class="line"></span><br><span class="line">        close(c_read_pipe[1]);</span><br><span class="line">        close(p_read_pipe[0]);</span><br><span class="line">        fprintf(2, &quot;%d: received pong\n&quot;, getpid());</span><br><span class="line">        wait(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-primes"><a href="#3-primes" class="headerlink" title="3. primes"></a>3. primes</h4><h4 id="4-find"><a href="#4-find" class="headerlink" title="4. find"></a>4. find</h4><ul>
+<li>直接抄ls.c。把文件夹的分支改成递归find即可。</li>
+<li>fmtname里把空格填充去掉可得到干净的文件名。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;kernel&#x2F;types.h&quot;</span><br><span class="line">#include &quot;kernel&#x2F;stat.h&quot;</span><br><span class="line">#include &quot;user&#x2F;user.h&quot;</span><br><span class="line">#include &quot;kernel&#x2F;fs.h&quot;</span><br><span class="line"></span><br><span class="line">char*</span><br><span class="line">fmtname(char *path)</span><br><span class="line">&#123;</span><br><span class="line">  static char buf[DIRSIZ+1];</span><br><span class="line">  char *p;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; Find first character after last slash.</span><br><span class="line">  for(p&#x3D;path+strlen(path); p &gt;&#x3D; path &amp;&amp; *p !&#x3D; &#39;&#x2F;&#39;; p--)</span><br><span class="line">    ;</span><br><span class="line">  p++;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; Return blank-padded name.</span><br><span class="line">  if(strlen(p) &gt;&#x3D; DIRSIZ)</span><br><span class="line">    return p;</span><br><span class="line">  memmove(buf, p, strlen(p));</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;if(padding)</span><br><span class="line">  &#x2F;&#x2F;  memset(buf+strlen(p), &#39; &#39;, DIRSIZ-strlen(p));</span><br><span class="line">  memset(buf+strlen(p), 0, DIRSIZ-strlen(p));</span><br><span class="line">  return buf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void find(char *path, char *name)</span><br><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F;printf(&quot;find %s %s\n&quot;, path, name);</span><br><span class="line">  char buf[512], *p;</span><br><span class="line">  int fd;</span><br><span class="line">  struct dirent de;</span><br><span class="line">  struct stat st;</span><br><span class="line"></span><br><span class="line">  if((fd &#x3D; open(path, 0)) &lt; 0)&#123;</span><br><span class="line">    fprintf(2, &quot;ls: cannot open %s\n&quot;, path);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if(fstat(fd, &amp;st) &lt; 0)&#123;</span><br><span class="line">    fprintf(2, &quot;ls: cannot stat %s\n&quot;, path);</span><br><span class="line">    close(fd);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  switch(st.type)&#123;</span><br><span class="line">  case T_FILE:</span><br><span class="line">    &#x2F;&#x2F;printf(&quot;%s %d %d %l\n&quot;, fmtname(path), st.type, st.ino, st.size);</span><br><span class="line">    if(strcmp(name, fmtname(path)) &#x3D;&#x3D; 0)</span><br><span class="line">    &#123;</span><br><span class="line">      fprintf(1, &quot;%s\n&quot;, path);</span><br><span class="line">      &#x2F;&#x2F;printf(0, &quot;%s\n&quot;, path);</span><br><span class="line">    &#125;</span><br><span class="line">    break;</span><br><span class="line"></span><br><span class="line">  case T_DIR:</span><br><span class="line">    if(strlen(path) + 1 + DIRSIZ + 1 &gt; sizeof buf)&#123;</span><br><span class="line">      printf(&quot;ls: path too long\n&quot;);</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">    strcpy(buf, path);</span><br><span class="line">    p &#x3D; buf+strlen(buf);</span><br><span class="line">    *p++ &#x3D; &#39;&#x2F;&#39;;</span><br><span class="line">    while(read(fd, &amp;de, sizeof(de)) &#x3D;&#x3D; sizeof(de))&#123;</span><br><span class="line">      if(de.inum &#x3D;&#x3D; 0)</span><br><span class="line">        continue;</span><br><span class="line">      memmove(p, de.name, DIRSIZ);</span><br><span class="line">      p[DIRSIZ] &#x3D; 0;</span><br><span class="line">      if(stat(buf, &amp;st) &lt; 0)&#123;</span><br><span class="line">        printf(&quot;ls: cannot stat %s\n&quot;, buf);</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F;printf(&quot;gg %s\n&quot;, buf);</span><br><span class="line">      &#x2F;&#x2F;printf(&quot;gg2 %s %d\n&quot;, fmtname(buf), strlen(fmtname(buf)));</span><br><span class="line">      if(strcmp(&quot;..&quot;, fmtname(buf)) !&#x3D; 0 &amp;&amp; strcmp(&quot;.&quot;, fmtname(buf)) !&#x3D; 0)</span><br><span class="line">      &#123;</span><br><span class="line">        &#x2F;&#x2F;printf(&quot;gg3 %s\n&quot;, fmtname(buf));</span><br><span class="line">        &#x2F;&#x2F;printf(&quot;%d\n&quot;, strcmp(&quot;.&quot;, fmtname(buf)));</span><br><span class="line">        &#x2F;&#x2F;printf(&quot;gg4 %d\n&quot;, strlen(fmtname(buf)));</span><br><span class="line">        &#x2F;&#x2F;printf(&quot;gg5 %d\n&quot;, strlen(&quot;.&quot;));</span><br><span class="line">        find(buf, name);</span><br><span class="line">      &#125;</span><br><span class="line">      &#x2F;&#x2F;printf(&quot;%s %d %d %d\n&quot;, fmtname(buf), st.type, st.ino, st.size);</span><br><span class="line">    &#125;</span><br><span class="line">    break;</span><br><span class="line">  &#125;</span><br><span class="line">  close(fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int</span><br><span class="line">main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">  if(argc !&#x3D; 3)&#123;</span><br><span class="line">    fprintf(2, &quot;error arg\n&quot;);</span><br><span class="line">    exit(0);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  find(argv[1], argv[2]);</span><br><span class="line"></span><br><span class="line">  exit(0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-xargs"><a href="#5-xargs" class="headerlink" title="5. xargs"></a>5. xargs</h4><ul>
+<li>有很多细节。</li>
+<li>得把find.c的输出写到stdout的1。之前输入到stderr的2了，半天取不到数据。</li>
+<li>管道传参数时，xargs从stdin的0取数据。碰到空格或\n时形成一个参数。</li>
+<li>fork一下，子进程里exec执行即可。</li>
+<li>拼装exec的argv时最后要有一项0。否则执行不了。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;kernel&#x2F;types.h&quot;</span><br><span class="line">#include &quot;kernel&#x2F;stat.h&quot;</span><br><span class="line">#include &quot;user&#x2F;user.h&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; sh &lt; xargstest.sh</span><br><span class="line">&#x2F;&#x2F; find . b | xargs grep hello</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    char wtf;</span><br><span class="line"></span><br><span class="line">    char child_buf[256];</span><br><span class="line">    memset(child_buf, 0, sizeof(child_buf));</span><br><span class="line"></span><br><span class="line">    char *child_argv[4];</span><br><span class="line">    child_argv[0] &#x3D; argv[1];</span><br><span class="line">    child_argv[1] &#x3D; argv[2];</span><br><span class="line">    child_argv[2] &#x3D; child_buf;</span><br><span class="line">    child_argv[3] &#x3D; 0;</span><br><span class="line"></span><br><span class="line">    while(read(0, &amp;wtf, 1))</span><br><span class="line">    &#123;</span><br><span class="line">        if(wtf !&#x3D; &#39;\n&#39; &amp;&amp; wtf !&#x3D; &#39; &#39;)</span><br><span class="line">        &#123;</span><br><span class="line">            memset(child_buf + strlen(child_buf), wtf, 1);</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int pid;</span><br><span class="line"></span><br><span class="line">        pid &#x3D; fork();</span><br><span class="line"></span><br><span class="line">        if(pid &#x3D;&#x3D; -1)&#123;</span><br><span class="line">            fprintf(2, &quot;fork failed\n&quot;);</span><br><span class="line">            exit(0);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(pid &#x3D;&#x3D; 0) &#x2F;&#x2F; child</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;printf(&quot;1 %s\n&quot;, argv[1]);</span><br><span class="line">            &#x2F;&#x2F;printf(&quot;2 %s\n&quot;, child_argv[1]);</span><br><span class="line">            &#x2F;&#x2F;printf(&quot;3 %s\n&quot;, child_argv[2]);</span><br><span class="line">            exec(argv[1], child_argv);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(pid &gt; 0) &#x2F;&#x2F; parent</span><br><span class="line">        &#123;</span><br><span class="line">            wait(0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        memset(child_buf, 0, sizeof(child_buf));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2172/" data-id="ckkfmdgah0038vkcg36he8au2" data-title="MIT 6.S081 操作系统课程系列1 Utilities" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2169" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2169/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T08:04:51.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2169/">Vue基础教程-02</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="使用class样式"><a href="#使用class样式" class="headerlink" title="使用class样式"></a>使用class样式</h3><ol>
+<li>数组<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:class</span>=<span class="string">&quot;[&#x27;red&#x27;, &#x27;thin&#x27;]&quot;</span>&gt;</span>这是一个美好的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>数组中使用三元表达式<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:class</span>=<span class="string">&quot;[&#x27;red&#x27;, &#x27;thin&#x27;, isactive?&#x27;active&#x27;:&#x27;&#x27;]&quot;</span>&gt;</span>这是一个美好的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>数组中嵌套对象<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:class</span>=<span class="string">&quot;[&#x27;red&#x27;, &#x27;thin&#x27;, &#123;&#x27;active&#x27;: isactive&#125;]&quot;</span>&gt;</span>这是一个美好的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>直接使用对象<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:class</span>=<span class="string">&quot;&#123;red:true, italic:true, active:true, thin:true&#125;&quot;</span>&gt;</span>这是一个美好的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="使用内联样式"><a href="#使用内联样式" class="headerlink" title="使用内联样式"></a>使用内联样式</h3><ol>
+<li>直接在元素上通过 <code>:style</code> 的形式，书写样式对象<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;color: &#x27;red&#x27;, &#x27;font-size&#x27;: &#x27;40px&#x27;&#125;&quot;</span>&gt;</span>这是一个善良的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>将样式对象，定义到 <code>data</code> 中，并直接引用到 <code>:style</code> 中</li>
+</ol>
+<ul>
+<li>在data上定义样式：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">        h1StyleObj: &#123; color: &#x27;red&#x27;, &#x27;font-size&#x27;: &#x27;40px&#x27;, &#x27;font-weight&#x27;: &#x27;200&#x27; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在元素中，通过属性绑定的形式，将样式对象应用到元素中：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:style</span>=<span class="string">&quot;h1StyleObj&quot;</span>&gt;</span>这是一个善良的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>在 <code>:style</code> 中通过数组，引用多个 <code>data</code> 上的样式对象</li>
+</ol>
+<ul>
+<li>在data上定义样式：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">        h1StyleObj: &#123; color: &#x27;red&#x27;, &#x27;font-size&#x27;: &#x27;40px&#x27;, &#x27;font-weight&#x27;: &#x27;200&#x27; &#125;,</span><br><span class="line">        h1StyleObj2: &#123; fontStyle: &#x27;italic&#x27; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在元素中，通过属性绑定的形式，将样式对象应用到元素中：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">:style</span>=<span class="string">&quot;[h1StyleObj, h1StyleObj2]&quot;</span>&gt;</span>这是一个善良的H1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Vue指令之`v-for`和`key`属性</span><br><span class="line"></span><br><span class="line">1. 迭代数组</span><br><span class="line"></span><br><span class="line">```html</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(item, i) in list&quot;</span>&gt;</span>索引：&#123; &#123;i&#125; &#125; --- 姓名：&#123; &#123;item.name&#125; &#125; --- 年龄：&#123; &#123;item.age&#125; &#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>迭代对象中的属性</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 循环遍历对象身上的属性 --&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">&quot;(val, key, i) in userInfo&quot;</span>&gt;</span>&#123; &#123;val&#125; &#125; --- &#123; &#123;key&#125; &#125; --- &#123; &#123;i&#125; &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>迭代数字</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-for</span>=<span class="string">&quot;i in 10&quot;</span>&gt;</span>这是第 &#123; &#123;i&#125; &#125; 个P标签<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>2.2.0+ 的版本里，<strong>当在组件中使用</strong> v-for 时，key 现在是必须的。</p>
+</blockquote>
+<p>当 Vue.js 用 v-for 正在更新已渲染过的元素列表时，它默认用 “<strong>就地复用</strong>” 策略。如果数据项的顺序被改变，Vue将<strong>不是移动 DOM 元素来匹配数据项的顺序</strong>， 而是<strong>简单复用此处每个元素</strong>，并且确保它在特定索引下显示已被渲染过的每个元素。</p>
+<p>为了给 Vue 一个提示，<strong>以便它能跟踪每个节点的身份，从而重用和重新排序现有元素</strong>，你需要为每项提供一个唯一 key 属性。</p>
+<h2 id="Vue指令之v-if和v-show"><a href="#Vue指令之v-if和v-show" class="headerlink" title="Vue指令之v-if和v-show"></a>Vue指令之<code>v-if</code>和<code>v-show</code></h2><blockquote>
+<p>一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。因此，如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2169/" data-id="ckkfmdgag0037vkcg9awpclr8" data-title="Vue基础教程-02" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2165" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2165/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T03:12:17.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2165/">NPM常用命令总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p style="text-align:start;" size="1" _root="[object Object]" __ownerID="undefined" __hash="undefined" __altered="false"><span style="font-size:16px"><strong>NPM </strong>的全称是Node Package Manager，是随同NodeJS一起安装的包管理和分发工具，它很方便让JavaScript开发者下载、安装、上传以及管理已经安装的包。</span></p><p></p><p><span style="font-size:16px">1.安装命令：npm install &lt;name&gt; -g    /*-g为全局*/</span></p><p><span style="font-size:16px">2.卸载命令：npm uninstall &lt;name&gt; -g</span></p><p><span style="font-size:16px">3.更新插件：npm update &lt;name&gt; -g   /*升级当前项目下的所有模块*/</span></p><p><span style="font-size:16px">4.查看版本号：npm -v</span></p><p><span style="font-size:16px">5.安装淘宝镜像：npm install -g cnpm <span style="color:#333333"><span style="background-color:#ffffff">--registry=https://registry.npm.taobao.org</span></span></span></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">6.列出已安装模块：npm list</span></span></span></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">7.显示模块详情：npm show &lt;name&gt;</span></span></span></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">8.初始化：npm init   /*生成一个package.json文件*/</span></span></span></p><p></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px"><strong>nvm</strong>——node的版本管理器</span></span></span></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">常用↓代码来安装node.js：</span></span></span></p><pre><code><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">nvm install 版本号</span></span></span><br/><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">nvm install latest   /*下载最新版node.js*/</span></span></span></code></pre><p></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">常用↓代码来切换node版本：</span></span></span></p><pre><code><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">nvm use 版本号</span></span></span></code></pre><p></p><p><span style="color:#333333"><span style="background-color:#ffffff"><span style="font-size:16px">nrm——npm的镜像管理器（cnpm、taobao等）</span><span style="font-size:13px">有时候国外资源太慢,使用这个就可以快速地在 npm 源间切换</span></span></span></p><pre class="line-numbers  language-undefined"><code>npm install -g nrm /*全局安装nrm*/<br/>nrm ls  /*查看所有的支持源，带*表示当前源*/</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2165/" data-id="ckkfmdgag0036vkcgaqmpcsx2" data-title="NPM常用命令总结" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2163" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2163/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T02:15:32.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/31/2163/"> js事件循环机制之宏任务与微任务</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<ul>
+<li>JavaScript是单线程的语言</li>
+<li>Event Loop是JavaScript的执行机制</li>
+</ul>
+</blockquote>
+<h4 id="js事件循环"><a href="#js事件循环" class="headerlink" title="js事件循环"></a>js事件循环</h4><p>js是单线程，所以js任务也要一个一个按顺序执行。如果一个任务耗时过长，那么其后的任务必须等着。这就会导致图片加载，请求数据会让降低线程效率。所以js中将任务分为了两类：</p>
+<ul>
+<li>同步任务</li>
+<li>异步任务</li>
+</ul>
+<p>当我们打开网站时，网页的渲染过程就是一大堆同步任务，比如页面骨架和页面元素的渲染。而像加载图片音乐之类占用资源大耗时久的任务，就是异步任务。关于这部分有严格的文字定义，这里就不再赘述。</p>
+<p>如下一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<p><code>script start</code></p>
+<p><code>script end, </code></p>
+<p><code>promise1,</code></p>
+<p><code> promise2,</code></p>
+<p><code> setTimeout</code></p>
+<h5 id="为什么会出现这样打印顺序呢？"><a href="#为什么会出现这样打印顺序呢？" class="headerlink" title="为什么会出现这样打印顺序呢？"></a>为什么会出现这样打印顺序呢？</h5><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201231101322194_164974fb89da87c5.png" alt="undefined" title="undefined"></p>
+<blockquote>
+<p><font style="font-size:12px;">图片来源于网络</font></p>
+</blockquote>
+<p>解读：</p>
+<ul>
+<li>同步和异步任务分别进入不同的执行”场所”，同步的进入主线程，异步的进入Event Table并注册函数</li>
+<li>当指定的事情完成时，Event Table会将这个函数移入Event Queue。</li>
+<li>主线程内的任务执行完毕为空，会去Event Queue读取对应的函数，进入主线程执行。</li>
+<li>上述过程会不断重复，也就是常说的Event Loop(事件循环)。</li>
+</ul>
+<p>js引擎存在monitoring process进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去Event Queue那里检查是否有等待被调用的函数。</p>
+<p>以下代码的执行流程如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = [];</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:www.javascript.com,</span><br><span class="line">    data:data,</span><br><span class="line">    success:<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;发送成功!&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;代码执行结束&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Ajax进入Event Table,注册回调函数success</li>
+<li>执行<code>console.log(&#39;代码执行结束&#39;)</code></li>
+<li>Ajax事件完成，回调函数success进入Event Queue</li>
+<li>主线程从Event Queue读取回调函数success并执行</li>
+</ul>
+<h4 id="微任务-Micro-tasks-与宏任务-task"><a href="#微任务-Micro-tasks-与宏任务-task" class="headerlink" title="微任务(Micro tasks)与宏任务(task)"></a>微任务(Micro tasks)与宏任务(task)</h4><p><font style="font-size:14px"><strong>微任务和宏任务皆为异步任务，它们都属于一个队列;主要区别在于他们的执行顺序，Event Loop的走向和取值。那么他们之间到底有什么区别呢？</strong></font></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201231101223459_164974fa4b42e4af.png" alt="undefined" title="undefined"></p>
+<blockquote>
+<p> <font style="font-size:12px;">图片来源于网络</font></p>
+</blockquote>
+<p>宏任务一般是：包括整体代码script，setTimeout，setInterval、setImmediate。</p>
+<p>微任务：原生Promise(有些实现的promise将then方法放到了宏任务中)、process.nextTick、Object.observe(已废弃)、 MutationObserver 记住就行了。</p>
+<h4 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h4><p>大名鼎鼎的setTimeout无需再多言，大家对他的第一印象就是异步可以延时执行，我们经常这么实现延时3秒执行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;延时3秒&#x27;</span>);</span><br><span class="line">&#125;,<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<p>但是有时候也会出现写的延时3秒，实际却5，6秒才执行函数的情况。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">   test()</span><br><span class="line">&#125;,<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;123&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 概念代码，模拟同步代码执行速度慢</span></span><br><span class="line">sleep(<span class="number">10000000</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>task()进入Event Table并注册,计时开始。</p>
+</li>
+<li><p>执行sleep函数，很慢，定时器仍在计时。</p>
+</li>
+<li><p>3秒到了，计时事件timeout完成，task()进入Event Queue，但是sleep还未执行完成。</p>
+</li>
+<li><p>sleep终于执行完了，task()终于从Event Queue进入了主线程执行。</p>
+</li>
+</ul>
+<p>我们还经常遇到<code>setTimeout(fn,0)</code>这样的代码，这里的0秒并不代表能立即执行，它的的含义是，指定某个任务在主线程最早可得的空闲时间执行，意思就是不用再等多少秒了，只要主线程执行栈内的同步任务全部执行完成，栈为空就马上执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;先执行这里&#x27;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;执行啦&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//代码2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;先执行这里&#x27;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;执行啦&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><font style="font-size='12px'">要补充的是，即便主线程为空，setTimeout的0毫秒实际上也是达不到的。根据HTML标准，最低是4毫秒。</font></p>
+</blockquote>
+<h4 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval"></a>setInterval</h4><p>setInterval与setTimeout差不多，只不过setInterval是循环执行的。对于执行循序而言，setInterval会每隔特定时间将注册的函数放入Event Queue，如果前面的任务执行时间过长，同样需要等待。</p>
+<h4 id="Promise与process-nextTick-callback"><a href="#Promise与process-nextTick-callback" class="headerlink" title="Promise与process.nextTick(callback)"></a>Promise与process.nextTick(callback)</h4><ul>
+<li>Promise的定义和功能本文不再赘述，可以学习一下 <a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/promise">阮一峰老师的Promise</a></li>
+<li>而process.nextTick(callback)类似node.js版的”setTimeout”，在事件循环的下一次循环中调用 callback 回调函数</li>
+</ul>
+<blockquote>
+<p><strong>不同类型的任务会进入对应的Event Queue，比如<code>setTimeout</code>和<code>setInterval</code>会进入相同的Event Queue。</strong></p>
+</blockquote>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;2&#x27;</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;5&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;6&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;7&#x27;</span>);</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;8&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;9&#x27;</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;10&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;11&#x27;</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;12&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>第一轮事件循环流程分析如下：</p>
+<ul>
+<li>整体script作为第一个宏任务进入主线程，遇到console.log，输出<code>1</code>。</li>
+<li>遇到setTimeout，其回调函数被分发到宏任务Event Queue中。我们暂且记为<code>setTimeout1</code>。</li>
+<li>遇到process.nextTick()，其回调函数被分发到微任务Event Queue中。我们记为<code>process1</code>。</li>
+<li>遇到Promise，new Promise直接执行，输出7。then被分发到微任务Event Queue中。我们记为<code>then1</code>。</li>
+<li>又遇到了setTimeout，其回调函数被分发到宏任务Event Queue中，我们记为<code>setTimeout2</code>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>宏任务Event Queue</th>
+<th align="right">微任务Event Queue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>setTimeout1</td>
+<td align="right">process1</td>
+</tr>
+<tr>
+<td>setTimeout2</td>
+<td align="right">then1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>上表是第一轮事件循环宏任务结束时各Event Queue的情况，此时已经输出了<code>1</code>和<code>7</code>。</li>
+</ul>
+<p>我们发现了process1和then1两个微任务。</p>
+<ul>
+<li>执行process1,输出<code>6</code>。</li>
+<li>执行then1，输出<code>8</code>。</li>
+</ul>
+<p>好了，第一轮事件循环正式结束，这一轮的结果是输出<code>1，7，6，8</code>。那么第二轮时间循环从setTimeout1宏任务开始：</p>
+<ul>
+<li>首先输出<code>2</code>。接下来遇到了process.nextTick()，同样将其分发到微任务Event Queue中，记为process2。</li>
+<li>new Promise立即执行输出<code>4</code>，then也分发到微任务Event Queue中，记为then2</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>宏任务Event Queue</th>
+<th align="right">微任务Event Queue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>setTimeout2</td>
+<td align="right">process3</td>
+</tr>
+<tr>
+<td></td>
+<td align="right">then3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>第三轮事件循环宏任务执行结束，执行两个微任务process3和then3。</li>
+<li>输出<code>10</code>。</li>
+<li>输出<code>12</code>。</li>
+<li>第三轮事件循环结束，第三轮输出<code>9，11，10，12</code>。</li>
+<li>整段代码，共进行了三次事件循环，完整的输出为<code>1，7，6，8，2，4，3，5，9，11，10，12</code>。(请注意，node环境下的事件监听依赖libuv与前端环境不完全相同，输出顺序可能会有误差)</li>
+</ul>
+<blockquote>
+<p>希望大家看了本篇文章都有收获 …</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2163/" data-id="ckkfmdgag0035vkcgg5036dwq" data-title=" js事件循环机制之宏任务与微任务" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2152" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/30/2152/" class="article-date">
+  <time class="dt-published" datetime="2020-12-30T08:25:47.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/30/2152/">Vue基础教程-01</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是Vue-js"><a href="#什么是Vue-js" class="headerlink" title="什么是Vue.js"></a>什么是Vue.js</h3><ul>
+<li><p>Vue.js 是目前最火的一个前端框架，React是最流行的一个前端框架（React除了开发网站，还可以开发手机App， Vue语法也是可以用于进行手机App开发的，需要借助于Weex）</p>
+</li>
+<li><p>Vue.js 是前端的<strong>主流框架之一</strong>，和Angular.js、React.js 一起，并成为前端三大主流框架！</p>
+</li>
+<li><p>Vue.js 是一套构建用户界面的框架，<strong>只关注视图层</strong>，它不仅易于上手，还便于与第三方库或既有项目整合。（Vue有配套的第三方类库，可以整合起来做大型项目的开发）</p>
+<h2 id="框架和库的区别"><a href="#框架和库的区别" class="headerlink" title="框架和库的区别"></a>框架和库的区别</h2></li>
+</ul>
+<ul>
+<li>框架：是一套完整的解决方案；对项目的侵入性较大，项目如果需要更换框架，则需要重新架构整个项目。</li>
+<li>库（插件）：提供某一个小功能，对项目的侵入性较小，如果某个库无法完成某些需求，可以很容易切换到其它库实现需求。<h2 id="Vue之-基本的代码结构和插值表达式、v-cloak"><a href="#Vue之-基本的代码结构和插值表达式、v-cloak" class="headerlink" title="Vue之 - 基本的代码结构和插值表达式、v-cloak"></a>Vue之 - <code>基本的代码结构</code>和<code>插值表达式</code>、<code>v-cloak</code></h2></li>
+</ul>
+<h2 id="Vue指令之v-text和v-html"><a href="#Vue指令之v-text和v-html" class="headerlink" title="Vue指令之v-text和v-html"></a>Vue指令之<code>v-text</code>和<code>v-html</code></h2><ul>
+<li>v-text: 用于渲染普通文本，无论何时，绑定的数据对象上 msg属性发生了改变，插值处的内容都会更新</li>
+<li>v-html: 如果你想输出真正的 HTML，你需要使用 v-html指令，v-text仅渲染标签，不能解析 HTML 代码。</li>
+</ul>
+<h2 id="Vue指令之v-bind的三种用法"><a href="#Vue指令之v-bind的三种用法" class="headerlink" title="Vue指令之v-bind的三种用法"></a>Vue指令之<code>v-bind</code>的三种用法</h2><ol>
+<li><p>直接使用指令<code>v-bind</code></p>
+</li>
+<li><p>使用简化指令<code>:</code></p>
+</li>
+<li><p>在绑定的时候，拼接绑定内容：<code>:title=&quot;btnTitle + &#39;, 这是追加的内容&#39;&quot;</code></p>
+<h2 id="Vue指令之v-on的缩写和事件修饰符"><a href="#Vue指令之v-on的缩写和事件修饰符" class="headerlink" title="Vue指令之v-on的缩写和事件修饰符"></a>Vue指令之<code>v-on的缩写</code>和<code>事件修饰符</code></h2><h3 id="v-on的缩写"><a href="#v-on的缩写" class="headerlink" title="v-on的缩写"></a>v-on的缩写</h3><p>v-on 指令用于绑定HTML事件 ：v-on:click 缩写为 @click</p>
+</li>
+</ol>
+<h3 id="事件修饰符："><a href="#事件修饰符：" class="headerlink" title="事件修饰符："></a>事件修饰符：</h3><ul>
+<li><p>.stop       阻止冒泡</p>
+</li>
+<li><p>.prevent    阻止默认事件</p>
+</li>
+<li><p>.capture    添加事件侦听器时使用事件捕获模式</p>
+</li>
+<li><p>.self       只当事件在该元素本身（比如不是子元素）触发时触发回调</p>
+</li>
+<li><p>.once       事件只触发一次</p>
+<h2 id="Vue指令之v-model和双向数据绑定"><a href="#Vue指令之v-model和双向数据绑定" class="headerlink" title="Vue指令之v-model和双向数据绑定"></a>Vue指令之<code>v-model</code>和<code>双向数据绑定</code></h2><p>使用v-model可以实现双向数据绑定,输入框默认和p标签为空，当输入框输入内容时，p标签在页面上会自动出现输入框输入的内容</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/30/2152/" data-id="ckkfmdgaf0034vkcg2klxd5i7" data-title="Vue基础教程-01" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2150" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/30/2150/" class="article-date">
+  <time class="dt-published" datetime="2020-12-30T07:16:59.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/30/2150/">Flask项目nose单元测试与覆盖率</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>flask项目可用nose进行单元测试，同时给出覆盖率结果。不用额外起http服务，还是挺方便的。<br>nose文档：<a target="_blank" rel="noopener" href="https://nose.readthedocs.io/en/latest/usage.html">https://nose.readthedocs.io/en/latest/usage.html</a></p>
+<ol>
+<li><p>安装python包<br>nose3<br>coverage</p>
+</li>
+<li><p>在项目根目录下起一个test目录</p>
+</li>
+<li><p>创建<strong>init</strong>.py</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">    2020.08.05  zhouzhiran</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">from app import create_app</span><br><span class="line"></span><br><span class="line">app &#x3D; create_app(&#39;testing&#39;)</span><br><span class="line">app_ctx &#x3D; app.app_context()</span><br><span class="line">app_ctx.push()</span><br><span class="line"></span><br><span class="line">test_app &#x3D; app.test_client()</span><br><span class="line"></span><br><span class="line">def setUp():</span><br><span class="line">    print(&#39;set up&#39;)</span><br><span class="line"></span><br><span class="line">def tearDown():</span><br><span class="line">    print(&#39;tear down&#39;)</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>创建test_base.py测试基类。在里面实现get、post等请求。可不断对其完善，添加各种请求信息，如form参数、json参数、header等等。cookie的信息要根据自己项目来抠。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">import json</span><br><span class="line"></span><br><span class="line">from nose.tools import assert_equal</span><br><span class="line"># from werkzeug.http import parse_cookie</span><br><span class="line">from werkzeug.http import parse_cookie</span><br><span class="line"></span><br><span class="line">import test</span><br><span class="line"></span><br><span class="line">import config.config as config</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class BaseTest():</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        print(&#39;__init__&#39;)</span><br><span class="line">        self.client &#x3D; test.test_app</span><br><span class="line">        self.session &#x3D; None</span><br><span class="line">        # self.headers &#x3D; &#123;&#39;content-type&#39;: &#39;application&#x2F;json&#39;&#125;</span><br><span class="line"></span><br><span class="line">    def check_resp_200(self, resp):</span><br><span class="line">        print(&#39;check_resp_200&#39;)</span><br><span class="line">        print(resp)</span><br><span class="line">        assert_equal(resp.status_code, 200)</span><br><span class="line"></span><br><span class="line">    def check_resp_400(self, resp):</span><br><span class="line">        print(&#39;check_resp_400&#39;)</span><br><span class="line">        assert_equal(resp.status_code, 400)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def post(self, path, data &#x3D; None, force_login &#x3D; True, json_data &#x3D; None):</span><br><span class="line">        if force_login and self.session is None:</span><br><span class="line">            print(&#39;need login session&#39;)</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.login()</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.client.set_cookie(&#39;localhost&#39;, &#39;session&#39;, self.session)</span><br><span class="line">        if json_data is not None:</span><br><span class="line">            return self.client.post(path, content_type&#x3D;&#39;application&#x2F;json&#39;, data&#x3D;json.dumps(json_data))</span><br><span class="line">        else:</span><br><span class="line">            return self.client.post(path, content_type&#x3D;&#39;multipart&#x2F;form-data&#39;, data&#x3D;data)</span><br><span class="line"></span><br><span class="line">    def post_file(self, path, data, force_login&#x3D;True):</span><br><span class="line">        if force_login and self.session is None:</span><br><span class="line">            print(&#39;need login session&#39;)</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.login()</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.client.set_cookie(&#39;localhost&#39;, &#39;session&#39;, self.session)</span><br><span class="line">        return self.client.post(path, content_type&#x3D;&#39;multipart&#x2F;form-data&#39;, data&#x3D;data)</span><br><span class="line"></span><br><span class="line">    def put(self, path, data, force_login&#x3D;True):</span><br><span class="line">        if force_login and self.session is None:</span><br><span class="line">            print(&#39;need login session&#39;)</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.login()</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.client.set_cookie(&#39;localhost&#39;, &#39;session&#39;, self.session)</span><br><span class="line">        return self.client.put(path, content_type&#x3D;&#39;multipart&#x2F;form-data&#39;, data&#x3D;data)</span><br><span class="line"></span><br><span class="line">    def get(self, path, params, force_login&#x3D;True):</span><br><span class="line">        print(params)</span><br><span class="line">        if force_login and self.session is None:</span><br><span class="line">            print(&#39;need login session&#39;)</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.login()</span><br><span class="line">            print(self.session)</span><br><span class="line">            self.client.set_cookie(&#39;localhost&#39;, &#39;session&#39;, self.session)</span><br><span class="line">        return self.client.get(path, query_string&#x3D;params)</span><br><span class="line"></span><br><span class="line">    def login(self):</span><br><span class="line">        payload &#x3D; &#123;</span><br><span class="line">            &#39;name&#39;: config.TEST_USERNAME,</span><br><span class="line">            &#39;password&#39;: config.TEST_PASSWORD</span><br><span class="line">        &#125;</span><br><span class="line">        print(payload)</span><br><span class="line">        resp &#x3D; self.post(&#39;&#x2F;site&#x2F;login&#39;, data&#x3D;payload, force_login &#x3D; False)</span><br><span class="line">        print(resp)</span><br><span class="line">        # print(resp.headers.get(&#39;Set-Cookie&#39;)</span><br><span class="line"></span><br><span class="line">        self.check_resp_200(resp)</span><br><span class="line"></span><br><span class="line">        cookies &#x3D; resp.headers.getlist(&#39;Set-Cookie&#39;)</span><br><span class="line"></span><br><span class="line">        print(cookies)</span><br><span class="line">        print((&#39;wtf2&#39;, parse_cookie(cookies[1])))</span><br><span class="line">        self.session &#x3D; parse_cookie(cookies[1])[&#39;erp session&#39;]</span><br><span class="line"></span><br><span class="line">        print((&#39;wtf2&#39;, self.session))</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>起测试代码。文件必须以test打头比如test_site_v2.py。<br>需创建一个测试类，以Test打头。<br>类里定义要测试的函数，以test打头。<br>传文件的方法：用form参数，做一个tuple。比如 <code>data[&#39;in_label_file&#39;] = (open(&#39;./main.py&#39;, &#39;rb&#39;), &#39;in_label_file&#39;)</code><br>取返回数据的方法：<code>order_id = json.loads(resp.data.decode(&#39;utf8&#39;))[&#39;order_id&#39;]</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">from test.test_base import BaseTest</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">class TestSiteV2(BaseTest):</span><br><span class="line"></span><br><span class="line">    def test_need_to_login(self):</span><br><span class="line">        data &#x3D; &#123;&#125;</span><br><span class="line">        resp &#x3D; self.post(&#39;&#x2F;site&#x2F;v2&#x2F;role&#39;, data &#x3D; data, force_login &#x3D; False)</span><br><span class="line"></span><br><span class="line">        self.check_resp_400(resp)</span><br><span class="line"></span><br><span class="line">    def test_test(self):</span><br><span class="line">        resp &#x3D; self.get(&#39;&#x2F;site&#x2F;v2&#x2F;test&#39;, &#39;&#39;)</span><br><span class="line"></span><br><span class="line">        self.check_resp_200(resp)</span><br><span class="line"></span><br><span class="line">    def test_001_post_order(self):</span><br><span class="line">        data &#x3D; &#123;&#39;customer_id&#39;:15926&#125;</span><br><span class="line">        data[&#39;payee&#39;] &#x3D; &#39;上海合宙&#39;</span><br><span class="line">        data[&#39;recipient&#39;] &#x3D; &#39;xc&#39;</span><br><span class="line">        data[&#39;phone&#39;] &#x3D; &#39;123456788888&#39;</span><br><span class="line">        data[&#39;province&#39;] &#x3D; &#39;上海&#39;</span><br><span class="line">        data[&#39;city&#39;] &#x3D; &#39;上海&#39;</span><br><span class="line">        data[&#39;area&#39;] &#x3D; &#39;海&#39;</span><br><span class="line">        data[&#39;address&#39;] &#x3D; &#39;海合&#39;</span><br><span class="line">        data[&#39;info&#39;] &#x3D; &#39;test&#39;</span><br><span class="line">        data[&#39;express_price&#39;] &#x3D; 1000</span><br><span class="line">        data[&#39;payment_type&#39;] &#x3D; 1</span><br><span class="line">        data[&#39;order_type&#39;] &#x3D; 0</span><br><span class="line">        data[&#39;products&#39;] &#x3D; json.dumps(&#123;&#39;1&#39;:&#123;&#39;product_id&#39;:53, &#39;price&#39;:1, &#39;amount&#39;:10, &#39;in_label_file&#39;:&#39;in_label_file&#39;, &#39;out_label_file&#39;:&#39;out_label_file&#39;, &#39;shipment_file&#39;:&#39;shipment_file&#39;, &#39;express_file&#39;:&#39;express_file&#39;, &#39;package_file&#39;:&#39;package_file&#39;, &#39;module_label_file&#39;:&#39;module_label_file&#39;&#125;, &#39;2&#39;:&#123;&#39;product_id&#39;:483, &#39;price&#39;:2, &#39;amount&#39;:10&#125; &#125;) # total_price_cut 暂时只能用在淘宝订单</span><br><span class="line">        data[&#39;in_label_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;in_label_file&#39;)</span><br><span class="line">        data[&#39;in_label_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;in_label_file&#39;)</span><br><span class="line">        data[&#39;out_label_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;out_label_file&#39;)</span><br><span class="line">        data[&#39;shipment_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;shipment_file&#39;)</span><br><span class="line">        data[&#39;express_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;express_file&#39;)</span><br><span class="line">        data[&#39;package_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;package_file&#39;)</span><br><span class="line">        data[&#39;module_label_file&#39;] &#x3D; (open(&#39;.&#x2F;main.py&#39;, &#39;rb&#39;), &#39;module_label_file&#39;)</span><br><span class="line"></span><br><span class="line">        resp &#x3D; self.post(&#39;&#x2F;site&#x2F;v2&#x2F;order&#39;, data &#x3D; data)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        order_id &#x3D; json.loads(resp.data.decode(&#39;utf8&#39;))[&#39;order_id&#39;]</span><br><span class="line">        order_sn &#x3D; json.loads(resp.data.decode(&#39;utf8&#39;))[&#39;order_sn&#39;]</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>在根目录下运行测试命令。<br>nosetests –with-coverage –cover-erase –cover-package=app.site</li>
+</ol>
+<p>–cover-package为自定要测的模块。测多个模块的话用逗号隔开，比如–cover-package=app.site,app.open,app.event</p>
+<ol start="7">
+<li>结果<br>会按函数名字母顺序执行函数。<br>如果assert失败会停止。并打印出log。<br>最后给出覆盖率统计。<br>依次为测试文件名，代码总行数，未覆盖的总行数，覆盖率，所有未覆盖的代码位置。<br>比如下面的结果：测试了app/site/site_v2.py，总行数1233，未覆盖行数295，覆盖率76%。<br>之后是所有未覆盖的代码，比如35-36行、114-115行等等等在测试中都没跑到，修改测试代码让它能跑到即可提高覆盖率。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app&#x2F;site&#x2F;site_v2.py     1233    295    76%   35-36, 70, 114-115, 124, 152, 155, 220-225, 232-234, 243-244, 249-260, 269, 300, 387, 449, 463, 477, 491, 505, 519, 570, 587, 597, 613, 624-758, 855, 961, 975, 989, 1003, 1017, 1031, 1045, 1174-1178, 1188, 1287-1293, 1299-1344, 1354, 1364, 1424, 1427, 1439, 1476, 1479, 1506, 1509, 1532-1534, 1547, 1656, 1700, 1714, 1804, 1850, 1853, 1859-1860, 1935-1968, 1973-1982, 2293, 2298, 2391-2395, 2415, 2495, 2574, 2593, 2612, 2619-2622, 2627-2630, 2635-2638, 2643-2729, 2740-2741</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/30/2150/" data-id="ckkfmdgaf0033vkcgauf2ad8r" data-title="Flask项目nose单元测试与覆盖率" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2149" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/30/2149/" class="article-date">
+  <time class="dt-published" datetime="2020-12-30T01:40:39.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/12/30/2149/">yield与dva流程控制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="yield与dva流程控制"><a href="#yield与dva流程控制" class="headerlink" title="yield与dva流程控制"></a>yield与dva流程控制</h2><h3 id="dva-js"><a href="#dva-js" class="headerlink" title="dva.js"></a>dva.js</h3><p>dva 首先是一个基于 <a target="_blank" rel="noopener" href="https://github.com/reduxjs/redux">redux</a> 和 <a target="_blank" rel="noopener" href="https://github.com/redux-saga/redux-saga">redux-saga</a> 的数据流方案，然后为了简化开发体验，dva 还额外内置了 <a target="_blank" rel="noopener" href="https://github.com/ReactTraining/react-router">react-router</a> 和 <a target="_blank" rel="noopener" href="https://github.com/github/fetch">fetch</a>，所以也可以理解为一个轻量级的应用框架。</p>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><ul>
+<li><strong>yield是ES6的新关键字</strong>，使生成器函数执行暂停，yield关键字后面的表达式的值返回给生成器的调用者。它可以被认为是一个基于生成器的版本的return关键字。</li>
+<li>yield关键字实际返回一个IteratorResult（迭代器）对象，它有两个属性，value和done，分别代表返回值和是否完成。</li>
+<li>yield无法单独工作，需要配合generator(生成器)的其他函数，如next，懒汉式操作，展现强大的主动控制特性。</li>
+</ul>
+<h4 id="迭代器-Iterator-和生成器-Generator"><a href="#迭代器-Iterator-和生成器-Generator" class="headerlink" title="迭代器(Iterator)和生成器(Generator)"></a>迭代器(Iterator)和生成器(Generator)</h4><p><strong>迭代器</strong>：迭代器是一种特殊对象，它具有一些专门为迭代过程设计的专有接口，所有的迭代器对象都有一个next()方法，每次调用都返回一个结果对象。</p>
+<p>下面用ES5的语法创建一个迭代器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createIterator</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> done = (i &gt;= items.length);</span><br><span class="line">            <span class="keyword">var</span> value = !done ? items[i++] : <span class="literal">undefined</span>;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                done: done,</span><br><span class="line">                value: value</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>生成器:</strong> 生成器是一种返回迭代器的函数，通过function关键字后的星号(*)来表示，函数中会用到新的关键字yield。</p>
+<blockquote>
+<p>星号可以紧挨着function关键字，也可以在中间添加一个空格。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 生成器能像正规函数那样被调用，但会返回一个迭代器</span></span><br><span class="line"><span class="keyword">let</span> iterator = createIterator();</span><br><span class="line"><span class="built_in">console</span>.log(iterator.next().value); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next().value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next().value); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<strong>createlterator()前的星号表明它是一个生成器；yield关键字也是ES6的新特性，可以通过它来指定调用迭代器的next()方法时的返回值及返回顺序</strong>。生成迭代器后，连续3次调用它的next()方法返回3个不同的值，分别是1、2和3。生成器的调用过程与其他函数一样，最终返回的是创建好的迭代器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; items.length; i++) &#123;</span><br><span class="line">        <span class="keyword">yield</span> items[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> iterator = createIterator([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: 1, done: false &#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: 2, done: false &#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: 3, done: false &#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: undefined, done: true &#125;&quot;</span></span><br><span class="line"><span class="comment">// 之后的所有调用</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: undefined, done: true &#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>生成器函数最有趣的部分是，每当执行完一条yield语句后函数就会自动停止执行。</strong></p>
+<p><strong>【使用限制】yield关键字只可在生成器内部使用，在其他地方使用会导致程序抛出错误</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span> *(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 语法错误</span></span><br><span class="line">        <span class="keyword">yield</span> item + <span class="number">1</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span style="font-size:14px;"><strong>从字面上看，yield关键字确实在createlterator()函数内部，但是它与return关键字一样，二者都不能穿透函数边界。嵌套函数中的return语句不能用作外部函数的返回语句，而此处嵌套函数中的yield语句会导致程序抛出语法错误。</strong></span></p>
+<p>也可以通过函数表达式来创建生成器，只需在function关键字和小括号中间添加一个星号(*)即可</p>
+<h4 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h4><p>　可迭代对象具有Symbol.iterator属性，是一种与迭代器密切相关的对象。</p>
+<p>​    Symbol.iterator通过指定的函数可以返回一个作用于附属对象的迭代器。在ES6中，<strong>所有的集合对象(数组、Set集合及Map集合)和字符串都是可迭代对象</strong>，这些对象中都有默认的迭代器。ES6中新加入的特性for-of循环需要用到可迭代对象的这些功能。</p>
+<p>……</p>
+<h3 id="简单模拟dva处理effects函数"><a href="#简单模拟dva处理effects函数" class="headerlink" title="简单模拟dva处理effects函数"></a>简单模拟dva处理effects函数</h3><p>经过以上对于yield与迭代器的分析，我们可以以call为例模拟dva的处理流程。</p>
+<ul>
+<li>遍历model下的effects</li>
+<li>遍历effects下的函数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟业务流程</span></span><br><span class="line"><span class="comment">// models</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">requestCom</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> comRes = <span class="keyword">yield</span> getCommit</span><br><span class="line">        <span class="keyword">let</span> repRes = <span class="keyword">yield</span> getReply.bind(<span class="built_in">this</span>, comRes.id)</span><br><span class="line">        <span class="built_in">console</span>.log(repRes);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 获取评论</span></span><br><span class="line"><span class="keyword">const</span> getCommit = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="attr">id</span>: <span class="string">&quot;1&quot;</span>, <span class="attr">value</span>: <span class="string">&quot;评论&quot;</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 根据id获取评论下的回复</span></span><br><span class="line"><span class="keyword">const</span> getReply = <span class="function">(<span class="params">id</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!id) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">101</span>, <span class="attr">content</span>: <span class="string">&quot;hahah&quot;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">102</span>, <span class="attr">content</span>: <span class="string">&quot;heheh&quot;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">103</span>, <span class="attr">content</span>: <span class="string">&quot;huhuh&quot;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">104</span>, <span class="attr">content</span>: <span class="string">&quot;xixix&quot;</span> &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// dva流程</span></span><br><span class="line"><span class="keyword">let</span> resCommIterator = requestCom()</span><br><span class="line">    <span class="comment">// TODO fn 类型判断、可迭代判断 ...</span></span><br><span class="line">    <span class="comment">// redux-saga.js</span></span><br><span class="line">    <span class="comment">// createPromiseMiddleware.js</span></span><br><span class="line"><span class="keyword">let</span> comValue = resCommIterator.next().value;</span><br><span class="line"><span class="keyword">let</span> repValue = resCommIterator.next(comValue()).value</span><br><span class="line"><span class="keyword">let</span> result = repValue()</span><br><span class="line"><span class="built_in">console</span>.log(comValue());</span><br><span class="line"><span class="built_in">console</span>.log(repValue());</span><br></pre></td></tr></table></figure>
+<p>业务代码中的写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// models -- comment</span></span><br><span class="line">* <span class="function"><span class="title">fetch_add_topic</span>(<span class="params">&#123;&#125;, &#123; call, put, select &#125;</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> commResponse = <span class="keyword">yield</span> call(get_topic);</span><br><span class="line">            <span class="keyword">if</span> (ValidResponse(commResponse)) &#123;</span><br><span class="line">				<span class="keyword">let</span> id = commResponse.data.id</span><br><span class="line">              	<span class="keyword">const</span> replyResponse = <span class="keyword">yield</span> call(get_reply, &#123;id&#125;);</span><br><span class="line">                <span class="keyword">if</span> (ValidResponse(commResponse)) &#123;</span><br><span class="line">                  message.success(<span class="string">&quot;获取成功！&quot;</span>)</span><br><span class="line">                    <span class="keyword">yield</span> put(&#123;</span><br><span class="line">                        type: <span class="string">&#x27;saveReply&#x27;</span>,</span><br><span class="line">                        payload: &#123; <span class="attr">data</span>: replyResponse.data, <span class="attr">topic_id</span>: payload.topic_id&#125;,</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// services</span></span><br><span class="line"><span class="comment">// 获取评论</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">get_topic</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> request(<span class="string">&#x27;/dev/site/topic&#x27;</span>, &#123;</span><br><span class="line">        method: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        params,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取回复</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">get_reply</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> request(<span class="string">&#x27;/dev/site/reply&#x27;</span>, &#123;</span><br><span class="line">        method: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        params,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><p>dva/ createPromiseMiddleware.js</p>
+<p>.umi/plugin-dva/dva.ts</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/30/2149/" data-id="ckkfmdgaf0032vkcgd58ahk97" data-title="yield与dva流程控制" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

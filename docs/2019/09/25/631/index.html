@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>支持iRTU的GPS功能的开源服务端 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="项目介绍源码地址: https:&#x2F;&#x2F;gitee.com&#x2F;wendal&#x2F;irtu-gps 基于iRTU项目,实现GPS数据的接收和展示 服务器信息: gps.nutz.cn 端口 19002 前端页面地址是 http:&#x2F;&#x2F;gps.nutz.cn&#x2F; 预编译包可以”发行版”页面找到 技术特点:  基于smart-socket的高性能io框架,轻松支持10w设备同时在线 直接支持iRTU内置的JSON注册">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持iRTU的GPS功能的开源服务端">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/09/25/631/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="项目介绍源码地址: https:&#x2F;&#x2F;gitee.com&#x2F;wendal&#x2F;irtu-gps 基于iRTU项目,实现GPS数据的接收和展示 服务器信息: gps.nutz.cn 端口 19002 前端页面地址是 http:&#x2F;&#x2F;gps.nutz.cn&#x2F; 预编译包可以”发行版”页面找到 技术特点:  基于smart-socket的高性能io框架,轻松支持10w设备同时在线 直接支持iRTU内置的JSON注册">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_42420.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_24661.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_33686.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_78117.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_68338.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_90324.jpg">
+<meta property="article:published_time" content="2019-09-25T02:57:19.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_42420.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-631" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/09/25/631/" class="article-date">
+  <time class="dt-published" datetime="2019-09-25T02:57:19.000Z" itemprop="datePublished">2019-09-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      支持iRTU的GPS功能的开源服务端
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>源码地址: <a target="_blank" rel="noopener" href="https://gitee.com/wendal/irtu-gps">https://gitee.com/wendal/irtu-gps</a></p>
+<p>基于<a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">iRTU</a>项目,实现GPS数据的接收和展示</p>
+<p>服务器信息: gps.nutz.cn 端口 19002 前端页面地址是 <a target="_blank" rel="noopener" href="http://gps.nutz.cn/">http://gps.nutz.cn/</a> 预编译包可以”发行版”页面找到</p>
+<p>技术特点:</p>
+<ol>
+<li>基于smart-socket的高性能io框架,轻松支持10w设备同时在线</li>
+<li>直接支持iRTU内置的JSON注册包</li>
+<li>无缝支持GPS的json数据包和hex数据包, 推荐选用hex,节省流量,性能更高</li>
+<li>自动建表,自动初始化. 默认配置H2数据库, 无需额外安装. 可按需要使用其他数据库</li>
+<li>基于NutzBoot,单个jar即可运行, 无需web容器,内存占用最低可到48mb</li>
+<li>配套微信小程序 <a target="_blank" rel="noopener" href="https://gitee.com/wendal/irtu-gps-miniapp">https://gitee.com/wendal/irtu-gps-miniapp</a> 欢迎试用<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_42420.jpg"></li>
+</ol>
+<h2 id="iRTU配置实例"><a href="#iRTU配置实例" class="headerlink" title="iRTU配置实例"></a>iRTU配置实例</h2><ul>
+<li>所需硬件: Air800 M4开发板, 或 A9532L车载GPS定位器. 前者在 <a target="_blank" rel="noopener" href="http://m.openluat.com/">http://m.openluat.com</a> 有售, 后者开源可自行打样.</li>
+<li>工具软件: Luatools最新版, 可到 <a target="_blank" rel="noopener" href="http://www.openluat.com/">http://www.openluat.com</a> 的产品中心下载</li>
+<li>底层软件: iRTU 1.8.7 <a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU/releases">https://github.com/hotdll/iRTU/releases</a></li>
+<li>刷机教程: <a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4">http://oldask.openluat.com/article/4</a></li>
+<li>QQ支持群: 合宙Luat(稀饭放姜iRTU) 952343033</li>
+</ul>
+<p>使用上述材料刷机为iRTU固件后,请联系”稀饭放姜”,把imei和账号发给他, 将设备加入到你的账号下.</p>
+<p>配置页面 <a target="_blank" rel="noopener" href="http://dtu.openluat.com/">http://dtu.openluat.com</a> 账号名为手机号码,密码默认是888888</p>
+<h3 id="配置注册包为JSON"><a href="#配置注册包为JSON" class="headerlink" title="配置注册包为JSON"></a>配置注册包为JSON</h3><p>建议新建一个分组来存放新的配置信息.</p>
+<p>json注册包才包含imei, 用于服务器识别设备.<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24661.jpg"></p>
+<h3 id="配置串口1和串口2-均为115200-8N1"><a href="#配置串口1和串口2-均为115200-8N1" class="headerlink" title="配置串口1和串口2,均为115200 8N1"></a>配置串口1和串口2,均为115200 8N1</h3><p>串口常规设置<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33686.jpg"></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78117.jpg"></p>
+<h3 id="配置网络通道"><a href="#配置网络通道" class="headerlink" title="配置网络通道"></a>配置网络通道</h3><p>配置为demo服务器的地址,用通道2!!!<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68338.jpg"></p>
+<h3 id="配置GPS参数"><a href="#配置GPS参数" class="headerlink" title="配置GPS参数"></a>配置GPS参数</h3><p>绑定通道2</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_90324.jpg"></p>
+<h3 id="重启设备并访问前端页面"><a href="#重启设备并访问前端页面" class="headerlink" title="重启设备并访问前端页面"></a>重启设备并访问前端页面</h3><ul>
+<li>记得把设备的分组改成上面的配置分组.</li>
+<li>重启设备(断电重启或者复位)后, 设备会获取到信息的配置信息, 然后再次重启</li>
+<li>待设备再次启动完成后, 网络灯慢闪, 打开前端页面(例如demo页面 <a target="_blank" rel="noopener" href="http://gps.nutz.cn/">http://gps.nutz.cn</a> ),输入imei, 若定位成功, 即可看到设备的当前位置.</li>
+<li>提醒: 室内无GPS信号,请到室外空旷处.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/09/25/631/" data-id="ckkfmdgcn0092vkcgahnigyoe" data-title="支持iRTU的GPS功能的开源服务端" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/10/633/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          结合实践的Lua语法学习工具：LUATeach
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/23/630/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">使用lua生成Code128条形码数据（用于微信、支付宝付款码）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>批量生产时如何进行GPS生产测试 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="通常在生产测试时可以用两种方式测试GPS功能，一种是用仪器做GPS的传导测试；另一种为实网下通过读取搜星数和信噪比来判断GPS功能是否正常。  传导测试 传导测试是通过8960综测仪直接连接主板的GPS天线连接器进行测试。这种方式测试前需要将GPS天线去掉直接连接GPS天线连接器，因此适用于GPS天线用IPEX连接器与主板相连的方式。如果是陶瓷天线直接焊接在主板上则不适合这种方式。  1. 准备工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批量生产时如何进行GPS生产测试">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/01/05/671/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="通常在生产测试时可以用两种方式测试GPS功能，一种是用仪器做GPS的传导测试；另一种为实网下通过读取搜星数和信噪比来判断GPS功能是否正常。  传导测试 传导测试是通过8960综测仪直接连接主板的GPS天线连接器进行测试。这种方式测试前需要将GPS天线去掉直接连接GPS天线连接器，因此适用于GPS天线用IPEX连接器与主板相连的方式。如果是陶瓷天线直接焊接在主板上则不适合这种方式。  1. 准备工">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_26249.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_83974.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_85538.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_43334.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_60241.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_43343.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_51076.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_28211.png">
+<meta property="article:published_time" content="2020-01-05T15:06:23.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_26249.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-671" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/05/671/" class="article-date">
+  <time class="dt-published" datetime="2020-01-05T15:06:23.000Z" itemprop="datePublished">2020-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      批量生产时如何进行GPS生产测试
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>通常在生产测试时可以用两种方式测试GPS功能，一种是用仪器做GPS的传导测试；另一种为实网下通过读取搜星数和信噪比来判断GPS功能是否正常。</p>
+<hr>
+<h3 id="传导测试"><a href="#传导测试" class="headerlink" title="传导测试"></a>传导测试</h3><blockquote>
+<p>传导测试是通过8960综测仪直接连接主板的GPS天线连接器进行测试。这种方式测试前需要将GPS天线去掉直接连接GPS天线连接器，因此适用于GPS天线用IPEX连接器与主板相连的方式。如果是陶瓷天线直接焊接在主板上则不适合这种方式。</p>
+</blockquote>
+<h5 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h5><ol>
+<li>测试工具：<a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/h_d_m_file_20200105210329_GPS%E4%BF%A1%E5%99%AA%E6%AF%94%E6%B5%8B%E8%AF%951.0.3_SDM.rar" title="GPS信噪比测试工具">GPS信噪比测试工具</a></li>
+<li>PC电脑</li>
+<li>8960综测仪</li>
+<li>待测主板</li>
+<li>连接主板GPS输出串口信号的串口线或者生产夹具</li>
+</ol>
+<h5 id="2-主板连接"><a href="#2-主板连接" class="headerlink" title="2. 主板连接"></a>2. 主板连接</h5><p>通TTL转USB串口线或者生产夹具连接待测主板的GPS_TXD串口（GPS_RXD不要接）。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26249.png"></p>
+<h5 id="2-仪器设置"><a href="#2-仪器设置" class="headerlink" title="2. 仪器设置"></a>2. 仪器设置</h5><ol>
+<li><p>在仪器初始化界面，按F1选择CW模式。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_83974.png"></p>
+</li>
+<li><p>按F10选择GPS模式<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85538.png"></p>
+</li>
+<li><p>按F7，将GPS POWER设置为-125dBm<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_43334.png"></p>
+</li>
+</ol>
+<h5 id="2-工具配置"><a href="#2-工具配置" class="headerlink" title="2. 工具配置"></a>2. 工具配置</h5><ol>
+<li><p>将夹具GPS模组的串口线插入电脑，点击运行GPS信噪比测试1.0.2.exe程序；按下图所示选择正确的串口以及波特率，点击打开串口，建立连接。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_60241.png"><br><code>注意：GPS模块air530系列波特率为9600；GPS+GSM模块Air8XX系列波特率为115200</code></p>
+</li>
+<li><p>将夹具GPS RF端口测试头用RF CABLE和Agilent8960 RF端口RF IN/OUT连接。将待测板开机，正常几秒钟内出现下图所示的测试结果。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_43343.png"></p>
+</li>
+<li><p>目标值设置<br>工具默认的目标值为43到50之间，这个值可以根据实际情况修改，修改方法，打开工具的目录<code>GPS信噪比测试1.0.3_SDM\config</code>。记事本打开user.conf文件，修改里面的最大值最小值即可。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51076.png"></p>
+</li>
+</ol>
+<hr>
+<h3 id="实网测试"><a href="#实网测试" class="headerlink" title="实网测试"></a>实网测试</h3><blockquote>
+<p>如果没有仪器，或者GPS天线之间焊接在主板上的情况，可以用实际的GPS信号来测试，通过模块在搜星时输出的GPS原始数据中读取最大信噪比已经卫星数可以在定位之前就可以判断GPS部分的好坏。这样就不需要等到定位，极大缩短了测试时间</p>
+</blockquote>
+<p>通常工厂进行生产时通常在室内，是无法接收到GPS卫星接收信号的，因此要提前安装<strong>GPS转发器</strong>，将GPS信号引入室内生产车间。<br>实际网测试适用于组装完成后的整机测试，有事不太方便用夹具连接GPS管脚，这时就需要在主板固件中开发测试模式，在生产测试时进入测试模式，通过主板的主控来读取GPS相关的信息来判断GPS是否正常。当然如果整机中有因此GPS管脚信号，也可以连接PC用上文的GPS信噪比测试工具来测试，但是注意测试时的信噪比区间要以实际金板测试的信噪进行调整。</p>
+<h4 id="如何读取信噪比和搜星数"><a href="#如何读取信噪比和搜星数" class="headerlink" title="如何读取信噪比和搜星数"></a>如何读取信噪比和搜星数</h4><p>GPS输出的原始数据是按照NME0183 的标准协议格式。<br>协议请参考：<br><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/NMEA%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E.docx">http://www.openluat.com/Product/file/800/NMEA%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E.docx</a><br>我们可以从GPS_TX管脚直接读到这些值<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_28211.png"><br>可以通过单片机或者其他PC工具解析这些值，从何可以设定测试通过的阈值比如卫星数大于等于3而且最高信噪比大于40等（<code>注意设定搜星数不要小于2，避免一些假信号的干扰。设定这些阈值一定要拿几块正常主板实际测量取平均值后作为判断的中心值</code>）。这样的话就可以在GPS定位前就可以判断GPS功能的好坏，大大节省了测试时间。<br>对于lua版本，直接调用获取卫星数量和最大信噪比的接口即可：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 获取所有可见卫星的最大信号强度</span></span><br><span class="line"><span class="comment">-- @return number strength，最大信号强度</span></span><br><span class="line"><span class="comment">-- @usage gps.getMaxSignalStrength()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMaxSignalStrength</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> maxSignalStrength</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- 获取可见卫星的个数</span></span><br><span class="line"><span class="comment">-- @return number count，可见卫星的个数</span></span><br><span class="line"><span class="comment">-- @usage gps.getViewedSateCnt()</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewedSateCnt</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tonumber</span>(viewedGpsSateCnt)+<span class="built_in">tonumber</span>(viewedBdSateCnt)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/01/05/671/" data-id="ckkfmdgd000a3vkcg4wh3a3iu" data-title="批量生产时如何进行GPS生产测试" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/06/672/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/04/670/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

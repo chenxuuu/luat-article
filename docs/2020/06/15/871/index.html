@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air530 GPS/北斗定位模块_设计指导手册_V1.9 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="欢迎加入Air530&#x2F;G1模块技术交流QQ群：967368887 @[TOC] 1. 模块整体说明   Air530模块是一款高性能、高集成度的多模卫星定位导航模块。体积小、功耗低，可用于车载导航、智能穿戴、无人机等GNSS定位的应用中。而且提供了和其他模块厂商兼容的软、硬件接口，大幅减少了用户的开发周期。 模块支持GPS&#x2F;Beidou&#x2F;GLONASS&#x2F;Galileo&#x2F;QZSS&#x2F;SBAS。采用了射">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air530 GPS&#x2F;北斗定位模块_设计指导手册_V1.9">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/06/15/871/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="欢迎加入Air530&#x2F;G1模块技术交流QQ群：967368887 @[TOC] 1. 模块整体说明   Air530模块是一款高性能、高集成度的多模卫星定位导航模块。体积小、功耗低，可用于车载导航、智能穿戴、无人机等GNSS定位的应用中。而且提供了和其他模块厂商兼容的软、硬件接口，大幅减少了用户的开发周期。 模块支持GPS&#x2F;Beidou&#x2F;GLONASS&#x2F;Galileo&#x2F;QZSS&#x2F;SBAS。采用了射">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615154210087_22.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201023104518681_Air530%E5%8F%82%E8%80%83%E7%94%B5%E8%B7%AF1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615154833172_44.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201023104640641_Air530%E5%8F%82%E8%80%83%E7%94%B5%E8%B7%AF2.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615155043595_66.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615155208144_77.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615175603372_88.jpg">
+<meta property="article:published_time" content="2020-06-15T11:17:31.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615154210087_22.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-871" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/15/871/" class="article-date">
+  <time class="dt-published" datetime="2020-06-15T11:17:31.000Z" itemprop="datePublished">2020-06-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air530 GPS/北斗定位模块_设计指导手册_V1.9
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>欢迎加入Air530/G1模块技术交流QQ群：967368887</strong></p>
+<p>@[TOC]</p>
+<h1 id="1-模块整体说明"><a href="#1-模块整体说明" class="headerlink" title="1. 模块整体说明"></a>1. 模块整体说明</h1><p>   Air530模块是一款高性能、高集成度的多模卫星定位导航模块。体积小、功耗低，可用于车载导航、智能穿戴、无人机等GNSS定位的应用中。而且提供了和其他模块厂商兼容的软、硬件接口，大幅减少了用户的开发周期。</p>
+<p>模块支持GPS/Beidou/GLONASS/Galileo/QZSS/SBAS。采用了射频基带一体化设计，集成了DC/DC、 LDO、 LNA、射频前端、基带处理、32位RISC CPU、RAM、FLASH存储、RTC和电源管理等功能。提供超高的性能，即使在弱信号的地方，也能快速、准确的定位。</p>
+<h1 id="2-资料下载"><a href="#2-资料下载" class="headerlink" title="2. 资料下载"></a>2. 资料下载</h1><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201224173633946_Air530_%E5%8E%9F%E7%90%86%E5%9B%BEPCB%E5%B0%81%E8%A3%85.zip">Air530_原理图PCB封装.zip</a></p>
+<p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201024180614297_%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7_naviTrack_v1.5.2_170720.rar">调试工具_naviTrack_v1.5.2_170720.rar</a></p>
+<h1 id="3-模块性能"><a href="#3-模块性能" class="headerlink" title="3. 模块性能"></a>3. 模块性能</h1><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>指标项</th>
+<th>典型值</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定位时间  [测试条件1]</td>
+<td>纯硬件冷启动</td>
+<td>27.5</td>
+<td>s</td>
+</tr>
+<tr>
+<td>定位时间  [测试条件1]</td>
+<td>纯硬件热启动</td>
+<td>&lt;1</td>
+<td>s</td>
+</tr>
+<tr>
+<td>定位时间  [测试条件1]</td>
+<td>纯硬件重新捕获</td>
+<td>&lt;1</td>
+<td>s</td>
+</tr>
+<tr>
+<td>定位时间  [测试条件1]</td>
+<td>软件辅助A-GNSS（秒定位）</td>
+<td>&lt;5</td>
+<td>s</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>冷启动</td>
+<td>-148</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>热启动</td>
+<td>-162</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>重新捕获</td>
+<td>-164</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>灵敏度  [测试条件2]</td>
+<td>跟踪</td>
+<td>-166</td>
+<td>dBm</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>水平定位精度</td>
+<td>2.5</td>
+<td>m</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>高度定位精度</td>
+<td>3.5</td>
+<td>m</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>速度精度</td>
+<td>0.1</td>
+<td>m/s</td>
+</tr>
+<tr>
+<td>精度  [测试条件3]</td>
+<td>授时精度</td>
+<td>30</td>
+<td>ns</td>
+</tr>
+<tr>
+<td>功耗  [测试条件4]</td>
+<td>捕获电流值@3.3v</td>
+<td>42.6</td>
+<td>mA</td>
+</tr>
+<tr>
+<td>功耗  [测试条件4]</td>
+<td>跟踪电流值@3.3v</td>
+<td>36.7</td>
+<td>mA</td>
+</tr>
+<tr>
+<td>工作温度</td>
+<td></td>
+<td>-35℃- 85℃</td>
+<td></td>
+</tr>
+<tr>
+<td>储存温度</td>
+<td></td>
+<td>-55℃- 100℃</td>
+<td></td>
+</tr>
+<tr>
+<td>湿度</td>
+<td></td>
+<td>5%  - 95%</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>注：以上结果为GPS/北斗双模工作模式<br>[测试条件1]： 接收卫星个数大于6，所有卫星信号强度为-130dBm，测试10次取平均值，定位误差小于10米。<br>[测试条件2]：外接LNA噪声系数0.8，接收卫星个数大于6，五分钟之内锁定或者不失锁条件下的接收信号强度值。<br>[测试条件3]：开阔没有遮挡环境，连续24小时开机测试，50%CEP。<br>[测试条件4]：接收卫星个数大于6，所有卫星信号强度为-130dBm。</p>
+<h1 id="4-模块管脚分配"><a href="#4-模块管脚分配" class="headerlink" title="4. 模块管脚分配"></a>4. 模块管脚分配</h1><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615154210087_22.png"></p>
+<table>
+<thead>
+<tr>
+<th><strong>Pin脚编号</strong></th>
+<th><strong>Pin脚定义</strong></th>
+<th><strong>Pin脚描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>GPS_ANT</td>
+<td>GPS天线输入</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+<tr>
+<td>3</td>
+<td>WAKE</td>
+<td>保留管脚，保持悬空</td>
+</tr>
+<tr>
+<td>4</td>
+<td>VCC</td>
+<td>主电源，2.8V-4.2V</td>
+</tr>
+<tr>
+<td>5</td>
+<td>VBACKUP</td>
+<td>如果要支持热启动，在模块关机时也必须维持VBACKUP的供电，  后备电池的电压范围是2.8V-3.3V，  VBACKUP必须要有供电，否则模块不工作；  如果不接后备电池，请把VBACKUP和VCC接在一起；</td>
+</tr>
+<tr>
+<td>6</td>
+<td>NC</td>
+<td>保留管脚，保持悬空</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NC</td>
+<td>保留管脚，保持悬空</td>
+</tr>
+<tr>
+<td>8</td>
+<td>TXD</td>
+<td>串口TX(2.8V)，输出GPS NMEA0183 数据，  默认波特率是9600bps</td>
+</tr>
+<tr>
+<td>9</td>
+<td>RXD</td>
+<td>串口RX(2.8V)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>GPS_TO_MCU</td>
+<td>保留管脚，保持悬空</td>
+</tr>
+<tr>
+<td>11</td>
+<td>MCU_TO_GPS</td>
+<td>保留管脚，保持悬空</td>
+</tr>
+<tr>
+<td>12</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+<tr>
+<td>13</td>
+<td>1PPS</td>
+<td>授时管脚，One pulse per second(2.8V)</td>
+</tr>
+<tr>
+<td>14</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+</tbody></table>
+<h1 id="5-参考设计电路"><a href="#5-参考设计电路" class="headerlink" title="5. 参考设计电路"></a>5. 参考设计电路</h1><p>参考电路：最简模式</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201023104518681_Air530%E5%8F%82%E8%80%83%E7%94%B5%E8%B7%AF1.png"></p>
+<p>设计注意事项</p>
+<ol>
+<li>   VCC供电电压范围2.8-4.2V，VBACKUP供电电压范围2.8-3.3V。如果要支持GPS热启动功能，在关闭VCC供电的时候要保持给VBACKUP一直供电。</li>
+<li>   模块尽量靠近GPS天线放置，天线走线保持50欧姆阻抗匹配，走线尽量短，避免锐角。</li>
+<li>   GPS 天线推荐使用25X25X4mm 尺寸的陶瓷天线。</li>
+<li>   串口TXD,RXD是 2.8V TTL 电平，用户可用此串口接收定位信息数据和软件升级。</li>
+<li>   本模块是温度敏感设备，温度剧烈变化会导致其性能降低，使用中尽量远离高温器件与大功率发热器件。</li>
+</ol>
+<h1 id="6-GPS天线"><a href="#6-GPS天线" class="headerlink" title="6. GPS天线"></a>6. GPS天线</h1><p>GPS天线可根据需要选择无源天线或有源天线，有源天线相比无源天线效果好，但是成本高。</p>
+<h2 id="6-1-无源天线"><a href="#6-1-无源天线" class="headerlink" title="6.1 无源天线"></a>6.1 无源天线</h2><p>如果采用无源天线，建议天线与模块之间的走线尽可能的短，最理想的情况是GPS模块直接放置在天线的背面，使模块的天线焊盘和GPS天线馈点之间零距离，如下图所示：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615154833172_44.png"></p>
+<h2 id="6-2-有源天线"><a href="#6-2-有源天线" class="headerlink" title="6.2 有源天线"></a>6.2 有源天线</h2><p>采用有源天线时要注意有源天线的供电电压范围，如果有源天线的供电要和模块的供电共用一个电源的话，需要串接一颗47nH的电感，同时在靠近天线处并联一颗1000pF的电容，模块内部已经有隔直电容，外部无须再加。<br>参考电路如下：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201023104640641_Air530%E5%8F%82%E8%80%83%E7%94%B5%E8%B7%AF2.png"></p>
+<h1 id="7-模块外形尺寸"><a href="#7-模块外形尺寸" class="headerlink" title="7. 模块外形尺寸"></a>7. 模块外形尺寸</h1><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615155043595_66.png"><br>模块尺寸为12.9mm&#42;9.9mm&#42;2.3mm；</p>
+<h1 id="8-模块推荐PCB封装尺寸图"><a href="#8-模块推荐PCB封装尺寸图" class="headerlink" title="8. 模块推荐PCB封装尺寸图"></a>8. 模块推荐PCB封装尺寸图</h1><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615155208144_77.png"></p>
+<p>说明：<br>为方便邮票孔焊接，邮票孔焊盘需外延至少0.5mm，因此模块封装尺寸建议为12.9 X 10.9 mm;<br>模块封装下载链接如下：<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201224173633946_Air530_%E5%8E%9F%E7%90%86%E5%9B%BEPCB%E5%B0%81%E8%A3%85.zip">Air530_原理图PCB封装.zip</a></p>
+<h1 id="9-NMEA0183协议"><a href="#9-NMEA0183协议" class="headerlink" title="9.NMEA0183协议"></a>9.NMEA0183协议</h1><p>AIR530模块支持NMEA 0183 V4.1协议并兼容以前版本，关于NMEA 0183 V4.1的详细信息请参照NMEA 0183 V4.1官方文档。</p>
+<h2 id="9-1-NMEA-0183简述"><a href="#9-1-NMEA-0183简述" class="headerlink" title="9.1 NMEA 0183简述"></a>9.1 NMEA 0183简述</h2><p>GGA：时间、位置、卫星数量<br>GLL：经度、纬度、 UTC 时间<br>GSA：GPS 接收机操作模式，定位使用的卫星，DOP 值，定位状态<br>GSV：可见 GPS 卫星信息、仰角、方位角、信噪比<br>RMC：时间、日期、位置、速度<br>VTG：地面速度信息</p>
+<h2 id="9-2-Goke-NMEA命令"><a href="#9-2-Goke-NMEA命令" class="headerlink" title="9.2 Goke NMEA命令"></a>9.2 Goke NMEA命令</h2><p>Air530定制了一些命令用来控制冷、热、温启动和卫星定位模式等，可以直接通过串口直接发送命令来控制模块，命令格式如下：<br>1.<strong>启动命令</strong><br>系统热启动命令：$PGKC030,1,1&#42;2C<CR><LF><br>系统温启动命令：$PGKC030,2,1&#42;2F<CR><LF><br>系统冷启动命令：$PGKC030,3,1&#42;2E<CR><LF><br>系统重置冷启动：$PGKC030,4,1&#42;29<CR><LF><br>2.<strong>卫星定位模式设置</strong><br>单GPS:      $PGKC115,1,0,0,0&#42;2B<CR><LF><br>GPS+BEIDOU:   $PGKC115,1,0,1,0&#42;2A<CR><LF><br>GPS+GLONASS: $PGKC115,1,1,0,0&#42;2A<CR><LF></p>
+<h3 id="9-2-1-GKC接口数据格式"><a href="#9-2-1-GKC接口数据格式" class="headerlink" title="9.2.1 GKC接口数据格式"></a>9.2.1 GKC接口数据格式</h3><p>GKC接口是用户和Air530之间进行交互的接口。其命令格式如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>$PGKC</strong></th>
+<th><strong>Command</strong></th>
+<th><strong>Arguments</strong></th>
+<th>*****</th>
+<th><strong>CheckSum</strong></th>
+<th><strong>CR</strong></th>
+<th><strong>LF</strong></th>
+</tr>
+</thead>
+</table>
+<p><strong>Command</strong>：     表示发送的命令号，具体的值参考下文。<br><strong>Arguments</strong>：     表示发送命令需要的参数，参数可以是多个，不同的命令对应不同的数据，具体值参考下文。<br>*<strong>**：                 数据结束的标志<br>**CheckSum</strong>：    整条命令的校验数据<br><strong>CR，LF</strong>：        包结束标志</p>
+<p><strong>样例数据</strong>：$PGKC030,3,1*2E <CR><LF></p>
+<h3 id="9-2-2-GKC命令"><a href="#9-2-2-GKC命令" class="headerlink" title="9.2.2 GKC命令"></a>9.2.2 GKC命令</h3><pre><code>1、Command: 001
+                 应答消息，回应对方发送的消息处理结果
+    Arguments:
+       Arg1:    该消息所应答消息的command。
+       Arg2:     “1”，不支持接收到的消息
+                 “2”，有效消息，但执行不正确
+                 “3”，有效消息，并且执行正确
+Example:
+             $PGKC001,101,3*2D&lt;CR&gt;&lt;LF&gt;有效消息，并且执行正确
+Example:
+             $PGKC001,101,3*2D&lt;CR&gt;&lt;LF&gt;
+
+2、Command: 030
+             系统重启命令
+Arguments:
+Arg1:  “1”，热启动
+       “2”，温启动
+       “3”，冷启动
+Arg2:      “1”, 软件重启
+        Example:
+             $PGKC030,1,1*2C&lt;CR&gt;&lt;LF&gt;
+
+3、Command: 040
+擦除flash中的辅助定位数据
+Arguments:
+无
+        Example:
+            $PGKC040*2B&lt;CR&gt;&lt;LF&gt;
+
+
+7、Command: 113
+             开启或关闭QZSS NMEA格式输出
+Arguments:
+    Arg1:    “0”，关闭
+            “1”，开启
+Example:
+    $PGKC113,1*31&lt;CR&gt;&lt;LF&gt;
+
+8、Command: 114
+             开启或关闭QZSS 功能
+Arguments:
+Arg1:    “0”，开启
+“1”，关闭
+Example:
+            $PGKC114,0*37&lt;CR&gt;&lt;LF&gt;
+
+9、Command: 115
+             设置搜星模式
+Arguments:
+   Arg1:  “1”，GPS on
+          “0”，GPS off
+   Arg2:  “1”，Glonass on
+          “0”，Glonass off
+   Arg3:  “1”，Beidou on
+          “0”，Beidou off
+   Arg4:  “1”，Galieo on
+          “0”，Galieo off
+Example:
+            $PGKC115,1,0,0,0*2B&lt;CR&gt;&lt;LF&gt;
+10、Command: 147
+             设置NMEA输出波特率
+Arguments:
+   Arg1:  9600，19200，38400，57600，115200……921600.
+Example:
+            $PGKC147,115200*06&lt;CR&gt;&lt;LF&gt;
+
+11、Command: 149
+       设置NMEA串口参数
+Arguments:
+   Arg1:     “0”，NMEA数据
+             “1”，Binary数据
+   Arg2:  9600，19200，38400，57600，115200……921600.
+Example:
+            $PGKC149,0,38400*2C&lt;CR&gt;&lt;LF&gt;
+
+12、Command: 161
+             PPS设置
+Arguments:
+     Arg1: “0”，关闭PPS输出
+           “1”，第一次fix
+           “2”，3D fix
+           “3”，2D/3D fix
+           “4”，始终开启
+    Arg2:  PPS脉冲宽度（ms）
+           要求小于999
+    Arg3:  PPS周期（ms）
+           要求大于PPS脉冲宽度
+Example:
+            $PGKC161,2,500,1000*2E&lt;CR&gt;&lt;LF&gt;
+
+13、Command: 201
+             查询NMEA消息的间隔
+Arguments:
+         无
+Example:
+            $PGKC201*2C&lt;CR&gt;&lt;LF&gt;
+
+14、Command: 202
+             返回NMEA消息的间隔（应答201命令）
+Arguments:
+     无
+Example:
+            $PGKC202,1000,0,0,0,0*02&lt;CR&gt;&lt;LF&gt;
+
+15、Command: 239
+             开启或关闭SBAS 功能
+    Arguments:
+       Arg1: “0”，开启
+             “1”，关闭
+    Example:
+            $PGKC239,1*3A&lt;CR&gt;&lt;LF&gt;
+
+16、Command: 240
+             查询SBAS是否使能
+   Arguments:
+         无
+   Example:
+            $PGKC240*29&lt;CR&gt;&lt;LF&gt;
+
+17、Command: 241
+             返回SBAS是否使能（应答240命令）
+Arguments:
+Arg1:     “0”，关闭
+         “1”，打开
+Example:
+            $PGKC241,1*35&lt;CR&gt;&lt;LF&gt;
+
+18、Command: 242
+             设置NMEA语句输出使能
+Arguments:
+   Arg1:     GLL     “0”，关闭； “1”，打开
+   Arg2:     RMC     “0”，关闭； “1”，打开
+   Arg3:     VTG     “0”，关闭； “1”，打开
+   Arg4:     GGA     “0”，关闭； “1”，打开
+   Arg5:     GSA     “0”，关闭； “1”，打开
+   Arg6:     GSV     “0”，关闭； “1”，打开
+   Arg7:     GRS     “0”，关闭； “1”，打开
+   Arg8:     GST     “0”，关闭； “1”，打开
+   Arg9~ Arg19:    保留
+Example:
+    $PGKC242,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0*37 &lt;CR&gt;&lt;LF&gt;
+
+19、Command: 243
+             查询NMEA语句输出频率
+   Arguments:
+         无
+   Example:
+       $PGKC243*2A&lt;CR&gt;&lt;LF&gt;
+
+20、Command: 244
+             返回NMEA语句输出频率（应答243命令）
+    Arguments:
+        Args:     参考242命令
+    Example:
+        $PGKC244,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0*31&lt;CR&gt;&lt;LF&gt;
+
+21、Command: 278
+             设置RTC时间
+   Arguments:
+      Arg1:     年
+      Arg2:     月，1~12
+      Arg3:     日，1~31
+      Arg4:     时，0~23
+      Arg5:     分，0~59
+      Arg6:     秒，0~59
+   Example:
+        $PGKC278,2017,3,15,12,0,0*12&lt;CR&gt;&lt;LF&gt;
+
+22、Command: 279
+         查询RTC时间
+    Arguments:
+         无
+    Example:
+        $PGKC279*23&lt;CR&gt;&lt;LF&gt;
+
+23、Command: 280
+             返回NMEA语句输出频率（应答243命令）
+    Arguments:
+    Args:     参考278命令
+    Example:
+            $PGKC280,2017,3,15,12,0,0*15&lt;CR&gt;&lt;LF&gt;
+
+24、Command: 284
+             设置速度门限，速度低于门限值时，输出速度为0
+Arguments:
+Arg1:     门限值
+Example:
+            $PGKC284,0.5*26&lt;CR&gt;&lt;LF&gt;
+25、Command: 356
+      设置HDOP门限，实际HDOP大于门限值时，不定位
+    Arguments:
+       Arg1: 门限值
+Example:
+      $PGKC356,0.7*2A&lt;CR&gt;&lt;LF&gt;
+
+26、Command: 357
+       获取HDOP门限
+    Arguments:
+      无
+    Example:
+        $PGKC357*2E&lt;CR&gt;&lt;LF&gt;
+
+27、Command: 462
+             查询当前软件的版本号
+    Arguments:
+         无
+    Example:
+            $PGKC462*2F&lt;CR&gt;&lt;LF&gt;
+
+28、Command: 463
+             返回当前软件的版本号（应答462命令）
+   Arguments:
+         无
+   Example:
+            $PGKC463,GOKE9501_1.3_17101100*22&lt;CR&gt;&lt;LF&gt;
+
+29、Command: 639
+             设置大概的位置信息和时间信息，以加快定位速度
+    Arguments:
+       Arg1:  纬度, 例如：28.166450
+       Arg2:  经度, 例如：120.389700
+       Arg3:  高度, 例如：0
+       Arg4:  年
+       Arg5:  月
+       Arg6:  日
+       Arg7:  时，时间是UTC时间
+       Arg8:  分
+       Arg9:  秒
+Example:
+      $PGKC639,28.166450,120.389700,0,2017,3,15,12,0*33&lt;CR&gt;&lt;LF&gt;
+</code></pre>
+<h3 id="9-2-3-支持NMEA0183协议"><a href="#9-2-3-支持NMEA0183协议" class="headerlink" title="9.2.3 支持NMEA0183协议"></a>9.2.3 支持NMEA0183协议</h3><p>Air530支持NMEA0183 V4.1协议并兼容以前版本，关于NMEA0183 V4.1的详细信息可以参照NMEA 0183 V4.1官方文档。</p>
+<p>常见输出格式如下：<br>GGA：时间、位置、卫星数量<br>GSA：GPS接收机操作模式，定位使用的卫星，DOP值，定位状态<br>GSV：可见GPS卫星信息、仰角、方位角、信噪比<br>RMC：时间、日期、位置、速度<br>VTG：地面速度信息</p>
+<p><strong>语句标识符:</strong></p>
+<table>
+<thead>
+<tr>
+<th>标识符</th>
+<th>含  义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BD</td>
+<td>BDS,北斗二代卫星系统</td>
+</tr>
+<tr>
+<td>GP</td>
+<td>GPS</td>
+</tr>
+<tr>
+<td>GL</td>
+<td>GLONASS</td>
+</tr>
+<tr>
+<td>GA</td>
+<td>Galileo</td>
+</tr>
+<tr>
+<td>GN</td>
+<td>GNSS,全球导航卫星系统</td>
+</tr>
+</tbody></table>
+<p><strong>GGA</strong><br>$–GGA,hhmmss.ss,llll.ll,a,yyyyy.yy,a,x,xx,x.x,x.x,M,x.x,M,x.x,xxxx*hh<br>样例数据：$GPGGA,065545.789,2109.9551,N,12023.4047,E,1,9,0.85,18.1,M,8.0,M,,&#42;5E</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>样例</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消息ID</td>
+<td>$GPGGA</td>
+<td></td>
+<td>GGA协议头</td>
+</tr>
+<tr>
+<td>UTC时间</td>
+<td>065545.789</td>
+<td></td>
+<td>hhmmss.sss</td>
+</tr>
+<tr>
+<td>纬度</td>
+<td>2109.9551</td>
+<td></td>
+<td>ddmm.mmmm</td>
+</tr>
+<tr>
+<td>N/S指示</td>
+<td>N</td>
+<td></td>
+<td>N=北，S=南</td>
+</tr>
+<tr>
+<td>经度</td>
+<td>12023.4047</td>
+<td></td>
+<td>dddmm.mmmm</td>
+</tr>
+<tr>
+<td>E/W指示</td>
+<td>E</td>
+<td></td>
+<td>W=西，E=东</td>
+</tr>
+<tr>
+<td>定位指示</td>
+<td></td>
+<td></td>
+<td>0:未定位  1:SPS模式，定位有效  2:差分，SPS模式，定位有效  3:PPS模式，定位有效</td>
+</tr>
+<tr>
+<td>卫星数目</td>
+<td>9</td>
+<td></td>
+<td>范围0到12</td>
+</tr>
+<tr>
+<td>HDOP</td>
+<td>0.85</td>
+<td></td>
+<td>水平精度</td>
+</tr>
+<tr>
+<td>MSL幅度</td>
+<td>18.1</td>
+<td>米</td>
+<td></td>
+</tr>
+<tr>
+<td>单位</td>
+<td>M</td>
+<td>米</td>
+<td></td>
+</tr>
+<tr>
+<td>大地</td>
+<td>-2.2</td>
+<td>米</td>
+<td></td>
+</tr>
+<tr>
+<td>单位</td>
+<td>M</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr>
+<td>差分时间</td>
+<td>8.0</td>
+<td>秒</td>
+<td>当没有DGPS时，无效</td>
+</tr>
+<tr>
+<td>差分  ID</td>
+<td>0000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>校验和</td>
+<td>*5E</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><CR><LF></td>
+<td></td>
+<td></td>
+<td>消息结束</td>
+</tr>
+</tbody></table>
+<p><strong>GSA</strong><br>$–GSA,a,a,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x.x,x.x,x.x*hh<br>样例数据：$GPGSA,A,3,10,24,12,32,25,21,15,20,31,,,,1.25,0.85,0.91&#42;04</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>样例</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消息ID</td>
+<td>$GPGSA</td>
+<td></td>
+<td>GSA协议头</td>
+</tr>
+<tr>
+<td>模式1</td>
+<td>A</td>
+<td></td>
+<td>M=手动，强制在2D或3D模式  A=自动</td>
+</tr>
+<tr>
+<td>模式2</td>
+<td>3</td>
+<td></td>
+<td>1:定位无效   2:2D定位    3:3D定位</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>10</td>
+<td></td>
+<td>通道1</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>24</td>
+<td></td>
+<td>通道2</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>12</td>
+<td></td>
+<td>通道3</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>32</td>
+<td></td>
+<td>通道4</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>25</td>
+<td></td>
+<td>通道5</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>21</td>
+<td></td>
+<td>通道6</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>15</td>
+<td></td>
+<td>通道7</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td>20</td>
+<td></td>
+<td>通道8</td>
+</tr>
+<tr>
+<td>,,,</td>
+<td>,,,</td>
+<td>,,,</td>
+<td>,,,</td>
+</tr>
+<tr>
+<td>卫星使用</td>
+<td></td>
+<td></td>
+<td>通道12</td>
+</tr>
+<tr>
+<td>PDOP</td>
+<td>1.25</td>
+<td></td>
+<td>位置精度</td>
+</tr>
+<tr>
+<td>HDOP</td>
+<td>0.85</td>
+<td></td>
+<td>水平精度</td>
+</tr>
+<tr>
+<td>VDOP</td>
+<td>0.91</td>
+<td></td>
+<td>垂直精度</td>
+</tr>
+<tr>
+<td>校验和</td>
+<td>*04</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><CR><LF></td>
+<td></td>
+<td></td>
+<td>消息结束</td>
+</tr>
+</tbody></table>
+<p><strong>GSV</strong><br>$–GSV,x,x,x,x,x,x,x,…*hh<br>样例数据：<br>$GPGSV,3,1,12,14,75,001,31,32,67,111,38,31,57,331,33,26,47,221,20&#42;73<br>$GPGSV,3,2,12,25,38,041,29,29,30,097,32,193,26,176,35,22,23,301,30&#42;47<br>$GPGSV,3,3,12,10,20,185,28,44,20,250,,16,17,217,21,03,14,315,&#42;7D</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>样例</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消息ID</td>
+<td>$GPGSV</td>
+<td></td>
+<td>GSV协议头</td>
+</tr>
+<tr>
+<td>消息数目</td>
+<td>3</td>
+<td></td>
+<td>范围1到4</td>
+</tr>
+<tr>
+<td>消息编号</td>
+<td>1</td>
+<td></td>
+<td>范围1到4</td>
+</tr>
+<tr>
+<td>卫星数目</td>
+<td>12</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>卫星ID</td>
+<td>14</td>
+<td></td>
+<td>范围1到32</td>
+</tr>
+<tr>
+<td>仰角</td>
+<td>75</td>
+<td>度</td>
+<td>最大90°</td>
+</tr>
+<tr>
+<td>方位角</td>
+<td>001</td>
+<td>度</td>
+<td>范围0到359°</td>
+</tr>
+<tr>
+<td>载噪比（C/No）</td>
+<td>31</td>
+<td>dBHz</td>
+<td>范围0到99，没有跟踪时为空</td>
+</tr>
+<tr>
+<td>卫星  ID</td>
+<td>32</td>
+<td></td>
+<td>范围1到32</td>
+</tr>
+<tr>
+<td>仰角</td>
+<td>67</td>
+<td>度</td>
+<td>最大90°</td>
+</tr>
+<tr>
+<td>方位角</td>
+<td>111</td>
+<td>度</td>
+<td>范围0到359°</td>
+</tr>
+<tr>
+<td>载噪比（C/No）</td>
+<td>38</td>
+<td>dBHz</td>
+<td>范围0到99，没有跟踪时为空</td>
+</tr>
+<tr>
+<td>卫星  ID</td>
+<td>31</td>
+<td></td>
+<td>范围1到32</td>
+</tr>
+<tr>
+<td>仰角</td>
+<td>57</td>
+<td>度</td>
+<td>最大90°</td>
+</tr>
+<tr>
+<td>方位角</td>
+<td>331</td>
+<td>度</td>
+<td>范围0到359°</td>
+</tr>
+<tr>
+<td>载噪比（C/No）</td>
+<td>33</td>
+<td>dBHz</td>
+<td>范围0到99，没有跟踪时为空</td>
+</tr>
+<tr>
+<td>卫星ID</td>
+<td>26</td>
+<td></td>
+<td>范围1到32</td>
+</tr>
+<tr>
+<td>仰角</td>
+<td>47</td>
+<td>度</td>
+<td>最大90°</td>
+</tr>
+<tr>
+<td>方位角</td>
+<td>221</td>
+<td>度</td>
+<td>范围0到359°</td>
+</tr>
+<tr>
+<td>载噪比（C/No）</td>
+<td>20</td>
+<td>dBHz</td>
+<td>范围0到99，没有跟踪时为空</td>
+</tr>
+<tr>
+<td>校验和</td>
+<td>*73</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><CR><LF></td>
+<td></td>
+<td></td>
+<td>消息结束</td>
+</tr>
+</tbody></table>
+<p><strong>RMC</strong><br>$–RMC,hhmmss.ss,A,llll.ll,a,yyyyy.yy,a,x.x,x.x,xxxx,x.x,a&#42;hh<br>样例数据：<br>$GPRMC,100646.000,A,3109.9704,N,12123.4219,E,0.257,335.62,291216,,,A&#42;59</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>样例</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消息ID</td>
+<td>$GPRMC</td>
+<td></td>
+<td>RMC协议头</td>
+</tr>
+<tr>
+<td>UTC时间</td>
+<td>100646.000</td>
+<td></td>
+<td>hhmmss.ss</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>A</td>
+<td></td>
+<td>A=数据有效；V=数据无效</td>
+</tr>
+<tr>
+<td>纬度</td>
+<td>2109.9704</td>
+<td></td>
+<td>ddmm.mmmm</td>
+</tr>
+<tr>
+<td>N/S指示</td>
+<td>N</td>
+<td></td>
+<td>N=北，S=南</td>
+</tr>
+<tr>
+<td>经度</td>
+<td>11123.4219</td>
+<td></td>
+<td>dddmm.mmmm</td>
+</tr>
+<tr>
+<td>E/W指示</td>
+<td>E</td>
+<td></td>
+<td>W=西，E=东</td>
+</tr>
+<tr>
+<td>地面速度</td>
+<td>0.257</td>
+<td>Knot（节）</td>
+<td></td>
+</tr>
+<tr>
+<td>方位</td>
+<td>335.62</td>
+<td>度</td>
+<td></td>
+</tr>
+<tr>
+<td>日期</td>
+<td>291216</td>
+<td></td>
+<td>ddmmyy</td>
+</tr>
+<tr>
+<td>磁变量</td>
+<td></td>
+<td></td>
+<td>-</td>
+</tr>
+<tr>
+<td>校验和</td>
+<td>*59</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><CR><LF></td>
+<td></td>
+<td></td>
+<td>消息结束</td>
+</tr>
+</tbody></table>
+<p><strong>VTG</strong><br>$–VTG,x.x,T,x.x,M,x.x,N,x.x,K*hh<br>样例数据：$GPVTG,335.62,T,,M,0.257,N,0.477,K,A&#42;38</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>样例</th>
+<th>单位</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消息ID</td>
+<td>$GPVTG</td>
+<td></td>
+<td>VTG协议头</td>
+</tr>
+<tr>
+<td>方位</td>
+<td>335.62</td>
+<td>度</td>
+<td></td>
+</tr>
+<tr>
+<td>参考</td>
+<td>T</td>
+<td></td>
+<td>True</td>
+</tr>
+<tr>
+<td>方位</td>
+<td>335.62</td>
+<td>度</td>
+<td></td>
+</tr>
+<tr>
+<td>参考</td>
+<td>M</td>
+<td></td>
+<td>Magnetic</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>0.257</td>
+<td>Knot（节）</td>
+<td></td>
+</tr>
+<tr>
+<td>单位</td>
+<td>N</td>
+<td></td>
+<td>节</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>0.477</td>
+<td>公里/小时</td>
+<td></td>
+</tr>
+<tr>
+<td>单位</td>
+<td>K</td>
+<td></td>
+<td>公里/小时</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>A</td>
+<td></td>
+<td>定位系统模式指示:   A—自主模式；   D—差分模式；   E—估算（航位推算）模式；   M—手动输入模式；   S—模拟器模式；   N—数据无效。</td>
+</tr>
+<tr>
+<td>校验和</td>
+<td>*10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><CR><LF></td>
+<td></td>
+<td></td>
+<td>消息结束</td>
+</tr>
+</tbody></table>
+<p><strong>GNSS工具naviTrack</strong><br>naviTrack是一个专为Air530开发的GNSS工具，它为用户评估、控制Air530模块提供了一个易用、强大的可视化PC端工具。当然用户也可以使用诸如u-Center、PowerGPS等工具。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615175603372_88.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/06/15/871/" data-id="ckkfmdgel00dmvkcg7p5n4jo5" data-title="Air530 GPS/北斗定位模块_设计指导手册_V1.9" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/21/887/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          1.1、RDA8910CSDK二次开发：CSDK极致开发体验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/12/846/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">LuatOS 项目进度(20210124更新)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>为服务器安装phpMyAdmin方便管理mysql服务器 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在Linux操作系统的服务器下来操作和使用mysql对于菜鸟来说，比较费劲，因为操作mysql数据库需要各种各样的指令，我们更希望能够有一种直观的可视化的操作数据库的方法，那么我们可以在服务器上安装phpMyAdmin。phpMyAdmin可以让我们可以通过图形界面的方式来操作mysql数据库，非常好用。接下来我来与大家分享一下在服务器上安装phpMyAdmin的方法。我的服务器操作系统为64位的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为服务器安装phpMyAdmin方便管理mysql服务器">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/10/11/475/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="在Linux操作系统的服务器下来操作和使用mysql对于菜鸟来说，比较费劲，因为操作mysql数据库需要各种各样的指令，我们更希望能够有一种直观的可视化的操作数据库的方法，那么我们可以在服务器上安装phpMyAdmin。phpMyAdmin可以让我们可以通过图形界面的方式来操作mysql数据库，非常好用。接下来我来与大家分享一下在服务器上安装phpMyAdmin的方法。我的服务器操作系统为64位的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/143448tq25yh5i28c2eocc.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/144616bqkkttqpqzxrpptu.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/145230vknkousnkk9766zj.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/145431d5l77fhzu4thtf3f.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/150001ghb2dh3u2usuh19v.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/150342tc8tzz0itw5nc5ni.jpg">
+<meta property="article:published_time" content="2018-10-11T07:17:33.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://bbs.qdclab.com/data/attachment/forum/201512/06/143448tq25yh5i28c2eocc.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-475" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/11/475/" class="article-date">
+  <time class="dt-published" datetime="2018-10-11T07:17:33.000Z" itemprop="datePublished">2018-10-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      为服务器安装phpMyAdmin方便管理mysql服务器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">在Linux操作系统的服务器下来操作和使用<span style="word-wrap: break-word; font-weight: 700;"><font color="#FF0000" style="word-wrap: break-word;">mysql</font></span>对于菜鸟来说，比较费劲，因为操作mysql数据库需要各种各样的指令，我们更希望能够有一种直观的可视化的操作数据库的方法，那么我们可以在服务器上安装phpMyAdmin。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">phpMyAdmin可以让我们可以通过图形界面的方式来操作mysql数据库，非常好用。接下来我来与大家分享一下在服务器上安装phpMyAdmin的方法。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><br style="word-wrap: break-word;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">我的服务器操作系统为64位的Centos6.5，安装的mysql版本为5.5，关于mysql5.5的安装方法，可以参考帖子：</font><a href="http://www.qdclab.com/thread-233-1-1.html" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;"><font size="6" style="word-wrap: break-word;">为Linux服务器安装mysql数据库教程</font></a></p><p><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#f4a460" style="word-wrap: break-word;">接下来分享安装phpMyAdmin的方法：</font></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><br style="word-wrap: break-word;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#ffa500" style="word-wrap: break-word;">1、使用putty软件远程登录我的服务器，在服务器上下载phpMyAdmin.tar.gz压缩包。</font></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">我要把phpMyAdmin.tar.gz压缩包下载到服务器的download目录下，那么我执行 cd /web/eoair/download 命令进入download目录。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">然后，百度一下phpMyAdmin的官网，进去找一下phpMyAdmin.tar.gz的下载链接，如下图所示：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1449" aid="1449" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/143448tq25yh5i28c2eocc.jpg" zoomfile="data/attachment/forum/201512/06/143448tq25yh5i28c2eocc.jpg" file="data/attachment/forum/201512/06/143448tq25yh5i28c2eocc.jpg" class="zoom" width="532" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">我们先把上图中红框那个下载选项下载到本地电脑上，然后使用ftp软件，将下载下来的压缩文件上传到我服务器的/web/eoair/download目录下。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">然后执行 ll 命令来查看一下我服务器 /web/eoair/download目录下的文件，如下图所示：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1450" aid="1450" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/144616bqkkttqpqzxrpptu.jpg" zoomfile="data/attachment/forum/201512/06/144616bqkkttqpqzxrpptu.jpg" file="data/attachment/forum/201512/06/144616bqkkttqpqzxrpptu.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">上图中红框圈中的文件就是phpMyAdmin的压缩文件包。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">0 x&nbsp;&nbsp;U3 s' [, ~</font><br style="word-wrap: break-word;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#f4a460" style="word-wrap: break-word;">2、解压phpMyAdmin的压缩文件包</font></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">首先执行 cd /web/eoair/download 进入到download目录，然后 执行 ll 来查看该目录下的文件如下图所示：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">接下来执行命令 tar -zxvf phpMyAdmin-4.5.2-all-languages.tar.gz 来将该文件解压，解压结束后，执行 ll 查看文件，如下图所示：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1451" aid="1451" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/145230vknkousnkk9766zj.jpg" zoomfile="data/attachment/forum/201512/06/145230vknkousnkk9766zj.jpg" file="data/attachment/forum/201512/06/145230vknkousnkk9766zj.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">上图中红框圈起来的内容就是解压之后的 phpMyAdmin目录，文件名有点长，我给改一下：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">执行 mv phpMyAdmin-4.5.2-all-languages&nbsp;&nbsp;phpMyAdmin 将原来那么长的名字改为 phpMyAdmin，修改后执行 ll 查看文件如下所示：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1452" aid="1452" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/145431d5l77fhzu4thtf3f.jpg" zoomfile="data/attachment/forum/201512/06/145431d5l77fhzu4thtf3f.jpg" file="data/attachment/forum/201512/06/145431d5l77fhzu4thtf3f.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">上图中红框圈起来的为改名后的 phpMyAdmin。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">&amp; V- j- b( `8 g/ w# |/ [</font><br style="word-wrap: break-word;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#ffa500" style="word-wrap: break-word;">3、将步骤2中的 phpMyAdmin目录移动到 /web/eoair/www目录下</font></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">执行 mv phpMyAdmin&nbsp;&nbsp;/web/eoair/www&nbsp;&nbsp;将/web/eoair/download目录下的phpMyAdmin移动到了服务器&nbsp;&nbsp;/web/eoair/www路径下，那么我们执行 cd /web/eoair/www 进入该目录，然后执行 ll 查看文件如下图所示：</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1453" aid="1453" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/150001ghb2dh3u2usuh19v.jpg" zoomfile="data/attachment/forum/201512/06/150001ghb2dh3u2usuh19v.jpg" file="data/attachment/forum/201512/06/150001ghb2dh3u2usuh19v.jpg" class="zoom" width="520" inpost="1" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">上图中红框圈起来的就是我们移动过来的 phpMyAdmin文件。</font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255);">7 {' Z4 B8 k4 g- l</font><br style="word-wrap: break-word;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><font color="#ffa500" style="word-wrap: break-word;">4、接下来，打开浏览器，输入我的域名/phpMyAdmin后，显示界面如下图所示：</font></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1454" aid="1454" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/150342tc8tzz0itw5nc5ni.jpg" zoomfile="data/attachment/forum/201512/06/150342tc8tzz0itw5nc5ni.jpg" file="data/attachment/forum/201512/06/150342tc8tzz0itw5nc5ni.jpg" class="zoom" width="423" inpost="1" style="word-wrap: break-word; cursor: pointer;"></ignore_js_op></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><p><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></font></p><p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">这说明phpMyAdmin可以使用了，接下来，输入用户名和密码，点击“执行”，然后就登录进去了。接下来，就可以操作mysql数据库了。</font></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/10/11/475/" data-id="ckkfmdgbh005wvkcg03eidyj6" data-title="为服务器安装phpMyAdmin方便管理mysql服务器" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/12/476/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          202F支持高保真TTS，更大存储空间更多玩法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/11/474/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">为Linux服务器安装mysql数据库教程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

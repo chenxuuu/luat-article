@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>emLuaIde - 目前唯一支持 luat api 的VSCode 插件 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="现代软件开发 IDE 能极大提升开发效率，降低出错率，有些甚至能帮你优化代码，提高代码质量。  luat 是上海合宙的创新性嵌入式开发技术框架，基于 lua 语言建立了一个易学好用的嵌入式编程框架。自从使用 luat 开发之后，就试用了各种 lua IDE 工具， 基于eclipse的ldt、 lua studio，这些对于 luat 这种嵌入式开发，过于厚重了。原因在于 luat 这类嵌入式开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="emLuaIde - 目前唯一支持 luat api 的VSCode 插件">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/03/420/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="现代软件开发 IDE 能极大提升开发效率，降低出错率，有些甚至能帮你优化代码，提高代码质量。  luat 是上海合宙的创新性嵌入式开发技术框架，基于 lua 语言建立了一个易学好用的嵌入式编程框架。自从使用 luat 开发之后，就试用了各种 lua IDE 工具， 基于eclipse的ldt、 lua studio，这些对于 luat 这种嵌入式开发，过于厚重了。原因在于 luat 这类嵌入式开发">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eger5WMQ5b8d2711e6589.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FAUmFGJq5b8d2d5467ff1.jpg">
+<meta property="article:published_time" content="2018-09-03T12:59:42.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eger5WMQ5b8d2711e6589.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-420" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/03/420/" class="article-date">
+  <time class="dt-published" datetime="2018-09-03T12:59:42.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      emLuaIde - 目前唯一支持 luat api 的VSCode 插件
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>现代软件开发 IDE 能极大提升开发效率，降低出错率，有些甚至能帮你优化代码，提高代码质量。<br /></p>
+
+<p>luat 是上海合宙的创新性嵌入式开发技术框架，基于 lua 语言建立了一个易学好用的嵌入式编程框架。自从使用 luat 开发之后，就试用了各种 lua IDE 工具， 基于eclipse的ldt、 lua studio，这些对于 luat 这种嵌入式开发，过于厚重了。原因在于 luat 这类嵌入式开发都是要写入固件来进行调试，这些 IDE 提供强大 debug 功能是无用的，最关键的是这些 IDE 都不支持 luat 的 API。后来选择了最负盛名的轻量级编辑器 VS Code，lua 是小众语言，已知lua 插件都非常不成熟，最基本的语法高亮和代码提示都没做好。因此萌生出自己写一个支持 luat API 插件的想法。</p>
+
+<p><br /></p>
+
+<p>近期项目收尾，轻松一些，利用周末研究学习了 VSCode 插件开发方法，写了本插件目前版本0.7.3 。安装方法：</p>
+
+<p>1、在 VSCode 扩展安装界面，输入"emluaide"搜索，选择安装。</p>
+
+<p>2、在浏览器输入地址：https://marketplace.visualstudio.com/items?itemName=hugo.emluaide，选择"install"，按照提示操作。</p>
+
+<p><br /></p>
+
+<p>第一个公开发布版本，基于做最常用的20%功能，满足80%需要的原则，主要提供了如下功能：</p>
+
+<p><span style="background-color:rgb(255,255,0);"><b>1、Lua 语法高亮和代码输入提示</b></span></p>
+
+<p>luat 是基于 lua 的，很多时候我们还是在使用 lua 语言。当输入 lua 关键词符号，会出现代码输入提示，回车后会自动完成函数代码模板，只需要修改相关变量即可。如图：</p>
+
+<p><img style="width:756px;" src="http://oldask.openluat.com/image/show/attachments-2018-09-eger5WMQ5b8d2711e6589.jpg" class="img-responsive" alt="attachments-2018-09-eger5WMQ5b8d2711e6589.jpg" /><br /></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b>2、luat 语法高亮和代码输入提示</b></span></p>
+
+<p><img style="width:733px;" src="http://oldask.openluat.com/image/show/attachments-2018-09-FAUmFGJq5b8d2d5467ff1.jpg" class="img-responsive" alt="attachments-2018-09-FAUmFGJq5b8d2d5467ff1.jpg" /><span style="background-color:rgb(255,255,0);"><b><br /></b></span></p>
+
+<p>      为提供更好的代码提示，投入了巨大精力，几乎完整复制了 luat wiki 中api 文档，包括函数简要说明、参数和返回值说明，可部分替代查阅文档的需要。</p>
+
+<p><span style="background-color:inherit;">      </span><span style="background-color:inherit;">完善返回值代码模板。很多 api 函数语法部分是没有返回值的，进行了完善，并提供了代码模板。形式如:local result = class.func(...)，比如:      </span></p>
+
+<pre><span style="background-color:inherit;">      local jsondata = json.encode(torigin)</span></pre>
+
+<p>     定义 为 local 局部变量，返回值变量是jsondata。</p>
+
+<p><span style="background-color:rgb(247,173,107);">    此部分工作量很大，可能会有遗漏和错误，大家发现请及时提出来。</span><br /></p>
+
+<p>后续计划特性：</p>
+
+<p>1、可配置代码格式化，可以自定义自己喜欢的代码格式风格。</p>
+
+<p>2、代码提示增加更丰富常用代码模板。</p>
+
+<p>3、更智能的自动完成，输入方法调用的点，弹出函数选择提示。</p>
+
+<p>4、Hover 支持，鼠标放到函数名上，弹出该函数详细文档说明，无需再翻阅文档。</p>
+
+<p>5、更智能项目代码输入提示，自定义函数、变量再次输入会进行提示，提高编辑效率，降低出错率。</p>
+
+<p><br /></p>
+
+<p>更多高级特性：</p>
+
+<p>1、luat 版本选择</p>
+
+<p>2、debug？不知道是否可行，还需要研究。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/03/420/" data-id="ckkfmdgb70050vkcg5jzxh000" data-title="emLuaIde - 目前唯一支持 luat api 的VSCode 插件" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/04/421/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          【阿里云】如何向模块批量写入DeviceSecret呢？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/02/419/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air720模块Linux USB驱动以及PPP拨号说明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

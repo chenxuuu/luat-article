@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat训练营-第6天 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@TOC 第5天内容复习第5日内容 第6天内容内容概要log,gpio,adc相关 Air724固件介绍固件文档链接常见版本后缀说明：FLOAT 浮点运算TTS 文本转语音LVGL 图形库VOLTE 高清语音通话BT 蓝牙 常用的固件版本：Luat_RDA8910 最基础的固件版本Luat_RDA8910_FLOAT 基础+float（浮点）运算 固件版本的不同：Luat_RDA8910_TTS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luat训练营-第6天">
+<meta property="og:url" content="https://doc.luatos.wiki/2021/01/24/2396/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="@TOC 第5天内容复习第5日内容 第6天内容内容概要log,gpio,adc相关 Air724固件介绍固件文档链接常见版本后缀说明：FLOAT 浮点运算TTS 文本转语音LVGL 图形库VOLTE 高清语音通话BT 蓝牙 常用的固件版本：Luat_RDA8910 最基础的固件版本Luat_RDA8910_FLOAT 基础+float（浮点）运算 固件版本的不同：Luat_RDA8910_TTS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210124103600543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210124103619110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210124103638417.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210124103652677.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-01-24T02:37:57.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210124103600543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2396" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/24/2396/" class="article-date">
+  <time class="dt-published" datetime="2021-01-24T02:37:57.000Z" itemprop="datePublished">2021-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Luat训练营-第6天
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@<a href="Luat%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC6%E5%A4%A9">TOC</a></p>
+<h2 id="第5天内容复习"><a href="#第5天内容复习" class="headerlink" title="第5天内容复习"></a>第5天内容复习</h2><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/2383/0">第5日内容</a></p>
+<h2 id="第6天内容"><a href="#第6天内容" class="headerlink" title="第6天内容"></a>第6天内容</h2><h3 id="内容概要"><a href="#内容概要" class="headerlink" title="内容概要"></a>内容概要</h3><p>log,gpio,adc相关</p>
+<h3 id="Air724固件介绍"><a href="#Air724固件介绍" class="headerlink" title="Air724固件介绍"></a>Air724固件介绍</h3><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/article/1334/0">固件文档链接</a><br>常见版本后缀说明：<br>FLOAT 浮点运算<br>TTS 文本转语音<br>LVGL 图形库<br>VOLTE 高清语音通话<br>BT 蓝牙</p>
+<p>常用的固件版本：<br>Luat_RDA8910 最基础的固件版本<br>Luat_RDA8910_FLOAT 基础+float（浮点）运算</p>
+<p>固件版本的不同：<br>Luat_RDA8910_TTS 带文本转语音<br>Luat_RDA8910_TTS_FLOAT 文本转语音+浮点运算<br>Luat_RDA8910_TTS_NOLVGL 支持文本转语音 不支持图形库<br>Luat_RDA8910_TTS_NOVOLTE_FLOAT 文本转语音 浮点 无高清语音通话<br>Luat_RDA8910_TTS_NOLVGL_FLOAT 文本转语音 无图形库 浮点<br>Luat_RDA8910_BT_FLOAT 带蓝牙 + 浮点运算<br><strong>#以上仅对明明进行介绍，具体功能详见表单！！</strong></p>
+<h3 id="固件内容说明"><a href="#固件内容说明" class="headerlink" title="固件内容说明"></a>固件内容说明</h3><p>├─demo 各种功能示例<br>├─doc html文件<br>├─lib 基础库<br>└release note.txt</p>
+<p>每一个示例中包含<code>mian.lua</code>和<code>功能.lua</code><br><code>main.lua</code>的结构说明：<br>初始定义：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--必须在这个位置定义PROJECT和VERSION变量</span></span><br><span class="line"><span class="comment">--PROJECT：ascii string类型，可以随便定义，只要不使用,就行</span></span><br><span class="line"><span class="comment">--VERSION：ascii string类型，如果使用Luat物联云平台固件升级的功能，必须按照&quot;X.X.X&quot;定义，X表示1位数字；否则可随便定义</span></span><br><span class="line">PROJECT = <span class="string">&quot;GPIO_SINGLE&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;2.0.0&quot;</span></span><br></pre></td></tr></table></figure>
+<p>日志输出：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--加载日志功能模块，并且设置日志输出等级</span></span><br><span class="line"><span class="comment">--如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"><span class="comment">--log.openTrace(true,1,115200) 串口输出日志</span></span><br></pre></td></tr></table></figure>
+<p>信号和基站查询</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--每1分钟查询一次GSM信号强度</span></span><br><span class="line"><span class="comment">--每1分钟查询一次基站信息</span></span><br><span class="line">net.startQueryAll(<span class="number">60000</span>, <span class="number">60000</span>)</span><br></pre></td></tr></table></figure>
+<p>网络指示灯</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--加载网络指示灯和LTE指示灯功能模块</span></span><br><span class="line"><span class="comment">--根据自己的项目需求和硬件配置决定：1、是否加载此功能模块；2、配置指示灯引脚</span></span><br><span class="line"><span class="comment">--合宙官方出售的Air720开发板上的网络指示灯引脚为pio.P2_0，LTE指示灯引脚为pio.P2_1</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;netLed&quot;</span></span><br><span class="line">netLed.setup(<span class="literal">true</span>,pio.P2_0,pio.P2_1)</span><br></pre></td></tr></table></figure>
+<p>日志管理</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--加载错误日志管理功能模块【强烈建议打开此功能】</span></span><br><span class="line"><span class="comment">--如下2行代码，只是简单的演示如何使用errDump功能，详情参考errDump的api</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;errDump&quot;</span></span><br><span class="line">errDump.request(<span class="string">&quot;udp://ota.airm2m.com:9072&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>加载模块和启动框架</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--加载GPIO功能测试模块</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;testGpioSingle&quot;</span></span><br><span class="line"><span class="comment">--启动系统框架</span></span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"><span class="comment">--之后不要写代码</span></span><br></pre></td></tr></table></figure>
+<h3 id="固件下载"><a href="#固件下载" class="headerlink" title="固件下载"></a>固件下载</h3><h4 id="板子正常："><a href="#板子正常：" class="headerlink" title="板子正常："></a>板子正常：</h4><p><img src="https://img-blog.csdnimg.cn/20210124103600543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center" alt="正常下载"></p>
+<h4 id="板子变砖："><a href="#板子变砖：" class="headerlink" title="板子变砖："></a>板子变砖：</h4><p><img src="https://img-blog.csdnimg.cn/20210124103619110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center" alt="异常下载"></p>
+<p>①关机状态下按住Boot按键<br>②开机，电脑响一声，松开Boot<br>③勾选USB BOOT下载，点击固件下载</p>
+<h3 id="脚本下载"><a href="#脚本下载" class="headerlink" title="脚本下载"></a>脚本下载</h3><p>1.进入项目管理测试界面<br><img src="https://img-blog.csdnimg.cn/20210124103638417.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center" alt="项目管理"></p>
+<p>2.新建一个项目<br>3.选择文件，增加脚本<br>4.添加默认lib（使用旧lib就将lib作为脚本添加）<br><img src="https://img-blog.csdnimg.cn/20210124103652677.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center" alt="管理"></p>
+<h3 id="log库"><a href="#log库" class="headerlink" title="log库"></a>log库</h3><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6?wiki_page_id=5640">log库</a></p>
+<h4 id="log-debug-tag-…"><a href="#log-debug-tag-…" class="headerlink" title="log.debug(tag, …)"></a>log.debug(tag, …)</h4><p>输出debug级别的日志 调试</p>
+<h4 id="log-info-tag-…"><a href="#log-info-tag-…" class="headerlink" title="log.info(tag, …)"></a>log.info(tag, …)</h4><p>输出info级别的日志 普通</p>
+<h4 id="log-warn-tag-…"><a href="#log-warn-tag-…" class="headerlink" title="log.warn(tag, …)"></a>log.warn(tag, …)</h4><p>输出warn级别的日志 警告</p>
+<h4 id="log-error-tag-…"><a href="#log-error-tag-…" class="headerlink" title="log.error(tag, …)"></a>log.error(tag, …)</h4><p>输出error级别的日志 错误</p>
+<h4 id="log-openTrace-v-uartid-baudrate"><a href="#log-openTrace-v-uartid-baudrate" class="headerlink" title="log.openTrace(v, uartid, baudrate)"></a>log.openTrace(v, uartid, baudrate)</h4><p>开启或者关闭print的打印输出功能</p>
+<h3 id="pins库"><a href="#pins库" class="headerlink" title="pins库"></a>pins库</h3><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6?wiki_page_id=1761">pins库</a></p>
+<h4 id="pins-setup-pin-val-pull"><a href="#pins-setup-pin-val-pull" class="headerlink" title="pins.setup(pin, val, pull)"></a>pins.setup(pin, val, pull)</h4><p>配置GPIO模式，包括输入输出IO和上升下降沿中断IO</p>
+<h4 id="pins-close-pin"><a href="#pins-close-pin" class="headerlink" title="pins.close(pin)"></a>pins.close(pin)</h4><p>关闭GPIO模式</p>
+<h4 id="GPIO输出"><a href="#GPIO输出" class="headerlink" title="GPIO输出"></a>GPIO输出</h4><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> level = <span class="number">0</span></span><br><span class="line"><span class="comment">--GPIO4配置为输出，默认输出低电平，可通过setGpio79Fnc(0或者1)设置输出电平</span></span><br><span class="line"><span class="keyword">local</span> setGpio4Fnc = pins.setup(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">sys.timerLoopStart(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    level = level==<span class="number">0</span> <span class="keyword">and</span> <span class="number">1</span> <span class="keyword">or</span> <span class="number">0</span> <span class="comment">--实现电平翻转</span></span><br><span class="line">    setGpio4Fnc(level)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testGpioSingle.setGpio4Fnc&quot;</span>,level)</span><br><span class="line"><span class="keyword">end</span>,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="GPIO中断输入"><a href="#GPIO中断输入" class="headerlink" title="GPIO中断输入"></a>GPIO中断输入</h4><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--GPIO54配置为中断，可通过getGpio54Fnc()获取输入电平，产生中断时，自动执行gpio54IntFnc函数</span></span><br><span class="line">getGpio54Fnc = pins.setup(pio.P1_22,gpio54IntFnc) ]]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gpio54IntFnc</span><span class="params">(msg)</span></span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testGpioSingle.gpio54IntFnc&quot;</span>,msg,getGpio54Fnc())</span><br><span class="line">    <span class="comment">--上升沿中断</span></span><br><span class="line">    <span class="keyword">if</span> msg==cpu.INT_GPIO_POSEDGE <span class="keyword">then</span></span><br><span class="line">    <span class="comment">--下降沿中断</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="GPIO代码实验"><a href="#GPIO代码实验" class="headerlink" title="GPIO代码实验"></a>GPIO代码实验</h4><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>(...,<span class="built_in">package</span>.<span class="built_in">seeall</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;pins&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gpio_test</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> setgpio12 = pins.setup(pio.P0_12,<span class="number">0</span>) <span class="comment">-- GPIO12输出</span></span><br><span class="line">    setgpio12(<span class="number">0</span>) <span class="comment">-- 输出0</span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;GPIO&quot;</span>,<span class="number">0</span>)</span><br><span class="line">    sys.wait(<span class="number">1000</span>)</span><br><span class="line">    setgpio12(<span class="number">1</span>) <span class="comment">-- 输出1</span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;GPIO&quot;</span>,<span class="number">1</span>)</span><br><span class="line">    sys.wait(<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> getgpio10 = pins.setup(pio.P0_10)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 协程</span></span><br><span class="line">sys.taskInit(<span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        gpio_test()</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">        getgpio10()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>,...)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="ADC库"><a href="#ADC库" class="headerlink" title="ADC库"></a>ADC库</h3><p><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6?wiki_page_id=144">ADC库</a></p>
+<h4 id="result-adc-open-id-scale"><a href="#result-adc-open-id-scale" class="headerlink" title="result=adc.open(id,scale)"></a>result=adc.open(id,scale)</h4><p>功能：打开ADC通道</p>
+<h4 id="adcval-voltval-adc-read-id"><a href="#adcval-voltval-adc-read-id" class="headerlink" title="adcval, voltval=adc.read(id)"></a>adcval, voltval=adc.read(id)</h4><p>功能：读取ADC。</p>
+<h4 id="result-adc-close-Id"><a href="#result-adc-close-Id" class="headerlink" title="result=adc.close(Id)"></a>result=adc.close(Id)</h4><p>功能：关闭ADC通道</p>
+<h4 id="ADC测试函数"><a href="#ADC测试函数" class="headerlink" title="ADC测试函数"></a>ADC测试函数</h4><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- ADC读取测试</span></span><br><span class="line"><span class="comment">-- @return 无</span></span><br><span class="line"><span class="comment">-- @usage read()</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">--ADC1接口用来读取电压</span></span><br><span class="line">    <span class="keyword">local</span> ADC_ID = <span class="number">1</span></span><br><span class="line">    <span class="comment">-- 读取adc</span></span><br><span class="line">    <span class="comment">-- adcval为number类型，表示adc的原始值，无效值为0xFFFF</span></span><br><span class="line">    <span class="comment">-- voltval为number类型，表示转换后的电压值，单位为毫伏，无效值为0xFFFF；adc.read接口返回的voltval放大了3倍，所以需要除以3还原成原始电压</span></span><br><span class="line">    <span class="comment">-- adc1读取量程为0-1400mV</span></span><br><span class="line">    <span class="keyword">local</span> adcval,voltval = adc.<span class="built_in">read</span>(ADC_ID)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testAdc1.read&quot;</span>,adcval,(voltval-(voltval%<span class="number">3</span>))/<span class="number">3</span>,voltval)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="相关知识补充"><a href="#相关知识补充" class="headerlink" title="相关知识补充"></a>相关知识补充</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 开启对应的adc通道</span></span><br><span class="line">adc.<span class="built_in">open</span>(<span class="number">0</span>)  <span class="comment">-- 顶格写的为实际运行的部分</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2021/01/24/2396/" data-id="ckkfmdgau0048vkcg45jc49f8" data-title="Luat训练营-第6天" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/25/2406/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          promise浅析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/23/2395/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">haas专栏说明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

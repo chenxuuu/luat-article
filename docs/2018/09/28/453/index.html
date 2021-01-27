@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air720模块在linux设备上的RNDIS网卡使用 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文章介绍了在linux系统下，如何使用Air720的RNDIS功能进行上网。 在使用RNDIS功能之前，确保模块固件版本为AT版本，且版本号为AirM2M_720_V296_LTE_AT_NAND及以后版本   Air720正常启动后，通过USB连接到linux设备上，驱动正常加载后会产生一个可以联网的RNDIS网卡：    模块 VID PID Device    Air720 0x128">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air720模块在linux设备上的RNDIS网卡使用">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/28/453/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="本文章介绍了在linux系统下，如何使用Air720的RNDIS功能进行上网。 在使用RNDIS功能之前，确保模块固件版本为AT版本，且版本号为AirM2M_720_V296_LTE_AT_NAND及以后版本   Air720正常启动后，通过USB连接到linux设备上，驱动正常加载后会产生一个可以联网的RNDIS网卡：    模块 VID PID Device    Air720 0x128">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_14077.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_11979.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_17404.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_42517.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_57948.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_48708.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_24901.png">
+<meta property="article:published_time" content="2018-09-28T02:44:54.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_14077.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-453" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/28/453/" class="article-date">
+  <time class="dt-published" datetime="2018-09-28T02:44:54.000Z" itemprop="datePublished">2018-09-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air720模块在linux设备上的RNDIS网卡使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>  本文章介绍了在linux系统下，如何使用Air720的RNDIS功能进行上网。</p>
+<p><code>在使用RNDIS功能之前，确保模块固件版本为AT版本，且版本号为AirM2M_720_V296_LTE_AT_NAND及以后版本</code></p>
+<p>  Air720正常启动后，通过USB连接到linux设备上，驱动正常加载后会产生一个可以联网的RNDIS网卡：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>VID</th>
+<th>PID</th>
+<th>Device</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Air720</td>
+<td>0x1286</td>
+<td>0x4e3d</td>
+<td>eth网卡(RNDIS网卡)</td>
+</tr>
+</tbody></table>
+<h2 id="一，当做普通网卡设备即插即用"><a href="#一，当做普通网卡设备即插即用" class="headerlink" title="一，当做普通网卡设备即插即用"></a>一，当做普通网卡设备即插即用</h2><p><strong>由于Air720模块内置了自动拨号技术（支持全球大部分运营商），所以只要网络可用的情况下无需对模块进行任何设置就可以正常使用RNDIS网卡。对于不太懂通信和AT的用户来说最简单不过了。</strong></p>
+<h3 id="1-通过USB连接Air720模块和linux设备"><a href="#1-通过USB连接Air720模块和linux设备" class="headerlink" title="1. 通过USB连接Air720模块和linux设备"></a>1. 通过USB连接Air720模块和linux设备</h3><p>目前linux大部分发行版本都已经默认支持RNDIS驱动了，只要通过USB连接Air720模块就可以直接用了，模块开机后就会在linux设备端看到新的网卡，如下图：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_14077.png" alt="eth" title="eth"></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>i. 每个设备的ethx可能不一样，插入Air720模块后增加的网卡即为RNDIS网卡，地址为<strong>192.168.0.x</strong>。</p>
+</li>
+<li><p>ii. 如果没能正常识别网卡，可以通过<code>dmesg</code>命令参看一下usb驱动加载情况，下图是rndis驱动加载正常的情况：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_11979.png" alt="usb-dmesg" title="usb-dmesg"></p>
+</li>
+<li><p>iii. 如果linux设备还不支持rndis驱动，可以通过重新配置并编译内核来加入rndis驱动。详见<strong>《二，内核修改（非必需）》</strong></p>
+</li>
+</ul>
+<h3 id="2-RNDIS功能测试"><a href="#2-RNDIS功能测试" class="headerlink" title="2. RNDIS功能测试"></a>2. RNDIS功能测试</h3><ul>
+<li><p>step 1：禁用本地网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig eth0 down</span><br></pre></td></tr></table></figure></li>
+<li><p>step 2：使能模块网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig eth3 up</span><br></pre></td></tr></table></figure>
+<p>使能之后最好再通过ifconfig再次确认一下</p>
+</li>
+<li><p>step 3：联网测试<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_17404.png" alt="ping" title="ping"></p>
+</li>
+</ul>
+<h2 id="二，内核修改（非必需）"><a href="#二，内核修改（非必需）" class="headerlink" title="二，内核修改（非必需）"></a>二，内核修改（非必需）</h2><p><strong>linux内核修改只针对如下情况，才需要修改：</strong></p>
+<ul>
+<li>i. linux没有打开rndis网卡驱动</li>
+<li>ii. 需要使用AT指令（打开ttyUSB设备）</li>
+</ul>
+<h3 id="1-增加rndis设备驱动（配置内核）"><a href="#1-增加rndis设备驱动（配置内核）" class="headerlink" title="1. 增加rndis设备驱动（配置内核）"></a>1. 增加rndis设备驱动（配置内核）</h3><p>对于较老版本或者嵌入式设备默认可能关闭了RNDIS驱动，我们以linux-3.13为例，描述如何打开linux自带的RNDIS驱动：</p>
+<ul>
+<li>step 1:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;your kernel directory&gt;</span><br></pre></td></tr></table></figure></li>
+<li>step 2:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure></li>
+<li>step 3: ENALBE USB_NET_RNDIS_HOST<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_42517.png" alt="rndis" title="rndis"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57948.png" alt="rndis2" title="rndis2"></li>
+</ul>
+<blockquote>
+<p>make</p>
+</blockquote>
+<p>将编译好的内核重新下载到设备</p>
+<h3 id="2-ttyUSB设备驱动修改（如果需要发AT）"><a href="#2-ttyUSB设备驱动修改（如果需要发AT）" class="headerlink" title="2. ttyUSB设备驱动修改（如果需要发AT）"></a>2. ttyUSB设备驱动修改（如果需要发AT）</h3><ul>
+<li><p>step 1：<br>参考<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/37">Air720模块Linux USB驱动以及PPP拨号说明</a>【一、修改驱动(1-3 节部分)】。</p>
+</li>
+<li><p>step 2：<br>为了禁止驱动将usb M0，M1加载为ttyUSB设备，需要将usb serial 驱动部分做如下修改：</p>
+</li>
+</ul>
+<p>** For Linux Kernel Version newer than 2.6.30<br>File: [KERNEL]/drivers/usb/serial/option.c **</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static int option_probe(struct usb_serial *serial,</span><br><span class="line">                        const struct usb_device_id *id)</span><br><span class="line">&#123;</span><br><span class="line">        struct usb_interface_descriptor *iface_desc &#x3D;</span><br><span class="line">                                &amp;serial-&gt;interface-&gt;cur_altsetting-&gt;desc;</span><br><span class="line">        struct usb_device_descriptor *dev_desc &#x3D; &amp;serial-&gt;dev-&gt;descriptor;</span><br><span class="line"></span><br><span class="line">        &#x2F;* Never bind to the CD-Rom emulation interface *&#x2F;</span><br><span class="line">        if (iface_desc-&gt;bInterfaceClass &#x3D;&#x3D; 0x08)</span><br><span class="line">        i       return -ENODEV;</span><br><span class="line">        &#x2F;&#x2F;+add by airm2m for Air72x</span><br><span class="line">        if(dev_desc-&gt;idVendor &#x3D;&#x3D; cpu_to_le16(0x1286) &amp;&amp;</span><br><span class="line">           dev_desc-&gt;idProduct &#x3D;&#x3D; cpu_to_le16(0x4e3d) &amp;&amp;</span><br><span class="line">           iface_desc-&gt;bInterfaceNumber &lt;&#x3D; 1)</span><br><span class="line">                return -ENODEV;</span><br><span class="line">        &#x2F;&#x2F;-add by airm2m for Air72x</span><br><span class="line">        &#x2F;*</span><br><span class="line">         * Don&#39;t bind reserved interfaces (like network ones) which often have</span><br><span class="line">         * the same class&#x2F;subclass&#x2F;protocol as the serial interfaces.  Look at</span><br><span class="line">         * the Windows driver .INF files for reserved interface numbers.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        if (is_blacklisted(</span><br><span class="line">                iface_desc-&gt;bInterfaceNumber,</span><br><span class="line">                OPTION_BLACKLIST_RESERVED_IF,</span><br><span class="line">                (const struct option_blacklist_info *) id-&gt;driver_info))</span><br><span class="line">                return -ENODEV;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>**For Linux Kernel Version older than 2.6.31<br>File: [KERNEL]/drivers/usb/serial/option.c **</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">static int option_startup(struct usb_serial *serial)</span><br><span class="line">&#123;</span><br><span class="line">	int i, j, err;</span><br><span class="line">	struct usb_serial_port *port;</span><br><span class="line">	struct option_port_private *portdata;</span><br><span class="line">	u8 *buffer;</span><br><span class="line"></span><br><span class="line">	dbg(&quot;%s&quot;, __func__);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;+add by airm2m for Air72x</span><br><span class="line">    if(serial-&gt;dev-&gt;descriptor.idVendor &#x3D;&#x3D; cpu_to_le16(0x1286) &amp;&amp; serial-&gt;dev-&gt;descriptor.idProduct &#x3D;&#x3D; cpu_to_le16(0x4e3d)</span><br><span class="line">        &amp;&amp; serial-&gt;interface-&gt;cur_altsetting-&gt;desc.bInterfaceNumber &lt;&#x3D; 1)</span><br><span class="line">    &#123;</span><br><span class="line">        return -ENODEV;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;-add by airm2m for Air72x</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-ttyUSB设备测试-如果需要发AT"><a href="#3-ttyUSB设备测试-如果需要发AT" class="headerlink" title="3. ttyUSB设备测试 (如果需要发AT)"></a>3. ttyUSB设备测试 (如果需要发AT)</h3><p>加入ttyUSB设备驱动支持后，Air720模块会提供如下设备：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>VID</th>
+<th>PID</th>
+<th>Device</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Air720</td>
+<td>0x1286</td>
+<td>0x4e3d</td>
+<td>RNDIS网卡</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>ttyUSB0 AT口</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>ttyUSB1 AT+ppp口</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>ttyUSB2 log输出口</td>
+</tr>
+</tbody></table>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_48708.png" alt="ttyUSB" title="ttyUSB"><br>测试AT指令可以用<code>minicom</code>等工具，运行命令<code>sudo minicom -D /dev/ttyUSB0</code>,测试结果如下：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24901.png" alt="at" title="at"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/28/453/" data-id="ckkfmdgbd005ivkcg31gsdwtl" data-title="Air720模块在linux设备上的RNDIS网卡使用" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/29/454/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air720开发板在WINDOWS下PPP拨号教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/27/452/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">读取DHT12的温湿度</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>使用Lua脚本连接华为云物联网服务 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本教程代码在2G与4G模块上均可使用如需查看AT命令方式连接方法，请查看：教你用Air720 模块通过AT指令以MQTTS方式连接华为云（上篇）  准备工作打开华为云物联网后台（如果无账号，需要注册）：OceanConnect开发中心 新建项目，项目名称和行业按需求填写： 记录下应用id与密钥，进入项目： 1234应用IDackQwtMh2hnjQzMoJE4fTc3ZtVoa应用密钥4BdXi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Lua脚本连接华为云物联网服务">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/07/18/593/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="本教程代码在2G与4G模块上均可使用如需查看AT命令方式连接方法，请查看：教你用Air720 模块通过AT指令以MQTTS方式连接华为云（上篇）  准备工作打开华为云物联网后台（如果无账号，需要注册）：OceanConnect开发中心 新建项目，项目名称和行业按需求填写： 记录下应用id与密钥，进入项目： 1234应用IDackQwtMh2hnjQzMoJE4fTc3ZtVoa应用密钥4BdXi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_18953.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_56927.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_16742.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_23971.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_78650.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_37611.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_30386.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_71272.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_19642.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_28688.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_64676.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_10125.jpg">
+<meta property="article:published_time" content="2019-07-18T10:44:03.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_18953.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-593" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/07/18/593/" class="article-date">
+  <time class="dt-published" datetime="2019-07-18T10:44:03.000Z" itemprop="datePublished">2019-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      使用Lua脚本连接华为云物联网服务
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本教程代码在2G与4G模块上均可使用<br>如需查看AT命令方式连接方法，请查看：<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/902">教你用Air720 模块通过AT指令以MQTTS方式连接华为云（上篇）</a></p>
+</blockquote>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>打开华为云物联网后台（如果无账号，需要注册）：<br><a target="_blank" rel="noopener" href="https://iot-dev.huaweicloud.com/#/developer-overview">OceanConnect开发中心</a></p>
+<p>新建项目，项目名称和行业按需求填写：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_18953.jpg"></p>
+<p>记录下应用id与密钥，进入项目：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56927.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">应用ID</span><br><span class="line">ackQwtMh2hnjQzMoJE4fTc3ZtVoa</span><br><span class="line">应用密钥</span><br><span class="line">4BdXiylWLCFHHlLin_fwzgwAJfoa</span><br></pre></td></tr></table></figure>
+<p>点<code>产品开发</code>，<code>新建产品</code>，内容按需求填写，注意<code>接入应用层协议类型</code>要选择<code>MQTT</code>：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16742.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_23971.jpg"></p>
+<p>给这个产品添加Profile定义：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78650.jpg"></p>
+<p>按下图新建属性：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_37611.jpg"></p>
+<p>按照下图，再添加两个命令（string长度图里应为4）：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30386.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71272.jpg"><br>保存设置。</p>
+<p>左侧<code>设备管理</code>，<code>添加真实设备</code>，注意类型要选直连：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19642.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_28688.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_64676.jpg"></p>
+<p>设备信息记下来，后面会用到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">设备ID：</span><br><span class="line">355d812e-ad55-47a5-b811-760f760b63a1</span><br><span class="line">密钥：</span><br><span class="line">10f0a44d66a582b3ddee</span><br></pre></td></tr></table></figure>
+<h1 id="模块连接实现"><a href="#模块连接实现" class="headerlink" title="模块连接实现"></a>模块连接实现</h1><blockquote>
+<p>模块连接需要使用MQTT+SSL的方式，具体鉴权协议可以参考华为云的文档：<a target="_blank" rel="noopener" href="https://support.huaweicloud.com/api-IoT/iot_06_3009.html">MQTT CONNECT连接鉴权</a></p>
+</blockquote>
+<p>首先需要注意，由于上面定义了int类型，并且在华为云的int类型会带小数点的尾缀，所以我们需要使用SSL+FLOAT的固件，并且保证固件版本大于0034以确保可以使用HMACSHA256计算函数</p>
+<p>首先准备一下mqtt的证书文件，保存下面的文本内容为<code>hw.crt</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIID4DCCAsigAwIBAgIJAK97nNS67HRvMA0GCSqGSIb3DQEBCwUAMFMxCzAJBgNV</span><br><span class="line">BAYTAkNOMQswCQYDVQQIEwJHRDELMAkGA1UEBxMCU1oxDzANBgNVBAoTBkh1YXdl</span><br><span class="line">aTELMAkGA1UECxMCQ04xDDAKBgNVBAMTA0lPVDAeFw0xNjA1MDQxMjE3MjdaFw0y</span><br><span class="line">NjA1MDIxMjE3MjdaMFMxCzAJBgNVBAYTAkNOMQswCQYDVQQIEwJHRDELMAkGA1UE</span><br><span class="line">BxMCU1oxDzANBgNVBAoTBkh1YXdlaTELMAkGA1UECxMCQ04xDDAKBgNVBAMTA0lP</span><br><span class="line">VDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJxM9fwkwvxeILpkvoAM</span><br><span class="line">Gdqq3x0G9o445F6Shg3I0xmmzu9Of8wYuW3c4jtQ&#x2F;6zscuIGyWf06ke1z&#x2F;&#x2F;AVZ&#x2F;o</span><br><span class="line">dp8LkuFbBbDXR5swjUJ6z15b6yaYH614Ty&#x2F;d6DrCM+RaU+FWmxmOon9W&#x2F;VELu2BB</span><br><span class="line">NXDQHJBSbWrLNGnZA2erk4JSMp7RhHrZ0QaNtT4HhIczFYtQ2lYF+sQJpQMrjoRn</span><br><span class="line">dSV9WB872Ja4DgcISU1+wuWLmS&#x2F;NKjIvOWW1upS79yu2I4Rxos2mFy9xxz311rGC</span><br><span class="line">Z3X65ejFNzCUrNgf6NEP1N7wB9hUu7u50aA+&#x2F;56D7EgjeI0gpFytC+a4f6JCPVWI</span><br><span class="line">Lr0CAwEAAaOBtjCBszAdBgNVHQ4EFgQUcGqy59oawLEgMl21&#x2F;&#x2F;7F5RyABpwwgYMG</span><br><span class="line">A1UdIwR8MHqAFHBqsufaGsCxIDJdtf&#x2F;+xeUcgAacoVekVTBTMQswCQYDVQQGEwJD</span><br><span class="line">TjELMAkGA1UECBMCR0QxCzAJBgNVBAcTAlNaMQ8wDQYDVQQKEwZIdWF3ZWkxCzAJ</span><br><span class="line">BgNVBAsTAkNOMQwwCgYDVQQDEwNJT1SCCQCve5zUuux0bzAMBgNVHRMEBTADAQH&#x2F;</span><br><span class="line">MA0GCSqGSIb3DQEBCwUAA4IBAQBgv2PQn66gRMbGJMSYS48GIFqpCo783TUTePNS</span><br><span class="line">tV8G1MIiQCpYNdk2wNw&#x2F;iFjoLRkdx4va6jgceht5iX6SdjpoQF7y5qVDVrScQmsP</span><br><span class="line">U95IFcOkZJCNtOpUXdT+a3N+NlpxiScyIOtSrQnDFixWMCJQwEfg8j74qO96UvDA</span><br><span class="line">FuTCocOouER3ZZjQ8MEsMMquNEvMHJkMRX11L5Rxo1pc6J&#x2F;EMWW5scK2rC0Hg91a</span><br><span class="line">Lod6aezh2K7KleC0V5ZlIuEvFoBc7bCwcBSAKA3BnQveJ8nEu9pbuBsVAjHOroVb</span><br><span class="line">8&#x2F;bL5retJigmAN2GIyFv39TFXIySw+lW0wlp+iSPxO9s9J+t</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure>
+<p>新建<code>main.lua</code>：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">PROJECT = <span class="string">&quot;HWMQTT&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;1.0.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载日志功能模块，并且设置日志输出等级</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;sys&quot;</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;net&quot;</span></span><br><span class="line"><span class="comment">--每1分钟查询一次GSM信号强度</span></span><br><span class="line"><span class="comment">--每1分钟查询一次基站信息</span></span><br><span class="line">net.startQueryAll(<span class="number">60000</span>, <span class="number">60000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--加载硬件看门狗功能模块</span></span><br><span class="line"><span class="comment">--require &quot;wdt&quot;</span></span><br><span class="line"><span class="comment">--wdt.setup(pio.P0_30, pio.P0_31)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载网络指示灯功能模块</span></span><br><span class="line"><span class="comment">--require &quot;netLed&quot;</span></span><br><span class="line"><span class="comment">--netLed.setup(true,pio.P1_1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载MQTT功能测试模块</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;mqttTask&quot;</span></span><br><span class="line"><span class="comment">--启动系统框架</span></span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
+<p>新建<code>mqttTask.lua</code>：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">&quot;mqtt&quot;</span></span><br><span class="line"><span class="built_in">module</span>(..., <span class="built_in">package</span>.<span class="built_in">seeall</span>)</span><br><span class="line"><span class="comment">-- 这里请填写华为云后台对接信息所展示的设备信息MQTT接入方式信息</span></span><br><span class="line"><span class="keyword">local</span> host, port = <span class="string">&quot;49.4.93.24&quot;</span>, <span class="number">8883</span></span><br><span class="line"><span class="comment">--这里设置设备的device id和密钥，之前新建设备时得到的两个字符串</span></span><br><span class="line"><span class="comment">--实际使用中，这两个值可以存在SN中，在生产时一个个烧录进去</span></span><br><span class="line"><span class="keyword">local</span> device = <span class="string">&quot;355d812e-ad55-47a5-b811-760f760b63a1&quot;</span></span><br><span class="line"><span class="keyword">local</span> secret = <span class="string">&quot;10f0a44d66a582b3ddee&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--同步NTP时间，因为鉴权需要用到UTC时间</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;ntp&quot;</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">ntbcb</span><span class="params">(r)</span></span></span><br><span class="line">    <span class="keyword">if</span> r <span class="keyword">then</span></span><br><span class="line">        sys.publish(<span class="string">&quot;NTP_OK&quot;</span>)<span class="comment">--时间同步完成后，发送命令，开始mqtt连接</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ntp.timeSync(<span class="literal">nil</span>,ntbcb)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">ntp.timeSync(<span class="literal">nil</span>,ntbcb)<span class="comment">--开始同步时间任务</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--此处参照华为云文档，生成连接时使用的密钥</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">keyGenerate</span><span class="params">(key)</span></span></span><br><span class="line">    <span class="keyword">local</span> clk = <span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;*t&quot;</span>,<span class="built_in">os</span>.<span class="built_in">time</span>()<span class="number">-3600</span>*<span class="number">8</span>)<span class="comment">--获取UTC时间的table</span></span><br><span class="line">    <span class="keyword">local</span> timeStr = <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%02d%02d%02d%02d&quot;</span>,clk.year,clk.month,clk.day,clk.hour)<span class="comment">--时间戳</span></span><br><span class="line">    <span class="keyword">local</span> result = crypto.hmac_sha256(key,timeStr):<span class="built_in">lower</span>()</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;keyGenerate&quot;</span>,timeStr,key,result)</span><br><span class="line">    <span class="keyword">if</span> crypto.hmac_sha256 <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">log</span>.<span class="built_in">error</span>(<span class="string">&quot;crypto.hmac_sha256&quot;</span>,<span class="string">&quot;please update your lod version, higher than 0034!&quot;</span>)</span><br><span class="line">        rtos.poweroff()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">socket.setSendMode(<span class="number">1</span>)</span><br><span class="line"><span class="comment">-- 测试MQTT的任务代码</span></span><br><span class="line">sys.taskInit(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">    sys.waitUntil(<span class="string">&quot;NTP_OK&quot;</span>)<span class="comment">--等待时间同步成功</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> socket.isReady() <span class="keyword">do</span> sys.wait(<span class="number">1000</span>) <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">local</span> clk = <span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;*t&quot;</span>,<span class="built_in">os</span>.<span class="built_in">time</span>()<span class="number">-3600</span>*<span class="number">8</span>)<span class="comment">--获取UTC时间的table</span></span><br><span class="line">        <span class="keyword">local</span> mqttc = mqtt.client(</span><br><span class="line">            device..<span class="string">&quot;_0_1_&quot;</span>..<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%02d%02d%02d%02d&quot;</span>,clk.year,clk.month,clk.day,clk.hour),<span class="comment">--时间戳鉴权模式</span></span><br><span class="line">            <span class="number">300</span>,</span><br><span class="line">            device,</span><br><span class="line">            keyGenerate(secret))</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> mqttc:connect(host, port, <span class="string">&quot;tcp_ssl&quot;</span>,&#123;caCert=<span class="string">&quot;hw.crt&quot;</span>&#125;) <span class="keyword">do</span> sys.wait(<span class="number">2000</span>) <span class="keyword">end</span></span><br><span class="line">        <span class="comment">--topic订阅规则详细请见华为云文档：https://support.huaweicloud.com/api-IoT/iot_06_3008.html#ZH-CN_TOPIC_0172230104</span></span><br><span class="line">        <span class="keyword">if</span> mqttc:subscribe(<span class="string">&quot;/huawei/v1/devices/&quot;</span>..device..<span class="string">&quot;/command/json&quot;</span>) <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">                <span class="keyword">local</span> r, data, param = mqttc:receive(<span class="number">120000</span>, <span class="string">&quot;pub_msg&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> r <span class="keyword">then</span></span><br><span class="line">                    <span class="built_in">log</span>.info(<span class="string">&quot;这是收到了服务器下发的消息:&quot;</span>, data.payload <span class="keyword">or</span> <span class="string">&quot;nil&quot;</span>)</span><br><span class="line">                    sys.publish(<span class="string">&quot;rev_msg&quot;</span>,data.payload)<span class="comment">--把收到的数据推送出去</span></span><br><span class="line">                <span class="keyword">elseif</span> data == <span class="string">&quot;pub_msg&quot;</span> <span class="keyword">then</span></span><br><span class="line">                    <span class="built_in">log</span>.info(<span class="string">&quot;这是收到了订阅的消息和参数显示:&quot;</span>, param)</span><br><span class="line">                    <span class="comment">--topic订阅规则详细请见华为云文档</span></span><br><span class="line">                    mqttc:publish(<span class="string">&quot;/huawei/v1/devices/&quot;</span>..device..<span class="string">&quot;/data/json&quot;</span>, param)</span><br><span class="line">                <span class="keyword">elseif</span> data == <span class="string">&quot;timeout&quot;</span> <span class="keyword">then</span></span><br><span class="line">                    <span class="comment">--等待超时，进行下一轮等待</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        mqttc:disconnect()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--接收到mqtt之后，对数据进行处理</span></span><br><span class="line">sys.subscribe(<span class="string">&quot;rev_msg&quot;</span>,<span class="function"><span class="keyword">function</span><span class="params">(data)</span></span></span><br><span class="line">    <span class="keyword">local</span> t,r,e = json.decode(data)<span class="comment">--解包收到的json数据，具体参考手册：https://support.huaweicloud.com/api-IoT/iot_06_3011.html</span></span><br><span class="line">    <span class="keyword">if</span> r <span class="keyword">and</span> <span class="built_in">type</span>(t)==<span class="string">&quot;table&quot;</span> <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;receive.msgType&quot;</span>,t.msgType)<span class="comment">--表示平台下发的请求，固定值“cloudReq”</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;receive.serviceId&quot;</span>,t.serviceId)<span class="comment">--设备服务的ID</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;receive.cmd&quot;</span>,t.cmd)<span class="comment">--服务的命令名，参见profile的服务命令定义</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;receive.mid&quot;</span>,t.mid)<span class="comment">--2字节无符号的命令id，平台内部分配（范围1-65535），设备命令响应平台时，需要返回该值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> t.cmd == <span class="string">&quot;testcmd&quot;</span> <span class="keyword">then</span><span class="comment">--匹配上了之前写的cmd名称</span></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;receive.paras.testControl&quot;</span>,t.paras.testControl)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">local</span> clk = <span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;*t&quot;</span>,<span class="built_in">os</span>.<span class="built_in">time</span>()<span class="number">-3600</span>*<span class="number">8</span>)<span class="comment">--获取UTC时间的table</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">--组包回复用的json，具体参考手册：https://support.huaweicloud.com/api-IoT/iot_06_3012.html</span></span><br><span class="line">            <span class="keyword">local</span> reply = &#123;</span><br><span class="line">                msgType = <span class="string">&quot;deviceRsp&quot;</span>,<span class="comment">--固定值“deviceRsp”，表示设备的应答消息</span></span><br><span class="line">                mid = t.mid,<span class="comment">--2字节无符号的命令ID，根据平台下发命令时的mid返回给平台。建议在消息中携带此参数</span></span><br><span class="line">                errcode = <span class="number">0</span>,<span class="comment">--请求处理的结果码。“0”表示成功。“1”表示失败</span></span><br><span class="line">                body = &#123;<span class="comment">--命令的应答，具体字段由profile定义</span></span><br><span class="line">                    testReply = <span class="string">&quot;done&quot;</span>,<span class="comment">--这是之前后台设置的那个</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            sys.publish(<span class="string">&quot;pub_msg&quot;</span>,json.encode(reply))<span class="comment">--上报返回的报文</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">--组包上报用的json，具体参考手册：https://support.huaweicloud.com/api-IoT/iot_06_3010.html</span></span><br><span class="line">            <span class="keyword">local</span> upload = &#123;</span><br><span class="line">                msgType = <span class="string">&quot;deviceReq&quot;</span>,<span class="comment">--表示设备上报数据，固定值“deviceReq”</span></span><br><span class="line">                data = &#123;<span class="comment">--一组服务的数据（具体结构参考下表ServiceData定义表），当需要上传批量数据时，可在该字段中添加数据</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        serviceId = <span class="string">&quot;testServer&quot;</span>,<span class="comment">--设备服务的ID</span></span><br><span class="line">                        serviceData = &#123;<span class="comment">--一个服务的数据，具体字段在profile里定义</span></span><br><span class="line">                            testProperty = t.paras.testControl,<span class="comment">--把刚刚下发的东西，上报上去</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        eventTime = <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%02d%02d%02d%02d%02d%02dZ&quot;</span>,<span class="comment">--设备采集数据UTC时间（格式：yyyyMMddTHHmmssZ）</span></span><br><span class="line">                                    clk.year,clk.month,clk.day,clk.hour,clk.<span class="built_in">min</span>,clk.sec)<span class="comment">--时间戳</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            sys.publish(<span class="string">&quot;pub_msg&quot;</span>,json.encode(upload))<span class="comment">--上报返回的报文</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;json.decode error&quot;</span>,e)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>烧录到设备里，以备测试</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>后台下发数据，模块回复</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_10125.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/07/18/593/" data-id="ckkfmdgcf008gvkcg08pb3zs5" data-title="使用Lua脚本连接华为云物联网服务" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/25/594/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          vscode入门推荐配置（lua开发使用）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/17/592/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

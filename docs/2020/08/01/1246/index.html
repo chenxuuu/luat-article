@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Lua版本LVGL(LittleVGL)开发介绍 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@[TOC] 一、介绍 LittlevGL是一个免费的开源图形库，提供了创建嵌入式GUI所需的一切，具有易于使用的图形元素、漂亮的视觉效果和低内存占用。 目前官方的LittleVGL只支持C语言和MicroPython两种开发语言，合宙在保留了官方接口的同时，推出了支持Lua语言的LittleVGL版本，方便开发者使用Lua语言在Air724U系列模块中开发图形界面  二、目的本文重点介绍了如何用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua版本LVGL(LittleVGL)开发介绍">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/08/01/1246/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="@[TOC] 一、介绍 LittlevGL是一个免费的开源图形库，提供了创建嵌入式GUI所需的一切，具有易于使用的图形元素、漂亮的视觉效果和低内存占用。 目前官方的LittleVGL只支持C语言和MicroPython两种开发语言，合宙在保留了官方接口的同时，推出了支持Lua语言的LittleVGL版本，方便开发者使用Lua语言在Air724U系列模块中开发图形界面  二、目的本文重点介绍了如何用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201015170517477_core.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200807131708219_demo.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200807131012759_lvgl.gif">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193837165_iamge.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193901278_qr.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193917552_button.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193929280_acr.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193952368_label.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905194004081_label.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905194015399_sli.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905194027548_switch.png">
+<meta property="article:published_time" content="2020-08-01T12:24:09.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.335Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201015170517477_core.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1246" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/01/1246/" class="article-date">
+  <time class="dt-published" datetime="2020-08-01T12:24:09.000Z" itemprop="datePublished">2020-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Lua版本LVGL(LittleVGL)开发介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[TOC]</p>
+<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><ul>
+<li>LittlevGL是一个免费的开源图形库，提供了创建嵌入式GUI所需的一切，具有易于使用的图形元素、漂亮的视觉效果和低内存占用。</li>
+<li>目前官方的LittleVGL只支持C语言和MicroPython两种开发语言，合宙在保留了官方接口的同时，推出了支持Lua语言的LittleVGL版本，方便开发者使用Lua语言在Air724U系列模块中开发图形界面</li>
+</ul>
+<h2 id="二、目的"><a href="#二、目的" class="headerlink" title="二、目的"></a>二、目的</h2><p>本文重点介绍了如何用Lua版本的LittleVGL来做UI界面开发。</p>
+<h2 id="三、环境准备"><a href="#三、环境准备" class="headerlink" title="三、环境准备"></a>三、环境准备</h2><ul>
+<li>1， Air724U开发板</li>
+<li>2， LCD显示屏</li>
+<li>3， Lua版本的LittleVGL固件</li>
+<li>4， Luatools开发工具</li>
+</ul>
+<h2 id="四、运行官方示例"><a href="#四、运行官方示例" class="headerlink" title="四、运行官方示例"></a>四、运行官方示例</h2><p>官方固件支持图片显示和简单的button控件，没有按键和触摸屏的处理逻辑。采用定时器方式切换界面。交互逻辑用户可以通过驱动按键或者触摸屏自行添加。</p>
+<ul>
+<li>1, 下载固件–<a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U">开源Lua代码地址</a></li>
+</ul>
+<p><strong>core</strong></p>
+<blockquote>
+<p>注意：选择支持蓝牙版本的core固件进行下载，core之间的差异可以参考<a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U">开源Lua代码地址首页说明</a></p>
+</blockquote>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201015170517477_core.png"></p>
+<p><strong>lua demo</strong><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200807131708219_demo.png" alt="lua demo" title="lua demo"></p>
+<ul>
+<li>2, 显示效果<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200807131012759_lvgl.gif" alt="lvgl" title="lvgl"></li>
+</ul>
+<h2 id="五、控件使用"><a href="#五、控件使用" class="headerlink" title="五、控件使用"></a>五、控件使用</h2><h3 id="5-1-常用控件"><a href="#5-1-常用控件" class="headerlink" title="5.1 常用控件"></a>5.1 常用控件</h3><p>目前Lua版本的LittleVGL由于空间有限，并未支持所有控件，已支持的常用控件：<br><code>button,image button, image, label, page, container, list, checkbox, slider, window, switch, Arc, spinbox, Animations</code>，<br>各种控件的使用和参考代码可以参考官方的<a target="_blank" rel="noopener" href="https://docs.lvgl.io/v6/en/html/object-types/index.html#">控件介绍文档。</a></p>
+<h3 id="5-2-利用控件搭建窗口"><a href="#5-2-利用控件搭建窗口" class="headerlink" title="5.2 利用控件搭建窗口"></a>5.2 利用控件搭建窗口</h3><p>所有的窗口都是通过控件组成的，这里涉及到如下信息：</p>
+<ul>
+<li>1, 控件</li>
+</ul>
+<p>控件是窗口的基本组成单元，所以在创建窗口的时候需要确定使用哪些控件。所有控件都是基于lv中的基础类<code>lv_obj</code>派生而来，所以<code>lv_obj</code>中的所有接口和方法都可以在各个基本控件中使用</p>
+<ul>
+<li>2, 位置</li>
+</ul>
+<p>确定好控件后，就需要确认控件在窗口中的具体位置，位置可以通过如下函数来设置</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lvgl.obj_set_x</span><br><span class="line">lvgl.obj_set_y</span><br><span class="line">或者</span><br><span class="line">lvgl.obj_set_pos</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3, 样式</li>
+</ul>
+<p>样式属性决定了对象的外观形象，但是样式又相对来说是比较麻烦的，因为我们描绘一个对象的外观的维度是非常多的，比如我们可以设置对象的背景，文本样式，填充样式，线条样式等等，不过我们刚开始学习自带的控件样式就足够我们使用了.</p>
+<h3 id="5-3-控件对用事件处理"><a href="#5-3-控件对用事件处理" class="headerlink" title="5.3 控件对用事件处理"></a>5.3 控件对用事件处理</h3><p>在窗口中组织好控件后，据需要对具体的业务逻辑进行处理。最典型的就是按钮事件，按钮按下后需要启动新的逻辑，画新的窗口或者后台进行相应的业务处理。<br>一般控件事件可以通过<code>lv.obj_set_event_cb</code>函数来设置相应事件触发的回调函数</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">my_event_cb</span><span class="params">(obj, event)</span></span></span><br><span class="line">    <span class="keyword">if</span> event == lvgl.EVENT_PRESSED <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Pressed\n&quot;</span>);</span><br><span class="line">    <span class="keyword">elseif</span> event == lvgl.EVENT_SHORT_CLICKED <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Short clicked\n&quot;</span>)</span><br><span class="line">    <span class="keyword">elseif</span> event == lvgl.EVENT_CLICKED <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Clicked\n&quot;</span>)</span><br><span class="line">    <span class="keyword">elseif</span> event == lvgl.EVENT_LONG_PRESSED <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Long press\n&quot;</span>)</span><br><span class="line">    <span class="keyword">elseif</span> event == lvgl.EVENT_RELEASED <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Released\n&quot;</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">btn = lv.btn_create(lv.scr_act(), NULL);</span><br><span class="line">lv_obj_set_event_cb(btn, my_event_cb);   /*Assign an event callback*/</span><br></pre></td></tr></table></figure>
+<h2 id="六、LittleVGL编程"><a href="#六、LittleVGL编程" class="headerlink" title="六、LittleVGL编程"></a>六、LittleVGL编程</h2><h3 id="6-1-函数接口介绍"><a href="#6-1-函数接口介绍" class="headerlink" title="6.1 函数接口介绍"></a>6.1 函数接口介绍</h3><p>lua版本的littlevgl继承了C语言版本的大部分接口，既能满足嵌入式UI界面开发，又能减少内存使用，详细的接口介绍可以参考<a target="_blank" rel="noopener" href="https://docs.lvgl.io/v6/en/html/overview/index.html">《官方文档API部分》</a>，中文翻译版本<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201230172710111_LVGL%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C.pdf">LVGL中文手册.pdf</a>，只要将其中的<code>lv_或者LV_开头</code>去掉，换成<code>lvgl.开头</code>就可以直接使用，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;button创建c接口</span><br><span class="line">lv_obj_t *lv_btn_create(lv_obj_t *par, constlv_obj_t *copy)</span><br><span class="line">&#x2F;&#x2F;button创建Lua接口</span><br><span class="line">lv_obj_t lvgl.btn_create(par, copy)</span><br></pre></td></tr></table></figure>
+<p>以其中按钮创建为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;C语言</span><br><span class="line">void lv_ex_btn_1(void)</span><br><span class="line">&#123;</span><br><span class="line">    lv_obj_t * label;</span><br><span class="line"></span><br><span class="line">    lv_obj_t * btn1 &#x3D; lv_btn_create(lv_scr_act(), NULL);</span><br><span class="line">    lv_obj_set_event_cb(btn1, event_handler);</span><br><span class="line">    lv_obj_align(btn1, NULL, LV_ALIGN_CENTER, 0, -40);</span><br><span class="line"></span><br><span class="line">    label &#x3D; lv_label_create(btn1, NULL);</span><br><span class="line">    lv_label_set_text(label, &quot;Button&quot;);</span><br><span class="line"></span><br><span class="line">    lv_obj_t * btn2 &#x3D; lv_btn_create(lv_scr_act(), NULL);</span><br><span class="line">    lv_obj_set_event_cb(btn2, event_handler);</span><br><span class="line">    lv_obj_align(btn2, NULL, LV_ALIGN_CENTER, 0, 40);</span><br><span class="line">    lv_btn_set_toggle(btn2, true);</span><br><span class="line">    lv_btn_toggle(btn2);</span><br><span class="line">    lv_btn_set_fit2(btn2, LV_FIT_NONE, LV_FIT_TIGHT);</span><br><span class="line"></span><br><span class="line">    label &#x3D; lv_label_create(btn2, NULL);</span><br><span class="line">    lv_label_set_text(label, &quot;Toggled&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">--Lua语言</span><br><span class="line">function lv_ex_btn_1()</span><br><span class="line">    act_src &#x3D; lvgl.scr_act()</span><br><span class="line">    btn1 &#x3D; lv.btn_create(act_src, nil)</span><br><span class="line">    lvgl.obj_set_event_cb(btn1, event_handler)</span><br><span class="line">    lvgl.obj_align(btn1, nil, LVGL.ALIGN_CENTER, 0, -40)</span><br><span class="line"></span><br><span class="line">    label &#x3D; lvgl.label_create(btn1, nil)</span><br><span class="line">    lvgl.label_set_text(label, &quot;Button&quot;)</span><br><span class="line"></span><br><span class="line">    btn2 &#x3D; lvgl.btn_create(act_src, nil)</span><br><span class="line">    lvgl.obj_set_event_cb(btn2, event_handler)</span><br><span class="line">    lvgl.obj_align(btn2, nil, lvgl.ALIGN_CENTER, 0, 40)</span><br><span class="line">    lvgl.btn_set_toggle(btn2, true)</span><br><span class="line">    lvgl.btn_toggle(btn2)</span><br><span class="line">    lvgl.btn_set_fit2(btn2, lvgl.FIT_NONE, lvgl.FIT_TIGHT)</span><br><span class="line"></span><br><span class="line">    label &#x3D; lvgl.label_create(btn2, nil)</span><br><span class="line">    lvgl.label_set_text(label, &quot;Toggled&quot;)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="6-2-替换字体"><a href="#6-2-替换字体" class="headerlink" title="6.2 替换字体"></a>6.2 替换字体</h3><p><em>待完善</em></p>
+<h3 id="6-3-添加按键处理"><a href="#6-3-添加按键处理" class="headerlink" title="6.3 添加按键处理"></a>6.3 添加按键处理</h3><p>littleVGL支持的事件由以下几种：</p>
+<ul>
+<li>1, 控件事件</li>
+</ul>
+<p>控件按下、控件拖拽、控件值改变等，这些控件时间可以通过<code>lvgl.obj_set_event_cb</code>函数设置回调函数来捕获这类事件。</p>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>事件功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lvgl.EVENT_PRESSED</td>
+<td>对象已被按下</td>
+</tr>
+<tr>
+<td>lvgl.EVENT_LONG_PRESSED</td>
+<td>对象长按后发布该事件</td>
+</tr>
+<tr>
+<td>lvgl.EVENT_CLICKED</td>
+<td>对象被按下（不管是否长按）</td>
+</tr>
+<tr>
+<td>lvgl.EVENT_RELEASED</td>
+<td>对象按下后被抬起</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<p>其他事件也可以通过<a target="_blank" rel="noopener" href="https://docs.lvgl.io/v6/en/html/overview/event.html">《官方文档event部分》</a></p>
+<ul>
+<li>2, 输入事件</li>
+</ul>
+<p>这类事件是通过键盘、按钮、触控笔等触发。</p>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>事件功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lvgl.EVENT_DRAG_BEGIN</td>
+<td>开始拖拽</td>
+</tr>
+<tr>
+<td>lvgl.EVENT_DRAG_END</td>
+<td>对象长按后发布该事件</td>
+</tr>
+<tr>
+<td>lvgl.EVENT_DRAG_THROW_BEGIN</td>
+<td>对象被按下（不管是否长按）</td>
+</tr>
+<tr>
+<td>lvgl.EVENT_KEY</td>
+<td>对象按下后被抬起</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<h3 id="6-4-触摸屏处理"><a href="#6-4-触摸屏处理" class="headerlink" title="6.4 触摸屏处理"></a>6.4 触摸屏处理</h3><p><em>待完善</em></p>
+<h2 id="七、代码例程"><a href="#七、代码例程" class="headerlink" title="七、代码例程"></a>七、代码例程</h2><p>利用Lua Littlevgl实现的例程代码可以通过<a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U">合宙码云开源平台–Luat_Lua_Air724U</a>获取。<br>完整的<code>demo\lvgl</code>完成了lvgl支持的所有常用控件的列举、通过窗口切换来完成展示。具体代码和效果如下：</p>
+<blockquote>
+<p>注意：因为下方图片通过直接dump内存来显示的，经过工具转换后颜色显示不正常。正常颜色以实际显示效果为准！！！！</p>
+</blockquote>
+<h3 id="7-1-image控件"><a href="#7-1-image控件" class="headerlink" title="7.1 image控件"></a>7.1 image控件</h3><p>image空间主要用来存放已经导入lua的图片资源文件，对应代码在<code>demo\lvgl\widget.lua</code>文件</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193837165_iamge.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">empty</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">--创建容器（非必需）</span></span><br><span class="line">	c = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="comment">--创建image控件</span></span><br><span class="line">	img = lvgl.img_create(c, <span class="literal">nil</span>)</span><br><span class="line">	<span class="comment">--设置image文件</span></span><br><span class="line">	lvgl.img_set_src(img, <span class="string">&quot;/lua/logo.png&quot;</span>)</span><br><span class="line">	<span class="comment">--设置显示位置</span></span><br><span class="line">	lvgl.obj_align(img, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">	<span class="comment">--显示容器</span></span><br><span class="line">	lvgl.disp_load_scr(c)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>显示效果如下：</p>
+<h3 id="7-2-Canvas控件"><a href="#7-2-Canvas控件" class="headerlink" title="7.2 Canvas控件"></a>7.2 Canvas控件</h3><p>Canvas（画布）控件类似于image控件，用户可以在这个控件上画任何内容、包括绘制图片、绘制线条、绘制文字等。lua中用该控件显示了二维码。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193901278_qr.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">--创建容器（非必需）</span></span><br><span class="line">    scr = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">    <span class="comment">--创建画布控件</span></span><br><span class="line">    cv = lvgl.canvas_create(scr, <span class="literal">nil</span>)</span><br><span class="line">	lvgl.canvas_set_buffer(cv, <span class="number">100</span>, <span class="number">100</span>)</span><br><span class="line">    lvgl.obj_align(cv, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    layer_id = lvgl.canvas_to_disp_layer(cv)</span><br><span class="line">    <span class="comment">--设置当前画布的图层</span></span><br><span class="line">    disp.setactlayer(layer_id)</span><br><span class="line">    <span class="comment">--根据数据生成二维码</span></span><br><span class="line">    width, data = qrencode.encode(<span class="string">&#x27;http://www.openluat.com&#x27;</span>)</span><br><span class="line">    l_w, l_h = disp.getlayerinfo()</span><br><span class="line">    displayWidth = <span class="number">100</span></span><br><span class="line">    <span class="comment">--设置二维码显示位置</span></span><br><span class="line">    disp.putqrcode(data, width, displayWidth, (l_w-displayWidth)/<span class="number">2</span>, (l_h-displayWidth)/<span class="number">2</span>)</span><br><span class="line">    <span class="comment">--显示画布图层</span></span><br><span class="line">    disp.update()</span><br><span class="line">    <span class="keyword">return</span> scr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="7-3-button控件"><a href="#7-3-button控件" class="headerlink" title="7.3 button控件"></a>7.3 button控件</h3><p>button控件比较好理解，可以相应用户在屏幕上的按下操作，并做出相应动作</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193917552_button.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">    scr = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">    style = lvgl.style_t()</span><br><span class="line">    lvgl.style_copy(style, lvgl.style_plain)</span><br><span class="line">    style.line.color = lvgl.color_hex(<span class="number">0x800000</span>)</span><br><span class="line">    style.line.width = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    btn = lvgl.btn_create(scr, <span class="literal">nil</span>)</span><br><span class="line">    btn_label = lvgl.label_create(btn, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.label_set_text(btn_label, <span class="string">&quot;按钮&quot;</span>)</span><br><span class="line">    lvgl.obj_align(btn, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">0</span>, <span class="number">40</span>)</span><br><span class="line">    lvgl.obj_set_size(btn, <span class="number">60</span>, <span class="number">60</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scr</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-4-Arc控件（加载器）"><a href="#7-4-Arc控件（加载器）" class="headerlink" title="7.4 Arc控件（加载器）"></a>7.4 Arc控件（加载器）</h3><p>加载器用一个圆圈的来表示一个任务的处理进程，处理完成后圆圈便完整显示出来<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193929280_acr.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">    scr = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">    style = lvgl.style_t()</span><br><span class="line">    lvgl.style_copy(style, lvgl.style_plain)</span><br><span class="line">    style.line.color = lvgl.color_hex(<span class="number">0x800000</span>)</span><br><span class="line">    style.line.width = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    arc = lvgl.arc_create(scr, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.arc_set_style(arc, lvgl.ARC_STYLE_MAIN, style)</span><br><span class="line">    lvgl.arc_set_angles(arc, <span class="number">180</span>, <span class="number">180</span>)</span><br><span class="line">    lvgl.obj_set_size(arc, <span class="number">40</span>, <span class="number">40</span>)</span><br><span class="line">    lvgl.obj_align(arc, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">-30</span>, <span class="number">-30</span>)</span><br><span class="line">    arc_label = lvgl.label_create(scr, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.label_set_text(arc_label, <span class="string">&quot;加载器&quot;</span>)</span><br><span class="line">    lvgl.obj_align(arc_label, arc, lvgl.ALIGN_OUT_RIGHT_MID, <span class="number">4</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    sys.timerLoopStart(arc_loader, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scr</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-5-page控件"><a href="#7-5-page控件" class="headerlink" title="7.5 page控件"></a>7.5 page控件</h3><p>page控件本身是一个容器，可以设置这个容器的大小，容器内部也可以放置其他的子控件。并且随着page的增大减小，page根据里面的内容来决定是否可以滑动显示</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905193952368_label.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">	black = lvgl.color_make(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">	white = lvgl.color_make(<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>)</span><br><span class="line">    scr = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">    style_sb = lvgl.style_t()</span><br><span class="line">    style_sb.body.main_color = black</span><br><span class="line">    style_sb.body.grad_color = black</span><br><span class="line">    style_sb.body.border.color = white</span><br><span class="line">    style_sb.body.border.width = <span class="number">1</span></span><br><span class="line">    style_sb.body.border.opa = lvgl.OPA_70</span><br><span class="line">    style_sb.body.radius = lvgl.RADIUS_CIRCLE</span><br><span class="line">    style_sb.body.opa = lvgl.OPA_60</span><br><span class="line">    style_sb.body.padding.right = <span class="number">3</span></span><br><span class="line">    style_sb.body.padding.bottom = <span class="number">3</span></span><br><span class="line">    style_sb.body.padding.inner = <span class="number">8</span></span><br><span class="line"></span><br><span class="line">    page = lvgl.page_create(scr, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.obj_set_size(page, <span class="number">100</span>, <span class="number">150</span>)</span><br><span class="line">    lvgl.obj_align(page, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    lvgl.page_set_style(page, lvgl.PAGE_STYLE_SB, style_sb)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scr</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-6-label控件"><a href="#7-6-label控件" class="headerlink" title="7.6 label控件"></a>7.6 label控件</h3><p>标签控件一般用来显示一段文字，也可以显示多行文字<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905194004081_label.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">    ...</span><br><span class="line">    label = lvgl.label_create(page, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.label_set_long_mode(label, lvgl.LABEL_LONG_BREAK)</span><br><span class="line">    lvgl.obj_set_width(label, lvgl.page_get_fit_width(page))</span><br><span class="line">    lvgl.label_set_recolor(label, <span class="literal">true</span>)</span><br><span class="line">    lvgl.label_set_text(label, <span class="string">[[</span></span><br><span class="line"><span class="string">    	Air722UG</span></span><br><span class="line"><span class="string">    	Air724UG</span></span><br><span class="line"><span class="string">    	行1</span></span><br><span class="line"><span class="string">    	行2</span></span><br><span class="line"><span class="string">    	行3]]</span>)</span><br><span class="line">    <span class="comment">-- lvgl.disp_load_scr(scr)</span></span><br><span class="line">    <span class="keyword">return</span> scr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="7-7-Slider控件"><a href="#7-7-Slider控件" class="headerlink" title="7.7 Slider控件"></a>7.7 Slider控件</h3><p>滑动条类似进度条，但本身滑动条上有一个圈可以根据需要进行拖动。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905194015399_sli.png"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">    scr = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">    style_bg = lvgl.style_t()</span><br><span class="line">    style_indic = lvgl.style_t()</span><br><span class="line">    style_knob = lvgl.style_t()</span><br><span class="line"></span><br><span class="line">    lvgl.style_copy(style_bg, lvgl.style_pretty)</span><br><span class="line">    style_bg.body.main_color = lvgl.color_hex(<span class="number">0x00ff00</span>)</span><br><span class="line">    style_bg.body.grad_color = lvgl.color_hex(<span class="number">0x000080</span>)</span><br><span class="line">    style_bg.body.radius = lvgl.RADIUS_CIRCLE</span><br><span class="line">    style_bg.body.border.color = lvgl.color_hex(<span class="number">0xffffff</span>)</span><br><span class="line"></span><br><span class="line">    lvgl.style_copy(style_indic, lvgl.style_pretty_color)</span><br><span class="line">    style_indic.body.radius = lvgl.RADIUS_CIRCLE</span><br><span class="line">    style_indic.body.shadow.width = <span class="number">8</span></span><br><span class="line">    style_indic.body.shadow.color = style_indic.body.main_color</span><br><span class="line">    style_indic.body.padding.left = <span class="number">3</span></span><br><span class="line">    style_indic.body.padding.right = <span class="number">3</span></span><br><span class="line">    style_indic.body.padding.top = <span class="number">3</span></span><br><span class="line">    style_indic.body.padding.bottom = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    lvgl.style_copy(style_knob, lvgl.style_pretty)</span><br><span class="line">    style_knob.body.radius = lvgl.RADIUS_CIRCLE</span><br><span class="line">    style_knob.body.opa = lvgl.OPA_70</span><br><span class="line">    style_knob.body.padding.top = <span class="number">10</span></span><br><span class="line">    style_knob.body.padding.bottom = <span class="number">10</span></span><br><span class="line">    <span class="comment">--创建滑动条</span></span><br><span class="line">    slider = lvgl.slider_create(scr, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.obj_set_size(slider, <span class="number">100</span>, <span class="number">20</span>)</span><br><span class="line">    lvgl.slider_set_style(slider, lvgl.SLIDER_STYLE_BG, style_bg)</span><br><span class="line">    lvgl.slider_set_style(slider, lvgl.SLIDER_STYLE_INDIC, style_indic)</span><br><span class="line">    lvgl.slider_set_style(slider, lvgl.SLIDER_STYLE_KNOB, style_knob)</span><br><span class="line">    lvgl.obj_align(slider, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="comment">-- lvgl.disp_load_scr(scr)</span></span><br><span class="line"></span><br><span class="line">    label = lvgl.label_create(scr, <span class="literal">nil</span>)</span><br><span class="line">    lvgl.label_set_text(label, <span class="string">&quot;滑动条&quot;</span>)</span><br><span class="line">    lvgl.obj_align(label, slider, lvgl.ALIGN_OUT_BOTTOM_MID, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> scr</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-8-switch控件"><a href="#7-8-switch控件" class="headerlink" title="7.8 switch控件"></a>7.8 switch控件</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200905194027548_switch.png"><br>开关控件用来表示业务的状态开或者关。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span><span class="params">()</span></span></span><br><span class="line">	scr = lvgl.cont_create(<span class="literal">nil</span>, <span class="literal">nil</span>)</span><br><span class="line">	...</span><br><span class="line">	sw = lvgl.sw_create(scr, <span class="literal">nil</span>)</span><br><span class="line">	lvgl.obj_align(sw, <span class="literal">nil</span>, lvgl.ALIGN_CENTER, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	lvgl.sw_set_style(sw, lvgl.SW_STYLE_BG, bg_style)</span><br><span class="line">	lvgl.sw_set_style(sw, lvgl.SW_STYLE_INDIC, indic_style)</span><br><span class="line">	lvgl.sw_set_style(sw, lvgl.SW_STYLE_KNOB_ON, knob_on_style)</span><br><span class="line">	lvgl.sw_set_style(sw, lvgl.SW_STYLE_KNOB_OFF, knob_off_style)</span><br><span class="line"></span><br><span class="line">	label = lvgl.label_create(scr, <span class="literal">nil</span>)</span><br><span class="line">	lvgl.label_set_text(label, <span class="string">&quot;开关&quot;</span>)</span><br><span class="line">	lvgl.obj_align(label, sw, lvgl.ALIGN_OUT_BOTTOM_MID, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">	sys.timerStart(sw_toggle, <span class="number">1000</span>, <span class="literal">true</span>)</span><br><span class="line">	<span class="keyword">return</span> scr</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/08/01/1246/" data-id="ckkfmdg970009vkcg1r9uaf2u" data-title="Lua版本LVGL(LittleVGL)开发介绍" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/01/1247/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          14、RDA8910CSDK二次开发：CSDK程序死机了怎么办？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/31/1238/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">如何通过软件更新audio校准文件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

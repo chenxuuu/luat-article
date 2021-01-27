@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>实测Air720作为4G上网棒(MIFI)使用 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="所需要物料: Air720, 可以是S720开发板, 也可以是 minipcie封装+minipcie转USB, 我用的是后者 中移动物联网卡一张. 虽说其他运营商也支持,但我只有中移动的卡呀  第一步, 刷机!!!!当前仅支持windows下刷机收到Air720后, 如果不是AT版或者版本低于296,是必须要刷机的. 我推荐顺序是:  先安装驱动!!! 先安装驱动!!! 名字叫 AirM2M_U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实测Air720作为4G上网棒(MIFI)使用">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/30/462/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="所需要物料: Air720, 可以是S720开发板, 也可以是 minipcie封装+minipcie转USB, 我用的是后者 中移动物联网卡一张. 虽说其他运营商也支持,但我只有中移动的卡呀  第一步, 刷机!!!!当前仅支持windows下刷机收到Air720后, 如果不是AT版或者版本低于296,是必须要刷机的. 我推荐顺序是:  先安装驱动!!! 先安装驱动!!! 名字叫 AirM2M_U">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_94378.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_57242.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_29467.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_57565.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_73151.jpg">
+<meta property="article:published_time" content="2018-09-30T11:50:11.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_94378.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-462" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/30/462/" class="article-date">
+  <time class="dt-published" datetime="2018-09-30T11:50:11.000Z" itemprop="datePublished">2018-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      实测Air720作为4G上网棒(MIFI)使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="所需要物料"><a href="#所需要物料" class="headerlink" title="所需要物料:"></a>所需要物料:</h2><ol>
+<li>Air720, 可以是S720开发板, 也可以是 minipcie封装+minipcie转USB, 我用的是后者</li>
+<li>中移动物联网卡一张. 虽说其他运营商也支持,但我只有中移动的卡呀<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94378.jpg"></li>
+</ol>
+<h2 id="第一步-刷机"><a href="#第一步-刷机" class="headerlink" title="第一步, 刷机!!!!"></a>第一步, 刷机!!!!</h2><p>当前仅支持windows下刷机<br>收到Air720后, 如果不是AT版或者版本低于296,是必须要刷机的.<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57242.jpg"></p>
+<p>我推荐顺序是:</p>
+<ol>
+<li>先安装驱动!!! 先安装驱动!!! 名字叫 AirM2M_USB_Download&amp;Com_Driver_for_4G_V1.0</li>
+<li>插入Air720, 跳过所有Window Update搜索, 接受一切警告!!!</li>
+<li>从usb口拔出Air720!! 让其完全断开与电脑的物理连接!!!</li>
+<li>启动luatools 下载地址: Luat下载调试工具1.5.2</li>
+<li>切换到4G, 然后菜单选AT, 升级为标准AT版本, 等待自动更新!!!!<br>点下载</li>
+<li>现在, 把Air720接入电脑,是的,现在才连!!! 之前都不要连!!! 如果是S720开发板,拨到ON!</li>
+<li>等待刷机完成</li>
+<li>不要马上拔,等一分钟再拔</li>
+<li>重新插入Air720,等待自动安装驱动, 会看到rndis字样</li>
+</ol>
+<h2 id="第二步-验证设备是否驱动成功"><a href="#第二步-验证设备是否驱动成功" class="headerlink" title="第二步,验证设备是否驱动成功"></a>第二步,验证设备是否驱动成功</h2><p>设备启动需要10~20秒,请耐心等待!!!</p>
+<p>windows下, 打开网络和共享中心, 更改适配器设置, 会看到<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29467.png"><br>ubuntu 16.04桌面版或树莓派1b, 搜索系统日志,可以看到rndis字样<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57565.png"></p>
+<p>第三步,上网!!!</p>
+<p>第四步,额外功能(已失效,该功能已经不存在)</p>
+<p>控制页面地址: <a target="_blank" rel="noopener" href="http://192.168.0.1/">http://192.168.0.1</a> 账号admin 密码admin<br>控制功能:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_73151.jpg"><br>虽然里面有wifi设置,但事实上并无wifi. 算是一个阉割版的MIFI吧</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/30/462/" data-id="ckkfmdgbe005mvkcg9tpzdzxt" data-title="实测Air720作为4G上网棒(MIFI)使用" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/01/463/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          史上最详细的Air7xx驱动安装教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/30/461/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air720系列固件远程升级后台配置说明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

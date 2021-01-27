@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>[RDA8910 CSDK系列] 进展，持续更新中 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="2020.11.27中间因为支援其他项目一段时间忙别的去了，进展比较慢，但是还是按照既定计划在进行。目前通过vat架构，搭建了一套自己的exat（extended at）代码架构，vat支持的指令，就直接通过vat直接透传，不支持的自己实现，从而可以实现原有2g主控mcu代码基本不用大动的情况下，在csdk层面就可以全部适配，无缝将原有2G的方案，升级成4G cat1方案。过程中遇到了好多问题，基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[RDA8910 CSDK系列] 进展，持续更新中">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/08/27/1424/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="2020.11.27中间因为支援其他项目一段时间忙别的去了，进展比较慢，但是还是按照既定计划在进行。目前通过vat架构，搭建了一套自己的exat（extended at）代码架构，vat支持的指令，就直接通过vat直接透传，不支持的自己实现，从而可以实现原有2g主控mcu代码基本不用大动的情况下，在csdk层面就可以全部适配，无缝将原有2G的方案，升级成4G cat1方案。过程中遇到了好多问题，基">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-27T03:13:21.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1424" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/27/1424/" class="article-date">
+  <time class="dt-published" datetime="2020-08-27T03:13:21.000Z" itemprop="datePublished">2020-08-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      [RDA8910 CSDK系列] 进展，持续更新中
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>2020.11.27</p><p>中间因为支援其他项目一段时间忙别的去了，进展比较慢，但是还是按照既定计划在进行。</p><p>目前通过vat架构，搭建了一套自己的exat（extended at）代码架构，vat支持的指令，就直接通过vat直接透传，不支持的自己实现，从而可以实现原有2g主控mcu代码基本不用大动的情况下，在csdk层面就可以全部适配，无缝将原有2G的方案，升级成4G cat1方案。</p><p></p><p>过程中遇到了好多问题，基本都是通过反复验证配合日志，都已经解决或者规避，保证业务的稳定。</p><p></p><p>目前使用的repo是官方和陈夏的版本，发现11月份有更新，同步后，网络和at相关不好用了，又回退到9月的版本了。</p><p></p><p>目前除了新增业务的代码，对代码框架主要改动是vat部分和network部分，至于怎么能保证跟最新的版本保持同步还没想好，毕竟功能重要，具体新版的问题在哪，还没时间分析，待产品线交付了。再看计划</p><p></p><p>业务完整了，下来就是整合aliyun ota了，技术已经验证通了，整合封装接口需要时间。然后第一个版本就算OK了。</p><p></p><p>下一个就是基于现有的主板和代码框架，基于csdk，研究  lcd ，sd卡，camera等更多的应用场景了。</p><p>2020.09.07</p><p>目前阿里云的升级已经打通，暂时支持3元，代码还没时间整理，要继续搞别的东西。发现的问题主要是task会小概率随机卡死的问题，初步分析跟文件下载有关，于是把HTTP下载部分更换成了阿里云的框架，之前是用的newfota中的httpclient 流程。其他小问题newcore fail和tick的问题，都找到了规避方法。目前反复测试，流程已经比较稳定，阿里云的验证和学习暂告段落，2元的方式待日后再增加，框架稳定了， 增加流程就比较简单了。</p><p>2020.9.02</p><p>目前自己用的特性基本demo都跑过，除了一些demo中发现的小问题，底层系统没发现功能性大问题。</p><p>目前唯一发现的问题，是系统task中调用 <span style="color:#40485b"><span style="font-size:16px">iot_os_get_system_tick</span></span>会返回异常的问题，会返回0，这个还需要继续跟进定位</p><p>目前的基线是支持合宙iot平台ota，正在移植阿里云的fota，一周内应该能有进展。</p><p>打算阶段性进展后，提交陈夏的那个repo，如果不行就在自己的分支上继续维护了，总之，感觉可以好好优化下，出一些像luat实用的稳定库和接口，方便新手快速稳定的开发功能。</p><p>---------------------------</p><p>因为拿到了8910的csdk，也研究了一周多，所有相关场景基本验证通过了，暂时不知该写些什么，看群里和论坛大家问题再说吧。</p><p>先说下思路，基于目前的评估板和sdk，优先满足公司产品需要。公司的硬件架构，通讯模组是配合低功耗单片机使用的，平时模组完成必要功能，然后就会mos断电。蓝牙单片机是us级别的功耗。</p><p>目前想到的几个优先功能：</p><p>1. 模组后端的gps uart透传（低功耗单片机是一个串口，给模组AT占用了，所以gps挂在模组后端，最简单的就是透传，不解析，解析在业务单片机里面做，灵活）.</p><p>2. tts</p><p>3. record audio</p><p>4. play audio</p><p>5. tcp 透传</p><p>6. 自关机（这样方便做完整的开机关机提示，暂时测试用吧）</p><p>7. gpio</p><p>8. 待定</p><p>以上的功能都是扩展AT指令，到时有兴趣的可以放出来给大家测试玩下，开源就看情况了，毕竟是公司产品，优先考虑公司的角度。</p><p><br/></p><p>暂时就想到这些，算是占个坑吧，纯水。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/08/27/1424/" data-id="ckkfmjk7q0000u0cg5nko6v46" data-title="[RDA8910 CSDK系列] 进展，持续更新中" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/27/1425/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          antd-Table注意事项
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/27/1423/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">doc入门手册（未完成）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

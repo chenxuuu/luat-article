@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>12、RDA8910CSDK二次开发：c语言中最好用的JSON解析库---cJSON | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录点击这里查看所有博文 &amp;emsp;&amp;emsp;本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。 &amp;emsp;&amp;emsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12、RDA8910CSDK二次开发：c语言中最好用的JSON解析库---cJSON">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/06/21/889/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录点击这里查看所有博文 &amp;emsp;&amp;emsp;本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。 &amp;emsp;&amp;emsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200615004541627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-06-21T15:06:00.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200615004541627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-889" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/21/889/" class="article-date">
+  <time class="dt-published" datetime="2020-06-21T15:06:00.000Z" itemprop="datePublished">2020-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      12、RDA8910CSDK二次开发：c语言中最好用的JSON解析库---cJSON
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所述资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>&emsp;&emsp;本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>&emsp;&emsp;各个厂家的部分配置文件可能不一样，也许会导致设备出现奇怪的问题，其他的模块我也不确定能不能用，自行测试。但是有一点<code>编译下载和监视流程基本一样</code>，可供参考。</p>
+<p>&emsp;&emsp;先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>&emsp;&emsp;我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;JSON（JavaScript Object Notation，JavaScript对象表示法）是一种由道格拉斯·克罗克福特构想和设计、轻量级的数据交换语言，该语言以易于让人阅读的文字为基础，用来传输由属性值或者序列性的值组成的数据对象。尽管JSON是JavaScript的一个子集，但JSON是独立于语言的文本格式，并且采用了类似于C语言家族的一些习惯。</p>
+<p>&emsp;&emsp;JSON 数据格式与语言无关，脱胎自JavaScript，但当前很多编程语言都支持 JSON 格式数据的生成和解析。JSON 的官方 MIME 类型是 application/json，文件扩展名是 .json。</p>
+<p>&emsp;&emsp;JSON 解析器和 JSON 库支持许多不同的编程语言。 JSON 文本格式在语法上与创建 JavaScript 对象的代码相同。 由于这种相似性， 无需解析器， JavaScript 程序能够使用内建的 eval() 函数， 用 JSON 数据来生成原生的 JavaScript 对象。</p>
+<p>&emsp;&emsp;JSON 是存储和交换文本信息的语法。 类似 XML。 JSON 比 XML 更小、 更快， 更易解析。</p>
+<p>&emsp;&emsp;JSON 具有自我描述性， 语法简洁， 易于理解。</p>
+<p>&emsp;&emsp;关于JSON的介绍，需要了解的兄弟们请参考我的<code>合宙Air模块Luat开发</code>专题，<code>第10篇</code>文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/105285966">JSON字符串的生成与解析</a>。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200615004541627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;总之就是一句话。JSON很常见，虽然与 JavaScript 紧密相连，但 JSON 与语言无关，JSON 使用与其他语言类似的约定（例如，C，C ++，Java，Perl ，Lua和 Python），使 JSON 成为理想的数据交换语言。</p>
+<p>&emsp;&emsp;在c语言中同样有很多用于JSON生成和解析的库，其中免费开源好用的当属cJSON。那么今天我们就来耍一下。</p>
+<p>&emsp;&emsp;cJSON库文件在demo里面的<code>cJSON</code>例程有提供，直接拷贝一份出来即可使用。不需要做其他的改动。</p>
+<h1 id="二、编写测试程序"><a href="#二、编写测试程序" class="headerlink" title="二、编写测试程序"></a>二、编写测试程序</h1><h2 id="2-1、了解本例程所用到的函数"><a href="#2-1、了解本例程所用到的函数" class="headerlink" title="2.1、了解本例程所用到的函数"></a>2.1、了解本例程所用到的函数</h2><p>&emsp;&emsp;使用cJSON服务需要包含<code>#include &quot;cJSON.h&quot;&quot;</code>头文件，我们这里只用到了13个函数，分别是：</p>
+<blockquote>
+<p>/**JSON解析<br>提供一个JSON块，这将返回一个您可以查询的cJSON对象。<br><em>@param <code>value</code>：JSON字符串<br>*@return    cJSON对象指针<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON *) <code>cJSON_Parse</code>(const char *value)</li>
+</ul>
+<blockquote>
+<p>/***从JSON对象中获取键值对。不区分大小写。<br> <em>@param <code>object</code>：要查询的cJSON对象<br>&emsp;&emsp;&emsp;&emsp;<code>string</code>：要查询的键值对<br>*@return    cJSON对象指针<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON *) <code>cJSON_GetObjectItem</code>(const cJSON * const object, const char * const string)</li>
+</ul>
+<blockquote>
+<p>/*判断该对象是不是字符串类型<br> <em>@param <code>object</code>：要查询的cJSON对象<br>*@return     真值，是字符串类型<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON_bool) <code>cJSON_IsString</code>(const cJSON * const item);</li>
+</ul>
+<blockquote>
+<p>/*判断该对象是不是数字类型<br> <em>@param <code>object</code>：要查询的cJSON对象<br>*@return     真值，是字数字类型<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON_bool) <code>cJSON_IsNumber</code>(const cJSON * const item)</li>
+</ul>
+<blockquote>
+<p>/*获取数组（或对象）中的项目数。<br> <em>@param <code>object</code>：要查询的cJSON对象<br>*@return     项目数<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(int) <code>cJSON_GetArraySize</code>(const cJSON *array)</li>
+</ul>
+<blockquote>
+<p>/<em>删除cJSON结构。<br> *@param <code>object</code>：要删除的cJSON对象<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(void) <code>cJSON_Delete</code>(cJSON *item)</li>
+</ul>
+<blockquote>
+<p>/<em>创建一个cJSON对象<br>*@return     创建的对象<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON *) <code>cJSON_CreateObject</code>(void)</li>
+</ul>
+<blockquote>
+<p>/*添加一个字符串到cJSON对象中<br> <em>@param <code>object</code>：要添加的cJSON对象<br> *@param <code>name</code>：要添加的键<br> *@param <code>string</code>：要添加的值<br>*@return    cJSON对象指针<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON*) <code>cJSON_AddStringToObject</code>(cJSON * const object, const char * const name, const char * const string);</li>
+</ul>
+<blockquote>
+<p>/*添加一个数字到cJSON对象中<br> <em>@param <code>object</code>：要添加的cJSON对象<br> *@param <code>name</code>：要添加的键<br> *@param <code>number</code>：要添加的值<br>*@return    cJSON对象指针<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON*) <code>cJSON_AddNumberToObject</code>(cJSON * const object, const char * const name, const double number)</li>
+</ul>
+<blockquote>
+<p>/*添加一个cJSON对象到cJSON对象中<br> <em>@param <code>object</code>：要添加的cJSON对象<br> *@param <code>name</code>：要添加的键<br> *@param <code>item</code>：要添加的值<br>*@return    cJSON对象指针<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON_bool) <code>cJSON_AddItemToObject</code>(cJSON *object, const char *string, cJSON *item);</li>
+</ul>
+<blockquote>
+<p>/<em>创建一个数组对象<br> *@param <code>numbers</code>：要创建的数组<br> *@param <code>count</code>：数组的长度<br>*@return     创建的对象<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(cJSON *) <code>cJSON_CreateIntArray</code>(const int *numbers, int count)</li>
+</ul>
+<blockquote>
+<p>/*将cJSON项目/实体/结构呈现为文本。<br> <em>@param <code>item</code>：cJSON对象<br>*@return     字符串<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(char *) <code>cJSON_Print</code>(const cJSON *item)</li>
+</ul>
+<blockquote>
+<p>/<em>释放内存<br> *@param <code>object</code>：要释放的内存块<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>CJSON_PUBLIC(void) <code>cJSON_free</code>(void *object);<h2 id="2-2、编写cJSON解析程序"><a href="#2-2、编写cJSON解析程序" class="headerlink" title="2.2、编写cJSON解析程序"></a>2.2、编写cJSON解析程序</h2>&emsp;&emsp;解析程序负责将一个json格式的字符串转换成cJSON对象，并在其中查找需要的键值对。要注意的是，查找完毕后需要删除<code>cJSON_Parse</code>函数创建的父节点。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jsonRoot 是您要剖析的数据</span></span><br><span class="line"><span class="comment">//首先整体判断是否为一个json格式的数据</span></span><br><span class="line">iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Parsing Start&quot;</span>);</span><br><span class="line">cJSON *pJsonRoot = cJSON_Parse(jsonRoot);</span><br><span class="line"><span class="comment">//如果是否json格式数据</span></span><br><span class="line"><span class="keyword">if</span> (pJsonRoot != <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON TRUE&quot;</span>);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON:%s&quot;</span>, jsonRoot);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON ERROR&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//解析imei字段字符串内容</span></span><br><span class="line">cJSON *pimeiAdress = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;imei&quot;</span>);</span><br><span class="line"><span class="comment">//判断imei字段是否json格式</span></span><br><span class="line"><span class="keyword">if</span> (pimeiAdress)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//判断mac字段是否string类型</span></span><br><span class="line">	<span class="keyword">if</span> (cJSON_IsString(pimeiAdress))</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get imeiAdress:%s&quot;</span>, pimeiAdress-&gt;valuestring);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] get imeiAdress failed&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//解析Num字段int内容</span></span><br><span class="line">cJSON *pNumber = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;Num&quot;</span>);</span><br><span class="line"><span class="comment">//判断Num字段是否存在</span></span><br><span class="line"><span class="keyword">if</span> (pNumber)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//判断mac字段是否数字整型类型</span></span><br><span class="line">	<span class="keyword">if</span> (cJSON_IsNumber(pNumber))</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get Num:%d&quot;</span>, pNumber-&gt;valueint);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] get Num failed&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//解析value字段内容，判断是否为json</span></span><br><span class="line">cJSON *pValue = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;Value&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (pValue)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//进一步剖析里面的name字段:注意这个根节点是 pValue</span></span><br><span class="line">	cJSON *pName = cJSON_GetObjectItem(pValue, <span class="string">&quot;name&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (pName)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (cJSON_IsString(pName))</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get value-&gt;Name:%s&quot;</span>, pName-&gt;valuestring);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue-&gt;pName failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//进一步剖析里面的age字段:注意这个根节点是 pValue</span></span><br><span class="line">	cJSON *pAge = cJSON_GetObjectItem(pValue, <span class="string">&quot;age&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (pAge)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (cJSON_IsNumber(pAge))</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get value-&gt;Age:%d&quot;</span>, pAge-&gt;valueint);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue-&gt;pAge failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//进一步剖析里面的blog字段:注意这个根节点是 pValue</span></span><br><span class="line">	cJSON *pBlog = cJSON_GetObjectItem(pValue, <span class="string">&quot;blog&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (pBlog)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (cJSON_IsString(pBlog))</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get value-&gt;pBlog:%s&quot;</span>, pBlog-&gt;valuestring);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue-&gt;pBlog failed&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue failed&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//剖析数组</span></span><br><span class="line">cJSON *pArry = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;hexArry&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (pArry)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//获取数组长度</span></span><br><span class="line">	<span class="keyword">int</span> arryLength = cJSON_GetArraySize(pArry);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] get arryLength:%d&quot;</span>, arryLength);</span><br><span class="line">	<span class="comment">//逐个打印</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; arryLength; i++)</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get cJSON_GetArrayItem(pArry, %d)= %d&quot;</span>, i, cJSON_GetArrayItem(pArry, i)-&gt;valueint);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] get pArry failed&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放内存</span></span><br><span class="line">cJSON_Delete(pJsonRoot);</span><br><span class="line"></span><br><span class="line">iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Parsing Stop&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;相比Luat中的json解析，cJSON用起来真的是太复杂了。</p>
+<h2 id="2-3、编写cJSON生成程序"><a href="#2-3、编写cJSON生成程序" class="headerlink" title="2.3、编写cJSON生成程序"></a>2.3、编写cJSON生成程序</h2><p>&emsp;&emsp;生成程序，首先创建一个空的对象（实际是一个链表），然后将不同的键值对依次插入。全部插入完成后，打印查看，最后删除<code>cJSON_CreateObject</code>函数创建的父对象<code>pRoot</code> 。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取一下本地的station的mac地址，保存在全局变量tempMessage</span></span><br><span class="line">iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Generate Start&quot;</span>);</span><br><span class="line">cJSON *pRoot = cJSON_CreateObject();</span><br><span class="line"></span><br><span class="line"><span class="comment">//新增一个字段imei到根点，数值是tempMessage</span></span><br><span class="line"><span class="keyword">char</span> tempMessage[] = <span class="string">&quot;8661111111111111&quot;</span>;</span><br><span class="line">cJSON_AddStringToObject(pRoot, <span class="string">&quot;imei&quot;</span>, tempMessage);</span><br><span class="line"></span><br><span class="line"><span class="comment">//新增一个字段number到根点，数值是2</span></span><br><span class="line">cJSON_AddNumberToObject(pRoot, <span class="string">&quot;number&quot;</span>, <span class="number">2020</span>);</span><br><span class="line"></span><br><span class="line">cJSON *pValue = cJSON_CreateObject();</span><br><span class="line">cJSON_AddStringToObject(pValue, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;cx&quot;</span>);</span><br><span class="line">cJSON_AddNumberToObject(pValue, <span class="string">&quot;age&quot;</span>, <span class="number">17</span>);</span><br><span class="line">cJSON_AddItemToObject(pRoot, <span class="string">&quot;value&quot;</span>, pValue);</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组初始化</span></span><br><span class="line"><span class="keyword">int</span> hex[<span class="number">5</span>] = &#123;<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>&#125;;</span><br><span class="line">cJSON *pHex = cJSON_CreateIntArray(hex, <span class="number">5</span>); <span class="comment">//创建一个长度为5的int型的数组json元素</span></span><br><span class="line">cJSON_AddItemToObject(pRoot, <span class="string">&quot;hex&quot;</span>, pHex);	<span class="comment">//将数组元素添加进pRoot</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> *s = cJSON_Print(pRoot);</span><br><span class="line">iot_debug_print(<span class="string">&quot;[cJSON_Test] creatJson:%s&quot;</span>, s);</span><br><span class="line"><span class="comment">//释放内存</span></span><br><span class="line">cJSON_free((<span class="keyword">void</span> *)s);</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放内存</span></span><br><span class="line"><span class="comment">//cJSON_Delete(pHex);</span></span><br><span class="line"><span class="comment">//释放内存</span></span><br><span class="line"><span class="comment">//cJSON_Delete(pValue);</span></span><br><span class="line"><span class="comment">//释放内存</span></span><br><span class="line">cJSON_Delete(pRoot);</span><br><span class="line">iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Generate Stop&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="三、编译并下载程序"><a href="#三、编译并下载程序" class="headerlink" title="三、编译并下载程序"></a>三、编译并下载程序</h1><p>&emsp;&emsp;完整代码在这，自取。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Author: your name</span></span><br><span class="line"><span class="comment"> * @Date: 2020-05-19 14:05:32</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-06-15 00:10:00</span></span><br><span class="line"><span class="comment"> * @LastEditors: Please set LastEditors</span></span><br><span class="line"><span class="comment"> * @Description: In User Settings Edit</span></span><br><span class="line"><span class="comment"> * @FilePath: \RDA8910_CSDK\USER\user_main.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="comment">//#include &quot;cs_types.h&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_log.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_api.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_common.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_uart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_os.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_gpio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_pmd.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_adc.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_network.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_socket.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;cJSON.h&quot;</span></span></span><br><span class="line"><span class="comment">//#include &quot;MQTTClient.h&quot;</span></span><br><span class="line"></span><br><span class="line">HANDLE TestTask_HANDLE = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> jsonRoot <span class="meta-string">&quot;&#123;\r\n&quot;</span>                                                                             \</span></span><br><span class="line">				 <span class="string">&quot;\&quot;imei\&quot;: \&quot;8661111111111111\&quot;,\r\n&quot;</span>                                               \</span><br><span class="line">				 <span class="string">&quot;\&quot;Num\&quot;: 142,\r\n&quot;</span>                                                                 \</span><br><span class="line">				 <span class="string">&quot;\&quot;Value\&quot;: &#123;\r\n&quot;</span>                                                                  \</span><br><span class="line">				 <span class="string">&quot;\&quot;name\&quot;: \&quot;cx\&quot;,\r\n&quot;</span>                                                             \</span><br><span class="line">				 <span class="string">&quot;\&quot;age\&quot;: 18,\r\n&quot;</span>                                                                  \</span><br><span class="line">				 <span class="string">&quot;\&quot;blog\&quot;: \&quot;https://blog.csdn.net/weixin_44570083/article/details/104285283\&quot;\r\n&quot;</span> \</span><br><span class="line">				 <span class="string">&quot;&#125;,\r\n&quot;</span>                                                                            \</span><br><span class="line">				 <span class="string">&quot;\&quot;hexArry\&quot;: [31, 56, 36, 1365, 263]\r\n&quot;</span>                                          \</span><br><span class="line">				 <span class="string">&quot;&#125;\r\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//JSON解析</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cJSON_Parsing</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// jsonRoot 是您要剖析的数据</span></span><br><span class="line">	<span class="comment">//首先整体判断是否为一个json格式的数据</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Parsing Start&quot;</span>);</span><br><span class="line">	cJSON *pJsonRoot = cJSON_Parse(jsonRoot);</span><br><span class="line">	<span class="comment">//如果是否json格式数据</span></span><br><span class="line">	<span class="keyword">if</span> (pJsonRoot != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON TRUE&quot;</span>);</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON:%s&quot;</span>, jsonRoot);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON ERROR&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//解析imei字段字符串内容</span></span><br><span class="line">	cJSON *pimeiAdress = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;imei&quot;</span>);</span><br><span class="line">	<span class="comment">//判断imei字段是否json格式</span></span><br><span class="line">	<span class="keyword">if</span> (pimeiAdress)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//判断mac字段是否string类型</span></span><br><span class="line">		<span class="keyword">if</span> (cJSON_IsString(pimeiAdress))</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get imeiAdress:%s&quot;</span>, pimeiAdress-&gt;valuestring);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get imeiAdress failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//解析Num字段int内容</span></span><br><span class="line">	cJSON *pNumber = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;Num&quot;</span>);</span><br><span class="line">	<span class="comment">//判断Num字段是否存在</span></span><br><span class="line">	<span class="keyword">if</span> (pNumber)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//判断mac字段是否数字整型类型</span></span><br><span class="line">		<span class="keyword">if</span> (cJSON_IsNumber(pNumber))</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get Num:%d&quot;</span>, pNumber-&gt;valueint);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get Num failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//解析value字段内容，判断是否为json</span></span><br><span class="line">	cJSON *pValue = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;Value&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (pValue)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//进一步剖析里面的name字段:注意这个根节点是 pValue</span></span><br><span class="line">		cJSON *pName = cJSON_GetObjectItem(pValue, <span class="string">&quot;name&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (pName)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (cJSON_IsString(pName))</span><br><span class="line">				iot_debug_print(<span class="string">&quot;[cJSON_Test] get value-&gt;Name:%s&quot;</span>, pName-&gt;valuestring);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue-&gt;pName failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//进一步剖析里面的age字段:注意这个根节点是 pValue</span></span><br><span class="line">		cJSON *pAge = cJSON_GetObjectItem(pValue, <span class="string">&quot;age&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (pAge)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (cJSON_IsNumber(pAge))</span><br><span class="line">				iot_debug_print(<span class="string">&quot;[cJSON_Test] get value-&gt;Age:%d&quot;</span>, pAge-&gt;valueint);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue-&gt;pAge failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//进一步剖析里面的blog字段:注意这个根节点是 pValue</span></span><br><span class="line">		cJSON *pBlog = cJSON_GetObjectItem(pValue, <span class="string">&quot;blog&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (pBlog)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (cJSON_IsString(pBlog))</span><br><span class="line">				iot_debug_print(<span class="string">&quot;[cJSON_Test] get value-&gt;pBlog:%s&quot;</span>, pBlog-&gt;valuestring);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue-&gt;pBlog failed&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get pValue failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//剖析数组</span></span><br><span class="line">	cJSON *pArry = cJSON_GetObjectItem(pJsonRoot, <span class="string">&quot;hexArry&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (pArry)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//获取数组长度</span></span><br><span class="line">		<span class="keyword">int</span> arryLength = cJSON_GetArraySize(pArry);</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get arryLength:%d&quot;</span>, arryLength);</span><br><span class="line">		<span class="comment">//逐个打印</span></span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; arryLength; i++)</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[cJSON_Test] get cJSON_GetArrayItem(pArry, %d)= %d&quot;</span>, i, cJSON_GetArrayItem(pArry, i)-&gt;valueint);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[cJSON_Test] get pArry failed&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//释放内存</span></span><br><span class="line">	cJSON_Delete(pJsonRoot);</span><br><span class="line"></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Parsing Stop&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//JSON生成</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cJSON_Generate</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//取一下本地的station的mac地址，保存在全局变量tempMessage</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Generate Start&quot;</span>);</span><br><span class="line">	cJSON *pRoot = cJSON_CreateObject();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//新增一个字段imei到根点，数值是tempMessage</span></span><br><span class="line">	<span class="keyword">char</span> tempMessage[] = <span class="string">&quot;8661111111111111&quot;</span>;</span><br><span class="line">	cJSON_AddStringToObject(pRoot, <span class="string">&quot;imei&quot;</span>, tempMessage);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//新增一个字段number到根点，数值是2</span></span><br><span class="line">	cJSON_AddNumberToObject(pRoot, <span class="string">&quot;number&quot;</span>, <span class="number">2020</span>);</span><br><span class="line"></span><br><span class="line">	cJSON *pValue = cJSON_CreateObject();</span><br><span class="line">	cJSON_AddStringToObject(pValue, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;cx&quot;</span>);</span><br><span class="line">	cJSON_AddNumberToObject(pValue, <span class="string">&quot;age&quot;</span>, <span class="number">17</span>);</span><br><span class="line">	cJSON_AddItemToObject(pRoot, <span class="string">&quot;value&quot;</span>, pValue);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//数组初始化</span></span><br><span class="line">	<span class="keyword">int</span> hex[<span class="number">5</span>] = &#123;<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>&#125;;</span><br><span class="line">	cJSON *pHex = cJSON_CreateIntArray(hex, <span class="number">5</span>); <span class="comment">//创建一个长度为5的int型的数组json元素</span></span><br><span class="line">	cJSON_AddItemToObject(pRoot, <span class="string">&quot;hex&quot;</span>, pHex);	<span class="comment">//将数组元素添加进pRoot</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *s = cJSON_Print(pRoot);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] creatJson:%s&quot;</span>, s);</span><br><span class="line">	<span class="comment">//释放内存</span></span><br><span class="line">	cJSON_free((<span class="keyword">void</span> *)s);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//释放内存</span></span><br><span class="line">	<span class="comment">//cJSON_Delete(pHex);</span></span><br><span class="line">	<span class="comment">//释放内存</span></span><br><span class="line">	<span class="comment">//cJSON_Delete(pValue);</span></span><br><span class="line">	<span class="comment">//释放内存</span></span><br><span class="line">	cJSON_Delete(pRoot);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[cJSON_Test] cJSON_Generate Stop&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//系统休眠</span></span><br><span class="line">	iot_os_sleep(<span class="number">20000</span>);</span><br><span class="line">	cJSON_Parsing();</span><br><span class="line">	cJSON_Generate();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//退出提示</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">appimg_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	OSI_LOGI(<span class="number">0</span>, <span class="string">&quot;application image exit&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="四、分析结果"><a href="#四、分析结果" class="headerlink" title="四、分析结果"></a>四、分析结果</h1><p>&emsp;&emsp;查看输出的日志信息，可以看到JSON的解析与生成都是正确的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59599</span>] [ <span class="number">7216</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] cJSON_Parsing Start</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59603</span>] [ <span class="number">7217</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] cJSON TRUE</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59604</span>] [ <span class="number">7218</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] cJSON:&#123;</span><br><span class="line"><span class="string">&quot;imei&quot;</span>: <span class="string">&quot;8661111111111111&quot;</span>,</span><br><span class="line"><span class="string">&quot;Num&quot;</span>: <span class="number">142</span>,</span><br><span class="line"><span class="string">&quot;Value&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;name&quot;</span>: <span class="string">&quot;cx&quot;</span>,</span><br><span class="line"><span class="string">&quot;age&quot;</span>: <span class="number">18</span>,</span><br><span class="line"><span class="string">&quot;blog&quot;</span>: <span class="string">&quot;https://blog.csdn.net/weixin_44570083/article/details/104285283&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&quot;hexArry&quot;</span>: [<span class="number">31</span>, <span class="number">56</span>, <span class="number">36</span>, <span class="number">1365</span>, <span class="number">263</span>]</span><br><span class="line">&#125;</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59605</span>] [ <span class="number">7219</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] get imeiAdress:<span class="number">8661111111111111</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59606</span>] [ <span class="number">7220</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] get Num:<span class="number">142</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59606</span>] [ <span class="number">7221</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] get value-&gt;Name:cx</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59606</span>] [ <span class="number">7222</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] get value-&gt;Age:<span class="number">18</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59607</span>] [ <span class="number">7223</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] get value-&gt;pBlog:https:<span class="comment">//blog.csdn.net/weixin_44570083/article/details/104285283</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59607</span>] [ <span class="number">7224</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] get arryLength:<span class="number">5</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59608</span>] [ <span class="number">7225</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] <span class="function">get <span class="title">cJSON_GetArrayItem</span><span class="params">(pArry, <span class="number">0</span>)</span></span>= <span class="number">31</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59608</span>] [ <span class="number">7226</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] <span class="function">get <span class="title">cJSON_GetArrayItem</span><span class="params">(pArry, <span class="number">1</span>)</span></span>= <span class="number">56</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59608</span>] [ <span class="number">7227</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] <span class="function">get <span class="title">cJSON_GetArrayItem</span><span class="params">(pArry, <span class="number">2</span>)</span></span>= <span class="number">36</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59608</span>] [ <span class="number">7228</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] <span class="function">get <span class="title">cJSON_GetArrayItem</span><span class="params">(pArry, <span class="number">3</span>)</span></span>= <span class="number">1365</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59609</span>] [ <span class="number">7229</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] <span class="function">get <span class="title">cJSON_GetArrayItem</span><span class="params">(pArry, <span class="number">4</span>)</span></span>= <span class="number">263</span></span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59609</span>] [ <span class="number">7230</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] cJSON_Parsing Stop</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59610</span>] [ <span class="number">7231</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] cJSON_Generate Start</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.559</span>]  [<span class="number">59619</span>] [ <span class="number">7232</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] creatJson:&#123;</span><br><span class="line">	<span class="string">&quot;imei&quot;</span>:	<span class="string">&quot;8661111111111111&quot;</span>,</span><br><span class="line">	<span class="string">&quot;number&quot;</span>:	<span class="number">2020</span>,</span><br><span class="line">	<span class="string">&quot;value&quot;</span>:	&#123;</span><br><span class="line">		<span class="string">&quot;name&quot;</span>:	<span class="string">&quot;cx&quot;</span>,</span><br><span class="line">		<span class="string">&quot;age&quot;</span>:	<span class="number">17</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;hex&quot;</span>:	[<span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>]</span><br><span class="line">&#125;</span><br><span class="line">[<span class="number">00</span>:<span class="number">11</span>:<span class="number">49.615</span>]  [<span class="number">59620</span>] [ <span class="number">7233</span>] [                ] [      ] [ ] OPEN/  : [cJSON_Test] cJSON_Generate Stop</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/06/21/889/" data-id="ckkfmdgel00dovkcgeusg08pn" data-title="12、RDA8910CSDK二次开发：c语言中最好用的JSON解析库---cJSON" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/21/890/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          11、RDA8910CSDK二次开发：新鲜出炉的MQTT库
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/21/888/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">10、RDA8910CSDK二次开发：简易的http通讯库</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

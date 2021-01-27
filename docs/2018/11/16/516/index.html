@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>13-系统教程演示(GPRS模块) | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;9966702.html下载202的程序参考这个  ：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;8948935.html  下载项目版最终的源码，全部都要下     这个APP我做成了支持WIFI和GPRS,支持绑定多个设备，别忘了给GPRS模块插手机卡，还有GPRS模块的天线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13-系统教程演示(GPRS模块)">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/11/16/516/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;9966702.html下载202的程序参考这个  ：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;8948935.html  下载项目版最终的源码，全部都要下     这个APP我做成了支持WIFI和GPRS,支持绑定多个设备，别忘了给GPRS模块插手机卡，还有GPRS模块的天线">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234505879-1800081901.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234734298-124048729.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234820635-1889522496.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234901980-768204107.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234942873-914373044.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235033853-2133526737.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235231681-362741368.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235400342-1986479191.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235634284-1639187516.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235915932-1730222379.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116000021991-175069046.png">
+<meta property="article:published_time" content="2018-11-16T07:14:28.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234505879-1800081901.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-516" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/16/516/" class="article-date">
+  <time class="dt-published" datetime="2018-11-16T07:14:28.000Z" itemprop="datePublished">2018-11-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      13-系统教程演示(GPRS模块)
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://www.cnblogs.com/yangfengwu/p/9966702.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9966702.html</span></a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">下载202的程序参考这个  ：<a href="https://www.cnblogs.com/yangfengwu/p/8948935.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/8948935.html</a></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">下载项目版最终的源码，全部都要下</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234505879-1800081901.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234734298-124048729.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234820635-1889522496.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234901980-768204107.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115234942873-914373044.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235033853-2133526737.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">这个APP我做成了支持WIFI和GPRS,支持绑定多个设备，别忘了给GPRS模块插手机卡，还有GPRS模块的天线</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235231681-362741368.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235400342-1986479191.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235634284-1639187516.png" alt="" style="max-width: 900px; height: auto;">     <span style="font-size: 18pt;">GPRS模块注册网络的时候需要很大的电流哈，如果自己的电脑供电不足可以再弄个电源哈</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">或者去掉WIFI</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181115235915932-1730222379.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116000021991-175069046.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"> GPRS也测试好了</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">资料链接</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">链接：<a href="https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw</a> 密码：p9qs</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">基础教程源码链接如果失效,请在淘宝介绍中下载,由于链接还是失效,请联系卖家,谢谢</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025" target="_blank" style="color: rgb(153, 0, 0); padding-bottom: 2px; border-bottom: none;">https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025</a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://www.cnblogs.com/yangfengwu/p/9967027.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9967027.html</span></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/11/16/516/" data-id="ckkfmdgbr006pvkcgbwbe2csi" data-title="13-系统教程演示(GPRS模块)" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/16/517/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          14-关于系统教程和基础教程后期规划
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/16/515/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">12-系统教程演示(WIFI模块)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

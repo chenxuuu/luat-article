@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。 上一篇文章中，我尝试使用手机客户端对Modbus继电器进行控制，今天我们换用开源PC端和Modbus 温湿度传感器 进行一次温湿度采集。 Modbus简介Modbus对设备的控制是通过对一系列寄存器的读写完成的。 设备地址是一个8bit的字节，规定了总线上要进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/01/06/672/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。 上一篇文章中，我尝试使用手机客户端对Modbus继电器进行控制，今天我们换用开源PC端和Modbus 温湿度传感器 进行一次温湿度采集。 Modbus简介Modbus对设备的控制是通过对一系列寄存器的读写完成的。 设备地址是一个8bit的字节，规定了总线上要进行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_89650.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_84480.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_67840.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_59121.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_57625.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_35767.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_65975.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_53184.jpg">
+<meta property="article:published_time" content="2020-01-06T08:05:45.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:18:49.022Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_89650.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-672" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/06/672/" class="article-date">
+  <time class="dt-published" datetime="2020-01-06T08:05:45.000Z" itemprop="datePublished">2020-01-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。 上一篇文章中，我尝试使用手机客户端对Modbus继电器进行控制，今天我们换用开源PC端和Modbus 温湿度传感器 进行一次温湿度采集。</p>
+<h2 id="Modbus简介"><a href="#Modbus简介" class="headerlink" title="Modbus简介"></a>Modbus简介</h2><p>Modbus对设备的控制是通过对一系列寄存器的读写完成的。 设备地址是一个8bit的字节，规定了总线上要进行通讯的设备地址，最多可以有247个设备，地址为0的时候为广播地址，所有设备都应该进行解析，248-255是供用户扩展之用。 功能代码是具体执行的功能，数据部分是可变长度的整字节数据，报文尾部有一个双8Bit的CRC校验位。 当通讯命令发送至仪器时，符合相应地址码的设备接通讯命令，并除去地址码，读取信息，如果没有出错，则执行相应的任务；然后把执行结果返送给发送者。返送的信息中包括地址码、执行动作的功能码、执行动作后结果的数据以及错误校验码。如果出错就返回任何信息。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89650.jpg"></p>
+<p>本次实验以我购得的一个采用RS485接口的Modbus温湿度采集模块配合合宙出品的720D DTU大板进行试验。</p>
+<pre><code>--下行报文 （iRTU-&gt;Modbus温度湿度传感器）
+01 03 02 00 00 03 04 73
+</code></pre>
+<p>01-&gt;地址码，购买的设备默认起始为01，可以通过随机的PC程序进行配置。</p>
+<p>03-&gt;功能码，控制采集温湿度</p>
+<p>02-&gt;寄存器起始位，02 00 代表起始寄存器地址：采集 温度，湿度，露点温度</p>
+<p>03-&gt;读取的长度</p>
+<p>04 73-&gt;CRC16校验和</p>
+<pre><code>--上行报文 （Modbus-&gt;iRTU）
+01 03 06 01 0B 01 31 00 50 D5 6A
+</code></pre>
+<p>返回内容格式：</p>
+<p>01-&gt;地址码，购买的设备默认起始为01，可以通过随机的PC程序进行配置。</p>
+<p>03-&gt;功能码，控制采集温湿度</p>
+<p>06-&gt;返回的长度</p>
+<p>温度<br>01 0B-&gt; 0x010B=267 / 10 = 26.7℃；<br>湿度<br>01 31-&gt;0x0131 =305 / 10 = 30.5%RH。<br>露点温度<br>00 50-&gt;0x0050 =80 /10 = 8℃</p>
+<p>##电路连接方式</p>
+<p>本次试验电路测试中采用了我们熟悉的合宙原厂iRTU 硬件 720D 4G DTU大板，此款产品商城有售，内部采用合宙出品的Air720D移动双模通讯模块，电路采用极简设计，性能优秀，更更令人愉快的是硬件竟然是开源的。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84480.jpg"></p>
+<p>下图是本次实验用到的物料</p>
+<p>Air720D DTU大板 X1</p>
+<p>SD123-T10 Modbus温湿度传感器 X1</p>
+<p>USB转RS485转接头 X1</p>
+<p>电话线 1盘</p>
+<p>导线 X 6</p>
+<p>9V DC直流电源 X1 （含电源接头）</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67840.jpg"></p>
+<p>下面是连线方式，其中RS485转换头和传输线仅供配置用，配置完成后可以移除。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59121.jpg"></p>
+<p>##实现方法</p>
+<p>第一步：按照上图将电路连接完成，完成后如下图所示效果</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57625.jpg"></p>
+<p>第二步：编写上下行数据流模板</p>
+<p>下行数据流模板(DTU-&gt;Modbus传感器)，该模板用于将手机发送的继电器控制指令翻译为Modbus继电器的控制报文。</p>
+<pre><code>--Download steam
+function
+    local str=...
+    local dat=str:sub(40,-3)
+    local ret=&quot;&quot;
+    if (dat:sub(1,4)==&quot;temp&quot;) then
+        ret= string.fromHex(&quot;01 03 02 00 00 03 04 73&quot;)
+    else
+        ret =dat
+    end
+    return ret
+end
+</code></pre>
+<p>上行数据流模板(Modbus传感器-&gt;DTU)，该模板用于将Modbus传感器采集到的数据翻译成MTCP报文，发送给PC端。</p>
+<pre><code>--Upload stream
+function
+
+    local a=...
+
+    local ret=&quot;&quot;
+    local str=&quot;&quot;
+
+    if (a:sub(1,2)==string.fromHex(&quot;01 03&quot;)) then
+        local num1=(a:sub(4,4):byte()*255+a:sub(5,5):byte())/10
+        local num2=(a:sub(6,6):byte()*255+a:sub(7,7):byte())/10
+        local temp=tostring(num1,10)
+        local  humd=tostring(num2,10)
+        str=&quot;Temperature:&quot;..temp..&quot; Humedity:&quot;..humd
+    else
+        str=string.toHex(a, &quot; &quot;)
+    end
+
+    local totallen=41+str:len()
+    local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
+
+return ret
+end
+</code></pre>
+<p>第三步：配置iRTU</p>
+<p>将编写好的上下行数据流模板和Upws服务器参数通过串口工具配置到DTU</p>
+<p>服务器设置：</p>
+<p>1） 配置iRTU为UDP传输模式，服务器地址为 box.miuser.net，DPU端口为7101</p>
+<p>2） 每隔10S发送一次心跳包，心跳包的内容为 005501B01000000000100000000000000011234iRTUUPWs 1.0.000</p>
+<p>3） 使用数据通道1通过数据模板进行透传，并绑定到到iRTU串口1</p>
+<p>第四步，打开LLCCOM调试工具，将以上配置信息通过串口工具写入iRTU</p>
+<pre><code>config,writeconfig,&#123;&quot;fota&quot;:0,&quot;uartReadTime&quot;:&quot;25&quot;,&quot;flow&quot;:&quot;&quot;,&quot;param_ver&quot;:&quot;1&quot;,&quot;pwrmod&quot;:&quot;normal&quot;,&quot;password&quot;:&quot;&quot;,&quot;netReadTime&quot;:&quot;0&quot;,&quot;passon&quot;:1,&quot;nolog&quot;:&quot;0&quot;,&quot;plate&quot;:0,&quot;reg&quot;:0,&quot;convert&quot;:0,&quot;uconf&quot;:[[1,&quot;115200&quot;,8,2,0,&quot;&quot;],[2,&quot;115200&quot;,8,2,0,&quot;&quot;]],&quot;conf&quot;:[[&quot;udp&quot;,&quot;005501B01000000000100000000000000011234iRTUUPWs 1.0.000&quot;,10,&quot;box.miuser.net&quot;,7101,1,&quot;&quot;,&quot;&quot;,&quot;&quot;],[],[],[],[],[],[]],&quot;preset&quot;:&#123;&quot;number&quot;:&quot;&quot;,&quot;delay&quot;:&quot;&quot;,&quot;smsword&quot;:&quot;&quot;&#125;,&quot;apn&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;cmds&quot;:[[],[]],&quot;pins&quot;:[],&quot;gps&quot;:&#123;&quot;pio&quot;:[],&quot;fun&quot;:[]&#125;,&quot;upprot&quot;:[&quot;--Upload stream\nfunction \n\n    local a=...\n\n    local ret=\&quot;\&quot;\n    local str=\&quot;\&quot;\n\n    if (a:sub(1,2)==string.fromHex(\&quot;01 03\&quot;)) then \n        local num1=(a:sub(4,4):byte()*255+a:sub(5,5):byte())/10       \n        local num2=(a:sub(6,6):byte()*255+a:sub(7,7):byte())/10       \n        local temp=tostring(num1,10)\n        local  humd=tostring(num2,10)        \n        str=\&quot;Temp:\&quot;..temp..\&quot; Humedity:\&quot;..humd          \n    else\n        str=string.toHex(a, \&quot; \&quot;)\n    end\n\n    local totallen=41+str:len()\n    local ret=string.format(\&quot;%04d\&quot;,totallen)..\&quot;01\&quot;..\&quot;C\&quot;..\&quot;01\&quot;..\&quot;0000000001\&quot;..\&quot;0000000000000001\&quot;..\&quot;1234\&quot;..str..\&quot;05\&quot;\n\nreturn ret\nend &quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;dwprot&quot;:[&quot;--Download steam\nfunction\n    local str=...\n    local dat=str:sub(40,-3)\n    local ret=\&quot;\&quot;\n    if (dat:sub(1,4)==\&quot;temp\&quot;) then\n        ret= string.fromHex(\&quot;01 03 02 00 00 03 04 73\&quot;)\n    else \n        ret =dat\n    end\n    return ret\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;warn&quot;:&#123;&quot;adc0&quot;:[],&quot;adc1&quot;:[],&quot;vbatt&quot;:[],&quot;gpio&quot;:[]&#125; &#125;
+</code></pre>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35767.jpg"></p>
+<p>第五步，运行UDP Demo。在命令行里输入temp,可以看到温湿度被采集了回来，向传感器 哈一口气，可以明显看到湿度上升。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65975.jpg"></p>
+<p>第六步，最终效果</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53184.jpg"></p>
+<p>温湿度采集用途很广，配合上一期的Modbus继电器就可以构成完整的大棚温湿度采集方案了。而且更加聪明的你一定注意到的是，并不需要配置两个DTU，只需要自行修改传感器的地址，合并Modbus上下行数据流模板就可以用一个DTU同时采集温湿度并控制网络继电器。 这个就需要您自己试试喽，如果有问题也欢迎和我讨论，我的QQ：64034373，加好友注明您的目的，谢谢。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1bnpWMISqglnLyXnZt5ISEg">https://pan.baidu.com/s/1bnpWMISqglnLyXnZt5ISEg</a> 提取码：kshz</p>
+<p>本文参考资料如下：</p>
+<p>1 iRTU项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
+<p>2 UPWS项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
+<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
+<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/01/06/672/" data-id="ckkfmdgd000a4vkcgb4ug9x6k" data-title="稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/07/673/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          上海合宙Luat Air720SL模块 入门指南（2）-GPIO上篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/05/671/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">批量生产时如何进行GPS生产测试</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

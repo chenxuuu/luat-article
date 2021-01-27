@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>4、8910芯片USB描述符：接口描述符---虚拟串口 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="四、虚拟串口&amp;emsp;&amp;emsp;大家在开发单片机应用时或多或少应该都用过物理串口。对硬件有所了解的小伙伴应该都注意到了我们的开发板上板载的物理串口是通过一块CH340x与PC进行通信的，有点开发板用的也有可能是CP21xx等等。  &amp;emsp;&amp;emsp;这些芯片就是用来连接PC和单片机的桥梁，完成ttl通信协议和usb通信协议的相互转换。完成这个功能就需要使用这一类物理芯片，一般情况下就是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4、8910芯片USB描述符：接口描述符---虚拟串口">
+<meta property="og:url" content="https://doc.luatos.wiki/2021/01/11/2299/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="四、虚拟串口&amp;emsp;&amp;emsp;大家在开发单片机应用时或多或少应该都用过物理串口。对硬件有所了解的小伙伴应该都注意到了我们的开发板上板载的物理串口是通过一块CH340x与PC进行通信的，有点开发板用的也有可能是CP21xx等等。  &amp;emsp;&amp;emsp;这些芯片就是用来连接PC和单片机的桥梁，完成ttl通信协议和usb通信协议的相互转换。完成这个功能就需要使用这一类物理芯片，一般情况下就是一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163400833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163417398.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163507563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163518788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163531463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021011116354618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163556392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163605934.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210111163628498.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021011116364085.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021011116365111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-01-11T09:14:26.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.337Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210111163400833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2299" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/11/2299/" class="article-date">
+  <time class="dt-published" datetime="2021-01-11T09:14:26.000Z" itemprop="datePublished">2021-01-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      4、8910芯片USB描述符：接口描述符---虚拟串口
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="四、虚拟串口"><a href="#四、虚拟串口" class="headerlink" title="四、虚拟串口"></a>四、虚拟串口</h1><p>&emsp;&emsp;大家在开发单片机应用时或多或少应该都用过物理串口。对硬件有所了解的小伙伴应该都注意到了我们的开发板上板载的物理串口是通过一块CH340x与PC进行通信的，有点开发板用的也有可能是CP21xx等等。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210111163400833.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;这些芯片就是用来连接PC和单片机的桥梁，完成ttl通信协议和usb通信协议的相互转换。完成这个功能就需要使用这一类物理芯片，一般情况下就是一个芯片完成一路串口的转化。多路串口也有，不过价格会比较贵。</p>
+<p>&emsp;&emsp;随着电子行业的发展，现在也有越来越的多带USB接口的器件涌现出来，如带USB接口的单片机，或独立的USB接口器件，而且这些器件的成本已经很接近于使用RS232电平转换芯片所带来的成本。相比传统的usb转ttl的物理芯片，使用usb芯片或者模块自带的usb功能，可以实现更多功能，也可以直接虚拟出多个串口。</p>
+<p>&emsp;&emsp;如图所示是一款一个性能优化的低价位USB器件。通常用于基于微控制器的系统并与微控制器通过高速通用并行接口进行通信，也支持本地DMA，针脚数是28。在单片机自身不带USB的情况下可以实现USB的相关功能。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210111163417398.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;合宙AirCat1系列模块自带的USB功能，默认情况下被配置成三个虚拟串口，一个虚拟Modem口用于打印Luat的运行日志，一个虚拟AT口用来收发AT，一个虚拟AP口用来输出底层运行的AP日志。用户还可以通过AT*USB命令打开虚拟CP口，虚拟MOS口，虚拟NPI口。这里只介绍默认的三个虚拟口，剩下三个扩展口不做介绍。</p>
+<h2 id="4-1、Modem"><a href="#4-1、Modem" class="headerlink" title="4.1、Modem"></a>4.1、Modem</h2><p>&emsp;&emsp;合宙AirCat1系列模块，在Windows上第1个枚举的虚拟串口是Modem口，在Linux上第1个枚举的虚拟串口是ttyUSBx(x可以是任何数字)。主要用于打印Luat的运行日志，也可以用来收发AT。</p>
+<h3 id="4-1-1、Modem接口描述符（9字节）"><a href="#4-1-1、Modem接口描述符（9字节）" class="headerlink" title="4.1.1、Modem接口描述符（9字节）"></a>4.1.1、Modem接口描述符（9字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>600</td>
+<td>0x09</td>
+<td>描述符大小为9字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>608</td>
+<td>0x04</td>
+<td>接口描述符类型</td>
+</tr>
+<tr>
+<td><strong>bInterfaceNumber</strong></td>
+<td>8</td>
+<td>616</td>
+<td>0x02</td>
+<td>此接口号为2。</td>
+</tr>
+<tr>
+<td><strong>bAlternateSetting</strong></td>
+<td>8</td>
+<td>624</td>
+<td>0x00</td>
+<td>用于选择此接口的备用设置的值为0</td>
+</tr>
+<tr>
+<td><strong>bNumEndpoints</strong></td>
+<td>8</td>
+<td>632</td>
+<td>0x02</td>
+<td>此接口使用的端点数为2（不包括端点0）</td>
+</tr>
+<tr>
+<td><strong>bInterfaceClass</strong></td>
+<td>8</td>
+<td>640</td>
+<td>0xFF</td>
+<td>接口属于UDCLASS_VENDOR类</td>
+</tr>
+<tr>
+<td><strong>bInterfaceSubClass</strong></td>
+<td>8</td>
+<td>648</td>
+<td>0x00</td>
+<td>子类编码为0</td>
+</tr>
+<tr>
+<td><strong>bInterfaceProtocol</strong></td>
+<td>8</td>
+<td>656</td>
+<td>0x00</td>
+<td>接口不使用任何UDCLASS_VENDOR类的协议</td>
+</tr>
+<tr>
+<td><strong>iInterface</strong></td>
+<td>8</td>
+<td>664</td>
+<td>0x06</td>
+<td>接口字符串描述符索引为6</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210111163507563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-1-2、Modem输入端点描述符（7字节）"><a href="#4-1-2、Modem输入端点描述符（7字节）" class="headerlink" title="4.1.2、Modem输入端点描述符（7字节）"></a>4.1.2、Modem输入端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>672</td>
+<td>0x07</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>680</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>688</td>
+<td>0x83</td>
+<td>0x83</td>
+<td>这是一个端点编号为3的输入端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>696</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>704</td>
+<td>0x0200</td>
+<td>0x0200</td>
+<td>此端点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>720</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。高速未定义</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210111163518788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-1-3、Modem输出端点描述符（7字节）"><a href="#4-1-3、Modem输出端点描述符（7字节）" class="headerlink" title="4.1.3、Modem输出端点描述符（7字节）"></a>4.1.3、Modem输出端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>728</td>
+<td>0x07</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>736</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>744</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>这是端点号为2的输出端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>752</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>760</td>
+<td>0x0200</td>
+<td>0x0200</td>
+<td>此端点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>776</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。如果高速，0 uFrames/NAK</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210111163531463.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="4-2、AT"><a href="#4-2、AT" class="headerlink" title="4.2、AT"></a>4.2、AT</h2><p>&emsp;&emsp;合宙AirCat1系列模块，在Windows上第2个枚举的虚拟串口是AT口，在Linux上第2个枚举的虚拟串口是ttyUSBx+1(x可以是任何数字)。主要是用于发AT，也可以通过软件配置成普通的串口功能，就像物理串口一样。</p>
+<h3 id="4-2-1、AT接口描述符（9字节）"><a href="#4-2-1、AT接口描述符（9字节）" class="headerlink" title="4.2.1、AT接口描述符（9字节）"></a>4.2.1、AT接口描述符（9字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>784</td>
+<td>0x09</td>
+<td>描述符大小为9字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>792</td>
+<td>0x04</td>
+<td>接口描述符类型</td>
+</tr>
+<tr>
+<td><strong>bInterfaceNumber</strong></td>
+<td>8</td>
+<td>800</td>
+<td>0x03</td>
+<td>此接口号为3。</td>
+</tr>
+<tr>
+<td><strong>bAlternateSetting</strong></td>
+<td>8</td>
+<td>808</td>
+<td>0x00</td>
+<td>用于选择此接口的备用设置的值为0</td>
+</tr>
+<tr>
+<td><strong>bNumEndpoints</strong></td>
+<td>8</td>
+<td>816</td>
+<td>0x02</td>
+<td>此接口使用的端点数为2（不包括端点0）</td>
+</tr>
+<tr>
+<td><strong>bInterfaceClass</strong></td>
+<td>8</td>
+<td>824</td>
+<td>0xFF</td>
+<td>接口属于UDCLASS_VENDOR类</td>
+</tr>
+<tr>
+<td><strong>bInterfaceSubClass</strong></td>
+<td>8</td>
+<td>832</td>
+<td>0x00</td>
+<td>子类编码为0</td>
+</tr>
+<tr>
+<td><strong>bInterfaceProtocol</strong></td>
+<td>8</td>
+<td>840</td>
+<td>0x00</td>
+<td>接口不使用任何UDCLASS_VENDOR类的协议</td>
+</tr>
+<tr>
+<td><strong>iInterface</strong></td>
+<td>8</td>
+<td>848</td>
+<td>0x06</td>
+<td>接口字符串描述符索引为6</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/2021011116354618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-2-2、AT输入端点描述符（7字节）"><a href="#4-2-2、AT输入端点描述符（7字节）" class="headerlink" title="4.2.2、AT输入端点描述符（7字节）"></a>4.2.2、AT输入端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>672</td>
+<td>0x07</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>680</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>688</td>
+<td>0x83</td>
+<td>0x84</td>
+<td>这是一个端点编号为4的输入端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>696</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>704</td>
+<td>0x0200</td>
+<td>0x0200</td>
+<td>此端点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>720</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。高速未定义</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210111163556392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-2-3、AT输出端点描述符（7字节）"><a href="#4-2-3、AT输出端点描述符（7字节）" class="headerlink" title="4.2.3、AT输出端点描述符（7字节）"></a>4.2.3、AT输出端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>728</td>
+<td>0x07</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>736</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>744</td>
+<td>0x02</td>
+<td>0x03</td>
+<td>这是端点号为2的输出端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>752</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>760</td>
+<td>0x0200</td>
+<td>0x0200</td>
+<td>此端点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>776</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。如果高速，0 uFrames/NAK</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210111163605934.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="4-3、AP"><a href="#4-3、AP" class="headerlink" title="4.3、AP"></a>4.3、AP</h2><p>&emsp;&emsp;合宙AirCat1系列模块，在Windows上第3个枚举的虚拟串口是AP口，在Linux上第3个枚举的虚拟串口是ttyUSBx+2(x可以是任何数字)。主要是用于打印底层的AP日志（一般情况下用户无需理会）。</p>
+<h3 id="4-3-1、AP接口描述符（9字节）"><a href="#4-3-1、AP接口描述符（9字节）" class="headerlink" title="4.3.1、AP接口描述符（9字节）"></a>4.3.1、AP接口描述符（9字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>784</td>
+<td>0x09</td>
+<td>描述符大小为9字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>792</td>
+<td>0x04</td>
+<td>接口描述符类型</td>
+</tr>
+<tr>
+<td><strong>bInterfaceNumber</strong></td>
+<td>8</td>
+<td>800</td>
+<td>0x04</td>
+<td>此接口号为4。</td>
+</tr>
+<tr>
+<td><strong>bAlternateSetting</strong></td>
+<td>8</td>
+<td>808</td>
+<td>0x00</td>
+<td>用于选择此接口的备用设置的值为0</td>
+</tr>
+<tr>
+<td><strong>bNumEndpoints</strong></td>
+<td>8</td>
+<td>816</td>
+<td>0x02</td>
+<td>此接口使用的端点数为2（不包括端点0）</td>
+</tr>
+<tr>
+<td><strong>bInterfaceClass</strong></td>
+<td>8</td>
+<td>824</td>
+<td>0xFF</td>
+<td>接口属于UDCLASS_VENDOR类</td>
+</tr>
+<tr>
+<td><strong>bInterfaceSubClass</strong></td>
+<td>8</td>
+<td>832</td>
+<td>0x00</td>
+<td>子类编码为0</td>
+</tr>
+<tr>
+<td><strong>bInterfaceProtocol</strong></td>
+<td>8</td>
+<td>840</td>
+<td>0x00</td>
+<td>接口不使用任何UDCLASS_VENDOR类的协议</td>
+</tr>
+<tr>
+<td><strong>iInterface</strong></td>
+<td>8</td>
+<td>848</td>
+<td>0x06</td>
+<td>接口字符串描述符索引为6</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210111163628498.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-3-2、AP输入端点描述符（7字节）"><a href="#4-3-2、AP输入端点描述符（7字节）" class="headerlink" title="4.3.2、AP输入端点描述符（7字节）"></a>4.3.2、AP输入端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>672</td>
+<td>0x07</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>680</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>688</td>
+<td>0x83</td>
+<td>0x85</td>
+<td>这是一个端点编号为4的输入端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>696</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>704</td>
+<td>0x0200</td>
+<td>0x0200</td>
+<td>此端点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>720</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。高速未定义</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/2021011116364085.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-3-3、AP输出端点描述符（7字节）"><a href="#4-3-3、AP输出端点描述符（7字节）" class="headerlink" title="4.3.3、AP输出端点描述符（7字节）"></a>4.3.3、AP输出端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>728</td>
+<td>0x07</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>736</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>744</td>
+<td>0x02</td>
+<td>0x04</td>
+<td>这是端点号为2的输出端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>752</td>
+<td>0x02</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>760</td>
+<td>0x0200</td>
+<td>0x0200</td>
+<td>此端点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>776</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。如果高速，0 uFrames/NAK</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/2021011116365111.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2021/01/11/2299/" data-id="ckkfmdgeb00cjvkcg3yrnc3o5" data-title="4、8910芯片USB描述符：接口描述符---虚拟串口" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/14/2316/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          air724ug能否增加向来电一方播放TTS的AT指令 ？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/11/2297/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">小标签，大用途2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

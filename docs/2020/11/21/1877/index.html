@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>AudioCalibrator_V2.3.7 的使用及音频文件处理方法 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="作者：周维华前言：在AudioCalibrator_V2.3.7的readme 目录就有《音频实时校准工具用户指南_V1.2.pdf》这是RDA 官方的文档（后面简称：“RDA文档”）。即使仔细阅读，也是步步艰难。 几次想认真研究下这个工具到底怎么用，奈何悟性不够，以至疲于各种ERROR 提示；得益于金总和国良的指点，总算能让工具正常的跑起来， 此音频工具能调节的参数非常多，我这里就挑重点讲解下如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AudioCalibrator_V2.3.7 的使用及音频文件处理方法">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/11/21/1877/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="作者：周维华前言：在AudioCalibrator_V2.3.7的readme 目录就有《音频实时校准工具用户指南_V1.2.pdf》这是RDA 官方的文档（后面简称：“RDA文档”）。即使仔细阅读，也是步步艰难。 几次想认真研究下这个工具到底怎么用，奈何悟性不够，以至疲于各种ERROR 提示；得益于金总和国良的指点，总算能让工具正常的跑起来， 此音频工具能调节的参数非常多，我这里就挑重点讲解下如">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121230549292_%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223242271_%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223311860_%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121231040002_%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121231103782_%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223552518_%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223627416_%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223701083_%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223729137_%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121224446068_%E5%9B%BE%E7%89%879.png">
+<meta property="article:published_time" content="2020-11-21T15:00:37.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.337Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121230549292_%E5%9B%BE%E7%89%8710.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1877" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/21/1877/" class="article-date">
+  <time class="dt-published" datetime="2020-11-21T15:00:37.000Z" itemprop="datePublished">2020-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      AudioCalibrator_V2.3.7 的使用及音频文件处理方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>作者：周维华<br>前言：<br>在AudioCalibrator_V2.3.7的readme 目录就有《音频实时校准工具用户指南_V1.2.pdf》<br>这是RDA 官方的文档（后面简称：“RDA文档”）。即使仔细阅读，也是步步艰难。 几次想认真研究下这个工具到底怎么用，奈何悟性不够，以至疲于各种ERROR 提示；得益于金总和国良的指点，总算能让工具正常的跑起来， 此音频工具能调节的参数非常多，我这里就挑重点讲解下如何成功的读取和设置参数到模块，作为抛砖引玉，让大家能顺利的使用此工具（工具在下面的“音频工具包”中能下载）。</p>
+<h2 id="一．使用工具的目的"><a href="#一．使用工具的目的" class="headerlink" title="一．使用工具的目的"></a>一．使用工具的目的</h2><pre><code>目前合宙的AT指令对音量控制的，只有这两个指令
+</code></pre>
+<p>通话音量控制：AT+CLVL<br>本地音频播放音量控制：AT+CRSL<br>实际和声音相关的参数非常多如校准，滤波，均衡，动态，回音等等，客户的产品有涉及到语音的大概率需要调节这些参数（也有不少默认的就满足客户要求，这跟产品的设计结构电路也有关系），所以这里就是要告诉大家怎么来使用这个工具，远离工具异常提示。</p>
+<h2 id="二．工具运行所需环境"><a href="#二．工具运行所需环境" class="headerlink" title="二．工具运行所需环境"></a>二．工具运行所需环境</h2><p>有几个前提条件：</p>
+<h3 id="1-合宙CAT1模块的USB-驱动程序要先安装："><a href="#1-合宙CAT1模块的USB-驱动程序要先安装：" class="headerlink" title="1.合宙CAT1模块的USB 驱动程序要先安装："></a>1.合宙CAT1模块的USB 驱动程序要先安装：</h3><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183454135_sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183454135_sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z</a><br>音频工具包：<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200814120426598_%E9%9F%B3%E9%A2%91%E5%8F%82%E6%95%B0%E4%B8%8B%E8%BD%BD.rar">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200814120426598_%E9%9F%B3%E9%A2%91%E5%8F%82%E6%95%B0%E4%B8%8B%E8%BD%BD.rar</a></p>
+<h3 id="2-设备USB-接到电脑，并且设备开机，WINDOWS-会识别到USB的虚拟串口。"><a href="#2-设备USB-接到电脑，并且设备开机，WINDOWS-会识别到USB的虚拟串口。" class="headerlink" title="2.设备USB 接到电脑，并且设备开机，WINDOWS 会识别到USB的虚拟串口。"></a>2.设备USB 接到电脑，并且设备开机，WINDOWS 会识别到USB的虚拟串口。</h3><p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121230549292_%E5%9B%BE%E7%89%8710.png" alt="undefined" title="undefined"></a></p>
+<p>不同机器串口COMxx 序号可能不同，只要看到”LUAT USB Device 1 AT” 的就可以。<br>3.RDA 音频工具包解压后，无需安装， 双击AudioCalibrator.exe 即可运行，进到主界面后有几个重要的配置点:<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223242271_%E5%9B%BE%E7%89%871.png" alt="undefined" title="undefined"></a><br>A.  配置串口，就选 LUAT USB Device 1 AT 的串口，也就是COM14即可：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223311860_%E5%9B%BE%E7%89%872.png" alt="undefined" title="undefined"></a><br>B. 点击 绿色三角形，启动串口。<br>C. 选择平台 8910-UNI<br>D. 选择版本 ca020109<br>E. 点击”GetAll” 按钮,可以读出模块内的音频参数。<br>注意：上面的ABCDE 条件中，首次操作循序是:ACDBE，后面基本就是B或E用的多些。<br>      如果B或E这一步过不去，就不需要往下看，先确保虚拟串口不要被其他串口工具或者<br>LUAT TOOL给占用了，排查，直到能连上。<br>****这里有个非常规的可能： 就是二次开发固件截获了USBDATA，导致USB的<br>虚拟串口并非真正的AT默认功能，这一点需要跟当事软件工程师确认好。</p>
+<h3 id="4-读出模块内的音频参数后，界面如下："><a href="#4-读出模块内的音频参数后，界面如下：" class="headerlink" title="4.读出模块内的音频参数后，界面如下："></a>4.读出模块内的音频参数后，界面如下：</h3><p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121231040002_%E5%9B%BE%E7%89%873.png" alt="undefined" title="undefined"></a></p>
+<h2 id="三．调节参数"><a href="#三．调节参数" class="headerlink" title="三．调节参数"></a>三．调节参数</h2><pre><code>参数这么多，到底要调节那些呢，我们可以先用实际产品做个归类，下面的Test Setting
+会为我们分出大类：
+</code></pre>
+<p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121231103782_%E5%9B%BE%E7%89%874.png" alt="undefined" title="undefined"></a></p>
+<h3 id="1-比如数字对讲机："><a href="#1-比如数字对讲机：" class="headerlink" title="1.比如数字对讲机："></a>1.比如数字对讲机：</h3><p>放音部分选 APMode Sel 就选 “1 Music Play”，<br>录音部分选 “2 Music Record”</p>
+<h3 id="2-比如传统商话或者学生卡"><a href="#2-比如传统商话或者学生卡" class="headerlink" title="2.比如传统商话或者学生卡"></a>2.比如传统商话或者学生卡</h3><p>喇叭部分 APMode Sel 就选  “0:Voice Call NB”窄带，<br>或者 “5:Voice Call WB”宽带<br>MIC部分 “0: HandSet” 或者 “1: HandFree”<br>*<strong>**</strong>注意，MIC部分好说，硬件怎么设计就怎么选，喇叭或者听筒部分那就真的是坑！主要有两点：<br>A.此参数不在通话的时候是无法调节的，只有边通话边调试。<br>            <a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223552518_%E5%9B%BE%E7%89%875.png" alt="undefined" title="undefined"></a><br>B.真正通话的时候，到底是宽带还是窄带，目前看也很随机，但是经过<br>反复琢磨也能找到方法： 那就是通话之后，先尝试窄带0:Voice Call NB：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223627416_%E5%9B%BE%E7%89%876.png" alt="undefined" title="undefined"></a></p>
+<p>如果点击“Send Cmd” 没有错误提示，并且“条目下参数列表”会清空，<br>就说明当前语音通道，是可以被调节的，于是重新选择要修改的条目，具体<br>修改相关值，然后再“Send Cmd”写入，模块可以即刻生效，然后点击“Write to Flash”按钮，存到FLASH 。</p>
+<p>如果在窄带，写入数据弹出类似”ERROR 59”的错误，则说明当前通话在宽带<br>用同样的方式去尝试5:Voice Call WB， 二选一必定有一个是能调节的。<br>*<strong>**</strong>这里要说明下： 上面说通话时窄带宽带很随机，并非真的随机，而是对方手机 的VOLTE高清通话是否打开了，如果开了就是宽带WB；如果没有开就是窄带NB，由于我们并不知道对方手机处于什么设置，所以打给不同的用户看起来有点随机。</p>
+<h3 id="3-ITF-Sel-实际上就是语音通道，根据硬件设计来选就可以了"><a href="#3-ITF-Sel-实际上就是语音通道，根据硬件设计来选就可以了" class="headerlink" title="3.ITF Sel 实际上就是语音通道，根据硬件设计来选就可以了"></a>3.ITF Sel 实际上就是语音通道，根据硬件设计来选就可以了</h3><h3 id="4-关于上图中“要修改的条目”，有几个条目是我们常用的："><a href="#4-关于上图中“要修改的条目”，有几个条目是我们常用的：" class="headerlink" title="4.关于上图中“要修改的条目”，有几个条目是我们常用的："></a>4.关于上图中“要修改的条目”，有几个条目是我们常用的：</h3><p>atctst_aud_codec_get_ingain 可以理解成：MIC 增益调节<br>atctst_aud_codec_get_outgain可以理解成：喇叭/听筒增益<br>更多的条目，可以参考 RDA文档。</p>
+<h2 id="四．生成参数文件"><a href="#四．生成参数文件" class="headerlink" title="四．生成参数文件"></a>四．生成参数文件</h2><pre><code>参数调节好了之后，需要生成音频文件，因为这种参数工具只能针对几台机器做升级，
+</code></pre>
+<p>并不适合量产，所以我们在成功设置了参数之后， 可以点击”Export from FLASH” 来将模块内的音频参数导出到电脑上，默认文件格式是 cfp<br>    <a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223701083_%E5%9B%BE%E7%89%877.png" alt="undefined" title="undefined"></a><br>    但是这个文件，并不能被AT, LUAT CSDK 所接受，需要转换成BIN 文件：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223729137_%E5%9B%BE%E7%89%878.png" alt="undefined" title="undefined"></a><br>     点击工具条上的 BIN=CFP 互转的工具，可以将CFP 文件转换成BIN 文件。<br>     <a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121224446068_%E5%9B%BE%E7%89%879.png" alt="undefined" title="undefined"></a><br>     文件大小固定就是10372字节。（就目前RDA的CAT1方案而言）</p>
+<p>音频文件的更新原理：<br>1 首先要在模块的磁盘上创建一个目录：/usernvm  这个是固定名称。<br>2. /usernvm目录下先后创建两个固定文件<br>      A.音频实体文件user_audio_calib.bin，就是音频文件的长度(4字节小端) 加上音频文件的内容   LEN[4]  + DATA[10372]<br>      B.音频标志文件 user_audio_calib_flag.bin  就是设置一个标志。<br>3.目录和文件都就绪后，重启模块后一个正确的音频实体文件会被模块“吸纳”，<br>并且/usernvm找不到它（指实体文件），然而user_audio_calib_flag.bin 标志文件仍然健在—–<br>就说明更新成功了，用户可以用RDA 音频工具读出来，生成另一个BIN 文件做比较。</p>
+<h2 id="五．AT固件更新音频文件"><a href="#五．AT固件更新音频文件" class="headerlink" title="五．AT固件更新音频文件"></a>五．AT固件更新音频文件</h2><p>创建目录：AT+FSMKDIR.     创建 usernvm 目录<br>创建文件：AT+FSCREATE       分别创建音频实体文件和标志文件<br>写文件：AT+FSWRITE        分别写入音频实体文件和标志文件（标志文件固定写 “1” ，一个字符）<br>重启 ：AT+RESET           重启模块<br>读文件:AT+FSREAD        分别读取音频实体文件和标志文件，根据上述更新原理判断是否更新成功, 下面是AT 指令的实际流程：</p>
+<p>AT+FSLS=”&quot;    （此命令非必要，方便用户知道下模块内的目录层级）<br>    nvm<br>    modemnvm<br>    usernvm<br>    fota<br>    C:<br>    AMNV_CT11_000<br>    AMNV_CT08_001<br>    AMNV_CT12_000<br>    AMNV_CT15_000<br>    AMNV_CT48_000<br>    AMNV_CT49_000<br>    AMNV_CT13_000<br>    AMNV_CT28_000<br>    AMNV_CT01_000<br>    AMNV_CT02_000<br>    sms_dm_nv.bin<br>    OK</p>
+<p>AT+FSMKDIR=”\usernvm”<br>    OK</p>
+<p>AT+FSCREATE=”\usernvm\user_audio_calib.bin”<br>    OK</p>
+<p>AT+FSCREATE=”\usernvm\user_audio_calib_flag.bin”<br>    OK</p>
+<p>AT+FSWRITE=”\usernvm\user_audio_calib_flag.bin”,0,1,300<br>    &gt;<br>    1<br>    OK</p>
+<p>AT+FSWRITE=”\usernvm\user_audio_calib.bin”,0,4,300<br>    &gt;<br>    ABCD  （实际数据就是 LEN[4]  + DATA[10372]）<br>    OK</p>
+<p>AT+FSLS=”\usernvm”    （此命令非必要，只是方便用户查看是否真的写入了两个文件）<br>    user_audio_calib.bin<br>    user_audio_calib_flag.bin<br>    OK</p>
+<p>AT+RESET</p>
+<p>//下面重启模块后如果格式正确，user_audio_calib.bin会被模块取走。 可以列举\usernvm” 的所有文件。<br>//如果标志文件在， 音频文件不在了，就说明更新成功</p>
+<p>AT+FSLS=”\usernvm”      （如果用了这个指令，后面分别 FSREAD 两个文件可以忽略）<br>    user_audio_calib.bin<br>    user_audio_calib_flag.bin<br>    OK</p>
+<p>AT+FSREAD=”\usernvm\user_audio_calib.bin”,0,100,0<br>    ABCD<br>    OK</p>
+<p>AT+FSREAD=”\usernvm\user_audio_calib_flag.bin”,0,100,0<br>    1<br>    OK</p>
+<h2 id="六．LUAT-固件更新音频文件"><a href="#六．LUAT-固件更新音频文件" class="headerlink" title="六．LUAT 固件更新音频文件"></a>六．LUAT 固件更新音频文件</h2><p> (audio_calib.bin 就是10372 字节的音频文件)<br>module(…,package.seeall)</p>
+<p>require”utils”<br>sys.taskInit(function()<br>    local USERNVM_DIR = “/usernvm”<br>    local USERNVM_AUDIOCALIB_FILE_PATH = USERNVM_DIR..”/user_audio_calib.bin”<br>    local USERNVM_AUDIOCALIB_SET_FILE_PATH = USERNVM_DIR..”/user_audio_calib_flag.bin”<br>    if rtos.make_dir(USERNVM_DIR) then<br>        if io.exists(USERNVM_AUDIOCALIB_SET_FILE_PATH) then<br>            if io.exists(USERNVM_AUDIOCALIB_FILE_PATH) then<br>                log.error(“audioParam USERNVM_AUDIOCALIB_FILE_PATH error”,USERNVM_AUDIOCALIB_FILE_PATH)<br>            else<br>                log.info(“audioParam success”)<br>            end<br>        else<br>            os.remove(USERNVM_AUDIOCALIB_FILE_PATH)<br>            local userAudioParam = io.readFile(“/lua/audio_calib.bin”)<br>            io.writeFile(USERNVM_AUDIOCALIB_FILE_PATH,pack.pack(“&lt;i”,userAudioParam:len()))<br>            io.writeFile(USERNVM_AUDIOCALIB_FILE_PATH,userAudioParam,”ab”)<br>            io.writeFile(USERNVM_AUDIOCALIB_SET_FILE_PATH,”1”)<br>            <br>            log.info(“audioParam write, restart later…”)<br>            sys.restart(“audioParam”)<br>        end<br>    else<br>        log.error(“audioParam make_dir error”,USERNVM_DIR)<br>    end<br>end)</p>
+<h2 id="七．CSDK-固件更新音频文件"><a href="#七．CSDK-固件更新音频文件" class="headerlink" title="七．CSDK 固件更新音频文件"></a>七．CSDK 固件更新音频文件</h2><p>CSDK 的更新稍微麻烦一点，因为CSDK 不像LUAT 那样自由的安放文件。<br>CSDK 可以将10372 字节的音频文件做成数组：<br>const unsigned char clib_data[] ={<br>0x09,0x01,0x02,0xCA,0x40,0x1F,0x00,0x00,0x01,0x00,0x01,0x00,0x00,0x40,0x00,0x40………</p>
+<p>然后在应用代码中增加如下：</p>
+<p>#include “am_openat.h”<br>#include “am_openat_fs.h”<br>#include “am_openat_system.h”<br>#include “am_openat_drv.h”<br>#include “string.h”<br>#include “iot_debug.h”</p>
+<p>BOOL dir_create(char * dir)<br>{<br>    return iot_fs_make_dir(dir, E_FS_ATTR_DEFAULT)&gt;=0?TRUE:FALSE;<br>}<br>BOOL file_exist(char* file)<br>{<br>    INT32 fd;<br>    fd = iot_fs_open_file(file, FS_O_RDONLY);</p>
+<pre><code>if (fd &gt;= 0)
+&#123;
+    iot_fs_close_file(fd);
+    return TRUE;
+&#125;
+return FALSE;
+</code></pre>
+<p>}<br>BOOL file_delete(char* file)<br>{<br>    INT32 err;<br>    err = iot_fs_delete_file(file);<br>    if (err &lt; 0)<br>        return FALSE;<br>    return TRUE;<br>}</p>
+<p>BOOL file_write(char* file, unsigned char * write_buff, int length)<br>{<br>    INT32 fd;<br>    INT32 write_len;<br>    fd = iot_fs_open_file(file, FS_O_WRONLY|FS_O_CREAT);<br>    if (fd &lt; 0)<br>        return FALSE ;<br>    write_len = iot_fs_write_file(fd, write_buff, length);<br>    if (write_len &lt; 0)<br>        return FALSE;<br>    iot_fs_close_file(fd);<br>    return TRUE;<br>}</p>
+<p> void check_user_calib(char * pcalib,int length)<br> {<br>     char * USERNVM_PATH =”/usernvm”;<br>     char * USERNVM_AUDIOCALIB_FILE_PATH =”/usernvm/user_audio_calib.bin”;<br>     char * USERNVM_AUDIOCALIB_SET_FILE_PATH =”/usernvm/user_audio_calib_flag.bin”;<br>     if(dir_create(USERNVM_PATH))<br>     {<br>          if(file_exist(USERNVM_AUDIOCALIB_SET_FILE_PATH))<br>          {<br>               if(file_exist(USERNVM_AUDIOCALIB_FILE_PATH))<br>               {<br>                   iot_debug_print(“audioParam USERNVM_AUDIOCALIB_FILE_PATH error,=%s”, USERNVM_AUDIOCALIB_FILE_PATH);<br>               } else<br>               {<br>                   iot_debug_print(“audioParam success”);<br>               }<br>          } else<br>          {<br>               file_delete(USERNVM_AUDIOCALIB_FILE_PATH);<br>               char * pbuf = malloc(length +4);<br>               memset(pbuf,0, length +4);</p>
+<pre><code>           // &#39;&lt;&#39; 小字节序，最低有效字节优先，更低的字节有效位占据着更低地址的内存空间。
+
+           pbuf[0]= (unsigned char)((length &amp; 0x000000FF)&gt;&gt;0);
+           pbuf[1]= (unsigned char)((length &amp; 0x0000FF00)&gt;&gt;8);
+           pbuf[2]= (unsigned char)((length &amp; 0x00FF0000)&gt;&gt;16);
+           pbuf[3]= (unsigned char)((length &amp; 0xFF000000)&gt;&gt;24);
+           memcpy(&amp;pbuf[4],pcalib,length);
+
+           if(file_write(USERNVM_AUDIOCALIB_FILE_PATH, pbuf, length+4))
+           &#123;
+                pbuf[0]=1;
+                pbuf[1]=0;
+                if(file_write(USERNVM_AUDIOCALIB_SET_FILE_PATH, pbuf, 1))
+                &#123;
+                    iot_debug_print(&quot;audioParam write, restart later... write file len=%d&quot;, length);
+                    iot_os_sleep(3000);
+                    iot_os_restart();
+                &#125;
+                else
+                &#123;
+                    iot_debug_print(&quot;audioParam write error =%s&quot;, USERNVM_AUDIOCALIB_SET_FILE_PATH);
+                &#125;
+           &#125;
+           else
+           &#123;
+               iot_debug_print(&quot;audioParam write error =%s&quot;, USERNVM_AUDIOCALIB_FILE_PATH);
+           &#125;
+      &#125;
+ &#125; else
+ &#123;
+     iot_debug_print(&quot;audioParam make_dir error  =%s&quot;,USERNVM_PATH);
+ &#125;
+</code></pre>
+<p>}</p>
+<p>/*<br>     开机后 调用一次：<br>     check_user_calib(clib_data,sizeof(clib_data));</p>
+<pre><code> COOL TOOL 上可以查看日志关键字  audioParam，观察写入是否成功。
+ 上面关于CSDK 代码的MD 显示的不友好，COPY 文本就可以了。
+</code></pre>
+<p>*/<br>若有新的理解，接着更新。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/21/1877/" data-id="ckkfmdga20025vkcg4rho5j09" data-title="AudioCalibrator_V2.3.7 的使用及音频文件处理方法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/22/1889/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          air302_mqtt2_uniapp_luatOS_demo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/20/1872/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">小标签，大用途</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

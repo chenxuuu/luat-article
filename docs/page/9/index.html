@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:url" content="https://doc.luatos.wiki/page/9/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-1930" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/30/1930/" class="article-date">
+  <time class="dt-published" datetime="2020-11-30T11:32:59.000Z" itemprop="datePublished">2020-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/30/1930/">js的window对象简单看</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Window-对象"><a href="#Window-对象" class="headerlink" title="Window 对象"></a>Window 对象</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>window 是客户端浏览器对象模型的基类，window 对象是客户端 JavaScript 的全局对象。一个 window 对象实际上就是一个独立的窗口，对于框架页面来说，浏览器窗口每个框架都包含一个 window 对象。</p>
+<blockquote>
+<ul>
+<li>所有浏览器都支持 window 对象。它代表浏览器的窗口。</li>
+<li>所有全局 JavaScript 对象，函数和变量自动成为 window 对象的成员。</li>
+<li>全局变量是 window 对象的属性。</li>
+<li>全局函数是 window 对象的方法。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>如果文档包含框架（frame 或 iframe 标签），浏览器会为 HTML 文档创建一个 window 对象，并为每个框架创建一个额外的 window 对象。</p>
+</blockquote>
+<h3 id="window对象集合"><a href="#window对象集合" class="headerlink" title="window对象集合"></a>window对象集合</h3><ul>
+<li>frames[]      返回窗口中所有命名的框架</li>
+</ul>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
+<li>DOMContentLoaded     浏览器完成HTML的加载, 并构建DOM树, 图片和样式等外部资源还没加载完成</li>
+<li>load    浏览器加载完所有资源, 包括HTML文档, 图片, 样式等</li>
+<li>beforeunload    用户即将离开, 用来检查用户是否保存了修改, 并询问是否真的要离开</li>
+<li>unload     用户几乎已经离开, 但是可以启动一些操作, 比如发送统计数据</li>
+</ul>
+<h3 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h3><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">document</td>
+<td align="left">对document的<strong>只读</strong>引用</td>
+</tr>
+<tr>
+<td align="left">history</td>
+<td align="left">对 History 对象的<strong>只读</strong>引用</td>
+</tr>
+<tr>
+<td align="left">Screen</td>
+<td align="left">对 Screen 对象的<strong>只读</strong>引用</td>
+</tr>
+<tr>
+<td align="left">innerheight</td>
+<td align="left">返回窗口的文档显示区的高度</td>
+</tr>
+<tr>
+<td align="left">innerwidth</td>
+<td align="left">返回窗口的文档显示区的宽度</td>
+</tr>
+<tr>
+<td align="left">location</td>
+<td align="left">用于窗口或框架的 Location 对象</td>
+</tr>
+<tr>
+<td align="left">top</td>
+<td align="left">返回最顶层的先辈窗口，window</td>
+</tr>
+</tbody></table>
+<p>……</p>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>setInterval()</td>
+<td>按照指定的周期（以毫秒计）来调用函数或计算表达式。</td>
+</tr>
+<tr>
+<td>setTimeout()</td>
+<td>在指定的毫秒数后调用函数或计算表达式。</td>
+</tr>
+<tr>
+<td>clearInterval()</td>
+<td>取消由 setInterval() 设置的 timeout。</td>
+</tr>
+<tr>
+<td>clearTimeout()</td>
+<td>取消由 setTimeout() 方法设置的 timeout。</td>
+</tr>
+<tr>
+<td>alert()</td>
+<td>显示带有一段消息和一个确认按钮的警告框。</td>
+</tr>
+<tr>
+<td>scrollTo()</td>
+<td>把内容滚动到指定的坐标。</td>
+</tr>
+<tr>
+<td>close()</td>
+<td>关闭浏览器窗口。</td>
+</tr>
+<tr>
+<td>confirm()</td>
+<td>显示带有一段消息以及确认按钮和取消按钮的对话框。</td>
+</tr>
+<tr>
+<td>open()</td>
+<td>打开一个新的浏览器窗口或查找一个已命名的窗口。</td>
+</tr>
+<tr>
+<td>prompt()</td>
+<td>显示可提示用户输入的对话框。</td>
+</tr>
+<tr>
+<td>resizeTo()</td>
+<td>把窗口的大小调整到指定的宽度和高度。</td>
+</tr>
+<tr>
+<td>……</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a><strong>常见应用</strong></h3><h4 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h4><p>由于 window 是全局对象，因此所有的全局变量都会被被解析为该对象的属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.a) <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+<p>我们也可将一些内部作用域的变量或数据挂载到window上，实现变量提升</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line">    <span class="built_in">window</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line">fn()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.a)    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h4 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h4><p>下面是一段获取手机验证码的函数代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">getVcode</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; mobile, dispatch &#125; = <span class="built_in">this</span>.props</span><br><span class="line">  <span class="keyword">const</span> &#123; vTime, vTimer, mobileReg &#125; = <span class="built_in">this</span>.state</span><br><span class="line">  <span class="keyword">let</span> time = vTime</span><br><span class="line">  <span class="comment">/* if (!mobile || !mobileReg.test(mobile)) return message.error(&quot;请正确填写手机号&quot;) */</span></span><br><span class="line">  <span class="keyword">if</span> (vTimer) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  <span class="built_in">this</span>.setState(&#123; <span class="attr">vTimer</span>: <span class="literal">true</span>, <span class="attr">vText</span>: <span class="string">`重新获取(<span class="subst">$&#123;time&#125;</span>s)`</span> &#125;)</span><br><span class="line"> <span class="comment">/* dispatch(&#123;</span></span><br><span class="line"><span class="comment">    type: &quot;user/fetch_get_captcha&quot;,</span></span><br><span class="line"><span class="comment">    payload: &#123; phone: mobile &#125;</span></span><br><span class="line"><span class="comment">  &#125;) */</span></span><br><span class="line">  <span class="keyword">let</span> timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    time--</span><br><span class="line">    <span class="keyword">if</span> (time === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">      timer = <span class="literal">null</span></span><br><span class="line">      <span class="built_in">this</span>.setState(&#123; <span class="attr">vTimer</span>: <span class="literal">false</span>, <span class="attr">vText</span>: <span class="string">&quot;获取验证码&quot;</span> &#125;)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123; <span class="attr">vText</span>: <span class="string">`重新获取(<span class="subst">$&#123;time&#125;</span>s)`</span> &#125;)</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">  <span class="built_in">this</span>.setState(&#123; timer &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="页面滑动"><a href="#页面滑动" class="headerlink" title="页面滑动"></a>页面滑动</h4><p>doc社区页点击评论定位到编辑器位置</p>
+<h4 id="提示页面退出"><a href="#提示页面退出" class="headerlink" title="提示页面退出"></a>提示页面退出</h4><p>文章发布页退出页面的未保存提示</p>
+<p>……</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/30/1930/" data-id="ckkfmdga5002bvkcg0jhi1hk8" data-title="js的window对象简单看" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1919" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/28/1919/" class="article-date">
+  <time class="dt-published" datetime="2020-11-28T11:16:08.000Z" itemprop="datePublished">2020-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/28/1919/">前端性能优化基础篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>凸凸：<br>性能优化这是一个多么“高大上”的词语，听着就很牛x。目前了解的大概有几类吧：HTML优化、CSS优化、JS优化、图片优化、文件合并与优化（这个我就不是很清楚了，喜欢的小伙伴自己探索吧！！！），这几类都是比较典型、比较基础的优化方案，在这里不多说；今天主要是说的开发者在开发过程中因为处理不当而导致影响性能的其中原因之一：<strong>重绘与回流（重排）</strong>。。。</p>
+<p>小场景：<br>前端开发过程中，有时会在不经意之间创造让浏览器“不喜欢”的代码，导致“浏览器浪费更多时间/空间/精力去干更多的活（明明有很简单的方式，偏偏要复杂化），有点烦，不是那么心甘情愿”。<br>思考：<br>作为一名开发人员，必须保证代码质量，如何提高浏览器性能？（如果你做到了，浏览器可能是会纵情于你的o）如何做到降低浏览器重新渲染的频率和成本  <strong>？？？</strong></p>
+<p>1、DOM 的多个读操作（或多个写操作），应该放在一起。不要两个读操作之间，加入一个写操作。</p>
+<p>2、如果某个样式是通过重排得到的，那么最好缓存结果。避免下一次用到的时候，浏览器又要重排。</p>
+<p>3、不要一条条地改变样式，而要通过改变class，或者csstext属性，一次性地改变样式。<br>简单例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 不推荐</span><br><span class="line">var left &#x3D; 10;</span><br><span class="line">var top &#x3D; 10;</span><br><span class="line">el.style.left &#x3D; left + &quot;px&quot;;</span><br><span class="line">el.style.top  &#x3D; top  + &quot;px&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 推荐</span><br><span class="line">el.className +&#x3D; &quot; theclassname&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 推荐</span><br><span class="line">el.style.cssText +&#x3D; &quot;; left: &quot; + left + &quot;px; top: &quot; + top + &quot;px;&quot;;</span><br></pre></td></tr></table></figure>
+<p>4、尽量使用离线DOM，而不是真实的网面DOM，来改变元素样式。比如，操作Document Fragment对象，完成后再把这个对象加入DOM。再比如，使用 cloneNode() 方法，在克隆的节点上进行操作，然后再用克隆的节点替换原始节点。</p>
+<p>5、先将元素设为display: none（需要1次重排和重绘），然后对这个节点进行100次操作，最后再恢复显示（需要1次重排和重绘）。这样一来，你就用两次重新渲染，取代了可能高达100次的重新渲染。</p>
+<p>6、position属性为absolute或fixed的元素，重排的开销会比较小，因为不用考虑它对其他元素的影响。</p>
+<p>7、只在必要的时候，才将元素的display属性为可见，因为不可见的元素不影响重排和重绘。另外，visibility : hidden的元素只对重绘有影响，不影响重排。</p>
+<p>8、使用虚拟DOM的脚本库，比如React等。</p>
+<p>9、使用 window.requestAnimationFrame()、window.requestIdleCallback() 这两个方法调节重新渲染（这两个方法暂时没用过，不过多介绍）。</p>
+<p>目前理解是这样</p>
+<p><strong>待续…………………….</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/28/1919/" data-id="ckkfmdga4002avkcgc5gd283b" data-title="前端性能优化基础篇" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1909" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/26/1909/" class="article-date">
+  <time class="dt-published" datetime="2020-11-26T13:10:17.000Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/26/1909/">[RDA8910 CSDK系列]如何设置APN</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>首先需要明白一点：因为csdk要支持socket相关的东西，很多at层面的指令是没有的，所以vat不能支持全量的at指令，具体支持哪些，需要根据实际测试。</p><p></p><p>那么在csdk框架下，如何通过api设置apn呢？</p><p></p><p>请参见这个函数：iot_network_connect， </p><p>底层实现也是通过vat封装的at指令AT+CGDCONT</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/26/1909/" data-id="ckkfmjk8f0005u0cgf7mmhde0" data-title="[RDA8910 CSDK系列]如何设置APN" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1907" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/26/1907/" class="article-date">
+  <time class="dt-published" datetime="2020-11-26T10:18:56.000Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/26/1907/">二维码原理分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="二维码的定义"><a href="#二维码的定义" class="headerlink" title="二维码的定义"></a>二维码的定义</h2><p>二维码又称二维条码，常见的二维码为QR Code，QR全称Quick Response，是一个近几年来移动设备上超流行的一种编码方式，它比传统的Bar Code条形码能存更多的信息，也能表示更多的数据类型。</p>
+<h2 id="二维码分析"><a href="#二维码分析" class="headerlink" title="二维码分析"></a>二维码分析</h2><p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117150425297_%E4%BA%8C%E7%BB%B4%E7%A0%81.png" alt="undefined" title="undefined"></a></p>
+<p>我们发现左上、左下、右上三个位置探测图形，在二维码的解码过程中，其实是分几个步骤的，首先就是要定位这个二维码确认其位置，然后才能取出里面的数据，而这个定位的点就是这三个。在距离二维码较远时，可能无法解析出完整的数据，但是却能定位这个二维码，通过定位点的信息，我们可以进行放大的操作，从而获取到更加精确的图像数据，也更有利于我们解析。</p>
+<p>定位图案</p>
+<p>位置探测图型是定位图案，用于标记二维码的矩形大小。这三个定位图案有白边叫位置探测图型分隔符。之所以三个而不是四个意思就是三个就可以标识一个矩形了。<br>定位图像也是用于定位的。原因是二维码有40种尺寸，尺寸过大了后需要有根标准线，不然扫描的时候可能会扫歪了。<br>校正图形只有Version 2以上（包括Version2）的二维码需要这个，同样是为了定位用的。<br>通过查找定位图案，可以实现二维码扫描的检测和定位</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/26/1907/" data-id="ckkfmdga40029vkcg4ebm1ke8" data-title="二维码原理分析" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1899" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/24/1899/" class="article-date">
+  <time class="dt-published" datetime="2020-11-24T06:44:27.000Z" itemprop="datePublished">2020-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/24/1899/">Express基本说明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="express-介绍"><a href="#express-介绍" class="headerlink" title="express 介绍"></a>express 介绍</h2><ul>
+<li>什么是 express ？<ul>
+<li>基于 Node.js 平台开发的 “web 开发框架” ，就是一个 node.js 模块</li>
+<li>express的作用：它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。</li>
+<li>express 同时也是 Node.js 的一个模块</li>
+</ul>
+</li>
+<li>express 官方网站<ul>
+<li><a target="_blank" rel="noopener" href="http://expressjs.com/">http://expressjs.com/</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.expressjs.com.cn/">http://www.expressjs.com.cn/</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="express-特点"><a href="#express-特点" class="headerlink" title="express 特点"></a>express 特点</h2><ol>
+<li>实现了路由功能</li>
+<li>中间件（函数）功能</li>
+<li>对 req 和 res 对象的扩展</li>
+<li>可以集成其他模板引擎</li>
+</ol>
+<h2 id="express-中的中间件"><a href="#express-中的中间件" class="headerlink" title="express 中的中间件"></a>express 中的中间件</h2><ul>
+<li>中间件（Middleware） 是一个函数，它可以访问请求对象（request object (req)）, 响应对象（response object (res)）, 和 web 应用中处于请求-响应循环流程中的中间件，一般被命名为 next 的变量。</li>
+<li>常规中间件（应用级中间件）的回调函数，一般有3个参数<ul>
+<li>req, res, next</li>
+<li>其中next()是一个函数，通过这个函数把执行流程交给下一个中间件</li>
+</ul>
+</li>
+<li>可以挂在中间件的部分方法<ul>
+<li>app.use()</li>
+<li>app.get()、app.post()、app.put()、app.delete()、…等各种请求方法</li>
+<li>注意：在挂载中间件时 next() 方法的重要性，不调用该方法无法执行到下一个中间件</li>
+</ul>
+</li>
+<li>中间件的应用场景<ul>
+<li>利用中间件实现记录日志功能</li>
+<li>利用中间件模拟body-parser功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="案例：搭建一个简单的服务器"><a href="#案例：搭建一个简单的服务器" class="headerlink" title="案例：搭建一个简单的服务器"></a>案例：搭建一个简单的服务器</h2><ul>
+<li><p>第一步在一个空的文件夹下使用 <code>npm init -y</code> 初始化一个项目</p>
+</li>
+<li><p>第二步，新建一个index.js的文件夹</p>
+</li>
+<li><p>第三步，使用 <code>npm i express</code> 下载<code>express</code></p>
+</li>
+<li><p>第四步引入express</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  引入express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="comment">// 初始化express</span></span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 挂载中间件</span></span><br><span class="line">app.use(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">async</span> (req, res, next) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.path)</span><br><span class="line">    next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 服务接口</span></span><br><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.send(<span class="string">&#x27;Hello World&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听端口</span></span><br><span class="line">app.listen(<span class="number">8888</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;http://localhost:8888&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/24/1899/" data-id="ckkfmdga40028vkcg612m0hp7" data-title="Express基本说明" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1895" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/23/1895/" class="article-date">
+  <time class="dt-published" datetime="2020-11-23T03:13:17.000Z" itemprop="datePublished">2020-11-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/23/1895/">clamp/Lodash/“窗口滑动”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>章述：我，一个程序员的“白日梦”，一行代码解决一个需求；<br>吐槽：代码逻辑繁琐，脑细胞支撑不了</p>
+<p><strong>CSS（clamp）</strong></p>
+<p><a href="undefined" title="undefined"><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d21729f447b4ca8be6cb27616e6b808~tplv-k3u1fbpfcp-zoom-1.image" alt="undefined" title="undefined"></a></p>
+<p>场景：可能有一天你会想用一个css属性搭建一个自适应的项目（可能性还是比较小的。。。。但是确实存在实现该需求的东东）</p>
+<p>使用 clamp() CSS函数，我们可以创建仅具有一个属性的响应式网站。</p>
+<p>用法：<br>clamp(minimum, preferred, maximum);<br>三个属性：（属性值的类型不确定：px/%/vw/rem……等等）<br>minimum 最小值：例如 16px<br>flexible 弹性值/首选值：例如 5vw<br>maximum 最大值：例如 34px</p>
+<p>h1 {<br>  font-size: clamp(16px, 5vw, 34px);<br>}<br>在此示例中，仅当该值大于 16px 且小于 34px 时,h1 字体大小值将为视口宽度的 5％。</p>
+<p>简单举例：<br>例如，如果你的视口宽度是 300px，你的 5vw 值将等于 15px，但是，你将该字体大小值限制为最小 16px，因此这就是将要发生的情况。<br>另一方面，如果你的视口宽度为 1400px，则 5vw 将高达 70px！但幸运的是，你将该最大值限制为 34px，因此它不会超过该值。</p>
+<p>一句话：比小取小，比大取大</p>
+<p><strong>Lodash</strong><br>社区链接：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/1730/0">http://doc.openluat.com/article/1730/0</a><br>官网链接：<a target="_blank" rel="noopener" href="https://www.lodashjs.com/">https://www.lodashjs.com/</a></p>
+<p><strong>”窗口滑动类“</strong><br>滑动窗口主要思路是维护一对指针，在一定条件内右移右指针扩大窗口大小直到窗口内的解不满足题意，此时我们需要根据情况移动左指针，重复移动左右指针的操作并在区间内求解，直到双指针不能再移动。<br>d：寻无重复最长子串长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var lengthOfLongestSubstring &#x3D; function(s) &#123;</span><br><span class="line">    &#x2F;&#x2F; 用于存储指针移动过程中的值</span><br><span class="line">    let map &#x3D; &#123;&#125;</span><br><span class="line">    &#x2F;&#x2F; 双指针</span><br><span class="line">    let left &#x3D; 0</span><br><span class="line">    let right &#x3D; 0</span><br><span class="line">    &#x2F;&#x2F; 结果</span><br><span class="line">    let count &#x3D; 0</span><br><span class="line">    &#x2F;&#x2F; 指针移动终止条件</span><br><span class="line">    while (right &lt; s.length) &#123;</span><br><span class="line">        const char &#x3D; s[right]</span><br><span class="line">        &#x2F;&#x2F; 根据题意我们需要寻找不重复的最长子串</span><br><span class="line">        &#x2F;&#x2F; 当 char 出现时我们需要移动左指针到重复字符的下一位</span><br><span class="line">        if (char in map) &#123;</span><br><span class="line">            left &#x3D; Math.max(left, map[char] + 1)</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 求解</span><br><span class="line">        count &#x3D; Math.max(count, right - left + 1)</span><br><span class="line">        &#x2F;&#x2F; 移动右指针并存下索引</span><br><span class="line">        map[char] &#x3D; right++</span><br><span class="line">    &#125;</span><br><span class="line">    return count</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>通用解法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let left &#x3D; 0</span><br><span class="line">let right &#x3D; 0</span><br><span class="line">while (right &lt; size) &#123;</span><br><span class="line">    获取当前索引数据</span><br><span class="line">    right++</span><br><span class="line">    更新操作</span><br><span class="line">    while (窗口需要缩小) &#123;</span><br><span class="line">        left++</span><br><span class="line">        移除操作</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>右指针右移后数据的更新<br>判断窗口何时需要缩小<br>左指针右移后数据的更新<br>根据题目求最优解</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/23/1895/" data-id="ckkfmdga30027vkcgc4hl7d2p" data-title="clamp/Lodash/“窗口滑动”" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1889" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/22/1889/" class="article-date">
+  <time class="dt-published" datetime="2020-11-22T11:48:52.000Z" itemprop="datePublished">2020-11-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/22/1889/">air302_mqtt2_uniapp_luatOS_demo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="https://yajs666.gitee.io/2020/11/22/air640w%20-air302/" target="">https://yajs666.gitee.io/2020/11/22/air640w%20-air302/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/22/1889/" data-id="ckkfmdga30026vkcg331par5g" data-title="air302_mqtt2_uniapp_luatOS_demo" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1877" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/21/1877/" class="article-date">
+  <time class="dt-published" datetime="2020-11-21T15:00:37.000Z" itemprop="datePublished">2020-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/21/1877/">AudioCalibrator_V2.3.7 的使用及音频文件处理方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>作者：周维华<br>前言：<br>在AudioCalibrator_V2.3.7的readme 目录就有《音频实时校准工具用户指南_V1.2.pdf》<br>这是RDA 官方的文档（后面简称：“RDA文档”）。即使仔细阅读，也是步步艰难。 几次想认真研究下这个工具到底怎么用，奈何悟性不够，以至疲于各种ERROR 提示；得益于金总和国良的指点，总算能让工具正常的跑起来， 此音频工具能调节的参数非常多，我这里就挑重点讲解下如何成功的读取和设置参数到模块，作为抛砖引玉，让大家能顺利的使用此工具（工具在下面的“音频工具包”中能下载）。</p>
+<h2 id="一．使用工具的目的"><a href="#一．使用工具的目的" class="headerlink" title="一．使用工具的目的"></a>一．使用工具的目的</h2><pre><code>目前合宙的AT指令对音量控制的，只有这两个指令
+</code></pre>
+<p>通话音量控制：AT+CLVL<br>本地音频播放音量控制：AT+CRSL<br>实际和声音相关的参数非常多如校准，滤波，均衡，动态，回音等等，客户的产品有涉及到语音的大概率需要调节这些参数（也有不少默认的就满足客户要求，这跟产品的设计结构电路也有关系），所以这里就是要告诉大家怎么来使用这个工具，远离工具异常提示。</p>
+<h2 id="二．工具运行所需环境"><a href="#二．工具运行所需环境" class="headerlink" title="二．工具运行所需环境"></a>二．工具运行所需环境</h2><p>有几个前提条件：</p>
+<h3 id="1-合宙CAT1模块的USB-驱动程序要先安装："><a href="#1-合宙CAT1模块的USB-驱动程序要先安装：" class="headerlink" title="1.合宙CAT1模块的USB 驱动程序要先安装："></a>1.合宙CAT1模块的USB 驱动程序要先安装：</h3><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183454135_sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183454135_sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z</a><br>音频工具包：<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200814120426598_%E9%9F%B3%E9%A2%91%E5%8F%82%E6%95%B0%E4%B8%8B%E8%BD%BD.rar">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200814120426598_%E9%9F%B3%E9%A2%91%E5%8F%82%E6%95%B0%E4%B8%8B%E8%BD%BD.rar</a></p>
+<h3 id="2-设备USB-接到电脑，并且设备开机，WINDOWS-会识别到USB的虚拟串口。"><a href="#2-设备USB-接到电脑，并且设备开机，WINDOWS-会识别到USB的虚拟串口。" class="headerlink" title="2.设备USB 接到电脑，并且设备开机，WINDOWS 会识别到USB的虚拟串口。"></a>2.设备USB 接到电脑，并且设备开机，WINDOWS 会识别到USB的虚拟串口。</h3><p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121230549292_%E5%9B%BE%E7%89%8710.png" alt="undefined" title="undefined"></a></p>
+<p>不同机器串口COMxx 序号可能不同，只要看到”LUAT USB Device 1 AT” 的就可以。<br>3.RDA 音频工具包解压后，无需安装， 双击AudioCalibrator.exe 即可运行，进到主界面后有几个重要的配置点:<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223242271_%E5%9B%BE%E7%89%871.png" alt="undefined" title="undefined"></a><br>A.  配置串口，就选 LUAT USB Device 1 AT 的串口，也就是COM14即可：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223311860_%E5%9B%BE%E7%89%872.png" alt="undefined" title="undefined"></a><br>B. 点击 绿色三角形，启动串口。<br>C. 选择平台 8910-UNI<br>D. 选择版本 ca020109<br>E. 点击”GetAll” 按钮,可以读出模块内的音频参数。<br>注意：上面的ABCDE 条件中，首次操作循序是:ACDBE，后面基本就是B或E用的多些。<br>      如果B或E这一步过不去，就不需要往下看，先确保虚拟串口不要被其他串口工具或者<br>LUAT TOOL给占用了，排查，直到能连上。<br>****这里有个非常规的可能： 就是二次开发固件截获了USBDATA，导致USB的<br>虚拟串口并非真正的AT默认功能，这一点需要跟当事软件工程师确认好。</p>
+<h3 id="4-读出模块内的音频参数后，界面如下："><a href="#4-读出模块内的音频参数后，界面如下：" class="headerlink" title="4.读出模块内的音频参数后，界面如下："></a>4.读出模块内的音频参数后，界面如下：</h3><p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121231040002_%E5%9B%BE%E7%89%873.png" alt="undefined" title="undefined"></a></p>
+<h2 id="三．调节参数"><a href="#三．调节参数" class="headerlink" title="三．调节参数"></a>三．调节参数</h2><pre><code>参数这么多，到底要调节那些呢，我们可以先用实际产品做个归类，下面的Test Setting
+会为我们分出大类：
+</code></pre>
+<p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121231103782_%E5%9B%BE%E7%89%874.png" alt="undefined" title="undefined"></a></p>
+<h3 id="1-比如数字对讲机："><a href="#1-比如数字对讲机：" class="headerlink" title="1.比如数字对讲机："></a>1.比如数字对讲机：</h3><p>放音部分选 APMode Sel 就选 “1 Music Play”，<br>录音部分选 “2 Music Record”</p>
+<h3 id="2-比如传统商话或者学生卡"><a href="#2-比如传统商话或者学生卡" class="headerlink" title="2.比如传统商话或者学生卡"></a>2.比如传统商话或者学生卡</h3><p>喇叭部分 APMode Sel 就选  “0:Voice Call NB”窄带，<br>或者 “5:Voice Call WB”宽带<br>MIC部分 “0: HandSet” 或者 “1: HandFree”<br>*<strong>**</strong>注意，MIC部分好说，硬件怎么设计就怎么选，喇叭或者听筒部分那就真的是坑！主要有两点：<br>A.此参数不在通话的时候是无法调节的，只有边通话边调试。<br>            <a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223552518_%E5%9B%BE%E7%89%875.png" alt="undefined" title="undefined"></a><br>B.真正通话的时候，到底是宽带还是窄带，目前看也很随机，但是经过<br>反复琢磨也能找到方法： 那就是通话之后，先尝试窄带0:Voice Call NB：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223627416_%E5%9B%BE%E7%89%876.png" alt="undefined" title="undefined"></a></p>
+<p>如果点击“Send Cmd” 没有错误提示，并且“条目下参数列表”会清空，<br>就说明当前语音通道，是可以被调节的，于是重新选择要修改的条目，具体<br>修改相关值，然后再“Send Cmd”写入，模块可以即刻生效，然后点击“Write to Flash”按钮，存到FLASH 。</p>
+<p>如果在窄带，写入数据弹出类似”ERROR 59”的错误，则说明当前通话在宽带<br>用同样的方式去尝试5:Voice Call WB， 二选一必定有一个是能调节的。<br>*<strong>**</strong>这里要说明下： 上面说通话时窄带宽带很随机，并非真的随机，而是对方手机 的VOLTE高清通话是否打开了，如果开了就是宽带WB；如果没有开就是窄带NB，由于我们并不知道对方手机处于什么设置，所以打给不同的用户看起来有点随机。</p>
+<h3 id="3-ITF-Sel-实际上就是语音通道，根据硬件设计来选就可以了"><a href="#3-ITF-Sel-实际上就是语音通道，根据硬件设计来选就可以了" class="headerlink" title="3.ITF Sel 实际上就是语音通道，根据硬件设计来选就可以了"></a>3.ITF Sel 实际上就是语音通道，根据硬件设计来选就可以了</h3><h3 id="4-关于上图中“要修改的条目”，有几个条目是我们常用的："><a href="#4-关于上图中“要修改的条目”，有几个条目是我们常用的：" class="headerlink" title="4.关于上图中“要修改的条目”，有几个条目是我们常用的："></a>4.关于上图中“要修改的条目”，有几个条目是我们常用的：</h3><p>atctst_aud_codec_get_ingain 可以理解成：MIC 增益调节<br>atctst_aud_codec_get_outgain可以理解成：喇叭/听筒增益<br>更多的条目，可以参考 RDA文档。</p>
+<h2 id="四．生成参数文件"><a href="#四．生成参数文件" class="headerlink" title="四．生成参数文件"></a>四．生成参数文件</h2><pre><code>参数调节好了之后，需要生成音频文件，因为这种参数工具只能针对几台机器做升级，
+</code></pre>
+<p>并不适合量产，所以我们在成功设置了参数之后， 可以点击”Export from FLASH” 来将模块内的音频参数导出到电脑上，默认文件格式是 cfp<br>    <a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223701083_%E5%9B%BE%E7%89%877.png" alt="undefined" title="undefined"></a><br>    但是这个文件，并不能被AT, LUAT CSDK 所接受，需要转换成BIN 文件：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121223729137_%E5%9B%BE%E7%89%878.png" alt="undefined" title="undefined"></a><br>     点击工具条上的 BIN=CFP 互转的工具，可以将CFP 文件转换成BIN 文件。<br>     <a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201121224446068_%E5%9B%BE%E7%89%879.png" alt="undefined" title="undefined"></a><br>     文件大小固定就是10372字节。（就目前RDA的CAT1方案而言）</p>
+<p>音频文件的更新原理：<br>1 首先要在模块的磁盘上创建一个目录：/usernvm  这个是固定名称。<br>2. /usernvm目录下先后创建两个固定文件<br>      A.音频实体文件user_audio_calib.bin，就是音频文件的长度(4字节小端) 加上音频文件的内容   LEN[4]  + DATA[10372]<br>      B.音频标志文件 user_audio_calib_flag.bin  就是设置一个标志。<br>3.目录和文件都就绪后，重启模块后一个正确的音频实体文件会被模块“吸纳”，<br>并且/usernvm找不到它（指实体文件），然而user_audio_calib_flag.bin 标志文件仍然健在—–<br>就说明更新成功了，用户可以用RDA 音频工具读出来，生成另一个BIN 文件做比较。</p>
+<h2 id="五．AT固件更新音频文件"><a href="#五．AT固件更新音频文件" class="headerlink" title="五．AT固件更新音频文件"></a>五．AT固件更新音频文件</h2><p>创建目录：AT+FSMKDIR.     创建 usernvm 目录<br>创建文件：AT+FSCREATE       分别创建音频实体文件和标志文件<br>写文件：AT+FSWRITE        分别写入音频实体文件和标志文件（标志文件固定写 “1” ，一个字符）<br>重启 ：AT+RESET           重启模块<br>读文件:AT+FSREAD        分别读取音频实体文件和标志文件，根据上述更新原理判断是否更新成功, 下面是AT 指令的实际流程：</p>
+<p>AT+FSLS=”&quot;    （此命令非必要，方便用户知道下模块内的目录层级）<br>    nvm<br>    modemnvm<br>    usernvm<br>    fota<br>    C:<br>    AMNV_CT11_000<br>    AMNV_CT08_001<br>    AMNV_CT12_000<br>    AMNV_CT15_000<br>    AMNV_CT48_000<br>    AMNV_CT49_000<br>    AMNV_CT13_000<br>    AMNV_CT28_000<br>    AMNV_CT01_000<br>    AMNV_CT02_000<br>    sms_dm_nv.bin<br>    OK</p>
+<p>AT+FSMKDIR=”\usernvm”<br>    OK</p>
+<p>AT+FSCREATE=”\usernvm\user_audio_calib.bin”<br>    OK</p>
+<p>AT+FSCREATE=”\usernvm\user_audio_calib_flag.bin”<br>    OK</p>
+<p>AT+FSWRITE=”\usernvm\user_audio_calib_flag.bin”,0,1,300<br>    &gt;<br>    1<br>    OK</p>
+<p>AT+FSWRITE=”\usernvm\user_audio_calib.bin”,0,4,300<br>    &gt;<br>    ABCD  （实际数据就是 LEN[4]  + DATA[10372]）<br>    OK</p>
+<p>AT+FSLS=”\usernvm”    （此命令非必要，只是方便用户查看是否真的写入了两个文件）<br>    user_audio_calib.bin<br>    user_audio_calib_flag.bin<br>    OK</p>
+<p>AT+RESET</p>
+<p>//下面重启模块后如果格式正确，user_audio_calib.bin会被模块取走。 可以列举\usernvm” 的所有文件。<br>//如果标志文件在， 音频文件不在了，就说明更新成功</p>
+<p>AT+FSLS=”\usernvm”      （如果用了这个指令，后面分别 FSREAD 两个文件可以忽略）<br>    user_audio_calib.bin<br>    user_audio_calib_flag.bin<br>    OK</p>
+<p>AT+FSREAD=”\usernvm\user_audio_calib.bin”,0,100,0<br>    ABCD<br>    OK</p>
+<p>AT+FSREAD=”\usernvm\user_audio_calib_flag.bin”,0,100,0<br>    1<br>    OK</p>
+<h2 id="六．LUAT-固件更新音频文件"><a href="#六．LUAT-固件更新音频文件" class="headerlink" title="六．LUAT 固件更新音频文件"></a>六．LUAT 固件更新音频文件</h2><p> (audio_calib.bin 就是10372 字节的音频文件)<br>module(…,package.seeall)</p>
+<p>require”utils”<br>sys.taskInit(function()<br>    local USERNVM_DIR = “/usernvm”<br>    local USERNVM_AUDIOCALIB_FILE_PATH = USERNVM_DIR..”/user_audio_calib.bin”<br>    local USERNVM_AUDIOCALIB_SET_FILE_PATH = USERNVM_DIR..”/user_audio_calib_flag.bin”<br>    if rtos.make_dir(USERNVM_DIR) then<br>        if io.exists(USERNVM_AUDIOCALIB_SET_FILE_PATH) then<br>            if io.exists(USERNVM_AUDIOCALIB_FILE_PATH) then<br>                log.error(“audioParam USERNVM_AUDIOCALIB_FILE_PATH error”,USERNVM_AUDIOCALIB_FILE_PATH)<br>            else<br>                log.info(“audioParam success”)<br>            end<br>        else<br>            os.remove(USERNVM_AUDIOCALIB_FILE_PATH)<br>            local userAudioParam = io.readFile(“/lua/audio_calib.bin”)<br>            io.writeFile(USERNVM_AUDIOCALIB_FILE_PATH,pack.pack(“&lt;i”,userAudioParam:len()))<br>            io.writeFile(USERNVM_AUDIOCALIB_FILE_PATH,userAudioParam,”ab”)<br>            io.writeFile(USERNVM_AUDIOCALIB_SET_FILE_PATH,”1”)<br>            <br>            log.info(“audioParam write, restart later…”)<br>            sys.restart(“audioParam”)<br>        end<br>    else<br>        log.error(“audioParam make_dir error”,USERNVM_DIR)<br>    end<br>end)</p>
+<h2 id="七．CSDK-固件更新音频文件"><a href="#七．CSDK-固件更新音频文件" class="headerlink" title="七．CSDK 固件更新音频文件"></a>七．CSDK 固件更新音频文件</h2><p>CSDK 的更新稍微麻烦一点，因为CSDK 不像LUAT 那样自由的安放文件。<br>CSDK 可以将10372 字节的音频文件做成数组：<br>const unsigned char clib_data[] ={<br>0x09,0x01,0x02,0xCA,0x40,0x1F,0x00,0x00,0x01,0x00,0x01,0x00,0x00,0x40,0x00,0x40………</p>
+<p>然后在应用代码中增加如下：</p>
+<p>#include “am_openat.h”<br>#include “am_openat_fs.h”<br>#include “am_openat_system.h”<br>#include “am_openat_drv.h”<br>#include “string.h”<br>#include “iot_debug.h”</p>
+<p>BOOL dir_create(char * dir)<br>{<br>    return iot_fs_make_dir(dir, E_FS_ATTR_DEFAULT)&gt;=0?TRUE:FALSE;<br>}<br>BOOL file_exist(char* file)<br>{<br>    INT32 fd;<br>    fd = iot_fs_open_file(file, FS_O_RDONLY);</p>
+<pre><code>if (fd &gt;= 0)
+&#123;
+    iot_fs_close_file(fd);
+    return TRUE;
+&#125;
+return FALSE;
+</code></pre>
+<p>}<br>BOOL file_delete(char* file)<br>{<br>    INT32 err;<br>    err = iot_fs_delete_file(file);<br>    if (err &lt; 0)<br>        return FALSE;<br>    return TRUE;<br>}</p>
+<p>BOOL file_write(char* file, unsigned char * write_buff, int length)<br>{<br>    INT32 fd;<br>    INT32 write_len;<br>    fd = iot_fs_open_file(file, FS_O_WRONLY|FS_O_CREAT);<br>    if (fd &lt; 0)<br>        return FALSE ;<br>    write_len = iot_fs_write_file(fd, write_buff, length);<br>    if (write_len &lt; 0)<br>        return FALSE;<br>    iot_fs_close_file(fd);<br>    return TRUE;<br>}</p>
+<p> void check_user_calib(char * pcalib,int length)<br> {<br>     char * USERNVM_PATH =”/usernvm”;<br>     char * USERNVM_AUDIOCALIB_FILE_PATH =”/usernvm/user_audio_calib.bin”;<br>     char * USERNVM_AUDIOCALIB_SET_FILE_PATH =”/usernvm/user_audio_calib_flag.bin”;<br>     if(dir_create(USERNVM_PATH))<br>     {<br>          if(file_exist(USERNVM_AUDIOCALIB_SET_FILE_PATH))<br>          {<br>               if(file_exist(USERNVM_AUDIOCALIB_FILE_PATH))<br>               {<br>                   iot_debug_print(“audioParam USERNVM_AUDIOCALIB_FILE_PATH error,=%s”, USERNVM_AUDIOCALIB_FILE_PATH);<br>               } else<br>               {<br>                   iot_debug_print(“audioParam success”);<br>               }<br>          } else<br>          {<br>               file_delete(USERNVM_AUDIOCALIB_FILE_PATH);<br>               char * pbuf = malloc(length +4);<br>               memset(pbuf,0, length +4);</p>
+<pre><code>           // &#39;&lt;&#39; 小字节序，最低有效字节优先，更低的字节有效位占据着更低地址的内存空间。
+
+           pbuf[0]= (unsigned char)((length &amp; 0x000000FF)&gt;&gt;0);
+           pbuf[1]= (unsigned char)((length &amp; 0x0000FF00)&gt;&gt;8);
+           pbuf[2]= (unsigned char)((length &amp; 0x00FF0000)&gt;&gt;16);
+           pbuf[3]= (unsigned char)((length &amp; 0xFF000000)&gt;&gt;24);
+           memcpy(&amp;pbuf[4],pcalib,length);
+
+           if(file_write(USERNVM_AUDIOCALIB_FILE_PATH, pbuf, length+4))
+           &#123;
+                pbuf[0]=1;
+                pbuf[1]=0;
+                if(file_write(USERNVM_AUDIOCALIB_SET_FILE_PATH, pbuf, 1))
+                &#123;
+                    iot_debug_print(&quot;audioParam write, restart later... write file len=%d&quot;, length);
+                    iot_os_sleep(3000);
+                    iot_os_restart();
+                &#125;
+                else
+                &#123;
+                    iot_debug_print(&quot;audioParam write error =%s&quot;, USERNVM_AUDIOCALIB_SET_FILE_PATH);
+                &#125;
+           &#125;
+           else
+           &#123;
+               iot_debug_print(&quot;audioParam write error =%s&quot;, USERNVM_AUDIOCALIB_FILE_PATH);
+           &#125;
+      &#125;
+ &#125; else
+ &#123;
+     iot_debug_print(&quot;audioParam make_dir error  =%s&quot;,USERNVM_PATH);
+ &#125;
+</code></pre>
+<p>}</p>
+<p>/*<br>     开机后 调用一次：<br>     check_user_calib(clib_data,sizeof(clib_data));</p>
+<pre><code> COOL TOOL 上可以查看日志关键字  audioParam，观察写入是否成功。
+ 上面关于CSDK 代码的MD 显示的不友好，COPY 文本就可以了。
+</code></pre>
+<p>*/<br>若有新的理解，接着更新。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/21/1877/" data-id="ckkfmdga20025vkcg4rho5j09" data-title="AudioCalibrator_V2.3.7 的使用及音频文件处理方法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1872" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/20/1872/" class="article-date">
+  <time class="dt-published" datetime="2020-11-20T08:09:09.000Z" itemprop="datePublished">2020-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/20/1872/">小标签，大用途</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在写这篇文章之前，我对a标签的印象一直停留在仅仅是实现超链接上，直到张恒提出发送邮件的需求之后，我才有幸更加深入的了解了a标签的更多可能性，查过资料后，总结如下。</p><p></p><p><strong>一、关于href属性</strong></p><p></p><p>1.<span style="color:#666666"><span style="font-size:16px"><span style="background-color:#ffffff">跳转</span></span></span>到本页面顶部/<span style="color:#666666"><span style="font-size:16px"><span style="background-color:#ffffff">某一位置（设置id属性）</span></span></span></p><pre><code><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;</span><span style="color:#800000">a </span><span style="color:#ff0000">href</span><span style="color:#0000ff">=&quot;#&quot;&gt;</span></span></span>回到顶部<span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;/</span><span style="color:#800000">a</span><span style="color:#0000ff">&gt;</span></span></span>  <br/><span style="background-color:#f1f2f3"><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;</span><span style="color:#800000">a </span><span style="color:#ff0000">href</span><span style="color:#0000ff">=&quot;#luat&quot;&gt;</span></span></span><span style="color:#666666"><span style="font-size:14px">回到id为luat的位置</span></span><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;/</span><span style="color:#800000">a</span><span style="color:#0000ff">&gt;</span></span></span></span></code></pre><p>2.跳转到其他页面（超链接）</p><pre><code><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;</span><span style="color:#800000">a </span><span style="color:#ff0000">href</span><span style="color:#0000ff">=&quot;http://doc.openluat.com&quot;&gt;</span></span></span>去往luat社区首页<span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;/</span><span style="color:#800000">a</span><span style="color:#0000ff">&gt; /*绝对路径*/</span></span></span><br/><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;</span><span style="color:#800000">a </span><span style="color:#ff0000">href</span><span style="color:#0000ff">=&quot;/&quot;&gt;</span></span></span>回到luat社区首页<span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&lt;/</span><span style="color:#800000">a</span><span style="color:#0000ff">&gt; /*相对路径*/</span></span></span></code></pre><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">3.href=&quot;JavaScript:的用法：在触发默认动作时，执行一段js代码</span></span></span></p><pre><code><span style="color:#808080">&lt;</span><span style="color:#569cd6">a</span> <span style="color:#9cdcfe">href</span><span style="color:#d4d4d4">=</span><span style="color:#ce9178">&quot;javascript:void(0);&quot;</span><span style="color:#9cdcfe">onclick</span><span style="color:#d4d4d4">=</span><span style="color:#ce9178">&quot;js_method()&quot;</span><span style="color:#808080">&gt;&lt;/</span><span style="color:#569cd6">a</span><span style="color:#808080">&gt; /*void(0)返回undefined,地址不跳转*/</span><br/><span style="color:#808080">&lt;</span><span style="color:#569cd6">a</span> <span style="color:#9cdcfe">href</span><span style="color:#d4d4d4">=</span><span style="color:#ce9178">&quot;javascript:;&quot;</span><span style="color:#9cdcfe">onclick</span><span style="color:#d4d4d4">=</span><span style="color:#ce9178">&quot;js_method()&quot;</span><span style="color:#808080">&gt;&lt;/</span><span style="color:#569cd6">a</span><span style="color:#808080">&gt;/*执行一条空js代码，地址不跳转*/</span></code></pre><p><span style="color:#808080">另外总结使a标签不跳转的方法：</span></p><pre><code><span style="font-size:14px"><span style="color:#006666">&lt;<span style="color:#4f4f4f">a href</span>=</span></span><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&quot;http://doc.openluat.com&quot; </span></span></span><span style="font-size:14px"><span style="color:#006666"><span style="color:#4f4f4f">onclick</span>=&quot;</span></span><span style="color:#ce9178">js_method();</span><span style="font-size:14px"><span style="color:#006666">return false&quot; &gt;</span><span style="color:#4f4f4f"><span style="background-color:#f6f8fa">不能跳转</span></span><span style="color:#006666">&lt;/<span style="color:#4f4f4f">a</span>&gt;</span></span></code></pre><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">4.发送邮件</span></span></span></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">如果要发送到多个邮箱，使用分号；隔开</span></span></span></p><pre><code><span style="font-size:14px"><span style="color:#383a42">&lt;a href=&quot;mailto:收件人邮箱?cc=抄送人邮箱&amp;subject=主题&amp;body=内容&quot;&gt;调用邮箱本地发送邮件&lt;/ a&gt;</span></span></code></pre><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">5.实现文件下载</span></span></span></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">如果需要纯前端实现文件下载，直接将a标签的href属性设置为文件路径就可以，但如果是txt，jpg等浏览器支持直接打开的文件就不会执行下载，而是会直接打开，这时需要加上【download】属性，还可以规定download=“下载时的文件名”，如不填写则使用默认文件名。</span></span></span></p><p></p><p><strong>二、关于target属性</strong></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">某一target属性规定在何处打开链接文档（默认为相同的框架）</span></span></span></p><p><span style="color:#000000"><span style="font-size:14px"><span style="background-color:#fdfcf8">常用：将文档重定向到一个单独的窗口</span></span></span></p><pre><code><span style="font-size:14px"><span style="color:#006666"><span style="color:#4f4f4f">&lt;a href</span>=</span></span><span style="font-size:12px"><span style="line-height:1.5"><span style="color:#0000ff">&quot;http://doc.openluat.com&quot; target=</span></span></span><span style="color:#ce9178">&quot;_black&quot;</span><span style="font-size:14px"><span style="color:#006666"><span style="color:#4f4f4f">&gt;打开新窗口</span>&lt;/<span style="color:#4f4f4f">a</span>&gt;</span></span></code></pre><p><span style="color:#000000"><span style="font-size:14px"><span style="background-color:#fdfcf8">其他属性值如图：</span></span></span></p><div class="media-wrap image-wrap"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201120161013889_QQ截图20201120114631.png"/></div><p></p><p></p><p><strong>三、与Link to的区别</strong></p><p></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">从网上找到这句话：</span></span></span><span style="color:#000000"><span style="font-size:14px"><span style="background-color:#eeeeee">如果要创建基本超链接，使用a标签，如果要从HTML读取其他文件，使用link标签。</span></span></span></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">个人理解：</span></span></span></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">首先，a标签可以跳转到其他网站页面，link to只能跳转到文件中的页面</span></span></span></p><p><span style="font-size:16px"><span style="background-color:#ffffff"><span style="color:#666666">其次，使用a标签跳转，页面会刷新；使用link to页面不会刷新。</span></span></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/20/1872/" data-id="ckkfmdga20024vkcg8lix50uo" data-title="小标签，大用途" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-1862" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/11/18/1862/" class="article-date">
+  <time class="dt-published" datetime="2020-11-18T08:46:02.000Z" itemprop="datePublished">2020-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/11/18/1862/">AIR724的UART3如何用LUAT控制呢？ UART1、2 都正常，UART3没有数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>null</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/11/18/1862/" data-id="ckkfmdga20023vkcg56dr3qz9" data-title="AIR724的UART3如何用LUAT控制呢？ UART1、2 都正常，UART3没有数据" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/10/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

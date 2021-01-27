@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>axios的高阶用法 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="axios的高阶用法介绍Axios 是一个基于 promise 的 HTTP 库，可以在浏览器和 node.js 中使用。目前在我们的项目中主要使用axios向服务端发送请求，获取数据，并且可在请求中做很多的可控操作。更多详情可参考axios官方文档 常见使用123456789import axios from &amp;#x27;axios&amp;#x27;login()&amp;#123;    axios.pos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="axios的高阶用法">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/12/31/2175/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="axios的高阶用法介绍Axios 是一个基于 promise 的 HTTP 库，可以在浏览器和 node.js 中使用。目前在我们的项目中主要使用axios向服务端发送请求，获取数据，并且可在请求中做很多的可控操作。更多详情可参考axios官方文档 常见使用123456789import axios from &amp;#x27;axios&amp;#x27;login()&amp;#123;    axios.pos">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-31T09:57:57.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.337Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2175" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/31/2175/" class="article-date">
+  <time class="dt-published" datetime="2020-12-31T09:57:57.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      axios的高阶用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="axios的高阶用法"><a href="#axios的高阶用法" class="headerlink" title="axios的高阶用法"></a>axios的高阶用法</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>Axios 是一个基于 promise 的 HTTP 库，可以在浏览器和 node.js 中使用。目前在我们的项目中主要使用axios向服务端发送请求，获取数据，并且可在请求中做很多的可控操作。更多详情可参考<a target="_blank" rel="noopener" href="http://www.axios-js.com/">axios官方文档</a></p>
+<h4 id="常见使用"><a href="#常见使用" class="headerlink" title="常见使用"></a>常见使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="function"><span class="title">login</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    axios.post(<span class="string">&quot;/info/api/user/loginin&quot;</span>,&#123;</span><br><span class="line">        username:<span class="string">&quot;admin&quot;</span>,</span><br><span class="line">        password:<span class="number">123</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是一个简单的使用axios的实现登录功能的实例。</p>
+<h4 id="抽离"><a href="#抽离" class="headerlink" title="抽离"></a>抽离</h4><p>从功能层面来说，这段代码可以完美完成任务，但是为了代码的可维护性和简便性，我们可以对axios相关的代码做进一步抽离。按照之前的编码习惯（小伙伴们也可以自行制定规范），我通常会在项目的src文件夹下新建<code>api</code>文件夹，并新建<code>axios.js</code>文件。</p>
+<p>以下为在<code>axios.js</code>文件下的操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;@/store/index&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;@/router/index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Message &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span></span><br><span class="line"><span class="keyword">let</span> http=&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baseUrl = process.env.NODE_ENV === <span class="string">&#x27;production&#x27;</span> ? <span class="string">&#x27;https://yoururl.com/&#x27;</span> : <span class="string">&#x27;/api&#x27;</span></span><br><span class="line"><span class="keyword">var</span> instance = Axios.create(&#123;</span><br><span class="line">    timeout: <span class="number">20000</span>,</span><br><span class="line">    baseUrl,</span><br><span class="line">    <span class="function"><span class="title">validateStatus</span>(<span class="params">status</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(status)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">400</span>:</span><br><span class="line">                Message.error(<span class="string">&#x27;请求出错&#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">401</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;授权失败，请重新登录&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="comment">// store.commit(&#x27;LOGIN_OUT&#x27;)</span></span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    Router.push(&#123;</span><br><span class="line">                        name: <span class="string">&#x27;Login&#x27;</span>,</span><br><span class="line">                        path: <span class="string">&#x27;/&#x27;</span></span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;, <span class="number">1000</span>)</span><br><span class="line">                store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>,<span class="literal">false</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">403</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;拒绝访问&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">404</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;请求错误,未找到该资源&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">case</span> <span class="number">500</span>:</span><br><span class="line">                Message.warning(&#123;</span><br><span class="line">                    message: <span class="string">&#x27;服务端错误&#x27;</span></span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">instance.interceptors.request.use(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 请求头添加token</span></span><br><span class="line">        <span class="keyword">if</span>(store.state.userToken) &#123;</span><br><span class="line">            store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>, <span class="literal">true</span>)</span><br><span class="line">            config.headers.Authorization = <span class="string">`<span class="subst">$&#123;store.state.userToken&#125;</span>`</span>;</span><br><span class="line">            config.headers[<span class="string">&#x27;SHTC-TOKEN&#x27;</span>] = <span class="string">`<span class="subst">$&#123;store.state.userToken&#125;</span>`</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> config</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器及异常处理</span></span><br><span class="line">instance.interceptors.response.use(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> response.data</span><br><span class="line">    &#125;,</span><br><span class="line">    err =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(err &amp;&amp; err.response) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            err.Message = <span class="string">&#x27;连接服务器失败&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err.response)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求</span></span><br><span class="line">http.get = <span class="function"><span class="keyword">function</span>(<span class="params">url, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        instance</span><br><span class="line">            .get(baseUrl + url, options)</span><br><span class="line">            .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(response.code === <span class="number">200</span>) &#123;</span><br><span class="line">                    resolve(response.data)</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    Message.error(&#123;</span><br><span class="line">                        message: response.errorMsg</span><br><span class="line">                    &#125;)</span><br><span class="line">                    reject(response.errorMsg)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(e)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// post请求</span></span><br><span class="line">http.post = <span class="function"><span class="keyword">function</span>(<span class="params">url, data, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        instance</span><br><span class="line">            .post(baseUrl + url, data, options)</span><br><span class="line">            .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// store.mutations(&#x27;LOGIN_PAGE&#x27;,true);</span></span><br><span class="line">                <span class="keyword">if</span>(response.code === <span class="number">200</span>) &#123;</span><br><span class="line">                    store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>,<span class="literal">false</span>);</span><br><span class="line">                    <span class="comment">// store.mutations(&#x27;LOGIN_PAGE&#x27;, false)</span></span><br><span class="line">                    resolve(response.data);</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    Message.error(&#123;</span><br><span class="line">                        message: response.errorMsg</span><br><span class="line">                    &#125;)</span><br><span class="line">                    store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>, <span class="literal">false</span>)</span><br><span class="line">                    reject(response.errorMsg)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">                store.dispatch(<span class="string">&#x27;LOGIN_PAGE&#x27;</span>,<span class="literal">false</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(e)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// todo</span></span><br><span class="line"><span class="comment">// put | patch | delete ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> http</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先我们在该文件中引入<code>axios</code>并实例化一个对象，可额外添加一些配置（超时时间、公共url、常见状态验证等等）；</li>
+<li>如果我们使用JWT式的请求交互方式的话，可以在请求拦截器上将token挂在上去；</li>
+<li>为了安全简便的使用返回数据，我们可以在响应拦截器上验证返回字段并将其中的<code>data</code>剥离后直接返回；</li>
+<li>新创建一个对象<code>http</code>，并将<code>axios</code>实例支持的请求方式按编写习惯封装为函数并挂载到<code>http</code>上</li>
+<li>导出<code>http</code>对象</li>
+</ul>
+<blockquote>
+<p>上述代码处于vue环境中，在react中使用时，部分代码须替换</p>
+</blockquote>
+<h4 id="抽离后的使用"><a href="#抽离后的使用" class="headerlink" title="抽离后的使用"></a>抽离后的使用</h4><p>在上述<code>axios.js</code>完成后，<code>api</code>文件夹下的剩余文件可按业务模块划分，这里以用户登录为例，在<code>api</code>下新建<code>user.js</code>，创建并暴露<code>login</code>函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&#x27;./index&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用户登录</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(<span class="string">&#x27;/user/login&#x27;</span>,data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在页面组件上导入使用即可。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><code>axios</code>在前端业务上的使用广泛，合理的封装抽离可以使我们的开发事半功倍，同时也能提高项目结构的合理性。以上即为全部内容，如有出入，欢迎指正。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/12/31/2175/" data-id="ckkfmdgah003avkcg9qgk6npi" data-title="axios的高阶用法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/31/2176/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          git初始化操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/31/2173/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">mysql的索引和优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

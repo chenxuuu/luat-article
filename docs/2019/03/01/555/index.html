@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air720系列AT命令远程升级配置详细步骤 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="升级平台的配置首先打开升级平台：https:&#x2F;&#x2F;iot.openluat.com 使用购买模块&#x2F;开发板时使用的手机号作为用户名，密码默认为888888，登陆后台 注意，如果是官方平台购买的，并且登陆后台后已经有了一个默认720项目，可以直接去执行AT命令，并且无需设置productkey参数 登陆后，可以看到一个默认新建好的产品，如果没有，可以点击右上角的创建新产品新建一个，产品名任意： 点击进入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air720系列AT命令远程升级配置详细步骤">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/03/01/555/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="升级平台的配置首先打开升级平台：https:&#x2F;&#x2F;iot.openluat.com 使用购买模块&#x2F;开发板时使用的手机号作为用户名，密码默认为888888，登陆后台 注意，如果是官方平台购买的，并且登陆后台后已经有了一个默认720项目，可以直接去执行AT命令，并且无需设置productkey参数 登陆后，可以看到一个默认新建好的产品，如果没有，可以点击右上角的创建新产品新建一个，产品名任意： 点击进入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_96216.jpg">
+<meta property="og:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_44807.jpg">
+<meta property="og:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_62301.jpg">
+<meta property="og:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_42898.jpg">
+<meta property="article:published_time" content="2019-03-01T04:37:31.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.359Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://doc.luatos.wiki/static/editormd/uploads/5_96216.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-555" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/01/555/" class="article-date">
+  <time class="dt-published" datetime="2019-03-01T04:37:31.000Z" itemprop="datePublished">2019-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air720系列AT命令远程升级配置详细步骤
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="升级平台的配置"><a href="#升级平台的配置" class="headerlink" title="升级平台的配置"></a>升级平台的配置</h1><p>首先打开升级平台：<a target="_blank" rel="noopener" href="https://iot.openluat.com/">https://iot.openluat.com</a></p>
+<p>使用购买模块/开发板时使用的手机号作为用户名，密码默认为888888，登陆后台</p>
+<p><strong>注意，如果是官方平台购买的，并且登陆后台后已经有了一个默认720项目，可以直接去执行AT命令，并且无需设置productkey参数</strong></p>
+<p>登陆后，可以看到一个默认新建好的产品，如果没有，可以点击右上角的<code>创建新产品</code>新建一个，产品名任意：<br><a href="/static/editormd/php/../uploads/5_96216.jpg"><img src="/static/editormd/php/../uploads/5_96216.jpg"></a></p>
+<p>点击<code>进入产品</code>。</p>
+<p>打开<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/4g/Air720D.html">http://www.openluat.com/Product/4g/Air720D.html</a>，选择<code>资料下载</code>，在列表中找到<code>标准固件（AT指令, Linux网卡, 安卓RIL适配）</code>，直接下载此AT的zip压缩包：<br><a href="/static/editormd/php/../uploads/5_44807.jpg"><img src="/static/editormd/php/../uploads/5_44807.jpg"></a></p>
+<p>我们可以看到压缩包内有一些文件，请<code>选择和自己模块型号相同的bin文件</code>进行解压，我这里使用的是720D，所以我解压720D的bin文件：<br><a href="/static/editormd/php/../uploads/5_62301.jpg"><img src="/static/editormd/php/../uploads/5_62301.jpg"></a></p>
+<p>接着返回之前的iot升级平台，在左侧选择<code>固件升级</code>–<code>升级配置</code>–<code>新建项目</code>–<code>选择之前解压出来的bin文件</code>–<code>是否允许升级选“是”</code>–点击确定：</p>
+<p><a href="/static/editormd/php/../uploads/5_42898.jpg"><img src="/static/editormd/php/../uploads/5_42898.jpg"></a></p>
+<p>我们可以在新建好的项目右侧，点击<code>添加</code>，将我们要升级的设备imei添加进去</p>
+<blockquote>
+<p>也可以在上面那步勾选<code>升级全部设备</code>，这样所有使用该<code>productkey</code>的设备都会匹配升级</p>
+</blockquote>
+<h1 id="模块AT操作"><a href="#模块AT操作" class="headerlink" title="模块AT操作"></a>模块AT操作</h1><p>在模块开机后，使用<code>ATI</code>可以查看模块当前固件版本，请确保云平台设置的版本高于当前版本，才会升级：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[12:28:11.121]发→◇ATI</span><br><span class="line">□</span><br><span class="line">[12:28:11.124]收←◆ATI</span><br><span class="line"></span><br><span class="line">AirM2M_720D_V666_LTE_AT</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<p>请确保模块已经成功附着网络，使用<code>AT+UPGRADE</code>命令即可执行升级操作，下载完成后会自动进行重启，重启途中pwr灯会不停闪烁（如果模块没有绑定到任何项目，可以使用<code>AT+UPGRADE=&quot;KEY&quot;,&quot;你的项目的productkey&quot;</code>来强制把无归属模块绑定到项目）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">[12:28:40.576]发→◇AT+CGATT?</span><br><span class="line">□</span><br><span class="line">[12:28:40.651]收←◆AT+CGATT?</span><br><span class="line"></span><br><span class="line">+CGATT: 1</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line">[12:29:18.776]发→◇AT+UPGRADE</span><br><span class="line">□</span><br><span class="line">[12:29:18.781]收←◆AT+UPGRADE</span><br><span class="line"></span><br><span class="line">[12:29:19.075]收←◆</span><br><span class="line">OK</span><br><span class="line">+UPGRADEIND: 0</span><br><span class="line"></span><br><span class="line">[12:29:32.566]收←◆+UPGRADEIND: 10</span><br><span class="line"></span><br><span class="line">[12:29:41.820]收←◆+UPGRADEIND: 20</span><br><span class="line"></span><br><span class="line">[12:29:51.672]收←◆+UPGRADEIND: 30</span><br><span class="line"></span><br><span class="line">[12:30:01.163]收←◆+UPGRADEIND: 40</span><br><span class="line"></span><br><span class="line">[12:30:10.957]收←◆+UPGRADEIND: 50</span><br><span class="line"></span><br><span class="line">[12:30:20.463]收←◆+UPGRADEIND: 60</span><br><span class="line"></span><br><span class="line">[12:30:30.263]收←◆+UPGRADEIND: 70</span><br><span class="line"></span><br><span class="line">[12:30:40.213]收←◆+UPGRADEIND: 80</span><br><span class="line"></span><br><span class="line">[12:30:49.927]收←◆+UPGRADEIND: 90</span><br><span class="line"></span><br><span class="line">[12:31:14.689]收←◆+UPGRADEIND: 100</span><br><span class="line"></span><br><span class="line">[12:31:16.785]收←◆\0</span><br><span class="line">[12:31:19.832]收←◆</span><br><span class="line">+UPGRADEDL: 0</span><br><span class="line"></span><br><span class="line">[12:31:31.389]收←◆</span><br><span class="line">+UPGRADEDL: 10</span><br><span class="line"></span><br><span class="line">[12:31:37.050]收←◆</span><br><span class="line">+UPGRADEDL: 20</span><br><span class="line"></span><br><span class="line">[12:31:42.286]收←◆</span><br><span class="line">+UPGRADEDL: 30</span><br><span class="line"></span><br><span class="line">[12:31:47.510]收←◆</span><br><span class="line">+UPGRADEDL: 40</span><br><span class="line"></span><br><span class="line">[12:31:52.730]收←◆</span><br><span class="line">+UPGRADEDL: 50</span><br><span class="line"></span><br><span class="line">[12:31:57.922]收←◆</span><br><span class="line">+UPGRADEDL: 60</span><br><span class="line"></span><br><span class="line">[12:32:03.141]收←◆</span><br><span class="line">+UPGRADEDL: 70</span><br><span class="line"></span><br><span class="line">[12:32:08.353]收←◆</span><br><span class="line">+UPGRADEDL: 80</span><br><span class="line"></span><br><span class="line">[12:32:13.519]收←◆</span><br><span class="line">+UPGRADEDL: 90</span><br><span class="line"></span><br><span class="line">[12:32:17.617]收←◆</span><br><span class="line">+UPGRADEDL: 100</span><br><span class="line"></span><br><span class="line">[12:32:17.671]收←◆\0</span><br><span class="line">[12:32:26.256]收←◆UART Boot Completed</span><br></pre></td></tr></table></figure>
+<p>我们再用<code>ATI</code>命令检查模块版本，会发现成功升级为云平台设置的版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[12:32:31.008]发→◇AT</span><br><span class="line">□</span><br><span class="line">[12:32:33.993]收←◆</span><br><span class="line">OK</span><br><span class="line">[12:32:37.717]收←◆</span><br><span class="line">+NITZ: 19&#x2F;03&#x2F;01,04:32:37+32,0</span><br><span class="line"></span><br><span class="line">[12:32:39.024]发→◇ATI</span><br><span class="line">□</span><br><span class="line">[12:32:39.028]收←◆ATI</span><br><span class="line"></span><br><span class="line">AirM2M_720D_V742_LTE_AT</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="附"><a href="#附" class="headerlink" title="附"></a>附</h1><p>如果出错通过AT+UPGRADE? 返回的+UPGRADE后面第四个参数为错误码</p>
+<h2 id="升级失败错误码"><a href="#升级失败错误码" class="headerlink" title="升级失败错误码"></a>升级失败错误码</h2><p>3 ：无效的设备。找不到设备。</p>
+<p>17：无权限。设备会上报imei、固件名、项目key。服务器会以此查出设备、固件、项目三    条记录，如果    这三者不在同一个用户名下，就会认为无权限</p>
+<p>25：无效的项目</p>
+<p>26：无效的固件</p>
+<p>27：已经是最新版本。通过了前面的检查，但版本号已是最新，或没打开升级开关、没指定imei等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/01/555/" data-id="ckkfmdgc2007hvkcgeqv3g8d1" data-title="Air720系列AT命令远程升级配置详细步骤" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/04/556/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          判断SIM卡所属的运营商
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/28/554/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air720系列4G模块AT版本专网卡使用说明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

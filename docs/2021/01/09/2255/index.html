@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>3、8910芯片USB描述符：接口描述符---RNDIS | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="三、RNDIS网卡&amp;emsp;&amp;emsp;RNDIS 是 Remote Network Driver Interface Specification（远程网络驱动程序接口规范） 的首字母缩写，实际上的作用为 TCP&#x2F;IP over USB，也即视 USB 设备（如手机）为网卡，是基于USB实现RNDIS实际上就是TCP&#x2F;IP over USB，从而使 Windows 可以通过 USB 设备连接网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3、8910芯片USB描述符：接口描述符---RNDIS">
+<meta property="og:url" content="https://doc.luatos.wiki/2021/01/09/2255/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="三、RNDIS网卡&amp;emsp;&amp;emsp;RNDIS 是 Remote Network Driver Interface Specification（远程网络驱动程序接口规范） 的首字母缩写，实际上的作用为 TCP&#x2F;IP over USB，也即视 USB 设备（如手机）为网卡，是基于USB实现RNDIS实际上就是TCP&#x2F;IP over USB，从而使 Windows 可以通过 USB 设备连接网络">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182434811.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021010918245821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182523969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182557614.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182612146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021010918263120.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182652980.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182711325.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210109182723499.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-01-09T10:30:10.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.337Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210109182434811.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2255" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/01/09/2255/" class="article-date">
+  <time class="dt-published" datetime="2021-01-09T10:30:10.000Z" itemprop="datePublished">2021-01-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      3、8910芯片USB描述符：接口描述符---RNDIS
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="三、RNDIS网卡"><a href="#三、RNDIS网卡" class="headerlink" title="三、RNDIS网卡"></a>三、RNDIS网卡</h1><p>&emsp;&emsp;RNDIS 是 Remote Network Driver Interface Specification（远程网络驱动程序接口规范） 的首字母缩写，实际上的作用为 TCP/IP over USB，也即视 USB 设备（如手机）为网卡，是基于USB实现RNDIS实际上就是TCP/IP over USB，从而使 Windows 可以通过 USB 设备连接网络。</p>
+<p>&emsp;&emsp;TCP/IP 协议族，简称为 TCP/IP， 其名称源于其最早的两个核心协议 TCP（Transmission Control Protocol，传输控制协议）和 IP （Internet Protocol，网际协议），它规定了设备连接网络的方式以及数据如何传输的标准。</p>
+<p>&emsp;&emsp;8910平台支持RNDIS功能，并且默认处于开启状态。模块只要能联网，正常情况下只要将模块接入电脑（windows、linux）电脑就会识别出来一块网卡，不需要经历ppp拨号那样复杂的流程就可以访问联网。</p>
+<h2 id="3-1、控制接口"><a href="#3-1、控制接口" class="headerlink" title="3.1、控制接口"></a>3.1、控制接口</h2><h3 id="3-1-1、RNDIS控制接口描述符（9字节）"><a href="#3-1-1、RNDIS控制接口描述符（9字节）" class="headerlink" title="3.1.1、RNDIS控制接口描述符（9字节）"></a>3.1.1、RNDIS控制接口描述符（9字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>136</td>
+<td>0x09</td>
+<td>描述符大小为9字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>144</td>
+<td>0x04</td>
+<td>接口描述符类型</td>
+</tr>
+<tr>
+<td><strong>bInterfaceNumber</strong></td>
+<td>8</td>
+<td>152</td>
+<td>0x00</td>
+<td>此接口号的索引为0。</td>
+</tr>
+<tr>
+<td><strong>bAlternateSetting</strong></td>
+<td>8</td>
+<td>160</td>
+<td>0x00</td>
+<td>用于选择此接口的备用设置的值为0</td>
+</tr>
+<tr>
+<td><strong>bNumEndpoints</strong></td>
+<td>8</td>
+<td>168</td>
+<td>0x01</td>
+<td>此接口使用的端点数为1（不包括端点0）</td>
+</tr>
+<tr>
+<td><strong>bInterfaceClass</strong></td>
+<td>8</td>
+<td>176</td>
+<td>0xE0</td>
+<td>接口实现无线控制器类</td>
+</tr>
+<tr>
+<td><strong>bInterfaceSubClass</strong></td>
+<td>8</td>
+<td>184</td>
+<td>0x01</td>
+<td>接口实现射频控制器子类</td>
+</tr>
+<tr>
+<td><strong>bInterfaceProtocol</strong></td>
+<td>8</td>
+<td>192</td>
+<td>0x03</td>
+<td>接口使用设备线适配器同步流接口协议</td>
+</tr>
+<tr>
+<td><strong>iInterface</strong></td>
+<td>8</td>
+<td>200</td>
+<td>0x03</td>
+<td>接口字符串描述符索引为3</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210109182434811.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-1-2、RNDIS-CDC-Header功能描述符（5字节）"><a href="#3-1-2、RNDIS-CDC-Header功能描述符（5字节）" class="headerlink" title="3.1.2、RNDIS CDC Header功能描述符（5字节）"></a>3.1.2、RNDIS CDC Header功能描述符（5字节）</h3><p>&emsp;&emsp;Header功能描述符表示功能描述符的开始，其他紧跟的内容就是此设备的功能描述符的内容。bcdCDC表示的是CDC的版本。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>208</td>
+<td>0x05</td>
+<td>描述符的大小，以字节为单位</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>216</td>
+<td>0x24</td>
+<td>描述符类型</td>
+</tr>
+<tr>
+<td><strong>bDescriptorSubType</strong></td>
+<td>8</td>
+<td>224</td>
+<td>0x00</td>
+<td>描述符子类型</td>
+</tr>
+<tr>
+<td><strong>bcdCDC</strong></td>
+<td>16</td>
+<td>232</td>
+<td>0x0110</td>
+<td>USB通信类定义通信规范1.10版</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/2021010918245821.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-1-3、RNDIS-CDC-Call-Management功能描述符（4字节）"><a href="#3-1-3、RNDIS-CDC-Call-Management功能描述符（4字节）" class="headerlink" title="3.1.3、RNDIS CDC Call Management功能描述符（4字节）"></a>3.1.3、RNDIS CDC Call Management功能描述符（4字节）</h3><p>&emsp;&emsp;Call Management描述的就是电话相关的东西，AT指令集的支持情况。 bDataInterface表示如有电话时，电话数据内容对应的接口号。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>248</td>
+<td>0x05</td>
+<td>描述符的大小，以字节为单位</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>256</td>
+<td>0x24</td>
+<td>描述符类型</td>
+</tr>
+<tr>
+<td><strong>bDescriptorSubType</strong></td>
+<td>8</td>
+<td>264</td>
+<td>0x01</td>
+<td>描述符子类型</td>
+</tr>
+<tr>
+<td><strong>bmCapabilities</strong></td>
+<td>8</td>
+<td>272</td>
+<td>0x00</td>
+<td>Bit0:设备是否自己处理呼叫管理1<br/>Bit1:设备是否可以通过数据类接口发送/接收呼叫管理信息0</td>
+</tr>
+<tr>
+<td><strong>bDataInterface</strong></td>
+<td>8</td>
+<td>280</td>
+<td>0x01</td>
+<td>可选用于呼叫管理的数据类接口的接口号</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210109182523969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-1-4、RNDIS-CDC-ACM功能描述符（4字节）"><a href="#3-1-4、RNDIS-CDC-ACM功能描述符（4字节）" class="headerlink" title="3.1.4、RNDIS CDC ACM功能描述符（4字节）"></a>3.1.4、RNDIS CDC ACM功能描述符（4字节）</h3><p>&emsp;&emsp;ACM(Abstract Control Model)，即抽象控制模型，PSTN下，除了ACM模型还有还有DLM(Direct Line Mode), TCM(Telephone Control Model)。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>288</td>
+<td>0x04</td>
+<td>描述符的大小，以字节为单位</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>296</td>
+<td>0x24</td>
+<td>描述符类型</td>
+</tr>
+<tr>
+<td><strong>bDescriptorSubType</strong></td>
+<td>8</td>
+<td>304</td>
+<td>0x02</td>
+<td>描述符子类型</td>
+</tr>
+<tr>
+<td><strong>bmCapabilities</strong></td>
+<td>8</td>
+<td>312</td>
+<td>0x00</td>
+<td>第0位:设备是否支持Set_Comm_Feature、Clear_Comm_Feature和Get_Comm_Feature的组合请求<br/>第1位:设备是否支持Set_Line_Coding、Set_Control_Line_State、Get_Line_Coding和Serial_State 1的通知组合</td>
+</tr>
+<tr>
+<td><img src="https://img-blog.csdnimg.cn/20210109182557614.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="3-1-5、RNDIS-CDC-Union功能描述符（5字节）"><a href="#3-1-5、RNDIS-CDC-Union功能描述符（5字节）" class="headerlink" title="3.1.5、RNDIS CDC Union功能描述符（5字节）"></a>3.1.5、RNDIS CDC Union功能描述符（5字节）</h3><p>&emsp;&emsp;Union描述符就是用来告诉主机端，哪些接口是联合在一起的，对应着一个功能，这个功能需要主机装载对应的驱动来实现，因此，功能与驱动是一对一的关系。这里bControlInterface值为0，则表示接口0为控制接口，bSubBoardinateInterface0值为1，表示接口1为控制接口0的下级接口，即数据接口。在CDC标准中，控制接口是必须的，而数据接口是可选的，因此，数据接口为控制接口的附属。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>解码</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>320</td>
+<td>0x05</td>
+<td>0x05</td>
+<td>描述符的大小，以字节为单位</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>328</td>
+<td>0x24</td>
+<td>0x24</td>
+<td>描述符类型</td>
+</tr>
+<tr>
+<td><strong>bDescriptorSubType</strong></td>
+<td>8</td>
+<td>336</td>
+<td>0x06</td>
+<td>0x06</td>
+<td>描述符子类型</td>
+</tr>
+<tr>
+<td><strong>bControlInterface</strong></td>
+<td>8</td>
+<td>344</td>
+<td>0x00</td>
+<td>0x00</td>
+<td>通信或数据类接口的接口号</td>
+</tr>
+<tr>
+<td><strong>bSubordinateInterface0</strong></td>
+<td>8</td>
+<td>352</td>
+<td>0x01</td>
+<td>0x01</td>
+<td>下级接口的接口号</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210109182612146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-1-6、RNDIS-通知端点描述符（7字节）"><a href="#3-1-6、RNDIS-通知端点描述符（7字节）" class="headerlink" title="3.1.6、RNDIS 通知端点描述符（7字节）"></a>3.1.6、RNDIS 通知端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>360</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>368</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>376</td>
+<td>0x82</td>
+<td>这是端点号为2的输入端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>384</td>
+<td>0x03</td>
+<td>类型-传输：中断<br/>低功耗：无<br/>Pkt大小调整：无</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>392</td>
+<td>0x0008</td>
+<td>此终结点的最大数据包大小为8字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>408</td>
+<td>0x09</td>
+<td>轮询间隔值为每9帧。如果高速，每256帧</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/2021010918263120.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="3-2、数据接口"><a href="#3-2、数据接口" class="headerlink" title="3.2、数据接口"></a>3.2、数据接口</h1><h3 id="3-2-1、RNDIS数据接口描述符（9字节）"><a href="#3-2-1、RNDIS数据接口描述符（9字节）" class="headerlink" title="3.2.1、RNDIS数据接口描述符（9字节）"></a>3.2.1、RNDIS数据接口描述符（9字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>416</td>
+<td>0x09</td>
+<td>描述符大小为9字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>424</td>
+<td>0x04</td>
+<td>接口描述符类型</td>
+</tr>
+<tr>
+<td><strong>bAlternateSetting</strong></td>
+<td>8</td>
+<td>432</td>
+<td>0x01</td>
+<td>此接口号为1。</td>
+</tr>
+<tr>
+<td><strong>bAlternateSetting</strong></td>
+<td>8</td>
+<td>440</td>
+<td>0x00</td>
+<td>用于选择此接口的备用设置的值为0</td>
+</tr>
+<tr>
+<td><strong>bNumEndpoints</strong></td>
+<td>8</td>
+<td>448</td>
+<td>0x02</td>
+<td>此接口使用的端点数为2（不包括端点0）</td>
+</tr>
+<tr>
+<td><strong>bInterfaceClass</strong></td>
+<td>8</td>
+<td>456</td>
+<td>0x0A</td>
+<td>接口实现数据接口类</td>
+</tr>
+<tr>
+<td><strong>bInterfaceProtocol</strong></td>
+<td>8</td>
+<td>472</td>
+<td>0x00</td>
+<td>接口使用不需要特定于类的协议</td>
+</tr>
+<tr>
+<td><strong>bInterfaceSubClass</strong></td>
+<td>8</td>
+<td>464</td>
+<td>0x00</td>
+<td>子类编码为0</td>
+</tr>
+<tr>
+<td><strong>iInterface</strong></td>
+<td>8</td>
+<td>480</td>
+<td>0x04</td>
+<td>接口字符串描述符索引为4</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210109182652980.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-2-2、RNDIS数据输入端点描述符（7字节）"><a href="#3-2-2、RNDIS数据输入端点描述符（7字节）" class="headerlink" title="3.2.2、RNDIS数据输入端点描述符（7字节）"></a>3.2.2、RNDIS数据输入端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>488</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>496</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>504</td>
+<td>0x81</td>
+<td>这是端点号为1的IN端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>512</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>520</td>
+<td>0x0200</td>
+<td>此终结点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>536</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。高速未定义</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210109182711325.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-2-3、RNDIS数据输出端点描述符（7字节）"><a href="#3-2-3、RNDIS数据输出端点描述符（7字节）" class="headerlink" title="3.2.3、RNDIS数据输出端点描述符（7字节）"></a>3.2.3、RNDIS数据输出端点描述符（7字节）</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>544</td>
+<td>0x07</td>
+<td>描述符大小为7字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>552</td>
+<td>0x05</td>
+<td>端点描述符类型</td>
+</tr>
+<tr>
+<td><strong>bEndpointAddress</strong></td>
+<td>8</td>
+<td>560</td>
+<td>0x01</td>
+<td>这是端点号为1的输出端点</td>
+</tr>
+<tr>
+<td><strong>bmAttributes</strong></td>
+<td>8</td>
+<td>568</td>
+<td>0x02</td>
+<td>类型-传输：批量<br/>包大小调整：否</td>
+</tr>
+<tr>
+<td><strong>wMaxPacketSize</strong></td>
+<td>16</td>
+<td>576</td>
+<td>0x0200</td>
+<td>此终结点的最大数据包大小为512字节。如果是高速，则每帧增加0个事务</td>
+</tr>
+<tr>
+<td><strong>bInterval</strong></td>
+<td>8</td>
+<td>592</td>
+<td>0x00</td>
+<td>轮询间隔值为每0帧。</td>
+</tr>
+</tbody></table>
+<p><img src="https://img-blog.csdnimg.cn/20210109182723499.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2021/01/09/2255/" data-id="ckkfmdgam003lvkcg9xhj8yas" data-title="3、8910芯片USB描述符：接口描述符---RNDIS" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/01/09/2259/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          ESD原理和ESD防护注意事项
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/09/2254/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">2、8910芯片USB描述符：接口描述符---概述</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

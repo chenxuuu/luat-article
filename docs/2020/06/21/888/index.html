@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>10、RDA8910CSDK二次开发：简易的http通讯库 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录点击这里查看所有博文 &amp;emsp;&amp;emsp;本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。 &amp;emsp;&amp;emsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10、RDA8910CSDK二次开发：简易的http通讯库">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/06/21/888/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录点击这里查看所有博文 &amp;emsp;&amp;emsp;本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。 &amp;emsp;&amp;emsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531165445606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531170622140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531175821223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531190242442.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531190505375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-06-21T15:04:31.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200531165445606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-888" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/06/21/888/" class="article-date">
+  <time class="dt-published" datetime="2020-06-21T15:04:31.000Z" itemprop="datePublished">2020-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      10、RDA8910CSDK二次开发：简易的http通讯库
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所述资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>&emsp;&emsp;本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>&emsp;&emsp;各个厂家的部分配置文件可能不一样，也许会导致设备出现奇怪的问题，其他的模块我也不确定能不能用，自行测试。但是有一点<code>编译下载和监视流程基本一样</code>，可供参考。</p>
+<p>&emsp;&emsp;先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>&emsp;&emsp;我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;有好几天没写博客了，几天前刚说了tcp通讯和udp通讯。本来准备写一下http协议怎么使用，在官方开发包里找了半天没找到有关http的库函数。后来通过其他渠道确认了官方暂时还<code>没有提供有关http的相关库</code>函数。也就是说除非自己写或者自己移植，不然就没法用。<br><img src="https://img-blog.csdnimg.cn/20200531165445606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;随后想了下，干脆移植一个开源库试试吧，也许运气好移植成功了呢。花了半天时间找了几个开源的http库，打开一看实在是太复杂了，以我的能力暂时是搞不定。看的我头晕眼花，果断放弃。<br><img src="https://img-blog.csdnimg.cn/20200531170622140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;其实我对这个库的要求也不高，支持以下简单的post，get。然后能下载稍大的文件就行了。如果有https那就更好了，没有也不碍事。既然移植不成那就自己写一个简单的吧，凑合用一下。过一段时间也许官方的库就出来了。</p>
+<p>&emsp;&emsp;http说到底其实也就是一个tcp连接，发送指定的报文信息而已，简单的应用并不复杂。只要在网上找一个协议报文格式，对着的信息上面直接替换即可。</p>
+<p>&emsp;&emsp;下面就是一个GET请求的报文格式，用的是<code>HTTP/1.1</code>协议，注意<code>HTTP/1.1</code>支持<code>长连接</code>，但是这个长连接并不是永久的长连接。<code>在短时间内</code>，可以允许客户端向服务器连续发送多个请求，而无需重新建立连接。在空闲时（<code>一段时间没有动作</code>）服务器会主动断开与客户端的连接。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET /admin_ui/rdx/core/images/close.png HTTP/<span class="number">1.1</span></span><br><span class="line">Accept-Language: en-US</span><br><span class="line">User-Agent: Mozilla/<span class="number">4.0</span> (compatible; MSIE <span class="number">7.0</span>; Windows NT <span class="number">6.1</span>; WOW64; Trident/<span class="number">7.0</span>; SLCC2; .NET CLR <span class="number">2.0</span><span class="number">.50727</span>; .NET CLR <span class="number">3.5</span><span class="number">.30729</span>; .NET CLR <span class="number">3.0</span><span class="number">.30729</span>; .NET4<span class="number">.0</span>C; .NET4<span class="number">.0</span>E)</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Host: xxx.xxx.xxx.xxx</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Accept: *<span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+<h1 id="二、编写测试程序"><a href="#二、编写测试程序" class="headerlink" title="二、编写测试程序"></a>二、编写测试程序</h1><p>&emsp;&emsp;花了几天时间，根据报文的格式要求，写了一个简易的<code>http</code>函数库，目前只支持<code>GET</code>请求、<code>POST</code>请求。可以支持下载一些不是特别大的文件，昨晚测试下载800kb的文件没遇到什么问题。<code>https</code>暂时还没写，先凑合用着吧。</p>
+<h2 id="2-1、了解本例程所用到的函数"><a href="#2-1、了解本例程所用到的函数" class="headerlink" title="2.1、了解本例程所用到的函数"></a>2.1、了解本例程所用到的函数</h2><p>&emsp;&emsp;至于内部怎么实现的我这里就不讲了，很简单，代码开源，有兴趣的可以自己去看。这里只介绍怎么使用库函数。<br>&emsp;&emsp;使用http服务需要包含<code>#include &quot;http_client.h&quot;&quot;</code>头文件，我们这里只用到了3个函数，分别是：</p>
+<blockquote>
+<p>/**新建一个http的对象，每次调用都会新建一个独立的对象，不会修改原有的对象<br>当初始化传入的参数不足时，初始化会失败，需要调用<code>http_get_init_state</code>，查询初始化状态<br><em>@param     config:   用户传入的初始化结构体<br>*@return    新建的http对象<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>http_client_handle_t <code>http_client_new</code>(http_client_config_t *config)</li>
+</ul>
+<blockquote>
+<p>/**获取初始化的状态<br><em>@param        client：填写<code>http_client_new</code>返回的对象<br>*@return     ：   初始化的状态<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>http_client_init_state <code>http_get_init_state</code>(http_client_handle_t *client);</li>
+</ul>
+<blockquote>
+<p>/*<em>/根据新建的对象，执行相应的操作<br>*@param        client：填写<code>http_client_new</code>返回的对象<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>void http_client_perform(http_client_handle_t *client);</li>
+</ul>
+<h2 id="2-2、编写get请求测试程序"><a href="#2-2、编写get请求测试程序" class="headerlink" title="2.2、编写get请求测试程序"></a>2.2、编写get请求测试程序</h2><p>&emsp;&emsp;demo中我写了两个get请求的测试，两个url只要选一个就行了，demo写的比较简单，一次只能测试一个请求。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">http_client_config_t</span> config = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="comment">//////////////GET测试1/////////////////////////</span></span><br><span class="line">config.url = <span class="string">&quot;https://bkimg.cdn.bcebos.com/pic/37d3d539b6003af356370ff93f2ac65c1138b69e?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg&quot;</span>;</span><br><span class="line"><span class="comment">//////////////////////////////////////////////////</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//////////////GET测试2/////////////////////////</span></span><br><span class="line"><span class="comment">//config.url = &quot;https://i0.hdslb.com/bfs/album/8ac5f3eecccb17dfe8702eff13a4fb51d59cfc4b.jpg&quot;;</span></span><br><span class="line">config.method = HTTP_METHOD_GET;</span><br><span class="line">config.event_handler = http_cb;</span><br><span class="line"><span class="comment">//创建对象</span></span><br><span class="line"><span class="keyword">client_handle_t</span> = http_client_new(&amp;config);</span><br><span class="line">iot_debug_print(<span class="string">&quot;[http_client] init_state:%d&quot;</span>, http_get_init_state(&amp;<span class="keyword">client_handle_t</span>));</span><br><span class="line"><span class="keyword">if</span> (http_get_init_state(&amp;<span class="keyword">client_handle_t</span>) == HTTP_INIT_OK)</span><br><span class="line">&#123;</span><br><span class="line">	http_client_perform(&amp;<span class="keyword">client_handle_t</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-3、编写post请求测试程序"><a href="#2-3、编写post请求测试程序" class="headerlink" title="2.3、编写post请求测试程序"></a>2.3、编写post请求测试程序</h2><p>&emsp;&emsp;post请求主要是提交数据，我这里向<code>http://httpbin.org/post</code>提交字符串<code>”123456“</code>，该网站会回应相应的的报文数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///////////////////POST测试////////////////////////</span></span><br><span class="line">config.url = <span class="string">&quot;http://httpbin.org/post&quot;</span>;</span><br><span class="line">config.table_data = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">config.method = HTTP_METHOD_POST;</span><br><span class="line"><span class="comment">////////////////////////////////////</span></span><br><span class="line">config.event_handler = http_cb;</span><br><span class="line"><span class="comment">//创建对象</span></span><br><span class="line"><span class="keyword">client_handle_t</span> = http_client_new(&amp;config);</span><br><span class="line">iot_debug_print(<span class="string">&quot;[http_client] init_state:%d&quot;</span>, http_get_init_state(&amp;<span class="keyword">client_handle_t</span>));</span><br><span class="line"><span class="keyword">if</span> (http_get_init_state(&amp;<span class="keyword">client_handle_t</span>) == HTTP_INIT_OK)</span><br><span class="line">&#123;</span><br><span class="line">	http_client_perform(&amp;<span class="keyword">client_handle_t</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-4、编写消息回调事件"><a href="#2-4、编写消息回调事件" class="headerlink" title="2.4、编写消息回调事件"></a>2.4、编写消息回调事件</h2><p>&emsp;&emsp;函数库中做了分包接收（一个请求分多包接收），分段接收（一个文件多次请求，不需要用户处理，库函数全部处理好了，用户只需要在回调函数中转存数据即可）。只会在一次的请求数据全部接收到后才会通知消息处理函数。拿下载文件来说，一个文件可能有好几兆，我在库里面默认设置接收缓存区为10240字节（10KB），用户可以自行更改，一次最多接收10KB的数据。由于网络问题，这10KB的数据可能需要进行分包接收，回调函数只会在10KB的数据全部接收完毕后才会通过回调函数通知用户，转存数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_cb</span><span class="params">(http_client_event *evt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	iot_os_sleep(<span class="number">1000</span>);<span class="comment">//这里需要一个延时，不然下载的过程中，打印速度太快，日志会丢失，不需要查看日志的话可以忽略</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] http_client_event_state:%d&quot;</span>, evt-&gt;state);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] respons_state:%s&quot;</span>, evt-&gt;respons_state);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] data:%s&quot;</span>, evt-&gt;data);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] datalen:%d&quot;</span>, evt-&gt;datalen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="三、编译并下载程序"><a href="#三、编译并下载程序" class="headerlink" title="三、编译并下载程序"></a>三、编译并下载程序</h1><p>&emsp;&emsp;完整代码在这，自取。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Author: your name</span></span><br><span class="line"><span class="comment"> * @Date: 2020-05-19 14:05:32</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-05-31 17:53:31</span></span><br><span class="line"><span class="comment"> * @LastEditors: Please set LastEditors</span></span><br><span class="line"><span class="comment"> * @Description: In User Settings Edit</span></span><br><span class="line"><span class="comment"> * @FilePath: \RDA8910_CSDK\USER\user_main.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;cs_types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_log.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_api.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_common.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_uart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_os.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_gpio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_pmd.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_adc.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_network.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_socket.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;http_client.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">HANDLE TestTask_HANDLE = <span class="literal">NULL</span>;</span><br><span class="line">uint8 NetWorkCbMessage = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> socketfd = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">http_client_handle_t</span> <span class="keyword">client_handle_t</span> = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_cb</span><span class="params">(http_client_event *evt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	iot_os_sleep(<span class="number">1000</span>);<span class="comment">//这里需要一个延时，不然下载的过程中，打印速度太快，日志会丢失，不需要查看日志的话可以忽略</span></span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] http_client_event_state:%d&quot;</span>, evt-&gt;state);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] respons_state:%s&quot;</span>, evt-&gt;respons_state);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] data:%s&quot;</span>, evt-&gt;data);</span><br><span class="line">	iot_debug_print(<span class="string">&quot;[http_client] datalen:%d&quot;</span>, evt-&gt;datalen);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TestTask</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> NetLink = FALSE;</span><br><span class="line">	<span class="keyword">while</span> (NetLink == FALSE)</span><br><span class="line">	&#123;</span><br><span class="line">		T_OPENAT_NETWORK_CONNECT networkparam = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">		<span class="keyword">switch</span> (NetWorkCbMessage)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> OPENAT_NETWORK_DISCONNECT: <span class="comment">//网络断开 表示GPRS网络不可用澹，无法进行数据连接，有可能可以打电话</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_DISCONNECT&quot;</span>);</span><br><span class="line">			iot_os_sleep(<span class="number">10000</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> OPENAT_NETWORK_READY: <span class="comment">//网络已连接 表示GPRS网络可用，可以进行链路激活</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_READY&quot;</span>);</span><br><span class="line">			<span class="built_in">memcpy</span>(networkparam.apn, <span class="string">&quot;CMNET&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;CMNET&quot;</span>));</span><br><span class="line">			<span class="comment">//建立网络连接，实际为pdp激活流程</span></span><br><span class="line">			iot_network_connect(&amp;networkparam);</span><br><span class="line">			iot_os_sleep(<span class="number">500</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> OPENAT_NETWORK_LINKED: <span class="comment">//链路已经激活 PDP已经激活，可以通过socket接口建立数据连接</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_LINKED&quot;</span>);</span><br><span class="line">			NetLink = TRUE;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (NetLink == TRUE)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">http_client_config_t</span> config = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">		<span class="comment">//////////////GET测试1/////////////////////////</span></span><br><span class="line">		config.url = <span class="string">&quot;https://bkimg.cdn.bcebos.com/pic/37d3d539b6003af356370ff93f2ac65c1138b69e?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg&quot;</span>;</span><br><span class="line">		config.method = HTTP_METHOD_GET;</span><br><span class="line">		<span class="comment">//////////////////////////////////////////////////</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//////////////GET测试2/////////////////////////</span></span><br><span class="line">		<span class="comment">//config.url = &quot;https://i0.hdslb.com/bfs/album/8ac5f3eecccb17dfe8702eff13a4fb51d59cfc4b.jpg&quot;;</span></span><br><span class="line">		<span class="comment">//config.method = HTTP_METHOD_GET;</span></span><br><span class="line">		<span class="comment">//////////////////////////////////////////////////</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">///////////////////POST测试////////////////////////</span></span><br><span class="line">		<span class="comment">//config.url = &quot;http://httpbin.org/post&quot;;</span></span><br><span class="line">		<span class="comment">//config.table_data = &quot;123456&quot;;</span></span><br><span class="line">		<span class="comment">//config.method = HTTP_METHOD_POST;</span></span><br><span class="line">		<span class="comment">////////////////////////////////////</span></span><br><span class="line">		config.event_handler = http_cb;</span><br><span class="line">		<span class="comment">//创建对象</span></span><br><span class="line">		<span class="keyword">client_handle_t</span> = http_client_new(&amp;config);</span><br><span class="line"></span><br><span class="line">		iot_debug_print(<span class="string">&quot;[http_client] init_state:%d&quot;</span>, http_get_init_state(&amp;<span class="keyword">client_handle_t</span>));</span><br><span class="line">		<span class="keyword">if</span> (http_get_init_state(&amp;<span class="keyword">client_handle_t</span>) == HTTP_INIT_OK)</span><br><span class="line">		&#123;</span><br><span class="line">			http_client_perform(&amp;<span class="keyword">client_handle_t</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	iot_os_delete_task(TestTask_HANDLE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">NetWorkCb</span><span class="params">(E_OPENAT_NETWORK_STATE state)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	NetWorkCbMessage = state;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//main函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//系统休眠</span></span><br><span class="line">	iot_os_sleep(<span class="number">10000</span>);</span><br><span class="line">	<span class="comment">//注册网络状态回调函数</span></span><br><span class="line">	iot_network_set_cb(NetWorkCb);</span><br><span class="line">	<span class="comment">//创建一个任务</span></span><br><span class="line">	<span class="comment">//TestTask_HANDLE =</span></span><br><span class="line">	TestTask_HANDLE = iot_os_create_task(TestTask, <span class="literal">NULL</span>, <span class="number">2048</span>, <span class="number">10</span>, OPENAT_OS_CREATE_DEFAULT, <span class="string">&quot;TestTask&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//退出提示</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">appimg_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	OSI_LOGI(<span class="number">0</span>, <span class="string">&quot;application image exit&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="四、分析结果"><a href="#四、分析结果" class="headerlink" title="四、分析结果"></a>四、分析结果</h1><p>&emsp;&emsp;测试GET请求，通过打印数据，看到<code>Range_all</code>=25644字节，也就是图片的总大小25.6KB。分三段接收，第一段接收<code>10240</code>，第二段接收<code>10240</code>，第三段接收<code>5164</code>，三段加在一起正好是<code>25644</code>。<br><img src="https://img-blog.csdnimg.cn/20200531175821223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;测试POST请求，通过打印数据，http响应<code>200</code>，只能看到部分接收到的数据，还有数据大小是<code>495</code>字节。<br><img src="https://img-blog.csdnimg.cn/20200531190242442.png" alt="在这里插入图片描述"><br>&emsp;&emsp;这时候我们需要用一下网络调试助手，将下面的数据发送出去，响应头中附带的信息是响应<code>200</code>，<code>Content-Length=496</code>，以及正文数据的第一行和我们在日志中看到的是一样的。数据应该是没什么问题，我也懒得将数据一行行拆开打印了测试了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /post HTTP/<span class="number">1.1</span>\r\nHost: httpbin.org\r\nConnection: close\r\nUser-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; WOW64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">80.0</span><span class="number">.3987</span><span class="number">.163</span> Safari/<span class="number">537.36</span>\r\nContent-Length: <span class="number">8</span>\r\nContent-Type: application/json\r\nAccept: *<span class="comment">/*\r\n\r\n123456\r\n</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200531190505375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>&emsp;&emsp;本人提供的函数包内，有如下接口可供使用。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改host数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_host</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, <span class="keyword">char</span> *host)</span></span>;</span><br><span class="line"><span class="comment">//获取host数据</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">http_get_host</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改ip数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_ip</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, <span class="keyword">char</span> *ip)</span></span>;</span><br><span class="line"><span class="comment">//获取ip数据</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">http_get_ip</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改port数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_port</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, <span class="keyword">int</span> port)</span></span>;</span><br><span class="line"><span class="comment">//获取port数据</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">http_get_port</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改path数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_path</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, <span class="keyword">char</span> *path)</span></span>;</span><br><span class="line"><span class="comment">//获取path数据</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">http_get_path</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改table_data数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_table_data</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, <span class="keyword">char</span> *table_data)</span></span>;</span><br><span class="line"><span class="comment">//获取table_data数据</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">http_get_table_data</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改method数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_method</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, <span class="keyword">http_client_method_t</span> method)</span></span>;</span><br><span class="line"><span class="comment">//获取method数据</span></span><br><span class="line"><span class="function"><span class="keyword">http_client_method_t</span> <span class="title">http_get_method</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改event_handler数据，必须先创建一个client对象才可以修改</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_set_event_handler</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client, http_event_handle_cb event_handler)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//删除http对象</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_delete</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"><span class="comment">//获取初始化状态</span></span><br><span class="line"><span class="function">http_client_init_state <span class="title">http_get_init_state</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"><span class="comment">//新建一个http的对象</span></span><br><span class="line"><span class="function"><span class="keyword">http_client_handle_t</span> <span class="title">http_client_new</span><span class="params">(<span class="keyword">http_client_config_t</span> *config)</span></span>;</span><br><span class="line"><span class="comment">//根据新建的对象，执行相应的操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_client_perform</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;一般情况下只需要用到如下4个函数即可满足简单的使用需求。复杂的功能我也没写，其他的接口主要是修改http对象内部变量的值，也可以直接通过指针修改（<code>不推荐</code>），容易出现问题。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除http对象</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_delete</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"><span class="comment">//获取初始化状态</span></span><br><span class="line"><span class="function">http_client_init_state <span class="title">http_get_init_state</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br><span class="line"><span class="comment">//新建一个http的对象</span></span><br><span class="line"><span class="function"><span class="keyword">http_client_handle_t</span> <span class="title">http_client_new</span><span class="params">(<span class="keyword">http_client_config_t</span> *config)</span></span>;</span><br><span class="line"><span class="comment">//根据新建的对象，执行相应的操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">http_client_perform</span><span class="params">(<span class="keyword">http_client_handle_t</span> *client)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/06/21/888/" data-id="ckkfmdgel00dnvkcgaykhbrim" data-title="10、RDA8910CSDK二次开发：简易的http通讯库" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/21/889/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          12、RDA8910CSDK二次开发：c语言中最好用的JSON解析库---cJSON
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/21/887/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">1.1、RDA8910CSDK二次开发：CSDK极致开发体验</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

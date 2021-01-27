@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux服务器安装vsftpd并创建FTP账号 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="vsftpd是可以运行在Linux操作系统下的一款非常优秀的FTP服务器程序，该软件可以让我们很方便的在本地通过FTP来管理远程服务器中的文件，例如上传、下载等操作都可以实现。那么这个帖子就来分享一下如何在Linux系统下安装这款应用。在安装本帖教程操作前，请先确保已经按照前面的教程在根目录下创建web&#x2F;eoair目录。如果还没创建这个目录，请参考前面的教程：1、使用putty登录远程服务器2、在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux服务器安装vsftpd并创建FTP账号">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/10/10/470/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="vsftpd是可以运行在Linux操作系统下的一款非常优秀的FTP服务器程序，该软件可以让我们很方便的在本地通过FTP来管理远程服务器中的文件，例如上传、下载等操作都可以实现。那么这个帖子就来分享一下如何在Linux系统下安装这款应用。在安装本帖教程操作前，请先确保已经按照前面的教程在根目录下创建web&#x2F;eoair目录。如果还没创建这个目录，请参考前面的教程：1、使用putty登录远程服务器2、在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/203915ckpihcm0nd0tk788.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/205431qaamx23h33z7bha2.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/210224gzc942utpmkgd9pu.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/210604utcztkkw0wg0ut0k.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/210742v0vzfxvdq91xvofl.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/211100a9gjiqjm9wi0mofg.jpg">
+<meta property="og:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/211454nsskd20ppiwj5zmh.jpg">
+<meta property="article:published_time" content="2018-10-10T14:15:01.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://bbs.qdclab.com/data/attachment/forum/201511/19/203915ckpihcm0nd0tk788.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-470" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/10/470/" class="article-date">
+  <time class="dt-published" datetime="2018-10-10T14:15:01.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux服务器安装vsftpd并创建FTP账号
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; line-height: 30px;">vsftpd是可以运行在Linux操作系统下的一款非常优秀的FTP服务器程序，该软件可以让我们很方便的在本地通过FTP来管理<span style="word-wrap: break-word;">远程服</span>务器中的文件，例如上传、下载等操作都可以实现。那么这个帖子就来分享一下如何在Linux系统下安装这款应用。在安装本帖教程操作前，请先确保已经按照前面的教程在根目录下创建web/eoair目录。如果还没创建这个目录，请参考前面的教程：<br><span style="word-wrap: break-word;">1、</span><a href="http://oldask.openluat.com/article/97" target="_blank">使用putty登录远程服务器<br></a><span style="word-wrap: break-word;">2、</span><a href="http://oldask.openluat.com/article/98" target="_blank">在Linux服务器根目录下创建网站目录</a><br style="word-wrap: break-word;"><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">在具备上面的条件后，我们开始安装vsftpd。</font><br style="word-wrap: break-word;"><br style="word-wrap: break-word;"><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">1、输入命令 cd / 进入服务器根目录。<br></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">2、输入命令 yum install vsftpd -y 安装vsftpd，等一会vsftpd就安装完成。<br></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">yum是Linux系统下的一个命令</font>，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令。-y的作用是当安装过程提示选择全部为"yes".<br><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">3、输入命令 vim /etc/vsftpd/vsftpd.conf 打开vsftpd的配置文件，如下图所示：</font><br style="word-wrap: break-word;"><br style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1388" aid="1388" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/203915ckpihcm0nd0tk788.jpg" zoomfile="data/attachment/forum/201511/19/203915ckpihcm0nd0tk788.jpg" file="data/attachment/forum/201511/19/203915ckpihcm0nd0tk788.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">' {7 B2 D/ S' E% ^- V$ N: b<br></span></font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">8 p1 v- G&amp; h% F<br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">上面这个界面是打开了</font>vsftpd.conf这个配置文件。此时按一下键盘上的i键，之后就可以编辑这个文件了。<font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">- J' J6 V8 `' S+ j+ c<br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">通过键盘上的光标键找到&nbsp;anonymous_enable=YES&nbsp;&nbsp;将YES改为NO</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">: A* h/ }8 N0 y0 D&amp; D/ [* B&amp; T: V<br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">改好之后，我们需要保存并关闭这个文件，方法是先按一下键盘上的Esc键，然后按住键盘上的shift键并按下：键，然后输入wq并回车。</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">" w7 h; j1&nbsp;</span></font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;"><br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">4、输入命令&nbsp;chkconfig --level 35 vsftpd on&nbsp;&nbsp;设置vsftpd为随系统自动启动。<br></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">输入命令</font>chkconfig --list&nbsp;vsftpd 用于查看是否设置&nbsp;vsftpd 自动启动，返回数据第三项和第五项后面为ON就表明已经设置&nbsp;vsftpd 随系统自动启动。如下图所示：<font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">/ x- r# M# p+ C7 O, s&nbsp;&nbsp;t7 X6 o0 y</span></font><br style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1389" aid="1389" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/205431qaamx23h33z7bha2.jpg" zoomfile="data/attachment/forum/201511/19/205431qaamx23h33z7bha2.jpg" file="data/attachment/forum/201511/19/205431qaamx23h33z7bha2.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><br style="word-wrap: break-word;"><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">5、输入命令 cd /web进入web目录。<br></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">然后输入命令 useradd eoairftp -s /sbin/nologin -d /web/eoair/ 将eoairftp用户权限加入到eoari目录下。</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">( _+ K3 x9 V% X# }8 ]0 v7 p: b<br></span></font>6、输入命令 passwd eoairftp 来给eoairftp用户设置密码，接下来输入两次密码，注意别输入错了。注意每输入一次密码后按回车键确定，密码设置完成后如下图所示：<br style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1390" aid="1390" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/210224gzc942utpmkgd9pu.jpg" zoomfile="data/attachment/forum/201511/19/210224gzc942utpmkgd9pu.jpg" file="data/attachment/forum/201511/19/210224gzc942utpmkgd9pu.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">) t( f8 G; m$ X5 L</span></font><br style="word-wrap: break-word;"><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">7、输入命令 chown eoairftp eoair 赋予用户eoairftp操作eoair目录的权限。</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">+ O/ l+ d1 n5 g+ y6 L<br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">然后输入命令 ls -lrst 查看返回的数据，假如返回如下图所示的信息，说明权限添加成功：</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">, t7 a: c/ h5 D4 W# P9 E</span></font><br style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1391" aid="1391" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/210604utcztkkw0wg0ut0k.jpg" zoomfile="data/attachment/forum/201511/19/210604utcztkkw0wg0ut0k.jpg" file="data/attachment/forum/201511/19/210604utcztkkw0wg0ut0k.jpg" class="zoom" width="517" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;"><br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">8、输入命令 service vsftpd start 启动vsftpd服务，返回OK说明启动成功，如下图所示：</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;"><br></span></font><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1392" aid="1392" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/210742v0vzfxvdq91xvofl.jpg" zoomfile="data/attachment/forum/201511/19/210742v0vzfxvdq91xvofl.jpg" file="data/attachment/forum/201511/19/210742v0vzfxvdq91xvofl.jpg" class="zoom" width="585" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;<br></ignore_js_op><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;"><br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">截至到这里，我们已经安装并启动vsftpd服务，并且创建了一个eoairftp账号，接下来，就可以从本地使用ftp相关的软件来远程登录服务器并进行文件操作了。</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">7 f&amp; i, I0 @( ?0 U$ q<br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">接下来，我们在电脑端安装一款ftp软件，软件名字叫FileZilla，软件请大家自行百度，安装并运行后的界面如下所示：</font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">5 y) D5 V&nbsp;&nbsp;h; A: {) P&nbsp;&nbsp;M<br></span></font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">4 ^4 b# T. g6 S5 Q. F! ]! ~</span></font><br style="word-wrap: break-word;"><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1393" aid="1393" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/211100a9gjiqjm9wi0mofg.jpg" zoomfile="data/attachment/forum/201511/19/211100a9gjiqjm9wi0mofg.jpg" file="data/attachment/forum/201511/19/211100a9gjiqjm9wi0mofg.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">8 p! I, K- B. H1 w8 _% a7 C<br></span></font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">8 M! y- _) D6 f$ t&nbsp;&nbsp;K" m<br></span></font><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">在上面界面中，主机栏输入你的服务器绑定的域名或主机IP地址，用户名栏输入你创建的用户名，在这里我分别输入</font><a href="http://www.58check.com/" target="_blank" style="word-wrap: break-word;">www.58check.com</a>，eoariftp，然后输入密码，然后点击“快速连接”，连接成功后，界面如下：<br style="word-wrap: break-word;"><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">) d0 O&amp; N$ {+ M! F3 V6 r8 h<br></span></font><ignore_js_op style="word-wrap: break-word;"><img id="aimg_1394" aid="1394" src="http://bbs.qdclab.com/data/attachment/forum/201511/19/211454nsskd20ppiwj5zmh.jpg" zoomfile="data/attachment/forum/201511/19/211454nsskd20ppiwj5zmh.jpg" file="data/attachment/forum/201511/19/211454nsskd20ppiwj5zmh.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;"># G/ I) `9 L&nbsp;&nbsp;`2 e; o' h4 N) s<br></span></font><font color="#ffffff" face="Tahoma, Microsoft Yahei, Simsun"><span style="font-size: 10px;">! N/ k9 R4 G0 c</span></font><br style="word-wrap: break-word;"><font color="#444444" face="Tahoma, Microsoft Yahei, Simsun">接下来，大家可以随便找一个小文件，体验一下如何上传这个文件到服务器中/web/eoair/目录下了。</font></h4>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/10/10/470/" data-id="ckkfmdgbg005uvkcg9apr6wq2" data-title="Linux服务器安装vsftpd并创建FTP账号" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/11/471/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Linux服务器安装JAVA环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/10/469/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">在Linux服务器根目录下创建网站目录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

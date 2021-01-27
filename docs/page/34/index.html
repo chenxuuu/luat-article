@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:url" content="https://doc.luatos.wiki/page/34/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-649" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/02/649/" class="article-date">
+  <time class="dt-published" datetime="2019-12-02T09:04:17.000Z" itemprop="datePublished">2019-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/02/649/">720模块USB描述符详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>@[TOC]<br>#Air720系列模块简介<br>**<br>Air720系列模块是合宙出品的4G LTE模块，拥有丰富功能模块以及完善AT指令，用户可以通过AT指令实现所需的功能，也可以插上PC的USB当作网卡使用，也可以使用PPP拨号等等。这些功能都可以用720的USB设备实现，下面就介绍下Air720系列模块强大的USB设备。<br>**<br>#Air720系列模块USB功能介绍</p>
+<table>
+<thead>
+<tr>
+<th>接口名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NDIS</td>
+<td>RNDIS网卡接口</td>
+</tr>
+<tr>
+<td>AT</td>
+<td>发送AT指令</td>
+</tr>
+<tr>
+<td>modem</td>
+<td>PPP拨号和发送AT指令</td>
+</tr>
+<tr>
+<td>diag</td>
+<td>调试抓log接口</td>
+</tr>
+</tbody></table>
+<p>#Air720系列模块USB描述符<br>##设备描述符<br>Offset|Name|Description|Value<br>—|—|—|—<br>1|bLength|此描述符的字节数|0x12<br>2|bDescriptorType|描述符类型|0x01<br>3|bcdUSB|此设备与描述表兼容的USB设备说明版本号|0x0002<br>5|bDeviceClass|设备类码|0xef<br>6|bDeviceSubClass|子类掩码（根据设备类码查看）|0x02<br>7|bDeviceProtocol|协议码|0x01<br>8|bMaxPacketSize0|端点0的最大包大小|0x40<br>9|idVendor|厂商标志|0x1286<br>11|idProduct|产品标志|0x4e3d<br>13|bcdDevice|设备发行号（BCD码）|0x0001<br>15|iManufacturer|描述厂商信息的字符串描述符的索引值。|0x01<br>16|iProduct|描述产品信息的字串描述符的索引值t|0x02<br>17|iSerialNumber|描述设备序列号信息的字串描述符的索引值|0x03<br>18|bNumConfigurations|可能的配置描述符数目|0x01<br>##配置描述符<br>Offset|Name|Description|Value<br>—|—|—|—<br>1|bLength|此描述符的字节数|0x09<br>2|bDescriptorType|描述符类型|0x02<br>3|wTotalLength|此配置信息的总长|0xde00<br>5|bNumInterfaces|此配置所支持的接口个数|0x05<br>6|bConfigurationValue|在SetConfiguration（）请求中用作参数来选定此配置|0x01<br>7|iConfiguration|描述此配置的字串描述表索引|0x00<br>8|bmAttributes|配置特性：D6：自给电源, D5：远程唤醒|0xc0<br>9|MaxPower|    在此配置下的总线电源耗费量 (mA)|0xfa</p>
+<p>#Air720系列模块USB接口描述符<br>##RNDIS接口组合描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x08<br>|2|bDescriptorType|描述符类型（IAD描述符类型）|0x0b<br>|3|bFirstInterface|起始接口|0x00<br>|4|bInterfaceCount|接口数|0x02<br>|5|bFunctionClass|类型码|0xe0<br>|6|bFunctionSubClass|子类型码|0x01<br>|7|bFunctionProtocol|协议码|0x03<br>|8|Index|描述字符串索引|0x05<br>###RNDIS 通信类接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x00<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x01<br>|6|bInterfaceClass|无线控制器类|0xe0<br>|7|bInterfaceSubclass|抽象控制模型|0x01<br>|8|bInterfaceprotocol|协议码|0x03<br>|9|iInterface|描述此接口的字串描述表的索引值|0x05<br>###RNDIS 数据类接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x01<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x02<br>|6|bInterfaceClass|CDC数据类|0x0a<br>|7|bInterfaceSubclass|抽象控制模型|0x00<br>|8|bInterfaceprotocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x05<br>###RNDIS端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x85<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x1000<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x06<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x87<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00</p>
+<p>##AT接口<br>###AT接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x02<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x03<br>|6|bInterfaceClass|厂商定义的设备|0xFF<br>|7|bInterfaceSubClass|设备子类码|0x00<br>|8|bInterfaceProtocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x0B<br>###AT接口端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8c<br>|4|bmAttributes|端点特性（中断传送）|0x03<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x1000<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x0d<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出终结点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8e<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>##MODEM接口<br>###MODEM接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x03<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x03<br>|6|bInterfaceClass|厂商定义的设备|0xFF<br>|7|bInterfaceSubClass|设备子类码|0x00<br>|8|bInterfaceProtocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x08<br>###MODEM接口端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8a<br>|4|bmAttributes|端点特性（中断传送）|0x03<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x10000<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x01<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x82<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>##DIAG接口<br>###DIAG接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x04<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x03<br>|6|bInterfaceClass|厂商定义的设备|0xFF<br>|7|bInterfaceSubClass|设备子类码|0x00<br>|8|bInterfaceProtocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x0B<br>###DIAG接口端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8b<br>|4|bmAttributes|端点特性（中断传送）|0x03<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0010<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x03<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0200<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x84<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x0d<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0200<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>##功能描述符<br>详细参数请查看USB-CDC类相关文档。<br>###Header Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|表示该描述符的长度|0x05<br>|2|bDescriptorType|CS_INTERFACE|0x24<br>|3|bDescriptorSubtype|Header Func Desc|0x00<br>|4|bcdCDC|BCD编码CDC版本号字段|0x1001<br>###Call Managment Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bFunctionLength |FunctionLength|0x05<br>|2|bDescriptorType|CS_INTERFACE |0x24<br>|3|bDescriptorSubtype| Call Management Func Desc|0x01<br>|4|bmCapabilities||0x00<br>|5|bDataInterface||0x01<br>###ACM Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bFunctionLength |FunctionLength|0x04<br>|2|bDescriptorType|CS_INTERFACE |0x24<br>|3|bDescriptorSubtype|Abstract Control Management desc|0x02<br>|4|bmCapabilities|D0:The device does not handle call management D1：self handle|0x00<br>###Union Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bFunctionLength |FunctionLength|0x05<br>|2|bDescriptorType|CS_INTERFACE |0x24<br>|3|bDescriptorSubtype|Union func desc|0x06<br>|4|bControlInterface|The interface number designated as the controlling interface for the union|0x00<br>|5|bSubordinateInterface0|Interface number of first subordinate interfacein the union|0x01<br>#Air720系列模块USB抓包分析<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35093.png"><br><strong>使用工具：BusHound<br>如上图所示：CTL是HOST发送的获取描述符的请求，IN是设备的回复。数据是横向解读。依次是:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">设备配置描述符（09 02 de 00 05 01 00 c0 fa）</span><br><span class="line">	NDIS接口组合描述符(08 0b 00 02 e0 01 03 05)</span><br><span class="line">	NDIS通信类接口描述符(09 04 00 00 01 e0 01 03 05)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01 00 01 04 24 02 00 05 24 06 00 01)</span><br><span class="line">		通知端点描述符（07 05 85 03 10 00 10）</span><br><span class="line">	NDIS数据类接口描述符(09 04 01 00 02 0a 00 00 05)</span><br><span class="line">		输出端点描述符(07 05 87 02 00 02 00</span><br><span class="line">		输入端点描述符(07 05 06 02 00 02 00)</span><br><span class="line">	AT接口描述符(09 04 02 00 03 ff 00 00 0b)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01 00 00 04 24 02 02 05 24 06 00 00)</span><br><span class="line">		通知端点描述符(07 05 8c 03 10 00 10)</span><br><span class="line">		输出端点描述符(07 05 8e 02 00 02 00)</span><br><span class="line">		输入端点描述符(07 05 0d 02 00 02 00)</span><br><span class="line">	MODEM接口描述符(09 04 03 00 03 ff 00 00 08)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01 00 00 04 24 0202 05 24 06 00 00)</span><br><span class="line">		通知端点描述符(07 05 8a 03 10 00  10)</span><br><span class="line">		输出端点描述符(07 05 82 02 00 02 00)</span><br><span class="line">		输入端点描述符(07 05 01 02 00 02 00)</span><br><span class="line">	DIAG接口描述符(09 04 04 00 03 ff 00 00 0b)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01  00 00 04 24 02 02 05 24 06 00 00)</span><br><span class="line">		通知端点描述符(07 05 8b 03 10 00 10)</span><br><span class="line">		输出端点描述符(07 05 84 02 00 02 00)</span><br><span class="line">		输入端点描述符(07 05 03 02 00 02 00)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/02/649/" data-id="ckkfmdgct009jvkcg5zbe6gzs" data-title="720模块USB描述符详解" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-648" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/02/648/" class="article-date">
+  <time class="dt-published" datetime="2019-12-02T06:47:58.000Z" itemprop="datePublished">2019-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/02/648/">稀饭放姜 iRTU 学习日记 （3）：PC电脑通过UDP与iRTU通讯的一个小例子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Openluat Air720D 4G DTU主控板 是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品。今天的学习日记里面，我将尝试使用iRTU配合另一个开源C#客户端UPWs_CS实现PC电脑上用C#客户端与iRTU双向传输数据。</p>
+<h2 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h2><p>通过开源的C#客户端(UPWs_CS)和iRTU的485端口建立透传连接，可以互相透明传输文本或者二进制数据。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66104.jpg"></p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70204.jpg"></p>
+<ol>
+<li>iRTU通过UDP端口连接到远程的UPWS服务器,并发送上线消息</li>
+</ol>
+<p>服务地址为 udp://box.miuser.net:7101</p>
+<p>2）PC客户端通过UPWs_CS C#客户端 连接到UPWS服务器，并发送上线消息，连接地址同上为：</p>
+<p>服务地址为 udp://box.miuser.net:7101</p>
+<p>3）电脑客户端接一个USB转UART串口的连接线，再转接一个UART转RS485的连接板连接到iRTU上，并使用串口调试工具打开USB串口</p>
+<p>4）通过电脑客户端可以和LLCOM串口调试工具建立起双向的文本命令传输，传输支持中文和英文。</p>
+<p>硬件连接方式及IRTU配置方式请参考上一篇文章《稀饭放姜 iRTU 学习日记 （2）：实现最基本的一个应用-RS485透传》</p>
+<p>文章链接为 <a target="_blank" rel="noopener" href="http://doc.openluat.com/article/647/0">http://doc.openluat.com/article/647/0</a></p>
+<h2 id="iRTU-使用-C-客户端-透传使用方法"><a href="#iRTU-使用-C-客户端-透传使用方法" class="headerlink" title="iRTU 使用 C#客户端 透传使用方法"></a>iRTU 使用 C#客户端 透传使用方法</h2><p>运行文末附带的C#连接功能包的执行文件：UPWS_CS.exe</p>
+<p>源码为文件包中的UPWS_CS.rar</p>
+<p>输入连接地址：box.miuser.net</p>
+<p>输入端口号：7101</p>
+<p>输入任意10位数字作为ID</p>
+<p>输入任意16位数字或英文字母作为密码</p>
+<p>ID与MM设置需要与iRTU设置保持一致</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19715.jpg"></p>
+<p>点击”打开连接”，即可收到iRTU上行的心跳数据包了</p>
+<p>发送方式可以是字符串，或者是二进制数据，通过单选框“字符发送”与“Hex发送”进行选择</p>
+<p>举个栗子，比如Hex模式下发送的343536，等效于字符发送模式系下发送“456” 因为ASCII码表中0x34，对应字符“4”</p>
+<p>接收的原理相同，您可以通过选择“字符显示功能”，决定以字符串或二进制方式显示接收到的数据包</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_17246.jpg"></p>
+<p>例子中为了演示清晰，心跳包内容也都做了展示。 您可以通过判断包头类型方式来过滤心跳包显示，源码中有相关的内容叙述。</p>
+<h2 id="关键性代码展示"><a href="#关键性代码展示" class="headerlink" title="关键性代码展示"></a>关键性代码展示</h2><p>下面我选取部分有趣的代码，并加以简单的原理介绍，文末的文件包中提供完整的C#源码，在VS2019环境中编译使用。</p>
+<p>打开连接部分：</p>
+<pre><code>   private void btn_ConnectUDP_Click(object sender, EventArgs e)
+    &#123;
+        if (!isRunning)
+        &#123;
+            isRunning = true;
+
+            //获取服务器地址
+            s_server = txt_server.Text;
+            //获取服务器端口
+            s_port = txt_port.Text;
+            //对域名进行解析
+            IPHostEntry hostEntry = Dns.GetHostEntry((s_server));
+            //取得解析得到的IP地址
+            client.ep = new IPEndPoint(hostEntry.AddressList[hostEntry.AddressList.Length - 1], Convert.ToInt32(s_port));
+            //开始侦听
+            client.Listening();
+            //挂载接收消息的处理函数
+            client.Received += new UdpEventHandler(client_Received);
+
+            //判断显示模式，二进制或字符串显示
+            if (rbnHex.Checked)
+            &#123;
+                isHexRead = true;
+            &#125;
+            else
+            &#123;
+                isHexRead = false;
+            &#125;
+            //打开心跳发送时钟
+            tmr_heartbeat_Tick(sender,e);
+
+        &#125;
+
+    &#125;
+</code></pre>
+<p>数据包拼接：</p>
+<pre><code>    public class package
+    &#123;
+        public string str;
+        //生成一个数据包
+        public package(string ID = &quot;0000000000&quot;, string MM = &quot;0000000000000000&quot;,string content=&quot;&quot;,string type=&quot;&quot;)
+        &#123;
+            //数据包头的模板
+            if (type == &quot;&quot;)
+            &#123;
+                str = &quot;004932A08&quot;;
+            &#125;else
+            &#123;
+                str = &quot;004932&quot; + type + &quot;08&quot;;
+            &#125;
+
+            //添加ID和MM字段
+            str = str + ID;
+            str = str + MM;
+            //添加1234为正文引导
+            str = str + &quot;1234&quot;;
+            //添加要发送的正文
+            str = str + content;
+            //添加数据尾05
+            str = str + &quot;05&quot;;
+            //计算发送包总长，并转化为字符串
+            int len = str.Length;
+            string s_len = (&quot;00&quot; + len.ToString()).Substring(0, 4);
+            //用计算出来的长度替换数据头模板中的长度数据
+            str = s_len + str.Substring(4, str.Length - 4);
+        &#125;
+    &#125;
+</code></pre>
+<p>发送数据部分：</p>
+<pre><code>    //发送数据
+    private void btnSend_Click(object sender, EventArgs e)
+    &#123;
+        //根据用户选择决定是发送二进制还是文本
+        if (rad_AscSend.Checked) isHexWrite = false; else isHexWrite = true;
+
+        //UDP连接
+        if (isRunning)
+        &#123;
+            //生成一个包
+            if (!isHexWrite)
+            &#123;
+                List&lt;byte&gt; lbuff = new List&lt;byte&gt;();
+                lbuff = StringToBytes(txt_send.Text).ToList();
+                //组包
+                package pkg = new package(txt_ID.Text, txt_MM.Text, BytesToString(lbuff.ToArray()));
+                string s_out = pkg.str.ToString();
+                //将要发送的字符串转为字节数据
+                byte[] bt = Encoding.GetEncoding(&quot;GB2312&quot;).GetBytes(s_out);
+                //发送
+                client.Send(bt, client.ep);
+            &#125;else
+            &#123;
+                List&lt;byte&gt; lbuff = new List&lt;byte&gt;();
+                //将字符表示的16进制数转化成为字节数据
+                lbuff = strToToHexByte(txt_send.Text).ToList();
+                //将字节数据转变成字符串，并组包
+                package pkg = new package(txt_ID.Text, txt_MM.Text, BytesToString(lbuff.ToArray()));
+                string s_out = pkg.str.ToString();
+                //将要发送的字符串转为字节数据
+                byte[] bt = Encoding.GetEncoding(&quot;GB2312&quot;).GetBytes(s_out);
+                client.Send(bt, client.ep);
+            &#125;
+        &#125;
+        else
+        &#123;
+            MessageBox.Show(&quot;数据传输端口未打开&quot;, &quot;错误提示&quot;);
+            return;
+        &#125;
+        if (!CheckSendData())
+        &#123;
+            MessageBox.Show(&quot;请输入要发送的数据!&quot;, &quot;错误提示&quot;);
+            return;
+        &#125;
+</code></pre>
+<p>接收数据部分：</p>
+<pre><code>    //UDP收到消息后的回调函数
+    void client_Received(object sender, UdpEventArgs e)
+    &#123;
+
+        IPEndPoint ep = e.Remote as IPEndPoint;
+        string tmpReceived = Encoding.Default.GetString(e.Received);
+
+        //在主线程更新显示信息
+        this.BeginInvoke(new Action(() =&gt;
+        &#123;
+            //决定是否显示发送心跳包的回声
+            //if (tmpReceived.Substring(6,1)==&quot;C&quot;)
+            &#123;
+                string content = tmpReceived.Substring(39, tmpReceived.Length - 41);
+                if (isHexRead == false)
+                &#123;
+                    //显示接收的数据
+                    txt_rsv.Text += content + &quot;\r\n&quot;;
+                    txt_rsv.Select(txt_rsv.TextLength, 0);
+                    txt_rsv.ScrollToCaret();
+                &#125;
+                else
+                &#123;
+                    //以二进制方式显示接收的数据
+                    string RecvDataText = &quot;&quot;;
+                    Byte[] ReceivedData = StringToBytes(content);
+
+                    for (int i = 0; i &lt; ReceivedData.Length; i++)
+                    &#123;
+                        RecvDataText += (ReceivedData[i].ToString(&quot;X2&quot;) + &quot; &quot;);
+                    &#125;
+                    RecvDataText += &quot;\r\n&quot;;
+                    txt_rsv.Text += RecvDataText;
+                    txt_rsv.Select(txt_rsv.TextLength, 0);
+                    txt_rsv.ScrollToCaret();
+                &#125;
+            &#125;
+            //显示原始发送数据
+            rtb_rsv.Text = rtb_rsv.Text+ &quot;[&quot; +DateTime.Now.ToLongTimeString()+&quot;]&quot; +tmpReceived+ &quot;\r\n&quot;  ;
+
+        &#125;));
+
+    &#125;
+</code></pre>
+<h1 id="常见故障排除"><a href="#常见故障排除" class="headerlink" title="常见故障排除"></a>常见故障排除</h1><p>1 程序无法编译，请检查VS版本是否为最新的VS2019</p>
+<p>2 发送接收数据不全，错误，请检查ID和MM长度是否正确</p>
+<p>3 无接收，无法送，请检查iRTU的ID和MM设置是否完全一致</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA">https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA</a> 提取码：a610</p>
+<p>本文参考资料如下：</p>
+<p>1 iRTU项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
+<p>2 UPWS服务器项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
+<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
+<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
+<h2 id="本文所述iRTU系列-DTU主控板购买链接"><a href="#本文所述iRTU系列-DTU主控板购买链接" class="headerlink" title="本文所述iRTU系列 DTU主控板购买链接"></a>本文所述iRTU系列 DTU主控板购买链接</h2><p><a target="_blank" rel="noopener" href="http://m.openluat.com/product/724">http://m.openluat.com/product/724</a></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_11419.jpg"></p>
+<p>谢谢您阅读本文，并祝您开发一切顺利</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/02/648/" data-id="ckkfmdgct009hvkcgcnlj5s9a" data-title="稀饭放姜 iRTU 学习日记 （3）：PC电脑通过UDP与iRTU通讯的一个小例子" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-647" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/29/647/" class="article-date">
+  <time class="dt-published" datetime="2019-11-29T15:16:36.000Z" itemprop="datePublished">2019-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/29/647/">稀饭放姜 iRTU 学习日记 （2）：实现最基本的一个应用-RS485透传</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="openluat-Air720D-4G-DTU主控板-是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G-4G-双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU-配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。"><a href="#openluat-Air720D-4G-DTU主控板-是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G-4G-双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU-配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。" class="headerlink" title="openluat Air720D 4G DTU主控板 是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU 配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。"></a>openluat Air720D 4G DTU主控板 是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU 配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。</h4><h2 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h2><p>通过一个手机浏览器和iRTU的485端口建立透传连接，可以互相透明传输文本或者二进制数据。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16150.jpg"></p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30818.jpg"></p>
+<ol>
+<li>iRTU通过UDP端口连接到远程的UPWS服务器,并发送上线消息</li>
+</ol>
+<p>服务地址为 udp://box.miuser.net:7101</p>
+<p>2）手机通过微信扫描二维码或浏览器输入网址打开iRTU测试小程序页面通过Websocket接口连接到UPWS服务器，并发送上线消息</p>
+<p>服务地址为：ws://box.miuser.net:9000</p>
+<p>3）电脑客户端接一个USB转UART串口的连接线，再转接一个UART转RS485的连接板连接到iRTU上，并使用串口调试工具打开USB串口</p>
+<p>4）通过手机客户端可以和LLCOM串口调试工具建立起双向的文本命令传输，传输支持中文和英文。</p>
+<p>下面是硬件连线示意图</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80141.jpg"></p>
+<h2 id="硬件连接具体步骤"><a href="#硬件连接具体步骤" class="headerlink" title="硬件连接具体步骤"></a>硬件连接具体步骤</h2><p>器材准备</p>
+<ol>
+<li>Air720D 4G DTU主控板+2G/4G全频段天线</li>
+</ol>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93772.jpg"></p>
+<p>2）RS485转UART小板+USB转串口线</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_37087.jpg"></p>
+<ol start="3">
+<li>USB 5V电源+ USB线</li>
+</ol>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39112.jpg"></p>
+<ol start="4">
+<li><p>DTU供电连接线两根+RS485传输线一盘<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95425.jpg"></p>
+</li>
+<li><p>手机一部+电脑一部 （很普通，就不拍照了）</p>
+</li>
+</ol>
+<p>连接方式如下</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51276.jpg"></p>
+<p>电路连接好后，将sim卡插入iRTU板子sim卡座上，通上电源我们应该能看到iRTU灯有规律的闪烁，此时证明iRTU工作已经正常。准备开始接收指令</p>
+<h2 id="iRTU配置步骤"><a href="#iRTU配置步骤" class="headerlink" title="iRTU配置步骤"></a>iRTU配置步骤</h2><p>此时我们打开LLCCOM调试工具，发送如下指令序列，对iRTU进行配置</p>
+<p>串口波特率训练</p>
+<pre><code>--发送
+AT
+--返回
+AT
+</code></pre>
+<p>查询版本</p>
+<pre><code>--发送
+rrpc,getver
+--返回
+rrpc,getver,1.8.7
+</code></pre>
+<p>查询设备IMEI</p>
+<pre><code>--发送
+rrpc,getimei
+--返回
+rrpc,getimei,866262042499144
+</code></pre>
+<p>配置为连接UPWS服务器</p>
+<pre><code>--发送
+config,writeconfig,&#123;&quot;fota&quot;:0,&quot;uartReadTime&quot;:&quot;25&quot;,&quot;flow&quot;:&quot;&quot;,&quot;param_ver&quot;:&quot;1&quot;,&quot;pwrmod&quot;:&quot;normal&quot;,&quot;password&quot;:&quot;&quot;,&quot;netReadTime&quot;:&quot;0&quot;,&quot;passon&quot;:1,&quot;nolog&quot;:&quot;0&quot;,&quot;plate&quot;:0,&quot;reg&quot;:0,&quot;convert&quot;:0,&quot;uconf&quot;:[[1,&quot;115200&quot;,8,2,0,&quot;&quot;],[2,&quot;115200&quot;,8,2,0,&quot;&quot;]],&quot;conf&quot;:[[&quot;udp&quot;,&quot;005501B01000000000100000000000000011234iRTUUPWs 1.0.000&quot;,10,&quot;box.miuser.net&quot;,7101,1,&quot;&quot;,&quot;&quot;,&quot;&quot;],[],[],[],[],[],[]],&quot;preset&quot;:&#123;&quot;number&quot;:&quot;&quot;,&quot;delay&quot;:&quot;&quot;,&quot;smsword&quot;:&quot;&quot;&#125;,&quot;apn&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;cmds&quot;:[[],[]],&quot;pins&quot;:[],&quot;gps&quot;:&#123;&quot;pio&quot;:[],&quot;fun&quot;:[]&#125;,&quot;upprot&quot;:[&quot;\nfunction\nlocal str=...\nlocal totallen=41+str:len()\nlocal ret=string.format(\&quot;%04d\&quot;,totallen)..\&quot;01\&quot;..\&quot;C\&quot;..\&quot;01\&quot;..\&quot;0000000001\&quot;..\&quot;0000000000000001\&quot;..\&quot;1234\&quot;..str..\&quot;05\&quot;\nreturn ret\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;dwprot&quot;:[&quot;function\nlocal str=...\nlocal ret=str:sub(40,-3)\nreturn ret\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;warn&quot;:&#123;&quot;adc0&quot;:[],&quot;adc1&quot;:[],&quot;vbatt&quot;:[],&quot;gpio&quot;:[]&#125; &#125;
+--返回
+OK
+</code></pre>
+<p>配置iRTU的是一个Json字符串，具体各个字段的含义在 “iRTU参考手册”上可查，目前最新版是V3.1</p>
+<p>此配置字段的含义如下：</p>
+<p>1） 配置iRTU为UDP传输模式，服务器地址为 box.miuser.net，端口为7101</p>
+<p>2） 每隔10 S发送一次心跳包，心跳包的内容为 005501B01000000000100000000000000011234iRTUUPWs 1.0.000</p>
+<p>3） 使用数据通道1通过数据模板进行透传，并绑定到到iRTU串口1</p>
+<p>4） 上行数据流模板代码为</p>
+<pre><code>--固定头，标识模板开始
+function
+--接收从硬件通道传入的数据
+local str=...
+--计算包长度
+local totallen=41+str:len()
+--拼接发送的数据包，各个字段内容详见MTCP通讯协议，包含在UPWS协议中，文末有开源地址
+local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
+--返回拼接好的数据包，给iRTU底层发送
+return ret
+end
+</code></pre>
+<p>5） 下行数据流模板代码为</p>
+<pre><code>--固定头，标识模板开始
+function
+--接收从服务器发来的原始数据
+local str=...
+--提取其中的有效数据字段
+local ret=str:sub(40,-3)
+--输出给硬件数据通道
+return ret
+end
+</code></pre>
+<p>关于UPWS数据报文格式及iRTU数据流模板更详细的介绍篇幅所限就不在此敷述了，请参与文末的资料链接进行相关阅读。也可以在Bilibili上 搜索“稀饭放姜” 相关视频教程了解。</p>
+<p>方便起见”飞思创-Luat生态伙伴” 提供了一款图形化的iRTU配置工具：“iRTU ConfigTool” 最新版本是V1.3.6，性能很不错。</p>
+<h2 id="iRTU透传使用方法"><a href="#iRTU透传使用方法" class="headerlink" title="iRTU透传使用方法"></a>iRTU透传使用方法</h2><p>下面我说说使用iRTU透传的具体的使用方法。</p>
+<p>打开手机浏览器输入如下网址，打开IRTU连接测试小工具</p>
+<p><a target="_blank" rel="noopener" href="http://box.miuser.net/iRTU_UPWs/UPWsiRTU.htm?ID=0000000001&amp;MM=0000000000000001">http://box.miuser.net/iRTU_UPWs/UPWsiRTU.htm?ID=0000000001&amp;MM=0000000000000001</a></p>
+<p>为了简便起见我已经生成好了一个二维码，直接扫描二维码就行了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_27057.png"></p>
+<p>其中ID为10位10进制数字，MM为16位16进制数字，作用为UPWS的通讯信道UID和通讯密码，此处设置要与上面iRTU设置的心跳包与数据流模板的相对应的字段相一致，才能正常通讯。 使用前需要相应修改为任意合规的数字，直接在iRTU配置字段里进行相应的搜索替换即可。</p>
+<p>打开电脑，运行LLCOM,在程序底部，确认对应的串口号，并点击打开串口即可收到iRTU透传工具发送的心跳包。此时通过软件发送的指令就可以传输到了手机上了，反之手机上发送的指令也可以在LLCOM接收到。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66580.jpg"></p>
+<h2 id="常见故障排除"><a href="#常见故障排除" class="headerlink" title="常见故障排除"></a>常见故障排除</h2><p>1 iRTU状态灯不亮，或反复重启（灯亮一会，就灭，间隔大于3s）</p>
+<p>A：供电不足，5V供电需要较粗的电缆及2A的电源输出电流，如果没有条件可以提高输入电压到6V-12V</p>
+<p>B：固件不可恢复错误，可以开盒重刷DTU固件，固件下载地址在QQ群952343033，群文件中</p>
+<p>2 iRTU接收不到心跳包</p>
+<p>A: 检查服务器地址，端口,MM,ID均设置正常，注意数字的位数，发送字段是有长度校验的，错误的包长度会导致解析错误。</p>
+<p>B：检查RS458 A端口 B端口是否接反</p>
+<p>3 通讯数据格式混乱</p>
+<p>A: 检查数据流模板是否被魔改了</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA">https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA</a> 提取码：a610</p>
+<p>本文参考资料如下：</p>
+<p>1 iRTU项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
+<p>2 UPWS项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
+<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
+<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
+<h2 id="720DTU主控板购买链接"><a href="#720DTU主控板购买链接" class="headerlink" title="720DTU主控板购买链接"></a>720DTU主控板购买链接</h2><p><a target="_blank" rel="noopener" href="http://m.openluat.com/product/724">http://m.openluat.com/product/724</a></p>
+<p>供电电源，串口转USB电缆，485转Uart小板均为淘宝公板电路，请自行选购。</p>
+<p>谢谢您阅读本文，并祝您开发一切顺利</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/29/647/" data-id="ckkfmdgct009ivkcg9vk1fluv" data-title="稀饭放姜 iRTU 学习日记 （2）：实现最基本的一个应用-RS485透传" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-646" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/27/646/" class="article-date">
+  <time class="dt-published" datetime="2019-11-27T07:24:37.000Z" itemprop="datePublished">2019-11-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/27/646/">稀饭放姜 iRTU 学习日记 （1）：认识iRTU开源电路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>###Openluat Air720D 4G DTU主控板 是由合宙开源社区技术大拿“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品，纯iRTU血统，电路软件均彻底开源。 前不久有幸收到了一片样板，遂对其开始进行研究。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85822.jpg"></p>
+<p>从图上看，模块居于电路板的右上方，模块左侧为供电电路，下方从左到右顺次为用于调试的USB插口、UART转RS485 IC、Nano SIM卡座，右下角有一个不太明显的工作状态指示灯，最下面是电源供电和RS485通讯接口。 应该说这是我见过的最精简的DTU主板了，在不损失性能的前提下把器件优化做到了极致，ESD保护器件和电源退耦合又一样都不缺。 正所谓多一分冗余，少一分不足，平衡点选的恰到好处。</p>
+<p>下面是DTU主控板的一些基本电气及机械参数（数据来源：DTU-Air720D 硬件用户手册 ）</p>
+<p>传输方式：</p>
+<p>基于RS485通讯协议的双线式数据传输(-15v ~ -3v 代表 1 +3v ~ +15v 代表 0)</p>
+<p>串口最高速率为921600bps</p>
+<p>工作电压：</p>
+<p>9-24VDC（实测输入低至5V也是可以工作的）</p>
+<p>外形尺寸:</p>
+<p>70x43x15(不包含天线座和插接件)</p>
+<p>100x43x20(含天线座和插接件)</p>
+<p>重量：</p>
+<p>23克（不含接插件）<br>28克 (含接插件)</p>
+<p>下面是根据合宙官方提供的的介绍图纸加以描述而来的功能分解图</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_86828.png"></p>
+<p>电路的主料为合宙出品的Air720D 2G/4G移动双模数据通讯模组，下面是基本常用的参数：</p>
+<p>尺寸：32mmX29mmX2.4mm<br>供电电压：3.3V-4.2V,推荐3.8V, 突发模式下最大电流为1.8A，待机电流为1.8-5.5mA<br>通讯接口：USB2.0（从模式），UARTx2（UART1调试串口最高115200bps，UART2主串口最高921600bps），I2Cx1<br>通讯频段：2G B3/B8, 4G-LTE-FDD B3/B8, 4G-LTE-TDD B34/B38/B39/B40/B41<br>工作温度：-40°C ~ +85°C</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99020.png"></p>
+<p>这是我摘录下来的iRTU，Air720部分原理图，图纸源文件在iRTU群（QQ群号：952343033）提供下载 。iRTU与外部RS485设备通讯采用的是串口1，GPIO67为LED状态信号灯，GPIO54（I2C_SDA)作为复位引脚，板载USB2.0 TypeB接口用于下载和调试固件。 SIM卡座外接4根引脚支持1.8V-3.3V 中国移动IC卡。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89972.png"></p>
+<p>此处有几个点我还没搞明白</p>
+<p>1） datatsheet上说明串口1最高仅支持115200bps，但是产品说明书中本产品的最高波特率为921600bps，是否有特殊的优化实现这一点。</p>
+<p>2） Reset没有使用硬件的标准RESET_IN引脚而是使用了GPIO54。</p>
+<p>3） 控制RS485方向的IO口为GPIO13，这个端口原来是做sim卡存在检测的，应为输入IO，此处用作输出IO。</p>
+<p>我将在今后的测试中尝试自己测试，并在社群中寻求“稀饭放姜”老师的帮助把这些点搞清楚。</p>
+<p>电源部分采用的合宙官方推荐的久经考验的JW5026 DC-DC降压电路，平均输出电流标称为1A，最大输入电流为1.7A。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24464.png"></p>
+<p>因为开关频率达到了MHz级（1.1MHz），因此布线时需要对RF参数及EMC参数进行全盘考虑，此板Layout由“稀饭放姜”亲自主持设计，性能自然不俗，读者在设计电路的时候可以多加参考，少走弯路。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_32037.jpg"><br>Air720D采用的是1.8V IO 电平，为了与SP3485CN转换芯片要求的3.3V电平相匹配，加入了3片74LVC1T45进行电平转换。 该芯片的电平转换范围为1.65V-5.5V，也能满足其他场合的电平转换应用，如1.8转5V，3.3V转5V等。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_45839.png"></p>
+<p>“稀饭放姜”在后续的版本中，又将74LV1T45改为了更为精简的N沟道MOS管PNMET20V06E电平转换电路，跟进一步降低了电路成本。凸显了他扎实的电路设计能力和务实的作风。 电路工作原理如下，如果是低电平MOS管导通，将MOS管漏极同步拉低，如果是高电平，MOS管截止，漏极呈现高阻，由外部电源电压上拉到合适的电平</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44036.png"></p>
+<p>由于Air720D的IO口输出电压仅为1.8V，驱动能力也比较差，因此指示灯部分如果直接驱动，发光管亮度将非常低，增加一个常见的NPN型三极管2N5551进行电压放大解决了这个问题。 三极管在开关状态下基本上属于饱和状态，使用了1个4.7KOhm的输入电阻，按B-E结压降0.7V计算，Air720 IO驱动输出电流约为230uA。三极管输出限流电阻为470Ohm，红色发光管2V工作电压，E-C结饱和压降0.4V计算，输出电流约为1.9mA亮度适中。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35424.png"></p>
+<p>这款主控板还在USB的D+,D-引脚上对地增加了两枚PESDMC9D5VU保护二极管，在SIM卡的4个引出脚上对地添加了PESDLC553T5VU保护二极管阵列 对裸露IO口进行静电保护处理。 在SP3485CN输出的485_A，485_B引脚上对地和相互间增加了SMF6.0A钳位二极管用于芯片保护，在方方面面都进行了周全的工业设计，完全满足直接量产生产的设计标准。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70534.jpg"></p>
+<p> 只需再配上壳子就是性能优秀的一款DTU产品了。读者可以自行淘宝购买配置。</p>
+<p>下一篇，我将尝试对720DTU主控大板进行功能测试。时间所限，本次先写到这里，感谢您的阅读。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/27/646/" data-id="ckkfmdgcs009gvkcgeb5l8ac5" data-title="稀饭放姜 iRTU 学习日记 （1）：认识iRTU开源电路" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-645" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/27/645/" class="article-date">
+  <time class="dt-published" datetime="2019-11-27T01:34:59.000Z" itemprop="datePublished">2019-11-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/27/645/">在linux下发AT的小工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>android和一些linux开发板本身不带串口工具，出问题的时候没法通过AT指令来找出原因，这里提供一个小工具<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163653610_W83YVfiV5dddd261211e5_sendat.c">sendat.c</a>，编译后运行</p><p><img class="img-responsive" style="width: 307.5px;" src="http://oldask.openluat.com/image/show/attachments-2019-11-P587avjn5dddd2ac0d122.png"><br></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/27/645/" data-id="ckkfmdgcs009fvkcg8krb5wp4" data-title="在linux下发AT的小工具" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-644" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/26/644/" class="article-date">
+  <time class="dt-published" datetime="2019-11-25T19:12:06.000Z" itemprop="datePublished">2019-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/26/644/">合宙Luat Air720SL开发板（EVB_Air720SL）初体验 （1）- 认识开发板</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26742.png" alt="logo.png" title="logo.png"></p>
+<p>Air720SL是4G全网通模块，支持国内移动、联通、电信，及部分境外国家网络。覆盖频段为 LTE-TDD: B34/B38/B39/B40/B41 LTE: B1/B3/B5/B8 WCDMA: B1/B8 。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_20782.png" alt="band.png" title="band.png"></p>
+<p>在实现全功能高速宽带Modem功能的的同时，模块还集成了内置的E-sim卡。最终封装尺寸只有 27X27MM，比矿泉水瓶盖直径还略小一些，是我所知行业里最小的一款cat4全网通模块。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53191.jpg" alt="size.jpg" title="size.jpg"></p>
+<p>模块支持多种通讯方式如USB RNDIS协议,串口 AT/PPP拨号协议、Luat二次开发等。<br>其中 <strong>Luat</strong> 方式是合宙公司重点推荐的开发方式，该方式将用户要实现的功能逻辑通过Lua虚拟机方式嵌入模块内部，并可进行加密。 实现了“一芯二用”的奇妙效果。既节省了产品开发成本、提高了开发效率，又减少了元器件数量，降低了可能发生缺陷的点位数。实现了降成本提可靠性的双重目的。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_76055.jpg" alt="logo.jpg" title="logo.jpg"></p>
+<p>上周，偶然从合宙Luat技术群得知Air720SL开发板正在合宙商城搞促销活动，可以99元半价买到一块EVB_Air720SL开发板，还额外多赠一块Air720SL模块，于是马上从商城（商城地址为：<a target="_blank" rel="noopener" href="http://m.openluat.com/">http://m.openluat.com</a>) 下单进行购买，今天下午刚收到的产品就马上迫不及待的进行了开箱测试。 收到的货品为环保牛皮纸盒包装，包装干净整洁。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_36463.jpg" alt="box.jpg" title="box.jpg"></p>
+<p>开发板采用的是业界比较常见的黄色防静电泡棉纸袋方式，非常的简洁，附赠的模块放在银色防静电封口袋里，略朴实。在保护模块不受损伤的前提下，几乎没有一丝多余的东西，非常的极简风。这也体现了合宙一贯的极客作风，这点做法上，个人是非常认同的。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_21452.jpg" alt="cp.jpg" title="cp.jpg"></p>
+<p>除此以外，包裹里还附赠了一颗50欧姆，4G全波段胶棒天线。 全长为16cm，可折叠90度/120度。目前市场上此类天线的性能一般为8DBI。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56912.png" alt="ant.png" title="ant.png"></p>
+<p>下面就是产品的照片：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_11536.jpg" alt="devboard.jpg" title="devboard.jpg"></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15257.jpg" alt="boardbottom.png" title="boardbottom.png"></p>
+<p>我注意到板子芯片附近以及背面的焊盘附近均留有明显的助焊剂痕迹，为此我特地的咨询了合宙原厂的质量管理人员。 得到的回复是，助焊剂为无腐蚀性中性助焊剂，对PCB长期使用没有任何不良影响，如果将其擦除将增加毫无必要的生产成本，因此未予处理。 我从一个在消费类电子行业从业接近20年经历的电子工程师那对厂方观点进行确认，结论如厂方所述，对性能无影响。 作为一个完美主义者，这些助焊剂确实让我有点不爽，但合宙这种不惜让用户误解，也要把实用性做到极致的态度最终还是得到了我的认可，专业人士的观点也消除了我的疑虑。</p>
+<p>值得一体的是，该开发板未上市前已经在嘉立创开源社区进行了原理图和PCB的完整开源，符合Luat的一贯大气作风，非常值得称道。</p>
+<h4 id="Air720SL开发板-开源地址为：https-lceda-cn-luat-evb-air720sl-a11"><a href="#Air720SL开发板-开源地址为：https-lceda-cn-luat-evb-air720sl-a11" class="headerlink" title="Air720SL开发板 开源地址为：https://lceda.cn/luat/evb_air720sl_a11"></a>Air720SL开发板 开源地址为：<a target="_blank" rel="noopener" href="https://lceda.cn/luat/evb_air720sl_a11">https://lceda.cn/luat/evb_air720sl_a11</a></h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_86874.png" alt="eda.png" title="eda.png"></p>
+<p>我打算今后利用业余时间逐步对该开发板进行性能测试，为此，我先自己动手丰衣足食增加了一些必要的连接件，好方便后来的测试。 这是魔改后的照片：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_81896.jpg" alt="conn.jpg" title="conn.jpg"></p>
+<p>下一篇将利用一块自制的LED灯板对IO口进行简单的LuatIO开关控制测试，敬请期待。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_45212.jpg" alt="next.jpg" title="next.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/26/644/" data-id="ckkfmdgcs009evkcgecm89ytp" data-title="合宙Luat Air720SL开发板（EVB_Air720SL）初体验 （1）- 认识开发板" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-643" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/20/643/" class="article-date">
+  <time class="dt-published" datetime="2019-11-20T11:44:58.000Z" itemprop="datePublished">2019-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/20/643/">Air720系列模块空中升级完全指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p> Air720系列空中采用全固件升级的方式，即将完整固件（.bin文件)包放到服务器中，模块通过查询方式得到空中升级的指令，然后下载整个固件包（大约5MB),下载到本地flash内部后，再重启进行更新。如果中途失败会重新进行更新动作，如果下载固件过程不完整，则不会进行更新。所以不需要担心空中升级失败导致的模块变砖问题。<br>Air720（AT固件）空中升级分为模块端AT指令触发升级和自动升级2种方式。<br>Air720（Lua固件）空中升级一般是模块开机后，自动连接服务器，请求升级。（本文以720H模块，合宙服务器为例）</p>
+</blockquote>
+<hr>
+<h1 id="AT固件："><a href="#AT固件：" class="headerlink" title="AT固件："></a><strong>AT固件：</strong></h1><h1 id="1：模块端AT指令触发升级："><a href="#1：模块端AT指令触发升级：" class="headerlink" title="1：模块端AT指令触发升级："></a>1：模块端AT指令触发升级：</h1><h2 id="1-1-合宙IoT平台配置（点击此处进入）"><a href="#1-1-合宙IoT平台配置（点击此处进入）" class="headerlink" title="1.1 合宙IoT平台配置（点击此处进入）"></a>1.1 合宙IoT平台配置<a target="_blank" rel="noopener" href="https://iot.openluat.com/" title="点击此处进入">（点击此处进入）</a></h2><h3 id="1-1-1登录平台，查询模块是否在自己账户项目下："><a href="#1-1-1登录平台，查询模块是否在自己账户项目下：" class="headerlink" title="1.1.1登录平台，查询模块是否在自己账户项目下："></a>1.1.1登录平台，查询模块是否在自己账户项目下：</h3><p>  客户向合宙采购4G模块时，如果采购人员没有告知合宙这批模块放在iot.openluat.com上的哪个产品下，则合宙会以<strong>采购人的手机号为账号，默认密码888888</strong>，创建一个“Air720X标准模块”的产品，此次采购的所有模块都会放在这个产品下。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33713.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_10691.png"></p>
+<h3 id="1-1-2配置流程"><a href="#1-1-2配置流程" class="headerlink" title="1.1.2配置流程"></a>1.1.2配置流程</h3><h4 id="1-1-2-1依次点击进入产品-gt-固件升级-gt-升级配置，页面如下"><a href="#1-1-2-1依次点击进入产品-gt-固件升级-gt-升级配置，页面如下" class="headerlink" title="1.1.2.1依次点击进入产品-&gt;固件升级-&gt;升级配置，页面如下"></a>1.1.2.1依次点击进入产品-&gt;固件升级-&gt;升级配置，页面如下</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80120.png"></p>
+<h4 id="1-1-2-2以720H模块为例，登录官网下载最新固件"><a href="#1-1-2-2以720H模块为例，登录官网下载最新固件" class="headerlink" title="1.1.2.2以720H模块为例，登录官网下载最新固件"></a>1.1.2.2以720H模块为例，登录官网<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/4g/Air720H.html" title="官网">下载最新固件</a></h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30096.png"></p>
+<h4 id="1-1-2-3固件解压后，将bin文件上传至IOT平台"><a href="#1-1-2-3固件解压后，将bin文件上传至IOT平台" class="headerlink" title="1.1.2.3固件解压后，将bin文件上传至IOT平台"></a>1.1.2.3固件解压后，将bin文件上传至IOT平台</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94831.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12302.png"></p>
+<h4 id="1-1-2-4当全项目升级为否时，需要添加待升级模块IMEI号，步骤如下图所示"><a href="#1-1-2-4当全项目升级为否时，需要添加待升级模块IMEI号，步骤如下图所示" class="headerlink" title="1.1.2.4当全项目升级为否时，需要添加待升级模块IMEI号，步骤如下图所示"></a>1.1.2.4当全项目升级为否时，需要添加待升级模块IMEI号，步骤如下图所示</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_98349.png"><br>成功添加后：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67942.png"></p>
+<h2 id="1-2模块端AT指令触发（若确认模块在IoT平台账号项目下，可省略AT-UPGRADE-”KEY”-”XXXX”指令）"><a href="#1-2模块端AT指令触发（若确认模块在IoT平台账号项目下，可省略AT-UPGRADE-”KEY”-”XXXX”指令）" class="headerlink" title="1.2模块端AT指令触发（若确认模块在IoT平台账号项目下，可省略AT+UPGRADE=”KEY”,”XXXX”指令）"></a>1.2模块端AT指令触发（若确认模块在IoT平台账号项目下，可省略AT+UPGRADE=”KEY”,”XXXX”指令）</h2><h3 id="1-2-1模块端通过USB端口，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下图所示"><a href="#1-2-1模块端通过USB端口，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下图所示" class="headerlink" title="1.2.1模块端通过USB端口，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下图所示"></a>1.2.1模块端通过USB端口，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下图所示</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_48497.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_31314.png"></p>
+<h3 id="1-2-2模块端通过串口2，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下"><a href="#1-2-2模块端通过串口2，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下" class="headerlink" title="1.2.2模块端通过串口2，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下"></a>1.2.2模块端通过串口2，依次发送以下AT指令，在前一条指令返回正常的情况下，发送下一条，完整流程如下</h3><p>指令触发-&gt;下载固件-&gt;刷机重启等全部过程如下:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71719.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56564.png"></p>
+<h3 id="注：1-2-1和1-2-2可根据实际情况选择合适的方式，触发指令相同，仅输出有部分区别"><a href="#注：1-2-1和1-2-2可根据实际情况选择合适的方式，触发指令相同，仅输出有部分区别" class="headerlink" title="注：1.2.1和1.2.2可根据实际情况选择合适的方式，触发指令相同，仅输出有部分区别"></a>注：1.2.1和1.2.2可根据实际情况选择合适的方式，触发指令相同，仅输出有部分区别</h3><h2 id="1-3升级常见问题和处理办法"><a href="#1-3升级常见问题和处理办法" class="headerlink" title="1.3升级常见问题和处理办法"></a>1.3升级常见问题和处理办法</h2><h3 id="1-3-1获取produckey，登录IOT平台-gt-进入项目-gt-产品信息"><a href="#1-3-1获取produckey，登录IOT平台-gt-进入项目-gt-产品信息" class="headerlink" title="1.3.1获取produckey，登录IOT平台-&gt;进入项目-&gt;产品信息"></a>1.3.1获取produckey，登录IOT平台-&gt;进入项目-&gt;产品信息</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66744.png"></p>
+<h3 id="1-3-2升级异常时，可通过URC上报-UPGRADENID-ERROR-CODE，或者AT-UPGRADE-指令查询固件下载结果，进一步处理"><a href="#1-3-2升级异常时，可通过URC上报-UPGRADENID-ERROR-CODE，或者AT-UPGRADE-指令查询固件下载结果，进一步处理" class="headerlink" title="1.3.2升级异常时，可通过URC上报+UPGRADENID  ERROR CODE，或者AT+UPGRADE?指令查询固件下载结果，进一步处理"></a>1.3.2升级异常时，可通过URC上报+UPGRADENID  ERROR CODE，或者AT+UPGRADE?指令查询固件下载结果，进一步处理</h3><p> AT+UPGRADE?  返回+UPGRADE: state, [error code, http respone, fota error cause] OK<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63430.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_14672.png"></p>
+<h1 id="2：自动升级"><a href="#2：自动升级" class="headerlink" title="2：自动升级"></a>2：自动升级</h1><h2 id="2-1自动FOTA是模块定期向后台发送升级请求，来获取新固件进行更新的，大致流程如下："><a href="#2-1自动FOTA是模块定期向后台发送升级请求，来获取新固件进行更新的，大致流程如下：" class="headerlink" title="2.1自动FOTA是模块定期向后台发送升级请求，来获取新固件进行更新的，大致流程如下："></a>2.1自动FOTA是模块定期向后台发送升级请求，来获取新固件进行更新的，大致流程如下：</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_69646.png"></p>
+<h1 id="3：备注"><a href="#3：备注" class="headerlink" title="3：备注"></a>3：备注</h1><ol>
+<li>客户可以通过IOT平台查看升级成功数量，失败日志等信息</li>
+<li>客户若是使用自己的服务器来进行空中升级，用户在自己服务器放好bin文件，模块端执行<br>AT+UPGRADE=”URL”,”<a target="_blank" rel="noopener" href="http://xxxx.bin&quot;/">http://xxxx.bin&quot;</a><br>AT+UPGRADE<br>模块只支持通过该URL执行http get获取固件bin</li>
+<li>升级过程中若模块断电、重启导致升级失败，可重新升级</li>
+<li>模块手动触发升级时，若频繁从同一个版本请求（目前默认一小时内6次，24小时内10次），IOT平台设备状态会自动更改为禁止升级，需要在平台设备列表手动解除</li>
+</ol>
+<h1 id="Lua固件：（以720H模块，合宙服务器为例）"><a href="#Lua固件：（以720H模块，合宙服务器为例）" class="headerlink" title="Lua固件：（以720H模块，合宙服务器为例）"></a><strong>Lua固件：</strong>（以720H模块，合宙服务器为例）</h1><h1 id="1-登录IOT平台点此进入，创建产品，查询模块是否在本人IOT账户下"><a href="#1-登录IOT平台点此进入，创建产品，查询模块是否在本人IOT账户下" class="headerlink" title="1.登录IOT平台点此进入，创建产品，查询模块是否在本人IOT账户下"></a>1.登录IOT平台<a target="_blank" rel="noopener" href="https://iot.openluat.com/" title="点此进入">点此进入</a>，创建产品，查询模块是否在本人IOT账户下</h1><h2 id="1-1若账户下没有产品，可新建产品，并进入产品，获取ProductKey"><a href="#1-1若账户下没有产品，可新建产品，并进入产品，获取ProductKey" class="headerlink" title="1.1若账户下没有产品，可新建产品，并进入产品，获取ProductKey"></a>1.1若账户下没有产品，可新建产品，并进入产品，获取ProductKey</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16868.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13096.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_87808.png"></p>
+<h2 id="1-2"><a href="#1-2" class="headerlink" title="1.2"></a>1.2</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59602.png"></p>
+<h1 id="2-设备端代码修改"><a href="#2-设备端代码修改" class="headerlink" title="2.设备端代码修改"></a>2.设备端代码修改</h1><p>例如：<br>         设备端本地烧录的旧固件版本信息为：<br>         core：Luat_V0019_ASR1802<br>         main.lua中PROJECT：LUAT_IOT_SERVER_UPDATE<br>         main.lua中VERSION：1.0.0<br>         模块型号：Air720H<br>          远程升级的新固件版本信息为：<br>         core：Luat_V0026_ASR1802<br>         main.lua中PROJECT：LUAT_IOT_SERVER_UPDATE<br>         main.lua中VERSION：2.0.0<br>         模块型号：Air720H</p>
+<h2 id="2-1修改main-lua，配置新固件版本信息，支持升级功能"><a href="#2-1修改main-lua，配置新固件版本信息，支持升级功能" class="headerlink" title="2.1修改main.lua，配置新固件版本信息，支持升级功能"></a>2.1修改main.lua，配置新固件版本信息，支持升级功能</h2><p>打开脚本main.lua文件，按照注释，根据自己的需要修改PROJECT、VERSION、PRODUCT_KEY，并加载远程升级功能<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30530.png"></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_34234.png"></p>
+<p style="font-size:25px;color:red;font-weight:bold;">注：设备每次开机，执行update.request()之后，网络准备就绪之后，模块会自动连接服务器，执行升级功能。</p>
+
+<h1 id="3-通过Luatools生成升级包"><a href="#3-通过Luatools生成升级包" class="headerlink" title="3.通过Luatools生成升级包"></a>3.通过Luatools生成升级包</h1><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_46526.png"></p>
+<p>生成的升级包文件默认存放在：Luatools工具目录下的 “量产文件生成默认文件夹\4G远程升级文件”<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78628.png"></p>
+<h1 id="4-IOT平台配置"><a href="#4-IOT平台配置" class="headerlink" title="4.IOT平台配置"></a>4.IOT平台配置</h1><h2 id="4-1"><a href="#4-1" class="headerlink" title="4.1"></a>4.1</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63531.png"></p>
+<h2 id="4-2添加IMEI-IMEI由模块包装获取，或由trace中获取-配置升级模块"><a href="#4-2添加IMEI-IMEI由模块包装获取，或由trace中获取-配置升级模块" class="headerlink" title="4.2添加IMEI(IMEI由模块包装获取，或由trace中获取),配置升级模块"></a>4.2添加IMEI(IMEI由模块包装获取，或由trace中获取),配置升级模块</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_50322.png"><br>添加成功后<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_75863.png"></p>
+<h1 id="5-运行1-0-0版本软件的模块开机，会自动连接合宙服务器请求升级。"><a href="#5-运行1-0-0版本软件的模块开机，会自动连接合宙服务器请求升级。" class="headerlink" title="5.运行1.0.0版本软件的模块开机，会自动连接合宙服务器请求升级。"></a>5.运行1.0.0版本软件的模块开机，会自动连接合宙服务器请求升级。</h1><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99175.png"></p>
+<h1 id="注：升级成功后，模块会自动重启，运行新版本，可在IOT平台查询升级日志，确认模块升级成功"><a href="#注：升级成功后，模块会自动重启，运行新版本，可在IOT平台查询升级日志，确认模块升级成功" class="headerlink" title="注：升级成功后，模块会自动重启，运行新版本，可在IOT平台查询升级日志，确认模块升级成功"></a>注：升级成功后，模块会自动重启，运行新版本，可在IOT平台查询升级日志，确认模块升级成功</h1><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67014.png"></p>
+<h1 id="6-备注"><a href="#6-备注" class="headerlink" title="6.备注"></a>6.备注</h1><ol>
+<li>关于空中升级原理，LUA版本空中升级（2G模块），循环升级等问题，参考<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/916">http://oldask.openluat.com/article/916</a></li>
+<li>空中升级失败，错误码请参照本文AT固件升级介绍中 1.3.2部分</li>
+<li>目前模块支持同一账号，不同项目间升级，不支持跨账号升级</li>
+<li>如果需要定时执行升级功能等，请参考<a target="_blank" rel="noopener" href="https://wiki.openluat.com/doc/luatApi4G/#update">https://wiki.openluat.com/doc/luatApi4G/#update</a></li>
+</ol>
+<p>如有错误，欢迎指正！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/20/643/" data-id="ckkfmdgcr009dvkcg6yuigumo" data-title="Air720系列模块空中升级完全指南" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-642" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/13/642/" class="article-date">
+  <time class="dt-published" datetime="2019-11-13T10:53:53.000Z" itemprop="datePublished">2019-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/13/642/">2G/4G模块AT版本AT指令交互流程抓取方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>废话少说！</p>
+<hr>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>2条3.3V TTL_USB数据线。</li>
+<li>PC电脑。</li>
+<li>串口工具(如SSCOM等）。</li>
+<li>待测主板以及让主板工作的电源以及周边。</li>
+</ol>
+<hr>
+<h3 id="连接方法"><a href="#连接方法" class="headerlink" title="连接方法"></a>连接方法</h3><p>使用2条TTL_USB的RX线分别连接通信串口的TX和RX，如下图<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30339.png"></p>
+<blockquote>
+<p>注意：TTL_USB的TX不要连接到待测主板的串口上，有可能会影响待测主板串口的正常通信</p>
+</blockquote>
+<hr>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><ol>
+<li>在PC上打开两个串口工具窗口，分别连接不同的串口端口。</li>
+<li>串口波特率设置于待测主板的串口波特率相同</li>
+<li>待测主板上电开机</li>
+<li>就会分别在两个串口工具窗口上打印出串口发送或接收的AT指令，注意将串口工的时间戳打开。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15879.png"></li>
+<li>保存所要的日志就可以了。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/13/642/" data-id="ckkfmdgcr009cvkcg94zdb3fn" data-title="2G/4G模块AT版本AT指令交互流程抓取方法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-641" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/07/641/" class="article-date">
+  <time class="dt-published" datetime="2019-11-07T13:22:03.000Z" itemprop="datePublished">2019-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/07/641/">【随笔杂谈】如何做个好决策？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <pre><code>                        &lt;p&gt;标题写太大了，索性就随便说说，说到哪儿算哪儿。&lt;/p&gt;&lt;p&gt;错误有很多种类，有的可以预见，有的不可预见，有的错误可能无关痛痒，有的可能痛彻心扉。&lt;/p&gt;&lt;p&gt;人生毕竟不是一帆风顺的，所做的每一个决策，都可能是错误的。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;那么如何提高决策能力，让错误的损失最小呢？其实没有什么绝招，就是多思考，多学习。&lt;/p&gt;&lt;p&gt;使用系统思维剖析问题本质，&lt;b&gt;做最大概率的决策，做最谨慎的操作，做最稳妥的后路，做最强硬的止损。&lt;/b&gt;&lt;/p&gt;&lt;p&gt;小到走路开车，大到人生抉择，实际上都离不开这些。&lt;/p&gt;&lt;p&gt;假如，前方有个行人正在横穿马路，到底是避让，还是减速，避让的话会不会碰到旁边车道的车辆？如果减速，那么有没有被大货车追尾？如果提速，能不能在行人前驶过？&lt;/p&gt;&lt;p&gt;每一个选项的风险是多少，如果出现意外情况，有没有“兜底”的方式？如果细化起来，会发现做一个决策好难。实际上，日常习惯做这种小决策，大脑已经形成了一个稳定的回路，老司机看一眼就知道改怎么操作了。事后你问，你为什么这样做，他可能也讲不出个所以然。但是往往能证明他的那个决策可能是正确的。&lt;/p&gt;&lt;p&gt;不过，经验只是经验，就像归纳法那样，总会有黑天鹅出现。经验也有失灵的时候。alphaGo打败了拥有几万个棋局储备的人类最顶尖棋手，它就是一个黑天鹅，一个例外。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;到此，问题又变化为，如果碰到极为特殊的例外，怎么处理。&lt;/p&gt;&lt;p&gt;还以上边那个“开车避让行人”的例子说明：简单来说是先选择最稳妥的方式，如果这个决策失败了，那么就用上了商业险。如果商业险失效，那么大多数人都肯定是欲哭无泪的。&lt;/p&gt;&lt;p&gt;只给自己一个后路还不够，某些时候还要多条后路（比如家底厚、保额高、或者通过行车记录仪证明自己是次责等等），同时一定要坚定止损——签订一次性赔偿。&lt;/p&gt;&lt;p&gt;否则，钝刀子割肉可是痛苦不堪的。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;可是每个人的认知能力有限，根本不可能做到考虑周全，那么有没有什么方式避免使用者犯错？&lt;/p&gt;&lt;p&gt;也许详细的文档可以让有学力的人自力更生，但是大多数人服从天性本能的懒惰，这就要开发者挖空心思，避免使用者在各个维度犯错才行。&lt;/p&gt;&lt;p&gt;很多老前辈都说，一定不要相信用户输入的任何内容。这就像软件测试的段子：&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&lt;b&gt;一个人走进酒吧，跟酒保说：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;“给我0杯酒”&lt;br&gt;&lt;/p&gt;&lt;p&gt;“给我-1杯酒”&lt;/p&gt;&lt;p&gt;“给我3.14杯酒”&lt;/p&gt;&lt;p&gt;“给我4,294,967,296杯酒”&lt;/p&gt;&lt;p&gt;“去你妈的”&lt;/p&gt;&lt;p&gt;“给哈哈哈杯酒”&lt;br&gt;&lt;br&gt;&amp;nbsp;“给我俧瘊冟譪蕊悕瑸杯酒”&lt;br&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;这是一个痛苦、复杂、用户感知度低，但是关键时刻可以救命的东东。&lt;br&gt;&lt;br&gt;比如，前几天有个天猫店，因为手滑错误设置单价，26元可以买4500斤水果。&lt;br&gt;&lt;br&gt;（原文《B站网红带上万粉丝“薅羊毛”后道歉 赔偿卖家开店费》&lt;a href=&quot;https://www.cnbeta.com/articles/tech/908159.htm&quot; target=&quot;_blank&quot;&gt;https://www.cnbeta.com/articles/tech/908159.htm&lt;/a&gt;）&lt;br&gt;&lt;br&gt;实际上，这就是淘宝的不作为。淘宝应该是拥有中国最完整的货品种类+价格走势数据的。&lt;b&gt;如果商家在设定价格的时候，后端自动分析一下，设定的果品单价是否超乎合理价格区间，并显著提醒卖家，我想这类惨剧就不会发生了吧&lt;/b&gt;。&lt;br&gt;&lt;br&gt;开发者多动动脑，多用心，这样才能让世界更美好呢，你说是不是？&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/07/641/" data-id="ckkfmdgcr009bvkcgc30yad4r" data-title="【随笔杂谈】如何做个好决策？" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-640" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/11/05/640/" class="article-date">
+  <time class="dt-published" datetime="2019-11-05T09:37:28.000Z" itemprop="datePublished">2019-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/11/05/640/">一种在linux上不用全编内核就能识别合宙4G模块的方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol><li><span class="md-plain md-expand" style='box-sizing: border-box; color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;' md-inline="plain">按照</span><span class="md-link" style='box-sizing: border-box; word-break: break-all; color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;' spellcheck="false" md-inline="url"><a style="box-sizing: border-box; cursor: pointer; color: rgb(170, 0, 0); -webkit-user-drag: none;" target="_blank" rel="noopener" href="http://oldask.openluat.com/article/911">http://oldask.openluat.com/article/911</a></span><span class="md-plain" style='box-sizing: border-box; color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;' md-inline="plain">中的方法修改<b>option.c</b>与<b>usb_wwan.c</b>文件</span></li><li><span class="md-plain" style='text-align: left; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: Lato,STIX2Text,"Times New Roman",serif; font-size: 16px; word-spacing: 0px; white-space: pre-wrap; box-sizing: border-box; orphans: 4; widows: 2; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);' md-inline="plain"><span style='color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>解压压缩包</span></span><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163652921_KlM2R1SC5dc14252aa503_modules.zip">modules.zip</a><span class="md-plain" style='text-align: left; color: rgb(51, 51, 51); text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: Lato,STIX2Text,"Times New Roman",serif; font-size: 16px; word-spacing: 0px; white-space: pre-wrap; box-sizing: border-box; orphans: 4; widows: 2; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);' md-inline="plain"><span style='color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>，把修改后的文件与<b>usb-wwan.h</b>文件<b>copy</b>到解压后的文件夹内</span><b><i><u><sub><sup><strike><br></strike></sup></sub></u></i></b></span><img class="img-responsive" style="width: 343.5px;" src="http://oldask.openluat.com/image/show/attachments-2019-11-NEkN3FY15dc1426bc2a39.png"></li><li><span style='color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'><b>make</b>后会生成<b>option.ko</b>和<b>usb_wwan.ko</b>这两个内核模块</span><img class="img-responsive" style="width: 580px;" src="http://oldask.openluat.com/image/show/attachments-2019-11-2GLFTCmR5dc142a2a660f.png"><b><br></b></li><li><span style='color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>先<b>insmod usb_wwan.ko</b>然后<b>insmod option.ko</b></span><br><i></i><u></u><sub></sub><sup></sup><strike></strike><img class="img-responsive" style="width: 324px;" src="http://oldask.openluat.com/image/show/attachments-2019-11-9HY1uRde5dc142bfb14e7.png"><b></b><span style='color: rgb(51, 51, 51); font-family: Lato, STIX2Text, "Times New Roman", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 4; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>出现<b>File exists</b>是因为我之前已经加载过这两个内核模块，正常的话是不会打印任何东西的。</span><b></b><i></i><u></u><sub></sub><sup></sup><strike></strike><br></li></ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/11/05/640/" data-id="ckkfmdgcr009avkcg5cep6e3s" data-title="一种在linux上不用全编内核就能识别合宙4G模块的方法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/33/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/35/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

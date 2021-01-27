@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>4G模块Lua版本如何使用合宙服务器远程升级 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="一、服务器端创建产品              平台地址: https:&#x2F;&#x2F;iot.openluat.com&#x2F;         如果没有账户，注册一个新账户           1、新建产品                      2、进入产品              二、设备端代码修改，生成升级包              例如：         设备端本地烧录的旧固件版本信息为：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4G模块Lua版本如何使用合宙服务器远程升级">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/08/08/602/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="一、服务器端创建产品              平台地址: https:&#x2F;&#x2F;iot.openluat.com&#x2F;         如果没有账户，注册一个新账户           1、新建产品                      2、进入产品              二、设备端代码修改，生成升级包              例如：         设备端本地烧录的旧固件版本信息为：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-3WILhBaw5d4bb907829e0.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-SfqAphcQ5d4bb92cf0408.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-9qv5QX6f5d4bb945a516e.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-BDE7P6mu5d4bb962eb49f.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-GSEVUCoa5d4bb99454ccf.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-A00kHx1q5d4bb9aecf94d.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-AcHW7UPo5d4bb9d5ca1db.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-A76g2clM5d4bba0c37a0d.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-1VqYxLWu5d4bba3374300.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-QgT5Z8jV5d4bba4757f77.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-323WGOhU5d4bba751f7fe.png">
+<meta property="article:published_time" content="2019-08-08T06:01:15.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2019-08-3WILhBaw5d4bb907829e0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-602" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/08/602/" class="article-date">
+  <time class="dt-published" datetime="2019-08-08T06:01:15.000Z" itemprop="datePublished">2019-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      4G模块Lua版本如何使用合宙服务器远程升级
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><a name="下载安装"></a><b><span style="font-size:14.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">一、服务器端创建产品</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">            </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">平台地址<span lang="EN-US">: </span><a target="_blank" rel="noopener" href="https://iot.openluat.com/" style="outline: 0px; outline-offset: -2px; background-position: 0px 0px;"><span style="color: rgb(51, 51, 51);">https://iot.openluat.com/</span></a><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">如果没有账户，注册一个新账户<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><b><span lang="EN-US" style="font-size:11.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">1</span></b><b><span style="font-size:11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、新建产品</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:"inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">           </span><img src="http://oldask.openluat.com/image/show/attachments-2019-08-3WILhBaw5d4bb907829e0.png" class="img-responsive" style="width: 795.5px;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"> </span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><br></span>        <b><span lang="EN-US" style="font-size:11.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2</span></b><b><span style="font-size:
+11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">、进入产品</span></b></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-SfqAphcQ5d4bb92cf0408.png" class="img-responsive" style="width: 341px;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-9qv5QX6f5d4bb945a516e.png" class="img-responsive" style="width: 681.5px;"><b><span style="font-size:
+11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt"><br></span></b></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">            </span><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_22" o:spid="_x0000_i1035" type="#_x0000_t75" style='width:270pt;
+ height:250.2pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image003.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:6.5pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_25" o:spid="_x0000_i1034" type="#_x0000_t75" style='width:415.2pt;
+ height:105pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image005.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:6.5pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">二、设备端代码修改，生成升级包</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">            </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">例如：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">设备端本地烧录的旧固件版本信息为：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         core</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">：<span lang="EN-US">Luat_V0019_ASR1802<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">中<span lang="EN-US">PROJECT</span>：<span lang="EN-US">LUAT_IOT_SERVER_UPDATE<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">中<span lang="EN-US">VERSION</span>：<span lang="EN-US">1.0.0<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">模块型号：<span lang="EN-US">Air720D<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p> </o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">远程升级的新固件版本信息为：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         core</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">：<span lang="EN-US">Luat_V0021_ASR1802<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">中<span lang="EN-US">PROJECT</span>：<span lang="EN-US">LUAT_IOT_SERVER_UPDATE<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">中<span lang="EN-US">VERSION</span>：<span lang="EN-US">1.0.1<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">模块型号：<span lang="EN-US">Air720D<o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><b><span lang="EN-US" style="font-size:11.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">1</span></b><b><span style="font-size:11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、修改</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:"inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">main.lua</span></b><b><span style="font-size:11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">，配置新固件版本信息</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">打开<span lang="EN-US">main.lua</span>，<span lang="EN-US">VERSION</span>修改为<span lang="EN-US">1.0.1</span>，按照如下截图配置</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-BDE7P6mu5d4bb962eb49f.png" class="img-responsive" style="width: 653.5px;"><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_28" o:spid="_x0000_i1033" type="#_x0000_t75" style='width:415.2pt;
+ height:51.6pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image007.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><b><span lang="EN-US" style="font-size:11.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2</span></b><b><span style="font-size:11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:"inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">Luatools</span></b><b><span style="font-size:11.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">生成升级包</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:"inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">        </span><img src="http://oldask.openluat.com/image/show/attachments-2019-08-GSEVUCoa5d4bb99454ccf.png" class="img-responsive" style="width: 575px;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"> <!--[if gte vml 1]><v:shape id="图片_x0020_34" o:spid="_x0000_i1032"
+ type="#_x0000_t75" style='width:415.2pt;height:253.8pt;visibility:visible;
+ mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image009.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">生成的升级包文件默认存放在：<span lang="EN-US">Luatools</span>工具目录下的
+“量产文件生成默认文件夹<span lang="EN-US">\4G</span>远程升级文件”<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">例如本示例合并后的升级文件目录截图为</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-A00kHx1q5d4bb9aecf94d.png" class="img-responsive" style="width: 527px;"><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_37" o:spid="_x0000_i1031" type="#_x0000_t75" style='width:415.8pt;
+ height:151.8pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image011.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">三、服务器端新增升级配置项</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">            </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">平台地址<span lang="EN-US">: </span><a target="_blank" rel="noopener" href="https://iot.openluat.com/" style="outline: 0px; outline-offset: -2px; background-position: 0px 0px;"><span style="color: rgb(51, 51, 51);">https://iot.openluat.com/</span></a><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">进入之前创建的产品下，打开固件升级<span lang="EN-US">-></span>升级配置<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_40" o:spid="_x0000_i1030" type="#_x0000_t75" style='width:415.2pt;
+ height:249.6pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image013.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_43" o:spid="_x0000_i1029" type="#_x0000_t75" style='width:415.2pt;
+ height:47.4pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image015.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_46" o:spid="_x0000_i1028" type="#_x0000_t75" style='width:396pt;
+ height:322.2pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image017.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_49" o:spid="_x0000_i1027" type="#_x0000_t75" style='width:415.2pt;
+ height:115.2pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image019.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-AcHW7UPo5d4bb9d5ca1db.png" class="img-responsive" style="width: 575.5px;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-A76g2clM5d4bba0c37a0d.png" class="img-responsive" style="width: 682px;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-1VqYxLWu5d4bba3374300.png" class="img-responsive" style="width: 444px;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-QgT5Z8jV5d4bba4757f77.png" class="img-responsive" style="width: 620px;"><b><span style="font-size:14.5pt;font-family:"微软雅黑","sans-serif";mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">四、设备端烧录旧固件版本，开机请求升级</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:"inherit","serif";mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">            </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">例如：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">设备端本地烧录的旧固件版本信息为：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         core</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">：<span lang="EN-US">Luat_V0019_ASR1802<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">中<span lang="EN-US">PROJECT</span>：<span lang="EN-US">LUAT_IOT_SERVER_UPDATE<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">中<span lang="EN-US">VERSION</span>：<span lang="EN-US">1.0.0<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">模块型号：<span lang="EN-US">Air720D<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         <o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         main.lua</span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">部分代码截图如下：</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-323WGOhU5d4bba751f7fe.png" class="img-responsive" style="width: 627px;"><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_52" o:spid="_x0000_i1026" type="#_x0000_t75" style='width:415.2pt;
+ height:58.2pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image021.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt;mso-no-proof:yes"><!--[if gte vml 1]><v:shape
+ id="图片_x0020_55" o:spid="_x0000_i1025" type="#_x0000_t75" style='width:192.6pt;
+ height:55.8pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\ZHUTIA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image023.png"
+  o:title=""></v:imagedata>
+</v:shape><![endif]--><!--[if !vml]--><!--[endif]--></span><span lang="EN-US" style="font-size:9.0pt;
+font-family:"微软雅黑","sans-serif";mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt"><o:p></o:p></span></p><p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">烧录后，开机运行，就会自动连接合宙服务器请求升级</span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><span lang="EN-US"><o:p></o:p></span></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/08/08/602/" data-id="ckkfmdgf100e6vkcgffvub4hq" data-title="4G模块Lua版本如何使用合宙服务器远程升级" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/08/603/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air系列模块远程升级功能汇总
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/08/601/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air208在西安某地区连接服务器失败问题分析过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

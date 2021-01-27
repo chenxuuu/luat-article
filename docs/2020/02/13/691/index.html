@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>3、合宙Air模块Luat开发：实现用&#34;Printf&#34;把文字格式化以后直接输出 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录点击这里查看所有博文  本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。   先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！  一、前言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3、合宙Air模块Luat开发：实现用&quot;Printf&quot;把文字格式化以后直接输出">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/02/13/691/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录点击这里查看所有博文  本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。   先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！  一、前言">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200213105046567.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200213105213956.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200213105321335.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200213111500236.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200213112732472.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200213113713240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-02-13T03:53:00.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:12:29.804Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200213105046567.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-691" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/13/691/" class="article-date">
+  <time class="dt-published" datetime="2020-02-13T03:53:00.000Z" itemprop="datePublished">2020-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      3、合宙Air模块Luat开发：实现用&#34;Printf&#34;把文字格式化以后直接输出
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>在我的第二篇博文中<code>2、Air720SL模块Luat开发：第一个Luat的Hello World（在目录出可找到入口）</code>我们用了一下<br><code>print</code>函数实现打印Hello World到日志</p>
+</blockquote>
+<blockquote>
+<p>在Lua语法中print函数可以接收任意字符串实现输出字符到日志<br>1、可以直接输出数字<code>print(123)</code>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20200213105046567.png" alt="在这里插入图片描述"><br>2、也可以直接字符<code> print(&quot;abc&quot;)</code>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20200213105213956.png" alt="在这里插入图片描述"><br>3、还可以混合输出<code>print(&quot;abc&quot;..123)</code>运行结果如下<br><img src="https://img-blog.csdnimg.cn/20200213105321335.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>但是<code>print</code>这个函数并不能用来格式化输出<br>如果我要输出一个可变化的字符串，不是说<code>print</code>函数不行，它也可以，但是却比较麻烦<br>比如我要输出下面这样一段字符串，其中标红的是需要随时改变的变量<br>Hello <code>Tom</code>!my name is:<code>YXCN</code>,I am <code>30</code> years old now</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local other=<span class="string">&quot;Tom&quot;</span></span><br><span class="line">local name=<span class="string">&quot;YXCN&quot;</span></span><br><span class="line">local age=<span class="number">30</span></span><br><span class="line">print(<span class="string">&quot;Hello &quot;</span>..other..<span class="string">&quot;!&quot;</span>..<span class="string">&quot;my name is:&quot;</span>..name..<span class="string">&quot;,&quot;</span>..<span class="string">&quot;I am &quot;</span>..age..<span class="string">&quot; years old now&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>用<code>print</code>输出，需要写一大段，还要自己用<code>..</code>组织字符串连接，一共用了八个字符串连接符，用了六对双引号<br>这个例子还好只有三个变量，就已经显得有点复杂，如果变量一多，想都不敢想。<br>这样写法阅读起来也是及其困难的，无法直接得出变量是什么类型的，可能是字符串，也可能是数字，还得回去看变量到底是什么值，这节课我们就一起学习一下怎么用Lua实现C语言的Printf格式化输出的功能</p>
+</blockquote>
+<h1 id="二、Printf格式化函数输出实现"><a href="#二、Printf格式化函数输出实现" class="headerlink" title="二、Printf格式化函数输出实现"></a>二、Printf格式化函数输出实现</h1><blockquote>
+<p>在Lua里面没有<code>printf</code>函数，直接写会报错<br><img src="https://img-blog.csdnimg.cn/20200213111500236.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>这里我们需要自己实现一下，代码如下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">printf</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	<span class="title">print</span><span class="params">(<span class="built_in">string</span>.format(...))</span></span></span><br><span class="line"><span class="function">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>现在我们一起来试一下Hello <code>Tom</code>!my name is:<code>YXCN</code>,I am <code>30</code> years old now输出有多简单</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">printf</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	<span class="title">print</span><span class="params">(<span class="built_in">string</span>.format(...))</span></span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">local other</span>=<span class="string">&quot;Tom&quot;</span></span><br><span class="line">local name=<span class="string">&quot;YXCN&quot;</span></span><br><span class="line">local age=<span class="number">30</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Hello %s ! my name is: %s , I am %d years old now&quot;</span>,other,name,age)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对比两行<code>print</code>和<code>printf</code>的输出函数，<code>printf</code>函数格式化输出只用的一对双引号，结构清晰，能从语句中直接得出，需要输出的是什么格式的数据，很显然第一个转义码%s和第二个转义码%s代表的是字符串，第三个转义码%d代表的是数字<br>在Lua软件上直接输出结果如下，说明语法上是行得通的<br><img src="https://img-blog.csdnimg.cn/20200213112732472.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>这里给出Lua支持所有的转义码</p>
+</blockquote>
+<ul>
+<li>%c - 接受一个数字, 并将其转化为ASCII码表中对应的字符</li>
+<li>%d, %i - 接受一个数字并将其转化为有符号的整数格式</li>
+<li>%o - 接受一个数字并将其转化为八进制数格式</li>
+<li>%u - 接受一个数字并将其转化为无符号整数格式</li>
+<li>%x - 接受一个数字并将其转化为十六进制数格式, 使用小写字母</li>
+<li>%X - 接受一个数字并将其转化为十六进制数格式, 使用大写字母</li>
+<li>%e - 接受一个数字并将其转化为科学记数法格式, 使用小写字母e</li>
+<li>%E - 接受一个数字并将其转化为科学记数法格式, 使用大写字母E</li>
+<li>%f - 接受一个数字并将其转化为浮点数格式</li>
+<li>%g(%G) - 接受一个数字并将其转化为%e(%E, 对应%G)及%f中较短的一种格式</li>
+<li>%q - 接受一个字符串并将其转化为可安全被Lua编译器读入的格式</li>
+<li>%s - 接受一个字符串并按照给定的参数格式化该字符串</li>
+</ul>
+<blockquote>
+<p>下面我们将程序下载到开发板验证</p>
+</blockquote>
+<h1 id="三、下载程序到Air720Sl开发板"><a href="#三、下载程序到Air720Sl开发板" class="headerlink" title="三、下载程序到Air720Sl开发板"></a>三、下载程序到Air720Sl开发板</h1><blockquote>
+<p>这里我们直接贴出全部代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line">local function <span class="built_in">printf</span>(...)</span><br><span class="line">	print(<span class="built_in">string</span>.format(...))</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">	local other=<span class="string">&quot;Tom&quot;</span></span><br><span class="line">	local name=<span class="string">&quot;YXCN&quot;</span></span><br><span class="line">	local age=<span class="number">30</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Hello %s ! my name is: %s , I am %d years old now&quot;</span>,other,name,age)</span><br><span class="line">		age = age + <span class="number">1</span>--一秒加一岁</span><br><span class="line">		sys.wait(<span class="number">1000</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载程序后运行结果如下，一秒加一岁，现在已经240多岁了，哈哈<br><img src="https://img-blog.csdnimg.cn/20200213113713240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/02/13/691/" data-id="ckkfmdgd500alvkcg8ttahsnu" data-title="3、合宙Air模块Luat开发：实现用&#34;Printf&#34;把文字格式化以后直接输出" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/14/692/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          4、合宙Air模块Luat开发：用GPIO输出功能实现一个简单的LED灯闪烁
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/12/690/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">2、合宙Air模块Luat开发：第一个Luat的Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

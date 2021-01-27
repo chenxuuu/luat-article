@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>合宙Air720U&amp;724U&amp;722U&amp;820U AT固件更新说明 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="AirM2M_720U_V1622_LTE_AT.zip修改记录：1.AT V1560 长时间挂测 USB AT DIAG口不通了，回退合并2.485存在内存泄漏3.linux下ECM无法使用4.音频播放+gpio会卡死5.dns task堆栈溢出6.AT^SYSINFO返回的信息不对7.V301401 AT+CGNDEL&#x3D;3删除epo命令返回错误AirM2M_720U_V1342_LTE_AT.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合宙Air720U&amp;724U&amp;722U&amp;820U AT固件更新说明">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/07/06/1061/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="AirM2M_720U_V1622_LTE_AT.zip修改记录：1.AT V1560 长时间挂测 USB AT DIAG口不通了，回退合并2.485存在内存泄漏3.linux下ECM无法使用4.音频播放+gpio会卡死5.dns task堆栈溢出6.AT^SYSINFO返回的信息不对7.V301401 AT+CGNDEL&#x3D;3删除epo命令返回错误AirM2M_720U_V1342_LTE_AT.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-06T05:49:00.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1061" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/07/06/1061/" class="article-date">
+  <time class="dt-published" datetime="2020-07-06T05:49:00.000Z" itemprop="datePublished">2020-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      合宙Air720U&amp;724U&amp;722U&amp;820U AT固件更新说明
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201124173259386_AirM2M_720U_V1622_LTE_AT.zip" target="_blank">AirM2M_720U_V1622_LTE_AT.zip</a></p><p>修改记录：</p><p>1.AT V1560 长时间挂测 USB AT DIAG口不通了，回退合并<br/>2.485存在内存泄漏<br/>3.linux下ECM无法使用<br/>4.音频播放+gpio会卡死<br/>5.dns task堆栈溢出<br/>6.AT^SYSINFO返回的信息不对<br/>7.V301401 AT+CGNDEL=3删除epo命令返回错误</p><p></p><p><a href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201024113032329_AirM2M_720U_V1342_LTE_AT.zip" target="_blank">AirM2M_720U_V1342_LTE_AT.zip</a></p><p><span style="line-height:1"><span style="letter-spacing:0px">修改记录：</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">1.激活ipv4v6,使用RNDIS上网无法使用连接ipv6地址</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">2.添加AT+TCPUSERPARAM</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">3.开发切换音频通道AT,重启后生效(默认是classD)</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">4.采用软复位重启模块后，osiGetBootCauses接口无法获取到正确结果</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">5.添加AT*USB=HOTPLUG,0/1</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">6.标准AT指令增加RI动作的配置</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">7.AT*CSQ=1打开CSQ主动上报，缺少*CESQ: &lt;rxlev&gt;,&lt;ber&gt;,&lt;rscp&gt;,&lt;ecno&gt;,&lt;rsrq&gt;,&lt;rsrp&gt;,&lt;sinr&gt;</span></span></p><p></p><p></p><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200914094734892_AirM2M_720U_V1066_LTE_AT.zip">AirM2M_720U_V1066_LTE_AT.zip</a></p><p><span style="line-height:1"><span style="letter-spacing:0px">修改记录：</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">1.默认承载未激活时，让cgatt返回0</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">2.去除代码中对gps存在的检测</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">3.TTS支持英文字母播报</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">4.去除GPIO 13  拉高进入校准模式功能</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">5.用FS_O_WRONLY打开文件后无法写文件</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">6.修改UDP丢包问题</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">7.优化功能测试</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">8.非boot下载，概率性无法启动的问题</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">9.修改CCFC=2,2总是返回error问题</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">10.自动更改core里的函数名</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">11.V897 AT+RNDISCALL=?缺少第二个参数取值</span></span><br/></p><p><a href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200803195833_AirM2M_720U_V907_LTE_AT.pac" target="_blank">AirM2M_720U_V907_LTE_AT</a></p><p class="braft-code-block" data-offset-key="2c3da-0-0">修改记录：<br/>1:开发通用工厂测试<br/>2:V838 AT*CSQ命令实现<br/>3:升级到W20.30.1<br/>4:NAT PPP拨号之后无法PING外网<br/>5:AT+RNDISCALL增加一个参数来确认是否需要保存当前设置，0或者没有第二个参数不保存，1，保存<br/>6:FOTA失败后，查询AT+UPGRADE?返回值不对<br/>7:添加GPIO 测试AT 命令<br/>8:使用pwm接口后无法休眠<br/>9:增加mqtt定长发送指令MPUBEX<br/><br/></p><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8910/AirM2M_720U_V838_LTE_AT.zip">AirM2M_720U_V838_LTE_AT</a></p><p>修改记录：</p><p>1.MQTT的AT模式模块自动维护心跳 <br/>2.支持最大2384 MPUB 发送 </p><p>3:服务器关闭，没有closed 上报 </p><p>4:开启CSDT=1 PDP就掉激活了/开关一次CSDT之后 GPIO23接地掉卡上报的信息有误</p><p>5:AT+FTPGETTOFS命令，当文件名字达到64位长度时，每次执行都失败</p><p>6:FSLS查看一个空目录的时候会返回错误</p><p>7:FTPEXTGET命令保存的文件，无法删除</p><p>8:AT^HEARTBEATHEX命令设置心跳内容后，模块收到的心跳数据是错的 </p><p> <br/><br/></p><p><a href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200529110544_AirM2M_720U_V584_LTE_AT.pac" target="_blank">AirM2M_720U_V584_LTE_AT</a></p><p>修改记录：</p><p>1:CEREG和CREG命令返回的tac/LAC数据不对<br/>2:当没一路PDP 激活的时候，查询CGDCONT 返回+CGDCONT:<br/>3:提高通话音量和音频播放音量基础音量<br/>4:修改在数据传输中，禁用rndis ，有概率出现eth allocate req fail ，并且无法发送AT 问题<br/>5:修改VOLTE 默认打开<br/><br/></p><p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/07/06/1061/" data-id="ckkfmdg910001vkcg9yyf7m04" data-title="合宙Air720U&amp;724U&amp;722U&amp;820U AT固件更新说明" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/06/1062/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air720SGI模块硬件设计手册-V1.2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/06/1054/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">RDA8910CSDK二次开发：远程升级</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

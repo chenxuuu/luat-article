@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>js 事件 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="事件事件：触发-响应机制 事件三要素 事件源:触发(被)事件的元素 事件名称: click 点击事件 事件处理程序:事件触发后要执行的代码(函数形式)  事件的基本使用1234var box &#x3D; document.getElementById(&amp;#x27;box&amp;#x27;);box.onclick &#x3D; function() &amp;#123;  console.log(&amp;#x27;代码会在box被点击">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 事件">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/10/31/1777/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="事件事件：触发-响应机制 事件三要素 事件源:触发(被)事件的元素 事件名称: click 点击事件 事件处理程序:事件触发后要执行的代码(函数形式)  事件的基本使用1234var box &#x3D; document.getElementById(&amp;#x27;box&amp;#x27;);box.onclick &#x3D; function() &amp;#123;  console.log(&amp;#x27;代码会在box被点击">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-31T06:01:09.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1777" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/10/31/1777/" class="article-date">
+  <time class="dt-published" datetime="2020-10-31T06:01:09.000Z" itemprop="datePublished">2020-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      js 事件
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>事件：触发-响应机制</p>
+<h3 id="事件三要素"><a href="#事件三要素" class="headerlink" title="事件三要素"></a>事件三要素</h3><ul>
+<li>事件源:触发(被)事件的元素</li>
+<li>事件名称: click 点击事件</li>
+<li>事件处理程序:事件触发后要执行的代码(函数形式)</li>
+</ul>
+<h3 id="事件的基本使用"><a href="#事件的基本使用" class="headerlink" title="事件的基本使用"></a>事件的基本使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;box&#x27;</span>);</span><br><span class="line">box.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;代码会在box被点击后执行&#x27;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h2><h3 id="非表单元素的属性"><a href="#非表单元素的属性" class="headerlink" title="非表单元素的属性"></a>非表单元素的属性</h3><p>href、title、id、src、className</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> link = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;link&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(link.href);</span><br><span class="line"><span class="built_in">console</span>.log(link.title);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pic = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;pic&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(pic.src);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>innerHTML和innerText</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;box&#x27;</span>);</span><br><span class="line">box.innerHTML = <span class="string">&#x27;我是文本&lt;p&gt;我会生成为标签&lt;/p&gt;&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(box.innerHTML);</span><br><span class="line">box.innerText = <span class="string">&#x27;我是文本&lt;p&gt;我不会生成为标签&lt;/p&gt;&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(box.innerText);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>HTML转义符</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;		&quot;</span><br><span class="line">&#39;		&amp;apos;</span><br><span class="line">&amp;		&amp;</span><br><span class="line">&lt;		&lt;   &#x2F;&#x2F; less than  小于</span><br><span class="line">&gt;		&gt;   &#x2F;&#x2F; greater than  大于</span><br><span class="line">空格	   &amp;nbsp;</span><br><span class="line">©		&amp;copy;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>innerHTML和innerText的区别</p>
+</li>
+<li><p>innerText的兼容性处理</p>
+</li>
+</ul>
+<h3 id="表单元素属性"><a href="#表单元素属性" class="headerlink" title="表单元素属性"></a>表单元素属性</h3><ul>
+<li>value 用于大部分表单元素的内容获取(option除外)</li>
+<li>type 可以获取input标签的类型(输入框或复选框等)</li>
+<li>disabled 禁用属性</li>
+<li>checked 复选框选中属性</li>
+<li>selected 下拉菜单选中属性</li>
+</ul>
+<h3 id="自定义属性操作"><a href="#自定义属性操作" class="headerlink" title="自定义属性操作"></a>自定义属性操作</h3><ul>
+<li>getAttribute() 获取标签行内属性</li>
+<li>setAttribute() 设置标签行内属性</li>
+<li>removeAttribute() 移除标签行内属性</li>
+<li>与element.属性的区别: 上述三个方法用于获取任意的行内属性。</li>
+</ul>
+<h3 id="样式操作"><a href="#样式操作" class="headerlink" title="样式操作"></a>样式操作</h3><ul>
+<li><p>使用style方式设置的样式显示在标签行内</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;box&#x27;</span>);</span><br><span class="line">box.style.width = <span class="string">&#x27;100px&#x27;</span>;</span><br><span class="line">box.style.height = <span class="string">&#x27;100px&#x27;</span>;</span><br><span class="line">box.style.backgroundColor = <span class="string">&#x27;red&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>注意</p>
+<p>通过样式属性设置宽高、位置的属性类型是字符串，需要加上px</p>
+</li>
+</ul>
+<h3 id="类名操作"><a href="#类名操作" class="headerlink" title="类名操作"></a>类名操作</h3><ul>
+<li>修改标签的className属性相当于直接修改标签的类名<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;box&#x27;</span>);</span><br><span class="line">box.className = <span class="string">&#x27;show&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="创建元素的三种方式"><a href="#创建元素的三种方式" class="headerlink" title="创建元素的三种方式"></a>创建元素的三种方式</h2><h3 id="document-write"><a href="#document-write" class="headerlink" title="document.write()"></a>document.write()</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&#x27;新设置的内容&lt;p&gt;标签也可以生成&lt;/p&gt;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a>innerHTML</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;box&#x27;</span>);</span><br><span class="line">box.innerHTML = <span class="string">&#x27;新内容&lt;p&gt;新标签&lt;/p&gt;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="document-createElement"><a href="#document-createElement" class="headerlink" title="document.createElement()"></a>document.createElement()</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(div);</span><br></pre></td></tr></table></figure>
+<h3 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h3><ul>
+<li>innerHTML方法由于会对字符串进行解析，需要避免在循环内多次使用。</li>
+<li>可以借助字符串或数组的方式进行替换，再设置给innerHTML</li>
+<li>优化后与document.createElement性能相近</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/10/31/1777/" data-id="ckkfmdg9y001rvkcgf34whm3g" data-title="js 事件" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/01/1782/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          1、杂项：Windows服务器openssh连接(含ssh免密登录)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/30/1775/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">一句JS代码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

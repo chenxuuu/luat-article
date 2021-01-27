@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>如何批量下载lua固件 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文内容介绍一下如何使用 LuaTools 工具生成量产文件，并用夹具批量升级。 2G模块量产文件脚本合成（Air2xx系列、Air8xx系列）： 首先打开LuaTools工具，点击右上方的批量升级按钮，如下图：  我们以core-v0038-8955为例，脚本文件以202的demo为例： 设置加密lua 的密码，选择导出文件夹的位置，最后合并生成量产文件；  打开导出的文件夹，我们看下导出的文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何批量下载lua固件">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/02/28/703/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="本文内容介绍一下如何使用 LuaTools 工具生成量产文件，并用夹具批量升级。 2G模块量产文件脚本合成（Air2xx系列、Air8xx系列）： 首先打开LuaTools工具，点击右上方的批量升级按钮，如下图：  我们以core-v0038-8955为例，脚本文件以202的demo为例： 设置加密lua 的密码，选择导出文件夹的位置，最后合并生成量产文件；  打开导出的文件夹，我们看下导出的文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_69305.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_63176.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_21572.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_22760.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_98210.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_52314.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_75019.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_57965.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_84595.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_80088.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_71424.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_39477.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_19060.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_79214.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_68822.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_81818.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_33053.png">
+<meta property="article:published_time" content="2020-02-28T09:44:14.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_69305.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-703" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/28/703/" class="article-date">
+  <time class="dt-published" datetime="2020-02-28T09:44:14.000Z" itemprop="datePublished">2020-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何批量下载lua固件
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="本文内容"><a href="#本文内容" class="headerlink" title="本文内容"></a>本文内容</h2><p>介绍一下如何使用 LuaTools 工具生成量产文件，并用夹具批量升级。</p>
+<h2 id="2G模块量产文件脚本合成（Air2xx系列、Air8xx系列）："><a href="#2G模块量产文件脚本合成（Air2xx系列、Air8xx系列）：" class="headerlink" title="2G模块量产文件脚本合成（Air2xx系列、Air8xx系列）："></a>2G模块量产文件脚本合成（Air2xx系列、Air8xx系列）：</h2><ol>
+<li>首先打开LuaTools工具，点击右上方的批量升级按钮，如下图：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_69305.png"></li>
+</ol>
+<p>我们以core-v0038-8955为例，脚本文件以202的demo为例：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63176.png"><br>设置加密lua 的密码，选择导出文件夹的位置，最后合并生成量产文件；</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_21572.png"></p>
+<p>打开导出的文件夹，我们看下导出的文件：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22760.png"></p>
+<p>接下来，我们用量产工具烧录刚刚合并的文件：<br>首先，请准备一个可外接供电的usb-hub（建议选择质量过硬的品牌，这样可以保证下载过程中稳定运行），然后将usb-hub接到电脑上，待电脑自动安装好该usb-hub驱动后，把下载夹具的所有usb线插到usb-hub上，给夹具的的gnd和vbat需要接3.4~4.2v直流供电，以给模块供电；然后将夹具的开关拨到“ON”位置：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_98210.png"></p>
+<p>接下来，打开电脑的“设备管理器”，查看是否发现串口线。如果正确识别，则无需安装驱动。如果出现下图所示的“叹号”，则需要安装串口线PL2303驱动。下载地址：</p>
+<p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/others/batdl.html">http://www.openluat.com/Product/others/batdl.html</a></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_52314.png"><br>成功安装后，电脑端的“设备管理器”即可识别所有的串口线（如果未识别，请检查连线是否正确，驱动有没有装好）。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_75019.jpg"></p>
+<p>下一步，打开“RDA平台lod升级工具”所在目录，把刚刚生成的量产用LOD文件拷贝进去。如果您还没有“RDA平台lod升级工具”呢，请到我们的产品中心（<a target="_blank" rel="noopener" href="http://www.openluat.com/Product%EF%BC%89%E4%B8%8B%E8%BD%BD">http://www.openluat.com/Product）下载</a><br>如图所示，将文件拷贝到该目录（只要是lod文件可以本工具下载，包括LuaDB工具合成或加密合成的lod）<br>注：下图随便以一个lod为举例，用户实际下载的时候需要下载哪个，就放哪个！）：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57965.png"><br>继续，修改config目录下的param.ini文件：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84595.jpg"></p>
+<p>修改lod参数改为将要下载的lod文件的名称，此lod文件即是第一步放到工具软件目录根目录下的那个lod文件：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80088.png"></p>
+<p>修改Auto_restart = true，则下载完成后自动重启模块。只要不为true，则下载完成不重启模块。本参数大小写不敏感。<br>Download_number = 8 可设置一次最多下载数目。<br>双击main.exe，点击“设置”按钮。随后弹出的窗口中，勾选复选框，并选择正确的对应串口（可以从“设备管理器”查看哦）。设置完成后，点击“ok”按钮：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71424.png"></p>
+<p>然后将模块正确的放置在夹具中，使host_tx / host_rx / gnd 和夹具准确接触：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39477.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19060.jpg"></p>
+<p>最后，点击软件的“开始”按钮，就可以愉快的进行批量下载啦！</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_79214.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68822.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_81818.png"><br>如果 param.ini 设置 auto_restart 为非True，直接把模块取下，换上新的模块，软件即可自动开始下载，无需人工干预。</p>
+<h4 id="请注意："><a href="#请注意：" class="headerlink" title="请注意："></a>请注意：</h4><p>1、如果下载过程中出现错误，文本框内会有相应提示：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33053.png"><br>请根据提示进行故障排除。</p>
+<p>2、请尽量使用最新版的 luaTools 生成量产用LOD文件，使用最新版 RDA平台lod升级工具进行批量下载。如果二者不是最新版，则生成的量产用LOD文件可能存在兼容性问题，导致“RDA平台lod升级工具”下载失败，或者出现下载后模块无法正常工作的情况。<br>3、如果更改配置文件param.ini的auto_restart参数为非True时，则无需再点击“开始”按钮，对应串口的模块下载好后，直接手动替换为新的待下载模块，即可自动开始下载。<br>4、外接供电的usb-hub，可以保证下载过程稳定性，避免因usb口供电不足导致的异常情况。<br>5、不同模块间的host_uart不同，所以夹具并不通用，望悉知。<br>6、luaTools、RDA平台lod升级工具、串口线驱动，均可从 <a target="_blank" rel="noopener" href="http://www.openluat.com/Product%E4%B8%8B%E8%BD%BD%E3%80%82">http://www.openluat.com/Product下载。</a><br>7、夹具的vbat和gnd电压应为3.4~4.2v，反接、电压超高可能导致模块烧毁；电压过低则模块无法正常开机下载。<br>8、下载任务进行时，无法关闭软件，只有点击“停止”按钮，才能关闭软件（为防止意外关闭软件，导致下载中断）<br>9、如果模块放入夹具，却始终提示“等待模块放入”，请检查模块摆放是否正确，触点是否接触良好。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/02/28/703/" data-id="ckkfmdgd700auvkcg2pwbhttu" data-title="如何批量下载lua固件" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/28/704/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air系列模块Luat版本如何使用http.request接口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/27/702/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">合宙通信科技招聘信息</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

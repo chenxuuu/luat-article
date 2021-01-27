@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:url" content="https://doc.luatos.wiki/page/42/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-566" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/20/566/" class="article-date">
+  <time class="dt-published" datetime="2019-03-20T04:44:58.000Z" itemprop="datePublished">2019-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/20/566/">Luat使用rc522读写门禁卡(RFID)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="何为rc522"><a href="#何为rc522" class="headerlink" title="何为rc522"></a>何为rc522</h4><p>就是这个东西</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_64003.jpg"></p>
+<h4 id="代码下载和文件说明"><a href="#代码下载和文件说明" class="headerlink" title="代码下载和文件说明"></a>代码下载和文件说明</h4><p>下载地址: <a target="_blank" rel="noopener" href="https://gitee.com/wendal/luat-rc522">https://gitee.com/wendal/luat-rc522</a></p>
+<p>RC522.lua – 驱动程序<br>test.lua  – 测试程序<br>main.lua  – demo的入口</p>
+<h4 id="接线要求"><a href="#接线要求" class="headerlink" title="接线要求"></a>接线要求</h4><table>
+<thead>
+<tr>
+<th>Color</th>
+<th>RC522</th>
+<th>Air202 S6</th>
+<th>func</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>绿</td>
+<td>RST</td>
+<td>GPIO 3</td>
+<td>reset</td>
+</tr>
+<tr>
+<td>红</td>
+<td>3.3v</td>
+<td>-</td>
+<td>额外3.3v供电</td>
+</tr>
+<tr>
+<td>黑</td>
+<td>GND</td>
+<td>GND</td>
+<td>与电源共地</td>
+</tr>
+<tr>
+<td>紫</td>
+<td>MISO</td>
+<td>SPI_DI</td>
+<td>rc522-&gt;air202</td>
+</tr>
+<tr>
+<td>蓝</td>
+<td>MOSI</td>
+<td>SPI_DO</td>
+<td>air202-&gt;rc522</td>
+</tr>
+<tr>
+<td>黄</td>
+<td>SCK</td>
+<td>SPI_CLK</td>
+<td>SPI 时钟</td>
+</tr>
+<tr>
+<td>棕</td>
+<td>SDA</td>
+<td>GPIO 2</td>
+<td>SPI 片选</td>
+</tr>
+</tbody></table>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_46694.jpg"></p>
+<p>注意: 供电必须是3.3v!注意共地!!否则不稳!!</p>
+<h4 id="使用截图"><a href="#使用截图" class="headerlink" title="使用截图"></a>使用截图</h4><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70623.jpg"></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13606.jpg"></p>
+<h4 id="后续思考"><a href="#后续思考" class="headerlink" title="后续思考"></a>后续思考</h4><p>改造期间, 萌生一个想法, 如果能提供esp8622中gpio/tmr/spi的luat适配封装,不就可以极大地扩展luat的驱动范围了?!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/20/566/" data-id="ckkfmdgc6007svkcgc7ow7fbh" data-title="Luat使用rc522读写门禁卡(RFID)" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-565" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/17/565/" class="article-date">
+  <time class="dt-published" datetime="2019-03-17T03:46:26.000Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/17/565/">Air 202 luat 连接阿里云平台 - 进阶（一） - 数据处理（规则引擎）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>刚接触luat&amp;阿里云物联网平台推荐先读一下这三篇：<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/153" title="air202luat二次开发设备接入阿里云（一）">air202luat二次开发设备接入阿里云（一）</a><br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/154" title="air202luat二次开发设备接入阿里云（二）">air202luat二次开发设备接入阿里云（二）</a><br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/156" title="air202luat二次开发设备接入阿里云(三)">air202luat二次开发设备接入阿里云(三)</a></p>
+</blockquote>
+<p>接下来是正文部分，首先假设你已经掌握了将202连接到阿里云平台的能力、将数据发送到云平台的能力。</p>
+<p>本文讲解的主要是在阿里云进行后端处理的部分<br>首先介绍一下规则引擎，简单来说规则引擎就是按一定规则分发物联网平台收集到的数据。和路由的概念很像，是描述阿里云物联网平台收到的数据发送到哪里的。<br>目前数据可以通过规则引擎投递到另一个Topic、表格存储、DataHub、消息服务、云数据库、消息队列、时序时空数据库、函数计算中。<br>这里贴一个<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/68677.html" title="阿里云规则引擎官方文档">阿里云规则引擎官方文档</a></p>
+<h1 id="一、新建规则引擎"><a href="#一、新建规则引擎" class="headerlink" title="一、新建规则引擎"></a>一、新建规则引擎</h1><h2 id="1、登陆阿里云物联网平台，规则引擎-gt-创建规则"><a href="#1、登陆阿里云物联网平台，规则引擎-gt-创建规则" class="headerlink" title="1、登陆阿里云物联网平台，规则引擎-&gt;创建规则"></a>1、登陆阿里云物联网平台，规则引擎-&gt;创建规则</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35986.png" alt="创建规则" title="创建规则"></p>
+<h2 id="2、填写规则名称，这里以JSON通信为例"><a href="#2、填写规则名称，这里以JSON通信为例" class="headerlink" title="2、填写规则名称，这里以JSON通信为例"></a>2、填写规则名称，这里以JSON通信为例</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96754.png"></p>
+<h2 id="3、创建成功后跳转到配置界面"><a href="#3、创建成功后跳转到配置界面" class="headerlink" title="3、创建成功后跳转到配置界面"></a>3、创建成功后跳转到配置界面</h2><p>这里解释一下第一个是物联网平台收到的数据来源，一般为某个Topic类<br>第二个为物联网平台的数据输出方向，这里假设是另一个Topic<br>第三个为物联网平台数据输出出错的时候数据出口，即物联网平台将数据投递到配置的第二个数据目的地失败时，将数据投递到第三个数据目的地（比如投递到另一个Topic出错时投递到日志<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_21742.png"></p>
+<h1 id="二、发布到另一个Topic"><a href="#二、发布到另一个Topic" class="headerlink" title="二、发布到另一个Topic"></a>二、发布到另一个Topic</h1><p>典型场景：某一个用户绑定多个设备，可以直接通信<br>这个功能适用于多个设备对接一个设备通信，或一个设备对一个设备通信</p>
+<h2 id="1、添加”处理数据“"><a href="#1、添加”处理数据“" class="headerlink" title="1、添加”处理数据“"></a>1、添加”处理数据“</h2><p>这里假设我有一个设备端的产品和一个手机端的产品<br>需求为要把设备端的所有产品某个Topic类转发到手机端的Topic中<br>配置图如下：<br><img src="http://doc.openluat.com/apihttp://doc.openluat.com/api/static/editormd/uploads/5_73592.png"><br>这里把上报的JSON当作一个虚拟的表看待，SELECT*代表透传</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">&quot;temperature&quot;</span>:<span class="number">25.1</span></span><br><span class="line"><span class="string">&quot;humidity&quot;</span>:<span class="number">65</span></span><br><span class="line"><span class="string">&quot;pressure&quot;</span>:<span class="number">101.5</span></span><br><span class="line"><span class="string">&quot;location&quot;</span>:<span class="string">&quot;xxx,xxx&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如这里SELECT* 代表四项数据都转发，SELECT temperature 代表只转发temperature，其他三项数据丢弃</p>
+<p>下面的WHERE代表匹配特定的数据，非必填</p>
+<h2 id="2、添加“转发数据”"><a href="#2、添加“转发数据”" class="headerlink" title="2、添加“转发数据”"></a>2、添加“转发数据”</h2><p>注意这里的转发数据是Topic类转到特定设备的Topic<br>也就是多个设备的信息转到单个设备</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85718.png"></p>
+<h2 id="3、启用规则引擎"><a href="#3、启用规则引擎" class="headerlink" title="3、启用规则引擎"></a>3、启用规则引擎</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44251.png"></p>
+<h1 id="三、发布到FC函数计算"><a href="#三、发布到FC函数计算" class="headerlink" title="三、发布到FC函数计算"></a>三、发布到FC函数计算</h1><blockquote>
+<p>函数计算是事件驱动的全托管计算服务。使用函数计算，您无需采购与管理服务器等基础设施，只需编写并上传代码。函数计算为您准备好计算资源，弹性地可靠地运行任务，并提供日志查询、性能监控和报警等功能。借助函数计算，您可以快速构建任何类型的应用和服务，并且只需为任务实际消耗的资源付费。<br>文档连接：<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/52895.html">https://help.aliyun.com/document_detail/52895.html</a></p>
+</blockquote>
+<h2 id="1、添加”处理数据“（同-二-1）"><a href="#1、添加”处理数据“（同-二-1）" class="headerlink" title="1、添加”处理数据“（同 二-1）"></a>1、添加”处理数据“（同 二-1）</h2><p><img src="http://doc.openluat.com/apihttp://doc.openluat.com/api/static/editormd/uploads/5_73592.png"></p>
+<h2 id="2、添加“转发数据”-1"><a href="#2、添加“转发数据”-1" class="headerlink" title="2、添加“转发数据”"></a>2、添加“转发数据”</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15419.png"><br>首次使用需要授权</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_58156.png"><br>跳转到RAM授权页面</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67685.png"><br>授权后配置函数计算（需要提前创建好对接的函数）</p>
+<h2 id="3、配置完成，进行发布"><a href="#3、配置完成，进行发布" class="headerlink" title="3、配置完成，进行发布"></a>3、配置完成，进行发布</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99640.png"></p>
+<blockquote>
+<p>后记：阿里云物联网平台搭配规则引擎可以组装出很多服务，依靠阿里云众多的云产品可以做出功能强大的产品，这是我设计的一个架构图，欢迎大家参考<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39285.png"></p>
+</blockquote>
+<blockquote>
+<p>现学现卖，如果有错误还请大家指出<br>欢迎大家留言一起讨论</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/17/565/" data-id="ckkfmdgc6007rvkcg5qpf3nfg" data-title="Air 202 luat 连接阿里云平台 - 进阶（一） - 数据处理（规则引擎）" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-564" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/06/564/" class="article-date">
+  <time class="dt-published" datetime="2019-03-06T13:10:36.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/06/564/">自己开发微信小程序控制Air202模块（3）烧写程序并测试</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="1、烧写程序"><a href="#1、烧写程序" class="headerlink" title="1、烧写程序"></a>1、烧写程序</h3><p>烧写软件为合宙官方的LuaTools工具，快速下载地址：<br><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/luatools-redirect.html">http://www.openluat.com/Product/file/rda8955/luatools-redirect.html</a><br>打开LuaTools.exe，下载lua脚本<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66745.png"><br>点击下载，然后自动添加库文件，选择第二版库文件LuaTask，然后点确定。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_91553.png"></p>
+<h3 id="2、下载完成后关掉，重启模块"><a href="#2、下载完成后关掉，重启模块" class="headerlink" title="2、下载完成后关掉，重启模块"></a>2、下载完成后关掉，重启模块</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_77057.png"><br>在阿里云物联网平台，设备列表中看到设备处于在线状态，说明模块已经连接上阿里云了。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_74631.png"></p>
+<h3 id="3、在线调试设备"><a href="#3、在线调试设备" class="headerlink" title="3、在线调试设备"></a>3、在线调试设备</h3><p>点击监控运维-&gt;在线调试，选择产品、设备进入在线调试页面。如下图<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_48302.png"><br>选择功能（主灯开关），方法（设置）<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57010.png"><br>将 LightSwitch的状态改为1，发送指令<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24381.png"><br>实施日志中出现云端下发数据，说明阿里云已经将数据下发到<br>/sys/a1sLSgWRLGZ/${deviceName}/thing/service/property/set这个主题下。<br>然后在LuaTools工具中查看设备端的打印日志<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_23035.png"><br>可以看到设备已经接受到了阿里云发过来的数据<br>现在你的LED已经被点亮了<br>然后在阿里云在线调试中将LightSwitch的状态改为0，发送指令，可以看到灯会熄灭。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84154.png"></p>
+<h2 id="到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。"><a href="#到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。" class="headerlink" title="到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。"></a>到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/06/564/" data-id="ckkfmdgc5007qvkcgb2c8colv" data-title="自己开发微信小程序控制Air202模块（3）烧写程序并测试" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-563" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/06/563/" class="article-date">
+  <time class="dt-published" datetime="2019-03-06T12:39:52.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/06/563/">自己开发微信小程序控制Air202模块（2）Air202部分开发</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1、准备材料<br>一个LED灯、一个S5开发板、一个USB-TTL模块<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29185.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_20588.jpg"><br>2、将USB-TTL和S6开发板连接。<br>接线方式如下图<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_98548.png"><br>3、连接LED和开发板。我用的是IO6这个IO口，所以将LED一端接地一端接在IO6。使用普通的LED灯是建议串联一个1K的电阻，防止LED被烧坏。<br>4、编写Air202的程序。<br>main.lua</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">PROJECT = <span class="string">&quot;ALIYUN&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;2.0.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载日志功能模块，并且设置日志输出等级</span></span><br><span class="line"><span class="comment">--如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;sys&quot;</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;net&quot;</span></span><br><span class="line"><span class="comment">--每1分钟查询一次GSM信号强度</span></span><br><span class="line"><span class="comment">--每1分钟查询一次基站信息</span></span><br><span class="line">net.startQueryAll(<span class="number">60000</span>, <span class="number">60000</span>)</span><br><span class="line"><span class="comment">--加载网络指示灯功能模块</span></span><br><span class="line"><span class="comment">--根据自己的项目需求和硬件配置决定：1、是否加载此功能模块；2、配置指示灯引脚</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;netLed&quot;</span></span><br><span class="line">netLed.setup(<span class="literal">true</span>,pio.P1_1)</span><br><span class="line"><span class="comment">--网络指示灯功能模块中，默认配置了各种工作状态下指示灯的闪烁规律，参考netLed.lua中ledBlinkTime配置的默认值</span></span><br><span class="line"><span class="comment">--如果默认值满足不了需求，此处调用netLed.updateBlinkTime去配置闪烁时长</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载错误日志管理功能模块【强烈建议打开此功能】</span></span><br><span class="line"><span class="comment">--如下2行代码，只是简单的演示如何使用errDump功能，详情参考errDump的api</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;errDump&quot;</span></span><br><span class="line">errDump.request(<span class="string">&quot;udp://ota.airm2m.com:9072&quot;</span>)</span><br><span class="line"><span class="comment">--加载阿里云功能测试模块</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;testALiYun&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--启动系统框架</span></span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
+<p>testALiYun.lua</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>(...,<span class="built_in">package</span>.<span class="built_in">seeall</span>)</span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;aLiYun&quot;</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;misc&quot;</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;pm&quot;</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;pins&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> PRODUCT_KEY = <span class="string">&quot;a1sLSgWRLGZ&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">getDeviceName</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;869300031602869&quot;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">setDeviceSecret</span><span class="params">(s)</span></span></span><br><span class="line">    misc.setSn(s)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">getDeviceSecret</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;2wdomNTGLFZCPykcxCUWrEH3c1O8qGs9&quot;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--阿里云客户端是否处于连接状态</span></span><br><span class="line"><span class="keyword">local</span> sConnected</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">---数据接收的处理函数</span></span><br><span class="line"><span class="comment">-- @string topic，UTF8编码的消息主题</span></span><br><span class="line"><span class="comment">-- @number qos，消息质量等级</span></span><br><span class="line"><span class="comment">-- @string payload，原始编码的消息负载</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">rcvCbFnc</span><span class="params">(topic,qos,payload)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testALiYun.rcvCbFnc:&quot;</span>,topic,qos,payload)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">local</span> tjsondata,result,errinfo = json.decode(payload)<span class="comment">---tjsondata数据,result 解析结果 true or false ,errinfo错误信息</span></span><br><span class="line">	key = tjsondata[<span class="string">&quot;params&quot;</span>][<span class="string">&#x27;LightSwitch&#x27;</span>]</span><br><span class="line">	<span class="built_in">log</span>.info(<span class="string">&quot;key:&quot;</span>,key)</span><br><span class="line">	data(key)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">data</span><span class="params">(key)</span></span><span class="comment">--函数在全局中被引用时   不要加local</span></span><br><span class="line">	<span class="keyword">local</span> led1 = pins.setup(pio.P0_6,<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">if</span> key == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">		led1(<span class="number">0</span>)</span><br><span class="line">		<span class="built_in">log</span>.info(<span class="string">&quot;ledon&quot;</span>)</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> key == <span class="number">1</span> <span class="keyword">then</span></span><br><span class="line">		led1(<span class="number">1</span>)</span><br><span class="line">		<span class="built_in">log</span>.info(<span class="string">&quot;ledoff&quot;</span>)</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">--- 连接结果的处理函数</span></span><br><span class="line"><span class="comment">-- @bool result，连接结果，true表示连接成功，false或者nil表示连接失败</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">connectCbFnc</span><span class="params">(result)</span></span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testALiYun.connectCbFnc&quot;</span>,result)</span><br><span class="line">    sConnected = result</span><br><span class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></span><br><span class="line">        <span class="comment">--订阅主题，不需要考虑订阅结果，如果订阅失败，aLiYun库中会自动重连</span></span><br><span class="line">        aLiYun.subscribe(&#123;[<span class="string">&quot;/sys/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName()..<span class="string">&quot;/thing/service/property/set&quot;</span>]=<span class="number">0</span>, [<span class="string">&quot;/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName()..<span class="string">&quot;/get&quot;</span>]=<span class="number">1</span>&#125;)</span><br><span class="line">        <span class="comment">--注册数据接收的处理函数</span></span><br><span class="line">        aLiYun.on(<span class="string">&quot;receive&quot;</span>,rcvCbFnc)</span><br><span class="line">        <span class="comment">--PUBLISH消息测试</span></span><br><span class="line">        publishTest()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 认证结果的处理函数</span></span><br><span class="line"><span class="comment">-- @bool result，认证结果，true表示认证成功，false或者nil表示认证失败</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">authCbFnc</span><span class="params">(result)</span></span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testALiYun.authCbFnc&quot;</span>,result)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gpio4IntFnc</span><span class="params">(msg)</span></span></span><br><span class="line">	<span class="keyword">local</span> beel = pins.setup(pio.P0_2,<span class="number">0</span>)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testGpioSingle.gpio4IntFnc&quot;</span>,msg,getGpio4Fnc())</span><br><span class="line">    <span class="comment">--上升沿中断</span></span><br><span class="line">    <span class="keyword">if</span> msg==cpu.INT_GPIO_POSEDGE <span class="keyword">then</span></span><br><span class="line">    <span class="comment">--下降沿中断</span></span><br><span class="line">		beel(<span class="number">1</span>)</span><br><span class="line">		<span class="built_in">log</span>.info(<span class="string">&quot;ladi,miedeng&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">		beel(<span class="number">0</span>)</span><br><span class="line">		publishTest(LockCloseData)</span><br><span class="line">		<span class="built_in">log</span>.info(<span class="string">&quot;liang&quot;</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--GPIO4配置为中断，可通过getGpio4Fnc()获取输入电平，产生中断时，自动执行gpio4IntFnc函数</span></span><br><span class="line">getGpio4Fnc = pins.setup(pio.P0_4,gpio4IntFnc)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--采用一机一密认证方案时：</span></span><br><span class="line"><span class="comment">--配置：ProductKey、获取DeviceName的函数、获取DeviceSecret的函数；其中aLiYun.setup中的第二个参数必须传入nil</span></span><br><span class="line">aLiYun.setup(PRODUCT_KEY,<span class="literal">nil</span>,getDeviceName,getDeviceSecret)</span><br><span class="line"></span><br><span class="line"><span class="comment">--采用一型一密认证方案时：</span></span><br><span class="line"><span class="comment">--配置：ProductKey、ProductSecret、获取DeviceName的函数、获取DeviceSecret的函数、设置DeviceSecret的函数</span></span><br><span class="line"><span class="comment">--aLiYun.setup(PRODUCT_KEY,PRODUCE_SECRET,getDeviceName,getDeviceSecret,setDeviceSecret)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--setMqtt接口不是必须的，aLiYun.lua中有这个接口设置的参数默认值，如果默认值满足不了需求，参考下面注释掉的代码，去设置参数</span></span><br><span class="line"><span class="comment">--aLiYun.setMqtt(0)</span></span><br><span class="line">aLiYun.on(<span class="string">&quot;auth&quot;</span>,authCbFnc)</span><br><span class="line">aLiYun.on(<span class="string">&quot;connect&quot;</span>,connectCbFnc)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上是两个Air的程序，只需要将里面ProductKey、DeviceName、DeviceSecret修改为自己的即可。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71363.png"><br>5、考虑到有刚接触luat的小伙伴，下面我们简单分析一下代码。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_86127.png"><br>在这一段是我们连接阿里云MQTT后判断返回结果为真的情况下执行的。<br>连接成功后我们需要订阅阿里云MQTT下发的主题，也就是我们上一篇说到的Topic类。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_87557.png"><br>然后我们启动数据接收处理函数<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_77470.png"><br>调用IO口控制函数，并根据参数key的值 0或1 来控制IO6口的高低电平。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53211.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/06/563/" data-id="ckkfmdgc5007pvkcg73xo9lgs" data-title="自己开发微信小程序控制Air202模块（2）Air202部分开发" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-562" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/06/562/" class="article-date">
+  <time class="dt-published" datetime="2019-03-06T12:26:43.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/06/562/">自己开发微信小程序控制Air202模块（1）阿里云平台操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1、注册阿里云账号，登陆阿里云。<br>2、进入物联网云平台创建产品。选择高级版<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_43103.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_72369.png"><br>填写产品信息，分类选择，智能生活/电工照明/灯这个分类。<br>数据格式选择Alink JSON格式。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_73253.png"><br>点击完成后刷新产品列表就可以看到已经有LED远程控制这个产品了。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_69251.png"><br>3、添加设备<br>添加设备时产品选择刚创建的LED远程控制，DeviceName填写Air模块上的IMEI编号。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_83610.png"></p>
+<p>点击确认后弹出设备证书信息。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71678.png"><br>一键复制证书信息，创建一个文本文件暂存一下。<br>ProductKey: a1sLSgWRLGZ<br>DeviceName: 869300031602869<br>DeviceSecret: 2wdomNTGLFZCPykcxCUWrEH3c1O8qGs9<br>4、产品功能定义<br>点击产品-&gt;产品列表中的查看，进入产品详情。<br>点击功能定义，可以看到已经存在的标准功能。这是因为我们在创建产品时选择产品分类为灯，系统自动创建了灯所需要的基本功能。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_64782.png"><br>我们需要用到的功能为  主灯开关。标识符为LightSwitch。可以看出这个功能的数据类型为布尔型，也就是说这个功能接受发送数据都是用0和1。关闭 - 0；开启 - 1<br>4、Topic类列表<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_46128.png"><br>我们这个项目主要就用上图红框内的Topic。<br>这个Topic的作用是对设备进行数据下发。我们设备端需要通过MQTT订阅这个主题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/06/562/" data-id="ckkfmdgc5007ovkcgbvc466r8" data-title="自己开发微信小程序控制Air202模块（1）阿里云平台操作" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-561" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/05/561/" class="article-date">
+  <time class="dt-published" datetime="2019-03-05T13:45:29.000Z" itemprop="datePublished">2019-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/05/561/">自己开发微信小程序控制Air202模块（0）开发前准备</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">本篇总述一下自己开发微信小程序通过阿里云物联网平台来控制</font>Air202<font face="宋体">点亮一盏</font><font face="Calibri">LED</font><font face="宋体">灯的整体流程和开发前所需要准备的东西。</font></span>&nbsp;&nbsp;</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-03-lKIVlZuy5c7e7adb04e06.PNG" class="img-responsive" style="width: 756px;"><span style="text-align: center; font-family: 宋体; font-size: 11pt;"><font face="宋体">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 图</font></span><span style="text-align: center; font-family: 宋体; font-size: 11pt;">1</span></p><p class="MsoNormal"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><b><font face="宋体">下面简单说一下图</font>1<font face="宋体">中的</font><font face="Calibri">4</font><font face="宋体">大部分内容。</font></b></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal"><!--[if !supportLists]--><b><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;">1、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">微信小程序</font></span></b><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">注册一个微信小程序账号，完成个人认证。</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="text-indent:21.0000pt;mso-char-indent-count:0.0000;"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/cgi-bin/loginpage"><u><span class="15" style="font-family: 宋体; color: rgb(0, 0, 255); font-size: 11pt;">https://mp.weixin.qq.com/cgi-bin/loginpage</span></u></a><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">下载微信开发者工具</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="text-indent:21.0000pt;mso-char-indent-count:0.0000;"><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html?t=19030416"><u><span class="15" style="font-family: 宋体; color: rgb(0, 0, 255); font-size: 11pt;">https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html?t=19030416</span></u></a><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">开发如图界面，显示设备的</font>IMEI<font face="宋体">编号，并且做一个控制开关的按钮。微信小程序通过按钮点击事件将设备</font><font face="Calibri">IMEI</font><font face="宋体">号和按钮携带的状态通过</font><font face="Calibri">GET</font><font face="宋体">请求发送到自己的服务器。</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="text-indent:21.0000pt;mso-char-indent-count:0.0000;"><a target="_blank" rel="noopener" href="https://youadmin.com/kaiguan.php?imei=xxxxxx&amp;status=1"><span class="15" style="mso-spacerun:'yes';font-family:宋体;color:rgb(0,0,255);font-size:11.0000pt;background:rgb(255,255,0);mso-highlight:rgb(255,255,0);">https://youadmin.com/kaiguan.php?imei=xxxxxx&amp;status=1</span></a><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;background:rgb(255,255,0);mso-highlight:rgb(255,255,0);"><o:p></o:p></span></p><p class="MsoNormal" style="margin-left:0.0000pt;mso-para-margin-left:0.0000gd;text-indent:0.0000pt;mso-char-indent-count:0.0000;mso-list:l0 level1 lfo1;"><!--[if !supportLists]--><b><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;">2、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">个人服务器</font></span></b><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="mso-para-margin-left:0.0000gd;text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">我自己用的是</font>Win2012<font face="宋体">的服务器，安装的是宝塔面板（</font><font face="Calibri">Apache+php5.6+MySQL</font><font face="宋体">）。个人服务器这边可以理解为作为一个站点使用，所以说选择什么系统都可以。服务器软件的话建议直接用宝塔，一键安装，操作简单。</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="mso-para-margin-left:0.0000gd;text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">另外需要有一个备案过的域名，因为在个人服务器与微信小程序交互时微信规定必须要用</font>https<font face="宋体">协议。也就是说站点要部署</font><font face="Calibri">https</font><font face="宋体">证书。之所以推荐使用宝塔搭建服务器环境，有一点非常重要的原因就是宝塔支持一键部署</font><font face="Calibri">https</font><font face="宋体">证书，这个部署还是能省些时间的。</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="margin-left:0.0000pt;mso-para-margin-left:0.0000gd;text-indent:0.0000pt;mso-char-indent-count:0.0000;mso-list:l0 level1 lfo1;"><!--[if !supportLists]--><b><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;">3、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">阿里云物联网云平台</font></span></b><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="mso-para-margin-left:0.0000gd;text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">创建好相应的产品和设备，这个是必须的。这个过程不明白的可以参考论坛</font>“如果能编程回忆”大佬写的《</span><a target="_blank" rel="noopener" href="http://oldask.openluat.com/people/373"><u><span class="15" style="font-family: 宋体; color: rgb(0, 0, 255); font-size: 11pt;">air202luat<font face="宋体">二次开发设备接入阿里云</font></span></u></a><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">》。这篇教程写的很详细，后面就不再写这部分内容了。</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="mso-para-margin-left:0.0000gd;text-indent:21.0000pt;mso-char-indent-count:0.0000;"><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><font face="宋体">另外我们需要在阿里云获取自己的</font>accessKeyId <font face="宋体">和</font><font face="Calibri">accessSecret</font><font face="宋体">。后面我们会写怎么创建</font><font face="Calibri">AccessKey</font><font face="宋体">获取</font><font face="Calibri">accessKeyId </font><font face="宋体">和</font><font face="Calibri">accessSecret</font><font face="宋体">。</font></span><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;"><o:p></o:p></span></p><p class="MsoNormal" style="margin-left:0.0000pt;mso-para-margin-left:0.0000gd;text-indent:0.0000pt;mso-char-indent-count:0.0000;mso-list:l0 level1 lfo1;"><!--[if !supportLists]--><b><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;">4、</span><!--[endif]--><span style="mso-spacerun:'yes';font-family:宋体;mso-ascii-font-family:Calibri;mso-hansi-font-family:Calibri;mso-bidi-font-family:'Times New Roman';font-size:11.0000pt;mso-font-kerning:1.0000pt;">Air202<font face="宋体">模块的开发</font></span></b><font face="宋体" style="font-family: 宋体; font-size: 11pt; text-indent: 21pt;">议参考</font><span style="font-family: 宋体; font-size: 11pt; text-indent: 21pt;">3</span><font face="宋体" style="font-family: 宋体; font-size: 11pt; text-indent: 21pt;">中推荐的教程。</font></p><p class="MsoNormal"><span style="font-family: 宋体; font-size: 10.5pt; background-color: rgb(255, 0, 0);"><o:p style="">&nbsp;准备清单：</o:p></span><img src="http://oldask.openluat.com/image/show/attachments-2019-03-9MLEvH795c7e7b28b7817.PNG" class="img-responsive" style="width: 229.5px;"></p><p class="MsoNormal"><br></p><p class="MsoNormal">后面会详细得写个部分的具体操作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/05/561/" data-id="ckkfmdgc4007nvkcg2pzr51jv" data-title="自己开发微信小程序控制Air202模块（0）开发前准备" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-560" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/05/560/" class="article-date">
+  <time class="dt-published" datetime="2019-03-05T03:15:03.000Z" itemprop="datePublished">2019-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/05/560/">Air202远程升级——小白都会的</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>经过一晚上的琢磨，终于弄懂了air202的升级流程，特别感谢合宙官方群里的各位大佬（Luat_答疑君_Delectate）指点，都晚上10点了还在为用户解答，感动。。。有需要的自行下载吧，若不方便可以去群里下载，已经上传到群文件了。QQ群：604902189</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/05/560/" data-id="ckkfmdgc4007mvkcg7srxhgjt" data-title="Air202远程升级——小白都会的" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-559" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/04/559/" class="article-date">
+  <time class="dt-published" datetime="2019-03-04T13:56:29.000Z" itemprop="datePublished">2019-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/04/559/">dtu阿里云设备影子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>阿里云支持设备影子开发，可以参考<a href="https://help.aliyun.com/document_detail/53930.html?spm=a2c4g.11186623.6.628.14467434isHbuI" target="_blank">传送门</a>，我这里只演示一下如何使用。</p><p>1，新建产品</p><p>这次我们直接新建一个基础版就可以</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-8BG3IKCj5c7d2af6bec69.png" style="width: 307px;" class="img-responsive"></p><p>2，配置dtu</p><p>这次订阅主题比较特别不在设备的topic里而是文档说明里</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-1591lqSU5c7d2d582ff33.png" style="width: 419px;" class="img-responsive">也就是这样</p><p>/shadow/update/a1JvMM3l4n0/${deviceName}</p><p>/shadow/get/a1JvMM3l4n0/${deviceName}</p><p>根据自己的改一下</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-7ZdxvGrf5c7d2d938e036.png" style="width: 467px;" class="img-responsive">3，测试</p><p>测试影子json</p><p></p><p>{</p><p>&nbsp; "method": "update",&nbsp;</p><p>&nbsp; "state": {</p><p>&nbsp; &nbsp; "reported": {</p><p>&nbsp; &nbsp; &nbsp; "color": "blue"</p><p>&nbsp; &nbsp; }</p><p>&nbsp; },&nbsp;</p><p>&nbsp; "version": 3</p><p>}</p><p>注意version必须比前一次你发送的大，不然不更新</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-tjps2oIf5c7d2dfdb51d0.png" style="width: 353.5px;" class="img-responsive"></p><p>发送，并收到云端回复</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-IhsdM9ol5c7d2e5535e3f.png" style="width: 353.5px;" class="img-responsive">获取当前影子状态。</p><p>4，总结</p><p>影子比较简单</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/04/559/" data-id="ckkfmdgc4007lvkcgh3y30n3y" data-title="dtu阿里云设备影子" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-558" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/04/558/" class="article-date">
+  <time class="dt-published" datetime="2019-03-04T13:35:29.000Z" itemprop="datePublished">2019-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/04/558/">dtu阿里云自定义透传</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>由于控制dtu的单片机可能是非常便宜功能很弱，所以对json这种格式解析可能比较费劲，所以阿里云在高级版中为客户提供了自定义格式的数据透传解析服务。用户可以方便的使用十六进制等数据格式上传，由于我们的dtu可以方便的实现对阿里云的透传，所以开发起来也很简单。</p><p>1，阿里云新建产品</p><p>为了和以前的功能统一这次还是用的自定义，大家可以根据需要自己选择，重要的是数据格式一定要选择自定义透传。</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-E4MWBEkQ5c7d171f5fe4f.png" style="width: 305px;" class="img-responsive"></p><p>添加功能</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-eamDN1KV5c7d2353cb889.png" style="width: 555.5px;" class="img-responsive">编写解析脚本</p><pre>var COMMAND_REPORT = 0x00;
+var COMMAND_SET = 0x01;
+var ALINK_PROP_REPORT_METHOD = 'thing.event.property.post'; //标准ALink JSON格式topic， 设备 上传属性数据到 云端
+var ALINK_PROP_SET_METHOD = 'thing.service.property.set'; //标准ALink JSON格式topic， 云端 下发属性控制指令 到设备端
+
+
+<pre><code>function rawDataToProtocol(bytes) &#123;
+    var uint8Array = new Uint8Array(bytes.length);
+    for (var i = 0; i &amp;lt; bytes.length; i++) &#123;
+        uint8Array[i] = bytes[i] &amp;amp; 0xff;
+    &#125;
+    var dataView = new DataView(uint8Array.buffer, 0);
+    var jsonMap = new Object();
+    var fHead = uint8Array[0];
+    if (fHead == COMMAND_REPORT) &#123;
+        jsonMap[&#39;method&#39;] = ALINK_PROP_REPORT_METHOD;
+        jsonMap[&#39;version&#39;] = &#39;1.0&#39;;
+        jsonMap[&#39;id&#39;] = &#39;&#39; + dataView.getInt32(1);
+        var params = &#123;&#125;;
+        params[&#39;LightVolt&#39;] = dataView.getInt32(5);
+        params[&#39;PowerSwitch&#39;] = uint8Array[9];
+        jsonMap[&#39;params&#39;] = params;
+    &#125;
+    return jsonMap;
+&#125;
+</code></pre>
+<p>function protocolToRawData(json) {<br>        var method = json[‘method’];<br>        var id = json[‘id’];<br>        var version = json[‘version’];<br>        var payloadArray = [];<br>        if (method == ALINK_PROP_SET_METHOD)<br>        {<br>            var params = json[‘params’];<br>            var prop_int32 = params[‘LightVolt’];<br>            var prop_bool = params[‘PowerSwitch’];<br>            //按照自定义协议格式拼接 rawdata<br>            payloadArray = payloadArray.concat(buffer_uint8(COMMAND_SET));<br>            payloadArray = payloadArray.concat(buffer_int32(parseInt(id)));<br>            payloadArray = payloadArray.concat(buffer_int32(parseInt(prop_int32)));<br>            payloadArray = payloadArray.concat(buffer_uint8(prop_bool));<br>        }<br>        return payloadArray;<br>    }</p>
+<p>//以下是部分辅助函数<br>function buffer_uint8(value) {<br>    var uint8Array = new Uint8Array(1);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setUint8(0, value);<br>    return [].slice.call(uint8Array);<br>}<br>function buffer_int16(value) {<br>    var uint8Array = new Uint8Array(2);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setInt16(0, value);<br>    return [].slice.call(uint8Array);<br>}<br>function buffer_int32(value) {<br>    var uint8Array = new Uint8Array(4);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setInt32(0, value);<br>    return [].slice.call(uint8Array);<br>}<br>function buffer_float32(value) {<br>    var uint8Array = new Uint8Array(4);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setFloat32(0, value);<br>    return [].slice.call(uint8Array);<br>}</pre><p>脚本是根据功能编写的，具体方法可以看<a href="https://help.aliyun.com/document_detail/68702.html?spm=5176.11485173.0.0.7f6759afVdQ5Gi" target="_blank">传送门</a>，脚本有不明白或需要帮助可以私信我，也可以在dtu群里问我（dtu群名片和在这里的网名一样）。</p><p>2，配置dtu</p><p>这次我们用到的topic和以前不同，上面给出的链接中有具体说明，看我们的产品，我们需要的是这两个topic</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-sq7NmytU5c7d24af5d0d0.png" style="width: 542px;" class="img-responsive">和以前配置方法一样，修改参数保存即可</p><p>3，测试上传</p><p>先发一个初始数据000320f2e30000000001（注意使用十六进制发送）</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-vWIQdB4w5c7d25254f84d.png" style="width: 351px;" class="img-responsive"></p><p>阿里云状态变更</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-wggcYLBT5c7d2761db893.png" style="width: 318px;" class="img-responsive"></p><p>上报一条新的000320f2e30000000500</p><p>状态立即更新</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-ZFEtqOWB5c7d27ce322ef.png" style="width: 331.5px;" class="img-responsive"></p><p>4，测试下发</p><p>找到运维监控，在线调试，我们模拟下发一条指令</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-wsWNQdYl5c7d28327843f.png" style="width: 646px;" class="img-responsive">设备端（注意：记得选择十六进制显示不然是乱码）</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-W0JOgpeP5c7d2858882c9.png" style="width: 352.5px;" class="img-responsive">设置电源为1，发送</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-0G1mALJj5c7d289ea1875.png" style="width: 225px;" class="img-responsive"></p><p>设备</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-IXzI7pH75c7d28c280c29.png" style="width: 353.5px;" class="img-responsive">5，总结</p><p>自定义透传可以灵活的使用单片机组织报文，通过阿里云脚本进行解析，减小了设备端压力，方便了开发。同时使用16进制报文极大的减小了流量开支，只需要以前十分之一甚至百分之一的流量，降低了成本。</p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/04/558/" data-id="ckkfmdgc3007kvkcgab4edazb" data-title="dtu阿里云自定义透传" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-557" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/03/04/557/" class="article-date">
+  <time class="dt-published" datetime="2019-03-04T11:18:59.000Z" itemprop="datePublished">2019-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/03/04/557/">dtu连接阿里云发送数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <pre><code>                        &lt;p&gt;用dtu固件可以方便的实现快速接入阿里云实现数据透传，稀饭放姜大神已经视频演示了如何使用，我这里根据实际项目演示一下如何上报数据。&lt;/p&gt;&lt;p&gt;1，首先按照教程刷好dtu固件，并在dtu的网页上添加好设备（当然你也可以用软件配置）&lt;/p&gt;&lt;p&gt;2，在阿里云新建产品，我这里就用以前演示luat连接阿里云的产品演示，建立过程可以看以前的文章&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-ic7BIpG85c7d035f9061a.png&quot; style=&quot;width: 543px;&quot; class=&quot;img-responsive&quot;&gt;可以看到我们添加的功能类型为属性，所以我们会用的这个两个topic，这里请根据自己项目实际选择&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-MuLRRDSB5c7d03e0859a9.png&quot; style=&quot;width: 543px;&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;3，配置dtu平台&lt;/p&gt;&lt;p&gt;根据刚才解释和稀饭大神教程这里配置就很简单了。&lt;span style=&quot;background-color: rgb(206, 198, 206);&quot;&gt;（注释：qos建议选择1，因为阿里云仅支持对qos1消息内容查询，查询消息可以帮助修改开发过程中的错误）&lt;/span&gt;此处失效，现在都可以查询&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-CuAe3L325c7d0484b4253.png&quot; style=&quot;width: 467.5px;&quot; class=&quot;img-responsive&quot;&gt;确定保存，然后重启一下设备，就可以连接阿里云了。&lt;/p&gt;&lt;p&gt;4，上传数据&lt;/p&gt;&lt;p&gt;组织报文，以前文章介绍过，我们需要的报文如下&lt;/p&gt;&lt;p&gt;&#123;&quot;id&quot;:&quot;1&quot;,&quot;version&quot;:&quot;1.0&quot;,&quot;method&quot;:&quot;thing.event.property.post&quot;,&quot;params&quot;:&#123;&quot;PowerSwitch&quot;:0,&quot;LightVolt&quot;:4.086&#125; &#125;&lt;/p&gt;&lt;p&gt;打开串口调试助手，配置成你dtu平台设置的波特率等参数，发送这条组织好的报文即可。（注意：这里用的是串口不是host口注意接线）&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-kBrRidib5c7d0937cdeec.png&quot; style=&quot;width: 353.5px;&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;回到阿里云，我们可以看到数据更新成功&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-k2Qeb8oR5c7d096b1c0ea.png&quot; style=&quot;width: 344px;&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/03/04/557/" data-id="ckkfmdgc2007jvkcg1aaegj35" data-title="dtu连接阿里云发送数据" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/41/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/page/43/">43</a><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/43/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

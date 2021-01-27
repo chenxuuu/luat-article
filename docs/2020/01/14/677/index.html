@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>合宙2G、4G模块供电、取电杂谈 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="##写在最前面 最近受合宙技术社区管理员Delectate之邀写一篇关于如何正确给合宙模块供电以及如何从模块正常取电的文章。 这的确是合宙物联网模块新手经常遇到的一个头疼问题，甚至很多合宙的大客户在量产后因为物料，生产工艺以及使用环境发生变化时也能遭遇麻烦。所以对于供电问题的深入分析非常有必要。 其实另一位社区专家稀饭放姜老师是这方面的高手，他在Bilibili站也有专门的电源设计视频讲解的很详细">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合宙2G、4G模块供电、取电杂谈">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/01/14/677/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="##写在最前面 最近受合宙技术社区管理员Delectate之邀写一篇关于如何正确给合宙模块供电以及如何从模块正常取电的文章。 这的确是合宙物联网模块新手经常遇到的一个头疼问题，甚至很多合宙的大客户在量产后因为物料，生产工艺以及使用环境发生变化时也能遭遇麻烦。所以对于供电问题的深入分析非常有必要。 其实另一位社区专家稀饭放姜老师是这方面的高手，他在Bilibili站也有专门的电源设计视频讲解的很详细">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_87127.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_13680.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_80096.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_34167.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_62320.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_13436.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_70104.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_52095.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_15992.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_84180.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_99831.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_57222.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_80713.jpg">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_79240.jpg">
+<meta property="article:published_time" content="2020-01-13T16:14:24.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_87127.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-677" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/14/677/" class="article-date">
+  <time class="dt-published" datetime="2020-01-13T16:14:24.000Z" itemprop="datePublished">2020-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      合宙2G、4G模块供电、取电杂谈
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>##写在最前面</p>
+<p>最近受合宙技术社区管理员Delectate之邀写一篇关于如何正确给合宙模块供电以及如何从模块正常取电的文章。 这的确是合宙物联网模块新手经常遇到的一个头疼问题，甚至很多合宙的大客户在量产后因为物料，生产工艺以及使用环境发生变化时也能遭遇麻烦。所以对于供电问题的深入分析非常有必要。 其实另一位社区专家稀饭放姜老师是这方面的高手，他在Bilibili站也有专门的电源设计视频讲解的很详细。 毕竟已经答应了大佬的要求，不得不就硬着头写一下，但这方面我确实知识有限，所以只能给遇到问题的初学者写篇抛砖引玉的文章，算共同探讨解决问题的思路吧。</p>
+<p>##模块供电要求</p>
+<p>遇事不决先看硬件说明书，这是Delectate在进行社区网友技术辅导时候的一句口头禅。 做电源设计也不例外，硬件手册里一个最基本的部分就是供电，供电是模块稳定工作的大前提。 是一款优秀电路设计的根基。 以合宙最新出品的4G全网通模块Air720SL为例</p>
+<h3 id="Air720SL-供电要求"><a href="#Air720SL-供电要求" class="headerlink" title="Air720SL 供电要求"></a>Air720SL 供电要求</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_87127.jpg"><br>硬件文档中明确指出4G模块的供电电压范围为3.3-4.3V，且在突发模式下的最大负载电流有1.8A，考虑到电路除了模块以外，还有其余的外围电路，因此输入电源至少需要有2A的余量才能保证电路的正常工作，这一点是需要格外注意的。</p>
+<h3 id="Air202-F-供电要求"><a href="#Air202-F-供电要求" class="headerlink" title="Air202(F) 供电要求"></a>Air202(F) 供电要求</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13680.jpg"></p>
+<p>对于2G模块，供电电压范围比4G模块稍窄为3.4V-4.2V，突发模式下的最大负载电流为1.6A，比4G模块稍低，但也差不许多，输入电源同样建议有2A的余量。</p>
+<p>##供电设计常见误区</p>
+<p>一般认为5V 2A是驱动模块的最低电源要求，但就有的设计者为了节约成本自作聪明使用1A甚至更小功率的开关电源驱动模块，测试时也没发现问题，但是这样做是有极大风险的，原因如下：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80096.jpg"></p>
+<p>1）模块的PA（射频功放）的发射功率是一个可变值，因此不同的基站信号强度下（主要看设备天线质量和距离基站的距离）耗电量差别很大。所以实验室没有问题，在现场恶劣的环境中往往就不行了。 因为弱信号下，模块突发耗电量增高了几倍。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_34167.jpg"></p>
+<p>2）另一些工程师知道PA的大电流往往是突发模式下，于是就采用加大电容的方式进行补偿，常见的是使用1000uF的铝电解电容，希望可以弥补小功率电源的不足。但是这样做虽然有帮助，但作用有限，因为电解电容的ESR不够。 以1000uF 6.3V电容为例，ESR大约为0.2Ohm，当PA发射的时候假定模块Sink电流为1.5A，而外部电源一时跟不上供电，而靠电容放电维持工作，那么仅电容内阻带来的压降就有0.3V，再加上周边的走线电阻，模块极容易重启。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62320.jpg"></p>
+<p>3）过流保护，开关电源当过载时，高频磁芯会饱和形成短路烧毁初级震荡管，因此大多数DC-DC芯片都有过流检测，确保在电流超过供电需求时切断电源或限流进行保护。这更加恶化了模块供电，相当于直接切断了供电，而电容的蓄能是不可能维持模块工作的，因此导致模块掉电重启。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13436.jpg"></p>
+<p>##正确的供电方法</p>
+<p>如何给模块供电的问题，硬件说明书同样给出了便利的两种解决方案，我仅举例最常见的JW5033S 开关型DC-DC电源电路为例，因为这款电路使用率最高。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70104.jpg"><br>这款电路虽然看起来比较简单，但是由于工作在500KHz以上的频率，因此走线稍不小心就会导致寄生振荡，使电路失效，此处建议可以参考稀饭放姜的Layout设计，他在iRTU群的群文件里开源了，群号为：952343033。 当然您也可以参考JW5033的官方建议layout，参考设计书在文末附件中。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_52095.jpg"></p>
+<p>通常为了保险起见，我会在DC_IN和VBAT上再额外并联一个100uF的钽电容，以提高电源的瞬态响应能力。 外部输入电源5V-15V，功率不低于10W，这样做就比较可靠了。</p>
+<p>##好消息</p>
+<p>如果您觉得自己动手进行高频布线比较麻烦，或者是工期紧张不想尝试高风险电路设计，好消息来了。我刚刚从合宙消息灵通人士那得知合宙原厂正在试产一款采用TO-252封装的DC-DC模块。产品使用非常简单，和我们常用的最简单的三端稳压器 7805，1117等完全相同，可以直接代替上面的DC-DC电路：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15992.jpg"></p>
+<p>模块的原图图如下：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84180.jpg"></p>
+<p>对比上面的复杂电路，是不是顿时感觉清爽了许多。 据称这款模块的最大工作电流为2A，完全符合合宙2G、4G通讯模块使用，另外还提供从3.3V-5V的几档不同输入电压的子型号，这款模块听说马上就要面世了，和我一起期待吧。<br>##如何取电</p>
+<p>使用模块的时候，我们为了和内外部IO口进行电平转换，总需要一些常见的电压，比如1.8V，3.3V等，很多人为了安全起见往往会额外的使用LDO来实现，这样做肯定是最安全的，其实模块本身也提供一些自带的小电流电压输出端口供用户使用，下面我做一简要介绍。</p>
+<p>###4G模块取电</p>
+<p>目前Air720SL由于固件能力所限，所有的IO口仅支持1.8V电平，因此无论是UART，I2C 如果和外部3.3V电平进行匹配都需要有 1.8V和3.3V 的供电，幸运的是模块本身都有提供,1.8V可以从V_GLOBAL_1V8取得，3.3V可以从GPLDO6取得，目前V008版本固件GPLDO6为3.15V，使用软件指令可以打开使用  Luat指令为：[pmd.ldoset(3,pmd.VLDO6)] ，当3.3V输入使用基本没问题。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99831.jpg"></p>
+<p>###2G模块取电</p>
+<p>Air202(F)的IO口为2.8V电平，本身可以兼容3.3V电平的UART，I2C外部设备。 模块也提供了一个小功率的2.8V 10mA的LDO可以给外部供电，可以用于对IO口进行上拉，下拉驱动按钮开关之用。 使用时要格外小心，不要超过额定负载，否则会牵连内部IO参考电位，带来模块的异常重启。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57222.jpg"></p>
+<p>##用二极管降压是否可行</p>
+<p>很多机智无比的工程师发现硅二极管的压降为0.6-1V，用5V供电时，恰好可以把5V电压降压到4-4.4V，基本落在模块的正常工作电压范围内，这样是否可行呢。答案是可行，也不可行，因为要分情况。 以常见的1N4007为例，他的V-A曲线如下，请看第2条常温线。 100mA时，压降为0.7V，1.5A时，压降为1V，二极管因为工作电流不同带来的电压波动约为0.3V，因此：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80713.jpg"></p>
+<ol>
+<li>用作烧写程序，可行！ 因为烧写模块时，仅有AP数字电路是工作的，PA属于截止状态，工作电流在烧写过程中变化不太大，一般来说都能正常完成模块烧写。</li>
+</ol>
+<p>2） 用来驱动模块日常工作，不可行！ 前面讲到，因为突发传输时PA的功耗较大，且功率随信号强度波动很大，如果用二极管降压，会造成模块电压的极大波动，这种波动即使不低于模块的最低工作电压，仍然会导致模块重启，造成这种的原因虽然不清楚，但实验证明是屡有发生的。因此 正常的生产环境，模块必须配备足功率的DC-DC或LDO电路才能保证模块正常工作。</p>
+<p>##用电脑的USB口给模块供电行不行</p>
+<p>实话说，我大多数时候其实就是用USB口给模块供电完成调试的，因为我的笔记本USB口的输出电流为1A，且能承受一定的短期超载。 其实PC机USB接口的spec规定USB口输出电压为4.75-5.25V，最大输出电流为500mA。 所以在很多设计余量不足的电脑上使用USB口供电就会遇到问题，幸运的是在4G的开发板上通常预留了两个microUSB接口，可以一个接电脑，一个接外部的5V 2A电源，就比较可靠了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_79240.jpg"></p>
+<p>对于2G的开发板，或者您打算使用实验开关电源对4G开发板进行供电，可以利用板载的5V插针外接电源，效果是一样的。</p>
+<p>除此之外还有一招，如果您无论怎么供电都发现模块没法正常被识别，也许是U口的问题。建议不要使用PC台式机前置USB连接模块，因为机箱内部的USB传输电缆往往引入额外的压降和干扰从而使模块无法工作通信，换到后置主板上的USB口往往能解决。</p>
+<p>希望这篇文章能帮助您和我自己在今后的开发中少一些电源方面的麻烦，发挥出合宙模块的优秀性能来实现您自己的项目产出。 祝您项目顺利，开发愉快。</p>
+<p>##参考资料</p>
+<p>JW5033 Datasheet及设计参考手册：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PnswaQ6QItQeh3BXpAa0-w">https://pan.baidu.com/s/1PnswaQ6QItQeh3BXpAa0-w</a> 提取码：ybea</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/01/14/677/" data-id="ckkfmdgd100a9vkcg3yq9hoil" data-title="合宙2G、4G模块供电、取电杂谈" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/16/678/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（上）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/11/676/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">淘宝夹子报警器上仿冒合宙Air202E模块的研究</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

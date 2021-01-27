@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>16-GPRS(Air202)关于多个文件中的变量调用和定时器 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;9968405.html因为自己看到好多问多个文件调用的，感觉这个应该说一说对了大家有没有知道这个是干什么的  大家有没有看这篇 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;8965054.html  实际上，这是lua5.几新加的功能，就是为了省掉那些复杂的程序 我又新建了一个test1 让t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="16-GPRS(Air202)关于多个文件中的变量调用和定时器">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/11/16/519/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;9968405.html因为自己看到好多问多个文件调用的，感觉这个应该说一说对了大家有没有知道这个是干什么的  大家有没有看这篇 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;yangfengwu&#x2F;p&#x2F;8965054.html  实际上，这是lua5.几新加的功能，就是为了省掉那些复杂的程序 我又新建了一个test1 让t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116120328901-1201668191.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121714216-1685429603.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121822639-376781727.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121850593-536036969.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121910980-549174039.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122031082-217030848.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122438267-1815429834.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122500702-2127457306.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122524787-397614200.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116123246760-1127464719.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116123724108-2106155558.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116124024504-352871770.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116124600457-676233806.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116124842626-571652364.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125048080-183125620.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125252917-502463381.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125624701-1593285949.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125731771-1001588373.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116130402717-913490466.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116130416385-1234623441.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="article:published_time" content="2018-11-16T07:16:49.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.362Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116120328901-1201668191.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-519" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/16/519/" class="article-date">
+  <time class="dt-published" datetime="2018-11-16T07:16:49.000Z" itemprop="datePublished">2018-11-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      16-GPRS(Air202)关于多个文件中的变量调用和定时器
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><a href="https://www.cnblogs.com/yangfengwu/p/9968405.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/9968405.html</a></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">因为自己看到好多问多个文件调用的，感觉这个应该说一说</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">对了大家有没有知道这个是干什么的</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116120328901-1201668191.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">大家有没有看这篇 <a href="https://www.cnblogs.com/yangfengwu/p/8965054.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/8965054.html</a></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">实际上，这是lua5.几新加的功能，就是为了省掉那些复杂的程序</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">我又新建了一个test1</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121714216-1685429603.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">让test  调用 test1里面的一个变量</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121822639-376781727.png" alt="" style="max-width: 900px; height: auto;">    <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121850593-536036969.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116121910980-549174039.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">下载进去</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122031082-217030848.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">注意哈，这样是不允许的，再用test1请求test文件，然后调用test里面的值</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122438267-1815429834.png" alt="" style="max-width: 900px; height: auto;">  <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122500702-2127457306.png" alt="" style="max-width: 900px; height: auto;">    <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116122524787-397614200.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">如果想这样做，其实可以再做一个文件哈，里面放一个变量，然后test和test1都可以请求这个文件并操作这个变量</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">现在看定时器</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116123246760-1127464719.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">我这里就直接说啦  </span><span style="font-size: 18pt;">一次性的定时器（执行一遍就完）(不带ID)</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><div class="cnblogs_code" style="background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: "Courier New" !important; font-size: 12px !important;"><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div><pre style="margin-bottom: 0px; font-family: "Courier New" !important; font-size: 12px !important;"><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">module(...,package.seeall)
+
+<p></span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">[[<br>函数名：print<br>功能  ：打印接口，此文件中的所有打印都会加上test前缀<br>参数  ：无<br>返回值：无<br>]]<br>local function print(…)<br>    _G.print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">test</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">,…)<br>end</p>
+<p>local function Timer1()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">一次的定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>end</p>
+<p>sys.timer_start(Timer1,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">10000</span>)//延时10S调用Timer1函数</pre><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">下载看看</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116123724108-2106155558.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">一次性的不需要关闭，因为是自己关闭</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">然后来个循环的</span></p>&lt;div class=”cnblogs_code” style=”background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div>&lt;pre style=”margin-bottom: 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">module(…,package.seeall)</p>
+<p></span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">[[<br>函数名：print<br>功能  ：打印接口，此文件中的所有打印都会加上test前缀<br>参数  ：无<br>返回值：无<br>]]<br>local function print(…)<br>    _G.print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">test</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">,…)<br>end</p>
+<p>local function Timer1()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">一次的定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>end</p>
+<p>sys.timer_start(Timer1,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">10000</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>local function Timer2()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>end</p>
+<p>sys.timer_loop_start(Timer2,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span>)</pre><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116124024504-352871770.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> 现在用一个变量在里面加一，加到5停止这个定时器</p>&lt;div class=”cnblogs_code” style=”background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div>&lt;pre style=”margin-bottom: 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">module(…,package.seeall)</p>
+<p></span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">[[<br>函数名：print<br>功能  ：打印接口，此文件中的所有打印都会加上test前缀<br>参数  ：无<br>返回值：无<br>]]<br>local function print(…)<br>    _G.print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">test</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">,…)<br>end</p>
+<p>local function Timer1()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">一次的定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>end</p>
+<p>sys.timer_start(Timer1,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">10000</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>local cnt</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>local function Timer2()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    cnt=cnt+1<br>    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span>  cnt&gt;=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">5</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> then<br>        cnt</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>        sys.timer_stop(Timer2)</span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">直接填入函数停止<br>        print(“这个是循环定时器，没有ID，现在停止”)<br>    end<br>end</p>
+<p>sys.timer_loop_start(Timer2,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span>)</pre><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116124600457-676233806.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">现在说带ID的，可以看一下</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116124842626-571652364.png" alt="" style="max-width: 900px; height: auto;"></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p>&lt;div class=”cnblogs_code” style=”background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div>&lt;pre style=”margin-bottom: 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">module(…,package.seeall)</p>
+<p></span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">[[<br>函数名：print<br>功能  ：打印接口，此文件中的所有打印都会加上test前缀<br>参数  ：无<br>返回值：无<br>]]<br>local function print(…)<br>    _G.print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">test</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">,…)<br>end</p>
+<p>local function Timer1()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">一次的定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>end</p>
+<p>sys.timer_start(Timer1,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">10000</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>local cnt</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>local function Timer2()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    cnt</span>=cnt+<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span><br>    <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span>  cnt&gt;=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">5</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> then<br>        cnt</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>        sys.timer_stop(Timer2)</span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">直接填入函数停止<br>        print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，没有ID，现在停止</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    end<br>end</p>
+<p>sys.timer_loop_start(Timer2,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>local cnt1</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>local function Timer3()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    cnt1</span>=cnt1+<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span><br>    <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span>  cnt1&gt;=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">5</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> then<br>        cnt1</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>        sys.timer_stop(</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>)–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">直接填入函数停止<br>        print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，有ID，现在停止</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    end<br>end</p>
+<p>sys.timer_loop_start(Timer3,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span>,<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>)</pre><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125048080-183125620.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125252917-502463381.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"> 所以</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125624701-1593285949.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116125731771-1001588373.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">这样可以停止</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;">好现在控制灯每进一次定时器就反转一次，就是周期性亮灭</span></p>&lt;div class=”cnblogs_code” style=”background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;&lt;pre style=”margin-bottom: 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">local function Timer4()<br>    pio.pin.setval(</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>-<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">pio.pin.getval(pio.P0_5),pio.P0_5)<br>end<br>sys.timer_loop_start(Timer4,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span>,<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>)</pre></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><pre style="margin-bottom: 0px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"><span style="font-size: 18pt;">1-pio.pin.getval(pio.P0_5)<br></span></pre><pre style="margin-bottom: 0px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"><span style="font-size: 18pt;">pio.pin.getval(pio.P0_5)是读取引脚的高低电平状态   1-这个（0或者1） 正好是反转得到1和0</span></pre><pre style="margin-bottom: 0px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"><span style="font-size: 18pt;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116130402717-913490466.png" alt="" style="max-width: 900px; height: auto;">  <img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181116130416385-1234623441.png" alt="" style="max-width: 900px; height: auto;"></span></pre><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> 最终所有的源码</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p>&lt;div class=”cnblogs_code” style=”background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div>&lt;pre style=”margin-bottom: 0px; font-family: “Courier New” !important; font-size: 12px !important;”&gt;<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">module(…,package.seeall)</p>
+<p></span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">[[<br>函数名：print<br>功能  ：打印接口，此文件中的所有打印都会加上test前缀<br>参数  ：无<br>返回值：无<br>]]<br>local function print(…)<br>    _G.print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">test</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">,…)<br>end</p>
+<p>local function Timer1()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">一次的定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>end<br>sys.timer_start(Timer1,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">10000</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>local cnt</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>local function Timer2()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，没有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    cnt</span>=cnt+<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span><br>    <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span>  cnt&gt;=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">5</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> then<br>        cnt</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>        sys.timer_stop(Timer2)</span>–<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">直接填入函数停止<br>        print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，没有ID，现在停止</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    end<br>end<br>sys.timer_loop_start(Timer2,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>local cnt1</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>local function Timer3()<br>    print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，有ID</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    cnt1</span>=cnt1+<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span><br>    <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span>  cnt1&gt;=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">5</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> then<br>        cnt1</span>=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><br>        sys.timer_stop(Timer3,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>        print(</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">这个是循环定时器，有ID，现在停止</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">“</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)<br>    end<br>end<br>sys.timer_loop_start(Timer3,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span>,<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)</p>
+<p>pio.pin.setdir(pio.OUTPUT,pio.P0_5)<br>pio.pin.setval(</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">,pio.P0_5)</p>
+<p>local function Timer4()<br>    pio.pin.setval(</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>-<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">pio.pin.getval(pio.P0_5),pio.P0_5)<br>end<br>sys.timer_loop_start(Timer4,</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2000</span>,<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>)</pre><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">定时器就说到这里哈</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">资料源码链接</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">链接：<a href="https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw</a> 密码：p9qs</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">基础教程源码链接如果失效,请在淘宝介绍中下载,由于链接还是失效,请联系卖家,谢谢</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&amp;id=569295486025</a></span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://www.cnblogs.com/yangfengwu/p/9968883.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9968883.html</span></a></p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/11/16/519/" data-id="ckkfmdgf000e1vkcgght008pz" data-title="16-GPRS(Air202)关于多个文件中的变量调用和定时器" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/16/520/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          17-GPRS(Air202)串口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/16/518/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">15-GPRS(Air202)GPIO控制点亮一个灯</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MQTT主题的通配符 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="做二次开发时，开发者可能会面临一个窘境：  设备百千万，识别怎么办？心里很烦乱，后端直哭惨。  所以，为了区分不同的设备，通常建议开发者对MQTT的发布和订阅的主题做细分，以做到对设备的精确控制。 ###区分设备  嵌入式开发时，开发者应该将设备的主题规划如下： 订阅：&#x2F;sys&#x2F;device&#x2F;8685754894158765&#x2F;ctrl 上报：&#x2F;sys&#x2F;device&#x2F;8685754894158765">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQTT主题的通配符">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/17/446/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="做二次开发时，开发者可能会面临一个窘境：  设备百千万，识别怎么办？心里很烦乱，后端直哭惨。  所以，为了区分不同的设备，通常建议开发者对MQTT的发布和订阅的主题做细分，以做到对设备的精确控制。 ###区分设备  嵌入式开发时，开发者应该将设备的主题规划如下： 订阅：&#x2F;sys&#x2F;device&#x2F;8685754894158765&#x2F;ctrl 上报：&#x2F;sys&#x2F;device&#x2F;8685754894158765">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-16T23:34:32.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-446" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/17/446/" class="article-date">
+  <time class="dt-published" datetime="2018-09-16T23:34:32.000Z" itemprop="datePublished">2018-09-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MQTT主题的通配符
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>做二次开发时，开发者可能会面临一个窘境：</p>
+<blockquote>
+<p>设备百千万，识别怎么办？<br>心里很烦乱，后端直哭惨。</p>
+</blockquote>
+<p>所以，为了区分不同的设备，通常建议开发者对MQTT的发布和订阅的主题做细分，以做到对设备的精确控制。</p>
+<p>###区分设备</p>
+<hr>
+<p>嵌入式开发时，开发者应该将设备的主题规划如下：</p>
+<pre><code>订阅：/sys/device/8685754894158765/ctrl
+上报：/sys/device/8685754894158765/reply
+</code></pre>
+<p>其中<code>8685754894158765</code>就是设备的<strong>IMEI</strong>。如此一来，只要服务端向某个设备的<strong>ctrl</strong>主题发布数据，设备收到后即可做出相应响应；设备也可以根据自己的逻辑，及时上报数据到<strong>reply</strong>主题。</p>
+<p>如此一来，每个设备的逻辑很清晰了，但是服务端端呢？难道要去订阅每一个设备的不同主题吗？实际上并不复杂哦，使用MQTT的通配符就能轻松解决。</p>
+<p>##通配符</p>
+<p>###主题层级</p>
+<p>譬如在上文的例子中：</p>
+<pre><code>订阅：/sys/device/8685754894158765/ctrl
+上报：/sys/device/8685754894158765/reply
+</code></pre>
+<p>每一个 <code>/</code> 都是分隔符，用来分割主题的每一层级。以<strong>订阅</strong>的主题为例，它就被分割成了4个层级：</p>
+<pre><code>/sys/device/8685754894158765/ctrl
+层级1. sys
+层级2. device
+层级3. 8685754894158765
+层级4. ctrl
+</code></pre>
+<p>不要小看层级哦，区分设备，使用通配符，全靠他们了。</p>
+<h2 id="多层通配符"><a href="#多层通配符" class="headerlink" title="###多层通配符#"></a>###多层通配符<code>#</code></h2><p><code>#</code> 是可以匹配主题中任意层级次数的通配符。<br>比如，如果你订阅了 <code>/sys/device/#</code>，那么，你可以接收到以下这些主题的消息：</p>
+<pre><code>/sys/device
+/sys/device/8685754894158765/reply
+/sys/device/8685754894158766/reply
+/sys/device/8685754894158767/reply
+/sys/device/abce/efg/h/ijkl
+...
+</code></pre>
+<p>通过示例我们可以看出，<code>#</code>可以匹配大于等于0的层级。<br>服务端使用通配符 <code>#</code> 订阅主题。设备上报数据，服务端收到数据后，再根据设备的上报的 <strong>真实主题</strong> 和 <strong>payload</strong> 进行处理。</p>
+<h2 id="单层通配符"><a href="#单层通配符" class="headerlink" title="###单层通配符+"></a>###单层通配符<code>+</code></h2><p><code>+</code> 只可匹配主题的某一层级。</p>
+<p>比如，如果你订阅了 <code>/sys/device/+</code>，那么，你可以接收到以下这些主题的消息：</p>
+<pre><code>/sys/device/8685754894158765
+/sys/device/8685754894158766
+/sys/device/8685754894158767
+/sys/device/abce
+...
+</code></pre>
+<p>但是不能收到如下主题的消息：</p>
+<pre><code>/sys/device/8685754894158767/reply
+/sys/device/abce/efg/h/ijkl
+/sys/device
+</code></pre>
+<p>因为他们都超过了 <code>+</code> 1层级的要求。需要注意的是，<code>/sys/device</code>因为是0层级，所以也不符合要求，无法收到数据。</p>
+<p>###延伸用法</p>
+<ol>
+<li>如果开发者想要订阅所有主题，那么连接到服务器后，订阅 <code>#</code> 就可以啦；</li>
+<li><code>/sys</code> 和 <code>sys</code> 是两个不同的主题。所以，如果开发者想要使用 <code>+</code> 订阅 <code>/sys</code>，那么要写成这样：<code>+/+</code> ；</li>
+<li>小心使用 <code>#</code>，以免造成不可预估的后果；</li>
+<li>主题中的其他字符，如 <code>*</code> 、 <code>$</code> 等，均当作普通字符串处理，无其他特殊含义。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/17/446/" data-id="ckkfmdgba005bvkcghfp50cw4" data-title="MQTT主题的通配符" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/18/447/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          如何计算GPS的NMEA校验码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/16/445/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">我国物联网市场规模跃入“万亿级”</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>GPS信噪比测试方法 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前言不少用户在使用GPS或者GPS+GSM模块时会遇到无法定位或者定位困难的问题，如何定位问题？如何判断是否是GPS信号的接收不到造成的问题？下文提供了一个通过GPS调试工具去监控模块GPS部分的接收信噪比的方法。  硬件连接首先需要找到模块的GPS信号的输出管脚，合宙模块部分模块的GPS_TX管脚如下： AIR800: AIR801 AIR868 GPS_TXD，用TTL转USB串口线（逻辑电平">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPS信噪比测试方法">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/10/25/636/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="前言不少用户在使用GPS或者GPS+GSM模块时会遇到无法定位或者定位困难的问题，如何定位问题？如何判断是否是GPS信号的接收不到造成的问题？下文提供了一个通过GPS调试工具去监控模块GPS部分的接收信噪比的方法。  硬件连接首先需要找到模块的GPS信号的输出管脚，合宙模块部分模块的GPS_TX管脚如下： AIR800: AIR801 AIR868 GPS_TXD，用TTL转USB串口线（逻辑电平">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_93140.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_68932.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_82105.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_89032.png">
+<meta property="og:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_96977.png">
+<meta property="article:published_time" content="2019-10-25T09:56:48.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.361Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://doc.openluat.com/api/static/editormd/uploads/5_93140.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-636" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/10/25/636/" class="article-date">
+  <time class="dt-published" datetime="2019-10-25T09:56:48.000Z" itemprop="datePublished">2019-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      GPS信噪比测试方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不少用户在使用GPS或者GPS+GSM模块时会遇到无法定位或者定位困难的问题，如何定位问题？如何判断是否是GPS信号的接收不到造成的问题？下文提供了一个通过GPS调试工具去监控模块GPS部分的接收信噪比的方法。</p>
+<hr>
+<h3 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h3><p>首先需要找到模块的GPS信号的输出管脚，合宙模块部分模块的GPS_TX管脚如下：</p>
+<p><strong>AIR800</strong>:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93140.png"></p>
+<p><strong>AIR801</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68932.png"></p>
+<p><strong>AIR868</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_82105.png"></p>
+<p>GPS_TXD，用TTL转USB串口线（逻辑电平3.3V）连接到模块的GPS_TXD管脚。并且连接到PC上</p>
+<pre><code> 注意：只需要TTL串口线的RX与GPS_TXD连接以及地线连接即可，TTL的TX不需要连接。避免串口线对GPS数据串口正常数据传输的干扰。
+</code></pre>
+<h3 id="软件工具安装"><a href="#软件工具安装" class="headerlink" title="软件工具安装"></a>软件工具安装</h3><p>下载<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/GK9501-doc.rar">GPS调试工具</a><br>运行软件</p>
+<blockquote>
+<p>注意：要在管理员模式下运行</p>
+</blockquote>
+<p>选择对应串口，波特率设置为115200，点击连接。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89032.png"></p>
+<p>然后设备开机运行，GPS打开后工具界面上就会显示GPS的相关信息。signal区域的柱状条纹即表示GPS的接收信噪比。<strong>通常最大信噪比大于40的卫星有2颗以上算是比较好，如果明显低于这个信噪比就要考虑优化了。</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96977.png"></p>
+<h3 id="如何提高信噪比"><a href="#如何提高信噪比" class="headerlink" title="如何提高信噪比"></a>如何提高信噪比</h3><p>导致信噪比低的因素有很多，比如天线方面，环境方面，但是常见的原因是主板或者外部的干扰。</p>
+<p>** 电源干扰：**<br>通常主板上的开关电源由于频率高，能量大很容易对GPS的信噪比造成干扰。主要是通过排除法去定位这样的问题。通过开关电源工作时测试的信噪比和开关电源工关闭时外接干净直流电源时的信噪比对比可以定位是否时电源由于。如果定位到时开关电源导致信噪比降低，可以做如下措施进行优化：</p>
+<ol>
+<li>调整开关电源的开关频率。不同的DCDC开关频率落在GPS频段内的高频分量能量不同通过尝试去找到一个相对干扰较小的频率。</li>
+<li>调整PCB，天线远离开关电源区域，中间用地铜箔保护。</li>
+</ol>
+<p>** 天线走线太长：**<br>如果天线走线太长，而且没有做PCB主控控制，会导致GPS信号衰减过大。改善方法：</p>
+<ol>
+<li> PCB主控控制，且尽量缩短走线长度。</li>
+<li>增加GPS低噪声放大电路。</li>
+</ol>
+<p><strong>（未完待续）</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/10/25/636/" data-id="ckkfmdgcp0096vkcg8zgyck9p" data-title="GPS信噪比测试方法" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/28/637/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air800模块如何烧录GPS芯片软件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/24/635/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">vscode上的LUAT代码自动补全插件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

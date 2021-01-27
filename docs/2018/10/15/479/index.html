@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>阿里云影子文件操作指南 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="不废话,直接上代码吧 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里云影子文件操作指南">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/10/15/479/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="不废话,直接上代码吧 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-15T09:44:12.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-479" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/10/15/479/" class="article-date">
+  <time class="dt-published" datetime="2018-10-15T09:44:12.000Z" itemprop="datePublished">2018-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      阿里云影子文件操作指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>不废话,直接上代码吧</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- 模块功能：阿里云功能测试.</span></span><br><span class="line"><span class="comment">-- 支持数据传输和OTA功能</span></span><br><span class="line"><span class="comment">-- @author openLuat</span></span><br><span class="line"><span class="comment">-- @module aLiYun.testALiYun</span></span><br><span class="line"><span class="comment">-- @license MIT</span></span><br><span class="line"><span class="comment">-- @copyright openLuat</span></span><br><span class="line"><span class="comment">-- @release 2018.04.14</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>(...,<span class="built_in">package</span>.<span class="built_in">seeall</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;aLiYun&quot;</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;misc&quot;</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;nvm&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--阿里云华东2站点上创建的产品的ProductKey，用户根据实际值自行修改</span></span><br><span class="line"><span class="comment">--local PRODUCT_KEY = &quot;你自己的产品key&quot;</span></span><br><span class="line"><span class="comment">--采用“一机一密”认证方案除了上面的PRODUCT_KEY外，还需要设备名称和设备密钥</span></span><br><span class="line"><span class="comment">--设备名称使用函数getDeviceName的返回值，默认为设备的IMEI</span></span><br><span class="line"><span class="comment">--设备密钥使用函数getDeviceSecret的返回值，默认为设备的SN</span></span><br><span class="line"><span class="comment">--单体测试时，可以直接修改getDeviceName和getDeviceSecret的返回值</span></span><br><span class="line"><span class="comment">--批量量产时，使用设备的IMEI和SN；合宙生产的模块，都有唯一的IMEI，用户可以在自己的产线批量写入跟IMEI（设备名称）对应的SN（设备密钥）</span></span><br><span class="line"><span class="comment">--或者用户自建一个服务器，设备上报IMEI给服务器，服务器返回对应的设备密钥，然后调用misc.setSn接口写到设备的SN中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> PRODUCT_KEY = <span class="string">&quot;你自己的产品key&quot;</span></span><br><span class="line"><span class="keyword">local</span> PRODUCE_SECRET=<span class="string">&quot;你自己的产品密钥&quot;</span></span><br><span class="line"><span class="keyword">local</span> Shadow_Changed = <span class="literal">false</span></span><br><span class="line"><span class="comment">--采用“一型一密”认证方案时打开上面的注释，比“一机一密”认证方式额外提供提供PRODUCE_SECRET，PRODUCE_SECRET的值根据实际值自行修改</span></span><br><span class="line"><span class="comment">--设备请求接入时，云端动态下发该设备的DeviceSecret，DeviceSecret的保存方法默认使用setDeviceSecret将设备的SN替换成DeviceSecret</span></span><br><span class="line"><span class="comment">--之后设备密钥的获取便使用函数getDeviceSecret的返回值，然后使用ProductKey、DeviceName和DeviceSecret进行认证并建立连接。</span></span><br><span class="line"><span class="comment">--请参考126行的aLiYun.setup(PRODUCT_KEY,PRODUCE_SECRET,getDeviceName,getDeviceSecret,setDeviceSecret)去配置参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">函数名：getDeviceName</span></span><br><span class="line"><span class="comment">功能  ：获取设备名称</span></span><br><span class="line"><span class="comment">参数  ：无</span></span><br><span class="line"><span class="comment">返回值：设备名称</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">getDeviceName</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">--默认使用设备的IMEI作为设备名称</span></span><br><span class="line">    <span class="comment">--用户单体测试时，可以在此处直接返回阿里云的iot控制台上注册的设备名称，例如return &quot;868575021150844&quot;</span></span><br><span class="line">    <span class="comment">--return &quot;Air202Test13&quot;</span></span><br><span class="line">    <span class="comment">--return &quot;862991419835241&quot;</span></span><br><span class="line">    <span class="keyword">return</span> misc.getImei()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">函数名：setDeviceSecret</span></span><br><span class="line"><span class="comment">功能  ：修改设备密钥</span></span><br><span class="line"><span class="comment">参数  ：设备密钥</span></span><br><span class="line"><span class="comment">返回值：无</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">setDeviceSecret</span><span class="params">(s)</span></span></span><br><span class="line">    <span class="comment">--默认使用设备的SN作为设备密钥</span></span><br><span class="line">    misc.setSn(s)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">函数名：getDeviceSecret</span></span><br><span class="line"><span class="comment">功能  ：获取设备密钥</span></span><br><span class="line"><span class="comment">参数  ：无</span></span><br><span class="line"><span class="comment">返回值：设备密钥</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">getDeviceSecret</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">--默认使用设备的SN作为设备密钥</span></span><br><span class="line">    <span class="comment">--用户单体测试时，可以在此处直接返回阿里云的iot控制台上生成的设备密钥，例如return &quot;y7MTCG6Gk33Ux26bbWSpANl4OaI0bg5Q&quot;</span></span><br><span class="line">    <span class="comment">--return &quot;y7MTCG6Gk33Ux26bbWSpANl4OaI0bg5Q&quot;</span></span><br><span class="line">    <span class="keyword">return</span> misc.getSn()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--阿里云客户端是否处于连接状态</span></span><br><span class="line">sConnected = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">函数名：pubqos1testackcb</span></span><br><span class="line"><span class="comment">功能  ：发布1条qos为1的消息后收到PUBACK的回调函数</span></span><br><span class="line"><span class="comment">参数  ：</span></span><br><span class="line"><span class="comment">		usertag：调用mqttclient:publish时传入的usertag</span></span><br><span class="line"><span class="comment">		result：true表示发布成功，false或者nil表示失败</span></span><br><span class="line"><span class="comment">返回值：无</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">publishTestCb</span><span class="params">(result,para)</span></span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;myALiYun.publishTestCb&quot;</span>,result,para)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--发布一条shadow更新消息</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateShadow</span><span class="params">(desired)</span></span></span><br><span class="line">    <span class="keyword">if</span> sConnected <span class="keyword">then</span></span><br><span class="line">        desired[<span class="string">&quot;rssi&quot;</span>] = net.getRssi()</span><br><span class="line">        desired[<span class="string">&quot;PowerSwitch&quot;</span>] = nvm.get(<span class="string">&quot;PowerSwitch&quot;</span>)</span><br><span class="line">        <span class="keyword">local</span> jdata = json.encode(desired)</span><br><span class="line">        <span class="built_in">_G</span>.shadow_version = <span class="built_in">_G</span>.shadow_version + <span class="number">1</span></span><br><span class="line">		<span class="keyword">local</span> resp = <span class="string">&quot;&#123;\&quot;method\&quot;:\&quot;update\&quot;,\&quot;state\&quot;: &#123;\&quot;reported\&quot;:&quot;</span> .. jdata ..<span class="string">&quot;&#125;,\&quot;version\&quot;:&quot;</span>..<span class="built_in">_G</span>.shadow_version..<span class="string">&quot;&#125;&quot;</span></span><br><span class="line">        aLiYun.publish(<span class="string">&quot;/shadow/update/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName(), resp, <span class="number">1</span>,publishTestCb, resp)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;sorry, sConnected=false&quot;</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">---数据接收的处理函数</span></span><br><span class="line"><span class="comment">-- @string topic，UTF8编码的消息主题</span></span><br><span class="line"><span class="comment">-- @number qos，消息质量等级</span></span><br><span class="line"><span class="comment">-- @string payload，原始编码的消息负载</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">rcvCbFnc</span><span class="params">(topic,qos,payload)</span></span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;myALiYun.rcvCbFnc&quot;</span>,topic,qos,payload)</span><br><span class="line">    <span class="keyword">if</span> topic == <span class="string">&quot;/shadow/get/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName() <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> shadow,result,errinfo = json.decode(payload)</span><br><span class="line">        <span class="keyword">if</span> result <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;Shadow Method=&quot;</span> .. shadow[<span class="string">&quot;method&quot;</span>])</span><br><span class="line">            <span class="keyword">if</span> shadow[<span class="string">&quot;version&quot;</span>] ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">                <span class="built_in">_G</span>.shadow_version = shadow[<span class="string">&quot;version&quot;</span>]</span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;Shadow Version = &quot;</span> .. <span class="built_in">_G</span>.shadow_version)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">local</span> desired = <span class="literal">nil</span></span><br><span class="line">            <span class="keyword">if</span> shadow[<span class="string">&quot;method&quot;</span>] == <span class="string">&quot;reply&quot;</span> <span class="keyword">and</span> shadow[<span class="string">&quot;payload&quot;</span>][<span class="string">&quot;state&quot;</span>] ~= <span class="literal">nil</span> <span class="keyword">and</span> shadow[<span class="string">&quot;payload&quot;</span>][<span class="string">&quot;state&quot;</span>][<span class="string">&quot;desired&quot;</span>] ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">if</span> shadow[<span class="string">&quot;method&quot;</span>] == <span class="string">&quot;control&quot;</span> <span class="keyword">and</span> shadow[<span class="string">&quot;payload&quot;</span>][<span class="string">&quot;state&quot;</span>] ~= <span class="literal">nil</span> <span class="keyword">and</span> shadow[<span class="string">&quot;payload&quot;</span>][<span class="string">&quot;state&quot;</span>][<span class="string">&quot;desired&quot;</span>] ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">                desired = shadow[<span class="string">&quot;payload&quot;</span>][<span class="string">&quot;state&quot;</span>][<span class="string">&quot;desired&quot;</span>]</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">if</span> desired ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">                <span class="comment">-- reply如果有数据,那么肯定是get请求, 要更新本地状态</span></span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;Shadow control/reply begin ...&quot;</span>)</span><br><span class="line">                <span class="comment">--if shadow[&quot;payload&quot;][&quot;status&quot;] == &quot;success&quot; then</span></span><br><span class="line">                    <span class="keyword">local</span> tmp = json.encode(desired)</span><br><span class="line">                    <span class="built_in">log</span>.info(<span class="string">&quot;desired=&quot;</span> .. tmp)</span><br><span class="line">                    Shadow_Changed = <span class="literal">false</span></span><br><span class="line">					<span class="comment">-- 这里写业务逻辑</span></span><br><span class="line">                    <span class="keyword">if</span> Shadow_Changed <span class="keyword">then</span></span><br><span class="line">                        updateShadow(desired)</span><br><span class="line">                    <span class="keyword">end</span></span><br><span class="line">                    <span class="comment">--else</span></span><br><span class="line">                    <span class="comment">--    log.info(&quot;desired is emtry&quot;)</span></span><br><span class="line">                    <span class="comment">--end</span></span><br><span class="line">                <span class="comment">--end</span></span><br><span class="line">                <span class="built_in">log</span>.info(<span class="string">&quot;Shadow control ... end&quot;</span>)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;Bad Shadow JSON!&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">local</span> tjsondata,result,errinfo = json.decode(payload)</span><br><span class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></span><br><span class="line">		<span class="comment">-- 处理mqtt payload</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">log</span>.info(<span class="string">&quot;BAD JSON&quot;</span>)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- 连接结果的处理函数</span></span><br><span class="line"><span class="comment">-- @bool result，连接结果，true表示连接成功，false或者nil表示连接失败</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">connectCbFnc</span><span class="params">(result)</span></span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testALiYun.connectCbFnc&quot;</span>,result)</span><br><span class="line">    sConnected = result</span><br><span class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></span><br><span class="line">        <span class="comment">--订阅主题，不需要考虑订阅结果，如果订阅失败，aLiYun库中会自动重连</span></span><br><span class="line">        aLiYun.subscribe(&#123;[<span class="string">&quot;/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName()..<span class="string">&quot;/get&quot;</span>]=<span class="number">0</span>,</span><br><span class="line">                          [<span class="string">&quot;/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName()..<span class="string">&quot;/get&quot;</span>]=<span class="number">1</span>,</span><br><span class="line">                          [<span class="string">&quot;/shadow/get/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName()]=<span class="number">0</span>&#125;)</span><br><span class="line">        <span class="comment">--注册数据接收的处理函数</span></span><br><span class="line">        aLiYun.on(<span class="string">&quot;receive&quot;</span>,rcvCbFnc)</span><br><span class="line">        <span class="comment">--PUBLISH消息测试</span></span><br><span class="line">        aLiYun.publish(<span class="string">&quot;/shadow/update/&quot;</span>..PRODUCT_KEY..<span class="string">&quot;/&quot;</span>..getDeviceName(), <span class="string">&quot;&#123;\&quot;method\&quot;:\&quot;get\&quot;&#125;&quot;</span>, <span class="number">1</span>,publishTestCb, <span class="string">&quot;&#123;\&quot;method\&quot;:\&quot;get\&quot;&#125;&quot;</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--配置产品key，设备名称和设备密钥；采用一机一密的认证方式是，第二个参数传入nil，采用一型一密认证方式时，需要PRODUCE_SECRET，并提供第五个参数</span></span><br><span class="line"><span class="comment">--注意：如果使用imei和sn作为设备名称和设备证书时，不要把getDeviceName和getDeviceSecret替换为misc.getImei()和misc.getSn()</span></span><br><span class="line"><span class="comment">--注意：采用一型一密认证方式时，仅在首次激活时动态下发DeviceSecret</span></span><br><span class="line"><span class="comment">--因为开机就调用misc.getImei()和misc.getSn()，获取不到值</span></span><br><span class="line"><span class="comment">--一机一密</span></span><br><span class="line"><span class="comment">--aLiYun.setup(PRODUCT_KEY,nil,getDeviceName,getDeviceSecret)</span></span><br><span class="line"><span class="comment">--一型一密</span></span><br><span class="line">aLiYun.setup(PRODUCT_KEY,PRODUCE_SECRET,getDeviceName,getDeviceSecret,setDeviceSecret)</span><br><span class="line"></span><br><span class="line"><span class="comment">--setMqtt接口不是必须的，aLiYun.lua中有这个接口设置的参数默认值，如果默认值满足不了需求，参考下面注释掉的代码，去设置参数</span></span><br><span class="line"><span class="comment">--aLiYun.setMqtt(1, nil, 65)</span></span><br><span class="line">aLiYun.on(<span class="string">&quot;connect&quot;</span>,connectCbFnc)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--要使用阿里云OTA功能，必须参考本文件124或者126行aLiYun.setup去配置参数</span></span><br><span class="line"><span class="comment">--然后加载阿里云OTA功能模块(打开下面的代码注释)</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;aLiYunOta&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>开机</li>
+<li>连接阿里云</li>
+<li>定义shadow更新的topic</li>
+<li>发送一个{“method”:”get”}到/shadow/update的topic,以获取最新的shadow version</li>
+<li>阿里云下发最新的shadow,读取verison,更新本地状态</li>
+<li>根据业务逻辑发送最新shadow或者处理下发的shadow状态</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/10/15/479/" data-id="ckkfmdgbi005zvkcg5tjjg51e" data-title="阿里云影子文件操作指南" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/17/480/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air202F（64Mb ROM模块）Flash空间划分说明
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/15/478/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

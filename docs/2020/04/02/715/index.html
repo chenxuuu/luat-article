@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>9、合宙Air模块Luat开发：认识NVS数据管理模块 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录点击这里查看所有博文  本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。   先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！  一、前言1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9、合宙Air模块Luat开发：认识NVS数据管理模块">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/04/02/715/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录点击这里查看所有博文  本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。   先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！  一、前言1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200402212937386.png">
+<meta property="article:published_time" content="2020-04-02T14:17:06.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200402212937386.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-715" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/04/02/715/" class="article-date">
+  <time class="dt-published" datetime="2020-04-02T14:17:06.000Z" itemprop="datePublished">2020-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      9、合宙Air模块Luat开发：认识NVS数据管理模块
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><h2 id="1-1、NVS-介绍"><a href="#1-1、NVS-介绍" class="headerlink" title="1.1、NVS 介绍"></a>1.1、NVS 介绍</h2><p>NVS: Non-volatile storage , 即将数据存储到 flash 中, 掉电或重启后数据仍然存在, flash 类似于 PC 上磁盘。<br>Air720SL 上提供 nvs 接口给用户, 来保存和读取用户数据. 具体参考 nvm.lua，本接口不适合大容量数据的存储管理，如果数据量超过10K，建议直接使用io接口操作文件来管理。</p>
+<h2 id="1-2、NVS-优势"><a href="#1-2、NVS-优势" class="headerlink" title="1.2、NVS 优势"></a>1.2、NVS 优势</h2><ul>
+<li><p>擦写均衡, 使 flash 寿命更长<br>NVS 在操作少量数据上, NVS 分区更大时, 擦写均衡表现的更为明显.。<br>例如: flash 一个 sector 为 4KB, NVS 分配大小为一个 sector, 写同一个 64 Bytes 数据到 flash, 分别比较spi_flash_xxx 和 nvs 写 64 次。</p>
+<ul>
+<li>spi_flash_write: 每次写 flash 前, 需擦除 flash. 对应: 64 次擦除 flash, 64 次写 flash。<br>nvs: nvs 内部有擦写均衡, 有标志位记录当前有效存储. 如第一次擦除 sector, 再写 sector 0-63 Byte, 第二次写 sector 64-127 Bytes, 第 64 次(4KB/64Bytes) 写完 sector 最后一个 64 Byte. 对应: 1 次擦除 flash, 64 次写 flash。<br>这样 NVS 减少 64 倍擦除操作, 对 flash 寿命有较大提升.<br>在 NVS 分区更大, 存储信息少时, 表现的更为明显.。<blockquote>
+<p>以上内容引用<a target="_blank" rel="noopener" href="https://blog.csdn.net/espressif/article/details/84749096">espressif的ESP8266/ESP32 NVS 基本操作</a>有兴趣的自行了解</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3、NVS数据管理模块"><a href="#1-3、NVS数据管理模块" class="headerlink" title="1.3、NVS数据管理模块"></a>1.3、NVS数据管理模块</h2><ul>
+<li>NVS是通过<code>config.lua</code>文件进行数据初始化的，这个文件只在第一次运行时有效，需要提前把要存储的键值对放进去才能使用，不能在程序随意添加其他的键值对，只能修改文件中提前写好的</li>
+<li>  para.lua：每次开机初始化时，如果para.lua不存在，则从config.lua复制出一个文件，重命名为para.lua，在程序运行过程中，写参数都是操作这个para.lua</li>
+<li>本例程config.lua提前定义了如下几个变量，有string类型、有numble类型、有bool类型、有table类型，平时常用的变量基本都有，也可以自行添加其他变量<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span>(...)</span><br><span class="line">strPara = <span class="string">&quot;str1&quot;</span></span><br><span class="line">numPara = <span class="number">1</span></span><br><span class="line">boolPara = <span class="literal">false</span></span><br><span class="line">tablePara = &#123;<span class="string">&quot;item1-1&quot;</span>,<span class="string">&quot;item1-2&quot;</span>,<span class="string">&quot;item1-3&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+注意：重新下载会清空数据存储区，旧数据会被清空</li>
+</ul>
+<h1 id="二、编写测试程序"><a href="#二、编写测试程序" class="headerlink" title="二、编写测试程序"></a>二、编写测试程序</h1><p>nvs在luat中封装的很简单，几乎可以认为是无脑，对着例程看一下就知道怎么用，一共就涉及到了三个函数，分别是</p>
+<ul>
+<li>nvm.init(“config.lua”)–初始化nvs模块</li>
+<li>nvm.get(“strPara”)–读取键值对，该键值对必须提前在config中定义</li>
+<li>nvm.set(“strPara”, “str2”)–设置键值对，前提是存在这个键值对</li>
+</ul>
+<p>完整的测试代码如下，测试代码中分别对string类型、numble类型、bool类型、table类型进行了设置和读取。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;config&quot;</span></span><br><span class="line">require <span class="string">&quot;nvm&quot;</span></span><br><span class="line"></span><br><span class="line">local function Test_Task()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;Test_Task_run&quot;</span>)</span><br><span class="line">        local num = nvm.get(<span class="string">&quot;numPara&quot;</span>)</span><br><span class="line">        num = num + <span class="number">1</span></span><br><span class="line">        nvm.<span class="built_in">set</span>(<span class="string">&quot;numPara&quot;</span>, num)</span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;numPara&quot;</span>,num)</span><br><span class="line">        sys.wait(<span class="number">2000</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    sys.wait(<span class="number">10000</span>)</span><br><span class="line">    nvm.init(<span class="string">&quot;config.lua&quot;</span>)</span><br><span class="line">    nvm.<span class="built_in">set</span>(<span class="string">&quot;strPara&quot;</span>, <span class="string">&quot;str2&quot;</span>)</span><br><span class="line">    nvm.<span class="built_in">set</span>(<span class="string">&quot;boolPara&quot;</span>, <span class="literal">false</span>)</span><br><span class="line">    nvm.<span class="built_in">set</span>(<span class="string">&quot;tablePara&quot;</span>, &#123;<span class="string">&quot;item2-1&quot;</span>, <span class="string">&quot;item2-2&quot;</span>, <span class="string">&quot;item2-3&quot;</span>&#125;)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testNvm.strPara&quot;</span>, nvm.get(<span class="string">&quot;strPara&quot;</span>))</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testNvm.boolPara&quot;</span>, nvm.get(<span class="string">&quot;boolPara&quot;</span>))</span><br><span class="line">    local tableValue = nvm.get(<span class="string">&quot;tablePara&quot;</span>)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;testNvm.tablePara&quot;</span>, tableValue[<span class="number">1</span>], tableValue[<span class="number">2</span>], tableValue[<span class="number">3</span>])</span><br><span class="line">    sys.taskInit(Test_Task)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、下载测试程序到开发板"><a href="#三、下载测试程序到开发板" class="headerlink" title="三、下载测试程序到开发板"></a>三、下载测试程序到开发板</h1><p>下载时要注意的是必须带上<code>config.lua</code>才能正常使用<br><img src="https://img-blog.csdnimg.cn/20200402212937386.png" alt="在这里插入图片描述"><br>下载完成打开监视端口，读写正常</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.742</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">true</span> strPara str2 nil nil</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.753</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">false</span> boolPara <span class="literal">false</span> nil nil</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.757</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">true</span> tablePara table: <span class="number">06f</span>c3358 nil nil</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.768</span>] [I]-[testNvm.strPara] str2</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.772</span>] [I]-[testNvm.boolPara] <span class="literal">false</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.782</span>] [I]-[testNvm.tablePara] item2<span class="number">-1</span> item2<span class="number">-2</span> item2<span class="number">-3</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.788</span>] [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.792</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">true</span> numPara <span class="number">2</span> nil nil</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">31.971</span>] [I]-[numPara] <span class="number">2</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">33.943</span>] [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">33.947</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">true</span> numPara <span class="number">3</span> nil nil</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">33.953</span>] [I]-[numPara] <span class="number">3</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">35.960</span>] [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">35.973</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">true</span> numPara <span class="number">4</span> nil nil</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">35.993</span>] [I]-[numPara] <span class="number">4</span></span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">37.955</span>] [I]-[Test_Task_run]</span><br><span class="line">[<span class="number">2020</span><span class="number">-04</span><span class="number">-02</span> <span class="number">21</span>:<span class="number">51</span>:<span class="number">37.959</span>] [I]-[nvm.<span class="built_in">set</span>] <span class="literal">true</span> numPara <span class="number">5</span> nil nil</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/04/02/715/" data-id="ckkfmdgda00b5vkcg5xanfq33" data-title="9、合宙Air模块Luat开发：认识NVS数据管理模块" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/03/716/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          10、合宙Air模块Luat开发：JSON字符串的生成与解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/31/71/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">DTU---代理相关功能文档说明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

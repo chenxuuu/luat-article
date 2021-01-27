@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air268F模块硬件开发手册V1.02 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1.  绪论  本文档定义了Air268F模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air268F模块于无线应用的二次开发。  1.1.       相关文档    注意：所有文档均可在www.openluat.com下载  2.  综述  Air268F模块是四频段GSM&#x2F;GPRS模块，它的工作频段是：GSM850MHz，GSM9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air268F模块硬件开发手册V1.02">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/05/427/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="1.  绪论  本文档定义了Air268F模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air268F模块于无线应用的二次开发。  1.1.       相关文档    注意：所有文档均可在www.openluat.com下载  2.  综述  Air268F模块是四频段GSM&#x2F;GPRS模块，它的工作频段是：GSM850MHz，GSM9">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-LmQuzhIB5b8f739215225.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8eDbIjhD5b8f74d56a75c.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fDgKC1wZ5b8f75a785e47.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-FY2XsNdy5b8f769847326.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3rNqmExh5b8f7ac3eec95.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CMEsaypJ5b90d0a936cae.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8kt6xul65b90d0b0905a2.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Ac2iSuKT5b90d0b6a9e48.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-bw0Rw2Rx5b8f7d191d8f6.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-BDovaQy15b8f8619e8b4f.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-6tMBdpNE5b8f7e2404ad7.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fzGd7hPq5b8f8761c673b.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-3UM1w1HN5b8f7f42ce4d2.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ByIiJd1x5b8f88a9445d4.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-z2bjteHS5b8f8985697a7.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4aVgq2aQ5b8f8a636e41d.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eu7NSeEk5b8fa09a40926.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-LxAPg5RY5b8fa54765e56.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mFzMpo2t5b8fa229d4ea1.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-zw0nm53W5b8fa6f151da7.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-QeADDlnR5b8fa746669f4.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Knl3Z0c15b8fa79b54d7d.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-b2Dh60Rr5b90c9b0d4c12.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NI2bNhBI5b90d43194397.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IHgsGJXm5b90d36e0b628.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-7Cf5bcGg5b90d550834d6.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AouVWPrz5b90d58ad7ad2.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-4jZqcN7Y5b90d6900aac9.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-GtoqJdhA5b90d77f03740.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nJOI16lL5b90d8bb5ccd5.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8H7XMsdy5b90d8e61cbfc.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-pRdUUOHk5b90d99856811.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-I4EAu9EJ5b90da7b42e86.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-n78T2dgC5b90e5d77588d.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-KktCYGbN5b90e65151218.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-88YZmrmK5b90e829aa0e0.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-d8tzxCwn5b90e8a23e94e.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eCo8xsTn5b90e98e065f4.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hPT8NaJY5b90ea69c1013.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mMwGCuc25b90eb25b2591.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-AMF2C7xV5b90ec47301a3.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-2OGS3n4g5b90ec870ebd0.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-OjMkTMqi5b90edd4a3852.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-59IuGy5Y5b90f125c5c0b.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-10rwxMZJ5b90f1ae68085.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-MwDC87DT5b90f29b9208a.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Bl40ZYuM5b90f32e7acc1.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-1FC5uCYa5b90f3af2ce2e.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-nhzq3MNM5b90f3f4f0893.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-TxMuC9l25b90f4b140664.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WgPMpjG05b90f5467a148.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-hOI8GZsf5b90f724eeeb4.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-U0SNAUod5b90f8f9be812.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5NKM1Zkc5b90fa4855d9f.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-JO9evL3o5b90fabed41e7.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-H79bLmBl5b90fb204766d.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-HPv35vEE5b90fc2e835a7.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-5Nghc9oZ5b90fd0ea690d.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aitTrmla5b90fd969e1df.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-gDRYq0Mj5b91372a787fd.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Ui30CVAd5b9138152b8ae.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-Ui30CVAd5b9138152b8ae.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CzQyUUI05b91ded645ab3.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-eYzvH3Bc5b91e20ca9533.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-8fZcQJF55b91e8b7d5cb6.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WYjnS27b5b91e9b4ab802.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-fAiDAldw5b91e9cd88c2f.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-UV5s66O55b91ea420d5a6.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-YoMfmSOd5b91eac3a8bce.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-ZTXeBrsC5b91ec1e92ef2.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-HVjkphKv5b91ec4c8c38b.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-59Qb1FrB5b91ec8019deb.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-NxBdirDa5b91ed6a08d9b.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aqNndoTJ5b91eddfe84b6.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-mQiOwmUU5b91efbd2148b.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-YZZUA4SE5b91efc334129.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-WsmYpAj45b91f0a4dbc70.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-RNQ6wr2u5b920e4796035.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-IFBMp1b45b920f0da11df.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-aurdos2r5b920fb7c44cb.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-CAWNKqxN5b92106a8ad1b.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-BgGJYMSy5b921098380a9.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-GhfR2zP05b921170f154d.jpg">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-LH3svoZg5b92122d70e99.jpg">
+<meta property="article:published_time" content="2018-09-05T05:56:56.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-LmQuzhIB5b8f739215225.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-427" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/05/427/" class="article-date">
+  <time class="dt-published" datetime="2018-09-05T05:56:56.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air268F模块硬件开发手册V1.02
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1><b><span style="font-size:16pt;font-family:Verdana, sans-serif;">1.<span style="font-size:7pt;font-family:'Times New Roman';"> 
+</span></span><span style="font-size:16pt;font-family:'宋体';">绪论</span></b></h1>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';color:#000000;">本文档定义了</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块于无线应用的二次开发。</span></p>
+
+<h2><b><span style="font-size:14pt;">1.1.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:14pt;font-family:'黑体';">相关文档</span></b></h2>
+
+<h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-LmQuzhIB5b8f739215225.jpg" class="img-responsive" style="width:676.5px;" alt="attachments-2018-09-LmQuzhIB5b8f739215225.jpg" /></h2>
+
+<h3><span style="font-size:9pt;font-family:'宋体';">注意：所有文档均可在</span><span style="font-size:9pt;font-family:Calibri, sans-serif;"><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/gprs/Air268.html">www.openluat.com</a></span><span style="font-size:9pt;font-family:'宋体';">下载</span></h3>
+
+<h1><span style="font-size:16pt;font-family:Verdana, sans-serif;">2.<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:16pt;font-family:'宋体';">综述</span></h1>
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块是四频段</span><span style="font-size:10.5pt;">GSM/GPRS</span><span style="font-size:10.5pt;font-family:'宋体';">模块，它的工作频段是：</span><span style="font-size:10.5pt;">GSM850MHz</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">GSM900MHz</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">DCS1800MHz</span><span style="font-size:10.5pt;font-family:'宋体';">和</span><span style="font-size:10.5pt;">PCS1900MHz</span><span style="font-size:10.5pt;font-family:'宋体';">。</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">支持</span><span style="font-size:10.5pt;">GPRS</span><span style="font-size:10.5pt;font-family:'宋体';">多时隙等级</span><span style="font-size:10.5pt;">1</span><span style="font-size:10.5pt;">0</span><span style="font-size:10.5pt;font-family:'宋体';">和</span><span style="font-size:10.5pt;">GPRS</span><span style="font-size:10.5pt;font-family:'宋体';">编码格式</span><span style="font-size:10.5pt;">CS-1</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">CS-2</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">CS-3</span><span style="font-size:10.5pt;font-family:'宋体';">和</span><span style="font-size:10.5pt;">CS-4</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">具有</span><span style="font-size:10.5pt;">22.0mm ×  22.0mm × 2.</span><span style="font-size:10.5pt;">3</span><span style="font-size:10.5pt;">mm</span><span style="font-size:10.5pt;font-family:'宋体';">的尺寸，几乎能够满足所有的</span><span style="font-size:10.5pt;">M2M</span><span style="font-size:10.5pt;font-family:'宋体';">的需求，包括汽车及个人追踪服务、无线</span><span style="font-size:10.5pt;">POS</span><span style="font-size:10.5pt;font-family:'宋体';">机、智能计量、工业级</span><span style="font-size:10.5pt;">PDA</span><span style="font-size:10.5pt;font-family:'宋体';">、共享扫码支付以及其它</span><span style="font-size:10.5pt;">M2M</span><span style="font-size:10.5pt;font-family:'宋体';">的应用。</span></p>
+
+
+
+
+
+
+
+<p><span style="font-size:10.5pt;">Air</span><span style="font-size:10.5pt;">268</span><span style="font-size:10.5pt;">F</span><span style="font-size:10.5pt;font-family:'宋体';">内置</span><span style="font-size:10.5pt;">62</span><span style="font-size:10.5pt;">MbNorFlash</span><span style="font-size:10.5pt;"> + 32</span><span style="font-size:10.5pt;">MbSRAM</span><span style="font-size:10.5pt;font-family:'宋体';">，并</span><span style="font-size:10.5pt;font-family:'宋体';">支持合宙特有的</span><span style="font-size:10.5pt;">Luat</span><span style="font-size:10.5pt;font-family:'宋体';">开源平台</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;font-family:'宋体';">方便客户做二次开发</span><span style="font-size:10.5pt;font-family:'宋体';">，极大的</span><span style="font-size:10.5pt;font-family:'宋体';">减少了客户的开发周期和成本。</span><br /></p>
+
+
+
+
+
+
+
+<p><span style="font-size:10.5pt;">Air268F </span><span style="font-size:10.5pt;font-family:'宋体';">有丰富的外围接口</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;font-family:'宋体';">支持</span><span style="font-size:10.5pt;">UART</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">SPI</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">I</span><span style="font-size:10.5pt;">2</span><span style="font-size:10.5pt;">C</span><span style="font-size:10.5pt;font-family:'宋体';">等各种接口</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;font-family:'宋体';">可支持最多</span><span style="font-size:10.5pt;">35</span><span style="font-size:10.5pt;font-family:'宋体';">个</span><span style="font-size:10.5pt;">GPIO</span><span style="font-size:10.5pt;font-family:'宋体';">，并支持</span><span style="font-size:10.5pt;">ADC</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">5*5</span><span style="font-size:10.5pt;font-family:'宋体';">阵列键盘，专用</span><span style="font-size:10.5pt;">LED</span><span style="font-size:10.5pt;font-family:'宋体';">以及背光驱动管脚，音频输入和输出功能，满足各种应用场景的使用要求。</span></p>
+
+
+
+
+
+
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">是贴片式模块，采用</span><span style="font-size:10.5pt;">LCC</span><span style="font-size:10.5pt;font-family:'宋体';">封装，可以通过其管脚焊盘内嵌于客户应用中，提供了模块与客户主板间丰富的硬件接口。</span><br /></p>
+
+
+
+
+
+
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块采用了省电技术，电流功耗在睡眠模式</span><span style="font-size:10.5pt;">DRX=5</span><span style="font-size:10.5pt;font-family:'宋体';">下，低至</span><span style="font-size:10.5pt;">1.14mA</span><span style="font-size:10.5pt;font-family:'宋体';">。</span><br /></p>
+
+
+
+
+
+
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">支持</span><span style="font-size:10.5pt;">TCP UDP PPP HTTPS SSL MQTT</span><span style="font-size:10.5pt;font-family:'宋体';">等协议。</span><br /></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块完全符合</span><span style="font-size:10.5pt;">RoHS</span><span style="font-size:10.5pt;font-family:'宋体';">标准。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">2</span><span style="font-family:'黑体';">：模块主要特征</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-8eDbIjhD5b8f74d56a75c.jpg" class="img-responsive" style="width:679.5px;" alt="attachments-2018-09-8eDbIjhD5b8f74d56a75c.jpg" /></p>
+
+<h2><b><span style="font-size:14pt;font-family:Calibri, sans-serif;">2.1</span><span style="font-size:14pt;font-family:Calibri, sans-serif;"> </span><span style="font-size:14pt;font-family:'黑体';">功能图</span></b></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">下图为</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">功能框图，阐述了其主要功能：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">存储器</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;">GSM</span><span style="font-size:10.5pt;font-family:'宋体';">射频</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">电源管理</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">接口部分</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-fDgKC1wZ5b8f75a785e47.png" class="img-responsive" alt="attachments-2018-09-fDgKC1wZ5b8f75a785e47.png" /></p>
+
+<h2><b><span style="font-size:14pt;font-family:Calibri, sans-serif;">2.2</span><span style="font-size:14pt;font-family:'黑体';">评估板</span></b></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">为了有助于测试及使用</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">，合宙提供一套评估板。评估板包括</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块、</span><span style="font-size:10.5pt;">EVB</span><span style="font-size:10.5pt;">_</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;">UART</span><span style="font-size:10.5pt;font-family:'宋体';">转</span><span style="font-size:10.5pt;">USB</span><span style="font-size:10.5pt;font-family:'宋体';">线等。</span></p>
+
+<h1><b><span style="font-size:15pt;">3<span style="font-size:7pt;font-family:'Times New Roman';">       
+</span></span><span style="font-size:15pt;font-family:'宋体';">应用接口</span></b></h1>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">模块采用</span><span style="font-size:10.5pt;">LCC</span><span style="font-size:10.5pt;font-family:'宋体';">封装，</span><span style="font-size:10.5pt;">38</span><span style="font-size:10.5pt;font-family:'宋体';">个</span><span style="font-size:10.5pt;">SMT</span><span style="font-size:10.5pt;font-family:'宋体';">焊盘管脚，后续章节详细阐述了以下接口的功能：</span></p>
+
+<p><span style="font-size:10.5pt;"> </span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>电源供电</span></span></a></span></span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>开关机</span></span></a></span></span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>省电技术</span></span></a></span></span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>串口</span></span></a></span></span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a>I2C<span style="font-family:'宋体';"><span>接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>屏幕接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>摄像头接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a>PWM<span style="font-family:'宋体';"><span>接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a>ADC<span style="font-family:'宋体';"><span>接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>键盘接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a>GPIO</a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a>LDO</a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>背光控制接口</span></span></a></span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>音频接口</span></span></a></span></span></p>
+
+
+
+<p><span style="font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span><span style="font-size:10.5pt;"><a>SIM<span style="font-family:'宋体';"><span>卡接口</span></span></a></span></span></p>
+
+
+
+
+
+<p><span style="font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span>网络指示灯</span></span></a></span></span></p>
+
+<p><span><span style="font-size:10.5pt;"><a><span style="font-family:'宋体';"><span><br /></span></span></a></span></span></p>
+
+
+
+<h5><b><span style="font-size:16pt;font-family:Verdana, sans-serif;">3.1<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-size:16pt;font-family:'宋体';">管脚排列图（</span><span style="font-size:16pt;font-family:Verdana, sans-serif;">top view</span><span style="font-size:16pt;font-family:'宋体';">）</span></b></h5>
+
+<h4><img src="http://oldask.openluat.com/image/show/attachments-2018-09-FY2XsNdy5b8f769847326.png" class="img-responsive" alt="attachments-2018-09-FY2XsNdy5b8f769847326.png" /></h4>
+
+<p style="text-align:left;"><span style="font-size:22pt;font-family:Verdana, sans-serif;">TOP VIEW</span></p>
+
+
+
+<p><br /></p>
+
+
+
+<p><b><span style="font-family:'宋体';">表格</span><span>3</span><span style="font-family:'宋体';">：</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">管脚分配</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-3rNqmExh5b8f7ac3eec95.jpg" class="img-responsive" style="width:681.5px;" alt="attachments-2018-09-3rNqmExh5b8f7ac3eec95.jpg" /></p>
+
+<h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-CMEsaypJ5b90d0a936cae.jpg" class="img-responsive" alt="attachments-2018-09-CMEsaypJ5b90d0a936cae.jpg" /><img src="http://oldask.openluat.com/image/show/attachments-2018-09-8kt6xul65b90d0b0905a2.jpg" class="img-responsive" alt="attachments-2018-09-8kt6xul65b90d0b0905a2.jpg" /><img src="http://oldask.openluat.com/image/show/attachments-2018-09-Ac2iSuKT5b90d0b6a9e48.jpg" class="img-responsive" alt="attachments-2018-09-Ac2iSuKT5b90d0b6a9e48.jpg" /><span style="font-size:14pt;font-family:'黑体';"><b><br /></b></span></h2>
+
+<h2><span style="font-size:14pt;font-family:'黑体';"><b>3.2 工作模式</b></span></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">下表简要的叙述了接下来几章提到的各种工作模式。</span></p>
+
+
+
+<p><span style="font-size:11pt;font-family:'宋体';">表格</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">5</span><span style="font-size:11pt;font-family:'宋体';">：工作模式</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-bw0Rw2Rx5b8f7d191d8f6.jpg" class="img-responsive" style="width:683px;" alt="attachments-2018-09-bw0Rw2Rx5b8f7d191d8f6.jpg" /><span style="font-size:11pt;font-family:'宋体';"><br /></span></p>
+
+<h2><span style="font-size:14pt;font-family:'黑体';"><b>3.3 电源供电</b></span></h2>
+
+<h3><b><span style="font-size:12pt;">3.3.1<span style="font-size:7pt;font-family:'Times New Roman';">       
+</span></span><span style="font-size:12pt;font-family:'宋体';">模块电源工作特性</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">在</span><span style="font-size:10.5pt;">GSM/GPRS</span><span style="font-size:10.5pt;font-family:'宋体';">模块应用设计中，电源设计是很重要的一部分。由于</span><span style="font-size:10.5pt;">GSM</span><span style="font-size:10.5pt;font-family:'宋体';">发射时每隔</span><span style="font-size:10.5pt;">4.615ms</span><span style="font-size:10.5pt;font-family:'宋体';">会有一个持续</span><span style="font-size:10.5pt;">577us</span><span style="font-size:10.5pt;font-family:'宋体';">（即</span><span style="font-size:10.5pt;">1/8</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;">TDMA</span><span style="font-size:10.5pt;font-family:'宋体';">周期（</span><span style="font-size:10.5pt;">4.615ms</span><span style="font-size:10.5pt;font-family:'宋体';">））的突发脉冲。在突发脉冲阶段内，电源必须能够提供高的峰值电流，保证电压不会跌落到模块最低工作电压。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">对于</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块，在最大发射功率等级下模块的峰值电流会达到</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">1.6A</span><span style="font-size:10.5pt;font-family:'宋体';">，这会引起</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">端电压的跌落。为确保模块能够稳定正常工作，建议模块</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">端的最大跌落电压不应超过</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">400mV</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p><b><span style="font-family:'黑体';"><br /></span></b></p>
+
+<p><b><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">2</span><span style="font-family:'黑体';">：模块发射时的电压电流波形图</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-BDovaQy15b8f8619e8b4f.jpg" class="img-responsive" style="width:719.5px;" alt="attachments-2018-09-BDovaQy15b8f8619e8b4f.jpg" /><b><span style="font-family:'黑体';"><br /></span></b></p>
+
+<p><b><span style="font-size:12pt;">3.3.2<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><span style="font-size:12pt;font-family:'宋体';">减小电压跌落</span></b><br /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">模块电源</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电压输入范围为</span><span style="font-size:10.5pt;">3.4V~4.2V</span><span style="font-size:10.5pt;font-family:'宋体';">，但是模块在射频发射时通常会在</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电源上产生电源电压跌落现象，这是由于电源及走线路径上的阻抗导致，一般难以避免。因此在设计上要特别注意模块的电源设计，保证</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电压不会跌落到</span><span style="font-size:10.5pt;">3.0V</span><span style="font-size:10.5pt;font-family:'宋体';">以下，当电压跌落在</span><span style="font-size:10.5pt;">3.0V</span><span style="font-size:10.5pt;font-family:'宋体';">以下时会有可能导致掉电关机或重启。在</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">输入端，建议并联一个低</span><span style="font-size:10.5pt;">ESR(ESR=0.7</span><span style="font-size:10.5pt;">Ω</span><span style="font-size:10.5pt;">)</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;">100uF</span><span style="font-size:10.5pt;font-family:'宋体';">的钽电容，以及</span><span style="font-size:10.5pt;">100nF</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;">33pF</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;">10pF</span><span style="font-size:10.5pt;font-family:'宋体';">滤波电容（</span><span style="font-size:10.5pt;">0603</span><span style="font-size:10.5pt;font-family:'宋体';">封装），</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">输入端参考电路如图</span><span style="font-size:10.5pt;">4</span><span style="font-size:10.5pt;font-family:'宋体';">所示。并且建议</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;">PCB</span><span style="font-size:10.5pt;font-family:'宋体';">走线尽量短且足够宽，减小</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">走线的等效阻抗，确保在最大发射功率时大电流下不会产生太大的电压跌落，一般电压跌落控制在</span><span style="font-size:10.5pt;">400mV</span><span style="font-size:10.5pt;font-family:'宋体';">以内。建议</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">走线宽度不少于</span><span style="font-size:10.5pt;">2mm</span><span style="font-size:10.5pt;font-family:'宋体';">，并且走线越长，线宽越宽。</span></p>
+
+
+
+<p><b><span style="font-size:10.5pt;font-family:'宋体';">注意：模块的硬件关机电压为</span></b><b><span style="font-size:10.5pt;">3.0V</span></b></p>
+
+<p><b><span style="font-size:10.5pt;"><br /></span></b></p>
+
+<p style="text-align:left;"><b><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">3</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">VBAT</span><span style="font-family:'黑体';">输入参考电路</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-6tMBdpNE5b8f7e2404ad7.png" class="img-responsive" alt="attachments-2018-09-6tMBdpNE5b8f7e2404ad7.png" /></p>
+
+
+
+<p><b><br /></b></p>
+
+<h3><b><span style="font-size:12pt;">3.3.3<span style="font-size:7pt;font-family:'Times New Roman';">       
+</span></span><span style="font-size:12pt;font-family:'宋体';">电</span><span style="font-size:12pt;font-family:'宋体';">源</span><span style="font-size:12pt;font-family:'宋体';">参考线路</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">电源设计对模块的供电至关重要，必须选择能够提供至少</span><span style="font-size:10.5pt;">2A</span><span style="font-size:10.5pt;font-family:'宋体';">电流能力的电源。若输入电压跟模块的供电电压的压差不是很大，建议选择</span><span style="font-size:10.5pt;">LDO</span><span style="font-size:10.5pt;font-family:'宋体';">作为供电电源。若输入输出之间存在比较大的压差，则使用开关电源转换器。</span></p>
+
+<p><b><span>LDO</span></b><b><span style="font-family:'宋体';">供电：</span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">下图是</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">+5V</span><span style="font-size:10.5pt;font-family:'宋体';">供电的参考设计，采用了</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">Micrel</span><span style="font-size:10.5pt;font-family:'宋体';">公司的</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">LDO</span><span style="font-size:10.5pt;font-family:'宋体';">，型号为</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">MIC29302WU</span><span style="font-size:10.5pt;font-family:'宋体';">。它的输出电压是</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">4.16V</span><span style="font-size:10.5pt;font-family:'宋体';">，负载电流峰值到</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3A</span><span style="font-size:10.5pt;font-family:'宋体';">。为确保输出电源的稳定，建议在输出端预留一个稳压管，并且靠近模块</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">管脚摆放。建议选择反向击穿电压为</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">5.1V</span><span style="font-size:10.5pt;font-family:'宋体';">，耗散功率为</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">1W</span><span style="font-size:10.5pt;font-family:'宋体';">以上的稳压管。</span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">4</span><span style="font-size:11pt;font-family:'宋体';">：供电输入参考设计</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-fzGd7hPq5b8f8761c673b.png" class="img-responsive" style="width:666px;" alt="attachments-2018-09-fzGd7hPq5b8f8761c673b.png" /></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p>
+
+<p><b><span>DCDC</span></b><b><span style="font-family:'宋体';">供电：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">下图是</span><span style="font-size:10.5pt;">DCDC</span><span style="font-size:10.5pt;font-family:'宋体';">开关电源的参考设计，采用的是杰华特公司的</span><span style="font-size:10.5pt;">JW5033H </span><span style="font-size:10.5pt;font-family:'宋体';">开关电源芯片，它的最大输出电流在</span><span style="font-size:10.5pt;">2A</span><span style="font-size:10.5pt;font-family:'宋体';">，同时输入电压范围</span><span style="font-size:10.5pt;">4.7V~20V</span><span style="font-size:10.5pt;font-family:'宋体';">。注意</span><span style="font-size:10.5pt;">C25</span><span style="font-size:10.5pt;font-family:'宋体';">的选型要根据输入电压来选择耐压值。</span></p>
+
+
+
+<p style="text-align:left;"><b><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;"> 6</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">DCDC</span><span style="font-family:'黑体';">供电输入参考设计</span></b></p>
+
+<p style="text-align:left;"><img src="http://oldask.openluat.com/image/show/attachments-2018-09-3UM1w1HN5b8f7f42ce4d2.png" class="img-responsive" style="width:640.5px;" alt="attachments-2018-09-3UM1w1HN5b8f7f42ce4d2.png" /></p>
+
+<h2><span style="font-size:14pt;font-family:'黑体';"><b>3.4 开关机</b></span></h2>
+
+<h3><b><span style="font-size:12pt;">3.4.1 </span><span style="font-size:12pt;font-family:'宋体';">开机</span></b></h3>
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块可以通过</span><span style="font-size:10.5pt;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚开机。关机状态下长按开机键</span><span style="font-size:10.5pt;">2s</span><span style="font-size:10.5pt;font-family:'宋体';">以上，模块会进入开机流程，软件会检测</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">管脚电压若</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">管脚电压大于软件设置的开机电压（默认</span><span style="font-size:10.5pt;">3.55V</span><span style="font-size:10.5pt;font-family:'宋体';">），会继续开机动作直至系统开机完成；否则，会停止执行开机动作，系统会关机。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.4.1.1</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     </span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">PWRKEY</span><span style="font-size:10.5pt;font-family:'黑体';">管脚开机</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">上电后，</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚可以启动模块，把</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚拉低持续</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">1s</span><span style="font-size:10.5pt;font-family:'宋体';">之后开机，开机成功后</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚可以释放。可以通过检测</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VDDIO</span><span style="font-size:10.5pt;font-family:'宋体';">管脚的电平来判别模块是否开机。推荐使用开集驱动电路来控制</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚。下图为参考电路：</span></p>
+
+<p><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">5</span><span style="font-family:'黑体';">：开集驱动参考开机电路</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-ByIiJd1x5b8f88a9445d4.png" class="img-responsive" style="width:515px;" alt="attachments-2018-09-ByIiJd1x5b8f88a9445d4.png" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">另一种控制</span><span style="font-size:10.5pt;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚的方法是直接使用一个按钮开关。按钮附近需放置一个</span><span style="font-size:10.5pt;"> TVS</span><span style="font-size:10.5pt;font-family:'宋体';">管用以</span><span style="font-size:10.5pt;">ESD</span><span style="font-size:10.5pt;font-family:'宋体';">保护。下图为参考电路：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">6</span><span style="font-size:11pt;font-family:'宋体';">：按键开机参考电路</span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-z2bjteHS5b8f8985697a7.jpg" class="img-responsive" style="width:398px;" alt="attachments-2018-09-z2bjteHS5b8f8985697a7.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'黑体';"><span style="font-weight:700;font-size:10.5pt;font-family:Calibri, sans-serif;">3.4.1.2</span><span style="font-weight:700;font-size:10.5pt;font-family:Calibri, sans-serif;">    </span>上电</span><span style="font-size:10.5pt;font-family:'黑体';">开机</span></p>
+
+<p><span>        </span><span style="font-family:'宋体';">将</span><span style="font-size:10.5pt;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">管脚直接接地可以实现上电自动开机功能。需要注意，在上电开机模式下，将无法关机，只要</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">管脚的电压大于开机电压即使软件调用关机接口，模块仍然会再开机起来。另外，在此模式下，要想成功开机起来</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">管脚电压任然要大于软件设定的开机电压值，如果不满足，模块会关闭，就会出现反复开关机的情况。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<h3><b><span style="font-size:12pt;">3.4.2 </span><span style="font-size:12pt;font-family:'宋体';">关机</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">以下的方式可以关闭模块：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">正常关机：调用</span><span style="font-size:10.5pt;">rtos.pweroff()</span><span style="font-size:10.5pt;font-family:'宋体';">软关机。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">低压自动关机：模块检测到低压时关机。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">紧急关机：通过</span><span style="font-size:10.5pt;">RESET</span><span style="font-size:10.5pt;font-family:'宋体';">管脚关机。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.4.2.1</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     </span><span style="font-size:10.5pt;font-family:'黑体';">正常关机</span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">在</span><span style="font-size:10.5pt;">lua</span><span style="font-size:10.5pt;font-family:'宋体';">正在运行时可以通过调用</span><span style="font-size:10.5pt;">rtos.pweroff()</span><span style="font-size:10.5pt;font-family:'宋体';">进行软关机。</span></p>
+
+
+
+
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">6</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua</span><span style="font-family:'黑体';">关机接口</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-4aVgq2aQ5b8f8a636e41d.jpg" class="img-responsive" style="width:663px;" alt="attachments-2018-09-4aVgq2aQ5b8f8a636e41d.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">关机过程中，模块需要注销</span><span style="font-size:10.5pt;">GSM</span><span style="font-size:10.5pt;font-family:'宋体';">网络，注销时间与当前网络状态有关，经测定用时约</span><span style="font-size:10.5pt;">2s~12s</span><span style="font-size:10.5pt;font-family:'宋体';">，因此建议延长</span><span style="font-size:10.5pt;">12s</span><span style="font-size:10.5pt;font-family:'宋体';">后再进行断电或重启，以确保在完全断电之前让软件保存好重要数据。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">可以通过</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VDDIO</span><span style="font-size:10.5pt;font-family:'宋体';">管脚电压来判断是否关机完成，如果</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">VDDIO</span><span style="font-size:10.5pt;font-family:'宋体';">的管脚电压为接近</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">0V</span><span style="font-size:10.5pt;font-family:'宋体';">则说明关机完成</span><span style="font-family:'宋体';">。</span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-size:10.5pt;font-family:'黑体';"><b>3.4.2.2 低电压自动关机</b></span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">模块在运行状态时当</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">管脚电压低于软件设定的关机电压时（默认设置</span><span style="font-size:10.5pt;">3.4V</span><span style="font-size:10.5pt;font-family:'宋体';">），软件会执行关机动作关闭模块，以防低电压状态下运行出现各种异常。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">注意：对于</span><span style="font-size:10.5pt;">PWRKEY</span><span style="font-size:10.5pt;font-family:'宋体';">接地的上电开机模式，在</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电压低于关机电压时，模块仍然会执行关机动作，但是关机后会因为硬件上电开机而会再次被开机起来，由于此时</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电压在开机电压以下，软件又会执行关闭动作，因而会出现反复开关机的现象，直到</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电压低于硬件开机电压</span><span style="font-size:10.5pt;">3.0V</span><span style="font-size:10.5pt;font-family:'宋体';">，硬件不再开机起来为止。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.4.2.3     RESET</span><span style="font-size:10.5pt;font-family:'黑体';">紧急关机</span></b></p>
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块第</span><span style="font-size:10.5pt;">60</span><span style="font-size:10.5pt;font-family:'宋体';">脚为</span><span style="font-size:10.5pt;">reset</span><span style="font-size:10.5pt;font-family:'宋体';">管脚，其功能是硬件关机。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">可以通过拉低</span><span style="font-size:10.5pt;">RESET</span><span style="font-size:10.5pt;font-family:'宋体';">管脚</span><span style="font-size:10.5pt;">200ms</span><span style="font-size:10.5pt;font-family:'宋体';">左右来关机，之后释放。推荐使用</span><span style="font-size:10.5pt;">OC</span><span style="font-size:10.5pt;font-family:'宋体';">驱动电路来控制</span><span style="font-size:10.5pt;">RESET</span><span style="font-size:10.5pt;font-family:'宋体';">管脚。下图为参考电路：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">注意：三级管集电极和发射级不能串联大于</span><span style="font-size:10.5pt;">1</span><span style="font-size:10.5pt;font-family:'宋体';">欧姆的电阻。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">7</span><span style="font-size:11pt;font-family:'宋体';">：开集驱动</span><span style="font-size:10.5pt;font-family:'宋体';">参考紧急关机电路</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-eu7NSeEk5b8fa09a40926.jpg" class="img-responsive" style="width:567px;" alt="attachments-2018-09-eu7NSeEk5b8fa09a40926.jpg" /><b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">另一种控制</span><span style="font-size:10.5pt;">RESET</span><span style="font-size:10.5pt;font-family:'宋体';">管脚紧急关机的方法是直接使用一个按钮开关。按钮附近需放置一个</span><span style="font-size:10.5pt;">TVS</span><span style="font-size:10.5pt;font-family:'宋体';">管用以</span><span style="font-size:10.5pt;">ESD</span><span style="font-size:10.5pt;font-family:'宋体';">保护。下图为参考电路：</span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">8</span><span style="font-size:11pt;font-family:'宋体';">：按键紧急关机参考电路</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-LxAPg5RY5b8fa54765e56.jpg" class="img-responsive" style="width:389px;" alt="attachments-2018-09-LxAPg5RY5b8fa54765e56.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">注意：上电开机配置情况下，</span><span style="font-size:10.5pt;">RESET</span><span style="font-size:10.5pt;font-family:'宋体';">管脚拉低后，模块会关机后又会上电开机起来，</span><span style="font-size:10.5pt;">RESET</span><span style="font-size:10.5pt;font-family:'宋体';">管脚间接起到重启的作用。</span></p>
+
+<h2><b><span style="font-size:14pt;font-family:Calibri, sans-serif;"><br /></span></b></h2>
+
+<h2><b><span style="font-size:14pt;font-family:Calibri, sans-serif;">3.5</span><span style="font-size:14pt;font-family:'黑体';">省电技术</span></b></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">根据系统需求，模块可以进入两种低功耗模式。睡眠模式和飞行模式</span></p>
+
+<h3><b><span style="font-size:12pt;">3.5.1</span><span style="font-size:12pt;font-family:'宋体';">飞行模式</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">飞行模式可以将模块功能减少到最小程度，此模式下射频部分和</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡部分的功能将会关闭。而串口依然有效。此模式可以通过调用</span><span style="font-size:10.5pt;">net.switchFly()</span><span style="font-size:10.5pt;font-family:'宋体';">进入或者退出飞行模式。</span></p>
+
+
+
+<p><span style="font-size:11pt;font-family:'宋体';">表格</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">7</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">lua</span><span style="font-size:11pt;font-family:'宋体';">飞行模式接口</span><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-mFzMpo2t5b8fa229d4ea1.jpg" class="img-responsive" style="width:654px;" alt="attachments-2018-09-mFzMpo2t5b8fa229d4ea1.jpg" /><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p>
+
+<h3><b><span style="font-size:12pt;">3.5.2</span><span style="font-size:12pt;font-family:'宋体';">睡眠模式</span></b></h3>
+
+<p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">支持睡眠模式，默认状态下系统是会根据系统的繁忙情况自动的进入或退出睡眠模式，一般情况下不需要写代码去控制进入或者退出休眠状态。但是对于禁止进入休眠的应用需求，可以调用</span><span style="font-size:10.5pt;">pm.wake()</span><span style="font-size:10.5pt;font-family:'宋体';">让系统一直不进休眠，调用此接口后如果需要进入休眠，可以调用</span><span style="font-size:10.5pt;">pm.sleep().</span></p>
+
+
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">8</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua</span><span style="font-family:'黑体';">唤醒模块接口</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-zw0nm53W5b8fa6f151da7.jpg" class="img-responsive" style="width:657.5px;" alt="attachments-2018-09-zw0nm53W5b8fa6f151da7.jpg" /></p>
+
+<h3><b><span style="font-size:12pt;">3.5.3</span><span style="font-size:12pt;font-family:'宋体';">睡眠唤醒</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">当模块处于睡眠模式，以下方法可以唤醒模块。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">调用</span><span style="font-size:10.5pt;">pm.sleep()</span><span style="font-size:10.5pt;font-family:'宋体';">接口</span></p>
+
+
+
+
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">9</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua</span><span style="font-family:'黑体';">睡眠接口</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-QeADDlnR5b8fa746669f4.jpg" class="img-responsive" style="width:653px;" alt="attachments-2018-09-QeADDlnR5b8fa746669f4.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;">GPIO</span><span style="font-size:10.5pt;font-family:'宋体';">中断。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">接收来电或者</span><span style="font-size:10.5pt;">GPRS</span><span style="font-size:10.5pt;font-family:'宋体';">数据以唤醒模块。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">接收短信以唤醒模块。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<h2><b><span style="font-size:14pt;font-family:Calibri, sans-serif;">3.5.4 </span><span style="font-size:14pt;font-family:'黑体';">模式切换汇总</span></b></h2>
+
+
+
+
+
+
+
+
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">10</span><span style="font-family:'黑体';">：模式切换汇总</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-Knl3Z0c15b8fa79b54d7d.jpg" class="img-responsive" style="width:681px;" alt="attachments-2018-09-Knl3Z0c15b8fa79b54d7d.jpg" /></p>
+
+<p><b><span style="font-size:14pt;font-family:Arial, sans-serif;"><span style="font-weight:normal;font-size:7pt;font-family:'Times New Roman';">   </span></span></b><br /></p>
+
+<p><b> </b></p>
+
+
+
+<h2><b><span style="font-size:14pt;">3.6.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">串口</span></b></h2>
+
+<p><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块支持</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3</span><span style="font-size:10.5pt;font-family:'宋体';">路</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">TTL2.8V</span><span style="font-size:10.5pt;font-family:'宋体';">串口：</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;"> <span>UART1</span></span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;"> <span>UART2</span></span><span style="font-size:10.5pt;font-family:'宋体';">和下载调试串口</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">HOST_UART</span><span style="font-size:10.5pt;font-family:'宋体';">。模块支持范围</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">1200bps</span><span style="font-size:10.5pt;font-family:'宋体';">到</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">921600bps</span><span style="font-size:10.5pt;font-family:'宋体';">。其中</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">UART1</span><span style="font-size:10.5pt;font-family:'宋体';">和</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">UART2</span><span style="font-size:10.5pt;font-family:'宋体';">不分主次功能相同，都支持硬件流控</span><span style="font-size:10.5pt;font-family:'宋体';color:#FF0000;">（软件版本暂不支持硬件流控功能）</span><span style="font-size:10.5pt;font-family:'宋体';">。下载调试串口</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">HOST_UART</span><span style="font-size:10.5pt;font-family:'宋体';">只能用于下载和调试无法用于通信，固定波特率</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">921600bps</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p><span style="font-size:10.5pt;"> </span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">串口逻辑电平如下表所示：</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-b2Dh60Rr5b90c9b0d4c12.png" class="img-responsive" style="width:681.5px;" alt="attachments-2018-09-b2Dh60Rr5b90c9b0d4c12.png" /></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p>
+
+<h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.6.1.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:12pt;font-family:'宋体';">串口连接方式</span></b></h3>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.6.1.1</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     </span><span style="font-size:10.5pt;font-family:'黑体';">三线串口连接方式</span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">三线串口是最常用的连接方式，与外设的连接只需要到</span><span style="font-size:10.5pt;">TX,RX,GND</span><span style="font-size:10.5pt;font-family:'宋体';">三根线，</span><span style="font-size:10.5pt;">UART1/UART2/HOST</span><span style="font-size:10.5pt;font-family:'宋体';">都可以用此方式连接，连接方式如下：</span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">9</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">串口三线制连接方式示意图</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-NI2bNhBI5b90d43194397.jpg" class="img-responsive" style="width:425px;" alt="attachments-2018-09-NI2bNhBI5b90d43194397.jpg" /><b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.6.1.2</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     </span><span style="font-size:10.5pt;font-family:'黑体';">带硬件流控功能的串口连接方式</span><span style="font-size:10.5pt;font-family:'黑体';color:#FF0000;">（</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;color:#FF0000;">lua</span><span style="font-size:10.5pt;font-family:'黑体';color:#FF0000;">暂不支持）</span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">对于串口传输比较大的数据时，建议使用硬件流控功能以确保可靠传输。使能流控功能时连接方式如下：</span></p>
+
+<p><span style="font-size:11pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">10</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">全功能串口连接方式示意图</span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-IHgsGJXm5b90d36e0b628.jpg" class="img-responsive" style="width:559.5px;" alt="attachments-2018-09-IHgsGJXm5b90d36e0b628.jpg" /></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;"><br /></span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.6.1.3</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     3.3V</span><span style="font-size:10.5pt;font-family:'黑体';">串口连接方式</span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">对于</span><span style="font-size:10.5pt;">3.3V</span><span style="font-size:10.5pt;font-family:'宋体';">电压系统情况下的串口电平匹配电路参考如下，强烈建议在</span><span style="font-size:10.5pt;">RXD</span><span style="font-size:10.5pt;font-family:'宋体';">等模块输入的端口上使用分压电阻的方式，将电压分压到</span><span style="font-size:10.5pt;">2.8V</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">如果是</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3V</span><span style="font-size:10.5pt;font-family:'宋体';">系统，根据分压原理建议将</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">5.6K</span><span style="font-size:10.5pt;font-family:'宋体';">电阻改为</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">10K</span><span style="font-size:10.5pt;font-family:'宋体';">电阻。客户不允许分压方式下，也建议必须串接</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">1K</span><span style="font-size:10.5pt;font-family:'宋体';">电阻</span><span style="font-size:11pt;font-family:'宋体';">。</span></p>
+
+<p style="text-align:center;"><b><span style="font-family:'宋体';">图表</span><span>11</span><span style="font-family:'宋体';">：</span><span>3.3V</span><span style="font-family:'宋体';">电平转换电路</span></b></p>
+
+
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-7Cf5bcGg5b90d550834d6.jpg" class="img-responsive" style="width:515px;" alt="attachments-2018-09-7Cf5bcGg5b90d550834d6.jpg" /></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;"><br /></span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.6.1.4</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     5V</span><span style="font-size:10.5pt;font-family:'黑体';">串口连接方式</span></b></p>
+
+<p><span>        </span><span style="font-size:10.5pt;">5V</span><span style="font-size:10.5pt;font-family:'宋体';">系统的电平匹配，模块和外设之间的电平匹配可以参考如下的连接方式，如下的虚线部分可以参考上面的实线电路（虚线部分模块发送参考模块</span><span style="font-size:10.5pt;">TXD</span><span style="font-size:10.5pt;font-family:'宋体';">的电路设计，虚线部分模块接收参考模块</span><span style="font-size:10.5pt;">RXD</span><span style="font-size:10.5pt;font-family:'宋体';">的电路设计）。</span></p>
+
+<p><span style="font-size:10.5pt;">VCC_MCU</span><span style="font-size:10.5pt;font-family:'宋体';">是客户端的</span><span style="font-size:10.5pt;">I/O</span><span style="font-size:10.5pt;font-family:'宋体';">电平电压。</span><span style="font-size:10.5pt;">VDDIO</span><span style="font-size:10.5pt;font-family:'宋体';">是模块输出的</span><span style="font-size:10.5pt;">I/O</span><span style="font-size:10.5pt;font-family:'宋体';">电平电压。</span></p>
+
+<p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">12</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">5V</span><span style="font-size:11pt;font-family:'宋体';">电平转换电路</span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-AouVWPrz5b90d58ad7ad2.jpg" class="img-responsive" style="width:494px;" alt="attachments-2018-09-AouVWPrz5b90d58ad7ad2.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">3.6.1.5</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">     </span><span style="font-size:10.5pt;font-family:'黑体';">模块串口与</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">RS232</span><span style="font-size:10.5pt;font-family:'黑体';">串口连接方式</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">当模块和</span><span style="font-size:10.5pt;">PC</span><span style="font-size:10.5pt;font-family:'宋体';">机进行通信时，需要在他们之间加</span><span style="font-size:10.5pt;">RS232</span><span style="font-size:10.5pt;font-family:'宋体';">电平转换电路。因为模块的串口配置都不是</span><span style="font-size:10.5pt;">RS232</span><span style="font-size:10.5pt;font-family:'宋体';">电平，仅支持</span><span style="font-size:10.5pt;">CMOS</span><span style="font-size:10.5pt;font-family:'宋体';">电平。下图为模块跟</span><span style="font-size:10.5pt;">PC</span><span style="font-size:10.5pt;font-family:'宋体';">通信时，串口电平转换电路。</span></p>
+
+<p><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">13</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">RS232</span><span style="font-size:11pt;font-family:'宋体';">电平转换电路</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-4jZqcN7Y5b90d6900aac9.jpg" class="img-responsive" style="width:593.5px;" alt="attachments-2018-09-4jZqcN7Y5b90d6900aac9.jpg" /></p>
+
+<h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.6.2.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:12pt;font-family:'宋体';">串口相关</span><span style="font-size:12pt;">API</span><span style="font-size:12pt;font-family:'宋体';">接口</span></b></h3>
+
+<p><span>Lua</span><span style="font-family:'宋体';">中关于使用先要通过</span><span>uart.setup()</span><span style="font-family:'宋体';">来进行串口参数的配置和初始化，之后可以通过</span><span>uart.write()</span><span style="font-family:'宋体';">向串口输出数据或者通过</span><span>uart.read()</span><span style="font-family:'宋体';">来从串口读取数据。具体串口使用方法请参考</span><span>script_LuaTask/demo/uart</span></p>
+
+<p><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">13</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua</span><span style="font-family:'黑体';">串口设置接口</span></p>
+
+
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-GtoqJdhA5b90d77f03740.jpg" class="img-responsive" style="width:530.5px;" alt="attachments-2018-09-GtoqJdhA5b90d77f03740.jpg" /></p>
+
+<h2><b><span style="font-size:14pt;"><br /></span></b></h2>
+
+<h2><b><span style="font-size:14pt;">3.7.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">I2c</span><span style="font-size:14pt;font-family:'黑体';">接口</span></b></h2>
+
+<p><span style="font-size:11pt;font-family:Calibri, sans-serif;">Air268F</span><span style="font-size:11pt;font-family:'宋体';">模块提供</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">3</span><span style="font-size:11pt;font-family:'宋体';">个</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">I2C</span><span style="font-size:11pt;font-family:'宋体';">接口，速率支持</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">FAST(400KHz)</span><span style="font-size:11pt;font-family:'宋体';">，</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">SLOW</span><span style="font-size:11pt;font-family:'宋体';">（</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">100KHz</span><span style="font-size:11pt;font-family:'宋体';">）。外设地址支持</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">0x00-0x7f</span><span style="font-size:11pt;font-family:'宋体';">。</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">3</span><span style="font-size:11pt;font-family:'宋体';">路</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">I2C</span><span style="font-size:11pt;font-family:'宋体';">分别是有由如下管脚复用：</span></p>
+
+
+
+
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">16</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">I2C</span><span style="font-family:'黑体';">接口管脚定义</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-nJOI16lL5b90d8bb5ccd5.jpg" class="img-responsive" style="width:567px;" alt="attachments-2018-09-nJOI16lL5b90d8bb5ccd5.jpg" /></p>
+
+<h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.7.1.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span>  </span><span style="font-size:12pt;">IC</span><span style="font-size:12pt;font-family:'宋体';">接口连接方式</span></b></h3>
+
+
+
+<p><span style="font-family:'宋体';">如下是</span><span>I2C</span><span style="font-family:'宋体';">接口的参考线路，注意模块</span><span>I2C</span><span style="font-family:'宋体';">只能做主设备，外部需要上拉，在配置</span><span>FAST</span><span style="font-family:'宋体';">速率时，上拉电阻阻值不要大于</span><span>4.7K</span><span style="font-family:'宋体';">。三路</span><span>ADC</span><span style="font-family:'宋体';">分别属于不同的电压域，使用时要注意打开对应的电压域。</span><span>I2C1</span><span style="font-family:'宋体';">和</span><span>I2C3</span><span style="font-family:'宋体';">要用</span><span>VDDIO</span><span style="font-family:'宋体';">上拉，而</span><span>I2C2</span><span style="font-family:'宋体';">需要用</span><span>V_CAM</span><span style="font-family:'宋体';">上拉。</span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p style="text-align:left;"><b><span style="font-family:'宋体';">图表</span><span>14</span><span style="font-family:'宋体';">：</span><span>I2C</span><span style="font-family:'宋体';">连接参考线路</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-8H7XMsdy5b90d8e61cbfc.jpg" class="img-responsive" style="width:529px;" alt="attachments-2018-09-8H7XMsdy5b90d8e61cbfc.jpg" /><span><br /></span></p>
+
+<p><span><br /></span></p>
+
+<p style="text-align:left;"><b><span style="font-family:'宋体';">图表</span><span>15</span><span style="font-family:'宋体';">：</span><span>I2C 5V</span><span style="font-family:'宋体';">外设连接参考线路</span></b></p>
+
+<p style="text-align:center;"><img src="http://oldask.openluat.com/image/show/attachments-2018-09-pRdUUOHk5b90d99856811.jpg" class="img-responsive" style="width:592px;" alt="attachments-2018-09-pRdUUOHk5b90d99856811.jpg" /></p>
+
+<h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.7.2.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span>  </span><span style="font-size:12pt;">I2C</span><span style="font-size:12pt;font-family:'宋体';">相关</span><span style="font-size:12pt;">API</span><span style="font-size:12pt;font-family:'宋体';">接口</span></b></h3>
+
+<div>
+
+<p><span style="font-family:'宋体';">使用</span><span>I2C</span><span style="font-family:'宋体';">接口的一般步骤是先用</span><span>i2c.setup()</span><span style="font-family:'宋体';">初始化</span><span>I2C</span><span style="font-family:'宋体';">接口</span><span>,</span><span style="font-family:'宋体';">之后就可以用</span><span>i2c. write
+()</span><span style="font-family:'宋体';">向从设备写数据以及用</span><span>i2c.read()</span><span style="font-family:'宋体';">从从设备读取数据。具体使用方法请参考</span><span>script_LuaTask/demo/i2c</span></p><p><br /></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-I4EAu9EJ5b90da7b42e86.jpg" class="img-responsive" style="width:606.5px;" alt="attachments-2018-09-I4EAu9EJ5b90da7b42e86.jpg" /></p><p><br /></p><h2><b><span style="font-size:14pt;">3.8.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">SPI</span><span style="font-size:14pt;font-family:'黑体';">接口</span></b></h2><p><span style="font-family:'宋体';">模块提供了</span><span>2</span><span style="font-family:'宋体';">路标准</span><span>SPI</span><span style="font-family:'宋体';">接口，</span><span>1</span><span style="font-family:'宋体';">路</span><span>LCD</span><span style="font-family:'宋体';">专用</span><span>SPI</span><span style="font-family:'宋体';">接口，一路</span><span>CAMERA</span><span style="font-family:'宋体';">专用</span><span>SPI</span><span style="font-family:'宋体';">接口</span><span>,</span><span style="font-family:'宋体';">便于连接</span><span>SPI</span><span style="font-family:'宋体';">接口的外设或者外置</span><span>SPI </span><span style="font-family:'宋体';">存储器。本章节只讨论标准</span><span>SPI</span><span style="font-family:'宋体';">接口，</span><span>LCD</span><span style="font-family:'宋体';">和</span><span>CAMERA</span><span style="font-family:'宋体';">接口将会在其他章节详细说明。其中标准</span><span>SPI</span><span style="font-family:'宋体';">接口支持</span><span>110K</span><span style="font-family:'宋体';">到</span><span>13M</span><span style="font-family:'宋体';">的时钟频率，支持半双工和全工双模式。</span><span>SPI</span><span style="font-family:'宋体';">接口有如下管脚复用：</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">20</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">SPI</span><span style="font-family:'黑体';">接口管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-n78T2dgC5b90e5d77588d.jpg" class="img-responsive" style="width:631px;" alt="attachments-2018-09-n78T2dgC5b90e5d77588d.jpg" /></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.8.1.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span>  </span><span style="font-size:12pt;">SPI</span><span style="font-size:12pt;font-family:'宋体';">接口连接方式</span></b></h3><p><span>SPI</span><span style="font-family:'宋体';">连接方式如下：</span></p><p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">16</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">I2C
+5V</span><span style="font-size:11pt;font-family:'宋体';">外设连接参考线路</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-KktCYGbN5b90e65151218.jpg" class="img-responsive" style="width:581.5px;" alt="attachments-2018-09-KktCYGbN5b90e65151218.jpg" /><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.8.2.<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-size:12pt;">SPI</span><span style="font-size:12pt;font-family:'宋体';">相关</span><span style="font-size:12pt;">API</span><span style="font-size:12pt;font-family:'宋体';">接口</span></b></h3><p><span style="font-family:'宋体';">在使用</span><span>SPI</span><span style="font-family:'宋体';">接口时需要先调用</span><span>spi.setup()</span><span style="font-family:'宋体';">初始化接口，然后通过</span><span>spi.send()</span><span style="font-family:'宋体';">和</span><span>spi.recv()</span><span style="font-family:'宋体';">接口发送和接收数据，注意在发送和接收前需要用</span><span>GPIO</span><span style="font-family:'宋体';">的操作方式去拉低</span><span>spi_cs</span><span style="font-family:'宋体';">管脚，发送或接收完成后拉高</span><span>spi_cs</span><span style="font-family:'宋体';">管脚。注意在使用</span><span>SPI</span><span style="font-family:'宋体';">前要注意对应的电压域的</span><span>LDO</span><span style="font-family:'宋体';">是否有打开。具体使用方法请参考</span><span>script_LuaTask/demo/spi</span></p>
+
+<p><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">21</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua SPI</span><span style="font-family:'黑体';">初始化接口</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-88YZmrmK5b90e829aa0e0.jpg" class="img-responsive" style="width:627.5px;" alt="attachments-2018-09-88YZmrmK5b90e829aa0e0.jpg" /></p><h2><b><span style="font-size:14pt;">3.9.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">屏幕接口</span></b></h2><p><span style="font-family:'宋体';">模块提供了一组</span><span>SPI</span><span style="font-family:'宋体';">屏专用</span><span>SPI</span><span style="font-family:'宋体';">接口，用于驱动</span><span>SPI</span><span style="font-family:'宋体';">接口</span><span>LCD</span><span style="font-family:'宋体';">屏幕。通过调节</span><span>VLCD</span><span style="font-family:'宋体';">电压可以适配</span><span>1.8V/2.8V IO</span><span style="font-family:'宋体';">电压的屏幕。注意，模块仅支持</span><span>4</span><span style="font-family:'宋体';">线</span><span>1</span><span style="font-family:'宋体';">通道配置的</span><span>SPI</span><span style="font-family:'宋体';">屏幕。同时，配合背光</span><span>LED</span><span style="font-family:'宋体';">驱动管脚可以调节屏背光的亮灭以及亮度。同时也可以使用标准</span><span>SPI</span><span style="font-family:'宋体';">相关管脚驱动屏。屏幕专用</span><span>SPI</span><span style="font-family:'宋体';">管脚如下：</span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">22</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">SPI</span><span style="font-family:'黑体';">接口管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-d8tzxCwn5b90e8a23e94e.jpg" class="img-responsive" style="width:625px;" alt="attachments-2018-09-d8tzxCwn5b90e8a23e94e.jpg" /></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.9.1.<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><span style="font-size:12pt;">LCD</span><span style="font-size:12pt;font-family:'宋体';">接口连接方式</span></b></h3>
+
+<p><span>LCD</span><span style="font-family:'宋体';">接口的连接方式如下：</span></p><p><b><span style="font-family:'宋体';">图表</span><span>17</span><span style="font-family:'宋体';">：</span><span>LCD</span><span style="font-family:'宋体';">接口参考线路</span></b><span style="font-family:'宋体';"><br /></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-eCo8xsTn5b90e98e065f4.jpg" class="img-responsive" style="width:669px;" alt="attachments-2018-09-eCo8xsTn5b90e98e065f4.jpg" /></p><p><span style="font-family:'宋体';">注意：模块最大只能支持</span><span>240*320</span><span style="font-family:'宋体';">分辨率的</span><span>LCD</span><span style="font-family:'宋体';">，建议选择选择在</span><span>240*240</span><span style="font-family:'宋体';">或以下分辨率的</span><span>LCD</span><span style="font-family:'宋体';">。</span></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.9.2.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:12pt;font-family:'宋体';">用标准</span><span style="font-size:12pt;">SPI</span><span style="font-size:12pt;font-family:'宋体';">接口连接屏幕的连接方式</span></b></h3>
+
+<p><span style="font-family:'宋体';">模块也提供了用标准</span><span>SPI</span><span style="font-family:'宋体';">接口连接屏幕的方案以供选择。</span></p><p style="text-align:left;"><b><span style="font-family:'宋体';">图表</span><span>18</span><span style="font-family:'宋体';">：标准</span><span>SPI</span><span style="font-family:'宋体';">接</span><span>LCD</span><span style="font-family:'宋体';">参考线路</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-hPT8NaJY5b90ea69c1013.jpg" class="img-responsive" style="width:601px;" alt="attachments-2018-09-hPT8NaJY5b90ea69c1013.jpg" /></p><p><span style="font-family:'宋体';">注意：如果要用</span><span>SPI</span><span style="font-family:'宋体';">接屏建议使用</span><span>SPI1</span><span style="font-family:'宋体';">通道，在脚本库中已经集成了相关的驱动直接调用就可以。另外</span><span>SPI</span><span style="font-family:'宋体';">接口只支持</span><span>2.8V LCD</span><span style="font-family:'宋体';">，不支持</span><span>1.8V</span><span style="font-family:'宋体';">。</span></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.9.3.<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><span style="font-size:12pt;font-family:'宋体';">屏幕相关</span><span style="font-size:12pt;">API</span><span style="font-size:12pt;font-family:'宋体';">接口</span></b></h3>
+
+<p><span style="font-family:'宋体';">在</span><span>script_LuaTask/demo/ui</span><span style="font-family:'宋体';">的</span><span>DEMO</span><span style="font-family:'宋体';">中已经集成了常用</span><span>LCD</span><span style="font-family:'宋体';">型号的驱动，在器件选型时注意选择列表中的</span><span>LCD</span><span style="font-family:'宋体';">驱动芯片方案，这样可以节省调试时间。已经集成的</span><span>LCD</span><span style="font-family:'宋体';">驱动型号如下：</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-mMwGCuc25b90eb25b2591.jpg" class="img-responsive" style="width:341.5px;" alt="attachments-2018-09-mMwGCuc25b90eb25b2591.jpg" /></p><p><span style="font-family:'宋体';">其中背光的引脚需要调用</span><span>pmd.ldoset(1,pmd.LDO_LCD)</span><span style="font-family:'宋体';">来打开背光。</span></p><p><span style="font-family:'宋体';"><br /></span></p><h2><b><span style="font-size:14pt;">3.10<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">摄像头接口</span></b></h2><p><span style="font-family:'宋体';">模块内置一路摄像头接口用于驱动</span><span>SPI</span><span style="font-family:'宋体';">串行摄像头。最大支持</span><span>320*240</span><span style="font-family:'宋体';">像素，支持</span><span>1.8V</span><span style="font-family:'宋体';">，</span><span>3.3V</span><span style="font-family:'宋体';">摄像头。摄像头接口管脚定义如下：</span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">23</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">SPI</span><span style="font-family:'黑体';">接口管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-AMF2C7xV5b90ec47301a3.jpg" class="img-responsive" style="width:629px;" alt="attachments-2018-09-AMF2C7xV5b90ec47301a3.jpg" /></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.10.1.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:12pt;font-family:'宋体';">摄像头接口的连接方式</span></b></h3>
+
+<p><span style="font-family:'宋体';">如下是摄像头接口的参考设计，其中要连接一路</span><span>I2C</span><span style="font-family:'宋体';">接口，建议优先用</span><span>I2C3</span><span style="font-family:'宋体';">。</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-2OGS3n4g5b90ec870ebd0.jpg" class="img-responsive" style="width:545px;" alt="attachments-2018-09-2OGS3n4g5b90ec870ebd0.jpg" /></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.10.2.<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-size:12pt;font-family:'宋体';">摄像头相关</span><span style="font-size:12pt;">API</span><span style="font-size:12pt;font-family:'宋体';">接口说明</span></b></h3>
+
+<p><span style="font-family:'宋体';">摄像头使用的一般步骤为：先用</span><span>disp.cameraopen(1)</span><span style="font-family:'宋体';">打开摄像头，然后打开预览可以调用</span><span>disp.camerapreview()</span><span style="font-family:'宋体';">，可以调用</span><span>disp.cameracapture()</span><span style="font-family:'宋体';">进行拍照，同时调用</span><span>disp.camerasavephoto()</span><span style="font-family:'宋体';">保存图片，但是要注意模块存储空间是否足够。<span style="color:#FF0000;">注意：摄像头接口需</span></span><span style="color:#FF0000;">V0028</span><span style="font-family:'宋体';color:#FF0000;">以及以上</span><span style="color:#FF0000;">core</span><span style="font-family:'宋体';color:#FF0000;">版本才能支持</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-OjMkTMqi5b90edd4a3852.jpg" class="img-responsive" style="width:602px;" alt="attachments-2018-09-OjMkTMqi5b90edd4a3852.jpg" /></p><h2><b><span style="font-size:14pt;">3.11<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">PWM</span><span style="font-size:14pt;font-family:'黑体';">接口</span></b></h2><p><span>Air268F</span><span style="font-family:'宋体';">模块支持</span><span>2</span><span style="font-family:'宋体';">路</span><span>PWM</span><span style="font-family:'宋体';">输出：</span><span>PWT,LPG</span><span style="font-family:'宋体';">，分别由</span><span>UART2_RX</span><span style="font-family:'宋体';">和</span><span>UART2_TXD</span><span style="font-family:'宋体';">复用。其中</span><span>LPG</span><span style="font-family:'宋体';">为低速</span><span>PWM, </span><span style="font-family:'宋体';">用于低频率的应用如驱动</span><span>LED</span><span style="font-family:'宋体';">闪烁，只能设定固定的</span><span>7</span><span style="font-family:'宋体';">种周期（单位</span><span>ms</span><span style="font-family:'宋体';">）：</span><span>125,250,500,1000,1500,2000,2500,3000</span><span style="font-family:'宋体';">。以及</span><span>15</span><span style="font-family:'宋体';">种高电平时间。</span><span>PWT,</span><span style="font-family:'宋体';">频率范围（</span><span>80-65535HZ</span><span style="font-family:'宋体';">），以及可以设置各种占空比。</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">28</span><span style="font-family:'黑体';">：串口管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-59IuGy5Y5b90f125c5c0b.jpg" class="img-responsive" style="width:649px;" alt="attachments-2018-09-59IuGy5Y5b90f125c5c0b.jpg" /></p><p><span>PWM</span><span style="font-family:'宋体';">相关的</span><span>API</span><span style="font-family:'宋体';">接口：</span><span style="font-family:'宋体';">详细请参考</span><span>script_LuaTask/demo/PWM</span></p>
+
+<p><b><span style="font-family:'黑体';"><br /></span></b></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">29</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua PWM</span><span style="font-family:'黑体';">接口</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-10rwxMZJ5b90f1ae68085.jpg" class="img-responsive" style="width:590.5px;" alt="attachments-2018-09-10rwxMZJ5b90f1ae68085.jpg" /></p><p><br /></p><h2><b><span style="font-size:14pt;">3.12.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">ADC</span><span style="font-size:14pt;font-family:'黑体';">接口</span></b></h2><p><span style="font-family:'宋体';">模块内置两路</span><span>ADC</span><span style="font-family:'宋体';">，可以用来做电池电压检测，温湿度检测，</span><span>TDS</span><span style="font-family:'宋体';">检测等应用。</span><span>ADC</span><span style="font-family:'宋体';">精度为</span><span>10bit</span><span style="font-family:'宋体';">，测量输入范围为</span><span>0</span><span style="font-family:'宋体';">到</span><span>1.85V,</span><span style="font-family:'宋体';">测量误差范围为</span><span>+-20mV</span><span style="font-family:'宋体';">。若测量的电压输入范围大于</span><span>1.85V</span><span style="font-family:'宋体';">则需要进行分压后再输入</span><span>ADC</span><span style="font-family:'宋体';">。</span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">31</span><span style="font-family:'黑体';">：串口管脚定义</span></b>
+<br /></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-MwDC87DT5b90f29b9208a.jpg" class="img-responsive" style="width:588.5px;" alt="attachments-2018-09-MwDC87DT5b90f29b9208a.jpg" /></p><p><span>ADC</span><span style="font-family:'宋体';">相关接口：详细请参考</span><span>script_LuaTask/demo/ADC</span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">32</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua </span><span style="font-family:'黑体';">打开</span><span style="font-family:Calibri, sans-serif;">ADC</span><span style="font-family:'黑体';">接口</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-Bl40ZYuM5b90f32e7acc1.jpg" class="img-responsive" style="width:597.5px;" alt="attachments-2018-09-Bl40ZYuM5b90f32e7acc1.jpg" /></p><h2><b><span style="font-size:14pt;">3.13.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">键盘接口</span></b></h2>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-1FC5uCYa5b90f3af2ce2e.jpg" class="img-responsive" style="width:654px;" alt="attachments-2018-09-1FC5uCYa5b90f3af2ce2e.jpg" /></p><p><span style="font-family:'宋体';"><b><br /></b></span></p><p><span style="font-family:'宋体';"><b>键盘参考设计：</b></span></p><p><b><span style="font-family:'宋体';">图表</span><span>20</span><span style="font-family:'宋体';">：键盘接口参考线路</span></b><span style="font-family:'宋体';"><b><br /></b></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-nhzq3MNM5b90f3f4f0893.png" class="img-responsive" style="width:591px;" alt="attachments-2018-09-nhzq3MNM5b90f3f4f0893.png" /></p><p style="text-align:left;"><br /></p><p><span> </span><span style="font-family:'宋体';">注意：</span><span>1.</span><span style="font-family:'宋体';">键盘走线请尽量远离天线，以免对天线造成干扰。</span></p><p><span>          2. </span><span style="font-family:'宋体';">键盘走线串联</span><span>1K</span><span style="font-family:'宋体';">电阻以做</span><span>ESD</span><span style="font-family:'宋体';">防护。</span></p><h2><b><span style="font-size:14pt;">3.14<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">通用</span><span style="font-size:14pt;font-family:Calibri, sans-serif;">GPIO</span></b></h2><p><span style="font-family:'宋体';">模块多数管脚都可以复用为通用</span><span>GPIO</span><span style="font-family:'宋体';">管脚，多达</span><span>35</span><span style="font-family:'宋体';">个</span><span>GPIO</span><span style="font-family:'宋体';">口，所以</span><span>GPIO</span><span style="font-family:'宋体';">口均可配置为输入和输出，且都可以响应中断，作为输入时都可以配置为上拉或下拉。使用</span><span>GPIO</span><span style="font-family:'宋体';">口时一定要打开</span><span>GPIO</span><span style="font-family:'宋体';">对应电压域的</span><span>LDO</span><span style="font-family:'宋体';">才能正常工作，具体复用的</span><span>GPIO</span><span style="font-family:'宋体';">请参考表格</span><span>3</span><span style="font-family:'宋体';">。</span></p><p><span>GPIO</span><span style="font-family:'宋体';">电气特性：</span></p>
+
+<p><span style="font-size:11pt;font-family:'宋体';">表格</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">35</span><span style="font-size:11pt;font-family:'宋体';">：</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">GPIO</span><span style="font-size:11pt;font-family:'宋体';">电气特性</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-TxMuC9l25b90f4b140664.png" class="img-responsive" alt="attachments-2018-09-TxMuC9l25b90f4b140664.png" /></p><p><span>GPIO</span><span style="font-family:'宋体';">相关</span><span>API</span><span style="font-family:'宋体';">接口：详细请参考</span><span>script_LuaTask/demo/gpio</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">36</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua GPIO</span><span style="font-family:'黑体';">输入输出设置接口</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WgPMpjG05b90f5467a148.jpg" class="img-responsive" style="width:595px;" alt="attachments-2018-09-WgPMpjG05b90f5467a148.jpg" /></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">38</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">lua GPIO</span><span style="font-family:'黑体';">输出低接口</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-hOI8GZsf5b90f724eeeb4.jpg" class="img-responsive" style="width:527px;" alt="attachments-2018-09-hOI8GZsf5b90f724eeeb4.jpg" /></p><h2><b><span style="font-size:14pt;">3.15<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">LDO</span><span style="font-size:14pt;font-family:'黑体';">输出</span></b></h2>
+
+<p><span style="font-family:'宋体';">模块内置</span><span>3</span><span style="font-family:'宋体';">路</span><span>LDO</span><span style="font-family:'宋体';">输入可以对外供电，分别是</span><span>VDDIO</span><span style="font-family:'宋体';">，</span><span>V_LCD</span><span style="font-family:'宋体';">，</span><span>V_CAM</span><span style="font-family:'宋体';">，其中</span><span>VDDIO</span><span style="font-family:'宋体';">为固定输出不可调节，其余两个</span><span>LDO</span><span style="font-family:'宋体';">均可以软件控制打开与关闭，以及电压值。</span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">42</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">LDO</span><span style="font-family:'黑体';">管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-U0SNAUod5b90f8f9be812.jpg" class="img-responsive" style="width:592px;" alt="attachments-2018-09-U0SNAUod5b90f8f9be812.jpg" /></p><h2><b><span style="font-size:14pt;">3.16 <span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><span style="font-size:14pt;font-family:'黑体';">背光输出控制管脚</span></b></h2><p><span style="font-family:'宋体';">模块内置</span><span>3</span><span style="font-family:'宋体';">路背光驱动控制管脚，分别为</span><span>LCD_BL</span><span style="font-family:'宋体';">，</span><span>KP_LED_B</span><span style="font-family:'宋体';">，</span><span>KP_LED_R</span><span style="font-family:'宋体';">。这三路管脚与其他</span><span>GPIO</span><span style="font-family:'宋体';">不同，为电流源，只能向内部输入电流，无法输出。通常用来接</span><span>LED</span><span style="font-family:'宋体';">的阴极。其中</span><span>LCD_BL</span><span style="font-family:'宋体';">最大驱动电流为</span><span>60mA</span><span style="font-family:'宋体';">，通常用于驱动屏幕背光。</span><span>KP_LED_B</span><span style="font-family:'宋体';">，</span><span>KP_LED_R</span><span style="font-family:'宋体';">最大驱动电流为</span><span>30mA</span><span style="font-family:'宋体';">，通常用来驱动发光二极管。</span></p>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">43</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">LDO</span><span style="font-family:'黑体';">管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-5NKM1Zkc5b90fa4855d9f.jpg" class="img-responsive" style="width:578.5px;" alt="attachments-2018-09-5NKM1Zkc5b90fa4855d9f.jpg" /><span style="font-size:11pt;font-family:'宋体';">相关参考设计如下：</span></p><p style="text-align:left;"><b><span style="font-family:'宋体';">图表</span><span>21</span><span style="font-family:'宋体';">：</span><span>LED</span><span style="font-family:'宋体';">驱动电路参考线路</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-JO9evL3o5b90fabed41e7.png" class="img-responsive" style="width:489.5px;" alt="attachments-2018-09-JO9evL3o5b90fabed41e7.png" /></p><h2><b><span style="font-size:14pt;">3.17<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">音频接口</span></b></h2><p><span style="font-size:10.5pt;font-family:'宋体';">模块一共有三路模拟音频输入输出通道，支持通话、录音和播放等功能。分别是差分麦克风输入接口，差分喇叭输出接口和立体声耳机接口。</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">44</span><span style="font-family:'黑体';">：模拟音频管脚定义</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-H79bLmBl5b90fb204766d.jpg" class="img-responsive" style="width:623.5px;" alt="attachments-2018-09-H79bLmBl5b90fb204766d.jpg" /><b><span style="font-family:'黑体';"><br /></span></b></p>
+
+<h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.17.1<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'宋体';color:#000000;">防止</span><span style="font-size:12pt;">TDD</span><span style="font-size:12pt;font-family:'宋体';">噪声和其它噪声</span></b></h3><p><span style="font-size:10.5pt;font-family:'宋体';">手持话柄及免提的麦克风建议采用内置射频滤波双电容（如</span><span style="font-size:10.5pt;">10pF</span><span style="font-size:10.5pt;font-family:'宋体';">和</span><span style="font-size:10.5pt;">33pF</span><span style="font-size:10.5pt;font-family:'宋体';">）的驻极体麦克风，从干扰源头滤除射频干扰，会很大程度改善耦合</span><span style="font-size:10.5pt;">TDD</span><span style="font-size:10.5pt;font-family:'宋体';">噪音。</span><span style="font-size:10.5pt;">33pF</span><span style="font-size:10.5pt;font-family:'宋体';">电容用于滤除模块工作在</span><span style="font-size:10.5pt;">900MHz</span><span style="font-size:10.5pt;font-family:'宋体';">频率时的高频干扰。如果不加该电容，在通话时候有可能会听到</span><span style="font-size:10.5pt;">TDD</span><span style="font-size:10.5pt;font-family:'宋体';">噪声。同时</span><span style="font-size:10.5pt;">10pF</span><span style="font-size:10.5pt;font-family:'宋体';">的电容是用以滤除工作在</span><span style="font-size:10.5pt;">1800MHz</span><span style="font-size:10.5pt;font-family:'宋体';">频率时的高频干扰。需要注意的是，由于电容的谐振点很大程度上取决于电容的材料以及制造工艺，因此选择电容时，需要咨询电容的供应商，选择最合适的容值来滤除工作在</span><span style="font-size:10.5pt;">GSM850MHz</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">GSM900MHz</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;">DCS1800MHz</span><span style="font-size:10.5pt;font-family:'宋体';">和</span><span style="font-size:10.5pt;">PCS1900MHz</span><span style="font-size:10.5pt;font-family:'宋体';">时的高频噪声。</span></p><p><span style="font-size:10.5pt;">GSM</span><span style="font-size:10.5pt;font-family:'宋体';">发射时的高频干扰严重程度通常主要取决于客户应用设计。在有些情况下，</span><span style="font-size:10.5pt;">GSM900</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;">TDD</span><span style="font-size:10.5pt;font-family:'宋体';">噪声比较严重，而有些情况下，</span><span style="font-size:10.5pt;">DCS1800</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;">TDD</span><span style="font-size:10.5pt;font-family:'宋体';">噪声比较严重。因此客户可以根据测试的结果选贴需要的滤波电容，甚至有的时候不需要贴该类滤波电容。</span></p><p><span style="font-size:10.5pt;">PCB</span><span style="font-size:10.5pt;font-family:'宋体';">板上的射频滤波电容摆放位置要尽量靠近音频器件或音频接口，走线尽量短，要先经过滤波电容再到其他点</span></p><p><span style="font-size:10.5pt;font-family:'宋体';">天线的位置离音频元件和音频走线尽量远，减少辐射干扰，电源走线和音频走线不能平行，电源线尽量远离音频线。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';">差分音频走线必须遵循差分信号的</span><span style="font-size:10.5pt;">Layout</span><span style="font-size:10.5pt;font-family:'宋体';">规则。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.17.2.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'宋体';">麦克风接口参考电路</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">麦克风通道参考电路下图所示</span><span style="font-family:'宋体';">：</span></p><p><span style="font-family:'宋体';"><b><br /></b></span></p><p><b><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">22</span><span style="font-family:'黑体';">：麦克风通道接口电路</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-HPv35vEE5b90fc2e835a7.jpg" class="img-responsive" style="width:485.5px;" alt="attachments-2018-09-HPv35vEE5b90fc2e835a7.jpg" /></p><p><br /></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.17.3.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'宋体';">音频输出接口参考电路</span></b></h3>
+
+<p><span style="font-size:10.5pt;">SPK</span><span style="font-size:10.5pt;font-family:'宋体';">音频输出接口可以直接与驱动</span><span style="font-size:10.5pt;">8</span><span style="font-size:10.5pt;font-family:'宋体';">欧姆喇叭。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><p style="text-align:left;"><b><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">23</span><span style="font-family:'黑体';">：参考线路</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-5Nghc9oZ5b90fd0ea690d.jpg" class="img-responsive" style="width:603px;" alt="attachments-2018-09-5Nghc9oZ5b90fd0ea690d.jpg" /></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.17.4.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'宋体';">耳机接口参考电路</span></b></h3><h4><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">24</span><span style="font-family:'黑体';">：耳机参考线路</span></h4><h4><img src="http://oldask.openluat.com/image/show/attachments-2018-09-aitTrmla5b90fd969e1df.jpg" class="img-responsive" style="width:522px;" alt="attachments-2018-09-aitTrmla5b90fd969e1df.jpg" /></h4><p><span style="font-size:12pt;font-family:'宋体';">注意：耳机信号为单端信号容易受到</span><span style="font-size:12pt;">TDD</span><span style="font-size:12pt;font-family:'宋体';">干扰，因此在布局走线时尽量远离天线放置，同时耳机信号走线要注意包地线保护。</span></p><p><span style="font-size:12pt;font-family:'宋体';"><br /></span></p><p><span style="font-size:12pt;font-family:'宋体';"><br /></span></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.17.5<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'宋体';">音频接口相关</span><span style="font-size:12pt;">API</span><span style="font-size:12pt;font-family:'宋体';">接口说明</span></b></h3>
+
+<p><span style="font-family:'宋体';">使用音频接口时注意设置对应的音频通道。详细请参考</span><span>script_LuaTask/demo/audio</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-gDRYq0Mj5b91372a787fd.jpg" class="img-responsive" style="width:596.5px;" alt="attachments-2018-09-gDRYq0Mj5b91372a787fd.jpg" /><img src="http://oldask.openluat.com/image/show/attachments-2018-09-Ui30CVAd5b9138152b8ae.jpg" class="img-responsive" style="width:593.5px;" alt="attachments-2018-09-Ui30CVAd5b9138152b8ae.jpg" /></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-Ui30CVAd5b9138152b8ae.jpg" class="img-responsive" style="width:593.5px;" alt="attachments-2018-09-Ui30CVAd5b9138152b8ae.jpg" /></p><h2><span style="font-family:Arial;font-weight:bold;font-size:14pt;">3.18 </span><b><span style="font-family:Calibri;font-size:14pt;">SIM<font>卡接口</font></span></b></h2><p><span style="font-family:Calibri;font-size:10.5pt;">SIM<font>卡接口支持</font><font>GSM Phase1</font><font>规范的功能，同时也支持</font><font>GSM Phase  2+</font><font>规范的功能和</font><font>FAST64 kbps SIM</font><font>卡（用于</font><font>SIM</font><font>应用工具包）</font></span></p><p><span style="font-family:Calibri;font-size:10.5pt;">SIM<font>卡通过模块内部的电源供电，支持</font><font>1.8V</font><font>和</font><font>3.0V</font><font>供电。</font></span></p><h3><b><span style="font-family:Arial;font-size:14pt;">3.18.1  </span><span style="font-family:Calibri;font-size:12pt;">SIM<font>接口</font></span></b></h3><p><span style="font-family:Calibri;font-size:10.5pt;"><font>下表介绍了</font>SIM<font>的接口管脚定义。</font></span></p><p><span style="font-family:Calibri;font-size:10pt;"><font>表格</font></span><span style="font-family:Calibri;font-size:10pt;">49</span><span style="font-family:Calibri;font-size:10pt;"><font>：</font>SIM<font>卡接口管脚定义</font></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-CzQyUUI05b91ded645ab3.jpg" class="img-responsive" style="width:579px;" alt="attachments-2018-09-CzQyUUI05b91ded645ab3.jpg" /></p><p><span style="font-size:10.5pt;font-family:'宋体';">下图是</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">接口的参考电路，使用</span><span style="font-size:10.5pt;">6pin</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡座。</span></p><p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">25</span><span style="font-size:11pt;font-family:'宋体';">：使用</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">6pin SIM</span><span style="font-size:11pt;font-family:'宋体';">卡座参考电路图</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">(SIM)</span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-eYzvH3Bc5b91e20ca9533.jpg" class="img-responsive" style="width:593px;" alt="attachments-2018-09-eYzvH3Bc5b91e20ca9533.jpg" /></p><p><span style="font-size:10.5pt;font-family:'宋体';">在</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡接口的电路设计中，为了确保</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡的良好的功能性能和不被损坏，在电路设计中建议遵循以下设计原则：</span></p><p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡座与模块距离摆件不能太远，越近越好，尽量保证</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡信号线布线不超过</span><span style="font-size:10.5pt;">20cm</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p><p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡信号线布线远离</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">线和</span><span style="font-size:10.5pt;">VBAT</span><span style="font-size:10.5pt;font-family:'宋体';">电源线。</span></p><p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;">SIM_VDD</span><span style="font-size:10.5pt;font-family:'宋体';">的布线宽度不小于</span><span style="font-size:10.5pt;">0.</span><span style="font-size:10.5pt;">3</span><span style="font-size:10.5pt;">mm</span><span style="font-size:10.5pt;font-family:'宋体';">，且在</span><span style="font-size:10.5pt;">SIM_VDD</span><span style="font-size:10.5pt;font-family:'宋体';">与</span><span style="font-size:10.5pt;">SIM_GND</span><span style="font-size:10.5pt;font-family:'宋体';">之间的旁路电路不超过</span><span style="font-size:10.5pt;">1uF</span><span style="font-size:10.5pt;font-family:'宋体';">，并靠近</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡座摆放。</span></p><p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">为了防止可能存在的</span><span style="font-size:10.5pt;">SIM_CLK</span><span style="font-size:10.5pt;font-family:'宋体';">信号对</span><span style="font-size:10.5pt;">SIM_DATA</span><span style="font-size:10.5pt;font-family:'宋体';">信号的串扰，两者布线不要太靠近，在两条走线之间增加地屏蔽。且对</span><span style="font-size:10.5pt;">SIM_RST</span><span style="font-size:10.5pt;font-family:'宋体';">信号也需要地保护。</span></p><p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">为了保证良好的</span><span style="font-size:10.5pt;">ESD</span><span style="font-size:10.5pt;font-family:'宋体';">保护，建议加</span><span style="font-size:10.5pt;">TVS</span><span style="font-size:10.5pt;font-family:'宋体';">管，并靠近</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡座摆放。选择的</span><span style="font-size:10.5pt;">ESD</span><span style="font-size:10.5pt;font-family:'宋体';">器件寄生电容不大于</span><span style="font-size:10.5pt;">50pF</span><span style="font-size:10.5pt;font-family:'宋体';">，例如</span><span style="font-size:10.5pt;">PESDNC9D5VU</span><span style="font-size:10.5pt;font-family:'宋体';">。</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡的外围电路必须尽量靠近</span><span style="font-size:10.5pt;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡座。</span></p><p><span> </span></p><h3><b><span style="font-size:14pt;font-family:Arial, sans-serif;">3.18.2.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:12pt;">6-pin
+SIM</span><span style="font-size:12pt;font-family:'宋体';">卡座</span></b></h3>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">使用</span><span style="font-size:10.5pt;">6-pin SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡座，推荐使用</span><span style="font-size:10.5pt;">Amphenol</span><span style="font-size:10.5pt;font-family:'宋体';">公司的</span><span style="font-size:10.5pt;">C70710M0065122</span><span style="font-size:10.5pt;font-family:'宋体';">。访问</span><span style="font-size:10.5pt;">http://www.amphenol.com</span><span style="font-size:10.5pt;font-family:'宋体';">获取更多信息。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';"><b><span style="font-size:11pt;">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">26</span><span style="font-size:11pt;">：</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">Amphenol C707 10M006 512 2 SIM</span><span style="font-size:11pt;">卡座</span></b><br /></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-8fZcQJF55b91e8b7d5cb6.jpg" class="img-responsive" style="width:518px;" alt="attachments-2018-09-8fZcQJF55b91e8b7d5cb6.jpg" /></p><p><br /></p><h2><b><span style="font-size:14pt;">3.19<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">网络状态指示</span></b></h2><p><span style="font-size:10.5pt;font-family:'宋体';">模块</span><span style="font-size:10.5pt;">lua</span><span style="font-size:10.5pt;font-family:'宋体';">脚本库中集成了网络指示灯的功能，通过</span><span style="font-size:10.5pt;">GPIO</span><span style="font-size:10.5pt;font-family:'宋体';">口实现对</span><span style="font-size:10.5pt;">LED</span><span style="font-size:10.5pt;font-family:'宋体';">灯的控制。默认使用的</span><span style="font-size:10.5pt;">GPIO_33</span><span style="font-size:10.5pt;font-family:'宋体';">管脚，此管脚是与</span><span style="font-size:10.5pt;">KEYOUT3</span><span style="font-size:10.5pt;font-family:'宋体';">复用，如果需要使用键盘功能可以将网络灯的功能修改至其他空余</span><span style="font-size:10.5pt;">GPIO</span><span style="font-size:10.5pt;font-family:'宋体';">管脚，只需要修改</span><span style="font-size:10.5pt;">netled.lua</span><span style="font-size:10.5pt;font-family:'宋体';">文件。</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">50</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">NET_LED</span><span style="font-family:'黑体';">的工作状态</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WYjnS27b5b91e9b4ab802.jpg" class="img-responsive" style="width:613px;" alt="attachments-2018-09-WYjnS27b5b91e9b4ab802.jpg" /></p><p><span style="font-size:10.5pt;font-family:'宋体';">参考电路如下图</span><span style="font-size:10.5pt;font-family:'宋体';">：</span></p><p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">27</span><span style="font-size:11pt;font-family:'宋体';">：网络灯参考电路</span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-fAiDAldw5b91e9cd88c2f.jpg" class="img-responsive" style="width:307px;" alt="attachments-2018-09-fAiDAldw5b91e9cd88c2f.jpg" /></p><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;"><br /></span></b></h1><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;">4.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:16pt;font-family:'宋体';">射频接口</span></b><span style="font-size:16pt;"><b> </b>   </span></h1><p><span style="font-size:10.5pt;font-family:'宋体';">管脚</span><span style="font-size:10.5pt;"> <span>54</span></span><span style="font-size:10.5pt;font-family:'宋体';">是</span><span style="font-size:10.5pt;"> RF</span><span style="font-size:10.5pt;font-family:'宋体';">天线输入端。</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">接口</span><span style="font-size:10.5pt;">50</span><span style="font-size:10.5pt;font-family:'宋体';">欧姆阻抗匹配。</span></p><p><span style="font-size:10.5pt;"> </span><span style="font-size:10.5pt;"> </span></p>
+
+<p><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">51</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">RF_ANT</span><span style="font-family:'黑体';">管脚定义</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-UV5s66O55b91ea420d5a6.jpg" class="img-responsive" style="width:610px;" alt="attachments-2018-09-UV5s66O55b91ea420d5a6.jpg" /></p><h2><b><span style="font-size:14pt;">4.1.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">射频参考电路</span></b></h2><h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-YoMfmSOd5b91eac3a8bce.jpg" class="img-responsive" style="width:467.5px;" alt="attachments-2018-09-YoMfmSOd5b91eac3a8bce.jpg" /></h2><p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">提供了一个</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">天线焊盘作为天线连接接口。连接到模块</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">天线焊盘的</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">走线必须使用微带线或者其他类型的</span><span style="font-size:10.5pt;"> RF</span><span style="font-size:10.5pt;font-family:'宋体';">走线，阻抗必须控制在</span><span style="font-size:10.5pt;">50</span><span style="font-size:10.5pt;font-family:'宋体';">欧姆左右。为了获得更好的射频性能，</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">输入端口两侧各有接地焊盘。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">为了最小化</span><span style="font-size:10.5pt;"> RF</span><span style="font-size:10.5pt;font-family:'宋体';">走线或者</span><span style="font-size:10.5pt;">RF</span><span style="font-size:10.5pt;font-family:'宋体';">线缆上的损耗，必须谨慎设计。建议插入损耗必须满足以下条件：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:10.5pt;">GSM850/EGSM900&lt;1dB</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:10.5pt;">DCS1800/PCS1900&lt;1.5dB</span></p><h2><b><span style="font-size:14pt;">4.2<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">RF</span><span style="font-size:14pt;font-family:'黑体';">输出功率</span></b></h2><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">52</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">RF</span><span style="font-family:'黑体';">传导功率</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-ZTXeBrsC5b91ec1e92ef2.jpg" class="img-responsive" style="width:614.5px;" alt="attachments-2018-09-ZTXeBrsC5b91ec1e92ef2.jpg" /></p><p><span style="font-size:10.5pt;font-family:'宋体';">注意：在</span><span style="font-size:10.5pt;"> GPRS</span><span style="font-size:10.5pt;font-family:'宋体';">网络</span><span style="font-size:10.5pt;">4</span><span style="font-size:10.5pt;font-family:'宋体';">时隙发送模式下，最大输出功率减小</span><span style="font-size:10.5pt;"> 2.5dB</span><span style="font-size:10.5pt;font-family:'宋体';">。该设计符合</span><span style="font-size:10.5pt;"> 3GPP TS 51.010-1</span><span style="font-size:10.5pt;font-family:'宋体';">中</span><span style="font-size:10.5pt;"> 13.16</span><span style="font-size:10.5pt;font-family:'宋体';">章节所述的</span><span style="font-size:10.5pt;">GSM</span><span style="font-size:10.5pt;font-family:'宋体';">规范。</span></p><h2><b><span style="font-size:14pt;">4.3<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:Calibri, sans-serif;">RF</span><span style="font-size:14pt;font-family:'黑体';">传导灵敏度</span></b></h2>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">53</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">RF</span><span style="font-family:'黑体';">传导灵敏度</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-HVjkphKv5b91ec4c8c38b.jpg" class="img-responsive" style="width:612px;" alt="attachments-2018-09-HVjkphKv5b91ec4c8c38b.jpg" /></p><h2><b><span style="font-size:14pt;">4.4<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">工作频率</span></b></h2>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">54</span><span style="font-family:'黑体';">：模块工作频率</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-59Qb1FrB5b91ec8019deb.jpg" class="img-responsive" style="width:616.5px;" alt="attachments-2018-09-59Qb1FrB5b91ec8019deb.jpg" /></p><h2><b><span style="font-size:14pt;">4.5<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">推荐</span><span style="font-size:14pt;font-family:Calibri, sans-serif;">RF</span><span style="font-size:14pt;font-family:'黑体';">焊接方式</span></b></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">如果连接外置天线的射频连接器是通过焊接方式与模块相连的，请务必注意连接线的剥线方式及焊接方法，尤其是地要焊接充分，请按照下图中正确的焊接方式进行操作，以避免因焊接不良引起线损增大。</span></p><p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">29</span><span style="font-size:11pt;font-family:'宋体';">：射频焊接方式建议</span></b><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-NxBdirDa5b91ed6a08d9b.jpg" class="img-responsive" style="width:492.5px;" alt="attachments-2018-09-NxBdirDa5b91ed6a08d9b.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;">5.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:15pt;font-family:'宋体';">电器特性，可靠性，射频特性</span></b></h1><h2><b><span style="font-size:14pt;">5.1<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">绝对最大值</span></b></h2><p><span style="font-size:10.5pt;font-family:'宋体';">下表所示是模块数字、模拟管脚的电源供电电压电流最大耐受值。</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">55</span><span style="font-family:'黑体';">：绝对最大值</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-aqNndoTJ5b91eddfe84b6.jpg" class="img-responsive" style="width:610px;" alt="attachments-2018-09-aqNndoTJ5b91eddfe84b6.jpg" /></p><h2><b><span style="font-size:14pt;">5.2<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">工作温度</span></b></h2>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">56</span><span style="font-family:'黑体';">：工作温度</span></b></p><h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-mQiOwmUU5b91efbd2148b.jpg" class="img-responsive" alt="attachments-2018-09-mQiOwmUU5b91efbd2148b.jpg" style="font-size:14px;width:618.5px;" /></h2><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-YZZUA4SE5b91efc334129.jpg" class="img-responsive" style="width:618.5px;" alt="attachments-2018-09-YZZUA4SE5b91efc334129.jpg" /></p><h2><b><span style="font-size:14pt;">5.3<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">耗流</span></b></h2>
+
+<p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">57</span><span style="font-family:'黑体';">：模块耗流</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WsmYpAj45b91f0a4dbc70.jpg" class="img-responsive" style="width:613.5px;" alt="attachments-2018-09-WsmYpAj45b91f0a4dbc70.jpg" /></p><h2><b><span style="font-size:14pt;">5.4<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">静电防护</span></b></h2><p><span style="font-size:10.5pt;font-family:'宋体';">在模块应用中，由于人体静电，微电子间带电摩擦等产生的静电，通过各种途径放电给模块，可能会对模块造成一定的损坏，所以</span><span style="font-size:10.5pt;"> ESD</span><span style="font-size:10.5pt;font-family:'宋体';">保护必须要重视，不管是在生产组装、测试，研发等过程，尤其在产品设计中，都应采取防</span><span style="font-size:10.5pt;"> ESD</span><span style="font-size:10.5pt;font-family:'宋体';">保护措施。如电路设计在接口处或易受</span><span style="font-size:10.5pt;"> ESD</span><span style="font-size:10.5pt;font-family:'宋体';">点增加</span><span style="font-size:10.5pt;"> ESD</span><span style="font-size:10.5pt;font-family:'宋体';">保护，生产中带防</span><span style="font-size:10.5pt;">ESD</span><span style="font-size:10.5pt;font-family:'宋体';">手套等。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';">下表为模块重点</span><span style="font-size:10.5pt;">PIN</span><span style="font-size:10.5pt;font-family:'宋体';">脚的</span><span style="font-size:10.5pt;">ESD</span><span style="font-size:10.5pt;font-family:'宋体';">耐受电压情况。</span></p><p><b><span style="font-family:'黑体';">表格</span><span style="font-family:Calibri, sans-serif;">58</span><span style="font-family:'黑体';">：</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">ESD</span><span style="font-size:10.5pt;font-family:'黑体';">性能参数（温度：</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">25</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">℃</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">, </span><span style="font-size:10.5pt;font-family:'黑体';">湿度：</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">45%</span><span style="font-size:10.5pt;font-family:'黑体';">）</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-RNQ6wr2u5b920e4796035.jpg" class="img-responsive" style="width:616px;" alt="attachments-2018-09-RNQ6wr2u5b920e4796035.jpg" /><b><span style="font-size:10.5pt;font-family:'黑体';"><br /></span></b></p><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;">6.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:15pt;font-family:'宋体';">机械尺寸</span></b></h1><p><span style="font-size:10.5pt;font-family:'宋体';">该章节描述模块的机械尺寸以及客户使用该模块设计的推荐封装尺寸。</span></p>
+
+<h2><b><span style="font-size:14pt;">6.1<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">模块机械尺寸</span></b></h2><h5><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">30</span><span style="font-family:'黑体';">：</span><span style="font-family:Calibri, sans-serif;">Air268F</span><span style="font-family:'黑体';">正视图（单位：毫米）</span></h5><h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-IFBMp1b45b920f0da11df.jpg" class="img-responsive" style="width:473px;" alt="attachments-2018-09-IFBMp1b45b920f0da11df.jpg" /></h2><h2><b><span style="font-size:14pt;">6.2<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">推荐</span><span style="font-size:14pt;font-family:Calibri, sans-serif;">PCB</span><span style="font-size:14pt;font-family:'黑体';">封装</span></b></h2><h5><b><span style="font-family:'黑体';">图表</span><span style="font-family:Calibri, sans-serif;">31</span><span style="font-family:'黑体';">：推荐封装（单位：毫米）</span></b></h5><h5><img src="http://oldask.openluat.com/image/show/attachments-2018-09-aurdos2r5b920fb7c44cb.jpg" class="img-responsive" style="width:493px;" alt="attachments-2018-09-aurdos2r5b920fb7c44cb.jpg" /></h5><p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><p><span style="font-size:10.5pt;font-family:'宋体';">注意：保证</span><b><span style="font-size:10.5pt;">PCB</span></b><span style="font-size:10.5pt;font-family:'宋体';">板上模块和其他元器件之间间距至少</span><b><span style="font-size:10.5pt;">3mm</span></b><span style="font-size:10.5pt;font-family:'宋体';">。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><h2><b><span style="font-size:14pt;">6.3<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">模块正视图</span></b></h2><h2><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">32</span><span style="font-size:11pt;font-family:'宋体';">：模块正视图</span></b></h2><h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-CAWNKqxN5b92106a8ad1b.png" class="img-responsive" style="width:164px;" alt="attachments-2018-09-CAWNKqxN5b92106a8ad1b.png" /></h2><h2><b><span style="font-size:14pt;">6.4<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">模块底视图</span></b></h2><h2><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">33</span><span style="font-size:11pt;font-family:'宋体';">：模块底视图</span></b><span style="font-size:14pt;font-family:'黑体';"><br /></span></h2><h2><img src="http://oldask.openluat.com/image/show/attachments-2018-09-BgGJYMSy5b921098380a9.png" class="img-responsive" style="width:198px;" alt="attachments-2018-09-BgGJYMSy5b921098380a9.png" /></h2><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;"><br /></span></b></h1><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;">7.<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:15pt;font-family:'宋体';">存储和生产</span></b></h1><h2><b><span style="font-size:14pt;">7.1<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">存储</span></b></h2><p><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">以真空密封袋的形式出货。模块的存储需遵循如下条件：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">环境温度低于</span><span style="font-size:10.5pt;">40</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度，空气湿度小于</span><span style="font-size:10.5pt;">90%</span><span style="font-size:10.5pt;font-family:'宋体';">情况下，模块可在真空密封袋中存放</span><span style="font-size:10.5pt;">12</span><span style="font-size:10.5pt;font-family:'宋体';">个月。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">当真空密封袋打开后，若满足以下条件，模块可直接进行回流焊或其它高温流程：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">模块环境温度低于</span><span style="font-size:10.5pt;">30</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度，空气湿度小于</span><span style="font-size:10.5pt;">60%</span><span style="font-size:10.5pt;font-family:'宋体';">，工厂在</span><span style="font-size:10.5pt;">72</span><span style="font-size:10.5pt;font-family:'宋体';">小时以内完成贴片。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">空气湿度小于</span><span style="font-size:10.5pt;">10%</span></p>
+
+<p> </p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">若模块处于如下条件，需要在贴片前进行烘烤：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">当环境温度为</span><span style="font-size:10.5pt;">23</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度（允许上下</span><span style="font-size:10.5pt;">5</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度的波动）时，湿度指示卡显示湿度大于</span><span style="font-size:10.5pt;">10%</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">当真空密封袋打开后，模块环境温度低于</span><span style="font-size:10.5pt;">30</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度，空气湿度小于</span><span style="font-size:10.5pt;">60%</span><span style="font-size:10.5pt;font-family:'宋体';">，但工厂未能在</span><span style="font-size:10.5pt;">72</span><span style="font-size:10.5pt;font-family:'宋体';">小时以内完成贴片</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Symbol;">¨<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:10.5pt;font-family:'宋体';">当真空密封袋打开后，模块存储空气湿度大于</span><span style="font-size:10.5pt;">10%</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">如果模块需要烘烤，请在</span><span style="font-size:10.5pt;">125</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度下（允许上下</span><span style="font-size:10.5pt;">5</span><span style="font-size:10.5pt;font-family:'宋体';">摄氏度的波动）烘烤</span><span style="font-size:10.5pt;">48</span><span style="font-size:10.5pt;font-family:'宋体';">小时。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">注意：模块的包装无法承受如此高温，在模块烘烤之前，请移除模块包装。如果只需要短时间的烘烤，请参考</span><b><span style="font-size:10.5pt;">IPC/JEDECJ-STD-033</span></b><span style="font-size:10.5pt;font-family:'宋体';">规范。</span></p><p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><h2><b><span style="font-size:14pt;">7.2<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:14pt;font-family:'黑体';">生产焊接</span></b></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">用印刷刮板在网板上印刷锡膏，使锡膏通过网板开口漏印到</span><span style="font-size:10.5pt;"> PCB</span><span style="font-size:10.5pt;font-family:'宋体';">上，印刷刮板力度需调整合适，为保证模块印膏质量，</span><span style="font-size:10.5pt;">Air268F</span><span style="font-size:10.5pt;font-family:'宋体';">模块焊盘部分对应的钢网厚度应为</span><span style="font-size:10.5pt;"> 0.2mm</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p><p><b><span style="font-size:11pt;font-family:'宋体';">图表</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">34</span><span style="font-size:11pt;font-family:'宋体';">：印膏图</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-GhfR2zP05b921170f154d.jpg" class="img-responsive" style="width:479px;" alt="attachments-2018-09-GhfR2zP05b921170f154d.jpg" /><b><span style="font-size:11pt;font-family:'宋体';"><br /></span></b></p><p><span style="font-size:10.5pt;font-family:'宋体';">为避免模块反复受热损伤，建议客户</span><span style="font-size:10.5pt;"> PCB</span><span style="font-size:10.5pt;font-family:'宋体';">板第一面完成回流焊后再贴模块。推荐的炉温曲线图如下图所示：</span></p><p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-LH3svoZg5b92122d70e99.jpg" class="img-responsive" style="width:484px;" alt="attachments-2018-09-LH3svoZg5b92122d70e99.jpg" /></p><h1><b><span style="font-size:15pt;font-family:Arial, sans-serif;">8.<span style="font-size:7pt;font-family:'Times New Roman';">      
+</span></span><span style="font-size:15pt;font-family:'宋体';">联系我们</span></b></h1><p><b><span>（1）</span></b><span style="font-family:'宋体';">淘宝店铺名称：合宙物联网</span></p><p><span><a href="https://luat.taobao.com/" target="_blank" rel="noreferrer noopener"><span>https://luat.taobao.com</span></a></span></p><p><span><a target="_blank" rel="noopener" href="https://openluat.taobao.com/"><span>https</span>://<span>openluat</span>.<span>taobao</span>.<span>com</span></a></span></p><p><span><span> </span></span></p><p><b><span>（2）</span></b><span>Luat</span><span style="font-family:'宋体';">之家网站：</span></p><p><span><a target="_blank" rel="noopener" href="http://www.openluat.com/"><span>http://www.openluat.com/</span></a></span></p><p><span> </span></p><p><b><span>（3）</span></b><span style="font-family:'宋体';">合宙</span><span>OpenLuat</span><span style="font-family:'宋体';">开源模块技术支持</span></p><p><span>QQ</span><span style="font-family:'宋体';">讨论群：</span><span>201848376</span></p><p><span> </span></p><p><b><span>（4）</span></b><span>GitHub</span><span style="font-family:'宋体';">：</span></p><p><span><a target="_blank" rel="noopener" href="https://github.com/openLuat/Luat_Air202-Air800-Air201">https://github.com/openLuat/Luat_Air268F-Air800-Air201</a></span></p><p><span> </span></p><p><b><span>（5）</span></b><span style="font-family:'宋体';">微信公众号</span><span>: </span><span>L</span><span>uat</span></p><p><span> </span></p><p><span>Lua+AT=Luat</span></p><p><span>Open+Luat=OpenLuat</span></p><p><span>www.OpenLuat.com</span></p><p><span style="font-family:'宋体';">合宙</span><span>--</span><span style="font-family:'宋体';">》</span><span>Luat--</span><span style="font-family:'宋体';">》发烧友</span><span>--</span><span style="font-family:'宋体';">》客户</span><span>--</span><span style="font-family:'宋体';">》产品</span></p>
+
+<p><span style="font-family:'宋体';">共建开源好生态！</span></p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/05/427/" data-id="ckkfmdgg300f6vkcg7djc67ui" data-title="Air268F模块硬件开发手册V1.02" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/05/428/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          【码夫支付】微信支付宝对接详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/05/426/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Luat的内存那点事</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

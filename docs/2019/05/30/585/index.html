@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>简单优化后的ST7789配置文件 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="--- 模块功能：ST 7789驱动芯片LCD命令配置-- @author openLuat-- @module ui.color_std_spi_st7789-- @license MIT-- @copyright openLuat-- @release 2018.08.14--[[注意：disp库目前支持I2C接口和SPI接口的屏，此文件的配置，硬件上使用的是标准的SPI引脚，不是LCD专用的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单优化后的ST7789配置文件">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/05/30/585/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="--- 模块功能：ST 7789驱动芯片LCD命令配置-- @author openLuat-- @module ui.color_std_spi_st7789-- @license MIT-- @copyright openLuat-- @release 2018.08.14--[[注意：disp库目前支持I2C接口和SPI接口的屏，此文件的配置，硬件上使用的是标准的SPI引脚，不是LCD专用的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-30T06:59:35.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.359Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-585" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/30/585/" class="article-date">
+  <time class="dt-published" datetime="2019-05-30T06:59:35.000Z" itemprop="datePublished">2019-05-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      简单优化后的ST7789配置文件
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><br></p><div style="color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px; white-space: pre;"><div><span style="color: #6a9955;">--- 模块功能：ST 7789驱动芯片LCD命令配置</span></div><div><span style="color: #6a9955;">-- @author openLuat</span></div><div><span style="color: #6a9955;">-- @module ui.color_std_spi_st7789</span></div><div><span style="color: #6a9955;">-- @license MIT</span></div><div><span style="color: #6a9955;">-- @copyright openLuat</span></div><div><span style="color: #6a9955;">-- @release 2018.08.14</span></div><br><div><span style="color: #6a9955;">--[[</span></div><div><span style="color: #6a9955;">注意：disp库目前支持I2C接口和SPI接口的屏，此文件的配置，硬件上使用的是标准的SPI引脚，不是LCD专用的SPI引脚</span></div><div><span style="color: #6a9955;">硬件连线图如下：</span></div><div><span style="color: #6a9955;">Air模块 LCD</span></div><div><span style="color: #6a9955;">GND--地</span></div><div><span style="color: #6a9955;">SPI_CS--片选</span></div><div><span style="color: #6a9955;">SPI_CLK--时钟</span></div><div><span style="color: #6a9955;">SPI_DO--数据</span></div><div><span style="color: #6a9955;">SPI_DI--数据/命令选择</span></div><div><span style="color: #6a9955;">VDDIO--电源</span></div><div><span style="color: #6a9955;">UART1_CTS--复位</span></div><div><span style="color: #6a9955;">注意：Air202早期的开发板，UART1的CTS和RTS的丝印反了</span></div><div><span style="color: #6a9955;">]]</span></div><br><div><span style="color: #dcdcaa;">module</span>(<span style="color: #569cd6;">...</span>,package.<span style="color: #9cdcfe;">seeall</span>)</div><br><div><span style="color: #6a9955;">--[[</span></div><div><span style="color: #6a9955;">函数名：init</span></div><div><span style="color: #6a9955;">功能  ：初始化LCD参数</span></div><div><span style="color: #6a9955;">参数  ：无</span></div><div><span style="color: #6a9955;">返回值：无</span></div><div><span style="color: #6a9955;">]]</span></div><div><span style="color: #569cd6;">local</span> <span style="color: #c586c0;">function</span> <span style="color: #dcdcaa;">init</span>()</div><div>    <span style="color: #c586c0;">local</span> para =</div><div>    {</div><div>        width = <span style="color: #b5cea8;">320</span>, <span style="color: #6a9955;">--分辨率宽度，128像素；用户根据屏的参数自行修改</span></div><div>        height = <span style="color: #b5cea8;">240</span>, <span style="color: #6a9955;">--分辨率高度，160像素；用户根据屏的参数自行修改</span></div><div>        bpp = <span style="color: #b5cea8;">16</span>, <span style="color: #6a9955;">--位深度，彩屏仅支持16位</span></div><div>        bus = disp.<span style="color: #9cdcfe;">BUS_SPI4LINE</span>, <span style="color: #6a9955;">--LCD专用SPI引脚接口，不可修改</span></div><div>        pinrst = pio.<span style="color: #9cdcfe;">P0_14</span>, <span style="color: #6a9955;">--reset，复位引脚</span></div><div>        pinrs = pio.<span style="color: #9cdcfe;">P0_18</span>, <span style="color: #6a9955;">--rs，命令/数据选择引脚</span></div><div>        </div><div>        <span style="color: #6a9955;">--bus = disp.BUS_SPI, --标准SPI接口</span></div><div>        <span style="color: #6a9955;">--pinrst = pio.P0_3, --reset，复位引脚</span></div><div>        <span style="color: #6a9955;">--pinrs = pio.P0_12, --rs，命令/数据选择引脚</span></div><br><div>        xoffset = <span style="color: #b5cea8;">0</span>, <span style="color: #6a9955;">--X轴偏移</span></div><div>        yoffset = <span style="color: #b5cea8;">0</span>, <span style="color: #6a9955;">--Y轴偏移</span></div><div>        freq = <span style="color: #b5cea8;">13000000</span>, <span style="color: #6a9955;">--spi时钟频率，支持110K到13M（即110000到13000000）之间的整数（包含110000和13000000）</span></div><div>        <span style="color: #6a9955;">--hwfillcolor = 0xFFFFFF, --填充色，黑色</span></div><br><div>        <span style="color: #6a9955;">--初始化命令</span></div><div>        <span style="color: #6a9955;">--前两个字节表示类型：0001表示延时，0000或者0002表示命令，0003表示数据</span></div><div>        <span style="color: #6a9955;">--延时类型：后两个字节表示延时时间（单位毫秒）</span></div><div>        <span style="color: #6a9955;">--命令类型：后两个字节命令的值</span></div><div>        <span style="color: #6a9955;">--数据类型：后两个字节数据的值</span></div><div>        initcmd =</div><div>        {</div><div>    </div><br><div>            <span style="color: #b5cea8;">0x00020036</span>,     <span style="color: #6a9955;">--//控制</span></div><div>            <span style="color: #b5cea8;">0x00030060</span>,     <span style="color: #6a9955;">--横竖屏C0/A0/00/60</span></div><br><div>            <span style="color: #6a9955;">--0x00020021,--//0x13显示不反转 ,21h 反显</span></div><br><div>            <span style="color: #b5cea8;">0x0002003A</span>,</div><div>            <span style="color: #b5cea8;">0x00030005</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200B2</span>,     <span style="color: #6a9955;">--//前后肩</span></div><div>            <span style="color: #b5cea8;">0x0003000C</span>,</div><div>            <span style="color: #b5cea8;">0x0003000C</span>,</div><div>            <span style="color: #b5cea8;">0x00030000</span>,</div><div>            <span style="color: #b5cea8;">0x00030033</span>,</div><div>            <span style="color: #b5cea8;">0x00030033</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200B7</span>,     <span style="color: #6a9955;">--//VGH VGL</span></div><div>            <span style="color: #b5cea8;">0x00030035</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200BB</span>,     <span style="color: #6a9955;">--//VCOM </span></div><div>            <span style="color: #b5cea8;">0x00030019</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200C0</span>,     <span style="color: #6a9955;">--//LCM</span></div><div>            <span style="color: #b5cea8;">0x0003002C</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200C2</span>,</div><div>            <span style="color: #b5cea8;">0x00030001</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200C3</span>,     <span style="color: #6a9955;">--//VRH( vcom+vcom offset+vdv) </span></div><div>            <span style="color: #b5cea8;">0x00030012</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200C4</span>,     <span style="color: #6a9955;">--//vdv</span></div><div>            <span style="color: #b5cea8;">0x00030020</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200C6</span>,     <span style="color: #6a9955;">--//帧率</span></div><div>            <span style="color: #b5cea8;">0x0003000F</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200D0</span>,     <span style="color: #6a9955;">--//功率控制模式</span></div><div>            <span style="color: #b5cea8;">0x000300A4</span>,</div><div>            <span style="color: #b5cea8;">0x000300A1</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200E0</span>,     <span style="color: #6a9955;">--//正GAMMA</span></div><div>            <span style="color: #b5cea8;">0x000300D0</span>,</div><div>            <span style="color: #b5cea8;">0x00030004</span>,</div><div>            <span style="color: #b5cea8;">0x0003000D</span>,</div><div>            <span style="color: #b5cea8;">0x00030011</span>,</div><div>            <span style="color: #b5cea8;">0x00030013</span>,</div><div>            <span style="color: #b5cea8;">0x0003002B</span>,</div><div>            <span style="color: #b5cea8;">0x0003003F</span>,</div><div>            <span style="color: #b5cea8;">0x00030054</span>,</div><div>            <span style="color: #b5cea8;">0x0003004C</span>,</div><div>            <span style="color: #b5cea8;">0x00030018</span>,</div><div>            <span style="color: #b5cea8;">0x0003000D</span>,</div><div>            <span style="color: #b5cea8;">0x0003000B</span>,</div><div>            <span style="color: #b5cea8;">0x0003001F</span>,</div><div>            <span style="color: #b5cea8;">0x00030023</span>,</div><br><div>            <span style="color: #b5cea8;">0x000200E1</span>,     <span style="color: #6a9955;">--//负GAMMA</span></div><div>            <span style="color: #b5cea8;">0x000300D0</span>,</div><div>            <span style="color: #b5cea8;">0x00030004</span>,</div><div>            <span style="color: #b5cea8;">0x0003000C</span>,</div><div>            <span style="color: #b5cea8;">0x00030011</span>,</div><div>            <span style="color: #b5cea8;">0x00030013</span>,</div><div>            <span style="color: #b5cea8;">0x0003002C</span>,</div><div>            <span style="color: #b5cea8;">0x0003003F</span>,</div><div>            <span style="color: #b5cea8;">0x00030044</span>,</div><div>            <span style="color: #b5cea8;">0x00030051</span>,</div><div>            <span style="color: #b5cea8;">0x0003002F</span>,</div><div>            <span style="color: #b5cea8;">0x0003001F</span>,</div><div>            <span style="color: #b5cea8;">0x0003001F</span>,</div><div>            <span style="color: #b5cea8;">0x00030020</span>,</div><div>            <span style="color: #b5cea8;">0x00030023</span>,</div><br><div>            <span style="color: #b5cea8;">0x00020011</span>,     <span style="color: #6a9955;">--// sleep out</span></div><div>            <span style="color: #b5cea8;">0x00010078</span>,</div><br><div>            <span style="color: #b5cea8;">0x00020029</span>      <span style="color: #6a9955;">--//Display On</span></div><div>        },</div><div>        <span style="color: #6a9955;">--休眠命令</span></div><div>        sleepcmd = {</div><div>            <span style="color: #b5cea8;">0x00020010</span>,</div><div>        },</div><div>        <span style="color: #6a9955;">--唤醒命令</span></div><div>        wakecmd = {</div><div>            <span style="color: #b5cea8;">0x00020011</span>,</div><div>        }</div><div>    }</div><div>    disp.<span style="color: #dcdcaa;">init</span>(para)</div><div>    disp.<span style="color: #dcdcaa;">clear</span>()</div><div>    disp.<span style="color: #dcdcaa;">update</span>()</div><div><span style="color: #c586c0;">end</span></div><br><div><span style="color: #6a9955;">--控制SPI引脚的电压域</span></div><div>pmd.<span style="color: #dcdcaa;">ldoset</span>(<span style="color: #b5cea8;">6</span>,pmd.<span style="color: #9cdcfe;">LDO_VMMC</span>)</div><div><span style="color: #dcdcaa;">init</span>()</div><br><div><span style="color: #6a9955;">--打开背光</span></div><div><span style="color: #6a9955;">--实际使用时，用户根据自己的lcd背光控制方式，添加背光控制代码</span></div></div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/05/30/585/" data-id="ckkfmdgcd0089vkcgfxa881h9" data-title="简单优化后的ST7789配置文件" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/30/586/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          滴云快快快速云产品开发体验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/27/584/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">合宙开发板使用JSON、TLV格式接入滴云DiverseCloud的示例-Air202 S5开发板</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

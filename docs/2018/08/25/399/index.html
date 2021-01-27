@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat系列教程：3、LUAT程序的基本时序 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="适合阅读本文的人至少用过一款单片机的接触、了解过或听说过rtos、ucos等多线程系统前几篇文章所提内容都已经懂了的有耐心看完本文的对lua语法熟悉的，如不熟悉请移步http:&#x2F;&#x2F;www.runoob.com&#x2F;lua&#x2F;lua-tutorial.html或https:&#x2F;&#x2F;www.lua.org&#x2F;manual&#x2F;5.1&#x2F;manual.html进行学习。     本文只会介绍LuaTask中多线程任务的基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luat系列教程：3、LUAT程序的基本时序">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/08/25/399/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="适合阅读本文的人至少用过一款单片机的接触、了解过或听说过rtos、ucos等多线程系统前几篇文章所提内容都已经懂了的有耐心看完本文的对lua语法熟悉的，如不熟悉请移步http:&#x2F;&#x2F;www.runoob.com&#x2F;lua&#x2F;lua-tutorial.html或https:&#x2F;&#x2F;www.lua.org&#x2F;manual&#x2F;5.1&#x2F;manual.html进行学习。     本文只会介绍LuaTask中多线程任务的基">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-2RFA4bxN5b80c9f706619.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-Lxds7UjR5b80ca16eadd6.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-VchwfAC35b80ca5330f35.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-rxZWfyuj5b80cc9fbd240.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-v0MVTubI5b80ca9a053cb.png">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-kHOv44o75b80caf440093.png">
+<meta property="article:published_time" content="2018-08-25T03:20:56.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-08-2RFA4bxN5b80c9f706619.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-399" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/25/399/" class="article-date">
+  <time class="dt-published" datetime="2018-08-25T03:20:56.000Z" itemprop="datePublished">2018-08-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Luat系列教程：3、LUAT程序的基本时序
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">适合阅读本文的人<br /></span><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">至少用过一款单片机的<br /></span><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">接触、了解过或听说过rtos、ucos等多线程系统<br /></span><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">前几篇文章所提内容都已经懂了的<br /></span><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">有耐心看完本文的<br /></span><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">对lua语法熟悉的，如不熟悉请移步<br /></span><a target="_blank" rel="noopener" href="http://www.runoob.com/lua/lua-tutorial.html">http://www.runoob.com/lua/lua-tutorial.html<br /></a><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">或<br /></span><a target="_blank" rel="noopener" href="https://www.lua.org/manual/5.1/manual.html">https://www.lua.org/manual/5.1/manual.html<br /></a><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;">进行学习。</span>
+</blockquote>
+
+<p><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;"><br /></span></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">本文只会介绍LuaTask中多线程任务的基本用法，不会过多的讨论原理，如果需要深入研究，请查看wiki页的详细介绍：http://wiki.openluat.com/doc/run/</p>
+
+<h1>简单定时器函数的使用</h1>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">上一章里的点亮led小灯，最后一步是让led灯闪烁起来。习惯了c语言写代码的人可能会发现，这个lua程序中好像没有delay之类的函数。</p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">我们把上一章的代码简化一下，像如下这样：</p>
+
+<div><pre><span style="color:rgb(25,144,184);">function</span> <span style="color:rgb(47,156,10);">sayHello</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span>
+    <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"hello"</span><span style="color:rgb(95,99,100);">)</span>
+    sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">timerStart</span><span style="color:rgb(95,99,100);">(</span>sayHello<span style="color:rgb(95,99,100);">,</span><span style="color:rgb(201,44,44);">1000</span><span style="color:rgb(95,99,100);">)</span><span style="color:rgb(125,139,153);">--一秒后执行指定函数</span>
+    <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"bye"</span><span style="color:rgb(95,99,100);">)</span>
+<span style="color:rgb(25,144,184);">end</span>
+
+<p><span style="color:rgb(47,156,10);">sayHello</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span></p>
+<p><span style="color:rgb(95,99,100);">…..</span>其他代码<br></pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div></p>
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">这里使用了定时器的接口：</font><font color="#e76363" style="background-color:rgb(247,247,247);">sys.timerStart(fnc, ms, ...)</font><font color="#4b4b4b">，用过js之类语言的可能会感到特别熟悉。在luat中，一般不在主线程中使用类似c一样用死循环阻塞式地来延时，取而代之的是这种定时器的结构，流程图如下：</font></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2018-08-2RFA4bxN5b80c9f706619.png" style="width:860.5px;" class="img-responsive" alt="attachments-2018-08-2RFA4bxN5b80c9f706619.png" /></p>
+
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">其实实现上述定时器循环执行某函数的功能，可以直接使用</font><font color="#e76363" style="background-color:rgb(247,247,247);">sys.timerLoopStart(fnc, ms, ...)</font><font color="#4b4b4b">接口，改成如下样式：</font></p>
+
+<div><pre><span style="color:rgb(25,144,184);">function</span> <span style="color:rgb(47,156,10);">sayHello</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span>
+    <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"hello"</span><span style="color:rgb(95,99,100);">)</span>
+<span style="color:rgb(25,144,184);">end</span>
+
+<p>sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">timerLoopStart</span><span style="color:rgb(95,99,100);">(</span>sayHello<span style="color:rgb(95,99,100);">,</span><span style="color:rgb(201,44,44);">1000</span><span style="color:rgb(95,99,100);">)</span></p>
+<p><span style="color:rgb(95,99,100);">…..</span>其他代码<br></pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div></p>
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">整个流程图便变成了如下的顺序：</p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-Lxds7UjR5b80ca16eadd6.png" style="width:842.5px;" class="img-responsive" alt="attachments-2018-08-Lxds7UjR5b80ca16eadd6.png" /><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;"><br /></span></p>
+
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">为了使函数更简洁，我们可以直接把函数名改成</font><font color="#e76363" style="background-color:rgb(247,247,247);">function() ..... end</font><font color="#4b4b4b">的形式，在函数变量中直接定义要使用的函数：</font></p>
+
+<div><pre>sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">timerLoopStart</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(25,144,184);">function</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span>
+                       <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"hello"</span><span style="color:rgb(95,99,100);">)</span>
+                   <span style="color:rgb(25,144,184);">end</span><span style="color:rgb(95,99,100);">,</span><span style="color:rgb(201,44,44);">1000</span><span style="color:rgb(95,99,100);">)</span>
+</pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">甚至可以写成一行：</p>
+
+<div><pre>sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">timerLoopStart</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(25,144,184);">function</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span> <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"hello"</span><span style="color:rgb(95,99,100);">)</span> <span style="color:rgb(25,144,184);">end</span><span style="color:rgb(95,99,100);">,</span><span style="color:rgb(201,44,44);">1000</span><span style="color:rgb(95,99,100);">)</span>
+</pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">上述两段代码的功能与一开始的timerLoopStart示例代码的运行结果完全相同</p>
+
+<h1>协程</h1>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">在wiki页中，给出了这样一段简洁的代码，我们为了照顾不熟悉lua语言的人，稍微改一下代码：</p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">test.lua</p>
+
+<div><pre><span style="color:rgb(25,144,184);">function</span> <span style="color:rgb(47,156,10);">test</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span>
+    <span style="color:rgb(25,144,184);">while</span> <span style="color:rgb(25,144,184);">true</span> <span style="color:rgb(25,144,184);">do</span>
+        <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"ss function test"</span><span style="color:rgb(95,99,100);">)</span>
+        sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">wait</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(201,44,44);">1000</span><span style="color:rgb(95,99,100);">)</span>          <span style="color:rgb(125,139,153);">-- 挂起1000ms，同理为每隔1000ms运行一次</span>
+    <span style="color:rgb(25,144,184);">end</span>
+<span style="color:rgb(25,144,184);">end</span>
+
+<p>sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">taskInit</span><span style="color:rgb(95,99,100);">(</span>test<span style="color:rgb(95,99,100);">)</span></p>
+<p><span style="color:rgb(95,99,100);">…..</span>其他代码<br></pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div></p>
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">在这里，</font><font color="#e76363" style="background-color:rgb(247,247,247);">sys.taskInit</font><font color="#4b4b4b">的作用可以理解为创建了一个新的线程，这个线程运行的内容就是</font><font color="#e76363" style="background-color:rgb(247,247,247);">test()</font><font color="#4b4b4b">函数</font></p>
+
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">在</font><font color="#e76363" style="background-color:rgb(247,247,247);">test()</font><font color="#4b4b4b">进行</font><font color="#e76363" style="background-color:rgb(247,247,247);">while true</font><font color="#4b4b4b">这样的死循环时，并不会使其他程序被阻塞运行，反而是多线程运行的</font></p>
+
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">在</font><font color="#e76363" style="background-color:rgb(247,247,247);">LuaTask</font><font color="#4b4b4b">架构下，协程内的函数可以直接使用</font><font color="#e76363" style="background-color:rgb(247,247,247);">sys.wait(ms)</font><font color="#4b4b4b">函数进行延时操作，延时途中只是将cpu让给了其他需要运行的程序，在倒计时完成后继续该进程的运行，从而实现了延时操作</font></p>
+
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#4b4b4b">我们一般会把</font><font color="#e76363" style="background-color:rgb(247,247,247);">sys.taskInit</font><font color="#4b4b4b">内的函数直接写在其中，像下面这样：</font></p>
+
+<div><pre>sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">taskInit</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(25,144,184);">function</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span>
+    <span style="color:rgb(25,144,184);">while</span> <span style="color:rgb(25,144,184);">true</span> <span style="color:rgb(25,144,184);">do</span>
+        <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"ss function test"</span><span style="color:rgb(95,99,100);">)</span>
+        sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">wait</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(201,44,44);">1000</span><span style="color:rgb(95,99,100);">)</span>          <span style="color:rgb(125,139,153);">-- 挂起1000ms，同理为每隔1000ms运行一次</span>
+    <span style="color:rgb(25,144,184);">end</span>
+<span style="color:rgb(25,144,184);">end</span><span style="color:rgb(95,99,100);">)</span>
+
+<p><span style="color:rgb(95,99,100);">…..</span>其他代码<br></pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div></p>
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">相信各位已经可以理解这种写法了（如果从文章开头看到这里了的话），协程的运行流程图如下</p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-VchwfAC35b80ca5330f35.png" style="width:774.5px;" class="img-responsive" alt="attachments-2018-08-VchwfAC35b80ca5330f35.png" /><span style="color:rgb(75,75,75);font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;font-size:17px;"><br /></span></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">我们可以同时开多个线程，使用方法都是一样的</p>
+
+<h1>程序注册</h1>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">LuaTask可以使用订阅和发布，使某个程序等待另一个程序完成后才继续运行</p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">我们来看最简单的一个示例代码：</p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2018-08-rxZWfyuj5b80cc9fbd240.png" style="width:466px;" class="img-responsive" alt="attachments-2018-08-rxZWfyuj5b80cc9fbd240.png" /><br /></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">程序定义了一个5秒后的定时器，并运行了一个包含了时间订阅等待的函数，整体流程运行如下：</p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-v0MVTubI5b80ca9a053cb.png" style="width:500.5px;" class="img-responsive" alt="attachments-2018-08-v0MVTubI5b80ca9a053cb.png" /></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">这种用法经常用在http、socket等操作和其他需要等待的操作中，利用回调函数可实现等待功能。</p>
+
+<p style="font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><font color="#e76363" style="background-color:rgb(247,247,247);">sys.publish</font><font color="#4b4b4b">也可传递参数：</font></p>
+
+<div><pre>sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">timerStart</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(25,144,184);">function</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span>
+                   sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">publish</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">"TEST"</span><span style="color:rgb(95,99,100);">,</span><span style="color:rgb(201,44,44);">123</span><span style="color:rgb(95,99,100);">)</span>
+               <span style="color:rgb(25,144,184);">end</span><span style="color:rgb(95,99,100);">,</span><span style="color:rgb(201,44,44);">3000</span><span style="color:rgb(95,99,100);">)</span><span style="color:rgb(125,139,153);">--三秒后执行发布"TEST"消息的函数</span>
+
+<p><span style="color:rgb(25,144,184);">function</span> <span style="color:rgb(47,156,10);">sub</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(95,99,100);">)</span><br>    <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">“start”</span><span style="color:rgb(95,99,100);">)</span><br>    result<span style="color:rgb(95,99,100);">,</span>data <span style="color:rgb(166,127,89);">=</span> sys<span style="color:rgb(95,99,100);">.</span><span style="color:rgb(47,156,10);">waitUntil</span><span style="color:rgb(95,99,100);">(</span><span style="color:rgb(47,156,10);">“TEST”</span><span style="color:rgb(95,99,100);">)</span><br>    <span style="color:rgb(47,156,10);">print</span><span style="color:rgb(95,99,100);">(</span>result<span style="color:rgb(95,99,100);">,</span>data<span style="color:rgb(95,99,100);">)</span><br><span style="color:rgb(25,144,184);">end</span></p>
+<p><span style="color:rgb(47,156,10);">sys.taskInit(sub</span><span style="color:rgb(95,99,100);">)</span><br></pre><div><div><span style="color:rgb(187,187,187);font-size:.8em;">Lua</span></div><div><a>Copy</a></div></div></div></p>
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">上述代码将会输出：</p>
+
+<pre>true    123
+</pre>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">同时，luat在库中自带了许多系统消息，部分如下：</p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2018-08-kHOv44o75b80caf440093.png" style="width:435.5px;" class="img-responsive" alt="attachments-2018-08-kHOv44o75b80caf440093.png" /></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">三种线程控制的使用方法全部介绍完毕了，如果需要了解原理，请去研读http://wiki.openluat.com/doc/run/的说明与解释<br /></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;">如有错误和疑问请在下方留言指出，谢谢</p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><br /></p>
+
+<p style="color:rgb(75,75,75);font-size:17px;font-family:'Microsoft YaHei', 'Helvetica Neue', Helvetica, STXihei, sans-serif;"><br /></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/08/25/399/" data-id="ckkfmdgec00cmvkcg46xgh8n9" data-title="Luat系列教程：3、LUAT程序的基本时序" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/25/400/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Luat系列教程：4、学会使用并看懂luatools的trace信息
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/24/398/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Luat系列教程：2、控制LED小灯</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

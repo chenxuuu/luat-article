@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Air720UHI/ Air720UGI模块硬件设计手册-V1.2 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="目录@[TOC] 1.    绪论1.1.    模块简介&amp;emsp;&amp;emsp;Air720UH&#x2F;Air720UG-Mini PCIe 模块是PCI Express Mini Card 1.2 标准接口LTE模块，本文档定义了 Air720UH&#x2F;Air720UG-Mini PCIe 模块的功能，电气特性及机械细节，通过此文档的帮助，结合模块本身的应用手册和用户指导书，客户可以快速应用 Air7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Air720UHI&#x2F; Air720UGI模块硬件设计手册-V1.2">
+<meta property="og:url" content="https://doc.luatos.wiki/2020/07/15/1138/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="目录@[TOC] 1.    绪论1.1.    模块简介&amp;emsp;&amp;emsp;Air720UH&#x2F;Air720UG-Mini PCIe 模块是PCI Express Mini Card 1.2 标准接口LTE模块，本文档定义了 Air720UH&#x2F;Air720UG-Mini PCIe 模块的功能，电气特性及机械细节，通过此文档的帮助，结合模块本身的应用手册和用户指导书，客户可以快速应用 Air7">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715153651781_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715163153458_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629145301347_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629170303372_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629170807075_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715163933723_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629171244002_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629171642131_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172447563_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172527657_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172641978_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172756155_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629173324772_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715164229237_2.jpg">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629173756399_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629173834445_1.png">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715170616942_3.jpg">
+<meta property="og:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629183928624_1.png">
+<meta property="article:published_time" content="2020-07-15T09:08:19.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.336Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715153651781_1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-1138" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/07/15/1138/" class="article-date">
+  <time class="dt-published" datetime="2020-07-15T09:08:19.000Z" itemprop="datePublished">2020-07-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Air720UHI/ Air720UGI模块硬件设计手册-V1.2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715153651781_1.png"></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>@[TOC]</p>
+<h1 id="1-绪论"><a href="#1-绪论" class="headerlink" title="1.    绪论"></a>1.    绪论</h1><h2 id="1-1-模块简介"><a href="#1-1-模块简介" class="headerlink" title="1.1.    模块简介"></a>1.1.    模块简介</h2><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe 模块是PCI Express Mini Card 1.2 标准接口LTE模块，本文档定义了 Air720UH/Air720UG-Mini PCIe 模块的功能，电气特性及机械细节，通过此文档的帮助，结合模块本身的应用手册和用户指导书，客户可以快速应用 Air720UH/Air720UG-Mini PCIe 模块于无线应用。</p>
+<h2 id="1-2-应用场景"><a href="#1-2-应用场景" class="headerlink" title="1.2.    应用场景"></a>1.2.    应用场景</h2><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe 是合宙通信推出的一款低功耗、高性价比的 LTE Cat.1 模块，专为M2M和IoT应用而设计，支持最大下行速率10Mbps和最大上行速率5Mbps，同时支持多种开发方式，如USB上网、标准AT、Lua脚本二次开发等，并可提供专业且及时的在线技术支持，欢迎登录 <a target="_blank" rel="noopener" href="http://www.openluat.com/">www.openluat.com</a> 进一步了解。<br>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe 内置丰富的网络协议，集成多个工业标准接口，并支持多种驱动和软件功能（如Windows XP， Windows Vista， Windows 7/8/8.1/10 ， Linux， Android等操作系统下的USB驱动等），极大地拓展了其在M2M领域的应用范围，如公网对讲、可穿戴设备、智能抄表、智能家居网关、追踪器等。</p>
+<h1 id="2-综述"><a href="#2-综述" class="headerlink" title="2.    综述"></a>2.    综述</h1><h2 id="2-1-型号信息"><a href="#2-1-型号信息" class="headerlink" title="2.1.    型号信息"></a>2.1.    型号信息</h2><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块产品采用低功耗的Cat.1系列Air720UH/Air720UG模块，型号信息如下：<br>图表1：模块支持频段列表</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>Air720UH -NA</th>
+<th>Air720UG -NA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GSM</td>
+<td>GSM900/DCS1800</td>
+<td>N</td>
+</tr>
+<tr>
+<td>LTE-FDD</td>
+<td>B1/B3/B5/B8</td>
+<td>B1/B3/B5/B8</td>
+</tr>
+<tr>
+<td>LTE-TDD</td>
+<td>B34/B38/B39/B40/B41</td>
+<td>B34/B38/B39/B40/B41</td>
+</tr>
+<tr>
+<td>主集接收</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>分集接收</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>WIFI接收</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>备注</td>
+<td>国内4G全网通</td>
+<td>国内4G全网通</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-主要性能"><a href="#2-2-主要性能" class="headerlink" title="2.2.    主要性能"></a>2.2.    主要性能</h2><p>&emsp;&emsp;下表描述了Air720UH/Air720UG-Mini PCIe模块的关键性能：<br>图表2：模块主要性能</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>支持频段</td>
+<td>见表1模块型号信息介绍</td>
+</tr>
+<tr>
+<td>发射功率</td>
+<td>•    GSM900：Class 4 (33dBm+-3dB)&emsp;&emsp;•    DCS1800：Class 1(30dBm+-3dB)&emsp;&emsp;•    GSM900 8-PSK：Class E2(27dBm+-3dB)&emsp;&emsp;•    DCS1800 8-PSK：Class E2(26dBm+-3dB)&emsp;&emsp;•    LTE-TDD：Class3(23dBm+1/-3dB) &emsp;&emsp;•    LTE-FDD：Class3(23dBm+-2dB)</td>
+</tr>
+<tr>
+<td>供电</td>
+<td>•    供电电压：3.3V~4.3V，典型值3.3V</td>
+</tr>
+<tr>
+<td>一般特性</td>
+<td>•    尺寸：30.0mm×51.0mm×3.6mm•    重量：约 9 克•    温度范围：-40°C ~ +85°C</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>•    20uA @关机•    3mA @休眠，典型值</td>
+</tr>
+<tr>
+<td>LTE特性</td>
+<td>•    最大支持non-CA CAT1&emsp;&emsp;&emsp;&emsp; •    支持1.4 ~ 20MHz射频带宽&emsp;&emsp;&emsp;&emsp;•    LTE-FDD：最大上行速率 5Mbps，最大下行速率 10Mbps&emsp;&emsp;&emsp;&emsp;•    LTE-TDD：上下行配置2（最大上行速率 2Mbps，最大下行速率 8Mbps）&emsp;&emsp;&emsp;&emsp;•    LTE-TDD：上下行配置1（最大上行速率 4Mbps，最大下行速率 6Mbps）</td>
+</tr>
+<tr>
+<td>灵敏度</td>
+<td>GSM900: -109dBmTDD&emsp;&emsp;&emsp;&emsp;DCS1800: -109dBm&emsp;&emsp;&emsp;&emsp; B34: -99dBm (10M)&emsp;&emsp;&emsp;&emsp;TDD B38: -99dBm (10M)&emsp;&emsp;&emsp;&emsp;TDD B39: -99dBm (10M)&emsp;&emsp;&emsp;&emsp;TDD B40: -99.5dBm (10M)&emsp;&emsp;&emsp;&emsp;TDD B41: -99dBm (10M)&emsp;&emsp;&emsp;&emsp;FDD B1: -99dBm&emsp;&emsp;&emsp;&emsp;FDD B3: -99dBm&emsp;&emsp;&emsp;&emsp;FDD B5: -100dBm&emsp;&emsp;&emsp;&emsp;FDD B8: -99.5dBm</td>
+</tr>
+<tr>
+<td>软件特性</td>
+<td>•    USB 驱动：Windows XP, Windows Vista,Windows7/8.1/10，Linux/Android&emsp;&emsp;&emsp;&emsp;•    NDIS 驱动：Windows 7/8/8.1/10&emsp;&emsp;&emsp;&emsp;•    RIL 驱动：Android 4.x/5.x/6.x/7.x/8.x/9.x&emsp;&emsp;&emsp;&emsp;•    ECM 驱动：Linux 2.6/3.x/4.1~4.15</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>网路协议特性</td>
+<td>已支持TCP/UDP/PPP/FTP/HTTP/ NTP/PING /HTTPS /FTPS/MMS/CMUX/SSL&emsp;•    SMTP/SMTPS/ DTMF开发中</td>
+</tr>
+<tr>
+<td>SIM卡接口</td>
+<td>•    支持USIM/SIM卡：1.8V/3V</td>
+</tr>
+<tr>
+<td>USB接口</td>
+<td>•    1 个 USB 2.0 高速接口，数据传输速率最大到 480Mbps</td>
+</tr>
+<tr>
+<td>UART接口</td>
+<td>•    用于AT命令和数据传输•    最大波特率921600bps，默认115200bps&emsp;&emsp;&emsp;&emsp;•    支持硬件流控（CTS/RTS）</td>
+</tr>
+<tr>
+<td>天线接口</td>
+<td>•    特性阻抗50欧姆</td>
+</tr>
+<tr>
+<td>其他接口</td>
+<td>•    RESET复位（低电平有效)•    1 个 NETLIGHT 接口(NET_STATUS )</td>
+</tr>
+<tr>
+<td>RoHS</td>
+<td>•    所有器件完全符合RoHS标准</td>
+</tr>
+<tr>
+<td>封装</td>
+<td>•    52个管脚，实际可用管脚详见第4节管脚图</td>
+</tr>
+</tbody></table>
+<h1 id="3-功能框图"><a href="#3-功能框图" class="headerlink" title="3.    功能框图"></a>3.    功能框图</h1><p>•    一路USIM卡接口<br>•    一路USB2.0接口<br>•    一路UART接口（UART支持流控）<br>•    支持外部复位功能<br>•    一路LTE天线<br>•    一路WIFI天线<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715163153458_1.png"><br>图1：Air720UH/Air720UG-Mini PCIe功能框图</p>
+<h1 id="4-应用接口"><a href="#4-应用接口" class="headerlink" title="4.    应用接口"></a>4.    应用接口</h1><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe 信号接口是标准的 Mini PCI Express 接口，使用52个金手指管脚，下图为Air720UH/Air720UG-Mini PCIe模块应用接口定义：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629145301347_1.png"><br>图1：Air720UH/Air720UG-Mini PCIe 应用接口</p>
+<p>图表1：Air720UH/Air720UG-Mini PCIe接口描述</p>
+<table>
+<thead>
+<tr>
+<th>管脚编号</th>
+<th>Mini PCI Express 标准管脚定义</th>
+<th>Air720UH/Air720UG-Mini PCIe管脚定义</th>
+<th>I/O</th>
+<th>管脚描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>WAKE#</td>
+<td>WAKEUP_OUT</td>
+<td>O</td>
+<td>拉低唤醒AP</td>
+<td>具体功能参阅6.6 WAKEUP_OUT</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.3Vaux</td>
+<td>VCC_3.3</td>
+<td>PI</td>
+<td>模块主电源VCC(VCC=3.3V~4.3V)</td>
+<td>电压低于3.3V时射频指标会恶化</td>
+</tr>
+<tr>
+<td>3</td>
+<td>COEX1</td>
+<td>U_BOOT</td>
+<td>I</td>
+<td>在开机之前上拉到VDD_EXT（1.8V），模块会强行进入 USB 下载模式</td>
+<td>1.8V电压域，不用则悬空</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>COEX2</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>1.5V</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>CLKREQ#</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>UIM_PWR</td>
+<td>USIM_VCC</td>
+<td>P</td>
+<td>USIM卡供电</td>
+<td>模块可以自动识别1.8V或者3V(U)SIM卡</td>
+</tr>
+<tr>
+<td>9</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>UIM_DATA</td>
+<td>USIM_DATA</td>
+<td>I/O</td>
+<td>USIM卡数据线</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>REFCLK-</td>
+<td>VDD_EXT</td>
+<td>PO</td>
+<td>输出1.8V</td>
+<td>如果使用这个管脚给外部供电，负载电流不要超过50mA,不用则悬空</td>
+</tr>
+<tr>
+<td>12</td>
+<td>UIM_CLK</td>
+<td>USIM_CLK</td>
+<td>O</td>
+<td>USIM卡时钟线</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>REFCLK+</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>UIM_RESET</td>
+<td>USIM_RST</td>
+<td>O</td>
+<td>USIM卡复位线</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>16</td>
+<td>UIM_VPP</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>RESERVED</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>19</td>
+<td>RESERVED</td>
+<td>WAKEUP_IN</td>
+<td>I</td>
+<td>低电平唤醒模块</td>
+<td>1.8V电压域</td>
+</tr>
+<tr>
+<td>20</td>
+<td>W_DISABLE#</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>21</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>22</td>
+<td>PERST#</td>
+<td>RESET_IN</td>
+<td>I</td>
+<td>模块复位；内部上拉到VCC_3.3</td>
+<td>1. VCC_3.3电压域2. 内部上拉，把管脚拉低1s以上模块复位</td>
+</tr>
+<tr>
+<td>23</td>
+<td>PERn0</td>
+<td>UART_RXD</td>
+<td>I</td>
+<td>模块接收数据</td>
+<td>1.8V电压域</td>
+</tr>
+<tr>
+<td>24</td>
+<td>3.3Vaux</td>
+<td>VCC_3.3</td>
+<td>PI</td>
+<td>模块主电源VCC(VCC=3.3V~4.3V)</td>
+<td>电压低于3.3V时射频指标会恶化</td>
+</tr>
+<tr>
+<td>25</td>
+<td>PERp0</td>
+<td>UART_RTS</td>
+<td>O</td>
+<td>模块清除发送</td>
+<td>1.8V电压域</td>
+</tr>
+<tr>
+<td>26</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>27</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td>1.5V</td>
+<td>UART_CTS</td>
+<td>I</td>
+<td>DTE请求发送数据给模块</td>
+<td>1.8V电压域</td>
+</tr>
+<tr>
+<td>29</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>30</td>
+<td>SMB_CLK</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>31</td>
+<td>PETn0</td>
+<td>UART_TXD</td>
+<td>O</td>
+<td>模块发送数据</td>
+<td></td>
+</tr>
+<tr>
+<td>32</td>
+<td>SMB_DATA</td>
+<td>WAKEUP_OUT</td>
+<td>O</td>
+<td>开漏输出</td>
+<td>不用则悬空</td>
+</tr>
+<tr>
+<td>33</td>
+<td>PETp0</td>
+<td>RESET_IN</td>
+<td>I</td>
+<td>模块复位；内部上拉到VCC_3.3</td>
+<td>1. VCC_3.3电压域2. 内部上拉，把管脚拉低1s以上模块复位</td>
+</tr>
+<tr>
+<td>34</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>35</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>36</td>
+<td>USB_D-</td>
+<td>USB_DN</td>
+<td>IO</td>
+<td>USB差分数据-</td>
+<td>90欧姆差分阻抗控制</td>
+</tr>
+<tr>
+<td>37</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>38</td>
+<td>USB_D+</td>
+<td>USB_DP</td>
+<td>IO</td>
+<td>USB差分数据+</td>
+<td>90欧姆差分阻抗控制</td>
+</tr>
+<tr>
+<td>39</td>
+<td>3.3Vaux</td>
+<td>VCC_3.3</td>
+<td>PI</td>
+<td>模块主电源VCC(VCC=3.3V~4.3V)</td>
+<td>电压低于3.3V时射频指标会恶化</td>
+</tr>
+<tr>
+<td>40</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>41</td>
+<td>3.3Vaux</td>
+<td>VCC_3.3</td>
+<td>PI</td>
+<td>模块主电源VCC(VCC=3.3V~4.3V)</td>
+<td>电压低于3.3V时射频指标会恶化</td>
+</tr>
+<tr>
+<td>42</td>
+<td>LED_WWAN#</td>
+<td>LED_WWAN#</td>
+<td>O</td>
+<td>网络状态指示</td>
+<td></td>
+</tr>
+<tr>
+<td>43</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>44</td>
+<td>LED_WLAN#</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>45</td>
+<td>RESERVED</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>46</td>
+<td>LED_WPAN#</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>47</td>
+<td>RESERVED</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>48</td>
+<td>1.5V</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>49</td>
+<td>RESERVED</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>50</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+<td>模块地</td>
+<td></td>
+</tr>
+<tr>
+<td>51</td>
+<td>RESERVED</td>
+<td>NC</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>52</td>
+<td>3.3Vaux</td>
+<td>VCC_3.3</td>
+<td>PI</td>
+<td>模块主电源VCC(VCC=3.3V~4.3V)</td>
+<td>电压低于3.3V时射频指标会恶化</td>
+</tr>
+</tbody></table>
+<h1 id="5-工作模式"><a href="#5-工作模式" class="headerlink" title="5.    工作模式"></a>5.    工作模式</h1><p>&emsp;&emsp;下表简要的叙述了Air720UH/Air720UG-Mini PCIe模块的各种工作模式。<br>图表1：工作模式</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常工作SLEEP模式</td>
+<td>在模块没有任何任务处理则会自动进入睡眠模式。睡眠模式下，模块的功耗会降到非常低，但模块仍然能够收发数据、短消息和来电。</td>
+</tr>
+<tr>
+<td>正常工作IDLE模式</td>
+<td>软件正常运行。模块注册上网络，没有数据，语音和短信交互。</td>
+</tr>
+<tr>
+<td>正常工作TALK/Data模式</td>
+<td>连接正常工作。有数据或者语音或者短信交互。此模式下，模块功耗取决于环境信号的强弱，动态DTX控制以及射频工作频率。</td>
+</tr>
+<tr>
+<td>关机模式</td>
+<td>此模式下PMU停止给基带和射频供电，软件停止工作，串口不通，但VCC_3.3管脚依然通电</td>
+</tr>
+<tr>
+<td>最少功能模式(保持供电电压）</td>
+<td>此模式下，射频和SIM卡都不工作，但是串口仍然可以访问</td>
+</tr>
+<tr>
+<td>飞行模式</td>
+<td>AT+CFUN=4可以将模块设置为飞行模式，此模式下模块射频不工作</td>
+</tr>
+</tbody></table>
+<h2 id="5-1-上电开机与复位功能"><a href="#5-1-上电开机与复位功能" class="headerlink" title="5.1.    上电开机与复位功能"></a>5.1.    上电开机与复位功能</h2><h3 id="5-1-1-上电开机"><a href="#5-1-1-上电开机" class="headerlink" title="5.1.1.上电开机"></a>5.1.1.上电开机</h3><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块开机脚设计为低电平状态，可实现上电自动开机功能。需要注意，模块不支持关机，只要VCC_3.3管脚的电压大于开机电压，即使软件调用关机接口，模块仍然会再开机起来。另外，在此模式下，要想成功开机起来VCC_3.3管脚电压必须大于软件设定的开机电压值（3.3V），如果不满足，模块会关闭，就会出现反复开关机的情况。</p>
+<h3 id="5-1-2-复位功能"><a href="#5-1-2-复位功能" class="headerlink" title="5.1.2.复位功能"></a>5.1.2.复位功能</h3><p>&emsp;&emsp;RESET_IN引脚可用于使模块复位。拉低 RESET_IN 引脚150ms以上可使模块复位。</p>
+<h2 id="5-2-省电功能"><a href="#5-2-省电功能" class="headerlink" title="5.2.    省电功能"></a>5.2.    省电功能</h2><p>&emsp;&emsp;根据系统需求，有两种方式可以使模块进入到低功耗的状态。对于AT版本使用“AT+CFUN”命令可以使模块进入最少功能状态。</p>
+<h3 id="5-2-1-最少功能模式-飞行模式"><a href="#5-2-1-最少功能模式-飞行模式" class="headerlink" title="5.2.1.最少功能模式/飞行模式"></a>5.2.1.最少功能模式/飞行模式</h3><p>&emsp;&emsp;最少功能模式可以将模块功能减少到最小程度，此模式可以通过发送“AT+CFUN=<fun>”命令来设置。<fun>参数可以选择0，1，4。<br>&emsp;&emsp;•    0：最少功能（关闭RF和SIM卡）；<br>&emsp;&emsp;•    1：全功能（默认）；<br>&emsp;&emsp;•    4：关闭RF发送和接收功能；<br>&emsp;&emsp;如果使用“AT+CFUN=0”将模块设置为最少功能模式，射频部分和SIM卡部分的功能将会关闭。而串口依然有效，但是与射频部分以及SIM卡部分相关的AT命令则不可用。<br>&emsp;&emsp;如果使用“AT+CFUN=4”设置模块，RF部分功能将会关闭，而串口依然有效。所有与RF部分相关的AT命令不可用。<br>&emsp;&emsp;模块通过“AT+CFUN=0”或者“AT+CFUN=4”设置以后，可以通过“AT+CFUN=1”命令设置返回到全功能状态。</p>
+<h3 id="5-2-2-睡眠模式（慢时钟模式）"><a href="#5-2-2-睡眠模式（慢时钟模式）" class="headerlink" title="5.2.2.睡眠模式（慢时钟模式）"></a>5.2.2.睡眠模式（慢时钟模式）</h3><p>&emsp;&emsp;以下描述均针对标准AT版本，关于LUA版本的睡眠管理看wiki.openluat.com的介绍。<br>串口应用下支持两种睡眠模式：<br>     睡眠模式1：通过WAKEUP_IN管脚电平控制模块是否进入睡眠<br>     睡眠模式2：模块在串口空闲一段时间后自动进入睡眠<br>（1）睡眠模式1<br>&emsp;开启条件：<br>  &emsp;&emsp;发送AT指令AT+CSCLK=1<br>&emsp;模块进入睡眠：<br>  &emsp;&emsp;控制WAKEUP_IN脚拉高，模块会进入睡眠模式1<br> &emsp;&emsp;模块退出睡眠：<br>  &emsp;拉低WAKEUP_IN脚50ms以上，模块会退出睡眠模式可以接受AT指令<br> &emsp;&emsp;模块在睡眠模式1时的软件功能：<br>  &emsp;不响应AT指令，但是收到数据/短信/来电会有URC上报<br>（2）睡眠模式2<br>&emsp;开启条件：<br>  &emsp;&emsp;发送AT指令AT+CSLCK=2<br>&emsp;模块进入睡眠：<br>  &emsp;&emsp;串口空闲超过AT+WAKETIM配置的时间（默认5s），模块自动进入睡眠模式2<br>&emsp;模块退出睡眠：<br>  &emsp;&emsp;串口连续发送AT直到模块回应时即退出睡眠模式2<br>&emsp;模块在睡眠模式2时的软件功能：<br>  &emsp;&emsp;不响应AT指令，但是收到数据/短信/来电会有URC上报</p>
+<h1 id="6-UART串口定义"><a href="#6-UART串口定义" class="headerlink" title="6.    UART串口定义"></a>6.    UART串口定义</h1><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块提供了通用异步收发器：串口UART。模块支持自适应波特率，自适应波特率支持范围9600bps到115200bps。</p>
+<h2 id="6-1-串口描述"><a href="#6-1-串口描述" class="headerlink" title="6.1.    串口描述"></a>6.1.    串口描述</h2><p><strong>UART串口</strong><br>&emsp;•    UART_TXD：发送数据到DTE设备的RXD端<br>&emsp;•    UART_RXD：从DTE设备TXD端接收数据<br>&emsp;•    UART_RTS：清除发送<br>&emsp;•    UART_CTS：DTE请求发送数据给DCE<br>&emsp;&emsp;在默认情况下，模块的硬件流控是关闭的。当客户需要硬件流控时，管脚RTS,CTS必须连接到客户端，AT命令“AT+IFC=2,2”可以用来打开硬件流控。AT命令“AT+IFC=0,0”可以用来关闭流控。具体请参考《AirM2M无线模块AT命令手册》。<br>图表1：串口管脚定义</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART_TXD</td>
+<td>31</td>
+<td>串口发送数据</td>
+</tr>
+<tr>
+<td>UART_RXD</td>
+<td>23</td>
+<td>串口接收数据</td>
+</tr>
+<tr>
+<td>UART_RTS</td>
+<td>25</td>
+<td>清除发送</td>
+</tr>
+<tr>
+<td>UART_CTS</td>
+<td>28</td>
+<td>DTE请求发送数据给DCE</td>
+</tr>
+</tbody></table>
+<h2 id="6-2-串口特点"><a href="#6-2-串口特点" class="headerlink" title="6.2.    串口特点"></a>6.2.    串口特点</h2><p>•    包括数据线TXD和RXD，硬件流控控制线RTS和CTS。<br>•    8个数据位，无奇偶校验，一个停止位。<br>•    硬件流控默认关闭。<br>•    用以AT命令传送，数传等。<br>•    支持波特率如下：1200,2400,4800,9600,14400,19200,28800,38400,57600,115200,230400,460800,921600bps<br>•    AT指令版本默认情况下模块是自适应波特率(AT+IPR=0)，在自适应波特率模式下，开机后初始化信息（开头是“RDY”）不会回发给主控机。在模块开机2-3秒后，可以给模块发送AT命令。主控机需首先发送“AT”字符给模块来训练主控机的波特率，此时模块会上报初始化信息，表明训练成功。用户可以发送一个“AT+IPR=x :&amp;W”命令给模块（x是波特率，比如9600），此命令的作用是设置一个固定的波特率并保存，在完成这些配置之后，每次模块开机以后，会自动串口返回URC初始化信息（开头是“RDY”）。<br>&emsp;<strong>为了更好的使用自适应波特率功能，以下的使用条件需要注意：</strong><br>&emsp;模块和上位机之间同步：<br>&emsp;自适应波特率功能开启情况下，当模块上电，在发送“AT”字符前最好等待 2~3秒钟。当模块上报开机初始化信息，表明波特率训练成功，和上位机完成了同步。<br>&emsp;在自适应波特率模式下，主控器如果需要开机信息，必须首先进行同步。否则开机初始化信息将不会上报。<br>&emsp;自适应波特率操作配置：<br>•    串口配置为8位数据位，无奇偶校验位，1位停止位（出厂配置）<br>•    模块开机时只有字符串“AT”可以训练波特率。（“at”、“At”或者“aT”无法被识别）<br>•    波特率训练成功后，可以识别大写、小写或大小写组合的AT命令。<br>•    自适应波特率模式下，如果模块开机没有先同步，如“RDY”，“+CFUN: 1”和“+CPIN: READY”这样的URC信息将不会上报。<br>•    在自适应波特率模式下，不推荐切换到软件多路复用模式。</p>
+<h2 id="6-3-串口通信"><a href="#6-3-串口通信" class="headerlink" title="6.3.    串口通信"></a>6.3.    串口通信</h2><h3 id="6-3-1-串口连接方式"><a href="#6-3-1-串口连接方式" class="headerlink" title="6.3.1.串口连接方式"></a>6.3.1.串口连接方式</h3><p>主串口的连接方式较为灵活，如下是两种常用的连接方式。<br>&emsp;（1）三线制的串口请参考如下的连接方式：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629170303372_1.png"><br>图1：串口三线制连接方式示意图<br>&emsp;（2）带流控的串口连接请参考如下电路连接，此连接方式可提高大数据量传输的可靠性，防止数据丢失。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629170807075_1.png"><br>图2：带流控的串口连接方式示意图</p>
+<h3 id="6-3-2-串口电压转换"><a href="#6-3-2-串口电压转换" class="headerlink" title="6.3.2.串口电压转换"></a>6.3.2.串口电压转换</h3><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块UART的电平是1.8V的，如果要和3.3V/5V 的MCU通信，必须外加电平转换电路：<br>&emsp;&emsp;电平转换电路如下：<br>&emsp;&emsp;VDD_EXT是模块输出的I/O电平电压，VDD_MCU是客户端的I/O电平电压，D2 选低导通压降的肖特基二极管。电平转换也可以通过外加电平转换芯片来实现。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715163933723_1.png"><br>图3：电平转换电路</p>
+<h2 id="6-4-USB接口"><a href="#6-4-USB接口" class="headerlink" title="6.4.    USB接口"></a>6.4.    USB接口</h2><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块的USB符合USB2.0规范，支持高速（480Mbps）和全速（12Mbps）模式。该接口可用于AT命令传送，数据传输，软件调试和软件升级。<br>图表2：USB管脚定义</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>管脚</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USB_DP</td>
+<td>38</td>
+<td>USB差分数据正，需90欧姆差分阻抗</td>
+</tr>
+<tr>
+<td>USB_DM</td>
+<td>36</td>
+<td>USB差分数据负，需90欧姆差分阻抗</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td>地</td>
+</tr>
+<tr>
+<td>&emsp;USB接口参考设计电路如下：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629171244002_1.png"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>图4：USB接口参考设计</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="6-5-SIM卡接口"><a href="#6-5-SIM卡接口" class="headerlink" title="6.5.    SIM卡接口"></a>6.5.    SIM卡接口</h2><h3 id="6-5-1-SIM卡接口定义"><a href="#6-5-1-SIM卡接口定义" class="headerlink" title="6.5.1.SIM卡接口定义"></a>6.5.1.SIM卡接口定义</h3><p>&emsp;SIM卡接口支持ETSI和IMT-2000卡，支持1.8V和3.0V USIM卡。<br>下表介绍了SIM的接口管脚定义。<br>图表3：SIM卡接口管脚定义</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>USIM_VDD</td>
+<td>8</td>
+<td>USIM卡供电电源。自动侦测SIM卡工作电压。精度3.0V±10%和1.8V±10%。最大供电电流10mA。</td>
+</tr>
+<tr>
+<td>USIM_RST_N</td>
+<td>14</td>
+<td>USIM卡复位脚</td>
+</tr>
+<tr>
+<td>USIM_DATA</td>
+<td>10</td>
+<td>USIM卡数据线</td>
+</tr>
+<tr>
+<td>USIM_CLK</td>
+<td>12</td>
+<td>USIM卡时钟线</td>
+</tr>
+<tr>
+<td>USIM_GND</td>
+<td>18</td>
+<td>地</td>
+</tr>
+</tbody></table>
+<h3 id="6-5-2-接口应用电路"><a href="#6-5-2-接口应用电路" class="headerlink" title="6.5.2.接口应用电路"></a>6.5.2.接口应用电路</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629171642131_1.png"><br>图5：SIM卡接口参考设计</p>
+<h2 id="6-6-WAKEUP-OUT"><a href="#6-6-WAKEUP-OUT" class="headerlink" title="6.6.    WAKEUP_OUT"></a>6.6.    WAKEUP_OUT</h2><table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WAKEUP_OUT</td>
+<td>1</td>
+<td>唤醒AP</td>
+</tr>
+<tr>
+<td>图表4：WAKEUP_OUT信号动作</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>WAKEUP_OUT应答</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>待机</td>
+<td>高电平</td>
+</tr>
+<tr>
+<td>语音呼叫</td>
+<td>变为低电平，之后：&emsp;&emsp;&emsp;&emsp;（1）    通话建立时变为高电平&emsp;&emsp;&emsp;&emsp;（2）    使用AT命令 ATH挂断语音，WAKEUP_OUT变为高电平&emsp;&emsp;&emsp;&emsp;（3）    呼叫方挂断，WAKEUP_OUT首先变为高电平，然后拉为低电平持续  120ms，收到自动回复 URC信息 “NO  CARRIER”，之后再变为高电平&emsp;&emsp;&emsp;&emsp;（4）    收到短信时变为高电平</td>
+</tr>
+<tr>
+<td>数据传输</td>
+<td>变为低电平，之后：&emsp;&emsp;&emsp;&emsp;（1）    数据连接建立时变为高电平&emsp;&emsp;&emsp;&emsp;（2）    使用AT命令 ATH挂断数据连接，WAKEUP_OUT变为高电平&emsp;&emsp;&emsp;&emsp;（3）    呼叫方挂断，WAKEUP_OUT首先变为高电平，然后拉为低电平持续  120ms，收到自动回复 URC信息 “NO  CARRIER”，之后再变为高电平&emsp;&emsp;&emsp;&emsp;（4）    收到短信时变为高电平</td>
+</tr>
+<tr>
+<td>短信</td>
+<td>当收到新的短信，WAKEUP_OUT变为低电平，持续 120ms，再变为高电平</td>
+</tr>
+<tr>
+<td>URC</td>
+<td>某些 URC信息可以触发WAKEUP_OUT拉低 120ms</td>
+</tr>
+<tr>
+<td>&emsp;&emsp;如果模块用作主叫方，WAKEUP_OUT会保持高电平，收到URC信息或者短信时除外。而模块用作被叫方时，WAKEUP_OUT的时序如下所示：</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172447563_1.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>图6：语音呼叫时模块用作被叫方 WAKEUP_OUT时序</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172527657_1.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>图7：数据呼叫时模块用作被叫方WAKEUP_OUT时序</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172641978_1.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>图8：模块主叫时WAKEUP_OUT时序</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629172756155_1.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>图9：收到URC信息或者短信时WAKEUP_OUT时序</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="6-7-网络状态指示"><a href="#6-7-网络状态指示" class="headerlink" title="6.7.    网络状态指示"></a>6.7.    网络状态指示</h2><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块使用第42脚信号来指示网络的运行状态。如下两表分别描述了管脚定义和不同网络状态下的逻辑电平变化：<br>图表5：网络指示管脚定义</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>管脚号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LED_WWAN#</td>
+<td>42</td>
+<td>指示模块的网络运行状态</td>
+</tr>
+<tr>
+<td>图表6：网络指示管脚的工作状态</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>管脚工作状态</th>
+<th>网络状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>亮0.2秒，灭1.8秒</td>
+<td>搜网状态</td>
+</tr>
+<tr>
+<td>亮1.8秒，灭0.2秒</td>
+<td>待机</td>
+</tr>
+<tr>
+<td>亮0.125秒，灭0.125秒</td>
+<td>数据传输状态注意：该状态提示仅限于PPP拨号成功或者AT指令主动激活PDP成功，RNDIS联网成功</td>
+</tr>
+<tr>
+<td>&emsp;驱动电路参考如下：</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629173324772_1.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>图10：LED_WWAN# 参考电路</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="7-天线接口定义"><a href="#7-天线接口定义" class="headerlink" title="7.    天线接口定义"></a>7.    天线接口定义</h1><p>&emsp;&emsp;Air720UH/Air720UG-Mini PCIe模块支持LTE射频接口与WIFI射频接口两种方式，本章将描述射频接口的基本信息与电气特性。</p>
+<h2 id="7-1-天线接口"><a href="#7-1-天线接口" class="headerlink" title="7.1.    天线接口"></a>7.1.    天线接口</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715164229237_2.jpg"></p>
+<h2 id="7-2-接口机械尺寸"><a href="#7-2-接口机械尺寸" class="headerlink" title="7.2.    接口机械尺寸"></a>7.2.    接口机械尺寸</h2><p>射频座采用3<em>3</em>1.25mm规格，图示如下：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629173756399_1.png"><br>图2：射频接口机械尺寸图<br>&emsp;&emsp;如果模块使用 RF 连接器连接方式连接，推荐使用Hirose的 UF.L-R-SMT 连接器。下图显示了 RF 连接座尺寸，单位为 mm。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629173834445_1.png"><br>图3：天线连接器选型</p>
+<h2 id="7-3-RF输出功率"><a href="#7-3-RF输出功率" class="headerlink" title="7.3.    RF输出功率"></a>7.3.    RF输出功率</h2><p>图表1：RF传导功率</p>
+<table>
+<thead>
+<tr>
+<th>频段</th>
+<th>最大</th>
+<th>最小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EGSM900</td>
+<td>33 dBm+-2dB</td>
+<td>5dBm±5dB</td>
+</tr>
+<tr>
+<td>DCS1800</td>
+<td>30dBm +-2dB</td>
+<td>0dBm±5dB</td>
+</tr>
+<tr>
+<td>GSM900(8-psk)</td>
+<td>33 dBm+-2dB</td>
+<td>5dBm±5dB</td>
+</tr>
+<tr>
+<td>DCS1800(8-psk)</td>
+<td>30dBm +-2dB</td>
+<td>0dBm±5dB</td>
+</tr>
+<tr>
+<td>LTE FDD B1/B3/B5/B8</td>
+<td>23dBm +-2dB</td>
+<td>&lt;-44dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B34/B38/B39/B40/B41</td>
+<td>23dBm +-2dB</td>
+<td>&lt;-42dBm</td>
+</tr>
+</tbody></table>
+<h2 id="7-4-RF传导灵敏度"><a href="#7-4-RF传导灵敏度" class="headerlink" title="7.4.    RF传导灵敏度"></a>7.4.    RF传导灵敏度</h2><p>图表2：RF传导灵敏度</p>
+<table>
+<thead>
+<tr>
+<th>频段</th>
+<th>接收灵敏度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EGSM900</td>
+<td>&lt; -110dBm</td>
+</tr>
+<tr>
+<td>DCS1800</td>
+<td>&lt; -109.5dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B1(10M)</td>
+<td>&lt; -96.5dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B3(10M)</td>
+<td>&lt; -97dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B5(10M)</td>
+<td>&lt; -97dBm</td>
+</tr>
+<tr>
+<td>LTE FDD B8(10M)</td>
+<td>&lt; -96.5dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B34(10M)</td>
+<td>&lt; -96dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B38(10M)</td>
+<td>&lt; -96dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B39(10M)</td>
+<td>&lt; -97dBm</td>
+</tr>
+<tr>
+<td>LTE TDD B40(10M)</td>
+<td>&lt; -96.5Bm</td>
+</tr>
+<tr>
+<td>LTE TDD B41(10M)</td>
+<td>&lt; -96dBm</td>
+</tr>
+</tbody></table>
+<h1 id="8-电器特性，可靠性，射频特性"><a href="#8-电器特性，可靠性，射频特性" class="headerlink" title="8.    电器特性，可靠性，射频特性"></a>8.    电器特性，可靠性，射频特性</h1><h2 id="8-1-绝对最大值"><a href="#8-1-绝对最大值" class="headerlink" title="8.1.    绝对最大值"></a>8.1.    绝对最大值</h2><p>&emsp;如下表所示是模块数字、模拟管脚的电源供电电压电流最大耐受值。<br>图表1：绝对最大值</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>最小</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VCC_3.3V</td>
+<td>-0.3</td>
+<td>4.3</td>
+<td>V</td>
+</tr>
+<tr>
+<td>电源供电峰值电流</td>
+<td>0</td>
+<td>0.8</td>
+<td>A</td>
+</tr>
+<tr>
+<td>电源供电平均电流（TDMA一帧时间）</td>
+<td>0</td>
+<td>0.7</td>
+<td>A</td>
+</tr>
+<tr>
+<td>数字管脚处电压</td>
+<td>-0.3</td>
+<td>VDDIO+0.3</td>
+<td>V</td>
+</tr>
+</tbody></table>
+<h2 id="8-2-推荐工作条件"><a href="#8-2-推荐工作条件" class="headerlink" title="8.2.    推荐工作条件"></a>8.2.    推荐工作条件</h2><p>图表2：推荐工作条件</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>最小</th>
+<th>典型</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT</td>
+<td>3.3</td>
+<td>3.3</td>
+<td>4.3</td>
+<td>V</td>
+</tr>
+</tbody></table>
+<h2 id="8-3-工作温度"><a href="#8-3-工作温度" class="headerlink" title="8.3.    工作温度"></a>8.3.    工作温度</h2><p>图表3：工作温度</p>
+<table>
+<thead>
+<tr>
+<th>温度</th>
+<th>最低</th>
+<th>典型</th>
+<th>最高</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常工作温度</td>
+<td>-35</td>
+<td>25</td>
+<td>75</td>
+<td>℃</td>
+</tr>
+<tr>
+<td>受限工作温度</td>
+<td>-40~-35</td>
+<td></td>
+<td>75~85</td>
+<td>℃</td>
+</tr>
+<tr>
+<td>存储温度</td>
+<td>-45</td>
+<td></td>
+<td>90</td>
+<td>℃</td>
+</tr>
+</tbody></table>
+<h2 id="8-4-电源额定值"><a href="#8-4-电源额定值" class="headerlink" title="8.4.    电源额定值"></a>8.4.    电源额定值</h2><p>图表4：模块电源额度值</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>条件</th>
+<th>最小</th>
+<th>典型</th>
+<th>最大</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT</td>
+<td>供电电压</td>
+<td>电压必须在该范围之内，包括电压跌落，纹波和尖峰时</td>
+<td>3.3</td>
+<td>3.3</td>
+<td>4.3</td>
+<td>V</td>
+</tr>
+<tr>
+<td></td>
+<td>待机电流</td>
+<td>GSM DRX=2</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>待机电流</td>
+<td>GSM DRX=5</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>待机电流</td>
+<td>LTE-TDD模式(Pagingcycle=128)</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>待机电流</td>
+<td>LTE-FDD模式(Pagingcycle=128)</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>飞行模式</td>
+<td>AT+CFUN=4</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>最小功能模式</td>
+<td>AT+CFUN=0</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>EGSM900 4D/1U PCL=5</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>EGSM900 3D/2U PCL=5</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>EGSM900 2D/3U PCL=5</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>EGSM900 1D/4U PCL=5</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>DCS1800 4D/1U PCL=0</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>DCS1800 3D/2U PCL=0</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>DCS1800 2D/3U PCL=0</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>GPRS模式</td>
+<td>DCS1800 1D/4U PCL=0</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>EGSM900 4D/1U PCL=8</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>EGSM900 3D/2U PCL=8</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>EGSM900 2D/3U PCL=8</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>EGSM900 1D/4U PCL=8</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>DCS1800 4D/1U PCL=2</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>DCS1800 3D/2U PCL=2</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>DCS1800 2D/3U PCL=2</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>EDGE</td>
+<td>DCS1800 1D/4U PCL=2</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B1:LTE-FDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH300, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B1:LTE-FDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH300, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B3:LTE-FDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH1575, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B3:LTE-FDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH1575, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B5:LTE-FDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH2525, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B5:LTE-FDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH2525, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B8:LTE-FDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH3625, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B8:LTE-FDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH3625, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B34:LTE-TDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH36275, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B34:LTE-TDD(MIN)</td>
+<td>TX power = -42dbm&emsp; CH36275, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B38:LTE-TDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH38000, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B38:LTE-TDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH38000, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B39:LTE-TDD(MAX)</td>
+<td>TX power =  23dbm&emsp; CH38450, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B39:LTE-TDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH38450, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B40:LTE-TDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH39150, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B40:LTE-TDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH39150, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B41:LTE-TDD(MAX)</td>
+<td>TX power =  23dbm&emsp;CH40620, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+<tr>
+<td></td>
+<td>B41:LTE-TDD(MIN)</td>
+<td>TX power = -42dbm&emsp;CH40620, BW=20M</td>
+<td></td>
+<td>TBD</td>
+<td></td>
+<td>mA</td>
+</tr>
+</tbody></table>
+<h1 id="9-外形结构及包装"><a href="#9-外形结构及包装" class="headerlink" title="9.    外形结构及包装"></a>9.    外形结构及包装</h1><p>&emsp;本章描述Air720UH/Air720UG-Mini PCIe模块的机械尺寸以及包装信息，单位均为 mm。 其机械尺寸主要包括：</p>
+<p>&emsp;    Air720UH/Air720UG-Mini PCIe外形尺寸<br>&emsp;    Mini PCI Express标准尺寸</p>
+<h2 id="9-1-Air720UH-Air720UG-MiniPCIe模块外形尺寸"><a href="#9-1-Air720UH-Air720UG-MiniPCIe模块外形尺寸" class="headerlink" title="9.1.    Air720UH/Air720UG-MiniPCIe模块外形尺寸"></a>9.1.    Air720UH/Air720UG-MiniPCIe模块外形尺寸</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715170616942_3.jpg"><br>图1：Air720UH/Air720UG-Mini PCIe 模块尺寸</p>
+<h2 id="9-2-MiniPCI-Express标准外形尺寸"><a href="#9-2-MiniPCI-Express标准外形尺寸" class="headerlink" title="9.2.    MiniPCI Express标准外形尺寸"></a>9.2.    MiniPCI Express标准外形尺寸</h2><p>&amp;emspAir720UH/Air720UG-Mini PCIe模块采用标准的 Mini PCI Express 接口。下图所示的是标准的 Mini PCI Express 卡的尺寸：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200629183928624_1.png"><br>图2：标准 MiniPCI Express卡尺寸<br><strong>注：符合标准的 PCI Express MiniPCIe Card 连接器均可以与本模块配套使用。</strong></p>
+<h2 id="9-3-包装"><a href="#9-3-包装" class="headerlink" title="9.3.    包装"></a>9.3.    包装</h2><p>&emsp;Air720UH/Air720UG-Mini PCIe模块采用托盘形式进行包装，每个托盘放置 35 片Air720UH/Air720UG-MiniPCIe 模块，最小包装内共包含 500 片模块。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/07/15/1138/" data-id="ckkfmdge700c6vkcgbclw0abn" data-title="Air720UHI/ Air720UGI模块硬件设计手册-V1.2" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/15/1139/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          骑士智能科技Mini_Air302开发板|Air302模块下载LuatOS固件教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/15/1134/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Air302模块硬件设计手册V1.3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

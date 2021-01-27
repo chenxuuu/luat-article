@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>低功耗实践指南 | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="物联网模块以优异的性能、低廉的价格、超强定制性，经常被应用到各种场景中。但是，一旦没有电，巧妇难为无米之炊，模块立地变砖。所以，供电始终是开发者绕不过去的关键环节。  如果是按摩椅、擦鞋机等这类有常电的场景，开发者几乎不用考虑功耗问题，随便用；如果是共享单车、太阳能路灯这类有太阳能板充电的场景，开发者需要找到功耗和性能的平衡点；如果是定位手表、无线报警器这类完全靠电池供电的场景，开发者则应尽量降低">
+<meta property="og:type" content="article">
+<meta property="og:title" content="低功耗实践指南">
+<meta property="og:url" content="https://doc.luatos.wiki/2018/09/09/437/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="物联网模块以优异的性能、低廉的价格、超强定制性，经常被应用到各种场景中。但是，一旦没有电，巧妇难为无米之炊，模块立地变砖。所以，供电始终是开发者绕不过去的关键环节。  如果是按摩椅、擦鞋机等这类有常电的场景，开发者几乎不用考虑功耗问题，随便用；如果是共享单车、太阳能路灯这类有太阳能板充电的场景，开发者需要找到功耗和性能的平衡点；如果是定位手表、无线报警器这类完全靠电池供电的场景，开发者则应尽量降低">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vyKWslPS5b9498339e2ab.png">
+<meta property="article:published_time" content="2018-09-09T03:53:30.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.338Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/image/show/attachments-2018-09-vyKWslPS5b9498339e2ab.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-437" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/09/09/437/" class="article-date">
+  <time class="dt-published" datetime="2018-09-09T03:53:30.000Z" itemprop="datePublished">2018-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      低功耗实践指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>物联网模块以优异的性能、低廉的价格、超强定制性，经常被应用到各种场景中。但是，一旦没有电，巧妇难为无米之炊，模块立地变砖。所以，供电始终是开发者绕不过去的关键环节。</p>
+
+<p>如果是<b>按摩椅、擦鞋机</b>等这类有<b>常电</b>的场景，开发者几乎不用考虑功耗问题，随便用；如果是<b>共享单车、太阳能路灯</b>这类有太阳能板<b>充电</b>的场景，开发者需要找到功耗和性能的平衡点；如果是<b>定位手表、无线报警器</b>这类完全靠<b>电池供电</b>的场景，开发者则应尽量降低功耗，以延长续航时间。</p>
+
+<p>实现低功耗，有点像内外兼修，单纯的优化软件，或者修改硬件，都不能完成目标。只有软件和硬件互相配合，标本兼治，才能达到理想效果。</p>
+
+<p><span>Air202</span>模块为例，软件上要执行相应代码，进入飞行模式、并主动休眠，硬件上也要关闭输出（如<span>LED</span>、<span>LCD</span>），最终才可做到《硬件设计手册》标称<span>&lt;1ma</span>的电流：</p>
+
+<p><img style="width:460.5px;" src="http://oldask.openluat.com/image/show/attachments-2018-09-vyKWslPS5b9498339e2ab.png" class="img-responsive" alt="attachments-2018-09-vyKWslPS5b9498339e2ab.png" /></p>
+
+<p>那么，降低功耗都有哪些方法呢？</p>
+
+<p><br /></p>
+
+<h2>常用措施</h2>
+
+<p><b>自动休眠 <span> </span></b>在“闲时”会自动休眠，即自动降频。当发生数据传输，或产生<span>GPIO</span>中断等时，模块会自动唤醒。这个机制是底层自动处理的，开发者无需特殊设置。它近似于<span>CPU</span>的自动降频、睿频；</p>
+
+<p><b>休眠功能</b> <span> </span>即强制降频。开发者可以通过代码设置模块使之处于休眠<span>/</span>唤醒状态。示例代码：</p>
+
+<blockquote><p style="text-align:left;"><span style="font-family:'宋体';">pm.sleep(<span style="color:#800000;">"A"</span>)
+<span style="color:#008000;">--</span></span><span style="font-family:'宋体';color:#008000;">执行本句后，标记为<span>A</span>的事件 休眠了模块</span></p><p style="text-align:left;"><span style="font-family:'宋体';">pm.wake(<span style="color:#800000;">"A"</span>)
+<span style="color:#008000;">--</span></span><span style="font-family:'宋体';color:#008000;">执行本句后，标记为<span>A</span>的事件 唤醒了模块</span></p><p style="text-align:left;"><span style="font-family:'宋体';color:#008000;">--</span><span style="font-family:'宋体';color:#008000;">值得注意的是，如果需要全功能，必须执行<span>pm.wake()</span>，否则可能导致串口接收出错、<span>LCD</span>刷新失败等问题；每个“事件”一一对应，“<span>A</span>”唤醒模块，也必须是“<span>A</span>”才能休眠模块；如果“<span>A</span>”唤醒模块，“<span>B</span>”休眠模块，则因为“<span>A</span>”的存在，“<span>B</span>”无法休眠模块。</span></p><p style="text-align:left;"><span style="font-family:'宋体';color:#008000;">--</span><span style="font-family:'宋体';color:#008000;">更多用法，请参考<span>pm demo</span></span></p></blockquote>
+
+
+
+
+
+<p><b>关闭<span>GPIO</span>输出</b> <span> </span>顾名思义，虽然<span>GPIO</span>输出的电流不大，但是聚沙成塔，也是不容小觑的（请参考
+<span>gpio demo</span>）。一些靠<span>GPIO</span>驱动的<span>LED</span>也应关闭，譬如<span>Air800 M4</span>等开发板的一些<span>LED</span>；</p>
+
+<p><b>关闭<span>UART1</span>、<span>2</span></b><span><span> 
+</span></span>降低主频后，<span>UART1</span>、<span>2</span>的接收功能实际上已经受限，建议关闭（请参考
+<span>uart demo</span>）；</p>
+
+<p><b>关闭<span>GPS</span></b><span><span>  </span></span>关闭<span>GPS</span>芯片供电，同时关闭有源<span>GPS</span>天线供电，可以进一步降低功耗（请参考<span>gps demo</span>）；</p>
+
+<p><b>进入飞行模式</b> <span> </span>彻底禁止射频，可以有效降低通信模块的功耗，最低可以低至<span>1ma</span>（请参考<span>socket/shortConnectionFlymode demo</span>）<span>;</span></p>
+
+<p><b>关闭音频输出</b> <span> </span>譬如喇叭等的输出，将产生额外的消耗（请参考<span>audio demo</span>）；</p>
+
+<p><b>优化代码逻辑</b> <span> </span>尽量减少大量运算（如<span>GPS </span>坐标纠偏算法，应放到服务端，而非模块处理），避免死循环、频繁<span>io</span>操作、频繁检查<span>OTA</span>、同步<span>NTP</span>。尽量提高代码鲁棒性，减少因错重启的概率；</p>
+
+<p><b>优化通信逻辑</b> <span> </span>根据网络情况自动控制心跳包发送间隔，取得可用性和省电之间的平衡点；</p>
+
+<p><b>改善天线</b> <span> </span>改善<span>GPS</span>和<span>GSM</span>提高信号等级。更好的信号，有助于降低通信时的功耗，对于<span>GPS</span>也能更快搜星，追踪时耗电量也更少；</p>
+
+<p><b>关闭<span>LCD</span>屏幕</b> <span> </span>采用关闭<span>LCD</span>背光、局部刷新等方式，可以有效减少<span>LCD</span>产生的消耗；</p>
+
+<p><b>其他措施</b> <span> </span>还有一些其他的节能方式，譬如彻底关机（底电流<span>200ua</span>），由外部单片机开机，或者闹钟开机（请参考
+《<span>Air2xx/Air8xx </span>系列模块的开机、关机和重启》<span>http://oldask.openluat.com/article/51</span>）。</p>
+
+<p>有的开发者可能会问，禁止<span>HOST_UART</span>输出的<span>Trace</span>，会不会也降低能耗呢？在这里，可以负责任的告诉大家，不会。是否输出<span>Trace</span>，都一样的，所以不必纠结了。</p>
+
+<p>说了这么多延长续航，降低功耗低手段，具体怎么应用呢？接下来，咱们就根据不同的应用场景（常电<span>/</span>太阳能板<span>/</span>电池供电）讲讲分别怎么用。</p>
+
+<h2>常电</h2>
+
+<p>既然有常电？还降低毛功耗？略过，就是这么霸气<span>~</span>！<span><br /></span></p>
+
+<h2>太阳能板</h2>
+
+<p>以共享单车为例，他们通常采用的是车篮式太阳能板，输出电压位<span>5V</span>，功率为<span>5W</span>（即正午太阳直射时电流才可达到<span>1A</span>）。</p>
+
+<p>但是，共享单车的应用场景极为复杂，单车可能停放在楼宇间、树荫下等阳光较弱的地方，或者存在倒斜、连续阴雨天的情况，太阳能板不能全功率工作，对电池的充电效果有限。所以如何根据电池剩余电量进行功率控制就成了关键。</p>
+
+<p>以<span>Air800</span>模块为例，<span>2400mah</span>的电池，<span>GPS+MQTT+TTS</span>可以续航约<span>40+</span>小时。那么<span>7200mah</span>的电池，合理优化的情况下，续航<span>3~4</span>周。如果搭载太阳能板，可以做到无人干预下的可靠运行。那么，如何做到“自给自足”呢？</p>
+
+<p><b>首先</b>，应该尽量扩大电池容量，使用性能更好的太阳能板。膜拜单车电池容量约为<span>5400mah</span>，哈罗单车约为<span>7200mah</span>，<span>ofo</span>小黄车电池时不可充电的，忽略不计。所以，更大容量的电池，意味着更强劲、更持久的续航能力。契合“深挖洞广积粮”、“深淘滩低作堰”的思想。</p>
+
+<p>同时，开发者应该考虑到冬季日照减少无法充电，雨雪天低温导致电池容量骤减等因素。</p>
+
+<p><b>其次</b>，应该合理安排代码逻辑和充放电管理，使电池效能最大化。譬如：</p>
+
+<p>    电池剩余<span>7</span>成电量时，可以适当缩短<span>GPS</span>定位间隔和数据上报周期，检查是否有升级包等骚操作；</p>
+
+<p>    电池剩余<span>5</span>成电量时，应适当增加<span>GPS</span>定位间隔，延长数据上报周期，禁止检查是否升级包，禁止同步<span>NTP</span>，喇叭降低音量，<span>LED</span>停止闪烁等；</p>
+
+<p>    电池剩余<span>3</span>成电量时，禁止使用<span>GPS</span>定位，改用基站定位，最大限度延长数据上报周期，停止使用喇叭，改用蜂鸣器。必要时需要进入飞行模式，；</p>
+
+<p>    电池剩余<span>1</span>成电量时，彻底禁止所有耗电应用，把当前状态（电量、最后一次<span>GPS</span>定位坐标等）间歇性上报服务器（如每<span>30</span>分钟上报一次，期间进入飞行模式），等待运维人员前来“解救”。</p>
+
+
+
+<p><b>最后</b>，应有后备措施（如运维人员现场处理），处理异常和突发状况。譬如用户端<span>APP</span>和车锁，均可自动上报故障。 如低电情况下，车锁自动上报，运维人员前去充电。</p>
+
+<p><span>PS</span>：膜拜单车有两个版本，豪华版（即无链条）是轮毂发电的，没有人骑车，电池的电就会耗光，所以经常出现低电情况；而普通版（即有链条）是太阳能板发电，只要有日照就可以给电池充电，所以几乎很少出现低电的情况了。</p>
+
+
+
+<h2>电池供电</h2>
+
+<p>由于某些特殊场景，只能使用电池供电。此种情况下，似乎飞行模式是长续航最佳的选择。</p>
+
+<p>模块应该有被唤醒的机制（内部计时器，或者外部中断），唤醒后退出飞行模式，进行相应的数据处理；处理完成后立即进入飞行模式，节省电能。</p>
+
+<p>而无法进入飞行模式的情况下，也应该按照上文所述，关闭所有不必要的耗电应用，同时主动休眠模块，使之进一步减少耗电量。譬如我司出品的小蛮儿童定位手表（<span><a href="http://www.openluat.com/Product/solution/Watch.html" target="_blank" rel="noreferrer noopener">http://www.openluat.com/Product/solution/Watch.html</a></span>），就是使用了<span>Air202</span>同款的通信芯片，同时具有<span>LED</span>手电、触摸屏、<span>LCD</span>、定位等功能，经过合理的优化，极小的空间<span>+</span>电池，实现了长续航，赢得了众多开发者一致赞誉，也受到了消费者的一致好评。</p>
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2018/09/09/437/" data-id="ckkfmdgb90056vkcg43xf7lh0" data-title="低功耗实践指南" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/09/438/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Air800(GPRS+GPS模块)连接OneNet平台
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/07/436/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Luat GPRS模块TCPIP应用指导V1.1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

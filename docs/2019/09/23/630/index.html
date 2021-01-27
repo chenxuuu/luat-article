@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>使用lua生成Code128条形码数据（用于微信、支付宝付款码） | Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="这篇文章是紧接着上一篇文章的：简单解析微信、支付宝，付款码的条形码生成原理 本文中，会演示如何使用上篇文章所讲到的条形码数据生成方法，使用lua语言来生成相关的数据 本文为了方便描述，同样使用b代表一条黑色像素宽度的线，s代表一条白色像素宽度的线，当bs组合时，中间不留任何缝隙 首先我们先制作几个函数，来生成bs字符串，以便后期生成条形码 首先声明我们需要用到的数据，编码格式： 123456789">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用lua生成Code128条形码数据（用于微信、支付宝付款码）">
+<meta property="og:url" content="https://doc.luatos.wiki/2019/09/23/630/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="这篇文章是紧接着上一篇文章的：简单解析微信、支付宝，付款码的条形码生成原理 本文中，会演示如何使用上篇文章所讲到的条形码数据生成方法，使用lua语言来生成相关的数据 本文为了方便描述，同样使用b代表一条黑色像素宽度的线，s代表一条白色像素宽度的线，当bs组合时，中间不留任何缝隙 首先我们先制作几个函数，来生成bs字符串，以便后期生成条形码 首先声明我们需要用到的数据，编码格式： 123456789">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://oldask.openluat.com/file/attachments-2019-09-WvoAetTQ5d886e35c05ff_QQ%E6%88%AA%E5%9B%BE20180922163123.jpg">
+<meta property="article:published_time" content="2019-09-23T07:05:40.000Z">
+<meta property="article:modified_time" content="2021-01-27T16:09:27.360Z">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://oldask.openluat.com/file/attachments-2019-09-WvoAetTQ5d886e35c05ff_QQ%E6%88%AA%E5%9B%BE20180922163123.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-630" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/09/23/630/" class="article-date">
+  <time class="dt-published" datetime="2019-09-23T07:05:40.000Z" itemprop="datePublished">2019-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      使用lua生成Code128条形码数据（用于微信、支付宝付款码）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>这篇文章是紧接着上一篇文章的：<a target="_blank" rel="noopener" href="https://www.chenxublog.com/2018/09/22/wechat-alipay-barcode-code128.html" title="简单解析微信、支付宝，付款码的条形码生成原理">简单解析微信、支付宝，付款码的条形码生成原理</a></p>
+<p>本文中，会演示如何使用上篇文章所讲到的条形码数据生成方法，使用lua语言来生成相关的数据</p>
+<p>本文为了方便描述，同样使用<code>b</code>代表一条黑色像素宽度的线，<code>s</code>代表一条白色像素宽度的线，当<code>bs</code>组合时，中间不留任何缝隙</p>
+<p>首先我们先制作几个函数，来生成<code>bs</code>字符串，以便后期生成条形码</p>
+<p>首先声明我们需要用到的数据，编码格式：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> codes = &#123;&#125;</span><br><span class="line"><span class="keyword">local</span> codeStartC = <span class="string">&quot;bbsbssbbbss&quot;</span> <span class="comment">--C</span></span><br><span class="line">codes[<span class="number">0</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">1</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">2</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">3</span>+<span class="number">1</span>] = <span class="string">&quot;bssbssbbsss&quot;</span></span><br><span class="line">codes[<span class="number">4</span>+<span class="number">1</span>] = <span class="string">&quot;bssbsssbbss&quot;</span></span><br><span class="line">codes[<span class="number">5</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">6</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbssbsss&quot;</span></span><br><span class="line">codes[<span class="number">7</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbsssbss&quot;</span></span><br><span class="line">codes[<span class="number">8</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">9</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbssbsss&quot;</span></span><br><span class="line">codes[<span class="number">10</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbsssbss&quot;</span></span><br><span class="line">codes[<span class="number">11</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbssbss&quot;</span></span><br><span class="line">codes[<span class="number">12</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbssbbbss&quot;</span></span><br><span class="line">codes[<span class="number">13</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbsbbbss&quot;</span></span><br><span class="line">codes[<span class="number">14</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">15</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">16</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">17</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">18</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">19</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbsbbbss&quot;</span></span><br><span class="line">codes[<span class="number">20</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">21</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">22</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">23</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">24</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbssbbss&quot;</span></span><br><span class="line">codes[<span class="number">25</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">26</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">27</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">28</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">29</span>+<span class="number">1</span>] = <span class="string">&quot;bbbssbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">30</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">31</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">32</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">33</span>+<span class="number">1</span>] = <span class="string">&quot;bsbsssbbsss&quot;</span></span><br><span class="line">codes[<span class="number">34</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">35</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">36</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbsssbsss&quot;</span></span><br><span class="line">codes[<span class="number">37</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">38</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">39</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbsssbsss&quot;</span></span><br><span class="line">codes[<span class="number">40</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">41</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">42</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbsbbbsss&quot;</span></span><br><span class="line">codes[<span class="number">43</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbsssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">44</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">45</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">46</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">47</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">48</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">49</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbsssbbbs&quot;</span></span><br><span class="line">codes[<span class="number">50</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">51</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">52</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">53</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">54</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbsbbsss&quot;</span></span><br><span class="line">codes[<span class="number">55</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbsssbbs&quot;</span></span><br><span class="line">codes[<span class="number">56</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsssbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">57</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">58</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">59</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsssbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">60</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbbbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">61</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbssssbs&quot;</span></span><br><span class="line">codes[<span class="number">62</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsssbsbs&quot;</span></span><br><span class="line">codes[<span class="number">63</span>+<span class="number">1</span>] = <span class="string">&quot;bsbssbbssss&quot;</span></span><br><span class="line">codes[<span class="number">64</span>+<span class="number">1</span>] = <span class="string">&quot;bsbssssbbss&quot;</span></span><br><span class="line">codes[<span class="number">65</span>+<span class="number">1</span>] = <span class="string">&quot;bssbsbbssss&quot;</span></span><br><span class="line">codes[<span class="number">66</span>+<span class="number">1</span>] = <span class="string">&quot;bssbssssbbs&quot;</span></span><br><span class="line">codes[<span class="number">67</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbsbbss&quot;</span></span><br><span class="line">codes[<span class="number">68</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbssbbs&quot;</span></span><br><span class="line">codes[<span class="number">69</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbssbssss&quot;</span></span><br><span class="line">codes[<span class="number">70</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbssssbss&quot;</span></span><br><span class="line">codes[<span class="number">71</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbsbssss&quot;</span></span><br><span class="line">codes[<span class="number">72</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbssssbs&quot;</span></span><br><span class="line">codes[<span class="number">73</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">74</span>+<span class="number">1</span>] = <span class="string">&quot;bssssbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">75</span>+<span class="number">1</span>] = <span class="string">&quot;bbssssbssbs&quot;</span></span><br><span class="line">codes[<span class="number">76</span>+<span class="number">1</span>] = <span class="string">&quot;bbssbsbssss&quot;</span></span><br><span class="line">codes[<span class="number">77</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">78</span>+<span class="number">1</span>] = <span class="string">&quot;bbssssbsbss&quot;</span></span><br><span class="line">codes[<span class="number">79</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbbbbsbs&quot;</span></span><br><span class="line">codes[<span class="number">80</span>+<span class="number">1</span>] = <span class="string">&quot;bsbssbbbbss&quot;</span></span><br><span class="line">codes[<span class="number">81</span>+<span class="number">1</span>] = <span class="string">&quot;bssbsbbbbss&quot;</span></span><br><span class="line">codes[<span class="number">82</span>+<span class="number">1</span>] = <span class="string">&quot;bssbssbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">83</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbssbss&quot;</span></span><br><span class="line">codes[<span class="number">84</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbbsbss&quot;</span></span><br><span class="line">codes[<span class="number">85</span>+<span class="number">1</span>] = <span class="string">&quot;bssbbbbssbs&quot;</span></span><br><span class="line">codes[<span class="number">86</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbssbss&quot;</span></span><br><span class="line">codes[<span class="number">87</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbssbsbss&quot;</span></span><br><span class="line">codes[<span class="number">88</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbssbssbs&quot;</span></span><br><span class="line">codes[<span class="number">89</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">90</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbbbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">91</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbbsbbs&quot;</span></span><br><span class="line">codes[<span class="number">92</span>+<span class="number">1</span>] = <span class="string">&quot;bsbsbbbbsss&quot;</span></span><br><span class="line">codes[<span class="number">93</span>+<span class="number">1</span>] = <span class="string">&quot;bsbsssbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">94</span>+<span class="number">1</span>] = <span class="string">&quot;bsssbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">95</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">96</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">97</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbsbsss&quot;</span></span><br><span class="line">codes[<span class="number">98</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbsssbs&quot;</span></span><br><span class="line">codes[<span class="number">99</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">100</span>+<span class="number">1</span>] = <span class="string">&quot;bsbbbbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">101</span>+<span class="number">1</span>] = <span class="string">&quot;bbbsbsbbbbs&quot;</span></span><br><span class="line">codes[<span class="number">102</span>+<span class="number">1</span>] = <span class="string">&quot;bbbbsbsbbbs&quot;</span></span><br><span class="line">codes[<span class="number">103</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbssssbss&quot;</span><span class="comment">--codeStartA</span></span><br><span class="line">codes[<span class="number">104</span>+<span class="number">1</span>] = <span class="string">&quot;bbsbssbssss&quot;</span><span class="comment">--codeStartB</span></span><br><span class="line">codes[<span class="number">106</span>+<span class="number">1</span>] = <span class="string">&quot;bbsssbbbsbsbb&quot;</span>  <span class="comment">--end</span></span><br></pre></td></tr></table></figure>
+<p>按C条形码生成规则，处理偶数长度的字符串：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--生成code128C字符串</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">makeCode128C</span><span class="params">(s)</span></span></span><br><span class="line">    <span class="keyword">if</span> s:<span class="built_in">len</span>() % <span class="number">2</span> == <span class="number">1</span> <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">log</span>.warn(<span class="string">&quot;barcode.makeCode128C&quot;</span>,<span class="string">&quot;code not right&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,s:<span class="built_in">len</span>()/<span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,s:<span class="built_in">sub</span>(i*<span class="number">2</span><span class="number">-1</span>,i*<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> check = <span class="number">105</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        check = check + i * codeTemp[i]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    check = check % <span class="number">103</span></span><br><span class="line">    <span class="keyword">local</span> result = codeStartC</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        result = result..codes[codeTemp[i]+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    result = result..codes[check+<span class="number">1</span>]..codes[<span class="number">106</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;barcode.makeCode128C&quot;</span>,result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>当出现奇数长度字符串时，按C+A拼接生成条形码，并且加入判断，字符串长度为偶数时，使用上面的函数处理：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--生成code128C+A混合字符串，如长度为偶数，只生成C类型条码</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">makeCode128</span><span class="params">(s)</span></span></span><br><span class="line">    <span class="keyword">if</span> s:<span class="built_in">len</span>() == <span class="number">0</span> <span class="keyword">or</span> s == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> s:<span class="built_in">len</span>() % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> makeCode128C(s)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,s:<span class="built_in">len</span>()/<span class="number">2</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,s:<span class="built_in">sub</span>(i*<span class="number">2</span><span class="number">-1</span>,i*<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">local</span> other = <span class="built_in">tonumber</span>(s:<span class="built_in">sub</span>(s:<span class="built_in">len</span>())) + <span class="number">16</span></span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,<span class="number">101</span>)</span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">insert</span>(codeTemp,other)</span><br><span class="line">    <span class="keyword">local</span> check = <span class="number">105</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        check = check + i * codeTemp[i]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    check = check % <span class="number">103</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> result = codeStartC</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#codeTemp <span class="keyword">do</span></span><br><span class="line">        result = result..codes[codeTemp[i]+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    result = result..codes[check+<span class="number">1</span>]..codes[<span class="number">106</span>+<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;barcode.makeCode128C+A&quot;</span>,result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这样，我们就可以得到类似于<code>bsbbsbsbbbbbsbbbs...</code>这样的一串字符串了，接下来要实现显示功能，这里用到了合宙luat的disp库：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- code128 c型条形码显示函数，横向显示</span></span><br><span class="line"><span class="comment">-- @string s，需要显示的字符串，必须为数字，字符个数为偶数个</span></span><br><span class="line"><span class="comment">-- @number x，显示的初始x坐标</span></span><br><span class="line"><span class="comment">-- @number y，显示的初始y坐标</span></span><br><span class="line"><span class="comment">-- @number height，显示的二维码高度</span></span><br><span class="line"><span class="comment">-- @return nil</span></span><br><span class="line"><span class="comment">-- @usage</span></span><br><span class="line"><span class="comment">-- showCode128CX(&quot;12345678&quot;,0,0,20)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showCode128CX</span><span class="params">(s,x,y,height)</span></span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = makeCode128(s)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> codeTemp <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,codeTemp:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;b&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x+i<span class="number">-1</span>,y,x+i<span class="number">-1</span>,y+height,<span class="number">0x0000</span>)</span><br><span class="line">        <span class="keyword">elseif</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;s&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x+i<span class="number">-1</span>,y,x+i<span class="number">-1</span>,y+height,<span class="number">0xffff</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- code128 c型条形码显示函数，竖向显示</span></span><br><span class="line"><span class="comment">-- @string s，需要显示的字符串，必须为数字，字符个数为偶数个</span></span><br><span class="line"><span class="comment">-- @number x，显示的初始x坐标</span></span><br><span class="line"><span class="comment">-- @number y，显示的初始y坐标</span></span><br><span class="line"><span class="comment">-- @number width，显示的二维码高度</span></span><br><span class="line"><span class="comment">-- @return nil</span></span><br><span class="line"><span class="comment">-- @usage</span></span><br><span class="line"><span class="comment">-- showCode128CY(&quot;12345678&quot;,0,0,20)</span></span><br><span class="line"><span class="comment">-- barcode.showCode128CY(&quot;123412341234123456&quot;,10,10,40)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showCode128CY</span><span class="params">(s,x,y,width)</span></span></span><br><span class="line">    <span class="keyword">local</span> codeTemp = makeCode128(s)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> codeTemp <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,codeTemp:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;b&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x,y+i<span class="number">-1</span>,x+width,y+i<span class="number">-1</span>,<span class="number">0x0000</span>)</span><br><span class="line">        <span class="keyword">elseif</span> codeTemp:<span class="built_in">sub</span>(i,i) == <span class="string">&quot;s&quot;</span> <span class="keyword">then</span></span><br><span class="line">            disp.drawrect(x,y+i<span class="number">-1</span>,x+width,y+i<span class="number">-1</span>,<span class="number">0xffff</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>为了方便，再加上一个显示数字的功能，字体需要按自己需求来准备：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--摆放横向数字</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">placeNumber</span><span class="params">(s,x,y)</span></span></span><br><span class="line">    <span class="keyword">local</span> oldFont = disp.setfont(disp.font_12x6)</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,s:<span class="built_in">len</span>() <span class="keyword">do</span></span><br><span class="line">        disp.puttext(s:<span class="built_in">sub</span>(i,i),x,y-(i<span class="number">-1</span>)*<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    disp.setfont(oldFont)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>最终效果如下：<br><img src="http://oldask.openluat.com/file/attachments-2019-09-WvoAetTQ5d886e35c05ff_QQ%E6%88%AA%E5%9B%BE20180922163123.jpg"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/09/23/630/" data-id="ckkfmdgcn0091vkcg4ncu8kpx" data-title="使用lua生成Code128条形码数据（用于微信、支付宝付款码）" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/25/631/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          支持iRTU的GPS功能的开源服务端
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/23/629/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">code128条形码生成规则和原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

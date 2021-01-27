@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Luat doc 社区文章静态页面镜像</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:url" content="https://doc.luatos.wiki/page/32/index.html">
+<meta property="og:site_name" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:description" content="Luat doc 社区文章静态页面镜像">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="chenxuuu">
+<meta property="article:tag" content="lua">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Luat doc 社区文章静态页面镜像" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Luat doc 社区文章静态页面镜像</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://doc.luatos.wiki"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-669" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/03/669/" class="article-date">
+  <time class="dt-published" datetime="2020-01-03T11:15:38.000Z" itemprop="datePublished">2020-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/01/03/669/">合宙模块简易使用说明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="使用说明"><a href="#使用说明" class="headerlink" title="###使用说明"></a>###使用说明</h2><p><strong>模块开机：</strong></p>
+<ol>
+<li>给2G/4G模块vbat管脚提供模块工作范围内的直流电压（具体请参考各个模块的规格书种描述的电压范围），推荐用4V电压。主要供电电流能力要达到2A以上，以满足模块在射频工作时的瞬间抽载。</li>
+<li>RESET管脚不能被拉低，保持悬空即可。</li>
+<li>PWRKEY管脚拉低2S以上触发开机，或者直接PWRKEY管脚直接接地。</li>
+</ol>
+<p><strong>模块通信与控制：</strong></p>
+<ol>
+<li>模块的控制主要是通过串口给模块发AT指令进行控制与通信，其中2G模块AT通信串口为UART1,TTL2.8v,4G模块AT串口为UART2,TTL1.8V。请注意与单片机连接时的IO电平，必要时需要增加电平转换电路。</li>
+<li>AT指令请参考AT指令手册，可以在下面的资料链接中下载查看。</li>
+</ol>
+<p><strong>模块固件升级和调试：</strong></p>
+<p>4G模块:</p>
+<ol>
+<li>采用USB口进行升级或调试，在连接到PC USB口前请按照相应的USB驱动，安装教程以及驱动下载链接：<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/92">http://oldask.openluat.com/article/92</a></li>
+<li>需要安装luatool模块下载调试工具，使用教程以及下载链接：<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4">http://oldask.openluat.com/article/4</a></li>
+<li>调试以及日志抓取：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/608/0">http://doc.openluat.com/article/608/0</a></li>
+</ol>
+<p>2G模块:</p>
+<ol>
+<li>采用专用的下载串口进行升级，专用下载口HOST_TX/HOST_RX。波特率固定961200。</li>
+<li>需要安装luatool模块下载调试工具，使用教程以及下载链接：<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4">http://oldask.openluat.com/article/4</a></li>
+<li>调试以及日志抓取：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/608/0">http://doc.openluat.com/article/608/0</a></li>
+</ol>
+<p>###注意事项</p>
+<hr>
+<ol>
+<li> 发货不管是2G还是4G，默认都是发AT版本固件，如果需要进行lua二次开发，请自行烧写固件</li>
+<li>各种开发资料以及模块手册点击如下链接：<a target="_blank" rel="noopener" href="http://doc.openluat.com/article/608/0">http://doc.openluat.com/article/608/0</a></li>
+<li>模块购买，请访问合宙官方商城：<a target="_blank" rel="noopener" href="http://m.openluat.com/">http://m.openluat.com</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/01/03/669/" data-id="ckkfmdgcz00a1vkcg60mrgu9t" data-title="合宙模块简易使用说明" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-668" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/02/668/" class="article-date">
+  <time class="dt-published" datetime="2020-01-02T10:28:32.000Z" itemprop="datePublished">2020-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/01/02/668/">如何用java操作Air202-S6的UART串口？（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h3><p>上一篇文章简单介绍了如何在Air202-S6开发环境中用java编写Helloworld，大家对开发环境都已经有了一个了解；今天我们就继续探究一下Air202模块的标准UART接口，看看如何把它利用起来；<br>UART作为一个标准接口用途是十分广泛的，有时候我们做一些数据通讯，控制外设运行状态比其它一些接口（SPI/I2C）更加方便快捷；所以说熟练掌握编写串口通信的业务代码对后续工作有很大的帮助；</p>
+<h3 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h3><p>1）    UART Demo实例设计与编写<br>2）    Demo运行效果展示</p>
+<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><p>1）    下载Air202模块支持java的ROM刷新到模块即可；【<a target="_blank" rel="noopener" href="https://github.com/iotinjava/Air202S6" title="下载传送门">下载传送门</a>】<br>2）    下载应用编写的SDK开发环境；【<a target="_blank" rel="noopener" href="https://file.joshvm.com/resource/studio/JoshVM_win32-1.1.10.v20191212.zip" title="下载传送门">下载传送门</a>】<br>3）    编写应用Uart Demo，加载到模块执行；</p>
+<h3 id="硬件环境："><a href="#硬件环境：" class="headerlink" title="硬件环境："></a>硬件环境：</h3><p>1）    S6核心开发板-AT版 ：数量 1<br>2）    USB2COM，usb转串口： 数量2<br>3）    电源适配器转接头【 输入：220v/50Hz ；输出：5V/2A】 ：数量1<br>4）    按键开关（控制S6开发板上电/断电）：数量1<br>5）    接插线 若干</p>
+<p>原理图：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94014.png" alt="图1" title="图1"></p>
+<p>从PC侧看串口：<br>COM53：连接开发板上的UART2端口，在PC端开启串口工具和模块进行交互；<br>COM61：连接开发板上的UART1端口，下载应用jar到模块，输出应用log；</p>
+<p>从模块侧看串口：<br>UART1：在java内映射成COM0，供应用下载与log输出；<br>UART2：在java内映射成COM1，供java应用使用，与外部设备进行数据通讯交互。</p>
+<p>实际连接图：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_21646.png" alt="图2" title="图2"></p>
+<p>准备好上述所需资源后，下面让我们开始实战操练：</p>
+<p>一：SDK的开发环境；<br>a）    建立工程Air202S6Demo01Uart工程，编写Air202S6Demo01Uart.java代码</p>
+<p>在java中，COM端口被看作流设备，可以使用StreamConnection类来连接；对COM端口的读和写操作分别被输入类(InputStream)和输出类(OutputStream)封装；</p>
+<p>定义使用串口名称和波特率：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String com = <span class="string">&quot;COM1&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> baudrate = <span class="number">115200</span>;</span><br></pre></td></tr></table></figure>
+<p>串口连接变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> StreamConnection sc;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> InputStream in;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> OutputStream out;</span><br></pre></td></tr></table></figure>
+<p>打开串口以及关联输入&amp;输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String host = <span class="string">&quot;comm:&quot;</span> + com + <span class="string">&quot;;baudrate=&quot;</span> + baudrate;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	sc = (StreamConnection) Connector.open(host);</span><br><span class="line">	in = sc.openInputStream();</span><br><span class="line">	out = sc.openOutputStream();</span><br><span class="line">	……..</span><br></pre></td></tr></table></figure>
+
+<p>串口数据读取在while循环中，将读到的数据显示打印，判断如果是quit，则退出应用；然后将收到的数据回显到PC发送端；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ((len = in.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">	String str = <span class="keyword">new</span> String(buffer,<span class="number">0</span>,len);</span><br><span class="line">	System.out.println(<span class="string">&quot;len:&quot;</span> + len + <span class="string">&quot;; str:&quot;</span>+str);</span><br><span class="line">	<span class="keyword">if</span>(EXIT_CMD.equals(str))</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	out.write(str.getBytes());</span><br><span class="line">	out.write(<span class="string">&quot;\r\n&quot;</span>.getBytes());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>串口Read读取模式为block模式，如果没有读到数据的话，就处于阻塞状态，直到有数据输入，才继续执行下面的代码；</p>
+<p>当程序结束退出时候，在finally模块中关闭已经打开串口资源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (in != <span class="keyword">null</span>)</span><br><span class="line">			in.close();</span><br><span class="line">		<span class="keyword">if</span> (out != <span class="keyword">null</span>)</span><br><span class="line">			out.close();</span><br><span class="line">		<span class="keyword">if</span> (sc != <span class="keyword">null</span>)</span><br><span class="line">			sc.close();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>b）    File-&gt;Export-&gt;选择Josh Standalone中的Export MIDlet package -&gt; Next -&gt; Export配置界面<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51366.png" alt="图3" title="图3"></p>
+<p>c）    按Finish按键，生成Air202S6Demo01Uart.jar<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56144.png" alt="图4" title="图4"></p>
+<p>二：下载应用app到模块；<br>应用jar下载到模块中的功能由SDK\bin\joshConsole.exe完成;<br>1，    给S6开发板断电；<br>2，    输入下载应用命令：</p>
+<blockquote>
+<p><strong>C:\JoshVM_win32-1.1.3.v20190531\JoshVM\SDK\bin&gt;JoshConsole.exe \.\COM61 -d Air202S6Demo01Uart.jar</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97477.png" alt="图5" title="图5"></p>
+</blockquote>
+<p>3，    给S6开发板上电；<br>4，    等待下载应用jar完成；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33141.png" alt="图6" title="图6"></p>
+<p>三：运行应用app并检查执行结果；<br>1，    给S6开发板断电；<br>2，    输入运行应用jar命令；</p>
+<blockquote>
+<p><strong>C:\JoshVM_win32-1.1.3.v20190531\JoshVM\SDK\bin&gt;JoshConsole.exe \.\COM61 -r Air202S6Demo01Uart.jar Air202S6Demo01Uart</strong></p>
+</blockquote>
+<p>-r:运行已经下载到模块中的应用jar，没有下载到模块jar无法直接运行；后接文件名 类名；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29653.png" alt="图7" title="图7"></p>
+<p>3，    给S6开发板上电；<br>4，    等待运行应用jar运行；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67276.png" alt="图8" title="图8"></p>
+<p>上电后，我们可以看到Jar应用的输出log，我们在PC上用串口工具打开COM53，发送数据给Air202模块中的jar应用；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24798.png" alt="图9" title="图9"></p>
+<p>然后点击 串口工具上的 发送 按钮；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12958.png" alt="图10" title="图10"><br>当测试完成，可以在PC端的串口程序上输入“quit”命令，控制Air202模块上的退出串口测试程序；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93299.png" alt="图11" title="图11"></p>
+<p>到此为止，Air202模块上用java操控Uart串口试验可以告一段落，各位同学后续在实际业务中的串口操作可以根据具体业务流程来重新规划；</p>
+<p>一点说明：<br>Air202-S6的开发板上面有一个开机键，正常模块启动是在上电后 按一下那个pwk键，模块才可以启动；翻看产品规格书后发现，只要将开机键旁边的2个触点短接后，就可以做到上电自动开机；<br>所以就将焊盘短接后通过外接一个开关键控制上电开机；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97978.png" alt="图12" title="图12"></p>
+<h3 id="相关资源获取：https-github-com-iotinjava-Air202S6"><a href="#相关资源获取：https-github-com-iotinjava-Air202S6" class="headerlink" title="相关资源获取：https://github.com/iotinjava/Air202S6"></a>相关资源获取：<a target="_blank" rel="noopener" href="https://github.com/iotinjava/Air202S6">https://github.com/iotinjava/Air202S6</a></h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/01/02/668/" data-id="ckkfmdgcz00a0vkcghrwo3dek" data-title="如何用java操作Air202-S6的UART串口？（二）" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-667" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/01/01/667/" class="article-date">
+  <time class="dt-published" datetime="2019-12-31T19:42:40.000Z" itemprop="datePublished">2020-01-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/01/01/667/">用Air800制作一个带显示和按键键盘的简易电话</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>合宙的Air800 GPRS+GPS 2G 模块本身就是一个全功能的带有音频编解码器和屏幕显示功能的最小化的电话机核心板，只需要增加非常少的原件，就可以构成一部功能完备的教学用电话机。 前不久，我就利用业余时间就做了这么一款玩具，具有黑白屏幕显示号码，基本接听拨打电话，播放音乐的功能，下面我把制作过程简要的叙述一下。</p>
+<p>##实现的功能</p>
+<p>1 拨打电话功能</p>
+<p>按下数字键，液晶屏显示响应按键，错误的可以按红色按键删除前一个输入数字</p>
+<p>号码输入完毕，按下绿色按键，拨打对方电话</p>
+<p>播放提示语音</p>
+<p>2 接听电话功能</p>
+<p>外部电话接入时，绿色灯闪烁，屏幕提示对方电话号码</p>
+<p>按下绿色按键，接听对方号码，并播放提示语音。</p>
+<p>3 发送短信</p>
+<p>按下数字键，液晶屏显示响应按键，错误的可以按红色按键删除前一个输入数字 号码输入完毕，按下黄色按键，根据屏幕提示，切换到message模式 按下绿色键，发送制定测试文本</p>
+<p>4 接收短信</p>
+<p>收到外部短信后，屏幕显示收到短信，并显示内容保持3秒钟时间，恢复原界面</p>
+<p>5 朗读功能</p>
+<p>按下黄色按键，根据屏幕提示切换到Speech模式 按下绿色键，播放一段音乐后，播放提示语音</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22182.jpg"></p>
+<h2 id="需用材料清单"><a href="#需用材料清单" class="headerlink" title="需用材料清单"></a>需用材料清单</h2><p>Air800M4 开发板一个 X 1</p>
+<p>SSD13306 触摸屏 X 1</p>
+<p>微动开关 X 15</p>
+<p>LED 红色 X 1</p>
+<p>LED 绿色 X 1</p>
+<p>1K电阻 X 2</p>
+<p>8Ohm 0.5W 扬声器 X1</p>
+<p>排针X 50<br>排母X 40</p>
+<p>杜邦线 X40</p>
+<h2 id="连接方法如下"><a href="#连接方法如下" class="headerlink" title="连接方法如下"></a>连接方法如下</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78404.jpg"></p>
+<h3 id="供电："><a href="#供电：" class="headerlink" title="供电："></a>供电：</h3><p>电路中需要供电的是两部分电路</p>
+<p>1）Air800模块</p>
+<p>2）SSD13306 128X84 单色I2C显示屏</p>
+<p>整个电路供电由M4板载的USB插座供应，外部LCD模组的供电连接到USB 5V，从M4 的 5V PIN针引出，</p>
+<h3 id="LED灯"><a href="#LED灯" class="headerlink" title="LED灯"></a>LED灯</h3><p>两个LED灯（红色和绿色） 发光管负极接到开发板的IO口的GPIO9和GPIO28上，发光管正极串接一个1K的电阻连接到电源正极。</p>
+<h3 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h3><p>每个按钮都采用上升沿触发。非触发状态，对应的IO引脚通过通过10K电阻上拉到高电平。 按下开关，IO与地连接变为低电平，当松开手时从低电平跳转回高电平产生一个按键触发的中断事件。</p>
+<h3 id="显示屏"><a href="#显示屏" class="headerlink" title="显示屏"></a>显示屏</h3><p>显示屏通过两根I2C总线连接到M4开发板的GPIO6 GPIO7上，使用Luatask架构的disp库来实现显示功能</p>
+<h3 id="扬声器"><a href="#扬声器" class="headerlink" title="扬声器"></a>扬声器</h3><p>Air800 模块内置功放，直接将功放双端输出连到扬声器上即可。</p>
+<p>整个电路连接虽然稍有一些繁杂，但是原理并不复杂，只要细心一个一根的都能接对。</p>
+<p>电路连接以后就可以尝试打电话乐，用手机拨打事先插入M4开发板的SIM卡号，就可以听到清脆的呼入电话铃音了，无比机智的你快来试试吧。</p>
+<h2 id="Lua-软件"><a href="#Lua-软件" class="headerlink" title="Lua 软件"></a>Lua 软件</h2><p>本程序有Lua脚本编写，绝大多数语句都做了相应的注释，请读者从文末的链接下载源码自行研究。 下面是一个简要的功能分区简介。</p>
+<p>module main</p>
+<p>启动模块，导入其他功能模块</p>
+<p>module event</p>
+<p>功能执行模块，按照事件进行相关的逻辑控制响应</p>
+<p>module gpio</p>
+<p>负责IO引脚的输入与输出配置和控制</p>
+<p>module call</p>
+<p>负责电话通讯，包括语音，短信，和TTS服务</p>
+<p>module ui</p>
+<p>负责用户界面和屏幕显示</p>
+<p>module test</p>
+<p>负责debug测试</p>
+<h2 id="资料地址"><a href="#资料地址" class="headerlink" title="资料地址"></a>资料地址</h2><p>本项目开源地址为：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/basicphone">https://github.com/miuser00/basicphone</a></p>
+<p>您可以直接登录并下载源码，烧录在模块中，具体的步骤不一一叙述了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2020/01/01/667/" data-id="ckkfmdgcy009zvkcg43gn5zor" data-title="用Air800制作一个带显示和按键键盘的简易电话" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-666" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/29/666/" class="article-date">
+  <time class="dt-published" datetime="2019-12-28T20:53:31.000Z" itemprop="datePublished">2019-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/29/666/">GPS/北斗 导航模块 Air530开发板G1学习日记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>##目的：</p>
+<p>学习 Air530 G1开发板的使用方法，并尝试和合宙的2G/4G通讯模块组合使用搭建完整的带定位功能的物联网设备开发环境。</p>
+<p>##简介：</p>
+<p>Air530 模块是一款高性能、高集成度的多模卫星定位导航模块。体积小、功耗低，可用于车载导航、智能穿戴、无人机等GNSS 定位的应用中。而且提供了和其他模块厂商兼容的软、硬件接口。 模块支持GPS/Beidou/GLONASS/Galileo/QZSS/SBAS。采用了射频基带一体化设计，集成了DC/DC、 LDO、 LNA、射频前端、基带处理、32 位RISC CPU、RAM、FLASH 存储、RTC 和电源管理等功能。提供超高的性能，即使在弱信号的地方，也能快速、准确的定位。</p>
+<p>说明书下载地址： <a target="_blank" rel="noopener" href="http://www.openluat.com/Product/gps/Air530.html">http://www.openluat.com/Product/gps/Air530.html</a></p>
+<p>Air530 G1是合宙官方针对Air530模块设计的一款高集成度的demo板，支持GPS+北斗定位，具有3.3V-5.5V的宽电压供电，2.8V-5V的宽串口电压适应范围。 既适合作为研究学习Air530模块之用，也可以用作小批量需要GPS定位的产品上直接使用。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_69556.jpg"></p>
+<p>模块在合宙商城有售，地址为 <a target="_blank" rel="noopener" href="http://m.openluat.com/product/125">http://m.openluat.com/product/125</a></p>
+<p>##Air530 Demo板功能测试：</p>
+<p>作为一款基于TTL电平的UART通讯的GPS定位模块，这款产品仅仅需要一根USB转串口数据线就可以直接连接电脑使用了。具体连接方法如下：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49609.jpg"></p>
+<p>连接好了是这个样子</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33024.jpg"></p>
+<p>然后插上USB线，打开LLCom串口调试工具，将波特率设置为9600，就可以开始正常的接收GPS的信号了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22458.jpg"></p>
+<p>常见输出格式如下：</p>
+<p>GGA：时间、位置、卫星数量</p>
+<p>GSA：GPS 接收机操作模式，定位使用的卫星，DOP 值，定位状态</p>
+<p>GSV：可见GPS 卫星信息、仰角、方位角、信噪比</p>
+<p>RMC：时间、日期、位置、速度</p>
+<p>VTG：地面速度信息</p>
+<p>GPS模块不间断的重复发送这些指令到串口上，只要用上位机软件进行分析，即可实现定位，默认输出GPGSA，BDGSA，GPGSV，BDGSV，GNRMC，GNVTG几种格式的数据。 以最常见的GPRMC数据为例，这是用的最多的定位数据结构</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29097.jpg"></p>
+<p>串口数据流是以ASCII流的形式发送过来的，数据和命令之间通过”,”分割，解析里面的数据，就可以得到经度、纬度、速度、方位等指标了。GPS采集到的数据为纯卫星接收数据，是符合国际标准 NMEA0183 协议的经纬度数据，如果需要适配国内地区还需要进行相应的位置转换，合宙的问答社区（ask.openluat.com)里面有很多相关的文章，您可以自行搜索关键字“GPS 坐标” 参考相关文章。 因为本文主要侧重于开发板软硬件学习，在此就不多介绍了。</p>
+<p>##Air530 和Air 202 进行配合使用，实现2G GPRS+GPS方案</p>
+<p>虽然合宙有GPS+GPRS一体的Air800和Air801超小型封装模块供应用户使用，但是还是有不少客户出于灵活性或者功耗的考虑使用分体式的设计，下面我以草根工程师一族喜闻乐见的S6模组配合Air530开发板，做一个简单的测试，具体连接方式如下：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62787.jpg"></p>
+<p>此处要特别说明，因为S6的模块供电使用采用二极管方式降压，此测试电路仅适用于学习和调试用，并不建议将其直接用在生产环境，否则将出现频繁重启甚至不能工作的问题。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_41521.jpg"></p>
+<p>从网盘下载DEMO脚本，并烧写进air202模块就可以可以开始GPS定位了，Air202模块的使用说明书《Luat核心板S6二次开发的正确姿势V1.2》 在以下地址可以下载到</p>
+<p>下载地地址： <a target="_blank" rel="noopener" href="http://www.openluat.com/Product/gprs/Air202S6.html">http://www.openluat.com/Product/gprs/Air202S6.html</a></p>
+<p>下载后，程序开始运行，得到如下输出效果。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_91669.jpg"></p>
+<p>您也可以尝试使用官方的GPSV2版本demo进行测试，但是需要注意的是这个demo是为Air800开发的，而Air800的默认GPS串口通讯速率为115200，如果改用Air530，需要将波特率更改为9600，才能正常收到定位信息。</p>
+<p>##Air530 和Air720SL 进行配合使用 实现4G LTE+GPS方案</p>
+<p>目前合宙官方还没有出品GPS一体化的4G模块，因此实现4G+GPS方案，必须使用分体式设计，下面以目前合宙最新的Air720SL模块配合Air530模块进行试验，采用的硬件电路是 Air720SL开发板+Air530 G1开发板，连接方法和2G模块基本相同，将Air720SL的串口2和Demo板相连即可。 通过分析DEMO板电路，这款电路可以基本兼容1.8VTTL UART，因此直接连线即可。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19674.jpg"></p>
+<p>连接实物效果如下：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19378.jpg"></p>
+<p>连接后刷入与2G相同的DEMO程序并运行，即可以看到如下的效果</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16071.jpg"></p>
+<p>以上就是采用分离GPS结构，搭建2G+GPS, 4G+GPS物联网设备开发环境的全过程，衷心感谢您的阅读，祝您开发顺利。</p>
+<p>文中提到的测试脚本代码下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1nd2OdziXlvCJrWA7gk4bRw">https://pan.baidu.com/s/1nd2OdziXlvCJrWA7gk4bRw</a> 提取码：4pdd</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/29/666/" data-id="ckkfmdgcy009yvkcg768mcoxd" data-title="GPS/北斗 导航模块 Air530开发板G1学习日记" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-665" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/24/665/" class="article-date">
+  <time class="dt-published" datetime="2019-12-24T06:13:34.000Z" itemprop="datePublished">2019-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/24/665/">LUAT 烧录单片机，MCU程序升级脚本（stm8s003）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;luat对较为严格的IO口时序问题目前只能依靠单片机解决，比如之前项目用到了编码器，我就为AIR202外挂了一片STM8S003。用stm8专用的编码器引脚IO捕捉信号。stm8的确便宜，才1块钱，小应性能也还可以。还省去了外置看门狗，让003做看门狗，串口喂狗。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;剩下的问题就是远程升级了，怎么能没有远程升级功能囊。于是乎我做了针对STM8S003的程序烧录脚本。并写了个相适配的单片机的BOOTLOADER程序。（额，其实是烧录脚本适配BOOTLOADER,因为单片机flash只有8k，我们要让引导程序尽量的小）最终引导程序做到了600多字节，并且带有中断向量表，是全功能的。APP部分程序可以从0x8300地址开始烧录，详细后面说。先上脚本代码：</p><p>连接：<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163800204_F47cNn2R5e01ab7bed8ed_boot.bin">McuUpdata.lua</a></p><p>原文：</p><div style="color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px; white-space: pre;"><div><span style="color: #6a9955;">---&nbsp;模块功能：STM8S003串口升级</span></div><div><span style="color: #6a9955;">--&nbsp;@author&nbsp;dingzaiquan</span></div><div><span style="color: #6a9955;">--&nbsp;@module&nbsp;MCUupdata</span></div><div><span style="color: #6a9955;">--&nbsp;@license&nbsp;MIT</span></div><div><span style="color: #6a9955;">--&nbsp;@release&nbsp;2019.09.27&nbsp;V1.0</span></div><br><div><span style="color: #dcdcaa;">module</span>(<span style="color: #569cd6;">...</span>,package.<span style="color: #9cdcfe;">seeall</span>)</div><br><div><span style="color: #6a9955;">--[[</span></div><div><span style="color: #6a9955;">如果项目使用了STM8S003单片机</span></div><div><span style="color: #6a9955;">--加载单片机升级功能模块</span></div><div><span style="color: #6a9955;">require&nbsp;"McuUpData"</span></div><div><span style="color: #6a9955;">McuUpData.McuFlashLoader()</span></div><br><div><span style="color: #6a9955;">在串口接收中断函数适当位置加入</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;。。。</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;McuUpdata.isDownloading()&nbsp;then</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.publish("UART_RXD",data)</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;。。。</span></div><div><span style="color: #6a9955;">]]</span></div><div><span style="color: #dcdcaa;">require</span>&nbsp;<span style="color: #ce9178;">"pins"</span></div><div><span style="color: #6a9955;">--&nbsp;单片机程序保存路径（通过烧写软件烧写默认路径）</span></div><div><span style="color: #c586c0;">local</span>&nbsp;STM8_FILE_PATH&nbsp;=&nbsp;<span style="color: #ce9178;">"/ldata/app.bin"</span></div><div><span style="color: #c586c0;">local</span>&nbsp;UART_ID&nbsp;=&nbsp;<span style="color: #b5cea8;">1</span></div><br><div><span style="color: #c586c0;">local</span>&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">false</span></div><div><span style="color: #6a9955;">--[[函数名：UpData</span></div><div><span style="color: #6a9955;">功能&nbsp;&nbsp;：STM8S003程序烧写</span></div><div><span style="color: #6a9955;">]]</span></div><div><span style="color: #569cd6;">local&nbsp;</span><span style="color: #c586c0;">function</span><span style="color: #dcdcaa;">&nbsp;UpData</span>()</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">true</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;err_dog&nbsp;=&nbsp;<span style="color: #b5cea8;">0</span><span style="color: #6a9955;">--错误计数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"start"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--复位单片机//可以操作单片机复位引脚，也可以通过APP程序中加入串口复位指令复位单片机这里使用的是拉单片机复位引脚</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;pins.<span style="color: #dcdcaa;">setup</span>(pio.<span style="color: #9cdcfe;">P0_2</span>,<span style="color: #b5cea8;">0</span>)&nbsp;<span style="color: #6a9955;">--初始化单片机复位引脚底电平</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">wait</span>(<span style="color: #b5cea8;">100</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;pins.<span style="color: #dcdcaa;">setup</span>(pio.<span style="color: #9cdcfe;">P0_2</span>,<span style="color: #569cd6;">nil</span>,pio.<span style="color: #9cdcfe;">PULLUP</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">wait</span>(<span style="color: #b5cea8;">10</span>)</div><br><div>&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,<span style="color: #b5cea8;">0xa5</span>)<span style="color: #6a9955;">--发送烧录识别：a5</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;result,&nbsp;data&nbsp;=&nbsp;sys.<span style="color: #dcdcaa;">waitUntil</span>(<span style="color: #ce9178;">"UART_RXD"</span>,&nbsp;<span style="color: #b5cea8;">1000</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;data&nbsp;==&nbsp;<span style="color: #ce9178;">"R"</span>&nbsp;<span style="color: #c586c0;">then</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--是否收到准备接收应答</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--开始准备工作</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;fileSize&nbsp;=&nbsp;io.<span style="color: #dcdcaa;">fileSize</span>(STM8_FILE_PATH)&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--取出程序文件字节数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;body&nbsp;=&nbsp;io.<span style="color: #dcdcaa;">readFile</span>(STM8_FILE_PATH)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--读取文件并返回文件的内容</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;fileSize%<span style="color: #b5cea8;">64</span>&gt;<span style="color: #b5cea8;">0</span>&nbsp;<span style="color: #c586c0;">then</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--补足字节数到64的倍数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;replenish&nbsp;=<span style="color: #ce9178;">""</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">for</span>&nbsp;n=<span style="color: #b5cea8;">1</span>,<span style="color: #b5cea8;">64</span>-(fileSize%<span style="color: #b5cea8;">64</span>)&nbsp;<span style="color: #c586c0;">do</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replenish=&nbsp;replenish..<span style="color: #dcdcaa;">string.char</span>(<span style="color: #b5cea8;">0x00</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body=body..replenish</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileSize&nbsp;=&nbsp;<span style="color: #dcdcaa;">string.len</span>(body)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"fileSize："</span>,fileSize)&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--打印烧录字节总数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">wait</span>(<span style="color: #b5cea8;">10</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;i=<span style="color: #b5cea8;">0</span>&nbsp;<span style="color: #6a9955;">--计数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--开始烧写工作</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">while</span>&nbsp;i&nbsp;&lt;&nbsp;fileSize&nbsp;<span style="color: #c586c0;">do</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,i/<span style="color: #b5cea8;">64</span>)<span style="color: #6a9955;">--发送包地址</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;verify=<span style="color: #b5cea8;">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--校验和</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">for</span>&nbsp;j=i+<span style="color: #b5cea8;">1</span>,i+<span style="color: #b5cea8;">64</span>&nbsp;<span style="color: #c586c0;">do</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--计算校验和</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verify&nbsp;=&nbsp;verify&nbsp;+&nbsp;<span style="color: #dcdcaa;">string.byte</span>(body,j)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--log.info("STM8_UpData","checksum：",string.toHex(string.char(verify%256)))--打印十六进制校验和</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,<span style="color: #dcdcaa;">string.byte</span>(body,i+<span style="color: #b5cea8;">1</span>,i+<span style="color: #b5cea8;">64</span>))<span style="color: #6a9955;">--发送64字节数据</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--等待收到效验数据</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result,&nbsp;data&nbsp;=&nbsp;sys.<span style="color: #dcdcaa;">waitUntil</span>(<span style="color: #ce9178;">"UART_RXD"</span>,&nbsp;<span style="color: #b5cea8;">1000</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;result&nbsp;==&nbsp;<span style="color: #569cd6;">true</span>&nbsp;<span style="color: #c586c0;">then</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;data&nbsp;==&nbsp;<span style="color: #dcdcaa;">string.char</span>(verify%<span style="color: #b5cea8;">256</span>)&nbsp;<span style="color: #c586c0;">then</span>&nbsp;<span style="color: #6a9955;">--校验正确</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i=i+<span style="color: #b5cea8;">64</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"Done："</span>,i)<span style="color: #6a9955;">--打印已完成烧录字节数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">else</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err_dog&nbsp;=&nbsp;err_dog&nbsp;+&nbsp;<span style="color: #b5cea8;">1</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;err_dog&nbsp;&gt;=<span style="color: #b5cea8;">10</span>&nbsp;<span style="color: #c586c0;">then</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err_dog&nbsp;=<span style="color: #b5cea8;">0</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"error"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">break</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">else</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"mcu&nbsp;no&nbsp;reply"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">break</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--烧录结束</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,<span style="color: #b5cea8;">0x88</span>)<span style="color: #6a9955;">--发送0x88地址示意让单片机退出烧录</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result,&nbsp;data&nbsp;=&nbsp;sys.<span style="color: #dcdcaa;">waitUntil</span>(<span style="color: #ce9178;">"UART_RXD"</span>,&nbsp;<span style="color: #b5cea8;">1000</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;data&nbsp;==&nbsp;<span style="color: #ce9178;">"F"</span>&nbsp;<span style="color: #c586c0;">then</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"finish"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">false</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">return</span>&nbsp;<span style="color: #569cd6;">true</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"defeated"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">false</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">return</span>&nbsp;<span style="color: #569cd6;">false</span></div><div><span style="color: #c586c0;">end</span></div><br><div><span style="color: #c586c0;">function</span><span style="color: #dcdcaa;">&nbsp;McuFlashLoader</span>()</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">taskInit</span>(UpData)</div><div><span style="color: #c586c0;">end</span></div><br><div><span style="color: #c586c0;">function</span><span style="color: #dcdcaa;">&nbsp;isDownloading</span>()</div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">return</span>&nbsp;sDownloading</div><div><span style="color: #c586c0;">end</span></div><br></div><p><br></p><p>我觉得注释写的很详细了，就不多废话了。</p><p>自制的boot：<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163800204_F47cNn2R5e01ab7bed8ed_boot.bin">boot.bin</a></p><p>app程序从0x8300地址开始写入，对了很重要的波特率：115200。</p><p>也没仔细捣鼓，可能还有许多可以再继续优化的地方，欢迎指正。如果有需求就拿去用吧，希望能帮助到大家。</p><p><br></p><p><br></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/24/665/" data-id="ckkfmdgek00dhvkcg9qj109d6" data-title="LUAT 烧录单片机，MCU程序升级脚本（stm8s003）" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-664" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/18/664/" class="article-date">
+  <time class="dt-published" datetime="2019-12-17T19:04:58.000Z" itemprop="datePublished">2019-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/18/664/">如何获得 Altium Design (AD)格式的开发板图纸和模块封装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Altium-Design-AD-简介"><a href="#Altium-Design-AD-简介" class="headerlink" title="Altium Design (AD)简介"></a>Altium Design (AD)简介</h2><p>AD的前身是Protel，由于进入中国市场较早，在老一辈的电路设计师圈子普及率很高。 Altium Design （简称AD） 作为Protel的升级版本基本上沿用了Protel99Se的各种功能以及用户操作习惯，又新增加了诸如3D建模，所见即所得的开发功能，更进一步的巩固了在广大电子从业者及爱好者心目中的地位。 目前不少大学课堂的授课工具也为Altium Design，这也无形中为AD阵营不断地增添了新的血液。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63610.jpg"></p>
+<p>其实作为电路开发的专业队伍，AD往往并不是首选，主要有以下几个原因：</p>
+<p>一）高昂的版权费，具体费用我也并不是十分清楚，不过十几万应该是有的。</p>
+<p>二）相对较弱的自动布线能力，Altium design 的布线内核基本上沿用了Protel99Se的代码，这从偶然弹出的报错信息中可以猜到。 实际应用中，也没有发现Altium的布线能力比Protel99有显著性的功能提升，自动走线时算法凌乱随意，中断后继续布线容易出现Net随机短路，速度慢，布通率也不是特别理想。</p>
+<p>三） 内核不稳定，时至今日Altium仍然用着用着就死，特别是布线时出错是常有的事情。 运行效率低，吃CPU相当的厉害，如果板子复杂，稍有改动苦不堪言。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56462.jpg"></p>
+<p>当然，瑕不掩瑜。 Altium design 时至今日仍然是中国占有率最高的一款EDA软件，正所谓骂的狠，爱的深。</p>
+<h2 id="如何将PADS格式图纸转为AD格式"><a href="#如何将PADS格式图纸转为AD格式" class="headerlink" title="如何将PADS格式图纸转为AD格式"></a>如何将PADS格式图纸转为AD格式</h2><p>上海合宙物联网公司内部使用的EDA工具为PADS，它的前身是大名鼎鼎的PowerPCB 由Mentor Graphics公司出品，是和Protel同期进入市场的一款电路设计软件，性能优越，内核稳定，但是因为入手门槛稍高，所以应用领域一直停留在比较专业的设计师队伍里，比如早期的开关电源、高频电路等比较复杂的电路设计一般都是由Power PCB完成的。 PADS作为Mentor Graphics公司最新一代的开发工具，继承了Power PCB的优点，比如内核稳定高效，布线规则细致，布通率高，运行速度快等。</p>
+<p>目前合宙公司大多数的2G/4G模块开原图纸提供的格式均为PADS的，这给使用AD作为开发之用的广大学生，爱好者带来了不大不小的麻烦，本文将带你一起研究一下如果将PADS格式的图纸转换成为AD格式。</p>
+<p>下面以 EVB_Air720_A13_DEMO_pads，这款合宙 720H/D/G 4G模块 通用开发板为例进行介绍。 首先从以下地址下载PADS格式的图纸。</p>
+<p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/s720/EVB_Air720_A13_DEMO_pads.7z">http://www.openluat.com/Product/file/s720/EVB_Air720_A13_DEMO_pads.7z</a></p>
+<p>7z格式可以用WinRAR或者2345好压进行解压，请自行下载并解压缩到C:\EVB_AIR720_A13目录</p>
+<p>解压缩后得到如下两个文件：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_77667.jpg"></p>
+<h3 id="原理图纸的导入"><a href="#原理图纸的导入" class="headerlink" title="原理图纸的导入"></a>原理图纸的导入</h3><p>第二步安装PADS，我安装的是PADS9.5，请读者向公司领导索要正版安装文件，或与相关大专院校渠道进行共享。 很多大学拥有费用低廉的教学版PADS License，安装后打开文件 “EVB_Air720_A13_DEMO.sch”，打开的时候会报一个font错误，这是由于有的字体没有安装造成的选择确认，并不会带来太大的问题。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57198.jpg"></p>
+<p>打开后得到如下界面,说明电路被正确的打开了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99782.jpg"></p>
+<p>然后选择[文件菜单]导入为ASCII文件，并保存,输出的段全选，版本选PADS Logic 9.0，点击 [确定] 保存。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26892.jpg"></p>
+<p>然后打开Altium Design，我安装的是某热心网友提供的教育用17.1.5版。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66115.jpg"></p>
+<p>选择File菜单里的Imort Wizard功能，并按照PADS格式进行导入</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85393.jpg"></p>
+<p>点击Add按钮，选择刚才生成的EVB_Air720_A13_DEMO.txt文件，并点击下一步<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71327.jpg"></p>
+<p>然后一路Next直到Finish</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29801.jpg"></p>
+<p>此时我们看到图纸已经无差错的转化为AD格式的原理图了</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63456.jpg"></p>
+<h3 id="下面介绍PCB图纸的导入"><a href="#下面介绍PCB图纸的导入" class="headerlink" title="下面介绍PCB图纸的导入"></a>下面介绍PCB图纸的导入</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_88567.jpg"></p>
+<p>首先使用PADS打开刚才解压缩文件夹中的 EVB_Air720_A13_20181009_1800.pcb</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_41064.jpg"></p>
+<p>文件菜单中选择导出，然后再弹出的对话框中选择导出为ASCII格式，并将文件保存为 EVB_Air720_A13_20181009_1800.asc</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_23763.jpg"></p>
+<p>随后的设置中全选所有选择框，并点击确定保存,然后关闭PADS，打开AD。</p>
+<p>与导入原理图相似，在AD中选择File菜单里面的Import Wilzard，点击Add添加EVB_Air710_A13_20181009_1800.asc</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_81496.jpg"></p>
+<p>然后一路的Next直到Finish，所有的参数可以选默认。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49522.jpg"></p>
+<p>稍等片刻，我们就可以得到转换以后的PCB了，然后我们可以进一步的提取模块和其他元器件的封装</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51591.jpg"></p>
+<p>选择 Design 菜单的Make PCB Library 既可以生成完整的元件库。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13081.jpg"></p>
+<p>我们生成完AD格式的图纸后总会发现这种或那种不尽如人意的地方，比如这种张图纸导入后就发现了电路上有一些断开的track，虽然是GND，但是还是让人感觉毛毛的，这也许就是为什么正如大多数开源电路图一样，图纸都是仅供参考的，而非拿来就保证可以直接打板生产的。 所以如果需要真正的从事电路设计，仅仅学会格式转换是不够的，还需要了解电路的原理。 但是开源的图纸可以大大的简化二次电路开发的工足量，对于工程师的帮助还是非常大的，不夸张的讲至少减少了80%工作量。</p>
+<h2 id="如何将立创EDA格式图纸转为AD格式"><a href="#如何将立创EDA格式图纸转为AD格式" class="headerlink" title="如何将立创EDA格式图纸转为AD格式"></a>如何将立创EDA格式图纸转为AD格式</h2><p>立创EDA作为国内新兴的EDA工具先锋具有使用方便，原件库新，与嘉立创无缝连接，全免费使用等诸多优势，正在迅速在电路设计领域崭露头角，目前上海合宙物联网最新的一款4G模块 720SL的开发板就是在立创EDA环境下完成的。</p>
+<p>从立创EDA中的图纸转化为AD格式的图纸非常简单。 我们以720SL开发板为例。 首先从以下地址打开在线版的立创EDA</p>
+<p><a target="_blank" rel="noopener" href="https://lceda.cn/luat/evb_air720sl_a11">https://lceda.cn/luat/evb_air720sl_a11</a></p>
+<h3 id="导出PCB图纸"><a href="#导出PCB图纸" class="headerlink" title="导出PCB图纸"></a>导出PCB图纸</h3><p>选择第一个文件图标，选导出Altium，点击确定，</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29164.jpg"></p>
+<p>然后在弹出的对话框中选择 “否，导出Altium”</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_69558.jpg"></p>
+<p>同意协议，并点击下载，就完成了PCB的下载。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_54299.jpg"></p>
+<p>可以看到，立创EDA转换为AD格式的效果还是非常棒的，基本上是完美的。</p>
+<h3 id="导入原理图纸"><a href="#导入原理图纸" class="headerlink" title="导入原理图纸"></a>导入原理图纸</h3><p>原理图的下载与PCB大同小异，下面我也演示一下。</p>
+<p>首先选择原理图纸标签，此时我们会发现，720SL是一个多页式的原理图纸，共有 模块、电源_USB、外围 三张图纸通过网表共同构成。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78722.jpg"></p>
+<p>我们从外围原件图纸开始导入，点击文件图标，选择导出</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_34113.jpg"></p>
+<p>此时我们将得到EVB_Air720SL_A11.zip，里面包含了全部三张原理图纸，使用WinRAR或 好压2345解压缩到一个文件夹，并用AD打开试试,效果同样非常理想，几乎不需要做什么改动。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30188.jpg"></p>
+<h2 id="如何将Kicad格式图纸转为AD格式"><a href="#如何将Kicad格式图纸转为AD格式" class="headerlink" title="如何将Kicad格式图纸转为AD格式"></a>如何将Kicad格式图纸转为AD格式</h2><p>KiCad - 是一个GPL协议下的的开源EDA工具，功能同样非常强大，元件库也很新，在中国的开源电子电路设计社区中具有举足轻重的位置，目前合宙开源社区技术专家稀饭放姜老师就是用Kicad开发了Core系列iRTU模组。</p>
+<p>下面我们试着将Kicad格式的图纸转化为AD格式。</p>
+<p>为了加速转换过程，建议首先安装离线版立创EDA，下载地址为：</p>
+<p><a target="_blank" rel="noopener" href="https://lceda.cn/page/download?src=index">https://lceda.cn/page/download?src=index</a></p>
+<p>安装过程很简单，基本上就是一路Next，就可以了。</p>
+<p>安装完以后，我们可以打开运行一下，效果是这样的</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_48224.jpg"></p>
+<p>然后安装kicad，最新的的版本是5.1.5 下载地址为：</p>
+<p><a target="_blank" rel="noopener" href="https://kicad-pcb.org/download/windows/">https://kicad-pcb.org/download/windows/</a></p>
+<p>下载完默认安装即可。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78365.jpg"></p>
+<p>然后我们以Core720为例，展示一下将Kicad导入立创EDA的过程，首先下载Kicad格式的Core720电路图，图纸下载地址为合宙Luat（稀饭放姜iRTU)微信群，群号为952343033，群文件中下载。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_81060.jpg"></p>
+<p>将Core-AIR720-MOS-项目文件kicad-20190604.zip下载并解压缩到 C:\core720目录<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_75434.jpg"></p>
+<p>然后将原件库文件目录拷贝到C:\core720目录</p>
+<p>源文件路径：C:\Program Files\KiCad\share\kicad\library<br>目标文件路径：C:\core720\library</p>
+<p>拷贝完成后，效果如下</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_10429.jpg"></p>
+<p>然后在kicad里面打开工程文件 Core-AIR720-MOS.pro，并浏览原理图和PCB图纸，会弹出相应的错误提示。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26342.jpg"></p>
+<p>点击确定，并恢复相应的元件库，然后保存整个工程。</p>
+<p>然后将整个目录的文件用winrar或者好压2345打包为zip格式，并保存为core720.zip,然后在立创EDA里选择打开这个文件。 稍等片刻，原理图和PCB既可以被成功导入。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29838.jpg"></p>
+<p>原理图如下，基本没有错误<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_86917.jpg"></p>
+<p>PCB如下，转换后发现丝印有所移位。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66360.jpg"></p>
+<p>导入到立创EDA以后，就可以仿照前面第二部分的内容在导入到AD里面了，这里就不再敷述了。</p>
+<h2 id="其他EDA工具简介"><a href="#其他EDA工具简介" class="headerlink" title="其他EDA工具简介"></a>其他EDA工具简介</h2><p>提到了这么多EDA工具，如果不说一下Cadence公司出品的Allegro是不妥当的。 Cadence 的Allegro目前仍然是世界上最先进的电路设计工具，Allegro具有非常详尽的各种原件及基板电气参数定义，各种高低频规则明确清晰，仿真准确，优秀的布线功能令人叹为观止。 但是这个工具版权极其昂贵，甚至达到了上百万，且用户使用界面难以驾驭，学习成本曲线高昂。 在不进行团队分工的情况下，设计一款电路的时间成本可能是PADS或者AD的数倍，大多数中小型公司往往是吃不消的。 目前只有世界上顶尖级的一线板卡厂商使用Allegro进行电路设计。 另外Cadence的高贵也是有道理的-他往往会为他的客户定制各种功能，从使用界面一直到内部功能。 对于6-10人的开发团队，在进行中到大型电路开发时，Cadence方案性能具有决定性的优势，因为这个工具从开发理念上就是为团队分工而设计的。 希望将来您会成为Cadence的大拿，那时候回来教教我如何画板。</p>
+<h2 id="PDF格式的图纸"><a href="#PDF格式的图纸" class="headerlink" title="PDF格式的图纸"></a>PDF格式的图纸</h2><p>为了方便起见，我把我搜集到的，以及自己转化的PDF格式开发板及开源电路图纸打包了一下，放在了百度网盘上，有需要的朋友请按需下载。<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1RluamJ-oM-HwW8y-CrJTSw">https://pan.baidu.com/s/1RluamJ-oM-HwW8y-CrJTSw</a><br>提取码：fw99<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_82624.jpg"></p>
+<p>感谢您的耐心阅读，希望以上内容对您有用，祝您开发顺利。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/18/664/" data-id="ckkfmdgcy009xvkcg0zg26x3j" data-title="如何获得 Altium Design (AD)格式的开发板图纸和模块封装" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-663" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/16/663/" class="article-date">
+  <time class="dt-published" datetime="2019-12-16T15:32:08.000Z" itemprop="datePublished">2019-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/16/663/">合宙Air系列模块配套元件常见用法三极管,下篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="三极管在模块周边的常见用法"><a href="#三极管在模块周边的常见用法" class="headerlink" title="三极管在模块周边的常见用法"></a>三极管在模块周边的常见用法</h1><p>目前合宙Air系列模块周边电路能使用到的三极管主要是小功率开关三极管，常用的信号有NPN型的S8050，2N3904,9013，PNP型的S8550,9014等。 用途主要为功率驱动和电平转换，下面我一一做介绍。</p>
+<h2 id="1）三极管用作驱动LED"><a href="#1）三极管用作驱动LED" class="headerlink" title="1）三极管用作驱动LED"></a>1）三极管用作驱动LED</h2><p>720SL的输出高电平为1.8V，使用一个三极管可以进行放大，使控制电压达到4V左右，从而使所有颜色发光管正常发光，下面是基本原理</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62907.jpg"></p>
+<p>GPIO口（图中为NETLED）输出高电平时，三极管导通，集电极输出低电平，三极管饱和，从而使LED获得电压。 图中的电阻取值适合绝大多数的发光管，三极管型号为8050,9014，3904等任意NPN型的三极管。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26210.jpg"></p>
+<h2 id="2）三级管用作电平转换电路"><a href="#2）三级管用作电平转换电路" class="headerlink" title="2）三级管用作电平转换电路"></a>2）三级管用作电平转换电路</h2><p>无论是2G的Air2XX系列模块还是4G的Air7XX系列模块，串口的电平转换电路都是不可或缺的，目前Air202/Air208/Air800等模块的UART口电压均为2.8V，Air7XX等模块的UART口电压为1.8V，下面以Air720SL硬件文档上推荐的电路为例分析一下串口电平转换电路</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_82385.jpg"></p>
+<p>图中Air720是采用1.8V电平，MCU为3.3V电平，TXD这一路需要增加一枚2N3904作为电平转换电路，当Air720的TXD输出高电平时，2N3904的基极电位和T发射极电位基本相同，三极管截止，集电极为高阻状态，通过R15的上拉作用，MCU获得3.3V的高电平。 当Air720的TXD输出低电平的时候，2N3904的基极电位远高于发射极，三极管导通，集电极被拉低到和发射极接近的电位，从而输出给单片机低电平。 这款电路的通用性较强，当单片机的电平低于模块电路电平时依然有效，具体的工作原理与上述逻辑分析相同，就不再敷述了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62582.jpg"></p>
+<h2 id="3）三极管驱动继电器"><a href="#3）三极管驱动继电器" class="headerlink" title="3）三极管驱动继电器"></a>3）三极管驱动继电器</h2><p>在很多电路里，我们需要用GPIO端口驱动控制一路继电器吸合或者断开，这个电路的基本原理和驱动LED接近，但是因为继电器的工作电流较大，对于原件参数的选取就稍微苛刻一点，下面我们以一个电路为例详细计算一下。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56959.jpg"></p>
+<p>假定GPIO输出高电平3.3V，G101采用S8050，hFE为典型值100。 VBE=0.7V 则 IBE=（3.3-0.7)/2000=1.3mA, ICE(Max)=1.3X100=130mA,<br>考虑温度及元器件参数变化，大致可以推动一个最大80mA的5V继电器吸合，常见的型号有松乐SRD-05V。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84502.jpg"></p>
+<p>三极管的用法还有很多，但是受到性能更优越的MOS管的挑战，在模块周边的应用场景中不少地方都被MOSFET所替代。 等以后我再慢慢介绍。</p>
+<p>谢谢您的阅读，也欢迎继续关注我写的其他的文章。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/16/663/" data-id="ckkfmdgcx009wvkcg986y68wp" data-title="合宙Air系列模块配套元件常见用法三极管,下篇" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-662" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/15/662/" class="article-date">
+  <time class="dt-published" datetime="2019-12-15T03:07:33.000Z" itemprop="datePublished">2019-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/15/662/">非官方-让Air202支持java开发</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>目前在Air202模块支持二次开发的模式有3种，分别是AT/Luat/C_SDK；这三种途径分别有各自的优势和不足；AT方式为传统开发方式，需要外挂MCU；C_SDK方式对从业人员的技能要求比较高；Luat脚本方式在开放系统中不便于保护业务代码；<br>移动互联近些年发展势头迅猛，培养了大批熟悉java（android）的从业人员，如果能让模块支持java的开发方式，就可以让移动互联网应用开发的从业人员无缝切换到物联网开发过程中来；</p>
+<h1 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h1><p>1）    移植java虚拟机到Air202ROM中，使Air202模块能加载执行应用app的jar包；<br>2）    应用app的Jar包生成/下载/运行的环境搭建；<br>3）Demo实例—hello world！！！</p>
+<h1 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h1><p>1）    下载Air202模块支持java的ROM刷新到模块即可；【下载传送门】<br>2）    下载应用编写的SDK开发环境；【下载传送门】<br>3）    编写应用Demo，加载到模块执行；</p>
+<h1 id="硬件环境："><a href="#硬件环境：" class="headerlink" title="硬件环境："></a>硬件环境：</h1><p>1）    S6核心开发板-AT版 ：数量 1<br>2）    USB2COM，usb转串口： 数量2<br>3）    电源适配器转接头【 输入：220v/50Hz ；输出：5V/2A】 ：数量1<br>4）    按键开关（控制S6开发板上电/断电）：数量1<br>5）    接插线 若干<br><img src="/static/editormd/php/../uploads/5_88358.png" alt="图1" title="图1"> <img src="/static/editormd/php/../uploads/5_11016.png" alt="图2" title="图2"></p>
+<h3 id="原理图连线示例图："><a href="#原理图连线示例图：" class="headerlink" title="原理图连线示例图："></a>原理图连线示例图：</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_88224.png" alt="图3" title="图3"></p>
+<p><strong>COM66</strong>：连接S6开发板上的HOST_TX/RX端口，主要完成刷新模块ROM、输出系统LOG<br><strong>COM61</strong>：连接模块UART1端口，下载应用jar到模块，输出应用log；</p>
+<h3 id="准备好上述所需资源后，下面让我们开始实战操练："><a href="#准备好上述所需资源后，下面让我们开始实战操练：" class="headerlink" title="准备好上述所需资源后，下面让我们开始实战操练："></a>准备好上述所需资源后，下面让我们开始实战操练：</h3><h5 id="一：SDK的开发环境；"><a href="#一：SDK的开发环境；" class="headerlink" title="一：SDK的开发环境；"></a>一：SDK的开发环境；</h5><p>最新版本的SDK是 1.1.10.v20191212的，文件大小约为330M左右；可以解压在C盘根目录<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19078.png" alt="图4" title="图4"><br>双击C:\JoshVM_win32-1.1.3.v20190531\JoshVM\Studio\JoshVMStudio.exe 运行IDE集成开发工具；</p>
+<p>a）    建立工程TstDemoHello工程，编写TstDemoHello.java代码<br>  <img src="http://doc.openluat.com/api/static/editormd/uploads/5_63861.png" alt="图5" title="图5">图5</p>
+<p>b）    File-&gt;Export-&gt;选择Josh Standalone中的Export MIDlet package -&gt; Next -&gt; Export配置界面<br> <img src="http://doc.openluat.com/api/static/editormd/uploads/5_47879.png" alt="图6" title="图6"> 图6<br>c）    按Finish按键，生成tstDemoHello.jar</p>
+<p>  <img src="http://doc.openluat.com/api/static/editormd/uploads/5_25748.png" alt="图7" title="图7"> 图7</p>
+<h5 id="二：下载应用app到模块；"><a href="#二：下载应用app到模块；" class="headerlink" title="二：下载应用app到模块；"></a>二：下载应用app到模块；</h5><p>应用jar下载到模块中的功能由SDK\bin\joshConsole.exe完成;<br>1，    给S6开发板断电；<br>2，    输入下载应用命令：<br><strong>C:\JoshVM_win32-1.1.3.v20190531\JoshVM\SDK\bin&gt;JoshConsole.exe \.\COM61 -d tstDemoHello.jar</strong><br> <img src="http://doc.openluat.com/api/static/editormd/uploads/5_47854.png" alt="图8" title="图8">图8<br>3，    给S6开发板上电；<br>4，    等待下载应用jar完成；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_41884.png" alt="图9" title="图9"> 图9</p>
+<h5 id="三：运行模块中的应用app并检查执行结果；"><a href="#三：运行模块中的应用app并检查执行结果；" class="headerlink" title="三：运行模块中的应用app并检查执行结果；"></a>三：运行模块中的应用app并检查执行结果；</h5><p>1，    给S6开发板断电；<br>2，    输入运行应用jar命令；<br><strong>C:\JoshVM_win32-1.1.3.v20190531\JoshVM\SDK\bin&gt;JoshConsole.exe \.\COM61 -r tstDemoHello.jar TstDemoHello</strong></p>
+<p><strong>-r</strong> : 运行已经下载到模块中的应用jar，后接文件名 类名；没有下载到模块内的应用jar无法直接运行；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_31977.png" alt="图10" title="图10"> 图10<br>3，    给S6开发板上电；<br>4，    等待运行应用jar完成；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_79668.png" alt="图11" title="图11"> 图11</p>
+<h1 id="实物拍摄："><a href="#实物拍摄：" class="headerlink" title="实物拍摄："></a>实物拍摄：</h1><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49662.png" alt="图12" title="图12">图12</p>
+<p>经过上述步骤改造后，Air202模块摇身一变成为了智能“安卓”模块，可以使用java编写应用app，降低了软硬件耦合程度，提升了业务应用开发的效率；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/15/662/" data-id="ckkfmdgcx009vvkcggdr3f5pd" data-title="非官方-让Air202支持java开发" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-661" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/14/661/" class="article-date">
+  <time class="dt-published" datetime="2019-12-13T17:10:04.000Z" itemprop="datePublished">2019-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/14/661/">合宙Air系列模块配套元件常见用法-三极管，上篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="三极管是什么"><a href="#三极管是什么" class="headerlink" title="三极管是什么"></a>三极管是什么</h2><p>三极管顾名思义应该有三个极，所以很多人认为三极管一定有3个引脚，其实这是不对的。 最早的三极管是真空电子三极管，有四个引脚，因为多了一根灯丝引脚。 后面的晶体三极管才是真的是三个引脚。 但是并不是所有的三个引脚的晶体管都叫三极管。 三个引脚的还有很多其他器件，比如常用的场效应管，可控硅，双二极管，都是有三个引脚，但并不叫三极管。 有的三极管也不止有三个引脚，比如可以双三级管一共有六个引脚。</p>
+<p>以上的这种混乱的命名是有特定的历史原因的。 现在我们一般所说的三极管一般特指双极型三级晶体管，有三个引脚。 目前贴片三极管用物联网小功率开关方面用的多，如驱动LED，控制小功率继电器等，也可以用做电平转换。功率稍大点的三极管采用TO-220等直插方式封装，一般用于功率放大器上。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39737.jpg"></p>
+<h2 id="三极管的工作原理"><a href="#三极管的工作原理" class="headerlink" title="三极管的工作原理"></a>三极管的工作原理</h2><p><strong>三极管是电流放大器件</strong>，有三个极，分别叫做集电极C，基极B，发射极E。分成NPN和PNP两种。我们仅以NPN三极管的共发射极放大电路为例来说明一下三极管放大电路的基本原理。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15373.jpg"></p>
+<p>如上图所示，我们把从基极B流至发射极E的电流叫做基极电流Ib；把从集电极C流至发射极E的电流叫做集电极电流 Ic。这两个电流的方向都是流出发射极的，所以发射极E上就用了一个箭头来表示电流的方向。</p>
+<p>三极管的放大作用就是：集电极电流受基极电流的控制，并且基极电流很小的变化，会引起集电极电流很大的变化，且变化满足一定的比例关系：集电极电流的变化量是基极电流变 化量的β倍，即电流变化被放大了β倍，所以我们把β叫做三极管的放大倍数（β一般远大于1，例如几十，几百）。</p>
+<p>如果我们将一个变化的小信号加到基极跟发射极之间，这就会引起基极电流Ib的变化，Ib的变化被放大后，导致了Ic很大的变化。如果集电极电流Ic是流过一个电阻R的，那么根据电压计算公式 U=R*I 可以算得，这电阻上电压就会发生很大的变化。我们将这个电阻上的电压取出来，就得到了放大后的电压信号了。</p>
+<h2 id="三极管的参数"><a href="#三极管的参数" class="headerlink" title="三极管的参数"></a>三极管的参数</h2><p>三极管通常在电路图上用英文字母“Q”来表示。 常用参数有 放大系数hFE（β),电流增益-带宽乘积fr，基极-发射极导通电压VBE(sat)，集电极-发射极饱和电压VCE(sat)，集电极-发射极电压VCEO，发射极-基极电压VEBO，集电极功率损耗Pc等</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_71711.jpg"></p>
+<p>上图是非常常用的硅NPN型三极管8050的电气参数，下面具体了解一下各项参数的意义。</p>
+<p>1 放大系数hFE（β)</p>
+<p>系数分为直流放大系数和交流放大系数，好在二者差异不大，一般就都混同了。这个值和三极管的制造工艺有关，过去三极管还要根据放大倍数的不同分级，这个参数代表了三极管基极电流变化所能引起的集电极电流变化，即体现了三极管的放大作用。 通常我们希望这个数值尽量的大，然后通过反馈电路调节真实的电路放大增益，一般情况下现在的三极管的hFE都在100以上了。放大倍数也不是越大越好，一般最大不宜大于500，因为过高的放大倍数会引起三极管其它性能的恶化。</p>
+<p>2）电流增益-带宽乘积ft</p>
+<p>当三极管工作频率上升时，放大倍数（即增益）会相应下降。 假定增益带宽积为1 MHz，它意味着当频率为1 Mhz时，器件的增益下降到单位增益，即此时A=1。同时说明这个放大器最高可以以1 MHz的频率工作而不至于使输入信号失真。由于增益与频率的乘积是确定的，因此当同一器件需要得到10倍增益时，它最高只能够以100 kHz的频率工作。通常，晶体管必须工作在远低于ft的频率。</p>
+<p>3 集电极-发射极电压 VCEO</p>
+<p>这个参数是集电极（C)和发射极(E)两端所能容许的最大电压，这个参数决定了三极管的耐压，通常不能低于电路的工作电压。 比如对于8050，这个参数是25V，保险起见，我们就不能用到25V以上的应用场合。</p>
+<p>4 发射极-积极电压 VEBO</p>
+<p>这个参数是发射极(E)和基极(B)之间所能容许的最大电压，对于最常见的三极管用法之一-共发射极放大器，这个参数决定了三极管的控制信号的最大电压。</p>
+<p>5 基极-发射极导通电压VBE(sat)</p>
+<p>这个参数代表基极饱和时，三极管基极和发射极之间的压降。</p>
+<p>6 集电极-发射极饱和电压VCE(sat)</p>
+<p>这个参数代表集电极饱和时，三极管发射极和集电极之间的压降，这个压降是三极管发热功耗的主要原因。</p>
+<p>7 集电极功率损耗Pc</p>
+<p>这个参数代表了三极管允许的最大耗散功率。</p>
+<h2 id="三极管的类型"><a href="#三极管的类型" class="headerlink" title="三极管的类型"></a>三极管的类型</h2><p>三极管根据用途不同，分为很多种，但最基本的有两种结构，NPN和PNP型。PNP型三极管是由2块P型半导体中间夹着1块N型半导体构成，NPN型三极管由2块N型半导体中间夹着1块P型半导体构成，二者电源极性相反，电路符号也不同。很多时候两种类型晶体管可以成对使用。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96191.jpg"></p>
+<p>三极管使用中有一个非常基本但比较麻烦的问题，就是三个引脚的定义。对于直插型三极管，早期不同厂家对于三个引脚的定义并不相同，制造了不少混乱。下图是目前比较通用的三级管引脚图，为了安全，使用前还是建议详细阅读所用物料厂家的datasheet，这样最稳妥。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_22090.jpg"><br>下面按功能介绍一下常用的小功率晶体管类型</p>
+<p>小功率三极管在电子电路中的应用最多。主要用作小信号的放大、控制或振荡器。 特征频率在3MHz以下，功率小于1W，一般作为小信号放大用；特征频率大于3MHz，功率小于1W，主要用于高频振荡、放大电路；</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12556.jpg"></p>
+<p>大功率三极管主要用在音频，通讯等设备中进行功率驱动、放大。 特征频率小于3MHz，功率大于1W，低频大功率三极管品种较多，主要用于电子音响设备的低频功率放大电路，在各种大电流输出稳压电源中作为调整管。特征频率大于3MHz，功率大于1W，主要用于通信等设备中进行功率驱动、放大。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_27452.jpg"></p>
+<p>复合三级管是 分别选用各种极性的三极管进行连接，在组成复合三极管时，不管选用什么样的三极管，这些三极管都按照一定的方式连接，可以看成是一个拥有更高放大倍数的三极管。组合复合三级管时，应注意第一只管子的发射极电流方向必须与第二只管子的基极电流方向一致。复合三级管的极性取决以第一只管子。复合三级管的最大特点是电流放大倍数很高，多用于较大功率输出电路。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29864.jpg"></p>
+<p>选用三极管时首先要搞清楚电子电路的工作频率大概是多少。如中波收音机振荡器的最高频率是2MHz左右；而调频收音机的最高振荡频率为120MHz左右；电视机中VHF频段的最高振荡频率为250MHz左右；UHF频段的最高振荡频率接近1000MHz左右。一般要求三极管的fT大于3倍的实际工作频率。所以可按照此要求来选择三极管的特征频率fT。由于硅材料高频三极管的fT一般不低于50MHz，所以在音频电子电路中使用这类管子可不考虑fT这个参数。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49509.jpg"></p>
+<p>感谢您的阅读。下篇文章我将结合2G/4G模块的周边电路讲一下三极管的具体用法，欢迎继续关注。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/14/661/" data-id="ckkfmdgcx009uvkcgfujfes29" data-title="合宙Air系列模块配套元件常见用法-三极管，上篇" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-660" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/12/12/660/" class="article-date">
+  <time class="dt-published" datetime="2019-12-12T12:24:56.000Z" itemprop="datePublished">2019-12-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/12/12/660/">如何判主板的4G/2G信号接收性能的好坏</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>4G/2G模块的csq值是模块驻留小区的信号强度，是可以一定程度上反映设备的接收好坏，但是这个值是与当地实际的网络信号强度有关的，不能简单的就认为模块的csq值低接收性能就一定差；或者认为A的CSQ值比B的低，A的性能就比B的差。下面就介绍一种方式通过查询小区信息来对比手机判读接收性能好坏。</p>
+</blockquote>
+<p>主要的思路是通过手机按照特定的APP测试出当地的信号强度，再通过查询模块的信号值做对比。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
+<li><p>准备一台安卓手机（注意安卓版本要7.0以上），安装“Cellular-Z”这个APP。（在APP商城搜索Cellular-Z）。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24536.png"></p>
+</li>
+<li><p>待测整机以及SIM卡。</p>
+</li>
+</ol>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="4G模块："><a href="#4G模块：" class="headerlink" title="4G模块："></a>4G模块：</h3><ol>
+<li>首先需要测试当地的环境的网络实际信号强度，我们可以拿手机做对比。用手机插入待测整机的SIM卡（这里是保证手机注册的运营上一致)并开机，放置在待测整机同一个位置。</li>
+<li>手机注册上4G网络后，打开Cellular-Z。可以查到当前位置注册的小区频段以及信号强度（RSRP），以及临近小区信号强度。记下相关参数。</li>
+</ol>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_28867.png"></p>
+<p>3.确定了当前地点的相关网络参数后，将SIM卡放回待测机器，接下来通过查询待测机器的想网络参数来对比。在机器开机后查询到注册到网络后，用AT指令查询，具体如下：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49721.png"></p>
+<p>4.在手机注册小区信息上寻找相同的小区，对比相同小区的RSRP值（<strong>注意：模块返回的RSRP值与手机上显示的RSRP值单位不一样，不能直接对比</strong>)<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66414.png"></p>
+<p>5.AT指令返回的RSRP与功率的换算如下：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_58922.png"><br>所以例子种模块查询出来的RSRp为60，对应的接收功率为-80dbm左右，与手机对应的小区信号强度（80）一致，所以可以认为此待测主板的接收性能良好。</p>
+<hr>
+<h3 id="2G模块："><a href="#2G模块：" class="headerlink" title="2G模块："></a>2G模块：</h3><ol>
+<li>首先需要测试当地的环境的网络实际信号强度，我们可以拿手机做对比。用手机插入待测整机的SIM卡（这里是保证手机注册的运营上一致)并开机，放置在待测整机同一个位置。</li>
+<li>手机设置为2G后，注册上2G网络后，打开Cellular-Z。可以查到当前位置注册的小区频段以及信号强度（RSRP），以及临近小区信号强度。记下相关参数。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94247.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_17772.png"></li>
+<li>确定了当前地点的相关网络参数后，将SIM卡放回待测机器，接下来通过查询待测机器的想网络参数来对比。在机器开机后查询到注册到网络后，用AT指令查询，具体如下：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_86791.png"></li>
+<li>对比手机的相关网络参数。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_31119.png"></li>
+<li>上图中待测机器的相同小区的信号强度为16，手机上的相同小区信号强度为-75dbm，注意两者单位不同不能直接比较。转换公式为：*<em>信号强度</em>2-113 = dBm值**，转换后机器的信号强度为-81dbm所以比手机-75dbm差，因此待测机器的接收性能比对比手机差</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://doc.luatos.wiki/2019/12/12/660/" data-id="ckkfmdgcw009tvkcgay055qt4" data-title="如何判主板的4G/2G信号接收性能的好坏" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/31/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/59/">59</a><a class="extend next" rel="next" href="/page/33/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2032/01/">一月 2032</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2032/01/01/608/">【置顶】合宙模块资料汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2022/12/31/638/">Air系列模块常见问题列表</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/27/2420/">ECMAScript(ES6)基本语法介绍（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/2417/">Air720S系列_luat二次开发固件（ 底层软件+上层脚本）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 chenxuuu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
