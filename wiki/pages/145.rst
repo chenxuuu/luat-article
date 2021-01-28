@@ -1,0 +1,2281 @@
+audiocore
+=========
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+作者：朱天华 2020年07月08日
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+脚本lib中audio库对audiocore进行了二次封装
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+建议直接使用脚本lib中的audio库来设计程序
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+不建议直接使用core中的audiocore库来设计程序
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+本章节audiocore 接口可帮助理解脚本lib中的audio库代码
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.play(audioFilePath)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+播放音频文件
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+音频文件格式支持：mp3、wav、amr、pcm
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioFilePath: string类型；音频文件的完整路径
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+如果是Luatools烧录的音频文件xxx.mp3，则文件完整路径为/lua/xxx.mp3
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+如果是sd卡中根目录下的音频文件yyy.mp3，则文件完整路径为/sdcard0/yyy.mp3
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+result: bool类型；同步播放结果
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+false表示不允许播放
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+true表示允许播放，并且已经去执行播放动作；异步播放结果通过消息rtos.MSG_AUDIO通知到Lua脚本，消息携带参数msg.play_end_ind，true表示播放成功结束，其余值表示播放失败
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+示例：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local function audioMsg(msg)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+log.info(“audio.MSG_AUDIO”,msg.play_end_ind)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.publish(“LIB_AUDIO_PLAY_IND”,“RESULT”,msg.play_end_ind)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–注册core上报的rtos.MSG_AUDIO消息的处理函数
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+rtos.on(rtos.MSG_AUDIO,audioMsg)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.play(“/lua/call.mp3”)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.playdata(audioData,audioFormat[,audioLoop])
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+播放音频数据
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+音频数据格式支持：mp3、wav、amr、pcm、spx
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioData: string类型；音频数据
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioFormat:
+number类型；音频数据格式；支持audiocore.MP3、audiocore.WAV、audiocore.AMR、audiocore.PCM、audiocore.SPX
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioLoop:
+bool类型，可选参数，默认不循环；是否循环播放；true表示循环播放，false或者nil表示仅播放一次，不循环播放
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+result: bool类型；同步播放结果
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+false表示不允许播放
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+true表示允许播放，并且已经去执行播放动作；异步播放结果通过消息rtos.MSG_AUDIO通知到Lua脚本，消息携带参数msg.play_end_ind，true表示播放成功结束，其余值表示播放失败
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+示例：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local function audioMsg(msg)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+log.info(“audio.MSG_AUDIO”,msg.play_end_ind)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.publish(“LIB_AUDIO_PLAY_IND”,“RESULT”,msg.play_end_ind)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–注册core上报的rtos.MSG_AUDIO消息的处理函数
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+rtos.on(rtos.MSG_AUDIO,audioMsg)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.play(io.readFile(“/lua/call.mp3”),audiocore.MP3)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.streamplay(audioFormat,audioData)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+流式播放音频数据
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+音频数据格式支持：mp3、wav、amr、pcm、spx
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioFormat:
+number类型；音频数据格式；支持audiocore.MP3、audiocore.WAV、audiocore.AMR、audiocore.PCM、audiocore.SPX
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioData: string类型；音频数据
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+acceptedAudioDataLen: number类型；接收的音频数据长度
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+注意事项：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+流式播放音频数据时，在core中有一个4K字节的缓冲区，用来存放音频数据，调用audiocore.streamplay接口时，音频数据被填充到这个缓冲区内，被填充的最大长度为缓冲区的剩余字节数；例如缓冲区还剩1000字节可以填充，如果此时调用audiocore.streamplay填充3000字节数据，则实际只能将这3000字节数据的前1000字节填充到缓冲区，返回值acceptedAudioDataLen的值为1000，表示填充的字节数，剩余的2000字节被丢弃
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+示例：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local tBuffer = {}
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local tStreamType
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local function consumer()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.taskInit(function()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audio.setVolume(7)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+while true do
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+while #tBuffer==0 do
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.waitUntil(“DATA_STREAM_IND”)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local data = table.remove(tBuffer,1)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–log.info(“testAudioStream.consumer remove”,data:len())
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local procLen = audiocore.streamplay(tStreamType,data)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+if procLen<data:len() then
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–log.warn(“produce fast”)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+table.insert(tBuffer,1,data:sub(procLen+1,-1))
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.wait(5)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local function producer(streamType)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.taskInit(function()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+while true do
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+tStreamType = streamType
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local tAudioFile =
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+{
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+[audiocore.AMR] = “tip.amr”,
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+[audiocore.SPX] = “record.spx”,
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+[audiocore.PCM] = “alarm_door.pcm”,
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+}
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local fileHandle = io.open(“/lua/”..tAudioFile[streamType],“rb”)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+if not fileHandle then
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+log.error(“testAudioStream.producer open file error”)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+return
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+while true do
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local data = fileHandle:read(streamType==audiocore.SPX and 1200 or 1024)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+if not data then fileHandle:close() return end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+table.insert(tBuffer,data)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+if #tBuffer==1 then sys.publish(“DATA_STREAM_IND”) end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–log.info(“testAudioStream.producer”,data:len())
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.wait(10)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.timerStart(function()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–producer(audiocore.AMR)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–producer(audiocore.SPX)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+producer(audiocore.PCM)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+consumer()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end,3000)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.streamremain()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+获取core中流式播放缓冲区剩余未播放的音频流字节数
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+remainLen: number类型；缓冲区剩余未播放的音频流字节数
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+注意事项：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+流式播放音频数据时，在core中有一个4K字节的缓冲区，用来存放音频数据，调用audiocore.streamplay接口时，音频数据被填充到这个缓冲区内，audiocore.streamreamin接口的返回值是缓冲区内未播放的音频流数据字节数
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+示例：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.taskInit(function()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.wait(5000)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+local audioData = io.readFile(“/lua/tip.amr”)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–此处audiocore.streamremain()返回0
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+log.info(“begin streamremain”,audiocore.streamremain())
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.streamplay(audiocore.AMR,audioData:sub(1,2000))
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–此处audiocore.streamremain()返回值不定，和core中rtos系统调度有关
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+log.info(“after streamplay 2000, streamremain”,audiocore.streamremain())
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+sys.wait(2000)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+–此处audiocore.streamremain()返回0
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+log.info(“play done, streamremain”,audiocore.streamremain())
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+end)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.setpa(audioClass)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+设置音频功放类型
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioClass:
+number类型；音频功放类型；支持audiocore.CLASS_AB、audiocore.CLASS_D
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.getpa()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+获取音频功放类型
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audioClass: number类型；音频功放类型；
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+audiocore.pa(gpio,devout,[plus_count],[plus_period])
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+设置外部pa控制参数
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+gpio: 0-31
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+devout： 0-RECEIVER 1-HEADPHONE 2-SPEAKER
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+plus_count：输出波形个数，默认为3个 (正常可以不设置预留)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+plus_period：输出波形的时间单位us，默认为2us (正常可以不设置预留)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+audiocore.headsetinit(auto)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+开启耳机检测功能
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+auto：number类型；1：自动控制，插入耳机会自动切换通道，0：上层控制，看下面介绍
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+注意事项：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+当auto设置为0时，耳机插入和拔出都会上报消息给上层，rtos.on(rtos.MSG_HEADSET,headsetCB)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+audiocore.head_plug(type)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+增加耳机配置接口
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+type：number类型；0： 表示耳机拔出；1： 耳机插入， 4段耳机；2：
+耳机插入， 3段耳机
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+audiocore.rtmpopen(url)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+打开rtmp拉流
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+url：string类型；rtmp的url
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+audiocore.rtmpclose()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+关闭rtmp拉流
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+注意事项：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;">
+
+在音频播放状态下，调用audiocore.rtmpclose()后，会有一个异步消息rtos.MSG_RTMP通知到Lua脚本
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+audiocore.stop()
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+停止音频播放
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+注意事项：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+在音频播放状态下，调用audiocore.stop()后，会有一个异步消息rtos.MSG_AUDIO通知到Lua脚本，消息携带参数msg.play_end_ind的值为false，表示播放失败
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p style="text-indent:2em;" class="MsoNormal">
+
+无音频播放状态下，调用audiocore.stop()后，没有任何消息通知到Lua脚本
+
+.. raw:: html
+
+   </p>

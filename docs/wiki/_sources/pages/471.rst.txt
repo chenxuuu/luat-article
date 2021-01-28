@@ -1,0 +1,19 @@
+6.2 固件与程序下载
+==================
+
+作者：闫国梁 下载教程见https://doc.luatos.wiki/713/
+视频教程https://www.bilibili.com/video/BV1LT4y1G71a \*
+**情况1：**\ 设备管理器显示SPRD U2S Diag |image1|
+**原因：**\ 点击下载固件以后设备重启未能被正确识别卡在了工程模式。
+**解决方法：**\ 勾选usb
+boot然后点击下载按住板子uboot按钮再按重启键。模块即可正常下载。 |image2|
+\* **情况2：**\ 模块能下载但是进度条跑一半就会提示失败。
+**原因：**\ 上一次下载固件时接触不稳或者线路收到干扰导致模块签名出现错误。
+**解决方法：**\ 彻底断电，luatools勾选usbboot下载点击下载以后，按住uboot按钮然后上电。模块即可正常下载。
+
+**提示：可见uboot按钮在下载的过程中的作用是很大的，因此在自己设计板子的时候尽量保留uboot按钮，如果没办法放按键也要留好测试点供短接使用，测试点需为1.8V**
+
+其他未提及情况属于技术支持中为遇到，可以在下方评论。
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609142626155_Snipaste_2020-06-09_14-21-28.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609143419965_g1.gif

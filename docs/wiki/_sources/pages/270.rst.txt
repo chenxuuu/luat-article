@@ -1,0 +1,52 @@
+- 错误日志上报
+==============
+
+作者：周维华 最后修改时间：2020年8月8日 # 概述
+Luat错误日志上报功能模块名叫：errDump，errDump对“量产投放市场的设备，远程调试初步定位问题”至关重要，
+强烈建议客户一定要使用此功能
+
+原理
+====
+
+errDump
+就是将模块运行过程中产生的错误信息或者应用日志通过TCP/UDP上报到互联网上的指定服务器，技术人员可以在服务器上查阅日志，协助远程了解设备运行情况，或者故障诊断。
+
+定义声明
+========
+
+合宙云服务器，简称：“服务器” 地址为： http://iot.openluat.com/
+合宙LUAT应用程序， 简称: “APP” 合宙LUAT开源库， 简称: “LIB” 日志上报周期
+简称：“周期” 用户账号， 简称“账号” 模块的IMEI号，简称 “IMEI”
+
+日志在模块上实现
+================
+
+每个APP 例子都会包含 main.lua 文件，这个文件是
+APP的初始化入口文件，这个文件里面通常只做产品和版本定义以及功能开关等。
+其中就包含errDump如下： require “errDump”
+errDump.request(“udp://ota.airm2m.com:9072”) LIB 中默认上报周期是
+600000ms 合计为600秒 （10分钟）
+
+然后在应用中调用 errDump.appendErr（x）比如：errDump.appendErr(" you
+pressed KEY_POWER_ROW") 这样日志信息就按照周期上报到 服务器。
+
+日志在服务器上查阅
+==================
+
+登录合宙服务器是需要账号和密码。
+客户向合宙采购4G模块时，如果采购人员没有告知合宙这批模块放在iot.openluat.com上的哪个产品下，则合宙会以采购人的手机号为账号，默认密码888888，创建一个“Air72XUX标准模块”的产品，此次采购的所有模块都会放在这个产品下。
+先创建产品 |image1|
+
+在设备列表中如果能查到指定IMEI 号，说明模块归属于此账号， 我们以IMEI 号
+866714044901568 为例： |image2|
+
+输入IMEI 号码和时间范围，点击搜索按钮可以看到日志： |image3|
+
+建议
+====
+
+日志的内容字符串，建议客户做好字符串的自定义格式，方便分析。
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612180839163_QQ%E6%88%AA%E5%9B%BE20200612180717.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200808191852947_微信图片_20200808191828.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200808192331628_微信图片_20200808192320.png

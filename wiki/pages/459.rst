@@ -1,0 +1,466 @@
+adc
+===
+
+.. raw:: html
+
+   <p>
+
+作者：朱天华  2020年07月03日
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+ADC硬件接口描述参考：http://doc.openluat.com/wiki/6?wiki_page_id=61
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p>
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(248, 249, 231);">
+
+adc.open(adcId) 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+打开ADC
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+adcId: number类型；adc通道id；2表示adc2，3表示adc3
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+result: number类型；打开结果；1表示打开成功，其余值表示打开失败
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+示例： 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+–打开adc2：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+adc.open(2)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+–打开adc3：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+adc.open(3)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+ 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+ 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(248, 249, 231);">
+
+adc.read(adcId) 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+读取ADC
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+adcId: number类型；adc通道id；2表示adc2，3表示adc3
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+adcValue: number类型；adc原始值，0xFFFF表示无效值
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+voltValue: number类型；转换后的电压值，单位为毫伏，0xFFFF表示无效值
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+示例： 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+–读取adc2：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+adcValue,voltValue = adc.read(2)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+–读取adc3：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+adcValue,voltValue = adc.read(3)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+ 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+ 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(248, 249, 231);">
+
+adc.close(adcId) 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+功能：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+关闭ADC
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+参数：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+adcId: number类型；adc通道id；2表示adc2，3表示adc3
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+返回值：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 30pt;">
+
+result: number类型；关闭结果；1表示关闭成功，0表示关闭失败
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt;">
+
+示例： 
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+–关闭adc2：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+adc.close(2)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+–打开adc3：
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal" style="margin: 0pt; text-indent: 0pt; background: rgb(241, 241, 241);">
+
+adc.close(3)
+
+.. raw:: html
+
+   </p>
+
+.. raw:: html
+
+   <p class="MsoNormal">
+
+ 
+
+.. raw:: html
+
+   </p>

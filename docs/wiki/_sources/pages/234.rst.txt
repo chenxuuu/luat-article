@@ -1,0 +1,36 @@
+- RNDIS抓取日志教程
+===================
+
+作者:梁健
+
+在RNDIS应用中，模块的USB被占用，因此需要在Linux中编译一个特殊的工具来抓取日志
+`trace_8910 <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200812143110990_20200609163801919_uqlnaXWV5eb3cc595f84e_8910_TRACE1%5B1%5D.7z>`__
+
+1.编译软件
+----------
+
+::
+
+   root@am:~# cd /root/source
+   root@am:~/source# make
+   gcc DiagSaver.c usb_find.c  -o diag  -lpthread
+
+编译后会生成一个diag 文件 |image1| ## 2.抓日志
+
+::
+
+   ./diag aplog
+
+.. image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200819145536850_QQ图片20200819145318.png
+
+3.说明
+------
+
+此抓包工具是可以AP 和 CP 一起抓的，会生成AP.CP 日志
+
+4.注意事 项
+-----------
+
+尽量一 开机就抓日志，会短暂的占用ttyusb2 口，用作发送AT打开CP 日志用
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200819091447395_QQ图片20200819091406.png

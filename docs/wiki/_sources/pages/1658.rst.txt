@@ -1,0 +1,50 @@
+I2C接口
+=======
+
+作者：金艺
+
+Air720UG/UH模块提供1个I2C接口，速率支持FAST(400KHz)，SLOW（100KHz）。外设地址支持0x00-0x7f。其中AT版本并不支持I2C操作，只能在luat二次开发方式使用。
+##### I2C接口管脚定义 \| 接口 \| 名称 \| 复用 \| 管脚 \| 作用 \| \| —-
+\| ——– \| ——– \| —- \| ———— \| \| I2C \|I2C2_SCL\| GPIO_14 \| 86 \|
+I2C时钟信号 \| \| I2C \|I2C2_SDA \|GPIO_15 \| 87 \| I2C数据信号 \|
+
+IC接口连接方式
+''''''''''''''
+
+如下是I2C接口的参考线路，注意模块I2C只能做主设备，外部需要上拉，在配置FAST速率时，上拉电阻阻值不要大于4.7K。
+|image1|
+
+如果主从设备的参考电平不一致，请注意做电平转换。如下图： |image2|
+
+I2C相关luat API接口
+'''''''''''''''''''
+
+使用I2C接口的一般步骤是先用i2c.setup()初始化I2C接口,如需要指定设备的寄存器读写可以用i2c.write()和i2c.read()；若不需要指定寄存器地址则可以用i2c.send()和i2c.recv()进行读写。具体使用方法请参考script_LuaTask_VX.X.X:raw-latex:`\demo`:raw-latex:`\i`2c
++ I2C初始化接口: |image3|
+
+   注意：此处的i2cslaveaddr是7bit地址
+   –如果i2c外设手册中给的是8bit地址，需要把8bit地址右移1位，赋值给i2cslaveaddr变量
+   –如果i2c外设手册中给的是7bit地址，直接把7bit地址赋值给i2cslaveaddr变量即可
+   –发起一次读写操作时，启动信号后的第一个字节是命令字节
+   –命令字节的bit0表示读写位，0表示写，1表示读
+   –命令字节的bit7-bit1,7个bit表示外设地址 –i2c底层驱动在读操作时，用
+   (i2cslaveaddr << 1) \| 0x01 生成命令字节 –i2c底层驱动在写操作时，用
+   (i2cslaveaddr << 1) \| 0x00 生成命令字节
+
+-  I2C寄存器写接口: |image4|
+
+-  I2C寄存器读接口: |image5|
+
+-  I2C设备读接口: |image6|
+
+-  I2C设备写接口: |image7|
+
+–金艺
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530233230856_1.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530233341400_2.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530233920178_3.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530234644960_4.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530234823846_5.png
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530234907735_6.png
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530235009624_7.png

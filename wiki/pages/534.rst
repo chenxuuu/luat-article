@@ -1,0 +1,92 @@
+Luat 二次开发环境搭建
+=====================
+
+作者： 金艺 最后更新时间：2020/8/11
+
+概述
+====
+
+Luat = Lua + AT,
+Luat推出的物联网开源架构，依托于通信模块做简易快捷的开发，将传统的AT命令用Lua语言封装成API，并提供各种功能应用的demo，大大减少用户的开发成本。
+
+开发者可以通过调用API轻松，便捷的实现TTS、GPS、SOCKET、MQTT、OTA等功能。例如下面通过几行代码既可以实现GPS，MQTT功能。
+详细的Luat框架如下： https://doc.luatos.wiki/617/
+
+lua 语法
+========
+
+LUAT是基于lua
+5.1编程语言开发的通信架构，因此在开发前可以先熟悉下lua的基本语法：
+http://doc.openluat.com/wiki/3
+https://www.runoob.com/lua/lua-tutorial.html
+
+环境搭建
+========
+
+-  固件开发包 luat的软件包分为底层core和上层的lua脚本
+   `底层软件+上层脚本 <https://doc.luatos.wiki/1334/>`__
+
+-  下载开发工具
+   `Luat下载调试工具v2 <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808182655634_Luatools_v2.exe>`__
+
+-  USB驱动 `Air720UH/Air724UG系列 PC 端 USB
+   驱动 <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183454135_sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z>`__
+
+-  编辑工具 lua编程软件建议vscode `vscode
+   安装教程 <https://wiki.openluat.com/doc/firstProject/>`__ 注意：
+   vscode为Lua脚本编辑工具，仅仅具有脚本代码编辑功能，没有编译功能；
+   Lua为解释性语言，在Luat开发方式下，开发调试过程如下：
+   1、使用vscode编写Lua脚本 2、使用Luatools烧录Lua脚本
+   3、使用Luatools输出脚本运行日志
+
+-  硬件环境 Air724U系列或者Air720U系列模块，或者对应的开发板。
+   Air系列cat1模块是通过USB接口进行下载调试。 |image1|
+   如果是使用开发板请参考相应的开发板使用手册：
+   https://doc.luatos.wiki/103/
+
+安装USB驱动
+===========
+
+下载驱动压缩包，解压后，根据电脑配置安装驱动 |image2|
+安装成功后，将Air系列CAT1模块连接到电脑USB口，开机后会在设备管理器中虚拟出3个虚拟串口，如下则USB驱动安装完成。
+|image3| # 烧录底层core固件
+由于模块出厂默认自带的AT版本固件，因此需要更换为Luat二次开发固件。
+解压底层包后，里面会有很多后缀名不同的固件。
+不同的文件名代表此固件支持低不同功能（FLOAT：支持浮点运算；TTS：支持语言播报功能；FLOAT_TTS:两种功能都支持）。选择不同的core
+flash和ram剩余空间也会不同。要根据自己的应用情况做选择。 |image4|
+打开其中一个文件夹，内部的.pac的文件才是我们需要下载的固件。.bin文件不用管。
+|image5| 固件的下载需要通过 Luatools_v2下载工具。
+在开机的状态下做如下操作 |image6| |image7|
+下载完成后，模块会自动开机，工具上会有如下打印（以V0008版本为例）
+|image8|
+注意：如果中图下载是吧，会出现无法开机的情况，参考如下异常处理方式：
+http://doc.openluat.com/wiki/6?wiki_page_id=131 # 烧录脚本
+底层烧录好模块还不能实现具体功能，\ **必须将上层的脚本下载进入后才能实现具体功能。强调下，必须下载脚本！**
+打开脚本后里面的结构： -
+demo：示例的脚本代码，实现完整功能，开发的时候可以在demo的代码中修改 -
+lib：库文件，必须要全部下载到模块中 |image9| 操作如下： 1.
+在工具上创建一个项目 |image10| |image11| 1. 选择底层包和对应的脚本
+|image12| |image13| 注意下载选项 |image14|
+点击开始下载后等待10S后开始下载，下载完成后整个下载过程结束。
+这样整个luat的开发环境就搭建完成 # 代码编辑
+代码的编辑教程可以参考：https://wiki.openluat.com/doc/firstProject/#_13
+# 相关资料以及购买链接 相关开发板购买链接
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+`相关软件资料下载 <http://doc.openluat.com/wiki/6?wiki_page_id=227>`__ #
+常见问题 https://doc.luatos.wiki/638/
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811173353852_TIM截图20200811173342.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811172936104_TIM截图20200811172920.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811173546333_TIM截图20200811173539.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811174132000_TIM截图20200811174109.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811174701914_TIM截图20200811174647.png
+.. |image6| image:: https://img-blog.csdnimg.cn/20200424173505949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image7| image:: https://img-blog.csdnimg.cn/20200424173821345.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image8| image:: https://img-blog.csdnimg.cn/20200424174649253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image9| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811180927254_TIM截图20200811180915.png
+.. |image10| image:: https://img-blog.csdnimg.cn/20200424182019797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image11| image:: https://img-blog.csdnimg.cn/2020042418214310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image12| image:: https://img-blog.csdnimg.cn/20200424182339551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image13| image:: https://img-blog.csdnimg.cn/20200424182444991.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image14| image:: https://img-blog.csdnimg.cn/20200424182621997.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70

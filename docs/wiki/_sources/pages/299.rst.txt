@@ -1,0 +1,50 @@
+开关机
+======
+
+Air720UG/UH系列模块默认上电不会自动开机,需要通过PWRKEY管脚来给出开机信号。推荐模块供电VBAT在（3.3V~4.3V)范围内时，拉低1.2s以上，模块会进入开机流程。
+
+PWRKEY管脚开机
+^^^^^^^^^^^^^^
+
+VBAT上电后，PWRKEY管脚可以启动模块，把PWRKEY管脚拉低持续一段时间后（请参考时序图）之后开机，开机成功后PWRKEY管脚可以释放。可以通过检测
+V_GLOBAL_1V8
+管脚的电平来判别模块是否开机。推荐使用开集驱动电路来控制PWRKEY管脚。下图为参考电路：
+|image1| 图表：开集驱动参考开机电路
+
+另一种控制PWRKEY管脚的方法是直接使用一个按钮开关。按钮附近需放置一个TVS管用以ESD保护。下图为参考电路
+|image2| 图表：按键开机参考电路
+
+\*\* 按键开机时序图：*\* |image3|
+注意：当模块VBAT电压大于3.05V时，将PWRKEY拉低600ms以上就能让模块进入开机流程。推荐开机调节在VBAT>3.3V，拉低时间大于1.2S，预留足够的设计余量。
+
+**上电开机：**
+将模块的PWRKEY直接接地可以实现上电自动开机功能。需要注意，在上电开机模式下，将无法关机，只要VBAT管脚的电压大于开机电压即使软件调用关机接口，模块仍然会再开机起来。另外，在此模式下，要想成功开机起来VBAT管脚电压仍然要大于3.05V。
+``注意：如果PWRKEY使用电阻下拉方式实现上电开机的情况下，要确保下拉电阻不大于1K欧姆``
+
+关机
+~~~~
+
+以下的方式可以关闭模块： • 正常关机：使用PWRKEY管脚关机 •
+正常关机：通过AT指令AT+CPOWD关机
+
+**PWRKEY管脚关机：** PWRKEY管脚拉低1.1s以上时间，模块会执行关机动作。
+关机过程中，模块需要注销网络，注销时间与当前网络状态有关，经测定用时约2s~12s，因此建议延长12s后再进行断电或重启，以确保在完全断电之前让软件保存好重要数据。
+时序图如下： |image4|
+
+**低电压自动关机：**
+模块在运行状态时当VBAT管脚电压低于软件设定的关机电压时（默认设置3V），软件会执行关机动作关闭模块，以防低电压状态下运行出现各种异常。
+
+### 复位 RESET_IN_N引脚可用于使模块复位。 拉低 RESET_IN_N 引脚 31.25ms
+以上可使模块复位。 RESET_IN_N信号对干扰比较敏感，
+因此建议在模块接口板上的走线应尽量的短，且需包地处理。 **参考电路：**
+|image5|
+
+**备注：** 1. 复位功能建议仅在AT+CPOWD和PWRKEY关机失败后使用。 2.
+确保PWRKEY和RESET_IN_N引脚没有大负载电容。 3.
+RESET_IN_N内部1.8V上拉，禁止外部上拉 。
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518141505959_8.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518141546717_9.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200527102627284_28.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518142523298_11.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200518143209192_12.png

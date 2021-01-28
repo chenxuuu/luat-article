@@ -1,0 +1,31 @@
+ADC接口
+=======
+
+作者：金艺
+
+Air722UG/UH模块内置两路通用ADC，可以用来做电池电压检测，温湿度检测，TDS检测等应用。ADC精度为12bit，测量输入范围为0到VBAT电压。若测量的电压输入范围大于模块的VBAT电压则需要进行分压后再输入ADC。
+注意： 1. AT版本不支持ADC功能。 2.
+如果ADC的输入电压超过VBAT电压，测试出的值不准确，所以一定要确认ADC的输入范围
+3.
+模块内部集成模块VBAT供电电压的检测ADC，LUAT开发方式下只需要调用misc.getVbatt()获取电压值，单位mV。无需要再用外部ADC检测。
+
+4. ADC原始测量数据的值是电压值（单位mv）的三分之一，例如电压值是4200mv，则ADC值为1400
+
+ADC管脚定义 \|接口 \| 名称 \| 管脚号\| 作用\| \| — \| — \| — \| — \|
+\|ADC \|ADC1 \| 56 \| ADC分辨率12bits, 不用则悬空 \| \| ADC \| ADC2 \|
+58 \| ADC分辨率12bits, 不用则悬空 \| \| ADC \|ADC3 \| 59 \|
+ADC分辨率12bits, 不用则悬空 \| \| ADC \| ADC4\| 57 \| ADC分辨率12bits,
+不用则悬空 \|
+
+::
+
+       ADC相关接口：详细请参考script_LuaTask_Vx.x.x\demo\adc
+
+lua 打开ADC接口 adc.open() 打开对应ID的通道 语法 result = adc.open( id )
+参数 id number， adc通道，仅支持2和3，2对应adc0，3对应adc1 返回值 1:成功
+； 0：其他 lua ADC读接口 adc.read()
+读取原始测量数据和电压值，电压值单位为mv 语法 adcValue,voltValue =
+adc.read( id ) 参数 id number，
+adc通道，仅支持2和3，2对应adc0，3对应adc1 返回值
+adcValue:原始数据ad值，无效值为0xFFFF
+voltvalue:电压值，单位为mv，无效值为0xFFFF

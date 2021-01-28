@@ -1,0 +1,131 @@
+PPP
+===
+
+作者：闫国梁,闫俊杰 最后修改时间：2020年8月27日 # PPP拨号
+
+windows下PPP拨号
+================
+
+配置标准调制解调器  
+--------------------
+
+（1） 打开控制面板—>电话和调制解调器—>调制解调器—>添加—>选择标准
+33600bps 调制解调器—>选 择COM口。   |image1| |image2| |image3| |image4|
+（2）
+选择创建的调制解调器—>属性—>高级—>更改默认首选项—>波特率根据实际使用修改。
+|image5| |image6| 如果步骤（1）中添加的端口为
+USB枚举出的AT口时，则端口速率可以为任意值；如果步骤（1）中
+添加的端口为UART AT 口时，则端口速率需设置为模组的 UART 口速率。   ##
+设置拨号连接
+ 打开网络和共享中心—>设置新的连接或网络—>设置拨号连接—>创建拨号连接里，拨号号码为
+*99*\ \**1#，勾选“允许其他人使用此连接”，增加连接名称（例如 PPP0）。 
+
+|image7| |image8|
+
+.. image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160651709_Snipaste_2020-06-30_18-17-16.png
+
+|image9| ## 验证拨号结果  点击连接—>连接成功—>cmd 窗口—>ping –n 5
+www.baidu.com，ping外网地址收到正确回复信 息，至此PPP拨号上网成功。   #
+ linux下PPP拨号 ## 1.安装 PPP 拨号软件
+在Linux系统的命令模式下，输入以下命令安装 PPP 拨号软件: $ sudo apt
+install ppp ## 2.创建拨号脚本文件 ### /etc/ppp/peers/air-ppp
+(请修改示例中设备名/dev/ttyUSB1为实际设备名)
+
+.. code:: bash
+
+   debug
+   nodetach
+   dump
+   /dev/ttyUSB1
+   115200
+   nolock
+   nocrtscts
+   modem
+   hide-password
+   novj
+   novjccomp
+   ipcp-accept-local
+   ipcp-accept-remote
+   noipdefault
+   usepeerdns
+   noccp
+   connect 'chat -s -v -f /etc/ppp/peers/air-chat-connect'
+   disconnect 'chat -s -v -f /etc/ppp/peers/air-chat-disconnect'
+
+/etc/ppp/peers/air-chat-connect
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+(示例中默认使用ATD*99#激活第一路承载,如需使用第五路承载请修改为ATD*99***5#)
+
+.. code:: bash
+
+   ABORT "NO CARRIER"
+   ABORT "NO DIALTONE"
+   ABORT "NO ANSWER"
+   ABORT "BUSY"
+   ABORT "Username/Password Incorrect"
+   ""      AT
+   OK-+++-OK ATH0
+   OK      AT+CREG?
+   OK      AT+CPIN?
+   OK      AT+CESQ
+   OK      ATD*99#
+   CONNECT ""
+
+/etc/ppp/peers/air-chat-disconnect
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+   ABORT "ERROR"
+   ABORT "NO DIALTONE"
+   SAY "\nSending break to the modem\n"
+   "" "\K"
+   "" "+++ATH0"
+   SAY "\nGood bay\n"
+
+3.创建好以上三个文件后就可以通过pppd拨号了
+------------------------------------------
+
+.. code:: bash
+
+   cd /etc/ppp/peers
+   pppd call air-ppp
+
+4.拨号成功后,需要为新建的ppp0网卡配置route
+------------------------------------------
+
+.. code:: bash
+
+   route add default ppp0
+
+5.测试一下,我们已经可以正常访问网络了!
+--------------------------------------
+
+.. figure:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200827202540239_ppp.png
+   :alt: ppp
+
+   ppp
+
+相关资料以及购买链接
+====================
+
+相关开发板购买链接
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+`相关软件资料下载 <http://doc.openluat.com/wiki/6?wiki_page_id=227>`__
+
+常见问题
+========
+
+https://doc.luatos.wiki/638/
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160412462_Snipaste_2020-06-30_18-08-56.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160440027_Snipaste_2020-06-30_17-54-55.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160458206_Snipaste_2020-06-30_17-55-30.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160540081_Snipaste_2020-06-30_17-59-10.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160603437_Snipaste_2020-06-30_18-02-30.png
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160620861_Snipaste_2020-06-30_18-02-52.png
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160637479_Snipaste_2020-06-30_18-11-07.png
+.. |image8| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160735354_Snipaste_2020-07-01_10-13-17.png
+.. |image9| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160907312_Snipaste_2020-07-01_14-11-55.png

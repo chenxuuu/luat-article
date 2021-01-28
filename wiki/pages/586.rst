@@ -1,0 +1,288 @@
+socket
+======
+
+   作者：吴永 更新时间：2020年8月18日 关键字：数传、socket
+
+socket（套接字）接口是建立和服务器通信的基础数据管道，有了这个接口就可以连接任何服务器，并进行数据通信。具体使用方法可以参考\ ``lib\socket.lua``\ 文件
+
+socketcore.sock_conn()
+~~~~~~~~~~~~~~~~~~~~~~
+
+建立套接字连接。\ **异步接口，连接结果通过rtos.recv()接口获取的消息返回**
+
+-  语法
+
+   ``socket_id = socketcore.sock_conn(type,port,addr[,cert])``
+
+-  参数
+
+   =============== ===================== =========================
+   参数            释义                  取值
+   =============== ===================== =========================
+   type            套接字类型            0:TCP 1:UDP 2: SSL 4: RAW
+   port            服务器端口            0-65535
+   addr            服务器地址            ip地址字符串，或者域名
+   cert            SSL套接字加密信息     table类型（可选参数）
+   cert.hostName   SSL套接字，服务器域名 string类型（可选参数）
+   cert.caCert     SSL套接字，服务器证书 string类型（可选参数）
+   cert.clientCert SSL套接字，客户端证书 string类型（可选参数）
+   cert.clientKey  SSL套接字，客户端密钥 string类型（可选参数）
+   =============== ===================== =========================
+
+-  返回值
+
+   成功：套接字ID（>=0) 失败：nil
+
+-  例子
+
+.. code:: lua
+
+   -- TCP连接
+   socket_id = socketcore.sock_conn(0, "www.baidu.com", 80)
+   -- UDP连接
+   socket_id2 = socketcore.sock_conn(1, "36.7.87.100", 6770)
+   -- SSL连接
+   local cert = {hostName = address}
+   if self.cert then
+       if self.cert.caCert then
+           if self.cert.caCert:sub(1, 1) ~= "/" then self.cert.caCert = "/lua/" .. self.cert.caCert end
+           cert.caCert = io.readFile(self.cert.caCert)
+       end
+       if self.cert.clientCert then
+           if self.cert.clientCert:sub(1, 1) ~= "/" then self.cert.clientCert = "/lua/" .. self.cert.clientCert end
+           cert.clientCert = io.readFile(self.cert.clientCert)
+       end
+       if self.cert.clientKey then
+           if self.cert.clientKey:sub(1, 1) ~= "/" then self.cert.clientKey = "/lua/" .. self.cert.clientKey end
+           cert.clientKey = io.readFile(self.cert.clientKey)
+       end
+   end
+   self.id = socketcore.sock_conn(2, address, port, cert)
+
+--------------
+
+socketcore.sock_conn_ext()
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+等同于\ ``socketcore.sock_conn()``
+
+--------------
+
+socketcore.sock_send()
+~~~~~~~~~~~~~~~~~~~~~~
+
+发送数据
+
+-  语法
+
+   ``success = socketcore.sock_send(socket_id,data)``
+
+-  参数
+
+   ========= ============================== ==========
+   参数      释义                           取值
+   ========= ============================== ==========
+   socket_id socketcore.sock_conn函数返回值 >=0
+   data      需要发送的数据                 string类型
+   ========= ============================== ==========
+
+-  返回值
+
+   成功：1 失败：0
+
+--------------
+
+socketcore.sock_close()
+~~~~~~~~~~~~~~~~~~~~~~~
+
+关闭套接字连接。\ **异步接口，关闭结果通过rtos.recv()接口获取的消息返回**
+
+-  语法
+
+   ``success = socketcore.sock_close(socket_id)``
+
+-  参数
+
+   ========= ============================== ====
+   参数      释义                           取值
+   ========= ============================== ====
+   socket_id socketcore.sock_conn函数返回值 >=0
+   ========= ============================== ====
+
+-  返回值
+
+   成功：1 失败：0
+
+--------------
+
+socketcore.sock_destroy()
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+释放套接字\ ``socketcore.sock_conn``\ 分配的内存
+
+-  语法
+
+   ``success = socketcore.sock_destroy(socket_id)``
+
+-  参数
+
+   ========= ============================== ====
+   参数      释义                           取值
+   ========= ============================== ====
+   socket_id socketcore.sock_conn函数返回值 >=0
+   ========= ============================== ====
+
+-  返回值 成功：1 失败：0
+
++------+
+| ###  |
+| sock |
+| etco |
+| re.s |
+| ock_ |
+| seto |
+| pt() |
+| sock |
+| et的 |
+| 属性 |
+| 参数 |
+| 设置 |
++------+
+| -    |
+| 语法 |
+| ``s  |
+| ocke |
+| tcor |
+| e.so |
+| ck_s |
+| etop |
+| t(so |
+| ck_i |
+| ndex |
+| ,lev |
+| el,o |
+| ptna |
+| me,o |
+| ptva |
+| l)`` |
++------+
+| -    |
+| 参数 |
++------+
+| \|   |
+| 参数 |
+| \|   |
+| 释义 |
+| \|取 |
+| 值\| |
+| \|   |
+| ——–  |
+| \|   |
+| —    |
+| ———– |
+| \|   |
+| —    |
+| ———– |
+| \|   |
+| \|   |
+| s    |
+| ocke |
+| t_id |
+| \|   |
+| so   |
+| cket |
+| core |
+| .soc |
+| k_co |
+| nn函 |
+| 数返 |
+| 回值 |
+| \|   |
+| >    |
+| =0\| |
+| \|   |
+| l    |
+| evel |
+| \|   |
+| 套   |
+| 接字 |
+| 类型 |
+| 选项 |
+| \|   |
+| 目前 |
+| 支持 |
+| 的l  |
+| evel |
+| 值： |
+| soc  |
+| ketc |
+| ore. |
+| SOL_ |
+| SOCK |
+| ET， |
+| sock |
+| etco |
+| re.I |
+| PPRO |
+| TO_T |
+| CP\| |
+| \|   |
+| opt  |
+| name |
+| \|   |
+| so   |
+| cket |
+| 属性 |
+| \|目 |
+| 前支 |
+| 持的 |
+| 值:s |
+| ocke |
+| tcor |
+| e.SO |
+| _KEE |
+| PALI |
+| VE， |
+| soc  |
+| ketc |
+| ore. |
+| TCP_ |
+| KEEP |
+| IDLE |
+| ，so |
+| cket |
+| core |
+| .TCP |
+| _KEE |
+| PINT |
+| VL， |
+| sock |
+| etco |
+| re.T |
+| CP_K |
+| EEPC |
+| NT,s |
+| ocke |
+| tcor |
+| e.SO |
+| _REU |
+| SEAD |
+| DR\| |
+| \|o  |
+| ptva |
+| l|对 |
+| 应的 |
+| 属性 |
+| 参数 |
+| 值\| |
+| >=   |
+| 0\|  |
++------+
+| -    |
+| 返   |
+| 回值 |
+| 失败 |
+| ：-1 |
+| 成功 |
+| ：0  |
++------+

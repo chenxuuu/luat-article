@@ -1,0 +1,325 @@
+一个简易的AT框架
+================
+
+作者：陈之敏 时间：2020年12月10日
+关键字：csdk、RDA8910、二次开发、AT引擎 # 目录
+
+`点击这里查看所有博文 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__
+
+  最近听说有的小伙伴看了我的教程后，有一些问题都跑到官方的gitee上面去问去了。导致官方的人没搞懂问的是啥，小伙伴们也没能知道自己想要的答案。给大家造成了困扰，这里我说声抱歉。
+
+  既然出现了这个问题，我这里就声明一下，本系列教程所涉及的内容(demo)不是官方的作品。我个人觉得官方的demo内容太多太全，往往都是把一个模块内所有的东西全部放在一起。这样的话对新手不是很友好，阅读起来也比较费劲。我就把官方的部分demo进行相关的简化，并推出教程这样的话可能会对新手朋友们有一定的帮助。
+
+  有时候周末闲暇时间我也会加上一些我觉得好玩的模块在里面，这些可能在官方的demo都没有，比如cJSON、PAHO-MQTT、http-client。
+
+  这就是官方的代码仓库。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/openLuat/Luat_CSDK_Air724U.git
+
+  当然各位小伙伴在看本教程时，我建议还是使用我下面提供的仓库比较好，看完之后在迁移到官方的仓库⇧。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/chenxiahuaxu/RDA8910_CSDK.git
+
+  再看本教程过程中如果遇到了问题，可以在本人的代码仓库下面评论。也可以在本人的\ `博客 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ 下面评论。我要是看到的话，并且这个问题在我的能力范围的话我会尽力解答的（非官方，不要对我要求太多哦，要求太多我可能就不管啦）。
+
+一、前言
+========
+
+  很累啊，最近太忙了。一直没时间折腾CSDK，回头一看足足有三个月没写新东西了。太长时间不写感觉都有点手生，拿起键盘都不知道怎么才能下手。
+
+  这几天在CSDK上又折腾了下，搞了一个简易的AT引擎。合宙的CSDK默认也是支持一部分AT指令的，不是全部都支持，具体哪些不支持我也不是很清楚。
+
+  除了合宙现有的一些AT指令外，有的小伙伴可能还希望在AT版本上面实现其他更复杂的操作，实现自定义的一些功能。而一般平台商提供的AT指令都是通用的，一般不会提供定制功能。直接让模块厂家去添加特定的AT指令可能性不大。甚至可以说基本不可能。
+
+  比如有的小伙伴可能想要AT指令能够支持连接阿里云、腾讯云、百度云等等。而这些云平台一般都会有自己的鉴权算法，这些算法五花八门，并且还有可能会经常变动。合宙标准的AT指令也仅仅是提供了MQTT的连接命令，并没有针对这些平台提供具体的连接指令。这一类指令还好一点，受众挺广。以后可能会有，至于是什么时候谁都不知道，至少现在是没有的。
+
+  现在没有的情况下，需要使用自定义的AT指令进行交互怎么办？
+|在这里插入图片描述|
+  看到这个表情应该知道是什么意思了吧，不急的话继续往下看↓。
+
+二、简介
+========
+
+  今天带来的文章带来了一个简易的AT引擎。该AT引擎可以实现自定义AT指令、可以实现对固件自带的AT指令实现重定向、可以直接使用固件自带的AT指令。
+|image1|
+
+  第一类用法\ ``自定义AT``\ ：顾名思义自定义AT就是添加属于自己的AT。这个用法和底层的AT没关系。一般情况下AT指令会有四种用法，分别是测试(test)、查询(query)、设置(setup)、执行(exe)。上述是通用用法，但是有些AT指令只具备其中的一个或多个，并不是每个AT指令都会有上述四种用法。
+
+.. code:: c
+
+       AT+TEST=?           //测试指令。这一般情况下会返回该AT可以输入的参数取值范围
+       AT+TEST?            //查询指令。一般会返回AT指令之前设置的结果或者默认值
+       AT+TEST=123456      //设置指令。设置参数，设置的值可以被查询指令查询
+       AT+TEST             //执行指令。根据设置的结果执行相应的动作
+
+  第二类用法\ ``重定向AT``\ ：相当于给底层自带的AT起一个别名。本例中我将对\ ``+WIMEI``\ 命令进行重定向，使用\ ``+REPWIMEI``\ 命令来代替\ ``+WIMEI``\ ，用法是一摸一样的只是名字变了。不要担心，这个并不会影响到原来的AT，原来的AT还是可以正常使用的。
+
+  第三类用法\ ``转发AT``\ ，由于该模块默认串口1是AT口。我们实现自定义AT也是使用的串口1，这就会导致原来的AT通道不能正常使用。只能在AT引擎中将不匹配的AT通过VAT虚拟AT通道转发到底层处理。
+
+二、编写程序
+============
+
+代码目录：\ ``Luat_CSDK_Air724U/ demo / at_engine``
+
+2.1、main.c
+-----------
+
+  demo非常简单，只需要调用\ ``at_task_init();``\ 我们的AT引擎就可以跑起来了。
+
+.. code:: c
+
+   /***************
+       demo_at_engine
+   ****************/
+
+
+   #include "iot_debug.h"
+   #include "iot_os.h"
+
+
+   int appimg_enter(void *param)
+   {
+       iot_debug_print("[hello]appimg_enter");
+
+       iot_debug_set_fault_mode(OPENAT_FAULT_HANG);
+
+       iot_vat_send_cmd("AT^TRACECTRL=0,1,1\r\n", sizeof("AT^TRACECTRL=0,1,1\r\n"));
+       at_task_init();//初始化AT引擎
+       return 0;
+   }
+
+   void appimg_exit(void)
+   {
+       iot_debug_print("[hello]appimg_exit");
+   }
+
+  我们需要修改的内容在\ ``app\at_engine``\ 目录下，想要自定义命令需要修改三个文件，如果不修改的话默认也是可以跑的。
+|image2|
+
+2.2、at_baseTable.h
+-------------------
+
+  ``at_baseTable.h``\ 文件存放的是用户自定义AT以及重定向AT的一个表。At引擎运行的时候会到这个表中进行匹配。这个表实际上是一个结构体数组，一个结构体元素代表一个AT命令。每个AT都有7个成员，从左到右依次是\ ``旧的AT指令``\ 、\ ``新的AT指令``\ 、\ ``新的AT指令长度``\ 、\ ``测试回调函数``\ 、\ ``查询回调函数``\ 、\ ``设置回调函数``\ 、\ ``执行回调函数``\ 。
+
+.. code:: c
+
+   #ifndef __AT_BASETABLE_H
+   #define __AT_BASETABLE_H
+
+   #include "at.h"
+   #include "at_baseCmd.h"
+
+   at_funcationType at_fun[] = {
+       {NULL, "+NEW", 4, at_NEW_Cmdtest, at_NEW_Cmdquery, at_NEW_Cmdsetup, at_NEW_Cmdexe},
+       {"I", "+REPI", 5, NULL, NULL, NULL, NULL},
+       {"+WIMEI", "+REPWIMEI", 9, NULL, NULL, NULL, NULL},
+       {NULL, NULL, 0, NULL, NULL, NULL, NULL}};
+   #endif
+
+  如果\ ``旧的AT指令``\ 存在，说明该条目是对底层AT进行重定向。这时候只需要在填入\ ``新的AT指令``\ 和\ ``新的AT指令长度``\ 即可，后面的四个回调都可以填\ ``NULL``\ 。实际填了也没用这并不会进入到这个回调中处理。
+
+  如果\ ``旧的AT指令``\ 不存在，说明该条目是一条自定义指令，那就需要填入后面的回调，按需填写。用到哪个就填哪个。简介中有介绍到AT的四种用法。
+
+  表中第1条：添加了一条\ ``AT+NEW``\ 指令，该条目是一个自定义指令，接下来还需要添加四个回调函数。\ ``at_NEW_Cmdtest, at_NEW_Cmdquery, at_NEW_Cmdsetup, at_NEW_Cmdexe``
+  表中第2条：使用\ ``AT+REPI``\ 指令完成对\ ``ATI``\ 的重定向。原始命令仍可正常使用。
+  表中第3条：使用\ ``AT+REPWIMEI``\ 指令完成对\ ``AT+WIMEI``\ 的重定向。原始命令仍可正常使用。
+## 2.3、at_baseCmd.h   ``at_baseCmd.h``\ 文件存放的是回调函数声明。
+
+.. code:: c
+
+   #ifndef __AT_BASECMD_H
+   #define __AT_BASECMD_H
+
+
+   at_cmdResult at_NEW_Cmdtest(uint8_t id);
+
+   at_cmdResult at_NEW_Cmdquery(uint8_t id);
+
+   at_cmdResult at_NEW_Cmdsetup(uint8_t id, char *pPara);
+
+   at_cmdResult at_NEW_Cmdexe(uint8_t id);
+
+   #endif
+
+2.4、at_baseCmd.c
+-----------------
+
+  ``at_baseCmd.c``\ 文件存放的是回调函数的具体实现。
+
+.. code:: c
+
+   #include "at.h"
+   #include "at_baseCmd.h"
+   //#include "gsm.h"
+   //执行AT命令
+   //存储数据
+   //上传
+   at_cmdResult at_NEW_Cmdtest(uint8_t id)
+   {
+       char buf[] = "AT+NEW TEST";
+       at_uart_send(buf, sizeof(buf) - 1);
+       return cmdResultOk;
+   }
+   at_cmdResult at_NEW_Cmdquery(uint8_t id)
+   {
+       char buf[] = "AT+NEW QUERY";
+       at_uart_send(buf, sizeof(buf) - 1);
+       return cmdResultOk;
+   }
+   at_cmdResult at_NEW_Cmdsetup(uint8_t id, char *pPara)
+   {
+       char *data = pPara + 1;
+       char buf[] = "AT+NEW SETUP pPara is: ";
+       at_uart_send(buf, sizeof(buf) - 1);
+       at_uart_send(data, strlen(data) - 2);
+       return cmdResultOk;
+   }
+   at_cmdResult at_NEW_Cmdexe(uint8_t id)
+   {
+       char buf[] = "AT+NEW EXE";
+       at_uart_send(buf, sizeof(buf) - 1);
+       return cmdResultOk;
+   }
+
+三、下载验证
+============
+
+  ``ATI``\ 和\ ``AT+REPI``\ 测试，可以看到两条命令返回一样的结果。
+
+.. code:: c
+
+   [2020-12-10 11:52:45.110]# SEND ASCII>
+   ATI
+
+
+   [2020-12-10 11:52:45.233]# RECV ASCII>
+
+   CSDK_V301736_RDA8910
+
+   OK
+
+
+   [2020-12-10 11:52:51.295]# SEND ASCII>
+   AT+REPI
+
+
+   [2020-12-10 11:52:51.426]# RECV ASCII>
+   AT+REPI
+
+   CSDK_V301736_RDA8910
+
+   OK
+
+  ``AT+REPWIMEI``\ 和\ ``AT+WIMEI``\ 测试，分别查询结果都是一样的。使用\ ``AT+WIMEI``\ 设置的新IMEI
+也能被\ ``AT+REPWIMEI``\ 查询到。
+
+.. code:: c
+
+
+   [2020-12-10 11:56:18.597]# SEND ASCII>
+   AT+REPWIMEI?
+
+
+   [2020-12-10 11:56:18.736]# RECV ASCII>
+   AT+REPWIMEI?
+
+   +WIMEI: 866714049398888
+
+   OK
+
+
+   [2020-12-10 11:56:19.395]# SEND ASCII>
+   AT+WIMEI?
+
+
+   [2020-12-10 11:56:19.526]# RECV ASCII>
+
+   +WIMEI: 866714049398888
+
+   OK
+
+
+   [2020-12-10 11:56:24.068]# SEND ASCII>
+   AT+WIMEI=123456789123456
+
+
+   [2020-12-10 11:56:24.257]# RECV ASCII>
+
+   OK
+
+
+   [2020-12-10 11:56:26.975]# SEND ASCII>
+   AT+REPWIMEI?
+
+
+   [2020-12-10 11:56:27.110]# RECV ASCII>
+   AT+REPWIMEI?
+
+   +WIMEI: 123456789123456
+
+   OK
+
+  ``AT+NEW``\ 测试，通过串口一日志看到AT的四种使用形式，测试(test)、查询(query)、设置(setup)、执行(exe)都被正常识别。
+
+.. code:: c
+
+
+   [2020-12-10 11:58:12.083]# SEND ASCII>
+   AT+NEW=?
+
+
+   [2020-12-10 11:58:12.201]# RECV ASCII>
+   AT+NEW=?
+
+   AT+NEW TEST
+
+   OK
+
+
+   [2020-12-10 11:58:16.403]# SEND ASCII>
+   AT+NEW?
+
+
+   [2020-12-10 11:58:16.525]# RECV ASCII>
+   AT+NEW?
+
+   AT+NEW QUERY
+
+   OK
+
+
+   [2020-12-10 11:58:23.541]# SEND ASCII>
+   AT+NEW=123456
+
+
+   [2020-12-10 11:58:23.697]# RECV ASCII>
+   AT+NEW=123456
+
+   AT+NEW SETUP pPara is: 123456
+
+   OK
+
+
+   [2020-12-10 11:58:27.065]# SEND ASCII>
+   AT+NEW
+
+
+   [2020-12-10 11:58:27.179]# RECV ASCII>
+   AT+NEW
+
+   AT+NEW EXE
+
+   OK
+
+..
+
+   不会下载的\ `点击这里 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ ，进去查看我的\ ``RDA8910 CSDK二次开发入门教程``\ 专题第一篇博文\ ``1、RDA8910CSDK二次开发：环境搭建``\ 里面讲了怎么下载
+   这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束
+
+.. |在这里插入图片描述| image:: https://img-blog.csdnimg.cn/20201209213306637.png
+.. |image1| image:: https://img-blog.csdnimg.cn/20201209214445923.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image2| image:: https://img-blog.csdnimg.cn/20201209221121120.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70

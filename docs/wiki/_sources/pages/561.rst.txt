@@ -1,0 +1,154 @@
+http
+====
+
+.. _http-1:
+
+http
+----
+
+模块功能：HTTP客户端
+
+http.request(method, url, cert, head, body, timeout, cbFnc, rcvFileName)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+发送HTTP请求
+
+-  参数
+
++-----------------------------------+-----------------------------------+
+| 传入值类型                        | 释义                              |
++===================================+===================================+
+| string                            | method                            |
+|                                   | HTTP请求方法支持“GE               |
+|                                   | T”，“HEAD”，“POST”，“OPTIONS”，“P |
+|                                   | UT”，“DELETE”，“TRACE”，“CONNECT” |
++-----------------------------------+-----------------------------------+
+| string                            | url                               |
+|                                   | HTTP请求ur                        |
+|                                   | lurl格式(除hostname外，其余字段可 |
+|                                   | 选；目前的实现不支持hash)url中如  |
+|                                   | 果包含UTF8编码中文，则需要调用str |
+|                                   | ing.rawurlEncode转换成RFC3986编码 |
++-----------------------------------+-----------------------------------+
+| table                             | **可选参数，默认为\ ``ni          |
+|                                   | l``**\ ，cert，table或者nil类型， |
+|                                   | ssl证书，当url为https类型时，此参 |
+|                                   | 数才有意义。cert格式如下：{caCert |
+|                                   | = “ca.crt”,                       |
+|                                   | –CA证书文件(Base64编码            |
+|                                   | X.509格式)，如果存在此参数        |
+|                                   | ，则表示客户端会对服务器的证书进  |
+|                                   | 行校验；不存在则不校验clientCert  |
+|                                   | = “client.crt”,                   |
+|                                   | –客户端证书文件(Base64编码        |
+|                                   | X.509格式)，服务器对客户端的证    |
+|                                   | 书进行校验时会用到此参数clientKey |
+|                                   | = “client.key”,                   |
+|                                   | –客户端私钥文件(Base64编码        |
+|                                   | X.509格式)clientPassword =        |
+|                                   | “123456”,                         |
+|                                   | –客户端证书文件密码[可选]}        |
++-----------------------------------+-----------------------------------+
+| table                             | **可选参数，默认为\ ``nil`        |
+|                                   | `**\ ，head，nil或者table类型，自 |
+|                                   | 定义请求头http.lua会自动添加Host: |
+|                                   | XXX、Connection:                  |
+|                                   | short、Content-Length:            |
+|                                   | XXX三个请求头如果这               |
+|                                   | 三个请求头满足不了需求，head参数  |
+|                                   | 传入自定义请求头，如果自定义请求  |
+|                                   | 头中存在Host、Connection、Conten  |
+|                                   | t-Length三个请求头，将覆盖http.lu |
+|                                   | a中自动添加的同名请求头head格式如 |
+|                                   | 下：如果没有自定义请求头，传入ni  |
+|                                   | l或者{}；否则传入{head1=“value1”, |
+|                                   | head2=“value2”,                   |
+|                                   | head3=“value3”                    |
+|                                   | }，value中不能有:raw-latex:`\r\n` |
++-----------------------------------+-----------------------------------+
+| param                             | **可选参数，默认为\               |
+|                                   |  ``nil``**\ ，body，nil、string或 |
+|                                   | 者table类型，请求实体如果body仅仅 |
+|                                   | 是一串数据，可以直接传入一个strin |
+|                                   | g类型的body即可如果body的数据比较 |
+|                                   | 复杂，包括字符串数据和文件，则传  |
+|                                   | 入table类型的数据，格式如下：{[1] |
+|                                   | = “string1”,[2] =                 |
+|                                   | {file=“/ldata/test.jpg”},[3] =    |
+|                                   | “stri                             |
+|                                   | ng2”}例如上面的这个body，索引必须 |
+|                                   | 为连续的数字(从1开始)，实际传输时 |
+|                                   | ，先发送字符串“string1”，再发送文 |
+|                                   | 件/ldata/test.jpg的内容，最后发送 |
+|                                   | 字符串“string2”如果传输的文件内容 |
+|                                   | 需要进行base64编码再上传，请把fi  |
+|                                   | le改成file_base64，格式如下：{[1] |
+|                                   | = “string1”,[2] =                 |
+|                                   | {f                                |
+|                                   | ile_base64=“/ldata/test.jpg”},[3] |
+|                                   | =                                 |
+|                                   | “st                               |
+|                                   | ring2”}例如上面的这个body，索引必 |
+|                                   | 须为连续的数字(从1开始)，实际传输 |
+|                                   | 时，先发送字符串“string1”，再发送 |
+|                                   | 文件/ldata/test.jpg经过base64编码 |
+|                                   | 后的内容，最后发送字符串“string2” |
++-----------------------------------+-----------------------------------+
+| number                            | **可选参数，默认为                |
+|                                   | \ ``30000``**\ ，timeout，请求发  |
+|                                   | 送成功后，接收服务器返回应答数据  |
+|                                   | 的超时时间，单位毫秒，默认为30秒  |
++-----------------------------------+-----------------------------------+
+| function                          | **可选参数，默认                  |
+|                                   | 为\ ``nil``**\ ，cbFnc，执行HTTP  |
+|                                   | 请求的回调函数(请求发送结果以及应 |
+|                                   | 答数据接收结果都通过此函数通知用  |
+|                                   | 户)，回调函数的调用形式为：cbFnc  |
+|                                   | (result,prompt,head,body)result： |
+|                                   | true或者false，true表示成功收到了 |
+|                                   | 服务器的应答，false表示请求发送失 |
+|                                   | 败或者接收服务器应答失败prompt：  |
+|                                   | string类型，result为true时，表示  |
+|                                   | 服务器的应答码；result为false时， |
+|                                   | 表示错误信息head：table或者nil类  |
+|                                   | 型，表示服务器的应答头；result为  |
+|                                   | true时，此参数为{head1=“value1”,  |
+|                                   | head2=“value2”,                   |
+|                                   | head3=“value3”}，value中不包含    |
+|                                   | :raw-latex:`\r\n`；result为false  |
+|                                   | 时，此参数为nilbody：string类型， |
+|                                   | 如果调用request接口时传入了rcvFil |
+|                                   | eName，此参数表示下载文件的完整路 |
+|                                   | 径；否则表示接收到的应答实体数据  |
++-----------------------------------+-----------------------------------+
+| string                            | *                                 |
+|                                   | *可选参数，默认为\ ``nil``**\ ，r |
+|                                   | cvFileName，保存“服务器应答实体数 |
+|                                   | 据”的文件名，可以传入完整的文件路 |
+|                                   | 径，也可以传入单独的文件名，如果  |
+|                                   | 是文件名，http.lua会自动生成一个  |
+|                                   | 完整路径，通过cbFnc的参数body传出 |
++-----------------------------------+-----------------------------------+
+
+-  返回值
+
+string
+rcvFilePath，如果传入了rcvFileName，则返回对应的完整路径；其余情况都返回nil
+
+-  例子
+
+.. code:: lua
+
+   http.request("GET","www.lua.org",nil,nil,nil,30000,cbFnc)
+   http.request("GET","http://www.lua.org",nil,nil,nil,30000,cbFnc)
+   http.request("GET","http://www.lua.org:80",nil,nil,nil,30000,cbFnc,"download.bin")
+   http.request("GET","www.lua.org/about.html",nil,nil,nil,30000,cbFnc)
+   http.request("GET","www.lua.org:80/about.html",nil,nil,nil,30000,cbFnc)
+   http.request("GET","http://wiki.openluat.com/search.html?q=123",nil,nil,nil,30000,cbFnc)
+   http.request("POST","www.test.com/report.html",nil,{Head1="ValueData1"},"BodyData",30000,cbFnc)
+   http.request("POST","www.test.com/report.html",nil,{Head1="ValueData1",Head2="ValueData2"},{[1]="string1",[2] ={file="/ldata/test.jpg"},[3]="string2"},30000,cbFnc)
+   http.request("GET","https://www.baidu.com",{caCert="ca.crt"})
+   http.request("GET","https://www.baidu.com",{caCert="ca.crt",clientCert = "client.crt",clientKey = "client.key"})
+   http.request("GET","https://www.baidu.com",{caCert="ca.crt",clientCert = "client.crt",clientKey = "client.key",clientPassword = "123456"})
+
+--------------

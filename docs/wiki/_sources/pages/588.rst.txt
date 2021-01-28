@@ -1,0 +1,541 @@
+disp(camera)
+============
+
+   作者：吴永 更新时间：2020年8月18日 关键字: UI、camera、摄像头、扫码
+
+摄像头驱动
+
+@[TOC]
+
+disp.cameraopen()
+~~~~~~~~~~~~~~~~~
+
+初始化摄像头
+
+-  语法
+
+   ``= disp.cameraopen(type,zbarscan,mirror,jump)``
+
+-  参数
+
+   ======== ============== ==================================
+   参数     释义           取值
+   ======== ============== ==================================
+   type     保留           1
+   zbarscan 扫码功能       1：支持扫码0：不支持扫码
+   mirror   镜像功能       1：开启摄像头镜像0：关闭摄像头镜像
+   jump     预览隔行列输出 
+   ======== ============== ==================================
+
+-  返回值
+
+   无
+
+-  例子
+
+.. code:: lua
+
+       pm.wake("testTakePhoto")
+       --打开摄像头
+       disp.cameraopen(1,0,0,1)
+       --disp.cameraopen(1,0,0,0)  --因目前core中还有问题没解决，所以不能关闭隔行隔列
+       --打开摄像头预览
+       --如果有LCD，使用LCD的宽和高
+       --如果无LCD，宽度设置为240像素，高度设置为320像素，240*320是Air268F支持的最大分辨率
+       disp.camerapreview(0,0,0,0,WIDTH or DEFAULT_WIDTH,HEIGHT or DEFAULT_HEIGHT)
+       --设置照片的宽和高像素并且开始拍照
+       --此处设置的宽和高和预览时的保持一致
+       disp.cameracapture(WIDTH or DEFAULT_WIDTH,HEIGHT or DEFAULT_HEIGHT)
+       --设置照片保存路径
+       disp.camerasavephoto("/testCamera.jpg")
+       log.info("testCamera.takePhotoAndDisplay fileSize",io.fileSize("/testCamera.jpg"))
+       --关闭摄像头预览
+       disp.camerapreviewclose()
+       --关闭摄像头
+       disp.cameraclose()
+       --允许系统休眠
+       pm.sleep("testTakePhoto")    
+
+--------------
+
+disp.camerapreview()
+~~~~~~~~~~~~~~~~~~~~
+
+打开摄像头预览
+
+-  语法
+
+   ``disp.camerapreview(offsetx,offsety,startx,starty,endx,endy)``
+
+-  参数
+
+   ======= ============= ====
+   参数    释义          取值
+   ======= ============= ====
+   offsetx 保留          0
+   offsety 保留          0
+   startx  预览起始位置x 
+   starty  预览起始位置y 
+   endx    预览结束位置x 
+   endy    预览结束位置y 
+   ======= ============= ====
+
+-  返回值
+
+   无
+
+--------------
+
+disp.camerapreviewzoom()
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+预览缩放
+
+-  语法
+
+   ``disp.camerapreviewzoom(zoom)``
+
+-  参数
+
+   ==== ======== ==================================
+   参数 释义     取值
+   ==== ======== ==================================
+   zoom 放缩设置 正数放大负数缩小，最大4倍，0不放缩
+   ==== ======== ==================================
+
+-  返回值
+
+   1：成功 0：失败
+
++------+
+| ###  |
+| disp |
+| .cam |
+| erap |
+| revi |
+| ewro |
+| tati |
+| on() |
+| 预览 |
+| 旋转 |
++------+
+| -    |
+| 语法 |
++------+
+| ``di |
+| sp.c |
+| amer |
+| apre |
+| view |
+| rota |
+| tion |
+| (rot |
+| atio |
+| n)`` |
++------+
+| -    |
+| 参数 |
++------+
+| \|   |
+| 参数 |
+| \|   |
+| 释义 |
+| \|取 |
+| 值\| |
+| \|   |
+| ——–  |
+| \|   |
+| —    |
+| ———– |
+| \|   |
+| —    |
+| ———– |
+| \|   |
+| \    |
+| |rot |
+| atio |
+| n|旋 |
+| 转|  |
+| 反转 |
+| 角度 |
+| 设置 |
+| 暂时 |
+| 只支 |
+| 持0  |
+| 和90 |
+| 度\| |
++------+
+| -    |
+| 返   |
+| 回值 |
++------+
+| 1：  |
+| 成功 |
+| 0：  |
+| 失败 |
++------+
+
+disp.camerapreviewclose()
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+关闭预览
+
+-  语法
+
+   ``disp.camerapreviewclose()``
+
+-  参数
+
+   无
+
+-  返回值
+
+   1：成功 0：失败
+
++-------+
+| ###   |
+| disp. |
+| camer |
+| acapt |
+| ure() |
+| 拍    |
+| 照片  |
++-------+
+| -     |
+| 语法  |
++-------+
+| `     |
+| `disp |
+| .came |
+| racap |
+| ture( |
+| width |
+| ,heig |
+| ht[,q |
+| ualit |
+| y])`` |
++-------+
+| -     |
+| 参数  |
++-------+
+| \|    |
+| 参数  |
+| \|    |
+| 释义  |
+| \|取  |
+| 值\|  |
+| \|    |
+| ——–   |
+| \|    |
+| ————– |
+| \|    |
+| ————– |
+| \|    |
+| \|wid |
+| th|照 |
+| 片宽  |
+| 度|取 |
+| 决于  |
+| 摄像  |
+| 头\|  |
+| \     |
+| |heig |
+| ht|照 |
+| 片高  |
+| 度|取 |
+| 决于  |
+| 摄像  |
+| 头\|  |
+| \|    |
+| quali |
+| ty|照 |
+| 片压  |
+| 缩质  |
+| 量|0- |
+| 100（ |
+| 值越  |
+| 大，  |
+| 质量  |
+| 越高  |
+| ）\|  |
++-------+
+| -     |
+| 返    |
+| 回值  |
++-------+
+| 1：   |
+| 成功  |
+| 0：   |
+| 失败  |
++-------+
+
+disp.camerasavephoto()
+~~~~~~~~~~~~~~~~~~~~~~
+
+保存拍摄的照片到文件
+
+-  语法
+
+   ``disp.camerasavephoto(filename)``
+
+-  参数
+
+   ======== ============ ==========
+   参数     释义         取值
+   ======== ============ ==========
+   filename 保存文件路径 string类型
+   ======== ============ ==========
+
+-  返回值
+
+   1：成功 0：失败
+
++-------+
+| ###   |
+| d     |
+| isp.c |
+| amera |
+| write |
+| reg() |
+| 设置c |
+| amera |
+| sen   |
+| sor寄 |
+| 存器  |
++-------+
+| \*    |
+| 语法  |
+| ``d   |
+| isp.c |
+| amera |
+| write |
+| reg(r |
+| egTab |
+| le)`` |
++-------+
+| -     |
+| 参数  |
++-------+
+| \|    |
+| 参数  |
+| \|    |
+| 释义  |
+| \|取  |
+| 值\|  |
+| \|    |
+| ——–   |
+| \|    |
+| ————– |
+| \|    |
+| ————– |
+| \|    |
+| \|reg |
+| Table |
+| |寄存 |
+| 器表  |
+| |str  |
+| ing类 |
+| 型\|  |
++-------+
+| -     |
+| 返    |
+| 回值  |
++-------+
+| 1：   |
+| 成功  |
+| 0：   |
+| 失败  |
++-------+
+
+disp.cameraclose()
+~~~~~~~~~~~~~~~~~~
+
+关闭摄像头
+
+-  语法
+
+   ``disp.cameraclose()``
+
+-  参数
+
+   无
+
+-  返回值
+
+   .. rubric:: 无
+      :name: 无
+
+   .. rubric:: disp.cameraopen_ext
+      :name: disp.cameraopen_ext
+
+   LUA外部配置camera功能
+
+-  语法
+
+   ``disp.cameraopen_ext（param）``
+
+-  参数
+
+   ===== ====== ==========
+   参数  释义   取值
+   ===== ====== ==========
+   param 参数表 string类型
+   ===== ====== ==========
+
+::
+
+   --参数定义如下所示（配置gc6153 8万摄像头）
+   local gc6153 =
+   {
+       zbar_scan = 1,  --是否支持扫码
+       i2c_addr = 0x40,  --/* 摄像头i2c访问地址 */
+       sensor_width = 240,  --/* 摄像头的宽 */
+       sensor_height = 320, --/* 摄像头的高 */
+       id_reg = 0xf1,      -- /* 摄像头ID寄存器 */
+       id_value = 0x53,    -- /* 摄像头ID值 */
+       -- /* 摄像头SPI是几线输出 */
+       --disp.CAMERA_SPI_MODE_LINE1 1线
+       --disp.CAMERA_SPI_MODE_LINE2 2线
+       --disp.CAMERA_SPI_MODE_LINE4 4线
+       spi_mode = disp.CAMERA_SPI_MODE_LINE1, 
+       -- /* 摄像头采集速率 */
+       --disp.CAMERA_SPEED_SDR  单片采集
+       --disp.CAMERA_SPEED_DDR  双边采集
+       spi_speed = disp.CAMERA_SPEED_SDR,  
+        -- /* 摄像头输出YUV的格式 */
+       spi_yuv_out = disp.CAMERA_SPI_OUT_U0_Y1_V0_Y0,
+      --disp.CAMERA_SPI_OUT_Y0_U0_Y1_V0
+      --disp.CAMERA_SPI_OUT_Y0_V0_Y1_U0
+      --disp.CAMERA_SPI_OUT_U0_Y0_V0_Y1
+      --disp.CAMERA_SPI_OUT_U0_Y1_V0_Y0
+      --disp.CAMERA_SPI_OUT_V0_Y0_U0_Y1
+      --disp.CAMERA_SPI_OUT_Y1_V0_Y0_U0
+      --disp.CAMERA_SPI_OUT_Y1_U0_Y0_V0
+       cmd = --/*摄像头初始化寄存器*/
+       {
+            0xfe, 0xa0  ,
+            0xfe, 0xa0  ,
+            0xfe, 0xa0  ,
+            0xf6, 0x00  ,
+            0xfa, 0x11  ,
+            0xfc, 0x12  ,
+            0xfe, 0x00  ,     
+            0xfe, 0x00  ,
+            0x01, 0x41  , 
+            0x02, 0x12  , 
+            0x0d, 0x40  , 
+            0x14, 0x7E  , 
+            0x16, 0x05 , 
+            0x17, 0x18  , 
+            0x1c, 0x31  , 
+            0x1d, 0xbb  , 
+            0x1f, 0x3f  , 
+            0x73, 0x20  , 
+            0x74, 0x71  , 
+            0x77, 0x22  , 
+            0x7a, 0x08  , 
+            0x11, 0x18  , 
+            0x13, 0x48  , 
+            0x12, 0xc8  , 
+            0x70, 0xc8  , 
+            0x7b, 0x18  , 
+            0x7d, 0x30  , 
+            0x7e, 0x02  , 
+            0xfe, 0x10  , 
+            0xfe, 0x00  ,
+            0xfe, 0x00  ,
+            0xfe, 0x00  ,
+            0xfe, 0x00  ,
+            0xfe, 0x00  ,
+            0xfe, 0x10  ,
+            0xfe, 0x00  ,
+            0x49, 0x61  ,  
+            0x4a, 0x40  ,  
+            0x4b, 0x58  ,  
+            0xfe, 0x00  ,
+            0x39, 0x02  , 
+            0x3a, 0x80  , 
+            0x20, 0x7e  , 
+            0x26, 0x87  , 
+            0x33, 0x10  , 
+            0x37, 0x06  , 
+            0x2a, 0x21  , 
+            0x3f, 0x16  ,
+            0x52, 0xa6  ,
+            0x53, 0x81  ,
+            0x54, 0x43  ,
+            0x56, 0x78  ,
+            0x57, 0xaa  ,
+            0x58, 0xff  , 
+            0x5b, 0x60  , 
+            0x5c, 0x50  , 
+            0xab, 0x2a  , 
+            0xac, 0xb5  ,
+            0x5e, 0x06  , 
+            0x5f, 0x06  ,
+            0x60, 0x44  ,
+            0x61, 0xff  ,
+            0x62, 0x69  , 
+            0x63, 0x13  ,
+            0x65, 0x13  , 
+            0x66, 0x26  ,
+            0x67, 0x07  ,
+            0x68, 0xf5  , 
+            0x69, 0xea  ,
+            0x6a, 0x21  ,
+            0x6b, 0x21  , 
+            0x6c, 0xe4  ,
+            0x6d, 0xfb  ,
+            0x81, 0x3b  , 
+            0x82, 0x3b  , 
+            0x83, 0x4b  ,
+            0x84, 0x90  ,
+            0x86, 0xf0  ,
+            0x87, 0x1d  ,
+            0x88, 0x16  ,
+            0x8d, 0x74  ,
+            0x8e, 0x25  ,
+            0x90, 0x36  ,
+            0x92, 0x43  ,
+            0x9d, 0x32  , 
+            0x9e, 0x81  ,
+            0x9f, 0xf4  ,
+            0xa0, 0xa0  ,
+            0xa1, 0x04  ,
+            0xa3, 0x2d  ,
+            0xa4, 0x01  ,
+            0xb0, 0xc2  ,
+            0xb1, 0x1e  ,
+            0xb2, 0x10  ,
+            0xb3, 0x20  ,
+            0xb4, 0x2d  ,
+            0xb5, 0x1b  , 
+            0xb6, 0x2e  ,
+            0xb8, 0x13  ,
+            0xba, 0x60  ,
+            0xbb, 0x62  ,
+            0xbd, 0x78  , 
+            0xbe, 0x55  ,
+            0xbf, 0xa0  , 
+            0xc4, 0xe7  ,
+            0xc5, 0x15  ,
+            0xc6, 0x16  ,
+            0xc7, 0xeb  , 
+            0xc8, 0xe4  ,
+            0xc9, 0x16  ,
+            0xca, 0x16  ,
+            0xcb, 0xe9  ,
+            0x22, 0xf8  ,
+            0xfe, 0x02  ,
+            0x01, 0x01  , 
+            0x02, 0x80  , 
+            0x03, 0x20  , 
+            0x04, 0x20  ,  
+            0x0a, 0x00  , 
+            0x13, 0x10  , 
+            0x28, 0x03  ,
+            0xfe, 0x00  , 
+            0x22, 0xf8  , 
+            0xf2, 0x03  , 
+       },    
+   }

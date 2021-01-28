@@ -1,0 +1,69 @@
+- 远程升级
+==========
+
+–作者：盛玉霞 闫国梁（luat部分） ###
+AT固件远程升级：AT固件支持模块端AT指令触发升级和自动升级2种方式 ####
+1.模块端AT指令触发升级（实时升级） ####
+1.1合宙IOT平台配置，\ `点此登录 <http://iot.openluat.com/>`__ #####
+1.1.1登录平台，查询模块是否在自己账号下
+客户向合宙采购4G模块时，如果采购人员没有告知合宙这批模块放在iot.openluat.com上的哪个产品下，则合宙会以\ **采购人的手机号为账号，默认密码888888**\ ，创建一个“Air72XUX标准模块”的产品，此次采购的所有模块都会放在这个产品下。
+|image1| |image2| ##### 1.1.2配置流程 ######
+A：官网下载最新固件\ `官网入口 <http://www.openluat.com/product_center>`__
+###### B:依次点击产品中心-》cat1对应模块-》技术文档 |undefined| ######
+C:固件下载到本地，解压后，将dfota.bin文件上传dfota
+
+新建固件，上传固件 |打开iot平台固件配置|
+
+依次 开始配置 |image3|
+
+D备注：如果配置时，是否全项目升级选的“是”，无需配置imei，按照上述内容配置即可。
+                                                                               
+
+如果配置时，是否全项目升级选的“否”，还需添加模块imei，如下图所示：
+                                                                  
+
+|image4| |image5| #### 1.2模块端AT指令触发 ##### 1.2.1通过串口1发AT指令
+|image6| |image7| |image8| |image9| ##### 1.2.2通过usb口发AT指令
+|image10| |image11|
+
+2.自动升级（默认24小时以内自动触发）
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.1自动升级是模块定期向后台发送升级请求，来获取新固件进行更新的，大致流程如下
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+|image12| #### 3.备注： ######
+A.客户可以通过IOT平台查看升级成功数量，失败日志等信息 ######
+B.升级过程中若模块断电、重启导致升级失败，可重新升级 ######
+C.模块手动触发升级时，若频繁从同一个版本请求（目前默认一小时内6次，24小时内10次），IOT平台设备状态会自动更改为禁止升级，需要在平台设备列表手动解除
+######
+D.升级时间根据差分包的大小不同，升级时间会不同。跨越的版本越大，差分包越大，升级所需的时间越长。实测，升级一个600k左右的差分包，3分钟内能升级完成。
+
+相关资料以及购买链接
+====================
+
+相关开发板购买链接
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+`相关软件资料下载 <http://doc.openluat.com/wiki/6?wiki_page_id=227>`__
+
+常见问题
+========
+
+https://doc.luatos.wiki/638/
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612180839163_QQ截图20200612180717.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612181744368_QQ截图20200612181722.png
+.. |undefined| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117154847899_QQ截图20201117154413.png
+   :target: undefined
+.. |打开iot平台固件配置| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615120626635_QQ截图20200615115915.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615120707696_QQ截图20200615120506.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615142444110_QQ截图20200615142349.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615142458525_QQ截图20200615142414.png
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150254730_QQ截图20200615145211.png
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150313926_QQ截图20200615145419.png
+.. |image8| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150327418_QQ截图20200615145742.png
+.. |image9| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150343122_QQ截图20200615145932.png
+.. |image10| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615151831541_QQ截图20200615151554.png
+.. |image11| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615151846511_QQ截图20200615151753.png
+.. |image12| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615152225075_5_69646.png

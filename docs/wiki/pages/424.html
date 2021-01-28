@@ -1,0 +1,3288 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="索引" href="../genindex.html" /><link rel="search" title="搜索" href="../search.html" /><link rel="next" title="3.1.2 SSL" href="425.html" /><link rel="prev" title="3.1 AT相关软件功能描述" href="422.html" />
+
+    <meta name="generator" content="sphinx-3.4.3, furo 2020.12.30.beta24"/>
+        <title>3.1.1 TCP/UDP - Luat document 文档</title>
+      <link rel="stylesheet" href="../_static/styles/furo.css?digest=33d2fc4f3f180ec1ffc6524e273e21d7d58cbe49">
+    <link rel="stylesheet" href="../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #ffffff;
+  --color-code-foreground: black;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #ffffff;
+  --color-code-foreground: black;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" href="../_static/styles/furo-extensions.css?digest=26485485040e7aaf717c13fd0188a5ad2c2deb60">
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script defer="defer" src="../_static/jquery.js"></script>
+    <script defer="defer" src="../_static/underscore.js"></script>
+    <script defer="defer" src="../_static/doctools.js"></script>
+    <script defer="defer" src="../_static/translations.js"></script>
+    <script defer src="../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Luat document  文档</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html">
+  <input class="sidebar-search" placeholder=搜索 name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1777.html">Cat.1模块选型手册</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="278.html">Air724UG模块应用手册</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="19.html">1. 文档概述</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="225.html">2. 模块资料文档</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label for="toctree-checkbox-2"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="226.html">硬件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="227.html">软件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="228.html">下载调试工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="229.html">相关证书</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1698.html">认证资料填写</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="36.html">3. 硬件接口功能描述</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label for="toctree-checkbox-3"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="527.html">模块特性概述</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label for="toctree-checkbox-4"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="41.html">Air724UG尺寸图（单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="41.html#air724ug-pcb">Air724UG/PCB封装（正视图,单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="100.html">绝对最大值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="100.html#id2">推荐工作条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="100.html#id3">工作温度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="106.html">RF传导功率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="106.html#id1">RF传导灵敏度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="600.html">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="230.html">存储</a></li>
+<li class="toctree-l4"><a class="reference internal" href="230.html#id2">生产焊接</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="43.html">电源供电</a></li>
+<li class="toctree-l3"><a class="reference internal" href="43.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="43.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="44.html">开关机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html">串口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#uart1">UART1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#uart2">UART2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#uart3">UART3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#host-uart">HOST UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#zsp-uart">ZSP UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#id13">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46.html#id14">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html">USB接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#id6">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html">SIM卡接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#id4">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48.html#id5">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html">网络状态指示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#id3">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#id4">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#at">AT指令控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html">模拟语音</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#id3">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#id4">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#id17">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50.html#id18">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html">数字语音接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html#i2s">I2S接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html#pcm">PCM接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html#at">AT指令控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51.html#id4">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="52.html">I2C接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="52.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="52.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="52.html#id1">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="52.html#id2">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html">LCD SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#id10">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53.html#id11">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="54.html">通用SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="54.html#id1">SPI接口连接方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="54.html#spi-lua">spi lua接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="54.html#id2">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="54.html#id3">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html">Camera接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#id3">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#id4">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#at">AT指令控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#luat">LUAT 二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="55.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="56.html">SDIO接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="56.html#id1">一、概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="56.html#id2">二、管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="56.html#lua">4.2 Lua二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="56.html#id4">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="56.html#id5">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="57.html">键盘接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="57.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="57.html#id3">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="57.html#id4">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="57.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="57.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="58.html">LDO电源输出</a></li>
+<li class="toctree-l3"><a class="reference internal" href="58.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="58.html#at">AT指令控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="58.html#luat">LUAT二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="58.html#id2">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="58.html#id3">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="59.html">PWM接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="59.html#id1">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="59.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="59.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="59.html#id2">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="59.html#id3">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html">GPIO控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html#id2">管脚定义：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="60.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html">ADC接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#id6">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="61.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html">Wifi扫描</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html#id2">天线设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html#id3">参考设计电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="63.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="64.html">天线接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="64.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="64.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="64.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="64.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="112.html">看门狗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="112.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="112.html#id3">参考电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="112.html#lua">看门狗LUA接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="112.html#id6">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="112.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="605.html">外部SPI Flash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="605.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="605.html#lua">LUA 接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="605.html#csdk">CSDK 接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="605.html#id3">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="605.html#id4">常见问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="247.html">4. 标准AT开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label for="toctree-checkbox-5"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="71.html">TCP/UDP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="71.html#id1">1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="71.html#at">2 相关AT指令介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="71.html#id22">3 AT指令示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="71.html#id30">4 相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="71.html#id31">5 常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="72.html">SSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="72.html#id1">1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="72.html#at">3 AT指令示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="72.html#id10">4 相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="72.html#id11">5 常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="73.html">HTTP/HTTPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="73.html#id1">1 概述：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="73.html#at">2 相关AT指令介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="73.html#id6">3 AT指令示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="73.html#id12">4 相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="73.html#id13">5 常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html">FTP/FTPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html#ftp">FTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html#id1">1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html#at">2 相关AT指令介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html#id8">3 AT指令示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html#id9">4 相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="74.html#id10">5 常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html">MQTT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html#at">AT方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html#luat">LUAT方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html#csdk">CSDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html#dtu">DTU固件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="75.html#id29">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="76.html">PING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="76.html#id4">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="76.html#id5">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="45.html">省电模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="45.html#at">AT指令方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="45.html#id6">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="45.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="45.html#air724ug-4g-lte">Air724UG 4G LTE 开发板实网待机功耗测试方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="581.html">专网卡配置教程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="88.html">通话语音</a></li>
+<li class="toctree-l3"><a class="reference internal" href="88.html#id2">通话语音</a></li>
+<li class="toctree-l3"><a class="reference internal" href="88.html#luat">LUAT模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="86.html">时间同步</a></li>
+<li class="toctree-l3"><a class="reference internal" href="86.html#id2">时间同步</a></li>
+<li class="toctree-l3"><a class="reference internal" href="86.html#at">AT方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="86.html#luat">luat方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="87.html">文件系统操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="91.html">音频播放和TTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="91.html#luat">LUAT模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="91.html#id3">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="62.html">蓝牙</a></li>
+<li class="toctree-l3"><a class="reference internal" href="62.html#id2">蓝牙从模式测试/使用流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="62.html#id3">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="62.html#id4">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="110.html">网络注册与信号强度</a></li>
+<li class="toctree-l3"><a class="reference internal" href="253.html">短消息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="253.html#id14">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="118.html">阿里云</a></li>
+<li class="toctree-l3"><a class="reference internal" href="118.html#id2">阿里云操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="118.html#at">AT方式连接概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="118.html#luat">LUAT方式连接概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="118.html#id20">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="85.html">基站/WIFI定位</a></li>
+<li class="toctree-l3"><a class="reference internal" href="85.html#id1">wifi与基站定位</a></li>
+<li class="toctree-l3"><a class="reference internal" href="85.html#id2">基站定位：</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="535.html">升级调试教程</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label for="toctree-checkbox-6"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="231.html">2.自动升级（默认24小时以内自动触发）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="256.html">5. Luat二次开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label for="toctree-checkbox-7"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="534.html">Luat 二次开发环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="534.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="534.html#lua">lua 语法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="534.html#id2">环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="534.html#usb">安装USB驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html">固件和脚本下载教程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id3">工具驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id4">模块升级接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#usb">安装USB驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id5">下载模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id6">调试阶段的下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id8">合并脚本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id9">量产升级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101.html#id10">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="543.html">Lua语法教程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="544.html">Lua解析器开源（集成C库教程）</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="541.html">Luat功能开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label for="toctree-checkbox-8"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="1719.html">一、SDK目录结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1719.html#id1">二、代码架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1719.html#api">三、API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1730.html">一、单task应用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1730.html#id1">二、真假task、内外消息队列</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1730.html#id4">三、应用脚本运行流程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1730.html#id5">四、内部消息处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1730.html#id6">五、外部消息处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1730.html#id7">六、常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="268.html">1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="268.html#api">2 API说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="268.html#luat">3 luat示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="268.html#id24">4 相关资料以及购买链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="268.html#id25">5 常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="261.html">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="263.html">MQTT简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="263.html#id1">几个重要名词</a></li>
+<li class="toctree-l4"><a class="reference internal" href="276.html">相关API：</a></li>
+<li class="toctree-l4"><a class="reference internal" href="276.html#id1">相关资料</a></li>
+<li class="toctree-l4"><a class="reference internal" href="276.html#id2">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html">设置 TTS 播放模式：AT+CTTSPARAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#at-caudplay">语音文件播放：AT+CAUDPLAY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#at-audch">语音通道切换：AT+AUDCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#receiver-at-clvl">RECEIVER 音量控制：AT+CLVL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-play-priority-type-path-vol-cbfnc-dup-dupinterval">audio.play(priority, type, path, vol, cbFnc, dup, dupInterval)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-stop-cbfnc">audio.stop(cbFnc)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-setvolume-vol">audio.setVolume(vol)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-setmicvolume-vol">audio.setMicVolume(vol)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-getvolume">audio.getVolume()¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-getmicvolume-vol">audio.getMicVolume(vol)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-setstrategy-strategy">audio.setStrategy(strategy)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#audio-setttsspeed-speed">audio.setTTSSpeed(speed)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#tts">1、TTS功能问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="257.html#httpmp3">2、如何实现“通过http边下载mp3文件，边播放”功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="259.html">通话语音</a></li>
+<li class="toctree-l4"><a class="reference internal" href="259.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="260.html">LUAT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="262.html">wifi与基站定位</a></li>
+<li class="toctree-l4"><a class="reference internal" href="262.html#id1">基站定位：</a></li>
+<li class="toctree-l4"><a class="reference internal" href="262.html#id17">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="264.html">时间同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="264.html#at">AT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="264.html#luat">luat方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html">读文件：AT+FSREAD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#at-fswrite">写文件：AT+FSWRITE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#at-fsmem">获取可用空间大小：AT+FSMEM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#at-fsdel">删除文件：AT+FSDEL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#io-readfile-path">io.readFile(path)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#io-writefile-path-content-mode">io.writeFile(path, content, mode)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#io-pathinfo-path">io.pathInfo(path)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#io-filesize-path">io.fileSize(path)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="265.html#io-readstream-path-offset-len">io.readStream(path, offset, len)¶</a></li>
+<li class="toctree-l4"><a class="reference internal" href="266.html">一. 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="266.html#api">二. API说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="266.html#id10">三. 常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="269.html">阿里云操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="269.html#at">AT方式连接概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="269.html#luat">LUAT方式连接概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="269.html#id19">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="582.html">一、如何区分专网卡</a></li>
+<li class="toctree-l4"><a class="reference internal" href="582.html#api">二、API说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="582.html#id2">三、注意事项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1720.html">一、休眠电流</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1720.html#id2">二、脚本如何控制休眠</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1720.html#id5">三、常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1771.html">一、常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1774.html">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1782.html">（1）设置AT命令应答的数据格式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1782.html#id1">（2）注册并实现AT命令应答数据的处理函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1782.html#id2">（3）通过虚拟串口发送AT命令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1783.html">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1803.html">常见问题</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="98.html">Luat API</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label for="toctree-checkbox-9"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="1749.html">Lua standard API</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="1749.html#id1">请点击如下链接</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label for="toctree-checkbox-10"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="1755.html">API汇总</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1755.html#id1">请点击如下链接</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="114.html">Luat core API</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label for="toctree-checkbox-11"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="144.html">adc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="145.html">audiocore</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1701.html">btcore</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1766.html">crypto</a></li>
+<li class="toctree-l5"><a class="reference internal" href="516.html">pio</a></li>
+<li class="toctree-l5"><a class="reference internal" href="521.html">rtos</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1750.html">io</a></li>
+<li class="toctree-l5"><a class="reference internal" href="538.html">spi</a></li>
+<li class="toctree-l5"><a class="reference internal" href="546.html">uart</a></li>
+<li class="toctree-l5"><a class="reference internal" href="549.html">pwm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="550.html">pack</a></li>
+<li class="toctree-l5"><a class="reference internal" href="551.html">bit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="558.html">adc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="559.html">i2c</a></li>
+<li class="toctree-l5"><a class="reference internal" href="560.html">pmd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="586.html">socket</a></li>
+<li class="toctree-l5"><a class="reference internal" href="587.html">disp(ui)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="588.html">disp(camera)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="589.html">qrencode</a></li>
+<li class="toctree-l5"><a class="reference internal" href="590.html">TTS</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="115.html">Luat script lib API</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label for="toctree-checkbox-12"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="1752.html">agps</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1753.html">agpsZkw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="509.html">aLiYun</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1754.html">aLiYunOta</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1756.html">audio</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1757.html">cc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1758.html">clib</a></li>
+<li class="toctree-l5"><a class="reference internal" href="510.html">common</a></li>
+<li class="toctree-l5"><a class="reference internal" href="511.html">console</a></li>
+<li class="toctree-l5"><a class="reference internal" href="512.html">errDump</a></li>
+<li class="toctree-l5"><a class="reference internal" href="513.html">gps</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1759.html">gpsZkw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="561.html">http</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1760.html">lbsLoc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="562.html">led</a></li>
+<li class="toctree-l5"><a class="reference internal" href="563.html">link</a></li>
+<li class="toctree-l5"><a class="reference internal" href="564.html">log</a></li>
+<li class="toctree-l5"><a class="reference internal" href="565.html">misc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="566.html">mqtt</a></li>
+<li class="toctree-l5"><a class="reference internal" href="567.html">net</a></li>
+<li class="toctree-l5"><a class="reference internal" href="568.html">netLed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="569.html">ntp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="570.html">nvm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="571.html">pb</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1761.html">pins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="572.html">pm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="573.html">powerKey</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1762.html">record</a></li>
+<li class="toctree-l5"><a class="reference internal" href="574.html">ril</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1763.html">scanCode</a></li>
+<li class="toctree-l5"><a class="reference internal" href="575.html">sim</a></li>
+<li class="toctree-l5"><a class="reference internal" href="576.html">sms</a></li>
+<li class="toctree-l5"><a class="reference internal" href="577.html">socket</a></li>
+<li class="toctree-l5"><a class="reference internal" href="578.html">sys</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1764.html">uiWin</a></li>
+<li class="toctree-l5"><a class="reference internal" href="579.html">update</a></li>
+<li class="toctree-l5"><a class="reference internal" href="580.html">utils</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1765.html">wifiScan</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="1767.html">消息定义</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label for="toctree-checkbox-13"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="1769.html">Luat core外部消息</a></li>
+<li class="toctree-l5"><a class="reference internal" href="1770.html">Luat script lib内部消息</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="99.html">调试升级教程</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label for="toctree-checkbox-14"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="233.html">1. 用Luatools V2工具抓底层日志</a></li>
+<li class="toctree-l4"><a class="reference internal" href="233.html#host-uartap">2. 从HOST UART接口抓AP日志</a></li>
+<li class="toctree-l4"><a class="reference internal" href="154.html">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="154.html#id6">相关资料以及购买链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="154.html#id7">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="267.html">二. 合宙iot平台升级core+script过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="267.html#iotcorescript">三. 合宙iot平台仅升级core或者仅升级script过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="267.html#id6">四. 自建第三方服务器升级过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="270.html">原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="270.html#id2">定义声明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="270.html#id3">日志在模块上实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="270.html#id4">日志在服务器上查阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="270.html#id5">建议</a></li>
+<li class="toctree-l4"><a class="reference internal" href="539.html">接口描述</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="283.html">6. CSDK二次开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label for="toctree-checkbox-15"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="493.html">环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="493.html#id2">一、环境搭建前准备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="493.html#id6">二、开始环境搭建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="494.html">控制GPIO输出</a></li>
+<li class="toctree-l3"><a class="reference internal" href="494.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="494.html#id6">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="495.html">GPIO输入详解</a></li>
+<li class="toctree-l3"><a class="reference internal" href="495.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="495.html#id9">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="496.html">ADC采集</a></li>
+<li class="toctree-l3"><a class="reference internal" href="496.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="496.html#id2">二、相关的库函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="496.html#id7">三、编写程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="496.html#id9">四、下载测试</a></li>
+<li class="toctree-l3"><a class="reference internal" href="497.html">单次定时器和循环定时器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="497.html#id2">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="497.html#id4">二、编写测试程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="497.html#id14">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="498.html">串口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="498.html#id2">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="498.html#id3">二、开发板硬件部分</a></li>
+<li class="toctree-l3"><a class="reference internal" href="498.html#id5">三、编写测试程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="498.html#id8">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="499.html">DNS解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="499.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="499.html#id2">二、编写测试程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="499.html#id11">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="500.html">tcp客户端</a></li>
+<li class="toctree-l3"><a class="reference internal" href="500.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="500.html#id17">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="501.html">UDP通讯</a></li>
+<li class="toctree-l3"><a class="reference internal" href="501.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="501.html#id2">二、编写测试程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html">简易的http通讯库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html#id1">目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html#id2">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html#id3">二、编写测试程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html#id7">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html#id8">四、分析结果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="502.html#id9">五、总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="503.html">新鲜出炉的MQTT库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="503.html#id1">目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="503.html#id2">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="503.html#id6">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="503.html#id7">四、分析结果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="503.html#id8">五、总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="504.html">cJSON库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="504.html#id1">目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="504.html#id2">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="504.html#id3">二、编写测试程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="504.html#id5">三、编译并下载程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="504.html#id6">四、分析结果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="505.html">将你的代码藏起来-编译静态库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="505.html#id2">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="505.html#id3">二、编写各种代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="505.html#id7">三、开始编译</a></li>
+<li class="toctree-l3"><a class="reference internal" href="506.html">CSDK程序死机了怎么办？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="506.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="506.html#id2">二、编写程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="506.html#id3">三、下载验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="506.html#id4">四、启动调试</a></li>
+<li class="toctree-l3"><a class="reference internal" href="507.html">通过OneWire驱动库获取DS18B20/DHT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="507.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="507.html#id2">二、单总线时序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="507.html#onewire">三、OneWire驱动库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="507.html#id8">四、测试DS18B20驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="507.html#id12">五、测试DHT11驱动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1793.html">一个简易的AT框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1793.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1793.html#id2">二、简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1793.html#id3">二、编写程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1793.html#id4">三、下载验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="526.html">FOTA远程升级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="526.html#id1">一、前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="526.html#id2">二、准备工作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="526.html#id3">三、编写程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="526.html#id6">四、编译程序</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="529.html">8. SmartDTU 开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label for="toctree-checkbox-16"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="530.html">LUA SmartDTU资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="70.html">7. Linux/Android/USB 应用教程</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label for="toctree-checkbox-17"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="80.html">RNDIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="80.html#id1">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="80.html#id2">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="81.html">PPP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="81.html#windowsppp">windows下PPP拨号</a></li>
+<li class="toctree-l3"><a class="reference internal" href="81.html#id3">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="81.html#id4">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1700.html">Android ril</a></li>
+<li class="toctree-l3"><a class="reference internal" href="557.html">CMUX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82.html">ECM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82.html#id6">常见问题</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="531.html">调试教程</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label for="toctree-checkbox-18"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="234.html">1.编译软件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="234.html#id2">3.说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="234.html#id3">4.注意事 项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="2097.html">8910芯片USB描述符</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="2097.html#id1">前言</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label for="toctree-checkbox-19"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="2098.html">设备描述符&amp;配置描述符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2098.html#id2">一、设备描述符&amp;配置描述符</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2099.html">接口描述符—概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2099.html#id2">二、接口描述符-概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2100.html">接口描述符—RNDIS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2100.html#id1">三、RNDIS网卡</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2100.html#id3">3.2、数据接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2101.html">接口描述符—虚拟串口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="2101.html#id2">四、虚拟串口</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="121.html">9. 常见问题</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label for="toctree-checkbox-20"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="131.html">固件与程序下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="132.html">电平转换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="547.html">Windows下如何禁用RNDIS上网</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="123.html">10. 最佳实践</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label for="toctree-checkbox-21"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="130.html">7.1阿里云温度检测(未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="603.html">阿里云差分升级</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1630.html">11. 修改说明</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1630.html#id2">修改说明</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label for="toctree-checkbox-22"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1798.html">新的wiki_page页面</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="287.html">Air720UG/UH模块应用手册</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label for="toctree-checkbox-23"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="288.html">1. 文档概述</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label for="toctree-checkbox-24"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="548.html">新的wiki_page页面</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="379.html">2. 模块资料文档</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label for="toctree-checkbox-25"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="380.html">硬件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="381.html">软件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="382.html">下载调试工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="383.html">相关证书</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="297.html">3. 硬件接口功能描述</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label for="toctree-checkbox-26"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="524.html">模块特性概述</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label for="toctree-checkbox-27"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="292.html">Air720UG尺寸图（单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="292.html#air720ug-pcb">Air720UG/PCB封装（正视图,单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="293.html">绝对最大值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="293.html#id2">推荐工作条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="293.html#id3">工作温度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="294.html">RF传导功率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="294.html#id1">RF传导灵敏度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="296.html">存储</a></li>
+<li class="toctree-l4"><a class="reference internal" href="296.html#id2">生产焊接</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="298.html">电源供电</a></li>
+<li class="toctree-l3"><a class="reference internal" href="299.html">开关机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html">串口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#uart1">UART1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#uart2">UART2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#uart3">UART3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#host-uart">HOST UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#zsp-uart">ZSP UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="300.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html">USB接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="301.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="302.html">SIM卡接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="303.html">网络状态指示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html">模拟语音</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html#id3">麦克风接口参考电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html#id4">音频输出接口参考电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="304.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="306.html">I2C接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="307.html">LCD SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="308.html">通用SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="308.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="308.html#id2">SPI接口连接方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="310.html">SDIO接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="310.html#id1">一、概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="310.html#id2">二、管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="310.html#id3">三、参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="310.html#id4">四、功能使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="310.html#lua">4.2 Lua二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="312.html">LDO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="312.html#at">AT指令控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="312.html#luat">LUAT二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="313.html">PWM接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="313.html#id1">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="313.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="313.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="314.html">GPIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="314.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="314.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="314.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="314.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="314.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="315.html">ADC接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="316.html">蓝牙</a></li>
+<li class="toctree-l3"><a class="reference internal" href="316.html#at">蓝牙相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="316.html#id2">蓝牙测试/使用流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html">Wifi扫描</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html#id2">天线设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html#id3">参考设计电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="317.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="318.html">天线接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="319.html">看门狗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="319.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="319.html#id3">参考电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="319.html#lua">看门狗LUA接口</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="325.html">4. 标准AT指令开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label for="toctree-checkbox-28"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="583.html">AT指令开发资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="583.html#at-1">AT指令开发资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="343.html">5. Luat二次开发教程</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="343.html#id1">Luat二次开发资料汇总</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label for="toctree-checkbox-29"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="553.html">Luat二次开发资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="553.html#luat-1">Luat二次开发资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="358.html">6. CSDK二次开发教程</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="358.html#id1">CSDK二次开发资料汇总</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label for="toctree-checkbox-30"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="359.html">CSDK二次开发资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="359.html#csdk-1">CSDK二次开发资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="321.html">7. Linux/Android 应用教程</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="321.html#id1">Linux/Android 应用资料汇总</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label for="toctree-checkbox-31"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="324.html">Linux/Android 应用资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="324.html#linuxandroid-1">Linux/Android 应用资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="522.html">8. DTU开发方式教程</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label for="toctree-checkbox-32"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="523.html">LUA SmartDTU 资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="372.html">9.常见问题</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label for="toctree-checkbox-33"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="584.html">新的wiki_page页面</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="377.html">10.最佳实践</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label for="toctree-checkbox-34"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="378.html">7.1阿里云温度检测(未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1631.html">11.修改说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1631.html#id2">修改说明</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="1633.html">Air722UG模块应用手册</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label for="toctree-checkbox-35"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="1634.html">1.文档概述</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1636.html">2. 模块资料文档</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label for="toctree-checkbox-36"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1637.html">硬件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1638.html">软件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1639.html">下载调试工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1640.html">相关证书</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1641.html">3. 硬件接口功能描述</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label for="toctree-checkbox-37"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="1642.html">模块特性概述</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label for="toctree-checkbox-38"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="1646.html">Air722UG尺寸图（单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1647.html">绝对最大值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1647.html#id2">推荐工作条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1647.html#id3">工作温度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1648.html">RF传导功率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1648.html#id1">RF传导灵敏度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1650.html">存储</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1650.html#id2">生产焊接</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="1651.html">电源供电</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1652.html">开关机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html">串口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#uart1">UART1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#uart2">UART2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#uart3">UART3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#host-uart">HOST UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#zsp-uart">ZSP UART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1653.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html">USB接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html#id2">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html#id3">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1654.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1655.html">SIM卡接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1656.html">网络状态指示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html">模拟语音</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html#tdd">防止TDD噪声和其它噪声</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html#id3">音频输出接口参考电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1657.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1658.html">I2C接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1659.html">LCD SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1660.html">通用SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1660.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1660.html#id2">SPI接口连接方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1661.html">SDIO接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1661.html#id1">一、概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1661.html#id2">二、管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1661.html#id3">三、参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1661.html#id4">四、功能使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1661.html#lua">4.2 Lua二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1662.html">LDO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1662.html#at">AT指令控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1662.html#luat">LUAT二次开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1663.html">PWM接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1663.html#id1">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1663.html#at">AT版本相关控制指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1663.html#csdk">CSDK开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1664.html">GPIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1664.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1664.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1664.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1664.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1664.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1665.html">ADC接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1666.html">蓝牙</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1666.html#at">蓝牙相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1666.html#id2">蓝牙测试/使用流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html">Wifi扫描</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html#id2">天线设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html#id3">参考设计电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html#at">相关AT指令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html#luat">LUAT开发相关接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1667.html#id7">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1668.html">天线接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1669.html">看门狗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1669.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1669.html#id3">参考电路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1669.html#lua">看门狗LUA接口</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1670.html">4. 标准AT指令开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/><label for="toctree-checkbox-39"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1671.html">AT指令开发资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1671.html#at-1">AT指令开发资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1672.html">5. Luat二次开发教程</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1672.html#id1">Luat二次开发资料汇总</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label for="toctree-checkbox-40"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1673.html">Luat二次开发资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1673.html#luat-1">Luat二次开发资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1674.html">6. CSDK二次开发教程</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1674.html#id1">CSDK二次开发资料汇总</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label for="toctree-checkbox-41"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1675.html">CSDK二次开发资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1675.html#csdk-1">CSDK二次开发资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1676.html">7. Linux/Android 应用教程</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1676.html#id1">Linux/Android 应用资料汇总</a><input class="toctree-checkbox" id="toctree-checkbox-42" name="toctree-checkbox-42" type="checkbox"/><label for="toctree-checkbox-42"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1677.html">Linux/Android 应用资料汇总</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1677.html#linuxandroid-1">Linux/Android 应用资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1678.html">8. DTU开发方式教程</a><input class="toctree-checkbox" id="toctree-checkbox-43" name="toctree-checkbox-43" type="checkbox"/><label for="toctree-checkbox-43"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1679.html">LUA SmartDTU 资料汇总</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1680.html">9.常见问题</a><input class="toctree-checkbox" id="toctree-checkbox-44" name="toctree-checkbox-44" type="checkbox"/><label for="toctree-checkbox-44"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1681.html">新的wiki_page页面</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1682.html">10.最佳实践</a><input class="toctree-checkbox" id="toctree-checkbox-45" name="toctree-checkbox-45" type="checkbox"/><label for="toctree-checkbox-45"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1683.html">7.1阿里云温度检测(未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1686.html">11.修改说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1686.html#id2">修改说明</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="384.html">Air820UG模块应用手册（未完成）</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-46" name="toctree-checkbox-46" type="checkbox"/><label for="toctree-checkbox-46"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="385.html">1. 文档概述</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1712.html">2. 模块资料文档</a><input class="toctree-checkbox" id="toctree-checkbox-47" name="toctree-checkbox-47" type="checkbox"/><label for="toctree-checkbox-47"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1714.html">硬件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1715.html">软件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1716.html">下载调试工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1717.html">相关证书</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="394.html">3. 硬件接口功能描述</a><input class="toctree-checkbox" id="toctree-checkbox-48" name="toctree-checkbox-48" type="checkbox"/><label for="toctree-checkbox-48"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="395.html">模块特性概述</a><input class="toctree-checkbox" id="toctree-checkbox-49" name="toctree-checkbox-49" type="checkbox"/><label for="toctree-checkbox-49"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="1739.html">Air820UG尺寸图（单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1739.html#air820ug-pcb">Air820UG/PCB封装（正视图,单位：毫米）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1740.html">绝对最大值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1740.html#id2">推荐工作条件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1740.html#id3">工作温度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1742.html">RF传导灵敏度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1743.html">RF传导灵敏度</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="396.html">电源供电</a></li>
+<li class="toctree-l3"><a class="reference internal" href="397.html">开关机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="398.html">串口（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="399.html">USB接口（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="400.html">SIM卡接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="401.html">网络状态指示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="402.html">模拟语音（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="403.html">数字语音接口（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="404.html">I2C接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="405.html">LCD SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="406.html">通用SPI接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="407.html">Camera接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="408.html">SDIO接口（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="409.html">键盘接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="409.html#id2">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="409.html#id3">管脚定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="409.html#id4">参考设计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="409.html#id5">相关资料以及购买链接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="409.html#id6">常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="410.html">LDO（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="411.html">PWM接口（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="412.html">GPIO（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="413.html">ADC接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="414.html">蓝牙（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="415.html">Wifi扫描（未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="416.html">天线接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1727.html">看门狗（未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="417.html">4. 标准AT开发教程</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-50" name="toctree-checkbox-50" type="checkbox"/><label for="toctree-checkbox-50"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current has-children"><a class="reference internal" href="422.html">3.1 AT相关软件功能描述</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-51" name="toctree-checkbox-51" type="checkbox"/><label for="toctree-checkbox-51"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">3.1.1 TCP/UDP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#at">2 相关AT指令介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">3 AT指令示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">4 相关资料以及购买链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31">5 常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="425.html">3.1.2 SSL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="425.html#id1">为什么需要SSL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="425.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="426.html">3.1.3 HTTP/HTTPS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="426.html#csdk">CSDK模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="427.html">3.1.4 FTP/FTPS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="427.html#ftp">FTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="427.html#at">AT指令说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="427.html#id1">服务器搭建教程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="427.html#id2">使用流程演示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="428.html">3.1.5 MQTT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="428.html#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="428.html#at">AT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="428.html#luat">LUAT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="428.html#csdk">CSDK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="428.html#dtu">DTU固件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="429.html">3.1.6 PING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="430.html">3.1.7 CMUX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="423.html">3.1.8 省电模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="434.html">3.1.9 通话语音</a></li>
+<li class="toctree-l4"><a class="reference internal" href="434.html#id2">通话语音</a></li>
+<li class="toctree-l4"><a class="reference internal" href="434.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="432.html">3.1.10 时间同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="432.html#id2">时间同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="432.html#at">AT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="432.html#luat">luat方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="433.html">3.1.11 文件系统操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="433.html#luat">LUAT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="435.html">3.1.12 音频播放和TTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="435.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="436.html">3.1.12 网络注册与信号强度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="439.html">3.1.13 短消息(未完成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="437.html">3.1.14 阿里云</a></li>
+<li class="toctree-l4"><a class="reference internal" href="437.html#id2">阿里云操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="437.html#at">AT方式连接概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="437.html#luat">LUAT方式连接概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="437.html#id20">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="431.html">3.1.15 基站/WIFI定位</a></li>
+<li class="toctree-l4"><a class="reference internal" href="431.html#id1">wifi与基站定位</a></li>
+<li class="toctree-l4"><a class="reference internal" href="431.html#id2">基站定位：</a></li>
+<li class="toctree-l4"><a class="reference internal" href="438.html">3.1.16 远程升级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="438.html#id4">第三方服务器升级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="1735.html">3.1.17 GPS(未完成)</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="440.html">3.2 luat二次开发软件相关功能描述</a><input class="toctree-checkbox" id="toctree-checkbox-52" name="toctree-checkbox-52" type="checkbox"/><label for="toctree-checkbox-52"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="451.html">3.2.1 SOCKET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="451.html#id1">1 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="451.html#api">2 API说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="451.html#luat">3 luat示例程序</a></li>
+<li class="toctree-l4"><a class="reference internal" href="451.html#id25">4 相关资料以及购买链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="451.html#id26">5 常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="444.html">3.2.2 HTTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="444.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="446.html">3.2.3 MQTT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="454.html">3.2.4 省电模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="441.html">3.2.5 音频播放控制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="441.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="442.html">3.2.6 通话控制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="442.html#id2">通话语音</a></li>
+<li class="toctree-l4"><a class="reference internal" href="442.html#luat">LUAT模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="443.html">3.2.7 文件操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="443.html#luat">LUAT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="445.html">3.2.8 基站/wifi定位</a></li>
+<li class="toctree-l4"><a class="reference internal" href="445.html#id1">wifi与基站定位</a></li>
+<li class="toctree-l4"><a class="reference internal" href="445.html#id2">基站定位：</a></li>
+<li class="toctree-l4"><a class="reference internal" href="447.html">3.2.9 时间同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="447.html#id2">时间同步</a></li>
+<li class="toctree-l4"><a class="reference internal" href="447.html#at">AT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="447.html#luat">luat方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="448.html">3.2.10文件系统操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="448.html#luat">LUAT方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="449.html">3.2.11 短消息（未完成）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="452.html">3.2.12 阿里云</a></li>
+<li class="toctree-l4"><a class="reference internal" href="452.html#id2">阿里云操作</a></li>
+<li class="toctree-l4"><a class="reference internal" href="452.html#at">AT方式连接概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="452.html#luat">LUAT方式连接概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="452.html#id20">常见问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="450.html">3.2.13 远程升级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="450.html#id4">第三方服务器升级</a></li>
+<li class="toctree-l4"><a class="reference internal" href="453.html">3.2.14 错误日志上报（未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="418.html">3.3 Linux 应用</a><input class="toctree-checkbox" id="toctree-checkbox-53" name="toctree-checkbox-53" type="checkbox"/><label for="toctree-checkbox-53"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="419.html">3.3.1 RNDIS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="420.html">3.3.2 PPP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="420.html#windowsppp">windows下PPP拨号</a></li>
+<li class="toctree-l4"><a class="reference internal" href="421.html">3.3.3 ECM</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="455.html">3.4 CSDK二次开发软件相关功能描述</a><input class="toctree-checkbox" id="toctree-checkbox-54" name="toctree-checkbox-54" type="checkbox"/><label for="toctree-checkbox-54"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="456.html">新的wiki_page页面</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="457.html">5. Luat二次开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-55" name="toctree-checkbox-55" type="checkbox"/><label for="toctree-checkbox-55"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="458.html">4.1 core API(未完成）</a><input class="toctree-checkbox" id="toctree-checkbox-56" name="toctree-checkbox-56" type="checkbox"/><label for="toctree-checkbox-56"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="459.html">adc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="460.html">audiocore</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="461.html">4.2 script lib API(未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="462.html">6. CSDK二次开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-57" name="toctree-checkbox-57" type="checkbox"/><label for="toctree-checkbox-57"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="463.html">5.1 固件升级(未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="464.html">5.2 开发调试(未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="466.html">5.3 异常重启死机dump数据方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="467.html">5.4 luatool抓取底层日志的方法(未完成）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="465.html">5.5 死机dump数据方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="468.html">5.6 RNDIS抓取日志教程（未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="469.html">7. Linux/Android 应用教程</a><input class="toctree-checkbox" id="toctree-checkbox-58" name="toctree-checkbox-58" type="checkbox"/><label for="toctree-checkbox-58"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="470.html">6.1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="471.html">6.2 固件与程序下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="472.html">6.3 电平转换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="473.html">6.4 蓝牙与wifi</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="474.html">8. SmartDTU 开发教程</a><input class="toctree-checkbox" id="toctree-checkbox-59" name="toctree-checkbox-59" type="checkbox"/><label for="toctree-checkbox-59"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="475.html">7.1阿里云温度检测(未完成）</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="476.html">9. 常见问题</a><input class="toctree-checkbox" id="toctree-checkbox-60" name="toctree-checkbox-60" type="checkbox"/><label for="toctree-checkbox-60"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="477.html">8.1硬件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="478.html">8.2 软件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="479.html">8.3 相关工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="480.html">8.4 相关证书</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1723.html">10. 最佳实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1724.html">11.修改说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1724.html#id2">修改说明</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="281.html">Air530模块应用手册</a><input class="toctree-checkbox" id="toctree-checkbox-61" name="toctree-checkbox-61" type="checkbox"/><label for="toctree-checkbox-61"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="282.html">1. 模块资料</a><input class="toctree-checkbox" id="toctree-checkbox-62" name="toctree-checkbox-62" type="checkbox"/><label for="toctree-checkbox-62"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="591.html">硬件资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="592.html">固件和工具</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="585.html">2. 相关教程</a><input class="toctree-checkbox" id="toctree-checkbox-63" name="toctree-checkbox-63" type="checkbox"/><label for="toctree-checkbox-63"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="593.html">GPS的冷启动、温启动和热启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="594.html">计算GPS的NMEA校验码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="602.html">LUAT模块GPS天线设计建议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="602.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="602.html#gps">GPS天线选型建议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="602.html#id4">对天线厂家的要求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="602.html#id5">GPS天线厂家选择</a></li>
+<li class="toctree-l3"><a class="reference internal" href="604.html">GPS基础知识学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="604.html#id1">1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="604.html#id2">2 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="604.html#id3">3 相关名词</a></li>
+<li class="toctree-l3"><a class="reference internal" href="604.html#id7">4 常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1687.html">各GPS坐标系说明以及转换方法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="601.html">3. 常见问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1632.html">4. 修改说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1632.html#id2">修改说明</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="1692.html">Air530Z模块应用手册</a><input class="toctree-checkbox" id="toctree-checkbox-64" name="toctree-checkbox-64" type="checkbox"/><label for="toctree-checkbox-64"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1695.html">1. 模块资料文档</a><input class="toctree-checkbox" id="toctree-checkbox-65" name="toctree-checkbox-65" type="checkbox"/><label for="toctree-checkbox-65"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1697.html">硬件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1775.html">软件相关资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1776.html">下载调试工具</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="1784.html">2.相关教程</a><input class="toctree-checkbox" id="toctree-checkbox-66" name="toctree-checkbox-66" type="checkbox"/><label for="toctree-checkbox-66"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="1786.html">GPS的冷启动、温启动和热启动</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1787.html">计算GPS的NMEA校验码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1788.html">LUAT模块GPS天线设计建议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1788.html#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1788.html#gps">GPS天线选型建议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1788.html#id4">对天线厂家的要求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1788.html#id5">GPS天线厂家选择</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1789.html">GPS基础知识学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1789.html#id1">1 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1789.html#id2">2 原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1789.html#id3">3 相关名词</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1789.html#id7">4 常见问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1790.html">各GPS坐标系说明以及转换方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <div class="section" id="tcp-udp">
+<h1>3.1.1 TCP/UDP<a class="headerlink" href="#tcp-udp" title="永久链接至标题">¶</a></h1>
+<p>作者：闫国梁</p>
+<p>最后修改时间：2020年7月23日</p>
+<p>关键词：<strong>TCP，UDP，SOCKET，透传，服务器</strong></p>
+</div>
+<div class="section" id="id1">
+<h1>1 概述<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>Air724模组内置TCP/IP协议栈，提供TCP客户端和服务器端服务（PS：模块没有公网IP所以服务端模式多用于专属VPN网络）。</p>
+<p>通过AT指令使用TCP服务主要包含设备联网，配置连接，建立连接，发送数据等步骤，具体流程如图<a class="reference external" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609174410905_TCP流程图.pdf">高清版TCP流程图.pdf</a></p>
+<img alt="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609174128779_TCP流程图.jpg" src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609174128779_TCP流程图.jpg"/>
+</div>
+<div class="section" id="at">
+<h1>2 相关AT指令介绍<a class="headerlink" href="#at" title="永久链接至标题">¶</a></h1>
+<div class="section" id="ip-at-cipmux">
+<h2>2.1 启动多IP连接：AT+CIPMUX<a class="headerlink" href="#ip-at-cipmux" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 15%"/>
+<col style="width: 56%"/>
+<col style="width: 29%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设置命令</p></td>
+<td><p>AT+CIPMUX=</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查询命令</p></td>
+<td><p>AT+CIPMUX?</p></td>
+<td><p>+CIPMUX: OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测试命令</p></td>
+<td><p>AT+CIPMUX=?</p></td>
+<td><p>+CIPMUX: (0,1) OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>注意事项</p></td>
+<td><p>只在 IP initial
+状态，本命令的设置命令才能设置成功</p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 11%"/>
+<col style="width: 32%"/>
+<col style="width: 11%"/>
+<col style="width: 47%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>多路连接开关</p></td>
+<td><p>0</p></td>
+<td><p>单路连接（缺省值）</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>多路连接</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="apn-at-cstt">
+<h2>2.2 启动任务并设置接入点APN、用户名、密码：AT+CSTT<a class="headerlink" href="#apn-at-cstt" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 6%"/>
+<col style="width: 55%"/>
+<col style="width: 39%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命
+令
+类
+型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设
+置
+命
+令</p></td>
+<td><p>AT+CSTT=[,[,]]</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查
+询
+命
+令</p></td>
+<td><p>AT+CSTT?</p></td>
+<td><p>+CSTT: ,, OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测
+试
+命
+令</p></td>
+<td><p>AT+CSTT=?</p></td>
+<td><p>+CSTT:
+“APN”,“USER”,“PWD” OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>注
+意
+事
+项</p></td>
+<td><p>1） 设置命令和执行命令只有在 IP
+INITIAL
+状态下
+执行有效。执行设置命令后，状态变为
+IP START 2）
+模块注册网络后会从网络自动获
+取并激活一个PDP上下文，用于RNDIS上
+网使用。此可以通过AT+CGDCONT?来查询
+V980之前（不含V980），需
+要AT+CGDCONT?查询得到后设置AT+CSTT=
+V980之后
+（包含V980），直接输入AT+CSTT即可，
+模块会按照自动获取的来设置CSTT的APN</p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 6%"/>
+<col style="width: 22%"/>
+<col style="width: 6%"/>
+<col style="width: 66%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>GPRS 接入点名称</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>字符串参数(双引号可加可不加)，不超过128个字符</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>GPRS 用户名</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>字符串参数(双引号可加可不加)，不超过32个字符</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>GPRS 密码</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>字符串参数(双引号可加可不加)，不超过32个字符</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="gprs-csd-at-ciicr">
+<h2>2.3 激活移动场景(或发起GPRS 或CSD无线连接)：AT+CIICR<a class="headerlink" href="#gprs-csd-at-ciicr" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 4%"/>
+<col style="width: 49%"/>
+<col style="width: 46%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>命 | 语法
+令 |
+类 |
+型 |</p></th>
+<th class="head"><p>返回和说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>执 | AT+CIICR
+行 |
+命 |
+令 |</p></td>
+<td><p>如果激活成功，返回： OK
+如果激活失败，返回： ERROR</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>测 | AT+CIICR=?
+试 |
+命 |
+令 |</p></td>
+<td><p>返回： OK</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>注 | AT+CIICR 只有在IP
+意 | START状态下才能
+事 | 激活移动场景，执行后状态变为IP
+项 | CONFIG。</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">在模块接受激活场景操作后，如</div>
+<div class="line">果移动场景激活成功，状态变为IPG</div>
+<div class="line">PRSACT，返回OK，否则返回ERROR。</div>
+</div>
+</div></blockquote>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="ip-at-cifsr">
+<h2>2.4 查询本地IP地址：AT+CIFSR<a class="headerlink" href="#ip-at-cifsr" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 9%"/>
+<col style="width: 76%"/>
+<col style="width: 15%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令
+类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返
+回和说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>执行
+命令</p></td>
+<td><p>AT+CIFSR</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>测试
+命令</p></td>
+<td><p>AT+CIFSR=?</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-even"><td><p>注意
+事项</p></td>
+<td><p>只 有 在 移 动 场 景 已 激 活 的 状 态 ： IP
+GPRSACT 、 TCP/UDPCONNECTING 、 CONNECT OK 、 IP
+CLOSE 下 才 可 以 通 过AT+CIFSR 查询得到本地 IP
+地址，否则返回 ERROR</p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 9%"/>
+<col style="width: 16%"/>
+<col style="width: 9%"/>
+<col style="width: 65%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>IP 地址</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>字符串参数(字符串需要加引号)</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="tcpssl-at-cipssl">
+<h2>2.5 设置TCP使用SSL功能：AT+CIPSSL<a class="headerlink" href="#tcpssl-at-cipssl" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 7%"/>
+<col style="width: 69%"/>
+<col style="width: 24%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命
+令
+类
+型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设
+置
+命
+令</p></td>
+<td><p>AT+CIPSSL=</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查
+询
+命
+令</p></td>
+<td><p>AT+CIPSSL?</p></td>
+<td><p>+CIPSSL: OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测
+试
+命
+令</p></td>
+<td><p>AT+CIPSSL=?</p></td>
+<td><p>+CIPSSL: (0-1)
+OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>注
+意
+事
+项</p></td>
+<td><p>在CIPSTART之前输
+入设置命令AT+CIPSSL=1来打开SSL功能。打开SSL功
+能后，模块会在TCP连接建立后自动进行SSL验证。
+当前仅支持作为SSL Client应用。</p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 13%"/>
+<col style="width: 35%"/>
+<col style="width: 13%"/>
+<col style="width: 39%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>SSL功能开关</p></td>
+<td><p>0</p></td>
+<td><p>关闭SSL</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>打开SSL</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="tcp-ssl-at-sslcfg">
+<h2>2.6 配置TCP SSL参数：AT+SSLCFG<a class="headerlink" href="#tcp-ssl-at-sslcfg" title="永久链接至标题">¶</a></h2>
+<p>设置命令用来设置SSL版本，SSL加密算法（ciphersuites），安全等级（security
+level），CA 证书（Certificate Authority
+Certificate），客户端证书（client certificate）和客户端密钥（client
+key）。这些参数在SSL协议的握手过程中会用到。</p>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 4%"/>
+<col style="width: 43%"/>
+<col style="width: 52%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>命 | 语法
+令 |
+类 |
+型 |</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>设 | AT+SSLCFG=“sslversion”,[,]
+置 |
+命 |
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>**
+如果缺失，则查询对应的SSL版本：**
++SSLCFG: “sslversion”,, OK
+<strong>否则，设置对应的SSL版本：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>AT+SSLCFG=“ciphersuite”,[,]</p></td>
+<td><p><strong>如
+果缺失，则查询对应的加密算法：</strong>
++SSLCFG: ciphersuite”,, OK
+<strong>否则，设置对应的加密算法：</strong>
+如果格式和参数正确，返回： OK
+如果目录格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AT+SSLCFG=“cacert”,[,]</p></td>
+<td><p><strong>如果参数
+缺失，则查询对应的CA证书路径：</strong>
++SSLCFG:“cacert”,, OK
+<strong>否则，设置对应的CA证书路径：</strong>
+如果格式和参数正确，返回： OK
+如果目录格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>AT+SSLCFG=“clientcert”,[,]</p></td>
+<td><p><strong>如果参数缺失，
+则是查询对应的客户端证书路径：</strong>
++SSLCFG:“clientcert”,, OK
+<strong>否
+则，设置对应的客户端证书路径：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AT+SSLCFG=“clientkey”,[,]</p></td>
+<td><p><strong>如果缺失，
+则是查询对应的客户端密钥路径：</strong>
++SSLCFG:“clientkey”,, OK
+<strong>否
+则，设置对应的客户端密钥路径：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>AT+SSLCFG=“seclevel”,[,]</p></td>
+<td><p><strong>如果参数缺
+失，则是查询相关的安全等级</strong>：
++SSLCFG:“seclevel”,, OK
+<strong>否则，设置对应的安全等级：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AT+SSLCFG=“hostname”,[,]</p></td>
+<td><p><strong>如果
+参数缺失，则是查询相关的域名：</strong>
++SSLCFG:“hostname”,, OK
+<strong>否则，设置对应的主机名：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>AT+S
+SLCFG=“ignorelocaltime”,[,]</p></td>
+<td><p><strong>如果缺失，则是查询相关
+的证书过期时间检查这项的设置：</strong>
++SSLCFG:“ignorelocaltime”,, OK
+<strong>否则，设
+置对应的证书过期时间检查参数：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AT+SS
+LCFG=“negotiatetimeout”,[,]</p></td>
+<td><p><strong>如果参数缺失，
+则是查询对应的最大SSL协商时间：</strong>
++SSLCFG:“negotiatetimeout”,, OK
+<strong>否则，
+设置对应的最大SSL写上协商时间：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>A
+T+SSLCFG=“clientrandom”,[,]</p></td>
+<td><p><strong>如果
+缺失，则是查询相关的随机数</strong>：
++SSLCFG:“clientrandom”,, OK
+<strong>否则，设置对应的随机数：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AT+SSLCFG=“premaster”,[,]</p></td>
+<td><p><strong>如果缺失，则是查询相关的：</strong>
++SSLCFG:“premaster”,, OK
+<strong>否则，设置对应的premaster：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>AT+SSLCFG=“verifymode”,[,]</p></td>
+<td><p><strong>如果缺失，则查询
+相关的证书验证模式，此时返回：</strong>
++SSLCFG:” verifymode”,, OK
+<strong>否则，设置证书认证模式
+是根证书认证还是其他证书认证：</strong>
+如果格式和参数正确，返回： OK
+如果命令格式或参数错误，返回：
+ERROR</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>AT+SSLCFG=”XXXXX”,,</p></td>
+<td><p>擦除相应的
+参数。”XXXXX”是指：“sslversion”，
+“ciphersuite”，“cacert”等关键字。
+<strong>注意：后一定要有逗号，
+如果后面没有逗号，则只是查询。</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>测 | AT+SSLCFG=?
+试 |
+命 |
+令 |</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>注 | TCP
+意 | SSL的功能示
+事 | 例，请参考本章后面的例子。
+项 |</p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 12%"/>
+<col style="width: 34%"/>
+<col style="width: 10%"/>
+<col style="width: 43%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>SSL上下文 id</p></td>
+<td><p>0~5
+,34,8
+8,153</p></td>
+<td><p>整数型。
+TCP功能时与
+CIPSTART中的绑定。例如：当
+多链接中CIPSTART中设置链接
+号为1，则SSL上下文id也为1。
+TCP
+单链接中SSL上下文id固定为0.
+FTP功能时=34（十进制）
+MQTT功能时=88（十进制）
+HTTP功能时=153（十进制）</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>SSL 版本</p></td>
+<td><p>0</p></td>
+<td><p>SSL3.0</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>TLS1.0</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>TLS1.1</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>3</p></td>
+<td><p>TLS1.12</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>4</p></td>
+<td><p>ALL above</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>SSL ciphersuites</p></td>
+<td><p>0
+X0035</p></td>
+<td><p>T
+LS_RSA_WITH_AES_256_CBC_SHA</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>0
+X002F</p></td>
+<td><p>T
+LS_RSA_WITH_AES_128_CBC_SHA</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>0
+X0005</p></td>
+<td><p>TLS_RSA_WITH_RC4_128_SHA</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>0
+X0004</p></td>
+<td><p>TLS_RSA_WITH_RC4_128_MD5</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>0
+X000A</p></td>
+<td><p>TL
+S_RSA_WITH_3DES_EDE_CBC_SHA</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>0
+X003D</p></td>
+<td><p><a href="#id32"><span class="problematic" id="id33">TLS_</span></a>
+RSA_WITH_AES_256_CBC_SHA256</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>0
+XFFFF</p></td>
+<td><p>ALL above</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>被信任的CA 证书路径</p></td>
+<td></td>
+<td><p>字符串型</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>客户端证书路径</p></td>
+<td></td>
+<td><p>字符串型</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>客户端密钥路径</p></td>
+<td></td>
+<td><p>字符串型</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>安全等级</p></td>
+<td><p>0</p></td>
+<td><p>No authentication</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>服务器鉴权</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>服务器鉴权和客户端
+鉴权（如果服务器要求的话）</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>主机名</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>该参数
+决定如何对待过期证书</p></td>
+<td><p>0</p></td>
+<td><p>关心证书的过期时间</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>忽略证书的过期时间</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>SSL协商阶段的最大时间</p></td>
+<td><p>1
+0~300</p></td>
+<td><p>单位：秒</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>随机数，
+十六进制数组成的字符
+串，支持56和64个字节</p></td>
+<td><p>数字
+和字
+母的
+组合</p></td>
+<td><p>字符串型，双引号可加
+可不加，数字的范围：0~9，字
+母的范围：ABCDEF（大小写不
+敏感）。例如56个字节的：10
+1B12C3141516171F19202122232
+425262728293031323334353637</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>premaster</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>证书验证模式</p></td>
+<td><p>0</p></td>
+<td><p>根证书认证</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>其他证书认证</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="tcpudp-at-cipstart">
+<h2>2.7 建立TCP连接或注册UDP端口号：AT+CIPSTART<a class="headerlink" href="#tcpudp-at-cipstart" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 4%"/>
+<col style="width: 48%"/>
+<col style="width: 48%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>命 | 语法
+令 |
+类 |
+型 |</p></th>
+<th class="head"><p>返回和说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>设 | 单 路 连 接 (+CIPMUX=0)时：
+置 | AT+CIPSTART=,, 或
+命 | AT+CIPSTART=,,
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>如果格式正确且处于IP INITIAL
+或者 IP STATUS或TCP/UDP
+CLOSE状态，返回： <strong>OK</strong>
+否则返回： <a href="#id2"><span class="problematic" id="id3">**</span></a>+CME ERROR **
+紧接着会有</p>
+<blockquote>
+<div><p><strong>URC</strong>上报，上报内容如下：</p>
+</div></blockquote>
+<p>如果连接已经存在，返回：
+<strong>ALREADY CONNECT</strong>
+如果连接成功(非透传)，返回：
+<strong>CONNECT OK</strong>
+如果连接成功(透传)，返回：
+<strong>CONNECT</strong> 否则返回: <strong>STATE:
+** **CONNECT FAIL</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>多路连接(+CIPMUX=1)时：
+AT+CIPSTART=,,&lt; IP address&gt;,
+或 AT+CIPSTART=,,,</p></td>
+<td><p>如果格式正确且处于 IP
+STATUS或IP
+PROCESSING时，返回： <strong>OK</strong>
+否则返回： <a href="#id4"><span class="problematic" id="id5">**</span></a>+CME ERROR **
+紧接着会有</p>
+<blockquote>
+<div><p><strong>URC</strong>上报，上报内容如下：</p>
+</div></blockquote>
+<p>如果连接已经存在, 返回：
+<strong>,ALREADY CONNECT</strong>
+如果连接成功，返回：
+<strong>,CONNECT OK</strong> 否则返回:
+<strong>,CONNECT FAIL</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>测 | AT+CIPSTART=?
+试 |
+命 |
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>单路连接(+CIPMUX=0)时返回：
++CIPSTART: (取值列表),(IP
+address range),(port range)?
++CIPSTART: (取值列表),(domain
+name),(port range) OK</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>多路连接(+CIPMUX=1)时返回：
++CIPSTART: ( 取 值 列 表 ),(
+取 值 列 表 ),(IP
+addressrange),(port range)
++CIPSTART: (取值列表),(
+取值列表),(domain
+name),(portrange) OK</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p>注 | 此命令应用于建立 TCP/UDP      |
+意 | 连接；                        |
+事 | 当前状态可用AT+CIPSTATUS查询； |
+项 | 单路连接时只当前状态为IP      |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">INITIAL 或者 IP                |</div>
+<div class="line">STATUS或TCP/UDP CLOSE          |</div>
+<div class="line">时可执行，多路连接时当前状态为 |</div>
+<div class="line">IP STATUS或IP                  |</div>
+<div class="line">PROCESSING时可执行；           |</div>
+<div class="line">在当前状                       |</div>
+<div class="line">态不是上述可执行状态时，需执行 |</div>
+<div class="line">AT+CIPSHUT后再开始建立连接；   |</div>
+<div class="line">多路连接时，设                 |</div>
+<div class="line">置此命令前，必须先执行AT+CSTT, |</div>
+<div class="line">AT+CIICR,AT+CIFSR这三个命令。  |</div>
+</div>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 30%"/>
+<col style="width: 30%"/>
+<col style="width: 30%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>Link No.</p></td>
+<td><p>0~5</p></td>
+<td><p>整数
+型，表示连接序号</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>连接类
+型，字符串型（双
+引号可加可不加）</p></td>
+<td><p>“TCP”</p></td>
+<td><p>建立TCP连接</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>“UDP”</p></td>
+<td><p>建立UDP连接</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>远端服务器 IP
+地址</p></td>
+<td><p>最大32个字节</p></td>
+<td><p>字符串参数（双
+引号可加可不加）</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>远端服务器域名</p></td>
+<td><p>最大32个字节</p></td>
+<td><p>字符串参数（双
+引号可加可不加）</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>远端服务端口</p></td>
+<td><p>1~65535</p></td>
+<td><p>整数型</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>单连接状态</p></td>
+<td><p>IP INITIAL</p></td>
+<td><p>初始化</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>IP START</p></td>
+<td><p>启动任务</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>IP CONFIG</p></td>
+<td><p>配置场景</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>IP GPRSACT</p></td>
+<td><p>场景已激活</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>IP STATUS</p></td>
+<td><p>获得本地 IP 状态</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>TCP
+CONNECTING/UDP
+CONNECTING/SERVER
+LISTENING</p></td>
+<td><p>TCP 连接中/UDP
+端口注
+册中/服务器侦听中</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>CONNECT OK</p></td>
+<td><p>连接建立成功</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>TCP CLOSING/UDP
+CLOSING</p></td>
+<td><p>正在关闭 TCP
+连接，正在注销
+UDP 端口</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>TCP CLOSED/UDP
+CLOSED</p></td>
+<td><p>连接断开 /UDP
+端口被注销</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>PDP DEACT</p></td>
+<td><p>场景被释放</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="tcpip-at-cipmode">
+<h2>2.8 选择TCPIP应用模式：AT+CIPMODE<a class="headerlink" href="#tcpip-at-cipmode" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 15%"/>
+<col style="width: 42%"/>
+<col style="width: 42%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设置命令</p></td>
+<td><p>AT+CIPMODE=</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查询命令</p></td>
+<td><p>AT+CIPMODE?</p></td>
+<td><p>+CIPMODE: OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测试命令</p></td>
+<td><p>AT+CIPMODE=?</p></td>
+<td><p>+CIPMODE: (0-NORMAL
+MODE,1-TRANSPARENT MODE)
+OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>注意事项</p></td>
+<td><p>此命令只有在IP
+INITIAL状态下才能进行设置
+只有T
+CP单链接才支持透明传输模式</p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 11%"/>
+<col style="width: 37%"/>
+<col style="width: 11%"/>
+<col style="width: 40%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>TCPIP应用模式</p></td>
+<td><p>0</p></td>
+<td><p>非透明传输模式</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>透明传输模式</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="at-cipqsend">
+<h2>2.9 选择非透传数据发送模式：AT+CIPQSEND<a class="headerlink" href="#at-cipqsend" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 19%"/>
+<col style="width: 31%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设置命令</p></td>
+<td><p>AT+CIPQSEND=</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查询命令</p></td>
+<td><p>AT+CIPQSEND?</p></td>
+<td><p>+CIPQSEND: OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测试命令</p></td>
+<td><p>AT+CIPQSEND=?</p></td>
+<td><p>+CIPQSEND: (0,1,2) OK</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 34%"/>
+<col style="width: 10%"/>
+<col style="width: 45%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>非透传数据发送模式</p></td>
+<td><p>0</p></td>
+<td><p>缺省值。快发模式0。
+当服
+务器收到数据，模块返回:
+SEND OK （单链接） 或 ,
+SEND OK （多链接）</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>快发
+模式1。当数据发送到模块
+， 终 端 返 回：
+DATAACCEPT: （单链接）
+DATAACCEPT:, （多链接）</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>慢发模式
+当服
+务器收到数据，模块返回:
+SEND OK （单链接） 或 ,
+SEND OK （多链接）</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>注：</p>
+<p>慢发模式每发送一笔数据需要服务器那边的确认，而快发则发送到模块就可以了，不需要服务器的确认。推荐使用0或1，即快发模式；</p>
+<p>这两种快发模式实现机制没有区别，区别只在于发送完数据，模式0提示SEDN
+OK，模式1提示DATA ACCEPT；</p>
+<p>建议使用CIPACK命令查询每笔数据对端是否已经收到</p>
+</div>
+<div class="section" id="at-ciprxf">
+<h2>2.10 设置接收的数据末尾是否自动添加回车换行：AT+CIPRXF<a class="headerlink" href="#at-ciprxf" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 19%"/>
+<col style="width: 26%"/>
+<col style="width: 56%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设置命令</p></td>
+<td><p>AT+CIPRXF=</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查询命令</p></td>
+<td><p>AT+CIPRXF?</p></td>
+<td><p>+CIPRXF: OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测试命令</p></td>
+<td><p>AT+CIPRXF=?</p></td>
+<td><p>+CIPRXF: (的取值列表) OK</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 8%"/>
+<col style="width: 8%"/>
+<col style="width: 8%"/>
+<col style="width: 77%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>模式</p></td>
+<td><p>0</p></td>
+<td><p>每笔收到的数据末尾自动添加一个回车换行（<a href="#id6"><span class="problematic" id="id7">:raw-latex:`\r\n`</span></a>）</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>每笔收到的数据末尾不添加回车换行（<a href="#id8"><span class="problematic" id="id9">:raw-latex:`\r\n`</span></a>）</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="at-cipccfg">
+<h2>2.11 配置透明传输模式：AT+CIPCCFG<a class="headerlink" href="#at-cipccfg" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 4%"/>
+<col style="width: 48%"/>
+<col style="width: 48%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>命 | 语法
+令 |
+类 |
+型 |</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>设 | AT+CIPCCFG=,,,[,,,,]
+置 |
+命 |
+令 |</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>查 | AT+CIPCCFG?
+询 |
+命 |
+令 |</p></td>
+<td><p>+CIPCCFG: ,,,,,,, OK</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>测 | AT+CIPCCFG=?
+试 |
+命 |
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>+CIPCCFG:
+(NmRetry:3-8),(WaitTm:2-10
+),(SendSz:1-1460),(esc:0,1),(R
+xmode:0,1),(RxSize:50-1460),(R
+xtimer:20-1000),(BufClean:0,1)
+OK</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p>注 | 此命                          |
+意 | 令只在单路连接（AT+CIPMUX=0） |
+事 | 且AT+CIPMODE=1的情况下可以设置 |
+项 |                               |</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 38%"/>
+<col style="width: 14%"/>
+<col style="width: 38%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>一个IP包的重传次数</p></td>
+<td><p>3~8</p></td>
+<td><p>缺省值为5</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>间隔发送时间</p></td>
+<td><p>2~10</p></td>
+<td><p>单位为
+100ms，缺省值为2。</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>每次发送数据字节数</p></td>
+<td><p>1~1460</p></td>
+<td><p>缺省值为1024</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>是否开启转义序列</p></td>
+<td><p>1</p></td>
+<td><p>开启转义序列，缺省值</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>不开启转义序列</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>从串口
+接收数据的时间间隔设置</p></td>
+<td><p>1</p></td>
+<td><p>设置时间间隔，间隔为</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>没有时间间隔</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>每次接收数据的长度</p></td>
+<td><p>50-1460</p></td>
+<td><p>单位为bytes</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>从
+串口接收数据的时间间隔</p></td>
+<td><p>20-1000</p></td>
+<td><p>单位为ms，缺省值为50ms</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>退出透
+传后是否清空发送缓存区</p></td>
+<td><p>0</p></td>
+<td><p>不清空缓冲区
+一旦出错自
+动退出透传模式后，保留
+缓存数据。下次重连进入
+透传模式后，会发送之前
+缓冲区中的数据给服务器</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>清空缓存区
+一旦出错自动退出
+透传模式后，缓存被清空
+。下次重连进入透传模式
+后，不会发送之前缓冲区
+中被清空的数据给服务器</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="at-cipsend">
+<h2>2.12 发送数据：AT+CIPSEND<a class="headerlink" href="#at-cipsend" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 4%"/>
+<col style="width: 48%"/>
+<col style="width: 48%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>命 | 语法
+令 |
+类 |
+型 |</p></th>
+<th class="head"><p>返回和说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>设 | 单路连接(AT+CIPMUX=0)：
+置 | AT+CIPSEND=
+命 |
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>本命令用于在单
+链接模式下发送长度不可变的数据
+1) 正常情况下返回 <strong>&gt;</strong>
+&gt;后输入长
+度的数据，则数据自动发送出去。
+如果是慢发模式，则
+数据发送成功后，有如下的返回：
+<strong>（不推荐使用慢发模式！）</strong>
+<strong>SEND OK</strong>
+如果是快发模式，则
+数据发送成功后，有如下的返回：
+<strong>（推荐使用快发模式！）</strong>
+<strong>DATA ACCEPT:</strong>
+如果
+数据发送失败，则有如下的返回：
+<strong>SEND FAIL</strong> 2)
+如果连
+接未建立或者连接被断开，返回：
+<a href="#id10"><span class="problematic" id="id11">**</span></a>+CME ERROR **</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>多路连接(+CIPMUX=1)：
+AT+CIPSEND=[,]</p></td>
+<td><p>当省略时，本命令用于多连接模
+式下发送长度可变的数据。响应”&gt;
+”， 此时
+输入数据，执行CTRL+Z(0x1A)发
+送，或执行ESC(0x1B)中止操作；
+当
+不省略时，本命令用于多连接模式
+下发送长度不可变的数据。响应”&gt;
+”，&gt;后输入长
+度的数据，则数据自动发送出去。
+如果连
+接未建立或者连接被断开，返回：
+<strong>+CME ERROR **
+如果是慢发模式，则
+数据发送成功后，有如下的返回：
+**（不推荐使用慢发模式！）</strong>
+<strong>,SEND OK</strong>
+如果是快发模式，则
+数据发送成功后，有如下的返回：
+<strong>（推荐使用快发模式！）</strong>
+<strong>DATA ACCEPT:,</strong>
+如果数据发送失败，返回：
+<strong>,SEND FAIL</strong></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>执 | AT+CIPSEND
+行 |
+命 |
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>本命令用于在
+单链接模式下发送长度可变的数据
+响应”<strong>&gt;</strong> ”， 此时
+输入数据，执行CTRL+Z(0x1A
+)发送，或执行ESC(0x1B)中止操作
+如
+果连接未建立或已被断开，返回：
+<strong>+CME ERROR **
+如果是慢发模式，则
+数据发送成功后，有如下的返回：
+**（不推荐使用慢发模式！）</strong>
+<strong>SEND OK</strong>
+如果是快发模式，则
+数据发送成功后，有如下的返回：
+<strong>（推荐使用快发模式！）</strong>
+<strong>DATA ACCEPT:</strong>
+如果数据发送失败，返回：
+<strong>SEND FAIL</strong></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>查 | AT+CIPSEND?
+询 |
+命 |
+令 |</p></td>
+<td><p>单路连接(AT+CIPMUX=0)返回：
++CIPSEND: OK</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>多路连接(AT+CIPMUX=1)返回：
++CIPSEND: , OK</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>测 | AT+CIPSEND=?
+试 |
+命 |
+令 |</p></td>
+<td><p>单路连接(AT+CIPMUX=0)返回：
++CIPSEND: OK</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>多路连接(AT+CIPMUX=1)返回：
++CIPSEND: &lt;0-7&gt;, OK</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p>注 | l                             |
+意 | 数据的最大发送长度由网络决定。 |
+事 | l                             |
+项 | 通过AT+CIPATS可               |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">以在设定的时间内自动发送数据。 |</div>
+<div class="line">l                              |</div>
+<div class="line">只有在连接                     |</div>
+<div class="line">已建立的状态下才可以发送数据。 |</div>
+<div class="line">l 一次最多能发送字节数不大于值 |</div>
+<div class="line">l <strong>不推荐使用慢发模式！</strong> l   |</div>
+<div class="line">发送命令AT+C                   |</div>
+<div class="line">IPSEND或AT+CIPSEND=以:raw-late |</div>
+<div class="line">x:<cite>r或</cite>:raw-latex:<a href="#id12"><span class="problematic" id="id13">`</span></a>rn为结尾 |</div>
+<div class="line"><cite>。若用户以:raw-latex:</cite>r结尾` |</div>
+<div class="line">，如果发送的数据第一个字节恰好 |</div>
+<div class="line">是:raw-latex:<cite>n</cite>，模块会判断  |</div>
+<div class="line">发送命令以:raw-latex:<a href="#id14"><span class="problematic" id="id15">`</span></a>rn为结 |</div>
+<div class="line">尾`，导致发送的数据的第一个字  |</div>
+<div class="line">符:raw-latex:<cite>n被吞掉</cite>。所以  |</div>
+<div class="line">，此时建议用户用CIPSEND发送数  |</div>
+<div class="line">据以:raw-latex:<cite>rn为结尾</cite>。  |</div>
+<div class="line">例如：                         |</div>
+<div class="line">AT+CIPSEND:raw-late            |</div>
+<div class="line">x:<cite>r  &gt;</cite><a href="#id16"><span class="problematic" id="id17">:raw-latex:`\n123456`</span></a> |</div>
+<div class="line">模块会                         |</div>
+<div class="line">判断为AT+CIPSEND:raw-latex:<a href="#id18"><span class="problematic" id="id19">`</span></a>r |</div>
+<div class="line">n`，会把数据中第一个字符:raw- |</div>
+<div class="line">latex:<cite>n吃掉</cite>。服务器那边收到 |</div>
+<div class="line">的数据是123456。解决的方法是： |</div>
+<div class="line">AT+CIPSEND:raw-latex:`         |</div>
+<div class="line">rn   <cite>&gt;:raw-latex:</cite>n123456` |</div>
+<div class="line">再例如：                       |</div>
+<div class="line">AT+CIPSEND=7:raw-late          |</div>
+<div class="line">x:<cite>r  &gt;</cite><a href="#id20"><span class="problematic" id="id21">:raw-latex:`\n123456`</span></a> |</div>
+<div class="line">模块会判断为A                  |</div>
+<div class="line">T+CIPSEND:raw-latex:<cite>rn</cite>，会 |</div>
+<div class="line">把数据中第一个字符:raw-latex:  |</div>
+<div class="line"><cite>n吃掉</cite>，导致数据少一个字符， |</div>
+<div class="line">会一直发不出去。解决的方法是： |</div>
+<div class="line">AT+CIPSEND=7:raw-latex:`       |</div>
+<div class="line">rn   <cite>&gt;:raw-latex:</cite>n123456` |</div>
+</div>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 7%"/>
+<col style="width: 50%"/>
+<col style="width: 7%"/>
+<col style="width: 37%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>Link No. 与+CIPSTRAT中定义一致</p></td>
+<td><p>0~5</p></td>
+<td><p>整数型，表示连接序号</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>发送数据长度</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>整数型，它必须小于</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>每次发送数据最大值</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>整数型，目前是1460字节</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="at-cipats">
+<h2>2.13 设置自动发送数据前的定时时间：AT+CIPATS<a class="headerlink" href="#at-cipats" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 15%"/>
+<col style="width: 24%"/>
+<col style="width: 62%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设置命令</p></td>
+<td><p>AT+CIPATS=[,]</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查询命令</p></td>
+<td><p>AT+CIPATS?</p></td>
+<td><p>+CIPATS: , OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测试命令</p></td>
+<td><p>AT+CIPATS=?</p></td>
+<td><p>+CIPATS: (取值列表),( 取值列表) OK</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 6%"/>
+<col style="width: 43%"/>
+<col style="width: 8%"/>
+<col style="width: 43%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>是否设置自动发送时间，整数型</p></td>
+<td><p>0</p></td>
+<td><p>未设置自动发送数据 (缺省值）</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>设置自动发送数据</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>数据将在多少秒后被发送</p></td>
+<td><p>1~100</p></td>
+<td><p>整数型，以秒为单位</p></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="at-cipsprt">
+<h2>2.14 设置发送数据时是否显示‘&gt;’和发送情况提示：AT+CIPSPRT<a class="headerlink" href="#at-cipsprt" title="永久链接至标题">¶</a></h2>
+<p>语法规则：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 19%"/>
+<col style="width: 28%"/>
+<col style="width: 53%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>命令类型</p></th>
+<th class="head"><p>语法</p></th>
+<th class="head"><p>返回</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>设置命令</p></td>
+<td><p>AT+CIPSPRT=</p></td>
+<td><p>OK</p></td>
+</tr>
+<tr class="row-odd"><td><p>查询命令</p></td>
+<td><p>AT+CIPSPRT?</p></td>
+<td><p>+CIPSPRT: OK</p></td>
+</tr>
+<tr class="row-even"><td><p>测试命令</p></td>
+<td><p>AT+CIPSPRT=?</p></td>
+<td><p>+CIPSPRT: (取值列表) OK</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义：</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 7%"/>
+<col style="width: 44%"/>
+<col style="width: 4%"/>
+<col style="width: 44%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参
+数</p></th>
+<th class="head"><p>定义</p></th>
+<th class="head" colspan="2"><p>取 | 对取值的说明
+值 |</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>执行 AT+CIPSEND
+后是否显示‘&gt;’
+和发送情况提示（即‘SEND
+OK‘或‘DATA ACCEPT‘）。
+整数型</p></td>
+<td><p>0</p></td>
+<td><p>不显示‘&gt;’，但返回 “SEND
+OK”或”DATA ACCEPT”
+<strong>注:</strong>返回 “SEND
+OK”或”DATA
+ACCEPT”由AT+
+CIPQSEND这个命令的设定来决定</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td><p>1</p></td>
+<td><p>显示‘&gt;’，且返回 “SEND OK”
+或”DATA ACCEPT” 缺省值
+<strong>注:</strong>返回 “SEND
+OK”或”DATA ACCEPT”
+由AT+
+CIPQSEND这个命令的设定来决定</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>不显示‘&gt;’，不返回 “SEND OK”
+或”DATA ACCEPT”</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>状态机</p>
+<img alt="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200611142457420_Snipaste_2020-06-11_14-24-41.png" src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200611142457420_Snipaste_2020-06-11_14-24-41.png"/>
+<p>◆输入 AT+CIICR，会马上进入 IPCONFIG 状态，当返回 OK 后，会进入到
+IPGPRSACT 状态；</p>
+<p>◆输入 AT+CIPSTART 后，会立马进入 IP/UDPCONNECTING 状态，如果后续模块上报
+CONNECTOK 这个 URC， 表明连接服务器成功，此时进入 CONNECTOK 状态；</p>
+<p>◆输入 AT+CIPCLOSE 后，立马进入 TCP/UDPCLOSING 状态，此时如果模块上报
+CLOSEOK，则表明关闭与服务 器的连接成功，此时模块进入 TCP/UDPCLOSED
+状态；</p>
+<p>◆如果模块上报+PDPDEACT 这个 URC，则标志着模块释放 PDP 上下文，并进入了
+PDPDEACT 状态；</p>
+<p>◆在 IPGPRSACT，IPSTATUS，CONNECT OK 以及 TCP/UDPCLOSED 状态下，输入
+AT+CGATT=0，则也可以使模 块释放上下文，进入 PDPDEACT 状态；</p>
+<p>◆模块进入 PDPDEACT 状态，仍需要输入 AT+CIPSHUT，进入 IPINITIAL 状态；
+◆模块在各个状态下均可以输入 AT+CIPSHUT，进入 IPINITIAL 状态。</p>
+</div>
+</div>
+<div class="section" id="id22">
+<h1>3 AT指令示例<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id23">
+<h2>3.1 连接网络<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id24">
+<h3><strong>3.1.1 开机</strong><a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
+<p>通过拉低powerkey2秒进行开机，开机以后通过串口循环发送AT直到收到OK，如果90秒没有收到OK请拉低
+RESET_IN_N 引脚 150ms
+以上。或使用其他方法见<a class="reference external" href="http://doc.openluat.com/wiki/6?wiki_page_id=44">开关机</a>章节</p>
+</div>
+<div class="section" id="id25">
+<h3>3.1.2 查询卡状态<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h3>
+<p><strong>AT+CPIN?</strong>查询卡状态，直到收到+CPIN:
+READY，如果10s内没有收到建议重启模块</p>
+</div>
+<div class="section" id="id26">
+<h3>3.1.3 查询网络注册情况<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
+<p><strong>AT+CGATT?</strong>查询是否注册网络收到+CGATT:
+1值是1即为注册成功，正常情况下注册时间不会超过两分钟，如果超过两分钟没有注册可以进入飞行模式五秒后退出再查询，或者直接重启模块。</p>
+</div>
+<div class="section" id="id27">
+<h3>3.1.4 激活网络<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h3>
+<p><strong>AT+CSTT</strong>配置网络，非私有APN以外Cat1的固件支持根据卡自动配置APN，直接输入AT+CSTT即可，模块会按照自动获取的APN设置CSTT的APN。</p>
+<p><strong>AT+CIICR</strong>激活网络，在IP
+START的状态使用AT+CIICR激活网络，激活以后通过<strong>AT+CIFSR</strong>查询是否获取IP，如果成功就可以开始配置TCP连接了，如果不成功使用AT+CIPSHUT关闭移动网络，从AT+CSTT重新进行。</p>
+</div>
+</div>
+<div class="section" id="tcp">
+<h2>3.2 连接TCP<a class="headerlink" href="#tcp" title="永久链接至标题">¶</a></h2>
+<p>此处使用的是非SSL连接，SSL见<a class="reference external" href="http://doc.openluat.com/wiki/6?wiki_page_id=72">相关章节</a></p>
+<p>AT+CIPSTART建立连接</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 4%"/>
+<col style="width: 48%"/>
+<col style="width: 48%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>命 | 语法
+令 |
+类 |
+型 |</p></th>
+<th class="head"><p>返回和说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="2"><p>设 | 单 路 连 接
+置 | (+CIPMUX=0)时：AT+CIPSTART=,,
+命 | 或 AT+CIPSTART=,,
+令 | 多路连接</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">(+CIPMUX=1)时：AT+CIPSTART=,,&lt;</div>
+<div class="line">IP address&gt;, 或</div>
+<div class="line">AT+CIPSTART=,,,</div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>如 果 格 式 正 确 且 处 于 IP
+INITIAL 或 者 IP
+STATUS或TCP/UDP
+CLOSE状态，返回： OK
+否则返回： +CME ERROR
+紧接着会有URC上报，上报内容
+如下：如果连接已经存在，返回：
+ALREADY
+CONNE
+CT如果连接成功(非透传)，返回：
+CONNECT OK
+如果连接成功(透传)，返回：
+CONNECT否则返回: STATE:
+CONNECT FAIL如果格式正确且处于
+IP STATUS或IP
+PROCESSING时，返回： OK
+否则返回： +CME ERROR
+紧接着会有URC上报，上
+报内容如下：如果连接已经存在,
+返回： ,ALREADY
+CONNECT如果连接成功，返回：
+,CONNECT OK 否则返回: ,CONNECT
+FAIL</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>测 | AT+CIPSTART=?
+试 |
+命 |
+令 |</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+<div class="line"><br/></div>
+</div>
+</div></blockquote>
+</td>
+<td><p>单路连接(+CIPMUX=0)时返回：
++CIPSTART: (取值列表),(IP
+address range),(port range)?
++CIPSTART: (取值列表),(domain
+name),(port range)OK
+多路连接(+CIPMUX=1)时返回：
++CIPSTART: ( 取 值 列 表 ),(
+取 值 列 表 ),(IP
+addressrange),(port range)
++CIPSTART: (取值列表),( 取值
+列表),(domain
+name),(portrange)OK</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>注 | 此命令应用于建立 TCP/UDP
+意 | 连接；当前状态可用
+事 | AT+CIPSTATUS
+项 | 查询；单路连接时只当前状态为</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">IP INITIAL 或者 IP STATUS 或</div>
+<div class="line">TCP/UDP CLOSE</div>
+<div class="line">时可执行，多路连接时当</div>
+<div class="line">前状态为 IP STATUS 或 IP</div>
+<div class="line">PROCESSING</div>
+<div class="line">时可执行；在当前状</div>
+<div class="line">态不是上述可执行状态时，需执行</div>
+<div class="line">AT+CIPSHUT</div>
+<div class="line">后再开始建立连接；多路连</div>
+<div class="line">接时，设置此命令前，必须先执行</div>
+<div class="line">AT+CSTT, AT+CIICR,AT+CIFSR</div>
+<div class="line">这三个命令。</div>
+</div>
+</div></blockquote>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>参数定义</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 32%"/>
+<col style="width: 27%"/>
+<col style="width: 32%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数</p></th>
+<th class="head"><p>参数</p></th>
+<th class="head"><p>取值</p></th>
+<th class="head"><p>对取值的说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>Link No.</p></td>
+<td><p>0~5</p></td>
+<td><p>整数
+型，表示连接序号</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>连接类
+型，字符串型（双
+引号可加可不加）</p></td>
+<td><p>“TCP”“UDP”</p></td>
+<td><p>建立T
+CP连接建立UDP连接</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>远端服务器 IP
+地址</p></td>
+<td><p>最大32个字节</p></td>
+<td><p>字符串参数（双
+引号可加可不加）</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>远端服务器域名</p></td>
+<td><p>最大 32 个字节</p></td>
+<td><p>字符串参数（双
+引号可加可不加）</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>远端服务端口</p></td>
+<td><p>1~65535</p></td>
+<td><p>整数型</p></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>示例</strong></p>
+<p>AT+CIPSTART=“TCP”,“120.76.201.131”,2000</p>
+<p>返回</p>
+<p>CONNECT OK表示连接成功</p>
+</div>
+<div class="section" id="id28">
+<h2>3.3 发送数据<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h2>
+<p>AT+CIPSEND发送不定长数据，收到&gt;以后就可以发送数据，然后发送十六进制1A结束发送，发送完1A以后设备会向服务器发送1A之前的所有数据。</p>
+</div>
+<div class="section" id="id29">
+<h2>3.4 接收数据<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h2>
+<p>当连接服务器成功以后默认配置是服务器下发的数据会通过串口自动上报，直接就可以接收数据。</p>
+<p><strong>其他说明</strong></p>
+<p>最新的AT固件支持开机直接发送AT+CIPSTART联网，不过不推荐使用，推荐根据状态机一步一步实现</p>
+</div>
+</div>
+<div class="section" id="id30">
+<h1>4 相关资料以及购买链接<a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h1>
+<p><a class="reference external" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183324779_Luat%204G%E6%A8%A1%E5%9D%97AT%E5%91%BD%E4%BB%A4%E6%89%8B%E5%86%8CV4.2.2.pdf">《AT指令手册》</a></p>
+<p>相关开发板购买链接
+<a class="reference external" href="http://m.openluat.com/product/1264">Air724UG开发板</a> <a class="reference external" href="https://doc.luatos.wiki/103/">Air724
+开发板使用说明</a></p>
+</div>
+<div class="section" id="id31">
+<h1>5 常见问题<a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h1>
+<ul class="simple">
+<li><p><strong>连接服务器失败</strong></p>
+<ol class="arabic simple">
+<li><p>服务器必须是公网地址</p></li>
+<li><p>使用PC上的TCP
+UDP测试工具客户端、或者mqtt.fx，连接服务器确认一下是否可以连接成功，排除服务器故障</p></li>
+<li><p>如果连接ssl服务器，确认下core文件是否支持ssl功能（例如2G模块的某些core文件不支持ssl功能）</p></li>
+<li><p>2G模块不要使用中国联通卡</p></li>
+<li><p>检查下模块信号、网络注册、网络附着、PDP激活状态</p></li>
+<li><p>检查下SIM卡是否欠费【4G模块有一种欠费表现：无法注册4G网络，可以注册2G网络】</p></li>
+</ol>
+</li>
+<li><p><strong>最多同时支持多少个连接</strong> AT版本最多8个连接</p></li>
+</ul>
+</div>
+
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="425.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">3.1.2 SSL</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="422.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">3.1 AT相关软件功能描述</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, luatos
+            |
+            <a class="muted-link" href="../_sources/pages/424.rst.txt"
+               rel="nofollow">
+              显示源代码
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            目录
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">3.1.1 TCP/UDP</a></li>
+<li><a class="reference internal" href="#id1">1 概述</a></li>
+<li><a class="reference internal" href="#at">2 相关AT指令介绍</a><ul>
+<li><a class="reference internal" href="#ip-at-cipmux">2.1 启动多IP连接：AT+CIPMUX</a></li>
+<li><a class="reference internal" href="#apn-at-cstt">2.2 启动任务并设置接入点APN、用户名、密码：AT+CSTT</a></li>
+<li><a class="reference internal" href="#gprs-csd-at-ciicr">2.3 激活移动场景(或发起GPRS 或CSD无线连接)：AT+CIICR</a></li>
+<li><a class="reference internal" href="#ip-at-cifsr">2.4 查询本地IP地址：AT+CIFSR</a></li>
+<li><a class="reference internal" href="#tcpssl-at-cipssl">2.5 设置TCP使用SSL功能：AT+CIPSSL</a></li>
+<li><a class="reference internal" href="#tcp-ssl-at-sslcfg">2.6 配置TCP SSL参数：AT+SSLCFG</a></li>
+<li><a class="reference internal" href="#tcpudp-at-cipstart">2.7 建立TCP连接或注册UDP端口号：AT+CIPSTART</a></li>
+<li><a class="reference internal" href="#tcpip-at-cipmode">2.8 选择TCPIP应用模式：AT+CIPMODE</a></li>
+<li><a class="reference internal" href="#at-cipqsend">2.9 选择非透传数据发送模式：AT+CIPQSEND</a></li>
+<li><a class="reference internal" href="#at-ciprxf">2.10 设置接收的数据末尾是否自动添加回车换行：AT+CIPRXF</a></li>
+<li><a class="reference internal" href="#at-cipccfg">2.11 配置透明传输模式：AT+CIPCCFG</a></li>
+<li><a class="reference internal" href="#at-cipsend">2.12 发送数据：AT+CIPSEND</a></li>
+<li><a class="reference internal" href="#at-cipats">2.13 设置自动发送数据前的定时时间：AT+CIPATS</a></li>
+<li><a class="reference internal" href="#at-cipsprt">2.14 设置发送数据时是否显示‘&gt;’和发送情况提示：AT+CIPSPRT</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id22">3 AT指令示例</a><ul>
+<li><a class="reference internal" href="#id23">3.1 连接网络</a><ul>
+<li><a class="reference internal" href="#id24"><strong>3.1.1 开机</strong></a></li>
+<li><a class="reference internal" href="#id25">3.1.2 查询卡状态</a></li>
+<li><a class="reference internal" href="#id26">3.1.3 查询网络注册情况</a></li>
+<li><a class="reference internal" href="#id27">3.1.4 激活网络</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tcp">3.2 连接TCP</a></li>
+<li><a class="reference internal" href="#id28">3.3 发送数据</a></li>
+<li><a class="reference internal" href="#id29">3.4 接收数据</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30">4 相关资料以及购买链接</a></li>
+<li><a class="reference internal" href="#id31">5 常见问题</a></li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </main>
+</div>
+  </body>
+</html>

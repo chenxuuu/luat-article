@@ -1,0 +1,331 @@
+- SOCKET
+========
+
+作者：闫国梁
+
+最后更新时间：2020年7月24日
+
+关键词：\ **TCP，SOCKET，片上开发，OPENCPU，4G**
+
+1 概述
+======
+
+luat连接相比AT更为简单，只需要简单的配置即可连接，还可以灵活的对数据进行处理。
+
+需要从官网或者github下载luatask的脚本包，或者使用luatoolsv2会自动下载脚本资源，在工具根目录的:raw-latex:`\resource`\\8910_script中脚本资源会随官网同步更新，具体版本可能和本文不同，不过功能都是一致的。
+
+文档中用到的API接口见wiki的API章节。
+
+在脚本目录的demo/socket文件夹里有两种示例代码，async是异步socket，sync是同步socket
+
+同步：
+
+同步的思想是：所有的操作都做完，才返回给用户。这样用户在线等待的时间太长，给用户一种卡死了的感觉（就是系统迁移中，点击了迁移，界面就不动了，但是程序还在执行，卡死了的感觉）。这种情况下，用户不能关闭界面，如果关闭了，即迁移程序就中断了。
+
+异步：
+
+将用户请求放入消息队列，并反馈给用户，系统迁移程序已经启动，你可以关闭浏览器了。然后程序再慢慢地去写入数据库去。这就是异步。但是用户没有卡死的感觉，会告诉你，你的请求系统已经响应了。你可以关闭界面了。
+
+同步和异步本身是相对的
+
+同步就相当于是
+当客户端发送请求给服务端，在等待服务端响应的请求时，客户端不做其他的事情。当服务端做完了才返回到客户端。这样的话客户端需要一直等待。用户使用起来会有不友好。
+
+异步就是，当客户端发送给服务端请求时，在等待服务端响应的时候，客户端可以做其他的事情，这样节约了时间，提高了效率。
+
+存在就有其道理 异步虽然好
+但是有些问题是要用同步用来解决，比如有些东西我们需要的是拿到返回的数据在进行操作的。这些是异步所无法解决的。
+
+所以请根据实际需求选择。
+
+2 API说明
+=========
+
+2.1 连接服务器
+--------------
+
+luat的socket操作是一个面向对象的操作所以首先使用\ `socket.tcp(ssl,
+cert) <https://wiki.openluat.com/doc/luatApi4G/#sockettcpssl-cert>`__\ 创建一个对象
+
++---------+------------------------------------------------------------+
+| 传入    | 释义                                                       |
+| 值类型  |                                                            |
++=========+============================================================+
+| bool    | **可选参数，默认为                                         |
+|         | \ ``nil``**\ ，ssl，是否为ssl连接，true表示是，其余表示否  |
++---------+------------------------------------------------------------+
+| table   | **可选参数，默认为\ ``nil``**\ ，cert，ssl连接需要的证书   |
+|         | 配置，只有ssl参数为true时，才参数才有意义，cert格式如下：  |
+|         | { caCert = “ca.crt”, –CA证书文件(Base64编码                |
+|         | X.509格式)，如果存在此                                     |
+|         | 参数，则表示客户端会对服务器的证书进行校验；不存在则不校验 |
+|         | clientCert = “client.crt”, –客户端证书文件(Base64编码      |
+|         | X.509格式)，服务器对客户端的证书进行校验时会用到此参数     |
+|         | clientKey = “client.key”, –客户端私钥文件(Base64编码       |
+|         | X.509格式) clientPassword = “123456”,                      |
+|         | –客户端证书文件密码[可选] }                                |
++---------+------------------------------------------------------------+
+
+c = socket.tcp()成功则c就是新建的对象。
+
+然后使用\ `mt:connect(address, port,
+timeout) <https://wiki.openluat.com/doc/luatApi4G/#mtconnectaddress-port-timeout>`__\ 连接服务器
+
+-  参数
+
++------------+--------------------------------------------------------+
+| 传入值类型 | 释义                                                   |
++============+========================================================+
+| string     | address 服务器地址，支持ip和域名                       |
++------------+--------------------------------------------------------+
+| param      | port string或者number类型，服务器端口                  |
++------------+--------------------------------------------------------+
+| number     | **可选参数，默认为\ ``120``**\ ，timeout               |
+|            | 可选参数，连接超时时间，单位秒                         |
++------------+--------------------------------------------------------+
+
+-  返回值
+
+bool result true - 成功，false - 失败 string ,id ‘0’ – ‘8’
+,返回通道ID编号
+
+mt：表示对象，也就是我们前面通过socket.tcp()新建的c
+
+使用c:connect()即可连接服务器。
+
+2.2 接收数据
+------------
+
+2.2.1 同步方式
+~~~~~~~~~~~~~~
+
+同步方式采用\ `mt:recv(timeout, msg,
+msgNoResume) <https://wiki.openluat.com/doc/luatApi4G/#mtrecvtimeout-msg-msgnoresume>`__\ 这个接口阻塞操作，程序运行到这里会进入等待直到满足条件才会退出。
+
+-  参数
+
++---------+------------------------------------------------------------+
+| 传入    | 释义                                                       |
+| 值类型  |                                                            |
++=========+============================================================+
+| number  | **可选参数，默认为\ ``0``**\ ，timeout                     |
+|         | 可选参数，接收超时时间，单位毫秒                           |
++---------+------------------------------------------------------------+
+| string  | **可选参数，默认为\ ``nil``**\ ，msg                       |
+|         | 可选参数，控制socket所在的线程退出recv阻塞状态             |
++---------+------------------------------------------------------------+
+| bool    | **可选参数，默认为\ ``nil``**\ ，msgNoResume               |
+|         | 可选参数，控                                               |
+|         | 制socket所在的线程退出recv阻塞状态，false或者nil表示“在re  |
+|         | cv阻塞状态，收到msg消息，可以退出阻塞状态”，true表示不退出 |
++---------+------------------------------------------------------------+
+
+-  返回值
+
+result 数据接收结果，true表示成功，false表示失败 data
+如果成功的话，返回接收到的数据；超时时返回错误为“timeout”；msg控制退出时返回msg的字符串
+param 如果是msg返回的false，则data的值是msg，param的值是msg的参数
+
+以demo的socket:raw-latex:`\sync`:raw-latex:`\sendInterruptRecv`:raw-latex:`\testSocket`.lua为例，r就是result当退出原因是服务器下发数据时为true，其他情况均为false，s是data，当r是true的时候，data表示参数，当r为false时，data表示退出阻塞的原因，一种是timeout，一种是配置的msg
+，当值为msg 的时候，p表示msg携带的参数。
+
+.. code:: lua
+
+   while true do
+               r, s, p = c:recv(120000, "pub_msg")
+               if r then
+                   recv_cnt = recv_cnt + #s
+                   log.info("这是收到的服务器下发的数据统计:", recv_cnt, "和前30个字节:", s:sub(1, 30))
+               elseif s == "pub_msg" then
+                   send_cnt = send_cnt + #p
+                   log.info("这是收到别的线程发来的数据消息!", send_cnt, "和前30个字节", p:sub(1, 30))
+                   if not c:send(p) then break end
+               elseif s == "timeout" then
+                   log.info("这是等待超时发送心跳包的显示!")
+                   if not c:send("ping") then break end
+               else
+                   log.info("这是socket连接错误的显示!")
+                   break
+               end
+           end
+
+在连接服务器成功以后，代码进入这个死循环，recv(120000,
+“pub_msg”)里的第一个参数表示最长阻塞时间，这个时间的主要作用是用于心跳维持连接，因为timeout退出阻塞的前提是在这个时间内没有发送和接收数据；第二个参数是控制退出的字符串，其原理类似于\ `sys.subscribe(id,
+callback) <https://wiki.openluat.com/doc/luatApi/#syssubscribeid-callback>`__\ msg就是id，用于订阅来自其他协程的数据，发送数据的方法就是\ `sys.publish(…) <https://wiki.openluat.com/doc/luatApi/#syspublish>`__\ 触发时rev会退出并携带参数；
+
+2.2.2 异步方式
+~~~~~~~~~~~~~~
+
+异步采用\ `mt:asyncRecv() <https://wiki.openluat.com/doc/luatApi/#mtasyncrecv>`__\ 接口接收数据，相对于同步方式，异步的参数及返回值相对简单，使用时无需传递参数，返回值直接就是收到的数据。
+
+2.3 发送数据
+------------
+
+.. _同步方式-1:
+
+2.3.1 同步方式
+~~~~~~~~~~~~~~
+
+使用\ `mt:send(data) <https://wiki.openluat.com/doc/luatApi/#mtsenddata>`__\ 接口即可发送数据，因为同步方式大多数时间都是阻塞在接收部分的，所以根据前文同步接收数据的说明可以通过配置msg退出阻塞，然后发送数据。可以参考demo做法。在rev配置msg为pub_msg然后通过其他协程使用sys.publish向pub_msg发送数据，退出阻塞以后直接发送。
+
+.. code:: lua
+
+   -- 测试代码,用于发送消息给socket
+   sys.taskInit(function()
+       while not socket.isReady() do sys.wait(2000) end
+       sys.wait(10000)
+       -- 这是演示用sys.publish()发送数据
+       for i = 1, 10 do
+           sys.publish("pub_msg", string.rep("0123456789", 1024))
+           sys.wait(500)
+       end
+   end)
+
+.. _异步方式-1:
+
+2.3.2 异步方式
+~~~~~~~~~~~~~~
+
+异步方式也相对简单直接使用\ `mt:asyncSend(data) <https://wiki.openluat.com/doc/luatApi/#mtasyncsenddata>`__\ 发送即可。需要说明的一件事是异步方式没有timeout所以心跳需要自己维护或者使用\ `mt:asyncSelect(keepAlive,
+pingreq) <https://wiki.openluat.com/doc/luatApi/#mtasyncselectkeepalive-pingreq>`__\ 配置心跳时间及内容。
+
+3 luat示例程序
+==============
+
+相关实例程序在脚本库的demo:raw-latex:`\socket文件夹下`，包含同步异步以及tcp到串口透传实例。可以根据实际需要选择demo进行研究。
+
+3.1 开机与连接网络
+------------------
+
+以:raw-latex:`\script`\_LuaTask_V2.3.2:raw-latex:`\demo`:raw-latex:`\socket`:raw-latex:`\sync`:raw-latex:`\sendInterruptRecv目录的demo作为基础进行修改`。demo中在开机以后进入正式应用的一开始使用了一个while进行循环阻塞判断。socket.isReady()表示网络连接是否可用，可用即为true，不可以为false。
+
+.. code:: lua
+
+   -- tcp test
+   sys.taskInit(function()
+       local r, s, p
+       local recv_cnt, send_cnt = 0, 0
+       while true do
+           while not socket.isReady() do sys.wait(1000) end
+           c = socket.tcp()
+           while not c:connect(ip, port) do sys.wait(2000) end
+
+有些情况下可能由于欠费等原因设备socket可能一直不可用，所以可以加一个异常机制，当开机以后socket长时间不可用就重启设备。可以进行如下修改。
+
+.. code:: lua
+
+   --等待网络连接的超时时间
+   local timeout = 90
+   -- tcp test
+   sys.taskInit(
+       function()
+           local r, s, p
+           local recv_cnt, send_cnt, con_cnt = 0, 0, 0
+           while true do
+               while not socket.isReady() do
+                   sys.wait(1000)
+                   if con_cnt == timeout then
+                       sys.restart("网络初始化失败!")
+                   end
+                   con_cnt = con_cnt + 1
+               end
+               con_cnt = 0
+
+.. _连接服务器-1:
+
+3.2 连接服务器
+--------------
+
+我这里使用的windows系统，直接使用网络调试助手作为server，没有的也可以用\ http://tcplab.openluat.com/\ 测试。
+
+注意：无论2G还是4G模块连接的服务器必须是公网的，局域网ip无法使用
+首先通过\ **socket.tcp()**\ 创建一个新的tcp对象，后面的操作都基于这个对象进行。
+然后使用\ **c:connect(ip, port)**\ 开始连接，实例程序比较激进如果连接不成功会反复重试，实际项目中可以选择连接多少次不成功进入飞行模式重试。
+
+.. code:: lua
+
+   c = socket.tcp()
+   while not c:connect(ip, port) do
+      sys.wait(2000)
+   end
+
+连接成功以后进入死循环，根据rev的返回条件判断模块所处状态进行业务处理。
+
+3.3 socket发送与接收消息
+------------------------
+
+.. code:: lua
+
+   while true do
+                   r, s, p = c:recv(120000, "pub_msg")
+                   if r then
+                       recv_cnt = recv_cnt + #s
+                       log.info("这是收到的服务器下发的数据统计:", recv_cnt, "和前30个字节:", s:sub(1, 30))
+                   elseif s == "pub_msg" then
+                       send_cnt = send_cnt + #p
+                       log.info("这是收到别的线程发来的数据消息!", send_cnt, "和前30个字节", p:sub(1, 30))
+                       if not c:send(p) then
+                           break
+                       end
+                   elseif s == "timeout" then
+                       log.info("这是等待超时发送心跳包的显示!")
+                       if not c:send("ping") then
+                           break
+                       end
+                   else
+                       log.info("这是socket连接错误的显示!")
+                       break
+                   end
+               end
+
+当第一个返回值r是true的时候，数据来自服务器。当r非true，s是内部消息，这个消息一是来自socket对象内部的timeout，当timeout成立表示在阻塞的这个时间内无消息收发，那么这时候就需要发送心跳进行保活，心跳包内容可以根据自己需要写；当s为其他的值的时候就可以从其他线程向socket线程传递消息以此达到发送数据的目的，demo使用的是pub_msg，当其他线程通过sys.publish接口向pub_msg发消息的时候socket线程的rev就会退出阻塞，然后根据s判断是来自其他线程的消息进行处理，此时p就代表传递的消息的参数。开发者可以在此次增加消息判断处理不同消息，例如可以根据消息主动退出socket连接。通过其他线程发消息的接口如下面代码
+
+.. code:: lua
+
+   -- 测试代码,用于发送消息给socket
+   sys.taskInit(
+       function()
+           while not socket.isReady() do
+               sys.wait(2000)
+           end
+           sys.wait(10000)
+           -- 这是演示用sys.publish()发送数据
+           for i = 1, 10 do
+               sys.publish("pub_msg", string.rep("0123456789", 1024))
+               sys.wait(500)
+           end
+       end
+   )
+
+4 相关资料以及购买链接
+======================
+
+`SOCKETAPI说明 <https://wiki.openluat.com/doc/luatApi/#socket>`__
+
+相关开发板购买链接
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+
+5 常见问题
+==========
+
+5.1 连接服务器失败
+~~~~~~~~~~~~~~~~~~
+
+1. 服务器必须是公网地址
+2. 使用PC上的TCP
+   UDP测试工具客户端、或者mqtt.fx，连接服务器确认一下是否可以连接成功，排除服务器故障
+3. 如果连接ssl服务器，确认下core文件是否支持ssl功能（例如2G模块的某些core文件不支持ssl功能）
+4. 2G模块不要使用中国联通卡
+5. 检查下模块信号、网络注册、网络附着、PDP激活状态
+6. 检查下SIM卡是否欠费【4G模块有一种欠费表现：无法注册4G网络，可以注册2G网络】
+   ### 5.2 最多同时支持多少个连接 10个。 ### 5.3 socket异常的情况排查
+7. 搜索socket，如果出现socket:connect: core sock conn
+   error或者socket:connect: connect fail，则表示socket连接失败
+8. 搜索socket，如果出现send fail则表示发送失败
+9. 搜索socket，如果出现socket.rtos.MSG_SOCK_CLOSE_IND则表示socket’被动关闭
+
+5.4 tcp连接，心跳包建议多长时间一次
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+因为基站资源有限，如果不发心跳包保活，基站会主动断掉链路，回收资源，模块和服务器无感，并不知道链路已经断开。建议心跳包的频率不要超过4分钟，一般都是建议使用2分钟

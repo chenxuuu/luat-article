@@ -1,0 +1,75 @@
+RNDIS
+=====
+
+作者：闫国梁 最后修改时间：2020年7月1日
+
+Window系统
+~~~~~~~~~~
+
+window系统支持RNDIS直接用usb连接就可以使用，模块会虚拟一个网卡。
+|image1|
+
+Linux系统
+~~~~~~~~~
+
+目前linux大部分发行版本都已经默认支持RNDIS驱动了，只要通过USB连接Air724模块就可以直接用了，模块开机后就会在linux设备端看到新的网卡。
+其他没有RNDIS驱动的可以通过https://doc.luatos.wiki/698/ 教程进行修改内核
+
+IPV6使用方法
+~~~~~~~~~~~~
+
+https://doc.luatos.wiki/1467/
+
+相关资料以及购买链接
+====================
+
+相关开发板购买链接
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+`相关软件资料下载 <http://doc.openluat.com/wiki/6?wiki_page_id=227>`__
+
+常见问题
+========
+
+https://doc.luatos.wiki/638/ 一般情况下，不是特别精简的linux
+已经支持rndis 功能，如果插上合宙的4G
+模块，但是不能上网的话，需要注意以下几点
+
+1,能否检测到rndis 设备
+
+::
+
+   在命令行中输入 dmesg ,如此出现  rndis_host 1-1:1.0 eth1 这样的打印，则证明已经识别到了，(如果没有，可能是硬件问题，也可能是linux 真的不支持rndis http://oldask.openluat.com/article/79)
+
+   此时查看ifconfig ,如果没有出现    rndis_host 1-1:1.0 eth1 中的 eth1 ，则发送ifconfig -a ,此时发现有eth1 但是 没有ip 地址，发送 udhcpc -i eh1  出现地址后，即可使用此网卡进行上网
+
+2，出现设备网卡，但是无法上网
+
+::
+
+   这可能是由于模块没有注册上网络，请看通过tcp 和模块进行通信
+
+如果还不可以上网可以通过模块串口发送AT指令查询。
+
+常用 AT :
+
+AT+CPIN? 查看卡是否在位
+
+AT+CEREG? 查看是否注册上网络
+
+AT+CESQ 查看信号值
+
+**ATI
+查看版本号（必须426以后固件才支持自动上网之前固件需要发送AT才能激活网络）**
+
+1、如何禁用RNDIS功能
+~~~~~~~~~~~~~~~~~~~~
+
+-  `windows下如何禁用rndis功能 <http://doc.openluat.com/wiki/6?wiki_page_id=547>`__
+
+-  代码上如何禁用RNDIS功能？
+
+1. AT版本：发送AT+RNDISCALL=0,0或者AT+RNDISCALL=0,1，第二个参数0表示关机不保存此项配置，1表示关闭保存此项配置；如果项目中需要关闭RNDIS功能，则建议第二个参数设置为1
+2. Luat版本：ril.request(“AT+RNDISCALL=0,0”)或者ril.request(“AT+RNDISCALL=0,1”)，第二个参数0表示关机不保存此项配置，1表示关闭保存此项配置；如果项目中需要关闭RNDIS功能，则建议第二个参数设置为1
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701170330038_Snipaste_2020-07-01_17-03-09.png

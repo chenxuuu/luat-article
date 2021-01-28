@@ -1,0 +1,210 @@
+将你的代码藏起来-编译静态库
+===========================
+
+作者：陈之敏 时间：2020年08月15日
+关键字：csdk、RDA8910、二次开发、编译、静态库 # 目录
+
+`点击这里查看所有博文 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__
+
+  最近听说有的小伙伴看了我的教程后，有一些问题都跑到官方的gitee上面去问去了。导致官方的人没搞懂问的是啥，小伙伴们也没能知道自己想要的答案。给大家造成了困扰，这里我说声抱歉。
+
+  既然出现了这个问题，我这里就声明一下，本系列教程所涉及的内容(demo)不是官方的作品。我个人觉得官方的demo内容太多太全，往往都是把一个模块内所有的东西全部放在一起。这样的话对新手不是很友好，阅读起来也比较费劲。我就把官方的部分demo进行相关的简化，并推出教程这样的话可能会对新手朋友们有一定的帮助。
+
+  有时候周末闲暇时间我也会加上一些我觉得好玩的模块在里面，这些可能在官方的demo都没有，比如cJSON、PAHO-MQTT、http-client。
+
+  这就是官方的代码仓库。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/openLuat/Luat_CSDK_Air724U.git
+
+  当然各位小伙伴在看本教程时，我建议还是使用我下面提供的仓库比较好，看完之后在迁移到官方的仓库⇧。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/chenxiahuaxu/RDA8910_CSDK.git
+
+  再看本教程过程中如果遇到了问题，可以在本人的代码仓库下面评论。也可以在本人的\ `博客 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ 下面评论。我要是看到的话，并且这个问题在我的能力范围的话我会尽力解答的（非官方，不要对我要求太多哦，要求太多我可能就不管啦）。
+
+一、前言
+========
+
+  有的小伙伴也许遇到过下面这个问题。就是自己写了一套很好用的库文件，自己用着也很顺手。现在想把它分享出去也给别人用用。但是这个代码库有一部分是利用的别人不开源的代码（正当渠道获得，只是别人不开源），又或者有什么其他的原因，导致这个代码库不便直接公开。
+
+  但是又由于自己的助人为乐之心瘙痒，以至于久久不能寐，连续失眠好几天，非常难受。
+
+.. figure:: https://img-blog.csdnimg.cn/20200725175952607.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+   :alt: 在这里插入图片描述
+
+   在这里插入图片描述
+
+  如果你用的是CSDK开发，那么现在！这个问题将不复存在。
+
+.. figure:: https://img-blog.csdnimg.cn/20200725180356963.png
+   :alt: 在这里插入图片描述
+
+   在这里插入图片描述
+
+  你猜的没错，我又带着解决办法来了，让你可以有办法将自己的代码库编译成静态库文件，提供给其他人使用。而他又看不到代码，方便了他人也方便了自己。
+
+.. figure:: https://img-blog.csdnimg.cn/20200725175411189.png
+   :alt: 在这里插入图片描述
+
+   在这里插入图片描述
+
+  本篇教程和C语言关系不是很大，主要是CMAKE的相关应用，不会的话也没关系，下面提供代码，直接套工程模板即可。
+
+二、编写各种代码
+================
+
+2.1、工程构建
+-------------
+
+  在demo文件夹中新建一个demo为\ ``StaticLibrary``\ ，在\ ``StaticLibrary``\ 文件夹内新建一个\ ``HelloWorld``\ 文件夹。
+|在这里插入图片描述|
+
+  在\ ``HelloWorld``\ 文件夹内新建一个inc存放头文件、一个src存放源文件、一个lib存放库文件。如果看不懂我讲什么，先去参考一下其他的demo工程。
+
+|image1| ## 2.2、编写cmake
+  将\ ``StaticLibrary``\ 文件夹内的cmake文件改成如下内容。主要是根据条件判断是应该编译库文件还是编译工程文件。
+|image2|
+
+.. code:: c
+
+   if(CONFIG_APPIMG_LOAD_FLASH)
+   add_appimg(${target} ${flash_ldscript} demo_StaticLibrary.c)
+   elseif(CONFIG_APPIMG_LOAD_FILE)
+   add_appimg(${target} ${file_ldscript} demo_StaticLibrary.c)
+   endif()
+
+   set(HelloLibGen OFF)
+
+   if(HelloLibGen)
+       add_subdirectory(HelloWorld)
+   else()
+       add_definitions(-DHelloBuild)
+       include_directories(./HelloWorld/inc)
+       target_link_libraries(${target} PRIVATE ${PROJECT_SOURCE_DIR}/demo/${BUILD_TARGET}/HelloWorld/lib/libHelloWorld.a)
+   endif()
+
+  将\ ``StaticLibrary\HelloWorld``\ 文件夹内的cmake文件改成如下内容。主要是添加源文件路径、添加头文件路径、添加外部头文件路径、生成静态库、指定静态库生成位置。
+|image3|
+
+.. code:: c
+
+
+   include_directories(../../../api/include)
+   include_directories(./inc)
+   aux_source_directory(./src DIR_SRCS)
+   add_library(HelloWorld STATIC ${DIR_SRCS})
+   set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/demo/${BUILD_TARGET}/HelloWorld/lib)
+
+2.3、编写库文件
+---------------
+
+  在inc目录下新增\ ``HelloWorld.h``\ 文件并添加如下代码，什么源文件内的函数。
+
+.. code:: c
+
+   #ifdef HELLO_WORLD_H
+   #define HELLO_WORLD_H
+   void HelloFunc();
+   #endif
+
+  在src目录下新增\ ``HelloWorld.c``\ 文件并添加如下代码。就做了一件事不停的\ ``helloworld``\ 。
+
+.. code:: c
+
+
+   #include <stdio.h>
+   #include "iot_debug.h"
+   #include "iot_os.h"
+   #include "HelloWorld.h"
+   void HelloFunc()
+   {
+       for (int n = 0; n < 30; n++)
+       {
+           iot_debug_print("[LibHelloWorld]hello world %d", n);
+           iot_os_sleep(1000);
+       }
+   }
+
+2.4、编写用户文件
+-----------------
+
+  准备工作就绪后，就要开始编写调用文件了，由于是使用一个demo完成静态库编译和静态库引用两个动作。这两者是不能同时存在的，所以需要加上条件编译。通过HelloBuild宏定义确定当前编译器应该执行什么动作。
+
+.. code:: c
+
+   /***************
+       demo_StaticLibrary
+   ****************/
+
+
+   #include "iot_debug.h"
+   #include "iot_os.h"
+
+   #ifdef HelloBuild
+   #include "HelloWorld.h"
+   #endif
+   HANDLE demo_hello_task;
+
+   static void demo_hello(PVOID pParameter)
+   {
+       #ifdef HelloBuild
+           HelloFunc();
+       #endif
+       iot_os_delete_task(demo_hello_task);
+   }
+
+   int appimg_enter(void *param)
+   {
+       iot_debug_print("[hello]appimg_enter");
+
+       demo_hello_task = iot_os_create_task(demo_hello, NULL, 1024, 1, OPENAT_OS_CREATE_DEFAULT, "hello");
+       return 0;
+   }
+
+   void appimg_exit(void)
+   {
+       iot_debug_print("[hello]appimg_exit");
+   }
+
+三、开始编译
+============
+
+  以上工作就绪后，就可以开始编译了，有的同学可能还没看完我下面要说的就跑去编译了。那么结果就是编译失败，在网上找半天都找不到解决方案。\ ``错误就是找不到库文件！！！``
+
+.. figure:: https://img-blog.csdnimg.cn/20200725182837941.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+   :alt: 在这里插入图片描述
+
+   在这里插入图片描述
+
+.. figure:: https://img-blog.csdnimg.cn/20200725183243165.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+   :alt: 在这里插入图片描述
+
+   在这里插入图片描述
+
+  那么这里我要提醒一下，如果是自己新建的工程，在\ ``HelloWorld/lib``\ 里面是没有库文件的，需要\ ``自己编译``\ 一下库文件才可以编译工程。如果是SDK提供的例程那里面就会有一个库文件可以直接用。
+
+  那么问题来了怎么才能编译出来库文件呢。 |image4|
+
+  很简单只要把将\ ``StaticLibrary``\ 文件夹内的cmake文件中的\ ``set(HelloLibGen OFF)``\ 这一行改成\ ``set(HelloLibGen ON)``\ ，然后再去运行编译那么就会在\ ``HelloWorld/lib``\ 目录下生成一个静态库\ ``libHelloWorld.a``\ 。静态库编译完成之后，就可以将C文件删除了，别人就可以直接用你生成的静态库了，\ ``头文件不能删除``\ 。
+
+|image5| |image6|
+  然后呢，再把\ ``set(HelloLibGen ON)``\ 改回\ ``set(HelloLibGen OFF)``\ ，最后去编译试试。看看是不是编译成功了。至于那个警告无视它就可以了。
+
+|image7| # 四、下载验证   运行一切正常，没有问题。 |image8| >
+不会下载的\ `点击这里 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ ，进去查看我的\ ``RDA8910 CSDK二次开发入门教程``\ 专题第一篇博文\ ``1、RDA8910CSDK二次开发：环境搭建``\ 里面讲了怎么下载
+>
+这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束
+
+.. |在这里插入图片描述| image:: https://img-blog.csdnimg.cn/20200725181130322.png
+.. |image1| image:: https://img-blog.csdnimg.cn/20200725181147379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image2| image:: https://img-blog.csdnimg.cn/20200725181531546.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image3| image:: https://img-blog.csdnimg.cn/20200725181614737.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image4| image:: https://img-blog.csdnimg.cn/20200725183756305.png
+.. |image5| image:: https://img-blog.csdnimg.cn/20200725183620765.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image6| image:: https://img-blog.csdnimg.cn/20200725183650656.png
+.. |image7| image:: https://img-blog.csdnimg.cn/20200725183954770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image8| image:: https://img-blog.csdnimg.cn/2020072518414446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70

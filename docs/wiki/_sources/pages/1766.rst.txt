@@ -1,0 +1,619 @@
+crypto
+======
+
+.. _crypto-1:
+
+crypto
+------
+
+常见加密，校验算法
+
+--------------
+
+crypto.aes_encrypt()
+~~~~~~~~~~~~~~~~~~~~
+
+aes算法（参考http://tool.chacuo.net/cryptaes）
+
+-  语法
+
+   ``crypto.aes_encrypt(mode,padding,originStr,password)``
+
+-  参数
+
+   ========= ==========
+   参数      释义
+   ========= ==========
+   mode      加密模式
+   padding   填充方式
+   originStr 加密字符串
+   password  密钥
+   ========= ==========
+
+-  返回值
+
+   已加密的字符串
+
+-  例子
+
+.. code:: lua
+
+   --下面示例为LuaTask的，如果需要LuaScript的，请参考LuaScript crypto demo
+   local originStr = "AES128 ECB ZeroPadding test"
+   --加密模式：ECB；填充方式：ZeroPadding；密钥：1234567890123456；密钥长度：128 bit
+   local encodeStr = crypto.aes_encrypt("ECB","ZERO",originStr,"1234567890123456")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","ZERO",encodeStr,"1234567890123456"))
+   originStr = "AES128 ECB Pkcs5Padding test"
+   --加密模式：ECB；填充方式：Pkcs5Padding；密钥：1234567890123456；密钥长度：128 bit
+   encodeStr = crypto.aes_encrypt("ECB","PKCS5",originStr,"1234567890123456")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","PKCS5",encodeStr,"1234567890123456"))
+   originStr = "AES128 ECB Pkcs7Padding test"
+   --加密模式：ECB；填充方式：Pkcs7Padding；密钥：1234567890123456；密钥长度：128 bit
+   encodeStr = crypto.aes_encrypt("ECB","PKCS7",originStr,"1234567890123456")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","PKCS7",encodeStr,"1234567890123456"))
+   originStr = "AES192 ECB ZeroPadding test"
+   --加密模式：ECB；填充方式：ZeroPadding；密钥：123456789012345678901234；密钥长度：192 bit
+   local encodeStr = crypto.aes_encrypt("ECB","ZERO",originStr,"123456789012345678901234")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","ZERO",encodeStr,"123456789012345678901234"))
+   originStr = "AES192 ECB Pkcs5Padding test"
+   --加密模式：ECB；填充方式：Pkcs5Padding；密钥：123456789012345678901234；密钥长度：192 bit
+   encodeStr = crypto.aes_encrypt("ECB","PKCS5",originStr,"123456789012345678901234")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","PKCS5",encodeStr,"123456789012345678901234"))
+   originStr = "AES192 ECB Pkcs7Padding test"
+   --加密模式：ECB；填充方式：Pkcs7Padding；密钥：123456789012345678901234；密钥长度：192 bit
+   encodeStr = crypto.aes_encrypt("ECB","PKCS7",originStr,"123456789012345678901234")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","PKCS7",encodeStr,"123456789012345678901234"))
+   originStr = "AES256 ECB ZeroPadding test"
+   --加密模式：ECB；填充方式：ZeroPadding；密钥：12345678901234567890123456789012；密钥长度：256 bit
+   local encodeStr = crypto.aes_encrypt("ECB","ZERO",originStr,"12345678901234567890123456789012")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","ZERO",encodeStr,"12345678901234567890123456789012"))
+   originStr = "AES256 ECB Pkcs5Padding test"
+   --加密模式：ECB；填充方式：Pkcs5Padding；密钥：12345678901234567890123456789012；密钥长度：256 bit
+   encodeStr = crypto.aes_encrypt("ECB","PKCS5",originStr,"12345678901234567890123456789012")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","PKCS5",encodeStr,"12345678901234567890123456789012"))
+   originStr = "AES256 ECB Pkcs7Padding test"
+   --加密模式：ECB；填充方式：Pkcs7Padding；密钥：12345678901234567890123456789012；密钥长度：256 bit
+   encodeStr = crypto.aes_encrypt("ECB","PKCS7",originStr,"12345678901234567890123456789012")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("ECB","PKCS7",encodeStr,"12345678901234567890123456789012"))
+   originStr = "AES128 CBC ZeroPadding test"
+   --加密模式：CBC；填充方式：ZeroPadding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   local encodeStr = crypto.aes_encrypt("CBC","ZERO",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","ZERO",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES128 CBC Pkcs5Padding test"
+   --加密模式：CBC；填充方式：Pkcs5Padding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CBC","PKCS5",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","PKCS5",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES128 CBC Pkcs7Padding test"
+   --加密模式：CBC；填充方式：Pkcs7Padding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CBC","PKCS7",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","PKCS7",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES192 CBC ZeroPadding test"
+   --加密模式：CBC；填充方式：ZeroPadding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   local encodeStr = crypto.aes_encrypt("CBC","ZERO",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","ZERO",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES192 CBC Pkcs5Padding test"
+   --加密模式：CBC；填充方式：Pkcs5Padding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CBC","PKCS5",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","PKCS5",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES192 CBC Pkcs7Padding test"
+   --加密模式：CBC；填充方式：Pkcs7Padding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CBC","PKCS7",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","PKCS7",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES256 CBC ZeroPadding test"
+   --加密模式：CBC；填充方式：ZeroPadding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   local encodeStr = crypto.aes_encrypt("CBC","ZERO",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","ZERO",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+   originStr = "AES256 CBC Pkcs5Padding test"
+   --加密模式：CBC；填充方式：Pkcs5Padding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CBC","PKCS5",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","PKCS5",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+   originStr = "AES256 CBC Pkcs7Padding test"
+   --加密模式：CBC；填充方式：Pkcs7Padding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CBC","PKCS7",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CBC","PKCS7",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+   originStr = "AES128 CTR ZeroPadding test"
+   --加密模式：CTR；填充方式：ZeroPadding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   local encodeStr = crypto.aes_encrypt("CTR","ZERO",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","ZERO",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES128 CTR Pkcs5Padding test"
+   --加密模式：CTR；填充方式：Pkcs5Padding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","PKCS5",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","PKCS5",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES128 CTR Pkcs7Padding test"
+   --加密模式：CTR；填充方式：Pkcs7Padding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","PKCS7",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","PKCS7",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES128 CTR NonePadding test"
+   --加密模式：CTR；填充方式：NonePadding；密钥：1234567890123456；密钥长度：128 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","NONE",originStr,"1234567890123456","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","NONE",encodeStr,"1234567890123456","1234567890666666"))
+   originStr = "AES192 CTR ZeroPadding test"
+   --加密模式：CTR；填充方式：ZeroPadding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   local encodeStr = crypto.aes_encrypt("CTR","ZERO",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","ZERO",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES192 CTR Pkcs5Padding test"
+   --加密模式：CTR；填充方式：Pkcs5Padding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","PKCS5",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","PKCS5",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES192 CTR Pkcs7Padding test"
+   --加密模式：CTR；填充方式：Pkcs7Padding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","PKCS7",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","PKCS7",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES192 CTR NonePadding test"
+   --加密模式：CTR；填充方式：NonePadding；密钥：123456789012345678901234；密钥长度：192 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","NONE",originStr,"123456789012345678901234","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","NONE",encodeStr,"123456789012345678901234","1234567890666666"))
+   originStr = "AES256 CTR ZeroPadding test"
+   --加密模式：CTR；填充方式：ZeroPadding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   local encodeStr = crypto.aes_encrypt("CTR","ZERO",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","ZERO",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+   originStr = "AES256 CTR Pkcs5Padding test"
+   --加密模式：CTR；填充方式：Pkcs5Padding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","PKCS5",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","PKCS5",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+
+   originStr = "AES256 CTR Pkcs7Padding test"
+   --加密模式：CTR；填充方式：Pkcs7Padding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","PKCS7",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","PKCS7",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+
+   originStr = "AES256 CTR NonePadding test"
+   --加密模式：CTR；填充方式：NonePadding；密钥：12345678901234567890123456789012；密钥长度：256 bit；偏移量：1234567890666666
+   encodeStr = crypto.aes_encrypt("CTR","NONE",originStr,"12345678901234567890123456789012","1234567890666666")
+   print(originStr,"encrypt",string.toHex(encodeStr))
+   log.info("testCrypto.decrypt",crypto.aes_decrypt("CTR","NONE",encodeStr,"12345678901234567890123456789012","1234567890666666"))
+
+--------------
+
+crypto.crc16()
+~~~~~~~~~~~~~~
+
+CRC16校验算法
+
+-  语法
+
+   ``crypto.crc16(crcMethod,originstr,poly,initial,finally,inReverse,outReverse)``
+
+-  参数
+
+   ========== ============================
+   参数       释义
+   ========== ============================
+   crcMethod  string类型， 校验方法
+   originstr  string类型，计算校验的字符串
+   poly       *可选，默认0*
+   initial    *可选，默认0*
+   finally    *可选，默认0*
+   inReverse  *可选，默认0*
+   outReverse *可选，默认0*
+   ========== ============================
+
+-  返回值
+
+   校验计算结果
+
+-  例子
+
+.. code:: lua
+
+   local originStr = "sdfdsfdsfdsffdsfdsfsdfs1234"
+   print("testCrypto.crc16_MODBUS",string.format("%04X",crypto.crc16("MODBUS",originStr)))
+   print("testCrypto.crc16_IBM",string.format("%04X",crypto.crc16("IBM",originStr)))
+   print("testCrypto.crc16_X25",string.format("%04X",crypto.crc16("X25",originStr)))
+   print("testCrypto.crc16_MAXIM",string.format("%04X",crypto.crc16("MAXIM",originStr)))
+   print("testCrypto.crc16_USB",string.format("%04X",crypto.crc16("USB",originStr)))
+   print("testCrypto.crc16_CCITT",string.format("%04X",crypto.crc16("CCITT",originStr)))
+   print("testCrypto.crc16_CCITT-FALSE",string.format("%04X",crypto.crc16("CCITT-FALSE",originStr)))
+   print("testCrypto.crc16_XMODEM",string.format("%04X",crypto.crc16("XMODEM",originStr)))
+   print("testCrypto.crc16_DNP",string.format("%04X",crypto.crc16("DNP",originStr)))
+
+.. figure:: ../img/crc.png
+   :alt: crc
+
+   crc
+
+--------------
+
+crypto.xxtea_encrypt()
+~~~~~~~~~~~~~~~~~~~~~~
+
+xxtea加密算法
+
+-  语法
+
+   ``crypto.xxtea_encrypt(text,key)``
+
+-  参数
+
+   ==== ========================
+   参数 释义
+   ==== ========================
+   text string类型，待加密字符串
+   key  string类型，密钥
+   ==== ========================
+
+-  返回值
+
+   加密/解密数据
+
+-  例子
+
+.. code:: lua
+
+   local text = "Hello World!";
+   local key = "07946";
+   local encrypt_data = crypto.xxtea_encrypt(text, key);
+   print("testCrypto.xxteaTest","xxtea_encrypt:"..encrypt_data)
+   local decrypt_data = crypto.xxtea_decrypt(encrypt_data, key);
+   print("testCrypto.xxteaTest","decrypt_data:"..decrypt_data)
+
+--------------
+
+crypto.crc32()
+~~~~~~~~~~~~~~
+
+CRC32校验算法
+
+-  语法
+
+   ``crypto.crc32(originstr,len)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originstr string类型， 需要校验的字符串
+   len       number类型，字符串长度
+   ========= =============================
+
+-  返回值
+
+   校验计算结果
+
+-  例子
+
+.. code:: lua
+
+   local originstr = "sdfdsfdsfdsffdsfdsfsdfs1234"
+   print("crc32",string.format("%08X",crypto.crc32(originstr,slen(originstr))))
+   --crc32 2FC153F9
+
+--------------
+
+crypto.sha256()
+~~~~~~~~~~~~~~~
+
+sha256算法
+
+-  语法
+
+   ``crypto.sha256(originStr)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originStr string类型， 需要加密的字符串
+   ========= =============================
+
+-  返回值
+
+   加密后的数据
+
+-  例子
+
+.. code:: lua
+
+   local originStr = "sdfdsfdsfdsffdsfdsfsdfs1234"
+   print("testCrypto.sha256",crypto.sha256(originStr))
+
+--------------
+
+crypto.sha1()
+~~~~~~~~~~~~~
+
+sha1算法
+
+-  语法
+
+   ``crypto.sha1(originstr,len)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originstr string类型， 需要加密的字符串
+   len       number类型，字符串长度
+   ========= =============================
+
+-  返回值
+
+   加密后的数据
+
+-  例子
+
+.. code:: lua
+
+   local originstr = "sdfdsfdsfdsffdsfdsfsdfs1234"
+   print("sha1",crypto.sha1(originstr,slen(originstr)))
+   -- sha1 16EBE919119B9B54C8AF6B4F2A09C18B6B6D8218
+
+--------------
+
+crypto.hmac_sha1()
+~~~~~~~~~~~~~~~~~~
+
+hmac_sha1算法
+
+-  语法
+
+   ``hmac_sha1(originstr,len_str,signkey,len_key)``
+
+-  参数
+
+   ========= ===========================
+   参数      释义
+   ========= ===========================
+   originstr string类型， 需要加密的数据
+   len_str   number类型，字符串长度
+   signkey   string类型， 密钥
+   len_key   number类型， 密钥长度
+   ========= ===========================
+
+-  返回值
+
+   加密后的数据
+
+-  例子
+
+.. code:: lua
+
+   local originstr = "asdasdsadasweqcdsjghjvcb"
+   local signkey = "12345689012345"
+   print("hmac_sha1",crypto.hmac_sha1(originstr,slen(originstr),signkey,slen(signkey)))
+   --hmac_sha1 E3BB109BA59AF6A1F677157E8EC6B21349B9220F
+
+--------------
+
+crypto.flow_md5()
+~~~~~~~~~~~~~~~~~
+
+流式md5算法
+
+-  语法
+
+   ``crypto.flow_md5()``
+
+-  参数
+
+   无
+
+-  返回值
+
+   无
+
+-  例子
+
+.. code:: lua
+
+   local fmd5Obj=crypto.flow_md5()
+   local testTable={"lqlq666lqlq946","07946lq94607946","lq54075407540707946"}
+   for i=1, #(testTable) do
+       fmd5Obj:update(testTable[i])
+   end
+   print("testCrypto.flowMd5Test",fmd5Obj:hexdigest())
+
+--------------
+
+crypto.md5()
+~~~~~~~~~~~~
+
+md5算法，支持计算文件的md5值
+
+-  语法
+
+   ``crypto.md5(originstr,len)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originstr string类型， 需要加密的字符串
+   len       number类型，字符串长度
+   ========= =============================
+
+-  返回值
+
+   加密后的数据
+
+-  例子
+
+.. code:: lua
+
+   local originstr = "sdfdsfdsfdsffdsfdsfsdfs1234"
+   print("md5",crypto.md5(originstr,slen(originstr)))
+   --md5   235B69FBC9E75C4FD5E8C59F9CB16500
+
+--------------
+
+crypto.hmac_md5()
+~~~~~~~~~~~~~~~~~
+
+hmac_md5算法测试
+
+-  语法
+
+   ``crypto.hmac_md5(originstr,len_str,signkey,len_key)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originstr string类型， 需要加密的字符串
+   len_str   number类型，字符串长度
+   signkey   string类型， 密钥
+   len_key   number类型， 密钥长度
+   ========= =============================
+
+-  返回值
+
+   加密后的数据
+
+-  例子
+
+.. code:: lua
+
+   local originstr = "asdasdsadas"
+   local signkey = "123456"
+   print("hmac_md5",crypto.hmac_md5(originstr,slen(originstr),signkey,slen(signkey)))
+   -- hmac_md5 38A7B18DC5F6543849DC49F06FADE3CC
+
+--------------
+
+crypto.base64_encode()
+~~~~~~~~~~~~~~~~~~~~~~
+
+base64加密
+
+-  语法
+
+   ``crypto.base64_encode(originstr,len)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originstr string类型， 需要加密的字符串
+   len       number类型，字符串长度
+   ========= =============================
+
+-  返回值
+
+   加密后的数据
+
+-  例子
+
+.. code:: lua
+
+   local originstr = "123456"
+   local encodestr = crypto.base64_encode(originstr,slen(originstr))
+   print("base64_encode",encodestr)
+   --base64_encode MTIzNDU2
+
+--------------
+
+crypto.base64_decode()
+~~~~~~~~~~~~~~~~~~~~~~
+
+base64解密
+
+-  语法
+
+   ``crypto.base64_decode(originstr,len)``
+
+-  参数
+
+   ========= =============================
+   参数      释义
+   ========= =============================
+   originstr string类型， 需要加密的字符串
+   len       number类型，字符串长度
+   ========= =============================
+
+-  返回值
+
+   解密后的数据
+
+-  例子
+
+.. code:: lua
+
+   print("base64_decode",crypto.base64_decode(encodestr,slen(encodestr)))
+   -- base64_decode    123456
+
+--------------
+
+crypto.des_encrypt()
+~~~~~~~~~~~~~~~~~~~~
+
+des加密算法（参考http://tool.chacuo.net/cryptdes）
+
+-  语法
+
+   ``crypto.des_encrypt(mode,padding,originStr,password)``
+
+-  参数
+
+   ========= ==========
+   参数      释义
+   ========= ==========
+   mode      加密模式
+   padding   填充方式
+   originStr 加密字符串
+   password  密钥
+   ========= ==========
+
+-  返回值
+
+   已加密的字符串
+
+--------------
+
+crypto.des_decrypt()
+~~~~~~~~~~~~~~~~~~~~
+
+des解密算法（参考http://tool.chacuo.net/cryptdes）
+
+-  语法
+
+   ``crypto.des_decrypt(mode,padding,encodeStr,password)``
+
+-  参数
+
+   ========= ==============
+   参数      释义
+   ========= ==============
+   mode      加密模式
+   padding   填充方式
+   encodeStr 已加密的字符串
+   password  密钥
+   ========= ==============
+
+-  返回值
+
+   加密字符串

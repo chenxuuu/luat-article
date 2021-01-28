@@ -1,0 +1,120 @@
+固件和脚本下载教程
+==================
+
+作者：金艺 更新时间： 2020/8/12
+
+概述
+====
+
+在进行luat二次开发调试或生产时，不可避免要进行固件包或者脚本的升级下载。本文会针对luat二次开发方式的下载方法进行详细描述
+
+工具驱动
+========
+
+-  下载开发工具
+   用于调试开发的调试开发工具：\ `Luat下载调试工具v2 <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808182655634_Luatools_v2.exe>`__
+   量产多口下载工具：\ `UPGRADEDOWNLOAD_R23.0.0001.7z <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200812161752475_UPGRADEDOWNLOAD_R23.0.0001.7z>`__
+
+-  USB驱动 `Air720UH/Air724UG系列 PC 端 USB
+   驱动 <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200808183454135_sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z>`__
+
+模块升级接口
+============
+
+Air系列cat1模块是通过USB接口进行下载调试。通过模块的USB管脚直接与PC的USB口相连就可以。
+Air724U系列： |image1| Air720U系列： |image2|
+
+安装USB驱动
+===========
+
+下载驱动压缩包，解压后，根据电脑配置安装驱动 |image3|
+安装成功后，将Air系列CAT1模块连接到电脑USB口，开机后会在设备管理器中虚拟出3个虚拟串口，如下则USB驱动安装完成。
+|image4|
+
+下载模式
+========
+
+Air系列CAT1模块要进行下载必须先进入下载模式。进入下载模式的方法： 1.
+开机时，将模块的USB_BOOT管脚上拉到V1.8V，可以将USB_BOOT直接与V_GLOBAL_1V8管脚信号
+短接，进入下载模式，所以，在设计板子时一定要\ **将USB_BOOT管脚和V_GLOBAL_1V8管脚预留测试点**\ 。
+2.
+开机后可以通过USB虚拟的串口发AT指令：AT^DOWNLOAD,发指令后模块会重启并进入下载模式。通常不需要手动发，在连接Luatool后，在进行免boot下载时，工具会主动发。
+进入下载模式后，PC的设备管理器会出现如下的虚拟串口： |image5|
+
+调试阶段的下载
+==============
+
+在调试阶段，通常会用luatool这个工具，luatool功能强大，不仅可以整包固件下载，也可以分开底层+脚本进行下载。
+在进行调试时，通常会先下载底层的固件，下载过底层固件后，后续在调试上层脚本时都不需要再反复下载底层固件了，只需更新上层脚本即可。
+#### 底层脚本的下载步骤
+由于模块出厂默认自带的AT版本固件，因此需要更换为Luat二次开发固件。
+解压底层包后，里面会有很多后缀名不同的固件。
+不同的文件名代表此固件支持低不同功能（FLOAT：支持浮点运算；TTS：支持语言播报功能；FLOAT_TTS:两种功能都支持）。选择不同的core
+flash和ram剩余空间也会不同。要根据自己的应用情况做选择。 |image6|
+打开其中一个文件夹，内部的.pac的文件才是我们需要下载的固件。.bin文件不用管。
+|image7| 固件的下载需要通过 Luatools_v2下载工具。
+在开机的状态下做如下操作 |image8| |image9| 注意：
+
+::
+
+       手动通过上拉USB_BOOT管脚进入下载模式的话需要勾选”USB_BOOT下载”这个选项。如果开机后进行下载，这不要勾选”USB_BOOT下载”这个选项，下载过程中，模块会自动重启进入下载模式
+
+下载完成后，模块会自动开机，工具上会有如下打印（以V0008版本为例）
+|image10| 当然，合并后的底层+脚本的PAC包可以通过底层下载的方式
+``注意：如果在免boot模式（不勾选USB_BOOT的情况下）如果中途下载中断了，即使重启，也会自动进入下载模式，会出现无法开机的情况，参考如下异常处理方式：``
+http://doc.openluat.com/wiki/6?wiki_page_id=131
+
+上层脚本的下载步骤
+^^^^^^^^^^^^^^^^^^
+
+底层烧录好模块还不能实现具体功能，\ **必须将上层的脚本下载进入后才能实现具体功能。强调下，必须下载脚本！**
+打开脚本后里面的结构： -
+demo：示例的脚本代码，实现完整功能，开发的时候可以在demo的代码中修改 -
+lib：库文件，必须要全部下载到模块中 |image11| 操作如下： 1.
+在工具上创建一个项目 |image12| |image13| 1. 选择底层包和对应的脚本
+|image14| |image15| 注意下载选项，luatool自带Lib库，可以不需要手动加载
+|image16| 点击开始下载后等待10S后开始下载，下载完成后整个下载过程结束。
+
+合并脚本
+========
+
+在调试后期，需要进行生产，如果还是采用luatool这种单台分底包，脚本分别下载的方式，生产效率就太低了。
+于是我们可以通过LUATOOL将底层和脚本打包成一个文件，方便下载。 |image17|
+合并后会生成两个文件夹： |image18| 1. 量产文件就是打包好的pac固件 2.
+远程升级文件用于远程升级用
+
+量产升级
+========
+
+量产升级要到多路同时并行下载，提高产能。于时就用到了量产下载工具\ `UPGRADEDOWNLOAD_R23.0.0001.7z <http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200812161752475_UPGRADEDOWNLOAD_R23.0.0001.7z>`__
+这个工具使用起来就比级简单了，选好路径，点击下载就可以，其他选项保持默认，而且制动识别USB口，不需要配置。但是只能手动进入下载模式，没有免boot的下载方式，也就是说量产下载必须将USB_BOOT管脚上拉，所以建议制作生产夹具进行下载，所以在设计板子时务必将USB_BOOT以测点方式引出。
+
+.. image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200812173120604_微信图片_20200812171803.png
+
+相关资料以及购买链接
+====================
+
+相关开发板购买链接
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+`相关软件资料下载 <http://doc.openluat.com/wiki/6?wiki_page_id=227>`__ #
+常见问题 https://doc.luatos.wiki/638/
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811173353852_TIM截图20200811173342.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200812161129057_TIM截图20200812160120.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811172936104_TIM截图20200811172920.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811173546333_TIM截图20200811173539.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200812163737697_TIM图片20200812163709.png
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811174132000_TIM截图20200811174109.png
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811174701914_TIM截图20200811174647.png
+.. |image8| image:: https://img-blog.csdnimg.cn/20200424173505949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image9| image:: https://img-blog.csdnimg.cn/20200424173821345.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image10| image:: https://img-blog.csdnimg.cn/20200424174649253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image11| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200811180927254_TIM截图20200811180915.png
+.. |image12| image:: https://img-blog.csdnimg.cn/20200424182019797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image13| image:: https://img-blog.csdnimg.cn/2020042418214310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image14| image:: https://img-blog.csdnimg.cn/20200424182339551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image15| image:: https://img-blog.csdnimg.cn/20200424182444991.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image16| image:: https://img-blog.csdnimg.cn/20200424182621997.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1MzY0Nzkz,size_16,color_FFFFFF,t_70
+.. |image17| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200812170217998_TIM截图20200812170131.png
+.. |image18| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200812170537996_TIM截图20200812170505.png

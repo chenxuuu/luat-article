@@ -1,0 +1,263 @@
+DNS解析
+=======
+
+作者：陈之敏 时间：2020年08月15日
+关键字：csdk、RDA8910、二次开发、DNS解析、UDP # 目录
+
+`点击这里查看所有博文 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__
+
+  最近听说有的小伙伴看了我的教程后，有一些问题都跑到官方的gitee上面去问去了。导致官方的人没搞懂问的是啥，小伙伴们也没能知道自己想要的答案。给大家造成了困扰，这里我说声抱歉。
+
+  既然出现了这个问题，我这里就声明一下，本系列教程所涉及的内容(demo)不是官方的作品。我个人觉得官方的demo内容太多太全，往往都是把一个模块内所有的东西全部放在一起。这样的话对新手不是很友好，阅读起来也比较费劲。我就把官方的部分demo进行相关的简化，并推出教程这样的话可能会对新手朋友们有一定的帮助。
+
+  有时候周末闲暇时间我也会加上一些我觉得好玩的模块在里面，这些可能在官方的demo都没有，比如cJSON、PAHO-MQTT、http-client。
+
+  这就是官方的代码仓库。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/openLuat/Luat_CSDK_Air724U.git
+
+  当然各位小伙伴在看本教程时，我建议还是使用我下面提供的仓库比较好，看完之后在迁移到官方的仓库⇧。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/chenxiahuaxu/RDA8910_CSDK.git
+
+  再看本教程过程中如果遇到了问题，可以在本人的代码仓库下面评论。也可以在本人的\ `博客 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ 下面评论。我要是看到的话，并且这个问题在我的能力范围的话我会尽力解答的（非官方，不要对我要求太多哦，要求太多我可能就不管啦）。
+
+一、前言
+========
+
+  经过一段时间学习，有的人可能会觉得不太对劲。我们这学的不是4g模块吗，怎么用了这么长时间这和网络一点关系都没有啊。劳资学这个就想连个网扎就这么费劲。这博主也真是的叭叭叭写了好几篇没扯到正事。
+|在这里插入图片描述|   既然有人提出了这个想法。我仔细一想，哎好像也对。
+|image1|
+  那好今天我们一起来尝试通过cat1连接一下互联网，获取我们想要的信息。在官方提供的库文件中，只有DNS是最简单的（内部实现并不简单，官方都已经封装好了，我们直接用即可），DNS解析实际是一个UDP通讯，这个UDP通讯过几天在讲。今天我们就使用官方提供的函数，进行DNS解析获取一下\ ``www.baidu.com``\ 的ip地址。
+## 1.1、什么是DNS解析
+
+  DNS解析又称域名解析，它的作用是把域名指向网站空间IP，让人们通过注册的域名可以方便地访问到网站的一种服务。IP地址是网络上标识站点的数字地址，为了方便记忆，采用域名来代替IP地址标识站点地址。域名解析就是域名到IP地址的转换过程。域名的解析工作由DNS服务器完成。（\ ``百度百科``\ ）
+
+|image2| ## 1.2、DNS解析的过程
+
+  DNS是应用层协议，事实上他是为其他应用层协议工作的，包括不限于HTTP和SMTP以及FTP，用于将用户提供的主机名解析为ip地址。
+  具体过程如下：
+①用户主机上运行着DNS的客户端，就是我们的PC机或者手机客户端运行着DNS客户端了。
+②浏览器将接收到的url中抽取出域名字段，就是访问的主机名，比如\ ``http://www.baidu.com/``\ ，并将这个主机名传送给DNS应用的客户端。
+③DNS客户机端向DNS服务器端发送一份查询报文，报文中包含着要访问的主机名字段（中间包括一些列缓存查询以及分布式DNS集群的工作）。
+④该DNS客户机最终会收到一份回答报文，其中包含有该主机名对应的IP地址。
+⑤一旦该浏览器收到来自DNS的IP地址，就可以向该IP地址定位的HTTP服务器发起TCP连接。
+
+|image3| 作者：wuxinliulei
+链接：https://www.zhihu.com/question/23042131/answer/66571369 来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+二、编写测试程序
+================
+
+2.1、了解本例程所用到的函数
+---------------------------
+
+  使用dns服务需要包含\ ``#include "iot_socket.h""``\ 头文件，我们这里只用到了三个函数，分别是：
+>/**获取网络状态 *@param status: 返回网络状态*\ @return TRUE: 成功
+\*    FALSE: 失败 \**/
+
+-  BOOL ``iot_network_get_status`` (T_OPENAT_NETWORK_STATUS\* status)
+
+..
+
+   /**建立网络连接，实际为pdp激活流程 *@param status:
+   返回网络状态*\ @return TRUE: 成功 \*    FALSE: 失败 @note
+   该函数为异步函数，返回后不代表网络连接就成功了，indCb会通知上层应用网络连接是否成功，连接成功后会进入OPENAT_NETWORK_LINKED状态
+   创建socket连接之前必须要建立网络连接
+   建立连接之前的状态需要为OPENAT_NETWORK_READY状态，否则会连接失败 \**/
+
+-  BOOL ``iot_network_connect`` (T_OPENAT_NETWORK_CONNECT\*
+   connectParam)
+
+..
+
+   /**获取域名对应的IP地址 *@param name:
+   域名，例如:www.airm2m.com/www.baidu.com*\ @return struct hostent
+   结构体: 该结构体包含了一个DNS域名解析后的ip地址 \*    NULL:
+   域名解析失败 \**/
+
+-  struct hostent\* ``gethostbyname``\ (const char \*name)
+
+..
+
+   /**将数字IP地址转换为点分十进制的ASCII表示形式。 @param addr
+   IP地址以网络顺序转换\ @return
+   指向保存ASCII的全局静态（！）缓冲区的指针代表地址**/
+
+-  char *``ipaddr_ntoa``\ (const openat_ip_addr_t*\ addr)
+
+2.2、编写测试程序
+-----------------
+
+  测试程序主要目的是不停的获取当前的网络状态。根据获取到的网络消息判断当前的状态应该干什么事情。必须提示\ ``OPENAT_NETWORK_READY``\ ，才可以执行链路激活程序。激活正常会提示\ ``OPENAT_NETWORK_LINKED``\ ，此时才可以通过\ ``socket``\ 接口建立数据连接。我们这里是每2s向DNS服务器发起一次请求查询\ ``www.baidu.com``\ 的IP地址。
+
+.. code:: c
+
+       T_OPENAT_NETWORK_STATUS status = {0};
+       while (1)
+       {
+           //获取网络状态
+           BOOL err = iot_network_get_status(&status);
+           if (!err)
+           {
+               iot_debug_print("[socket] iot_network_get_status error");
+           }
+           else
+           {
+               iot_debug_print("[socket] state:%d,csq:%d,simpresent:%d", status.state, status.csq, status.simpresent);
+               T_OPENAT_NETWORK_CONNECT networkparam = {0};
+               switch (status.state)
+               {
+               case OPENAT_NETWORK_DISCONNECT: //网络断开 表示GPRS网络不可用澹，无法进行数据连接，有可能可以打电话
+                   iot_debug_print("[socket] OPENAT_NETWORK_DISCONNECT");
+                   break;
+               case OPENAT_NETWORK_READY: //网络已连接 表示GPRS网络可用，可以进行链路激活
+                   memcpy(networkparam.apn, "CMNET", strlen("CMNET"));
+                   //建立网络连接，实际为pdp激活流程
+                   iot_network_connect(&networkparam);
+                   iot_debug_print("[socket] OPENAT_NETWORK_READY");
+                   break;
+               case OPENAT_NETWORK_LINKED: //链路已经激活 PDP已经激活，可以通过socket接口建立数据连接
+                   iot_debug_print("[socket] OPENAT_NETWORK_LINKED");
+                   char *name = "www.baidu.com";
+                   struct openat_hostent *hostentP = NULL;
+                   char *ipAddr = NULL;
+                   //获取域名对应的IP地址
+                   hostentP = gethostbyname(name);
+                   if (!hostentP)
+                   {
+                       iot_debug_print("[socket] gethostbyname %s fail", name);
+                       break;
+                   }
+                   // 将ip转换成字符串
+                   ipAddr = ipaddr_ntoa((const openat_ip_addr_t *)hostentP->h_addr_list[0]);
+                   iot_debug_print("[socket] gethostbyname %s ip %s", name, ipAddr);
+                   break;
+               }
+           }
+           osiThreadSleep(2000);
+       }
+
+三、编译并下载程序
+==================
+
+  完整代码在这，自取。
+
+.. code:: c
+
+   /*
+    * @Author: your name
+    * @Date: 2020-05-19 14:05:32
+    * @LastEditTime: 2020-05-23 17:14:18
+    * @LastEditors: Please set LastEditors
+    * @Description: In User Settings Edit
+    * @FilePath: \RDA8910_CSDK\USER\user_main.c
+    */
+
+   #include "string.h"
+   #include "cs_types.h"
+
+   #include "osi_log.h"
+   #include "osi_api.h"
+
+   #include "am_openat.h"
+   #include "am_openat_vat.h"
+   #include "am_openat_common.h"
+
+   #include "iot_debug.h"
+   #include "iot_uart.h"
+   #include "iot_os.h"
+   #include "iot_gpio.h"
+   #include "iot_pmd.h"
+   #include "iot_adc.h"
+   #include "iot_vat.h"
+   #include "iot_network.h"
+   #include "iot_socket.h"
+   //DNS Demo
+   static void TestTask(void *param)
+   {
+       T_OPENAT_NETWORK_STATUS status = {0};
+       while (1)
+       {
+           //获取网络状态
+           BOOL err = iot_network_get_status(&status);
+           if (!err)
+           {
+               iot_debug_print("[socket] iot_network_get_status error");
+           }
+           else
+           {
+               iot_debug_print("[socket] state:%d,csq:%d,simpresent:%d", status.state, status.csq, status.simpresent);
+               T_OPENAT_NETWORK_CONNECT networkparam = {0};
+               switch (status.state)
+               {
+               case OPENAT_NETWORK_DISCONNECT: //网络断开 表示GPRS网络不可用澹，无法进行数据连接，有可能可以打电话
+                   iot_debug_print("[socket] OPENAT_NETWORK_DISCONNECT");
+                   break;
+               case OPENAT_NETWORK_READY: //网络已连接 表示GPRS网络可用，可以进行链路激活
+                   memcpy(networkparam.apn, "CMNET", strlen("CMNET"));
+                   //建立网络连接，实际为pdp激活流程
+                   iot_network_connect(&networkparam);
+                   iot_debug_print("[socket] OPENAT_NETWORK_READY");
+                   break;
+               case OPENAT_NETWORK_LINKED: //链路已经激活 PDP已经激活，可以通过socket接口建立数据连接
+                   iot_debug_print("[socket] OPENAT_NETWORK_LINKED");
+                   char *name = "www.baidu.com";
+                   struct openat_hostent *hostentP = NULL;
+                   char *ipAddr = NULL;
+                   //获取域名对应的IP地址
+                   hostentP = gethostbyname(name);
+                   if (!hostentP)
+                   {
+                       iot_debug_print("[socket] gethostbyname %s fail", name);
+                       break;
+                   }
+                   // 将ip转换成字符串
+                   ipAddr = ipaddr_ntoa((const openat_ip_addr_t *)hostentP->h_addr_list[0]);
+                   iot_debug_print("[socket] gethostbyname %s ip %s", name, ipAddr);
+                   break;
+               }
+           }
+           osiThreadSleep(2000);
+       }
+   }
+   //main函数
+   int appimg_enter(void *param)
+   {
+       //系统休眠
+       iot_os_sleep(10000);
+
+       //创建一个任务
+       osiThreadCreate("TestTask", TestTask, NULL, OSI_PRIORITY_NORMAL, 2048, 0);
+
+       return 0;
+   }
+
+   //退出提示
+   void appimg_exit(void)
+   {
+       OSI_LOGI(0, "application image exit");
+   }
+
+  查看输出，日志开机首先输出了\ ``OPENAT_NETWORK_DISCONNECT``\ ，说明网络不可用。大约20s后输出\ ``OPENAT_NETWORK_READY``\ 提示网络就绪，可以进行链路激活。激活成功后提示\ ``OPENAT_NETWORK_LINKED``\ ，后面就在一直循环查询百度的ip地址并输出。
+|image4|
+  虽然我们获取到了baidu.com的ip地址，但是我们怎么知道是可用的呢，万一他是骗我们的呢。
+|image5|
+  我们只需要把解析出来的ip地址\ ``183.232.231.174``\ 粘贴在浏览器访问下就知道了，结果如下，显然是没有问题的。正常访问到了百度。
+|image6|
+
+   不会下载的\ `点击这里 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ ，进去查看我的\ ``RDA8910 CSDK二次开发入门教程``\ 专题第一篇博文\ ``1、RDA8910CSDK二次开发：环境搭建``\ 里面讲了怎么下载
+   这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束
+
+.. |在这里插入图片描述| image:: https://img-blog.csdnimg.cn/20200525233120694.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image1| image:: https://img-blog.csdnimg.cn/20200525233540202.png
+.. |image2| image:: https://img-blog.csdnimg.cn/20200525232744492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image3| image:: https://img-blog.csdnimg.cn/20200525222543549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image4| image:: https://img-blog.csdnimg.cn/20200525230154335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image5| image:: https://img-blog.csdnimg.cn/20200525231226822.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image6| image:: https://img-blog.csdnimg.cn/20200525231423383.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70

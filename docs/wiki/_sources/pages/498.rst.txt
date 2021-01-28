@@ -1,0 +1,327 @@
+串口
+====
+
+作者：陈之敏 时间：2020年08月15日 关键字：csdk、RDA8910、二次开发、UART
+# 目录
+
+`点击这里查看所有博文 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__
+
+  最近听说有的小伙伴看了我的教程后，有一些问题都跑到官方的gitee上面去问去了。导致官方的人没搞懂问的是啥，小伙伴们也没能知道自己想要的答案。给大家造成了困扰，这里我说声抱歉。
+
+  既然出现了这个问题，我这里就声明一下，本系列教程所涉及的内容(demo)不是官方的作品。我个人觉得官方的demo内容太多太全，往往都是把一个模块内所有的东西全部放在一起。这样的话对新手不是很友好，阅读起来也比较费劲。我就把官方的部分demo进行相关的简化，并推出教程这样的话可能会对新手朋友们有一定的帮助。
+
+  有时候周末闲暇时间我也会加上一些我觉得好玩的模块在里面，这些可能在官方的demo都没有，比如cJSON、PAHO-MQTT、http-client。
+
+  这就是官方的代码仓库。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/openLuat/Luat_CSDK_Air724U.git
+
+  当然各位小伙伴在看本教程时，我建议还是使用我下面提供的仓库比较好，看完之后在迁移到官方的仓库⇧。
+
+.. code:: c
+
+   git clone --recursive https://gitee.com/chenxiahuaxu/RDA8910_CSDK.git
+
+  再看本教程过程中如果遇到了问题，可以在本人的代码仓库下面评论。也可以在本人的\ `博客 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ 下面评论。我要是看到的话，并且这个问题在我的能力范围的话我会尽力解答的（非官方，不要对我要求太多哦，要求太多我可能就不管啦）。
+
+一、前言
+========
+
+  串行接口简称串口，也称串行通信接口或串行通讯接口，是采用串行通信方式的扩展接口。串行接口
+（Serial
+Interface）是指数据一位一位地顺序传送。其特点是通信线路简单，只要一对传输线就可以实现双向通信（可以直接利用电话线作为传输线），从而大大降低了成本，特别适用于远距离通信，但传送速度较慢。
+
+-  串口通讯协议简介
+
+  串口通讯(Serial
+Communication)是一种设备间非常常用的串行通讯方式，因为它简单便捷，大部分电子设备都支持该通讯方式，电子工程师在调试设备时也经常使用该通讯方式输出调试信息，因为Air724U自有一个USB端口用于程序下载和log打印，所以这里主要是讲怎么和其他的单片机或者通讯，不建议用来打印调试信息。
+\* 串口通讯的波特率
+
+  串口通讯是一种异步通信，异步通讯中由于没有时钟信号，所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码。常见的波特率为9600、19200、115200等。
+
+-  通讯的起始和停止信号
+
+  串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑
+0的数据位表示，而数据包的停止信号可由 0.5、1、1.5或 2 个逻辑 1
+的数据位表示，只要双方约定一致即可。
+
+-  数据位长度
+
+  在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度常被约定为
+5、6、7或 8位长。
+
+-  数据校验
+
+  在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差，可以在传输过程加上校验位来解决这个问题。校验方法有奇校验(odd)、偶校验(even)、0校验(space)、1校验(mark)以及无校验(noparity)。在无校验的情况下，数据包中不包含校验位。
+
+   以上内容引用\ `开源一小步的ESP32的两个UART实验 <https://blog.csdn.net/qq_24550925/article/details/85335709>`__\ 有兴趣的自行了解
+
+二、开发板硬件部分
+==================
+
+  翻看数据手册，发现芯片一共具有五个串口，其中串口1还具有硬件流控的功能。我们所熟悉的stm32串口一键下载电路就是通过流控来控制开发板进入下载模式。
+
+2.1、UART1/UART2
+~~~~~~~~~~~~~~~~
+
+  我所选用的开发板，预留了一个用于串口通讯的usb口。通过如下图所示的开关，进行串口1和串口2的切换。
+|在这里插入图片描述|\ |image1| |image2| ### 2.2、UART3/Host UART/ZSP
+UART   这三个串口官方将其全部引出，从模块背面就能看到引脚位置。 |image3|
+  串口3官方将其引出。 |image4| |image5|
+
+|image6| |image7| |image8| |image9|
+
+2.3、电平转化
+~~~~~~~~~~~~~
+
+  需要注意如果使用Air724U的串口和其他的单片机进行通讯，需要进行电平转换，不可直接与其他单片机相连。
+  官方给出了一个电平转化电路的参考电路。
+
+|image10|
+  首先看第一条线路，MCU发送，Air720接收这一条线路。当MCU的TXD引脚输出高电平时，二极管D2截止，Air720的RXD引脚被1.8v电源拉高。当MCU的TXD引脚输出低电平时，二极管D2导通，Air720的RXD引脚直接接入MCU的TXD引脚。这样就能确保Air720能够接收到MCU发出的高低电平信号，并且输入的高电平不会高于1.8V。
+
+  然后看第二条线路，MCU接收，Air720发送这一条线路。当Air的TXD引脚输出高电平时，三极管截止，MCU的RXD引脚被VDD_MCU电源拉高。当Air的TXD引脚输出低电平时，三极管导通，MCU的RXD引脚直接接入Air的TXD引脚。这样就能确保MCU能够接收到Air发出的高低电平信号，并且输入的高电平能够符合MCU的VDD电平需求。
+
+  有人可能会讲第二条线路为什么不用一个二极管，直接和第一条线路的参考电路一致。本电路适用于MCU的VDD>1.8v。当第二条线路使用二极管时，如果MCU的VDD大于1.8v，当Air输出高电平时也就是1.8v，此时二极管两端仍会存在压降，二极管并不会截止，MCU的RXD\ ``就不会被有效的拉高``\ 。此时Air发出的高电平部分会丢失，并且\ ``Air的TXD引脚会接入更高的电压``\ ，一旦超过耐压值。严重会导致Air引脚损坏。
+
+三、编写测试程序
+================
+
+3.1、了解本例程所用到的函数
+---------------------------
+
+  使用串口的驱动需要包含\ ``#include "iot_uart.h"``\ 头文件，我们这里只用到了五个函数，分别是：
+>/**打开uart @param port: UART 编号\ @param cfg: 配置信息 @return TRUE:
+成功    FALSE: 失败**/
+
+-  BOOL ``iot_uart_open``\ (E_AMOPENAT_UART_PORT
+   port,T_AMOPENAT_UART_PARAM \*cfg)
+
+..
+
+   /**读uart *@param port: UART 编号*\ @param buf: 存储数据地址 *@param
+   bufLen: 存储空间长度*\ @param timeoutMs: 读取超时 ms \*@return
+   UINT32: 实际读取长度 \**/
+
+-  UINT32 ``iot_uart_read``\ (E_AMOPENAT_UART_PORT port,UINT8\*
+   buf,UINT32 bufLen, UINT32 timeoutMs)
+
+..
+
+   /**写uart @param port: UART 编号\ @param buf: 写入数据地址 @param
+   bufLen: 写入数据长度\ @return UINT32: 实际读取长度**/
+
+-  UINT32 ``iot_uart_write``\ (E_AMOPENAT_UART_PORT port, UINT8\*
+   buf,UINT32 bufLen)
+
+3.2、编写主程序
+---------------
+
+  主程序里主要做了两件事，就是分别对串口1和串口2进行初始化，两者参数完全一致，唯一一个不同的地方就是两者的消息回调函数不一样。
+
+.. code:: c
+
+       T_AMOPENAT_UART_PARAM uartCfg = {0};
+       BOOL err = 0;
+       uartCfg.baud = OPENAT_UART_BAUD_115200;             //波特率
+       uartCfg.dataBits = 8;                               //数据位
+       uartCfg.stopBits = 1;                               // 停止位
+       uartCfg.parity = OPENAT_UART_NO_PARITY;             // 无校验
+       uartCfg.flowControl = OPENAT_UART_FLOWCONTROL_NONE; //无流控
+       uartCfg.txDoneReport = FALSE;                       //发送完成不通知
+       uartCfg.uartMsgHande = uart1_recv_handle;           //回调函数
+       err = iot_uart_open(OPENAT_UART_1, &uartCfg);       //初始化串口1
+       while (!err)
+       {
+           iot_debug_print("OPENAT_UART_1 open FALSE");
+           iot_os_sleep(1000);
+       }
+       uartCfg.uartMsgHande = uart2_recv_handle;     //回调函数
+       err = iot_uart_open(OPENAT_UART_2, &uartCfg); //初始化串口2
+       while (!err)
+       {
+           iot_debug_print("OPENAT_UART_2 open FALSE");
+           iot_os_sleep(1000);
+       }
+
+3.3、编写消息回调函数
+---------------------
+
+  回调函数中做的事情也很简单，主要是将接收到的数据，进行格式化后再通过串口发送出去。只有一个要注意的地方就是调用\ ``iot_uart_read``\ 读取消息后，需要根据接收到的数据长度，在缓存区末尾加上\ ``\0``\ 。
+
+.. code:: c
+
+       uint8 *recv_buff = NULL;
+       uint8 dataLen = evt->param.dataLen;
+       if (dataLen)
+       {
+           if (evt->evtId = OPENAT_DRV_EVT_UART_RX_DATA_IND)
+           {
+               recv_buff = iot_os_malloc(dataLen);
+               if (recv_buff == NULL)
+               {
+                   iot_debug_print("uart1_recv_handle_0 recv_buff malloc fail %d", dataLen);
+               }
+               uint8 len = iot_uart_read(OPENAT_UART_1, recv_buff, dataLen, 25);
+               recv_buff[len] = '\0';
+               if (len)
+               {
+                   char buf[100] = {0};
+                   sprintf(buf, "uart1 recv dadalen:%d,data:%s\r\n", len, recv_buff);
+                   iot_debug_print(buf);
+                   iot_uart_write(OPENAT_UART_1, buf, strlen(buf));
+               }
+               //使用完必须释放，不然会造成堆区内存泄漏，久而久之内存就不够用了。
+               iot_os_free(recv_buff);
+           }
+       }
+
+三、编译并下载程序
+==================
+
+  完整代码在这，自取。
+
+.. code:: c
+
+   /*
+    * @Author: your name
+    * @Date: 2020-05-19 14:05:32
+    * @LastEditTime: 2020-05-22 19:35:50
+    * @LastEditors: Please set LastEditors
+    * @Description: In User Settings Edit
+    * @FilePath: \RDA8910_CSDK\USER\user_main.c
+    */
+
+   #include "string.h"
+   #include "cs_types.h"
+
+   #include "osi_log.h"
+   #include "osi_api.h"
+
+   #include "am_openat.h"
+   #include "am_openat_vat.h"
+   #include "am_openat_common.h"
+
+   #include "iot_debug.h"
+   #include "iot_uart.h"
+   #include "iot_os.h"
+   #include "iot_gpio.h"
+   #include "iot_pmd.h"
+   #include "iot_adc.h"
+   #include "iot_vat.h"
+
+   void uart1_recv_handle(T_AMOPENAT_UART_MESSAGE *evt)
+   {
+       uint8 *recv_buff = NULL;
+       uint8 dataLen = evt->param.dataLen;
+       if (dataLen)
+       {
+           if (evt->evtId = OPENAT_DRV_EVT_UART_RX_DATA_IND)
+           {
+               recv_buff = iot_os_malloc(dataLen);
+               if (recv_buff == NULL)
+               {
+                   iot_debug_print("uart1_recv_handle_0 recv_buff malloc fail %d", dataLen);
+               }
+               uint8 len = iot_uart_read(OPENAT_UART_1, recv_buff, dataLen, 25);
+               recv_buff[len] = '\0';
+               if (len)
+               {
+                   char buf[100] = {0};
+                   sprintf(buf, "uart1 recv dadalen:%d,data:%s\r\n", len, recv_buff);
+                   iot_debug_print(buf);
+                   iot_uart_write(OPENAT_UART_1, buf, strlen(buf));
+               }
+               //使用完必须释放，不然会造成堆区内存泄漏，久而久之内存就不够用了。
+               iot_os_free(recv_buff);
+           }
+       }
+   }
+   void uart2_recv_handle(T_AMOPENAT_UART_MESSAGE *evt)
+   {
+       uint8 *recv_buff = NULL;
+       uint8 dataLen = evt->param.dataLen;
+       if (dataLen)
+       {
+           if (evt->evtId = OPENAT_DRV_EVT_UART_RX_DATA_IND)
+           {
+               recv_buff = iot_os_malloc(dataLen);
+               if (recv_buff == NULL)
+               {
+                   iot_debug_print("uart1_recv_handle_0 recv_buff malloc fail %d", dataLen);
+               }
+               uint8 len = iot_uart_read(OPENAT_UART_2, recv_buff, dataLen, 25);
+               recv_buff[len] = '\0';
+               if (len)
+               {
+                   char buf[100] = {0};
+                   sprintf(buf, "uart2 recv dadalen:%d,data:%s\r\n", len, recv_buff);
+                   iot_debug_print(buf);
+                   iot_uart_write(OPENAT_UART_2, buf, strlen(buf));
+               }
+               //使用完必须释放，不然会造成堆区内存泄漏，久而久之内存就不够用了。
+               iot_os_free(recv_buff);
+           }
+       }
+   }
+
+   //main函数
+   int appimg_enter(void *param)
+   {
+       //系统休眠
+       iot_os_sleep(10000);
+
+       T_AMOPENAT_UART_PARAM uartCfg = {0};
+       BOOL err = 0;
+       uartCfg.baud = OPENAT_UART_BAUD_115200;             //波特率
+       uartCfg.dataBits = 8;                               //数据位
+       uartCfg.stopBits = 1;                               // 停止位
+       uartCfg.parity = OPENAT_UART_NO_PARITY;             // 无校验
+       uartCfg.flowControl = OPENAT_UART_FLOWCONTROL_NONE; //无流控
+       uartCfg.txDoneReport = FALSE;                       //发送完成不通知
+       uartCfg.uartMsgHande = uart1_recv_handle;           //回调函数
+       err = iot_uart_open(OPENAT_UART_1, &uartCfg);       //初始化串口1
+       while (!err)
+       {
+           iot_debug_print("OPENAT_UART_1 open FALSE");
+           iot_os_sleep(1000);
+       }
+       uartCfg.uartMsgHande = uart2_recv_handle;     //回调函数
+       err = iot_uart_open(OPENAT_UART_2, &uartCfg); //初始化串口2
+       while (!err)
+       {
+           iot_debug_print("OPENAT_UART_2 open FALSE");
+           iot_os_sleep(1000);
+       }
+
+       //创建一个任务
+       //iot_os_create_task(TestTask, NULL, 4096, 1, OPENAT_OS_CREATE_DEFAULT, "TestTask");
+       return 0;
+   }
+
+   //退出提示
+   void appimg_exit(void)
+   {
+       OSI_LOGI(0, "application image exit");
+   }
+
+  查看输出，串口1和串口2都成功的接收到了正确的数据，并且成功格式化输出。
+|image11|
+
+   不会下载的\ `点击这里 <https://blog.csdn.net/weixin_44570083/article/details/104285283>`__\ ，进去查看我的\ ``RDA8910 CSDK二次开发入门教程``\ 专题第一篇博文\ ``1、RDA8910CSDK二次开发：环境搭建``\ 里面讲了怎么下载
+   这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束
+
+.. |在这里插入图片描述| image:: https://img-blog.csdnimg.cn/20200522170416796.png
+.. |image1| image:: https://img-blog.csdnimg.cn/20200522170156759.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image2| image:: https://img-blog.csdnimg.cn/20200522170136292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image3| image:: https://img-blog.csdnimg.cn/202005221702131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image4| image:: https://img-blog.csdnimg.cn/20200522170507128.png
+.. |image5| image:: https://img-blog.csdnimg.cn/20200522170536451.png
+.. |image6| image:: https://img-blog.csdnimg.cn/20200522170235751.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image7| image:: https://img-blog.csdnimg.cn/20200522171630446.png
+.. |image8| image:: https://img-blog.csdnimg.cn/20200522170304530.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image9| image:: https://img-blog.csdnimg.cn/20200522170727563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image10| image:: https://img-blog.csdnimg.cn/20200522170838493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70
+.. |image11| image:: https://img-blog.csdnimg.cn/20200522165414829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70

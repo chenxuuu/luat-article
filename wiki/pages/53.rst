@@ -1,0 +1,146 @@
+LCD SPI接口
+===========
+
+作者：周维华 金艺
+
+概述
+====
+
+Air724UG支持一路LCD专用SPI接口，用于驱动SPI LCD屏幕 **特性：** 1.
+最大支持320*240分辨率，30帧 1. 内置图像处理单元GOUDA 1. 支持格式： YUV4
+: 2 : 0 ;YUV4 : 2 : 2;RGB565; ARGB8888 1.
+目前只支持4线8bit一通道类型的LCD 1. 支持1.8V /2.8V LCD屏幕
+
+管脚定义
+========
+
++---------+---------+---------+---------+---------+---------+---------+
+| 管脚名  | 管脚    | 复用    | I/O     | 管      | 电      | 备注    |
+|         |         |         |         | 脚描述  | 气特性  |         |
++=========+=========+=========+=========+=========+=========+=========+
+| LCD_CS  | 39      | LCD_CS  | O       | SPI LCD | VILmi   | 注意电  |
+| WAK     |         |         |         | 片选    | n=-0.3V | 压域是  |
+| EUP_OUT |         |         |         |         | VILm    | VCC_LCD |
+| (       |         |         |         |         | ax=0.6V | 不用    |
+| GPIO_3) |         |         |         |         | VIHm    | 则悬空  |
+|         |         |         |         |         | in=1.2V |         |
+|         |         |         |         |         | VIHm    |         |
+|         |         |         |         |         | ax=2.0V |         |
+|         |         |         |         |         | VOHm    |         |
+|         |         |         |         |         | in=VCC_ |         |
+|         |         |         |         |         | LCD*0.7 |         |
+|         |         |         |         |         | VOLm    |         |
+|         |         |         |         |         | ax=VCC_ |         |
+|         |         |         |         |         | LCD*0.3 |         |
++---------+---------+---------+---------+---------+---------+---------+
+| LCD_CLK | 40      | LCD_CLK | O       | SPI LCD | 同上    |         |
+| AP      |         |         |         | 时      |         |         |
+| _WAKEUP |         |         |         | 钟信号  |         |         |
+| _MODULE |         |         |         |         |         |         |
+| (       |         |         |         |         |         |         |
+| GPIO_2) |         |         |         |         |         |         |
++---------+---------+---------+---------+---------+---------+---------+
+| L       | 41      | L       | O       | SPI LCD | 同上    |         |
+| CD_DATA |         | CD_DATA |         | 数      |         |         |
+| (       |         |         |         | 据信号  |         |         |
+| GPIO_0) |         |         |         |         |         |         |
++---------+---------+---------+---------+---------+---------+---------+
+| LC      | 42      | INPUT   | O       | LC      | 同上    | \*\*    |
+| D_FMARK |         | PU      |         | D_FMARK |         | 目前还  |
+|         |         | LL_DOWN |         |         |         | 未支持  |
+|         |         |         |         |         |         | \*\*    |
++---------+---------+---------+---------+---------+---------+---------+
+| LCD_RST | 56      | LCD_RST | O       | SPI LCD |         |         |
+|         |         |         |         | 复      |         |         |
+|         |         |         |         | 位信号  |         |         |
++---------+---------+---------+---------+---------+---------+---------+
+| LCD_SEL | 57      | LCD_SEL | O       | SPI LCD | 同上    | \*\*    |
+| N       |         |         |         | 选择    |         | 目前还  |
+| ET_MODE |         |         |         |         |         | 未支持  |
+| (       |         |         |         |         |         | \*\*    |
+| GPIO_4) |         |         |         |         |         |         |
++---------+---------+---------+---------+---------+---------+---------+
+| LCD_DC  | 58      | LCD_DC  | O       | SPI LCD | 同上    |         |
+| NET     |         |         |         | 数据命  |         |         |
+| _STATUS |         |         |         | 令选择  |         |         |
+| (       |         |         |         |         |         |         |
+| GPIO_1) |         |         |         |         |         |         |
++---------+---------+---------+---------+---------+---------+---------+
+| VCC_LCD | 81      |         | O       | LCD供   | 输      |         |
+|         |         |         |         | 电管脚  | 出1.6-3 |         |
+|         |         |         |         |         | .3V，默 |         |
+|         |         |         |         |         | 认电压  |         |
+|         |         |         |         |         | 是1.8V  |         |
++---------+---------+---------+---------+---------+---------+---------+
+
+参考设计
+========
+
+.. image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200801213452709_LCD.png
+
+注意： 1. C1要靠近LCD放置 1. CLK 和
+DATA建议预留RC以降低对天线干扰的风险，RC靠近模块放置 1.
+背光控制务必用PWM(GPIO5)控制，通过调整PWM占空比来调整背光亮度 1.
+R1电阻根据屏幕背光的导通电流来做调整
+
+相关AT指令
+==========
+
+AT指令不支持I2C接口操作
+
+LUAT开发相关接口
+================
+
+相关的屏幕控制接口可以参考LUAT_API disp章节（未完成）
+
+相关示例，请参考:raw-latex:`\script`\_LuaTask_VX.X.X:raw-latex:`\demo`:raw-latex:`\ui `
+
+Air724UG ui demo已经内置如下LCD的ic驱动： - GC9106 - SPI_ST7735
+只需要加载对应的lua模块即可 注意要打开对应的LDO
+pmd.ldoset(15,pmd.LDO_VLCD)
+
+常用彩屏为 **ST7735** ,开发板 SPI 驱动彩屏用如下管脚： 下面讲解用ST7735
+在Air724UG 开发板上点亮屏幕的过程：
+首先准备一个7735的屏幕（7735型号有带后缀的也可以的） |image1|
+网购的屏幕一般都有8个接口，自行焊上8PIN排针. |image2|
+而724的开发板显示有7个口， |image3| 将屏幕的GND 对齐 开发板的GND 接上，
+最后显示屏的BLK 会悬空（如果不调节亮度，悬空默认最亮，其他亮度
+这个口接PWM）
+
+合宙提供了官方的 Luat
+下载工具目录下，有路径：resource\8910_script:raw-latex:`\script`\_LuaTask_V2.3.1:raw-latex:`\demo`:raw-latex:`\ui `可以找到测试程序
+也可以下载
+http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163759065_GiAZC6J45eb9702300e02_COLOR_LCD.rar
+
+正常情况下，这些例子，都是能直接显示的，万一屏幕上不出内容怎么办？
+有以下几个方式来判断： 1. 确定程序正确下载到模块，并成功运行，在Luat
+tools 2.0 上可以查看。 2.
+检查724开发板显示接口的V_LCD是否有电压输出，3.2V左右。
+如果上面两点都正常，还是不显示，考虑可以换一片LCD 测试了。
+
+由于不同的彩屏驱动会略有不同，官方提供的示例可能会出现显示位置偏差，
+或者颜色反色等情况，这样需要开发者自行去查阅具体屏幕的资料。
+资料的对应位置大致如下： |image4|
+
+ST7735有多种分辨率下面就是 80X160上的显示效果： |image5|
+
+相关资料以及购买链接
+====================
+
+相关开发板购买链接
+
+`LCD屏幕购买链接 <http://m.openluat.com/product/122>`__
+`Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
+开发板使用说明 <https://doc.luatos.wiki/103/>`__
+`相关软件资料下载 <http://doc.openluat.com/wiki/6?wiki_page_id=227>`__
+
+常见问题
+========
+
+https://doc.luatos.wiki/638/
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530233956147_QQ图片20200530233941.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530234319415_QQ图片20200530234313.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200530234742676_QQ图片20200530234734.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200531002935157_QQ图片20200531002929.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200531003420089_attachments-2020-05-ajkjTtao5eb96da069abd.jpg

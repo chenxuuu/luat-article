@@ -1,0 +1,131 @@
+pmd
+===
+
+   作者：吴永 更新时间：2020年8月15日 关键词：LDO、休眠 ## pmd
+
+电源管理接口:ldo 控制,省电管理
+
+--------------
+
+pmd.init()
+~~~~~~~~~~
+
+-  语法
+
+   ``result = pmd.init( )``
+
+-  返回值
+
+   1:成功
+
+   0:失败
+
+-  例子
+
+.. code:: lua
+
+
+   rtos.on(rtos.MSG_PMD,function(msg)
+       if msg then
+           --msg.voltage：number类型，vbat端的电池电压，单位毫伏
+           --msg.level：vbat端电池电量百分比，core按照线性比例，计算出来的一个百分比，值为(msg.voltage-3400)*100/(4200-3400)
+           --           如果满足不了自己的需求，可以根据msg.voltage自行计算百分比
+           --msg.charger：usb vbus连接状态，true为连接，false为未连接
+           --msg.state：充电状态，因Cat.1模块内部不支持充电管理功能，故此值无意义
+           log.info("rtos.MSG_PMD",msg.level,msg.voltage,msg.charger,msg.state)
+           
+           --当level为255时，表示此条消息无意义，直接丢弃，不要做任何处理
+           if msg.level==255 then return end
+           
+           --TODO：此处添加自己的业务逻辑代码
+           
+       end
+   end)
+
+   --初始化配置，参数直接传入一个空表{}
+   pmd.init({})
+
+--------------
+
+pmd.ldoset()
+~~~~~~~~~~~~
+
+ldo 控制
+
+pmd.VLDO6
+
+一旦设置了某一个电压域的电压等级，受该电压域控制的所有GPIO的高电平都与设置的电压等级一致
+
+-  语法
+
+   ``pmd.ldoset(level,id1,[id2],...,[idn])``
+
+-  参数
+
+   +-----------------+-----------------------+-----------------------------+
+   | 参数            | 释义                  | 取值范围                    |
+   +=================+=======================+=============================+
+   | level           | ldo 亮度              | 0 - 7 级                    |
+   |                 |                       | 0–关闭1–1.8V2–1.9V3–2       |
+   |                 |                       | .0V4–2.6V5–2.8V6–3.0V7–3.3V |
+   +-----------------+-----------------------+-----------------------------+
+   | id1             | 要设置的第一个 ldo    | pmd.LDO_VLCD                |
+   |                 |                       | pmd.LDO_VMMC                |
+   |                 |                       | pmd.LDO_VSIM1pmd.LDO_VCAMAp |
+   |                 |                       | md.LDO_VCAMDpmd.LDO_VBACKLI |
+   |                 |                       | GHT_Rpmd.LDO_VBACKLIGHT_Gpm |
+   |                 |                       | d.LDO_VBACKLIGHT_Bpmd.LDO_V |
+   |                 |                       | BACKLIGHT_Wpmd.LDO_HMICBIAS |
+   +-----------------+-----------------------+-----------------------------+
+   | id2(可选)       | 要设置的第 二 个 ldo  | pmd.LDO_VLCD                |
+   |                 |                       | pmd.LDO_VMMC                |
+   |                 |                       | pmd.LDO_VSIM1pmd.LDO_VCAMAp |
+   |                 |                       | md.LDO_VCAMDpmd.LDO_VBACKLI |
+   |                 |                       | GHT_Rpmd.LDO_VBACKLIGHT_Gpm |
+   |                 |                       | d.LDO_VBACKLIGHT_Bpmd.LDO_V |
+   |                 |                       | BACKLIGHT_Wpmd.LDO_HMICBIAS |
+   +-----------------+-----------------------+-----------------------------+
+   | idn(可选)       | 要设置的第 n 个 ldo   | pmd.LDO_VLCD                |
+   |                 |                       | pmd.LDO_VMMC                |
+   |                 |                       | pmd.LDO_VSIM1pmd.LDO_VCAMAp |
+   |                 |                       | md.LDO_VCAMDpmd.LDO_VBACKLI |
+   |                 |                       | GHT_Rpmd.LDO_VBACKLIGHT_Gpm |
+   |                 |                       | d.LDO_VBACKLIGHT_Bpmd.LDO_V |
+   |                 |                       | BACKLIGHT_Wpmd.LDO_HMICBIAS |
+   +-----------------+-----------------------+-----------------------------+
+
+-  返回值
+
+   无
+
+-  例子
+
+.. code:: lua
+
+   --要求VLDO6输出3.3V，则调用
+   pmd.ldoset(7,pmd.VSIM1)
+
+--------------
+
+pmd.sleep()
+~~~~~~~~~~~
+
+省电控制
+
+-  语法
+
+   ``pmd.sleep(value)``
+
+-  参数
+
+   ===== ==========================
+   参数  释义
+   ===== ==========================
+   value 1 - 进入睡眠，0 - 退出睡眠
+   ===== ==========================
+
+-  返回值
+
+   无
+
+--------------

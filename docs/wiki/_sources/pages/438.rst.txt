@@ -1,0 +1,115 @@
+3.1.16 远程升级
+===============
+
+–作者：盛玉霞 闫国梁（luat部分） ###
+AT固件远程升级：AT固件支持模块端AT指令触发升级和自动升级2种方式 ####
+1.模块端AT指令触发升级 ####
+1.1合宙IOT平台配置，\ `点此登录 <http://iot.openluat.com/>`__ #####
+1.1.1登录平台，查询模块是否在自己账号下
+客户向合宙采购4G模块时，如果采购人员没有告知合宙这批模块放在iot.openluat.com上的哪个产品下，则合宙会以\ **采购人的手机号为账号，默认密码888888**\ ，创建一个“Air72XUX标准模块”的产品，此次采购的所有模块都会放在这个产品下。
+|image1| |image2| ##### 1.1.2配置流程 ######
+A：官网下载最新固件\ `官网入口 <http://www.openluat.com/Product/4gcat1/Air724UG.html>`__
+###### B:依次点击724模块-》资料下载-》对应固件 |image3| ######
+C:固件下载到本地，解压后，将dfota.bin文件上传dfota
+
+新建固件，上传固件 |打开iot平台固件配置|
+
+依次 开始配置 |image4|
+
+D备注：如果配置时，是否全项目升级选的“是”，无需配置imei，按照上述内容配置即可。
+                                                                               
+
+如果配置时，是否全项目升级选的“否”，还需添加模块imei，如下图所示：
+                                                                  
+
+|image5| |image6| #### 1.2模块端AT指令触发 ##### 1.2.1通过串口1发AT指令
+|image7| |image8| |image9| |image10| ##### 1.2.2通过usb口发AT指令
+|image11| |image12|
+
+2.自动升级
+^^^^^^^^^^
+
+2.1自动升级是模块定期向后台发送升级请求，来获取新固件进行更新的，大致流程如下
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+|image13| #### 3.备注： ######
+A.客户可以通过IOT平台查看升级成功数量，失败日志等信息 ######
+B.升级过程中若模块断电、重启导致升级失败，可重新升级 ######
+C.模块手动触发升级时，若频繁从同一个版本请求（目前默认一小时内6次，24小时内10次），IOT平台设备状态会自动更改为禁止升级，需要在平台设备列表手动解除
+### 2.LUA固件远程升级 ####
+2.1平台端配置\ `IOT平台入口 <http://iot.openluat.com/Login/>`__ #####
+2.1.1登录平台，查询模块是否在自己账号下
+客户向合宙采购4G模块时，如果采购人员没有告知合宙这批模块放在iot.openluat.com上的哪个产品下，则合宙会以\ **采购人的手机号为账号，默认密码888888**\ ，创建一个“Air72XUX标准模块”的产品，此次采购的所有模块都会放在这个产品下。
+|image14| |image15| #####
+备注：为区分AT固件和LUA固件，方便管理，可新建一个产品
+
+第三方服务器升级
+================
+
+除了使用合宙提供的服务器以外用户还可以自行搭建升级服务器，方法可见\ https://doc.luatos.wiki/478/
+## 差分包制作
+724模块支持差分升级，因此需要生成差分包。目前可以使用合宙提供的web工具制作差分包。工具地址\ http://doc.openluat.com/chafen
+
+提前准备：当前设备使用的固件，需要升级的固件。
+设备使用的固件是指原始的底层固件的bin文件，这个文件是指合并以前的bin，从合宙官网直接下载的，或者luatools自动下载的
+|image16| 例如我使用的Luat_V0013_RDA8910.dfota.bin
+使用luatools生成升级文件，升级文件必须包含core无论core是否升级，因为差分会用到。如果只升级脚本那么就选择和设备基础版本相同的底层，如果不升级脚本只升级底层就无需勾选包含脚本，如果都升级就都勾选。
+|image17| 生成文件 |image18|
+使用\ http://doc.openluat.com/chafen\ 将基础版本和需要升级的版本上传。点击上传以后稍等即可获得用到的升级文件。点击下载即可。
+|image19| 获得升级文件以后其他步骤同以前模组 ## 流程演示 ###
+点击新建项目 |image20| 输入一个有个性的名字就行, 我输入的是 超级插座 ###
+进入产品 |image21| |image22| 把ProductKey记下了,下面会用到 ###
+设备端代码修改 打开项目的main.lua
+
+-  确保开头声明了PROJECT/VERSION/PRODUCT_KEY
+
+.. code:: lua
+
+   -- 务必注意变量的大小写
+   PROJECT = "SuperPower"
+   -- 版本号我推荐用X.X.X形式
+   VERSION = "2.0.4"
+   -- 填入iot平台上的ProductKey
+   PRODUCT_KEY = "NzqyRvsPvoyXva8dxXXX"
+   -- 其他代码
+   -- 升级功能
+   require"update"
+   update.request()
+
+升级文件的命名规则,非常非常非常重要
+
+1. ``-- ${PROJECT}_${VERSION}_${LOD}.bin``
+2. ``SuperPower_2.0.4_Luat_V0028_8955_SSL_UI_FLOAT.bin``
+
+文件名就是固件版本,不要通过修改文件名来改变版本号,这是行不通的!!! ###
+回到iot平台,添加固件 固件生成方式见前文 |image23| ### 测试升级
+
+-  先把main.lua的VERSION改成2.0.3, 刷机
+-  回到iot平台, 点击编辑, 将2.0.4设置为可升级
+-  点击”添加”, 填入测试设备的imei,并确定
+-  重启测试设备,观察日志, 一般来说都会更新成功的^_^ 未完待续
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612180839163_QQ截图20200612180717.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612181744368_QQ截图20200612181722.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612182800320_QQ截图20200612182145.png
+.. |打开iot平台固件配置| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615120626635_QQ截图20200615115915.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615120707696_QQ截图20200615120506.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615142444110_QQ截图20200615142349.png
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615142458525_QQ截图20200615142414.png
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150254730_QQ截图20200615145211.png
+.. |image8| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150313926_QQ截图20200615145419.png
+.. |image9| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150327418_QQ截图20200615145742.png
+.. |image10| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615150343122_QQ截图20200615145932.png
+.. |image11| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615151831541_QQ截图20200615151554.png
+.. |image12| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615151846511_QQ截图20200615151753.png
+.. |image13| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200615152225075_5_69646.png
+.. |image14| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612180839163_QQ截图20200612180717.png
+.. |image15| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612181744368_QQ截图20200612181722.png
+.. |image16| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200621172037924_Snipaste_2020-06-21_09-20-10.png
+.. |image17| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200621172150282_1592729022973-4f6b6842-469d-43ca-bff3-0527ea3b27b5.png
+.. |image18| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200621172238932_Snipaste_2020-06-21_09-22-16.png
+.. |image19| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200621172403532_1592729644085-34d8ba64-d28e-4c57-8d77-de3cc326538f.png
+.. |image20| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701145426198_1592730579289-0ae8dbdb-b003-45a9-8191-f3e9ae04e5e8.jpg
+.. |image21| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701145450103_1592730579285-64c752ac-a4dc-4e47-ad94-75143f1198c7.jpg
+.. |image22| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701145507734_1592730579275-2696c662-3c2a-477b-b7bb-1595f276b4ec.jpg
+.. |image23| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701145840888_1592730579296-889f7327-c02b-424d-bdc3-a1cc4f24e8cf.gif

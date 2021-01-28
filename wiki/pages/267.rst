@@ -1,0 +1,224 @@
+- 远程升级
+==========
+
+作者：朱天华 ## 一. 概述
+
+Luat开发模式下，固件分为两部分：core和script
+
+远程升级时：core为差分升级；script为全量覆盖升级
+
+远程升级时：可以仅升级script；可以仅升级core；也可以同时升级core+script
+
+支持合宙iot平台升级和自建第三方服务器升级
+
+二. 合宙iot平台升级core+script过程
+----------------------------------
+
+2.1 iot平台创建产品
+~~~~~~~~~~~~~~~~~~~
+
+登录\ `合宙iot平台 <http://iot.openluat.com/>`__
+
+如果没有账户，注册一个账户
+
+新建产品
+^^^^^^^^
+
+.. figure:: http://oldask.openluat.com/image/show/attachments-2019-08-3WILhBaw5d4bb907829e0.png
+   :alt: img
+
+   img
+
+进入产品
+^^^^^^^^
+
+.. figure:: http://oldask.openluat.com/image/show/attachments-2019-08-SfqAphcQ5d4bb92cf0408.png
+   :alt: img
+
+   img
+
+.. figure:: http://oldask.openluat.com/image/show/attachments-2019-08-9qv5QX6f5d4bb945a516e.png
+   :alt: img
+
+   img
+
+2.2 模块端脚本修改，生成升级包
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+例如：
+
+要从
+
+模块端本地烧录的旧版本core：Luat_V0017_RDA8910
+
+模块端本地烧录的旧版本script main.lua中的PROJECT：LUAT_IOT_SERVER_UPDATE
+
+模块端本地烧录的旧版本script main.lua中的VERSION：1.0.0
+
+模块端本地烧录的旧版本script
+main.lua中的PRODUCT_KEY：sVSCBogifQF6PfnncwVcRKaCbqO2YGfU
+和iot平台创建的产品ProductKey保持一致
+
+升级到
+
+升级包中的新版本core：Luat_V0022_RDA8910 大于等于旧版本core版本号
+
+升级包中的新版本script main.lua中的PROJECT：LUAT_IOT_SERVER_UPDATE
+和旧版本的PROJECT保持一致
+
+升级包中的新版本script main.lua中的VERSION：1.0.1 大于等于旧版本VERSION
+
+升级包中的新版本script
+main.lua中的PRODUCT_KEY：sVSCBogifQF6PfnncwVcRKaCbqO2YGfU
+和旧版本的PRODUCT_KEY保持一致
+
+注意：脚本中要require“update”加载update功能模块，才能支持远程升级，可以参考update的demo
+
+2.2.1 按照新版本的需求，修改main.lua
+''''''''''''''''''''''''''''''''''''
+
+如下图所示，PROJECT和PRODUCT_KEY保持不变，VERSION修改为1.0.1
+
+|undefined|
+
+2.2.2 使用Luatools生成新版本的升级包
+''''''''''''''''''''''''''''''''''''
+
+如下图所示
+
+|image1|
+
+在Luatools目录下的4G远程升级文件
+下，生了一个后缀名为dfota.bin的文件LUAT_IOT_SERVER_UPDATE_1.0.1_Luat_V0022_RDA8910.dfota.bin，这个就是新版本的升级包
+
+|image2|
+
+2.3 在合宙iot平台配置升级包
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+进入iot平台创建的产品，打开固件升级->升级配置->新建固件，如下图所示
+
+|image3|
+
+点击确定之后，升级配置完成，如下图所示
+
+|image4|
+
+添加需要升级的模块imei，如下图所示
+
+|image5|
+
+|image6|
+
+2.4 模块开机，完成升级
+~~~~~~~~~~~~~~~~~~~~~~
+
+烧录旧版本的模块开机后，连接升级服务器，下载差分升级包，自动重启，重启过程中完成固件升级，整个过程的关键日志如下图所示
+
+|image7|
+
+三. 合宙iot平台仅升级core或者仅升级script过程
+---------------------------------------------
+
+和升级core+script过程相比，仅有一点不同：
+
+2.2.2步骤生成升级包时：
+
+1、如果仅升级core，勾选 升级文件包含core，不勾选 升级文件包含脚本
+
+2、如果仅升级script，勾选 升级文件包含script，不勾选 升级文件包含core
+
+四. 自建第三方服务器升级过程
+----------------------------
+
+使用合宙iot平台升级，操作简单，升级原理如下：
+'''''''''''''''''''''''''''''''''''''''''''''
+
+只需要将新版本的升级包配置在合宙iot平台即可
+
+模块请求升级时，合宙iot平台自动生成core差分包和script全量包：
+
+1、core差分包：根据模块中的版本信息在合宙的erp系统中找到对应的升级包，然后将这个升级包和iot平台上配置的新版本升级包，做差分处理，生成core对应的差分包
+
+2、script全量包：直接根据iot平台上配置的新版本升级包，提取出来script全量包
+
+3、将core差分包和script全量包合成一个文件，发送给模块
+
+使用自建第三方服务器升级，操作可以简单也可以复杂：
+''''''''''''''''''''''''''''''''''''''''''''''''''
+
+简单的做法是：服务器设计完善，完全参考合宙iot升级后台设计，自己的服务器可以获取到已经出错的所有core版本对应的升级包
+
+复杂的做法是：完全手动生成core差分包+script全量包。例如已经出货的core版本有0017、0018、0019，现在要统一升级到0020，则需要按照如下步骤操作：
+
+1、手动生成：从0017到0020的core差分包+script全量包、从0018到0020的core差分包+script全量包、从0019到0020的core差分包+script全量包
+
+2、模块请求升级时，服务器根据模块中的core版本返回对应的升级包文件
+
+手动生成差分包的过程如下：
+
+用合宙提供的web工具制作差分包。工具地址
+`在线生成差分包 <http://doc.openluat.com/chafen>`__
+
+操作步骤：
+
+1、准备：模块中使用的旧版本core升级文件
+'''''''''''''''''''''''''''''''''''''''
+
+此文件指的是模块中旧版本core发布包中的dfota.bin文件（从合宙官方渠道下载），例如以Luat_V0017_RDA8910.dfota.bin为例，在下图中的Luat_V0017_RDA8910文件夹中
+
+|image8| |image9|
+
+2、准备：需要升级的新版本升级文件
+'''''''''''''''''''''''''''''''''
+
+使用luatools生成升级文件，无论core是否需要升级，升级文件必须包含core，因为差分会用到
+
+如果只升级脚本那么就选择和模块中旧版本相同的底层，如果不升级脚本只升级底层就无需勾选包含脚本，如果都升级就都勾选
+
+参考2.2.2章节生成新版本的升级文件，例如：LUAT_IOT_SERVER_UPDATE_1.0.1_Luat_V0022_RDA8910.dfota.bin
+
+3、生成差分包
+'''''''''''''
+
+使用luatools生成升级文件，无论core是否需要升级，升级文件必须包含core，因为差分会用到
+
+使用\ `在线生成差分包 <http://doc.openluat.com/chafen>`__\ 生成即可
+
+|image10|
+
+常见问题
+========
+
+1、差分包下载完成之后，对差分包会不会有校验？
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+差分包下载完成之后，下次重启过程中，会对差分包进行校验；
+如果校验通过，则自编程应用新版本，之后自动删除差分包；
+如果校验失败，则自动删除差分包
+所以说，差分包下载过程中，如果异常断电或者异常重启，并不会出现程序丢失或者变砖的问题
+### 2、远程升级完需要多长时间？
+升级时间根据差分包的大小不同，升级时间会不同。跨越的版本越大，差分包越大，升级所需的时间越长。实测，升级一个600k左右的差分包，3分钟内能升级完成。
+
+.. |undefined| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100004981_image-20201110161721750.png
+   :target: undefined
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100054623_image-20201110162902702.png
+   :target: undefined
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100131384_image-20201110163020267.png
+   :target: undefined
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100212222_image-20201110165920387.png
+   :target: undefined
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100244147_image-20201110171018379.png
+   :target: undefined
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100310700_image-20201110171241069.png
+   :target: undefined
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100335603_image-20201110171317756.png
+   :target: undefined
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100411512_image-20201110173540046.png
+   :target: undefined
+.. |image8| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100528755_image-20201110184002285.png
+   :target: undefined
+.. |image9| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100545897_image-20201110184024955.png
+   :target: undefined
+.. |image10| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201111100630770_image-20201110185123797.png
+   :target: undefined

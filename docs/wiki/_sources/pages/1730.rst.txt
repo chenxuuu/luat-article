@@ -1,0 +1,73 @@
+- Luat应用脚本运行框架
+======================
+
+一、单task应用
+--------------
+
+|undefined|
+
+core在启动过程中，会创建一系列的task，例如音频、协议栈、串口等
+
+其中有一个task，用来加载Lua虚拟机，解析运行用户编写的Lua脚本，这个task，我们称之为Lua
+virtual
+task（另外在Lua脚本中，利用Lua的协程特性封装了一个sys.taskInit接口，借用了task的概念，实际上并不是真正的task）
+
+脚本中的所有应用，都运行在Lua virtual machine task中，属于单task应用
+
+二、真假task、内外消息队列
+--------------------------
+
+一个真task
+''''''''''
+
+-  core中的Lua Virtual machine
+-  FreeRTOS中的任务调度器抢占式调度：FreeRTOS有一个定期的时钟节拍(通常是MS级)，每个节拍中断释放时，抢占当前优先级低的任务的CPU，让优先级最高的就绪任务执行
+-  “外部”消息队列：core中各task间数据通信的一种手段
+
+一种假task（协程）
+''''''''''''''''''
+
+-  script中的Lua语言的协程：sys.taskInit
+-  由Lua虚拟机非抢占式调度：当一个协程正在运行时，不能在外部终止他；
+   只能自己把自己挂起或者终止
+-  “内部”消息队列：在Lua脚本中合宙自定义的一套内部消息驱动机制
+
+三、应用脚本运行流程
+--------------------
+
+|image1|
+
+四、内部消息处理
+----------------
+
+|image2|
+
+五、外部消息处理
+----------------
+
+|image3|
+
+|image4|
+
+六、常见问题
+------------
+
+6.1 为什么Lua版本运行某些功能会有延时
+                                     
+
+脚本中的应用属于单task应用，都运行在一个Lua virtual machine
+task中，由2.1章节可知，Lua主task一直在循环处理内部消息队列和外部消息队列中的消息，消息是先进先出先处理
+
+即使有新消息到达，插入到内部消息队列或者外部消息队列中，必须等前面所有的消息处理结束，才能处理新消息
+例如：首先产生了一个定时器消息，定时器消息的处理动作（新建一个文件，写500K数据）比较耗时，在写文件的过程中，core中的串口task产生了一个串口接收数据通知消息，虽然可以插入到Lua主task的外部消息队列中，但是由于Lua主task还在执行写文件的动作，所以串口消息只能等待，问题就表现为“我明明已经向模块串口发送了数据，为什么脚本在3秒后才开始处理串口数据呢？”
+
+.. |undefined| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117143155246_Luat二次开发架构.png
+   :target: undefined
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117143936875_Lua脚本应用运行框架.png
+   :target: undefined
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117144057524_Lua版本内部消息处理.png
+   :target: undefined
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117152135845_Lua版本定时器消息处理.png
+   :target: undefined
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201117144148894_Lua版本音频播放消息处理.png
+   :target: undefined

@@ -1,0 +1,83 @@
+3.3.2 PPP
+=========
+
+作者：闫国梁 最后修改时间：2020年7月1日 # PPP拨号
+
+windows下PPP拨号
+================
+
+配置标准调制解调器  
+--------------------
+
+（1） 打开控制面板—>电话和调制解调器—>调制解调器—>添加—>选择标准
+33600bps 调制解调器—>选 择COM口。   |image1| |image2| |image3| |image4|
+（2）
+选择创建的调制解调器—>属性—>高级—>更改默认首选项—>波特率根据实际使用修改。
+|image5| |image6| 如果步骤（1）中添加的端口为
+USB枚举出的AT口时，则端口速率可以为任意值；如果步骤（1）中
+添加的端口为UART AT 口时，则端口速率需设置为模组的 UART 口速率。   ##
+设置拨号连接
+ 打开网络和共享中心—>设置新的连接或网络—>设置拨号连接—>创建拨号连接里，拨号号码为
+*99*\ \**1#，勾选“允许其他人使用此连接”，增加连接名称（例如 PPP0）。 
+
+|image7| |image8|
+
+.. image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160651709_Snipaste_2020-06-30_18-17-16.png
+
+|image9| ## 验证拨号结果  点击连接—>连接成功—>cmd 窗口—>ping –n 5
+www.baidu.com，ping外网地址收到正确回复信 息，至此PPP拨号上网成功。   #
+ linux下PPP拨号 ## 添加内核USB驱动识别ID  ### 方法一：基于内核编译  
+打开Linux 内核源码文件
+option.c（路径:raw-latex:`\drivers`:raw-latex:`\usb`:raw-latex:`\serial`:raw-latex:`\option`.c），找到
+option_ids数 组，添加如下内容：   {
+USB_DEVICE_AND_INTERFACE_INFO(0x1782, 0x4d10, 0xff, 0, 0) },   {
+USB_DEVICE_AND_INTERFACE_INFO(0x1782, 0x4d11, 0xff, 0, 0)
+},编译好内核并升级内核 后，插上USB 线连接模组，使用 ls /dev
+查看设备，出现 ttyUSB0 到ttyUSB7，如下图所示，表示 USB枚举成功，其中
+ttyUSB7 为AT 口。  |image.png| ### 方法二：基于桌面系统命令行  
+此方法每次重启后失效，必须重新操作。   在命令行下依次执行如下命令：  
+/sbin/modprobe usbserial   echo 1782 4d10 >
+/sys/bus/usb-serial/drivers/generic/new_id   echo 1782 4d11 >
+/sys/bus/usb-serial/drivers/generic/new_id   echo 1782 4d12 >
+/sys/bus/usb-serial/drivers/generic/new_id  ## 安装 PPP 拨号软件  
+在Linux系统的命令模式下，输入以下命令安装 PPP 拨号软件：   $ sudo apt
+install ppp  ## 设置权限  
+在Linux系统的命令模式下，输入以下命令设置权限：   $ sudo adduser dialout
+  该命令需要注销并重新登录后才能生效。  ## 创建文件/etc/ppp/peers/gprs  
+
+.. code:: bash
+
+   /dev/ttyUSB7 115200 nolock  local debug nocrtscts nodetach noauth usepeerdns  nodefaultroute user ''  
+   # this is the tty device name # baud rate  # not lock device file # not detect CD, not signal DTR # enable debug # no hardware flow control # run on foreground # no authentication # ask peer up to 2 DNS servers # not add to system routing table  
+   connect '/usr/sbin/chat -s -v -f /etc/ppp/chat-gprs-connect'
+
+ 创建文件/etc/ppp/chat-gprs-connect 
+------------------------------------
+
+ 
+
+.. code:: bash
+
+   TIMEOUT 5 ECHO ON ABORT '\nBUSY\r' ABORT '\nERROR\r' ABORT '\nRINGING\r\n\r\nRINGING\r' ABORT '\nCOMMAND NO RESPONSE!\r' '' AT TIMEOUT 60 SAY "Press CTRL-C to break the connection process.\n" OK 'ATE0' OK 'ATD*99***1#' TIMEOUT 60 SAY "Waiting for connect...\n" CONNECT '' SAY "connect Success!\n
+
+建立 PPP 拨号  
+---------------
+
+在Linux系统的命令模式下，输入以下命令建立 PPP 拨号：   $ sudo pppd call
+gprs   ## 给接口设定指定地址的路由   在大多数情况下，只需要给
+PPP接口设定相应的 IP 地址就可以使用 PPP接口。设置命令如下:   $ sudo ip
+route add xx.xx.xx.xx/32 dev ppp0     **该IP
+地址设定是临时有效。每次创建 PPP接口时，都需要再次进行设置。  ** ##
+验证拨号结果   设置路由成功后，如果ping
+外网地址能收到正确回复信息，则说明 PPP拨号成功。 
+
+.. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160412462_Snipaste_2020-06-30_18-08-56.png
+.. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160440027_Snipaste_2020-06-30_17-54-55.png
+.. |image3| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160458206_Snipaste_2020-06-30_17-55-30.png
+.. |image4| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160540081_Snipaste_2020-06-30_17-59-10.png
+.. |image5| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160603437_Snipaste_2020-06-30_18-02-30.png
+.. |image6| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160620861_Snipaste_2020-06-30_18-02-52.png
+.. |image7| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160637479_Snipaste_2020-06-30_18-11-07.png
+.. |image8| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160735354_Snipaste_2020-07-01_10-13-17.png
+.. |image9| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160907312_Snipaste_2020-07-01_14-11-55.png
+.. |image.png| image:: https://cdn.nlark.com/yuque/0/2020/png/1590208/1593584361611-67f9e5ff-d546-4299-885e-70bc4e539062.png#align=left&display=inline&height=367&margin=%5Bobject%20Object%5D&name=image.png&originHeight=734&originWidth=824&size=927707&status=done&style=none&width=412

@@ -1,0 +1,112 @@
+- 功耗
+======
+
+作者：王毅
+
+下图为Air724UG的功耗指标
+
+1. 连接综测仪的实验室数据指标：
+
+参数 描述 条件 最小 典型 最大 单位 VBAT 供电电压
+电压必须在该范围之内，包括电压跌落，纹波和尖峰时 3.3 3.8 4.3 V IVBAT
+平均供电电流 关机漏电流 第一次上电
+
+30
+
+uA 开机后关机（RTC正常工作）
+
+220
+
+uA 待机电流 LTE-TDD Pagingcycle=128
+
+1.78
+
+mA LTE-FDD Pagingcycle=128
+
+1.8
+
+mA 飞行模式 AT+CFUN=4
+
+1.39
+
+mA LTE-FDD B1 TX power = 23dbm CH300, BW=20M
+
+470
+
+mA TX power = -42dbm CH300, BW=20M
+
+151
+
+mA LTE-FDD B3 TX power = 23dbm CH1575, BW=20M
+
+514
+
+mA TX power = -42dbm CH1575, BW=20M
+
+152
+
+mA LTE-FDD B5 TX power = 23dbm CH2525, BW=20M
+
+522
+
+mA TX power = -42dbm CH2525, BW=20M
+
+138
+
+mA LTE-FDD B8 TX power = 23dbm CH3625, BW=20M
+
+624
+
+mA TX power = -42dbm CH3625, BW=20M
+
+138
+
+mA LTE-TDD B34 TX power = 23dbm CH36275, BW=20M
+
+275
+
+mA TX power = -42dbm CH36275, BW=20M
+
+115.4
+
+mA LTE-TDD B38 TX power = 23dbm CH38000, BW=20M
+
+290
+
+mA TX power = -42dbm CH38000, BW=20M
+
+119.5
+
+mA LTE-TDD B39 TX power = 23dbm CH38450, BW=20M
+
+250.4
+
+mA TX power = -42dbm CH38450, BW=20M
+
+100
+
+mA LTE-TDD B40 TX power = 23dbm CH39150, BW=20M
+
+316
+
+mA TX power = -42dbm CH39150, BW=20M
+
+116
+
+mA LTE-TDD B41 TX power = 23dbm CH40620, BW=20M
+
+291
+
+mA TX power = -42dbm CH40620, BW=20M
+
+119
+
+mA
+
+2. 实网模拟场景功耗：
+
+1) 测试条件： 频段：移动B40 信号强度(CESQ): 72 条件 数值
+   TCP连接，自动休眠，1分钟心跳间隔 8.5 mA
+   TCP连接，自动休眠，5分钟心跳间隔 3.48 mA
+
+注意：由于是实网测试，网络信号强度，注册频段，都会对测试的值有较大影响，因此，此参数仅做参考。

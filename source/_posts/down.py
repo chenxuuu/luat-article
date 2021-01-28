@@ -34,7 +34,7 @@ def get(i):
             return
         text = info["data"]["content"].replace("\r", "").replace("{{", "{ {").replace("}}", "} }")
         text = re.sub('http://doc.openluat.com/article/(.+?)/0',
-                lambda x: "https://doc.luatos.wiki/{}".format(x.group(1)),
+                lambda x: "https://doc.luatos.wiki/{}/".format(x.group(1)),
                 text)
         md = open(str(i)+".md", "w",encoding='utf-8')
         md.write("---\n")

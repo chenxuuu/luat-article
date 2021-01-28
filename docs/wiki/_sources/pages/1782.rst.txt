@@ -1,0 +1,91 @@
+- ril控制
+=========
+
+作者：朱天华 # 常见问题 ### 1、脚本中如何新增core支持的AT命令处理逻辑？
+lib脚本中有一个ril.lua，是虚拟串口AT命令处理逻辑功能模块
+
+此模块中有ril.request、ril.regUrc、ril.regRsp三个接口，参考\ http://doc.openluat.com/wiki/6?wiki_page_id=574\ 了解这三个接口说明
+
+lib脚本中已经实现了常见的AT指令处理逻辑，下面以AT+CESQ为例说明ril的接口如何使用：
+
+首先看下AT+CESQ命令的完整数据交互 AT+CESQ
+
++CESQ: 99,99,255,255,32,59
+
+OK
+
+再来看下脚本中是如何编码实现这条命令的发送和接收解析：
+
+（1）设置AT命令应答的数据格式
+'''''''''''''''''''''''''''''
+
+ril.lua中：
+
+::
+
+   local RILCMD = {
+       ["+CESQ"] = 2,
+
+此处定义了AT+CESQ命令的应答数据的格式，2表示：有前缀的单行字符串类型；
+更多格式说明参考：
+
+::
+
+   --AT命令的应答类型
+   --NORESULT：收到的应答数据当做urc通知处理，如果发送的AT命令不处理应答或者没有设置类型，默认为此类型
+   --NUMBERIC：纯数字类型；例如发送AT+CGSN命令，应答的内容为：862991527986589\r\nOK，此类型指的是862991527986589这一部分为纯数字类型
+   --SLINE：有前缀的单行字符串类型；例如发送AT+CSQ命令，应答的内容为：+CSQ: 23,99\r\nOK，此类型指的是+CSQ: 23,99这一部分为单行字符串类型
+   --MLINE：有前缀的多行字符串类型；例如发送AT+CMGR=5命令，应答的内容为：+CMGR: 0,,84\r\n0891683108200105F76409A001560889F800087120315123842342050003590404590D003A59\r\nOK，此类型指的是OK之前为多行字符串类型
+   --STRING：无前缀的字符串类型，例如发送AT+ATWMFT=99命令，应答的内容为：SUCC\r\nOK，此类型指的是SUCC
+   --SPECIAL：特殊类型，需要针对AT命令做特殊处理，例如CIPSEND、CIPCLOSE、CIFSR
+   local NORESULT, NUMBERIC, SLINE, MLINE, STRING, SPECIAL = 0, 1, 2, 3, 4, 10
+
+目前仅支持直接在ril.lua中设置AT+CESQ命令的应答数据格式
+
+（2）注册并实现AT命令应答数据的处理函数
+'''''''''''''''''''''''''''''''''''''''
+
+net.lua
+
+::
+
+   --[[
+   函数名：rsp
+   功能  ：本功能模块内“通过虚拟串口发送到底层core软件的AT命令”的应答处理
+   参数  ：
+   cmd：此应答对应的AT命令
+   success：AT命令执行结果，true或者false
+   response：AT命令的应答中的执行结果字符串
+   intermediate：AT命令的应答中的中间信息
+   返回值：无
+   ]]
+   local function rsp(cmd, success, response, intermediate)
+       local prefix = string.match(cmd, "AT(%+%u+)")
+       
+       if intermediate ~= nil then
+           if prefix == "+CESQ" then
+               local s = string.match(intermediate, "+CESQ: %d+,%d+,%d+,%d+,%d+,(%d+)")
+               if s ~= nil then
+                   rsrp = tonumber(s)
+               end
+           end
+       end
+   end
+
+
+
+   ril.regRsp("+CESQ",rsp)
+
+（3）通过虚拟串口发送AT命令
+'''''''''''''''''''''''''''
+
+net.lua
+
+::
+
+   ril.request("AT+CESQ")
+
+2、脚本中是否可以实现core中不支持的AT命令处理逻辑？
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+不可以
