@@ -74,3 +74,4 @@ html_show_sphinx = False
 html_search_language = 'zh'
 
 html_baseurl = 'https://doc.luatos.wiki/wiki/'
+sitemap_url_scheme = "{link}"
