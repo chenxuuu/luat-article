@@ -76,7 +76,7 @@
 <p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091401662_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091401662_图片</a> 10.png)<br>#4 下载运行<br>##4.1 下载工具介绍<br>下载工具使用的是合宙官方工具luatools。下载地址：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/luatoolsV2-redirect.html" title="luatools v2">luatools v2</a></p>
 <p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091423443_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091423443_图片</a> 11.png)<br>##4.2 固件选择<br> 点击右上角下载固件图标，在下载固件弹窗中选择需要下载的文件，<br>例如socket_demo固件：<br>hex/Air720U_CSDK_demo_socket/Air720U_CSDK_demo_socket.pac</p>
 <p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091440340_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091440340_图片</a> 13.png)<br>##4.3 下载固件<br>勾选USB BOOT下载，点击下载。长按模块上的U_BOOT键，再按重启键进入下载模式进行下载，下载过程中会有进度条提示下载进度，完成时会显示下载成功。</p>
-<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091456379_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091456379_图片</a> 14.png)<br>下载工具LuaTools的使用指南：<a href="https://doc.luatos.wiki/713">https://doc.luatos.wiki/713</a></p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091456379_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091456379_图片</a> 14.png)<br>下载工具LuaTools的使用指南：<a href="https://doc.luatos.wiki/713/">https://doc.luatos.wiki/713/</a></p>
 <h1 id="5-新建工程"><a href="#5-新建工程" class="headerlink" title="5 新建工程"></a>5 新建工程</h1><h2 id="5-1-建立新项目"><a href="#5-1-建立新项目" class="headerlink" title="5.1 建立新项目"></a>5.1 建立新项目</h2><p>首先下载并解压iot_sdk_4g_8910.zip文件，在iot_sdk_4g_8910/demo目录下新建项目的文件夹；<br>例如：test</p>
 <p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604223534721_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604223534721_图片</a> 11_2.png)<br>在新建的文件夹下面新建两个文件：CMakeLists.txt和test.c；<br>可以从demo文件中拷贝一份过来再进行修改使用。</p>
 <p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604223556471_%E5%9B%BE%E7%89%872.png"><br>在test.c中建立入口函数，并加入自己开始执行的程序代码：</p>
@@ -88,7 +88,7 @@ static void test(void)
 &#125;
 
 int appimg_enter(void *param)/*入口函数*/
-&#123;    
+&#123;
     iot_debug_print(&quot;[test] appimg_enter&quot;);
     test();
     return 0;

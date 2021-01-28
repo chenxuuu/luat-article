@@ -137,10 +137,10 @@
 <p>背景噪声问题</p>
 <p>模块作为一个通讯器件，在进行通讯时射频功率往往比较大，会产生一定的射频干扰，这种信号如果串入音频回路，就会造成严重的背景噪声，针对这个问题，需要在麦克风的差分输入两端接入共模和差模抑制电容，具体电路如下：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173154334_P36.jpg" alt="undefined" title="undefined"><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173344102_P37.jpg" alt="undefined" title="undefined"><br>由于射频干扰信号频率都是G赫兹级别，通过增加10pf和33pf的旁路电容，可以对干扰进行有效地抑制。 需要注意的是，这些电容的摆放位置一定要按照手册要求放置在相应的器件附近，不然起不到相应的作用。</p>
 <h3 id="3-1-3-图像采集与显示"><a href="#3-1-3-图像采集与显示" class="headerlink" title="3.1.3 图像采集与显示"></a>3.1.3 图像采集与显示</h3><h4 id="3-1-3-1-LCD"><a href="#3-1-3-1-LCD" class="headerlink" title="3.1.3.1 LCD"></a>3.1.3.1 LCD</h4><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173418093_P38.jpg" alt="undefined" title="undefined"><br>对于air724模块而言，显示的驱动部分是在底层的core部分采用C语言实现的，而且绘图指令具有硬件加速，因此效率非常高，可以呈现相当不错的动画效果，最高分辨率高达320X240，且支持全彩。 有兴趣进行图形编程的可以参考 吴总关于LittleVGL的介绍文章地址为：</p>
-<p><a href="https://doc.luatos.wiki/1246">https://doc.luatos.wiki/1246</a></p>
+<p><a href="https://doc.luatos.wiki/1246/">https://doc.luatos.wiki/1246/</a></p>
 <p>通过更改配置文件，目前Air724可以支持多种屏幕，已知支持的屏幕驱动型号包括ST7735，ST7789，IL9341等。</p>
 <p>除了上述的高速显示接口外，合宙的Air724还能支持单色的OLED显示屏，这种屏幕通常使用I2C接口采用纯Lua方式编写的驱动，所以效率比较低，但在一些静态显示场合也非常有用，如果您有性趣可以参考文章:</p>
-<p><a href="https://doc.luatos.wiki/701">https://doc.luatos.wiki/701</a></p>
+<p><a href="https://doc.luatos.wiki/701/">https://doc.luatos.wiki/701/</a></p>
 <h4 id="3-1-3-2-摄像头"><a href="#3-1-3-2-摄像头" class="headerlink" title="3.1.3.2 摄像头"></a>3.1.3.2 摄像头</h4><p>得益于高速的处理器和较大的内存，目前的物联网模块大多具有摄像头和显示屏的驱动能力，对于合宙出品的Air724而言，支持30M像素的摄像头和320X240分辨率的全彩显示屏。 而且对于显示屏和摄像头都有专属的接口。 下面我进行简单的介绍：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173451841_P39.jpg" alt="undefined" title="undefined"><br>从图中我们可以看出，摄像头由一个标准的24pin摄像头接口连接，采用4线串行数据和I2C方式进行通讯，共有8根数据线、一路模拟电路供电，一路1.8V数字供电。 合宙商城提供了Air724所支持的摄像头，价格仅有不到10元非常超值。</p>
 <h3 id="3-1-4-扩展存储"><a href="#3-1-4-扩展存储" class="headerlink" title="3.1.4 扩展存储"></a>3.1.4 扩展存储</h3><p>对于合宙的Air724模块受制于成本因素存储的容量非常优先，因此不适合挂载大量的媒体文件，幸运的是您可以通过外挂flash或者SD卡的方式加以扩展，最大可以扩展至32G！</p>
 <p>flash芯片<br>连接在模块的标准SPI接口上，flash型号选择需要注意以下三点</p>
@@ -177,7 +177,7 @@
 <p>对于GPIO9，GPIO10，GPIO11，GPIO12，对应的模块引脚是52,54,55,53，在上电的时候，默认被配置成弱上拉高电平，并可以通过Luat编程配置成输入或者输入端口，检测或控制外部输出。 同时也可以配置为SPI端口，进行串行总线输出控制SPI设备。</p>
 <p>电压域：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173810254_P48.jpg" alt="undefined" title="undefined"><br>GPIO24,25,26,27,28使用的是VMMC电压域，最高输入/输入电压可以设定为3.2V，并通过指令可以进行设置，同时也与MMC内存卡功能复用引脚</p>
 <p>模块根据引脚的类型，不同引脚拥有不同的电压域，对于模块所谓电压域就是高电平的阈值不同，常规的GPIO电压域为1.8V，另一些引脚可以通过不同的LDO配置成1.xV-3.xV不等，具体需要查手册。 特别要提醒的是，对于有电压域的引脚，必须要设定电压域才能使用，无论是作为输入，还是输出都是如此，否则极易发生误动作。这点时要特别注意的，关于电压域方面的文章可以参考</p>
-<p><a href="https://doc.luatos.wiki/721">https://doc.luatos.wiki/721</a></p>
+<p><a href="https://doc.luatos.wiki/721/">https://doc.luatos.wiki/721/</a></p>
 <p>键盘<br>合宙的Air724模块支持最高6X6的键盘阵列,连接方式也比较简单，对应的X和Y的交点连接一个微动开关即可。 通过配置，还可以选择其中的一根或者几根线进行灵活配置。 但说实话由于air724的GPIO已经足够的丰富，这部分功能按键我用的比较少。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173832166_P49.jpg" alt="undefined" title="undefined"><br>PWM<br>最新版的固件里air724也支持简单的PWM功能，但是算不上强大，主要用作指示灯，呈现闪烁或者呼吸效果，因此频率不高。 目前支持的PWM引脚有GPIO5，GPIO13，GPIO4，GPIO7，不同的引脚有不同的占空比不同，因为没有亲身使用过，所以详细的使用方法我也不是特别的懂，请咨询合宙的技术团队。</p>
 <p>LDO<br>电源是电路中最常见的一个电路结构，大多数的单片机为了稳定工作都要配备外部的稳压电源。 合宙的Air724模块，本身就内置了两路可编程的电源，输出电压从0V到3.25V分段可调，且能输出的电流有100mA，在大多数场合基本上说可以省掉外部的LDO，非常的经济实惠。 两路LDO的名字分别为VMMC和VLCD，详细的使用方法可以参考LUAT编程手册。 一般只需要单一的设置语句即可，AT方式不支持LDO的配置。</p>
 <h3 id="3-1-8-SIM卡接口说明"><a href="#3-1-8-SIM卡接口说明" class="headerlink" title="3.1.8 SIM卡接口说明"></a>3.1.8 SIM卡接口说明</h3><p>SIM卡是（Subscriber Identity Module 客户识别模块）的缩写，也称为用户身份识别卡，是所有使用公网通信的物联网设备标配，所以进行物联网产品设计时，一定要和SIM卡接口打交道。 SIM卡的接口设计并不复杂，但是常常发现大家在设计完成后SIM卡通讯不稳定，这往往是不了解SIM卡接口通讯原理造成的，下面我简要的介绍一下。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173902082_P410.jpg" alt="undefined" title="undefined"><br>常见的SIM卡封装有以上这几种类型，其中前三种是用弹簧片接触连接的，最后一种esim是用SMT方式焊接的。 虽然外形不同，但其实内部功能都是一样的，区别仅仅是外形尺寸，仅需要选择不同的SIM卡插座就可以将卡适配在同一款电路上。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111173922740_P411.jpg" alt="undefined" title="undefined"><br>SIM卡连接推荐电路，来源 《Air724UG Air723UG 模块硬件设计手册 V1.7》</p>
@@ -197,7 +197,7 @@
 <p>BLE 广播、扫描</p>
 <p>BLE 主、从设备连接</p>
 <p>BLE 数据透传</p>
-<p>Air724模块的蓝牙是全功能蓝牙可以工作在主、从任意一种状态，其中主模式可以主动连接其他接入设备，从模式可以等待接入。 具体的编程使用方法也比较简单，这里就不多占用篇幅了，具体内容可以参考 《Air724UG模块自带蓝牙Lua开发指南》，文章地址为： <a href="https://doc.luatos.wiki/1598">https://doc.luatos.wiki/1598</a></p>
+<p>Air724模块的蓝牙是全功能蓝牙可以工作在主、从任意一种状态，其中主模式可以主动连接其他接入设备，从模式可以等待接入。 具体的编程使用方法也比较简单，这里就不多占用篇幅了，具体内容可以参考 《Air724UG模块自带蓝牙Lua开发指南》，文章地址为： <a href="https://doc.luatos.wiki/1598/">https://doc.luatos.wiki/1598/</a></p>
 <h3 id="3-1-12-看门狗"><a href="#3-1-12-看门狗" class="headerlink" title="3.1.12 看门狗"></a>3.1.12 看门狗</h3><p>是电子电路总会遇到死机，当死机的时候，我们希望电路能够自行恢复，一种最常见的做法就是重启系统。这个死机重启的动作就是由看门狗来完成的。看门狗，又叫watchdog timer，本质是一个定时器电路，一般有一个输入，叫喂狗，一个输出到MCU的RST端，MCU正常工作的时候，每隔一段时间输出一个信号到喂狗端，给 WDT清零，如果超过规定的时间不喂狗（一般在程序跑飞时），WDT定时超过，就会给出一个复位信号到模块，使MCU复位。 由于狗本身也有死机的可能，所以一些高级的看门狗还会有互拉的机制，所谓互拉就是看门狗也要定时的输出一个信号给模块，当一定时间过后，狗没有发出信号，就认为看门狗芯片死了，通过给看门狗芯片一个复位信号，这个机制就叫互拉。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111174201329_P417.jpg" alt="undefined" title="undefined"></p>
 <h2 id="3-2-特性"><a href="#3-2-特性" class="headerlink" title="3.2 特性"></a>3.2 特性</h2><p>作为物联网模块，各家模块也具有一些自己的特征。 这些特征大多数都是为了便利用户的使用的。 下面我以我最熟悉的合宙Air724为例，介绍一些基本的特性。 由于篇幅所限，我无法面面俱到，就把我个人觉得比较有价值的一些特征写出来。</p>
 <h3 id="3-2-1-工作模式及功耗"><a href="#3-2-1-工作模式及功耗" class="headerlink" title="3.2.1 工作模式及功耗"></a>3.2.1 工作模式及功耗</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111180203030_P419.jpg" alt="undefined" title="undefined"><br>睡眠模式<br>合宙的模块可以工作在低达3mA的睡眠模式，从而有效的降低待机功耗，增加待机时间。 在睡眠模式下，模块仍可以响应外部的管脚中断，定时器，甚至接收短信或网络信号。</p>
