@@ -1,10 +1,10 @@
 音频播放和TTS
 =============
 
-作者：闫国梁 最后更新时间：2020年7月6日 # 音频播放和TTS
+作者：闫国梁 最后更新时间：2020年7月6日 ## 音频播放和TTS
 
 模块支持播放音频文件和TTS（文字转语音）功能，AT版本和LUAT版本均支持音频播放，AT版本和带TTS的LUAT版本支持TTS功能。音频文件目前支持mp3和amr
-# AT模式 ### TTS（Text To Speech）功能：AT+CTTS 语法规则：
+## AT模式 ### TTS（Text To Speech）功能：AT+CTTS 语法规则：
 
 ==== =========== ==== ===============================================
 参数 定义        取值 对取值的说明
@@ -216,7 +216,7 @@ RECEIVER 音量控制：AT+CLVL
 ==== ======== ===== =====================================
 
 LUAT模式
-========
+--------
 
 audio.play(priority, type, path, vol, cbFnc, dup, dupInterval)\ `¶ <#audioplaypriority-type-path-vol-cbfnc-dup-dupinterval>`__
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -426,6 +426,6 @@ bool result，设置成功返回true，失败返回false
 esource\8910_script:raw-latex:`\script`\_LuaTask_V2.3.3:raw-latex:`\demo`:raw-latex:`\audio`
 
 常见问题
-========
+--------
 
 1.在进行TTS播报时，手动中止后，继续发送下一条TTS，出现报错，主要是因为：在TTS不管自动播放还是手动中止都会有个URC上报（+CTTS:0）,只有在收到该URC上报后再发送下一条TTS才不会报错。

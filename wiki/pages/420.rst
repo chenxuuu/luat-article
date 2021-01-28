@@ -1,10 +1,10 @@
 3.3.2 PPP
 =========
 
-作者：闫国梁 最后修改时间：2020年7月1日 # PPP拨号
+作者：闫国梁 最后修改时间：2020年7月1日 ## PPP拨号
 
 windows下PPP拨号
-================
+----------------
 
 配置标准调制解调器  
 --------------------
@@ -25,7 +25,7 @@ USB枚举出的AT口时，则端口速率可以为任意值；如果步骤（1�
 .. image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200701160651709_Snipaste_2020-06-30_18-17-16.png
 
 |image9| ## 验证拨号结果  点击连接—>连接成功—>cmd 窗口—>ping –n 5
-www.baidu.com，ping外网地址收到正确回复信 息，至此PPP拨号上网成功。   #
+www.baidu.com，ping外网地址收到正确回复信 息，至此PPP拨号上网成功。   ##
  linux下PPP拨号 ## 添加内核USB驱动识别ID  ### 方法一：基于内核编译  
 打开Linux 内核源码文件
 option.c（路径:raw-latex:`\drivers`:raw-latex:`\usb`:raw-latex:`\serial`:raw-latex:`\option`.c），找到
@@ -48,7 +48,7 @@ install ppp  ## 设置权限  
 .. code:: bash
 
    /dev/ttyUSB7 115200 nolock  local debug nocrtscts nodetach noauth usepeerdns  nodefaultroute user ''  
-   # this is the tty device name # baud rate  # not lock device file # not detect CD, not signal DTR # enable debug # no hardware flow control # run on foreground # no authentication # ask peer up to 2 DNS servers # not add to system routing table  
+   ## this is the tty device name # baud rate  # not lock device file # not detect CD, not signal DTR # enable debug # no hardware flow control # run on foreground # no authentication # ask peer up to 2 DNS servers # not add to system routing table  
    connect '/usr/sbin/chat -s -v -f /etc/ppp/chat-gprs-connect'
 
  创建文件/etc/ppp/chat-gprs-connect 
