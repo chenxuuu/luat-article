@@ -30,6 +30,7 @@ author = 'luat'
 extensions = [
     'recommonmark',
     'sphinx_markdown_tables',
+    'sphinx_sitemap',
 ]
 
 
@@ -71,3 +72,5 @@ html_static_path = ['_static']
 
 html_show_sphinx = False
 html_search_language = 'zh'
+
+html_baseurl = 'https://doc.luatos.wiki/wiki/'
