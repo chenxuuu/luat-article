@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>lua软件模拟spi [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">lua软件模拟spi</h1>
+<article class="post markdown-style">
+  <p>本代码可实现功能，但是不推荐使用，速度与spi外设相比，极慢</p>
+<p>下面是正常的spi外设代码</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span><span class="string">&quot;utils&quot;</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;pm&quot;</span></span><br><span class="line">pm.wake(<span class="string">&quot;wake11&quot;</span>)</span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;pins&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">_G</span>.moduleType == <span class="number">2</span> <span class="keyword">then</span> pmd.ldoset(<span class="number">6</span>,pmd.LDO_VMMC) <span class="keyword">end</span></span><br><span class="line"><span class="keyword">local</span> result = spi.setup(spi.SPI_1,<span class="number">0</span>,<span class="number">0</span>,<span class="number">8</span>,<span class="number">800000</span>,<span class="number">1</span>,<span class="number">0</span>)<span class="comment">--初始化spi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>.info(<span class="string">&quot;spi1&quot;</span>,spi.SPI_1)</span><br><span class="line"><span class="built_in">log</span>.info(<span class="string">&quot;testSpiFlash.init&quot;</span>,result)</span><br><span class="line"><span class="keyword">local</span> cs = pins.setup(moduleType == <span class="number">2</span> <span class="keyword">and</span> pio.P0_10 <span class="keyword">or</span> pio.P1_2,<span class="number">1</span>)</span><br><span class="line"><span class="keyword">local</span> s = <span class="built_in">string</span>.fromHex(<span class="string">&quot;9f000000000000&quot;</span>)</span><br><span class="line"></span><br><span class="line">sys.taskInit(<span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">    sys.wait(<span class="number">5000</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        cs(<span class="number">0</span>)<span class="comment">--需要手动下拉cs引脚电平</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;testSpiFlash.readFlashID&quot;</span>,spi.send_recv(spi.SPI_1,s):toHex())<span class="comment">--收发读写</span></span><br><span class="line">        cs(<span class="number">1</span>)</span><br><span class="line">        sys.wait(<span class="number">200</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    spi.<span class="built_in">close</span>(spi.SPI_1)</span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>可以用下面的代码来代替(gpio需要自行更改)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">require&quot;utils&quot;</span><br><span class="line">require&quot;pins&quot;</span><br><span class="line"></span><br><span class="line">--软件模拟</span><br><span class="line">local clk &#x3D; pins.setup(33,0)</span><br><span class="line">local cs &#x3D; pins.setup(34,1)</span><br><span class="line">local opin &#x3D; pins.setup(36,0)</span><br><span class="line">local ipin &#x3D; pins.setup(35)</span><br><span class="line">--pio.pin.setpull(pio.PULLDOWN,35)</span><br><span class="line"></span><br><span class="line">sys.taskInit(function ()</span><br><span class="line">    log.info(&quot;spi start&quot;)</span><br><span class="line">    while true do</span><br><span class="line">        sys.wait(1000)</span><br><span class="line">        local r &#x3D; &#123;&#125;--待接收到的数组</span><br><span class="line">        local s &#x3D; string.char(0x9f,0,0,0,0,0,0)--待发送的字符串</span><br><span class="line">        cs(0)</span><br><span class="line">        for i&#x3D;1,#s do</span><br><span class="line">            local rd &#x3D; 0--临时存储的接收</span><br><span class="line">            local td &#x3D; s:byte(i)--临时的发送数据</span><br><span class="line">            for j&#x3D;1,8 do</span><br><span class="line">                opin(bit.isset(td,8-j) and 1 or 0)--根据发送的位来决定高低电平</span><br><span class="line">                clk(1)--时钟线拉高，开始采样</span><br><span class="line">                if ipin() &#x3D;&#x3D; 1 then--如果接收线是高，那么把接受临时变量相应位置1</span><br><span class="line">                    rd &#x3D; bit.set(rd,8-j)--把接受临时变量相应位置1</span><br><span class="line">                end</span><br><span class="line">                clk(0)--时钟线拉低，准备下次</span><br><span class="line">            end</span><br><span class="line">            table.insert(r, string.char(rd))--接收数据，存到待接收到的数组中</span><br><span class="line">        end</span><br><span class="line">        cs(1)</span><br><span class="line"></span><br><span class="line">        local rec &#x3D; table.concat(r, &quot;&quot;)--接收到的数据连起来</span><br><span class="line">        log.info(&quot;receive data&quot;,rec:toHex())</span><br><span class="line">    end</span><br><span class="line">end)</span><br></pre></td></tr></table></figure>
+
+<p>可以根据自己的需求。更改代码</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/617/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/615/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

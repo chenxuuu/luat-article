@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air系列模块重启原因分析及应对策略（一） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air系列模块重启原因分析及应对策略（一）</h1>
+<article class="post markdown-style">
+  <p></p>
+
+<p><span style="font-family:'宋体';">如果要问开发者，什么情况最让其崩溃，估计异常重启能排到前三。模块稳定运行不重启，是所有开发者的梦想。然而总会有一些意外情况导致模块异常重启。本文将对一些常见的重启情况进行分析，同时探讨其对应策略，希望可以为模块的稳定运行提供一些帮助。</span></p>
+
+<p><span style="font-family:'宋体';">通常，重启是由<b>硬件原因</b>或者<b>软件原因</b>造成的。虽然病因不同，但是表象极为相似，咱们就使用“<b>望闻问切</b>”的方法，剖析病因，对症下药，直达病灶，快速起效（嘿，请认准了，</span><span>Luat</span><span style="font-family:'宋体';">大法好！）。</span></p>
+
+<p><span style="font-family:'宋体';">“<b>望</b>”字诀——检查硬件环境：仔细排查接线，外围设备，供电等是否存在问题；</span></p>
+
+<p><span style="font-family:'宋体';">“<b>闻</b>”字诀——检查软件代码：查看模块输出的</span><span>Trace</span><span style="font-family:'宋体';">。通常，我们可以通过分析重启前后的输出</span><span>Trace</span><span style="font-family:'宋体';">判断错误所在；</span></p>
+
+<p><span style="font-family:'宋体';">“<b>问</b>”字诀——初步发现问题所在，尝试复现。当可以准确复现后，分析对应逻辑存在的问题（找到相关责任人，让他请客！）。</span></p>
+
+<p><span style="font-family:'宋体';">“<b>切</b>”字诀——根据问题去修改代码（打样），反复测试是否还会出现此问题，是否引入新问题，是否干扰到原有逻辑的运行。</span></p>
+
+<p><span style="font-family:'宋体';">重复上述步骤，直到模块可以稳定运行为止。</span></p>
+
+<p><span style="font-family:'宋体';">本文今天就先说一下“<b>望</b>”字诀。</span></p>
+
+<p></p>
+
+<p><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">Air</span><span style="font-size:10.5pt;font-family:'宋体';">系列模块对电源的要求较为严格，以</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">Air202</span><span style="font-size:10.5pt;font-family:'宋体';">模块为例：</span><img style="width:529.5px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-3wvZbyYL5b84aa11dbbd3.png" class="img-responsive" alt="attachments-2018-08-3wvZbyYL5b84aa11dbbd3.png" /></p>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">如图所示，根据硬件设计手册的要求，模块瞬时电流在</span><span>1.6A</span><span style="font-family:'宋体';">时，</span><span>VBAT</span><span style="font-family:'宋体';">电压不应跌落</span><span>3.4V</span><span style="font-family:'宋体';">，否则必然出现异常（在频繁通信时，电流要求更高，最好可以满足</span><span>2A</span><span style="font-family:'宋体';">）。</span></p>
+
+<p><span style="font-family:'宋体';">如果模块的</span><span>PWRKEY</span><span style="font-family:'宋体';">未接地，</span><span>VBAT</span><span style="font-family:'宋体';">电压低于</span><span>3.4V</span><span style="font-family:'宋体';">时模块会自动关机；</span></p>
+
+<p><span style="font-family:'宋体';">如果模块的</span><span>PWRKEY</span><span style="font-family:'宋体';">已接地，电压低于</span><span>3.4V</span><span style="font-family:'宋体';">时模块会表现为先自动关机。后因电流减小，供电端恢复正常，</span><span>VBAT</span><span style="font-family:'宋体';">电压升至</span><span>3.4V</span><span style="font-family:'宋体';">以上，模块重新走上电开机流程。此种情况表现为异常重启，输出的</span><span>Trace</span><span style="font-family:'宋体';">中</span><span>poweron reason</span><span style="font-family:'宋体';">为</span><span>0</span><span style="font-family:'宋体';">：</span></p>
+
+<p><span>[2018-06-12
+12:40:03,311.311]: host trace poweron reason:<span>        </span>0<span>       </span>Air800<span>      </span>A9321<span>       </span>1.1.1<span>         </span>1.1.0<span>         </span>Luat_V0014_8955</span></p>
+
+<p><span style="font-family:'宋体';">附</span><span>poweron reason</span><span style="font-family:'宋体';">表：</span></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span>POWERON </span><span style="font-family:'宋体';">事件</span></p>
+  </td>
+  <td>
+  <p><span>POWERON </span><span style="font-family:'宋体';">代码</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">解释</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_KEY</span></p>
+  </td>
+  <td>
+  <p><span>0</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">按键开机</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_CHARGER</span></p>
+  </td>
+  <td>
+  <p><span>1</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">充电开机</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_ALARM</span></p>
+  </td>
+  <td>
+  <p><span>2</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">闹钟开机</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_RESTART</span></p>
+  </td>
+  <td>
+  <p><span>3</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">软件重启开机</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_EXCEPTION</span></p>
+  </td>
+  <td>
+  <p><span>6</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">异常开机</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_HOST</span></p>
+  </td>
+  <td>
+  <p><span>7</span></p>
+  </td>
+  <td>
+  <p><span>HOST</span><span style="font-family:'宋体';">工具控制重启开机</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>rtos. POWERON_WATCHDOG</span></p>
+  </td>
+  <td>
+  <p><span>8</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">其他原因</span></p>
+  </td>
+ </tr></table>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">所以，如果模块重启前有频繁的通信操作，且没有固定的语句报错（无规律性），重启后上报的</span><span>poweron reason</span><span style="font-family:'宋体';">为</span><span>0</span><span style="font-family:'宋体';">，此时应该重点排查供电问题。</span></p>
+
+<p><span style="font-family:'宋体';">如果存在瞬间电压跌落，可能会导致模块出现异常。</span></p>
+
+<p><span style="font-family:'宋体';">下边，试举一例：</span></p>
+
+<p><span style="font-family:'宋体';">某客户使用开关电源将市电</span><span>220V AC</span><span style="font-family:'宋体';">降压至</span><span>12V DC</span><span style="font-family:'宋体';">，然后</span><span>PCB</span><span style="font-family:'宋体';">使用</span><span>DCDC</span><span style="font-family:'宋体';">将</span><span>12V</span><span style="font-family:'宋体';">降到</span><span>4V</span><span style="font-family:'宋体';">给模块</span><span>VBAT</span><span style="font-family:'宋体';">供电。模块的</span><span>PWRKEY</span><span style="font-family:'宋体';">已经接地，实现上电自动开机。</span></p>
+
+<p><span style="font-family:'宋体';">模块在频繁通信时工作正常，但是闲暇时发心跳包却无规律性重启。分析日志发现，重启后</span><span>Trace</span><span style="font-family:'宋体';">输出的</span><b><span>poweron reason</span></b><b><span style="font-family:'宋体';">是</span><span>0</span></b><span style="font-family:'宋体';">，初步判断并非代码错误，而是供电问题导致的异常重启。</span></p>
+
+<p><span style="font-family:'宋体';">（请注意，任何情况下，</span><span>poweron reason</span><span style="font-family:'宋体';">为</span><span>0</span><span style="font-family:'宋体';">，都应首先检查</span><span>VBAT</span><span style="font-family:'宋体';">端供电电压跌落问题）</span></p>
+
+<p></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">首先，在全负荷情况下使用功率计测量，查看是否超过电源的额定输出值：</span><br /></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-YFC4pPTE5b84aa3a3633d.jpg" class="img-responsive" alt="attachments-2018-08-YFC4pPTE5b84aa3a3633d.jpg" /><br /></p>
+
+<p><span style="font-family:'宋体';">负载不到</span><span>10w</span><span style="font-family:'宋体';">，远未达到</span><span>12V 2A</span><span style="font-family:'宋体';">的上限要求；接下来测量电源输出情况：</span></p>
+
+<p><span style="font-family:'宋体';">（这是一个很考验耐心的事情，因为是无规律性重启，所以很可能一直盯着，一直没事儿；稍稍走神一下，它就重启了……还有一个需要注意的是，绝对不要用“万用表”，一定要用示波器，因为万用表不够灵敏，很容易导致误判）</span></p>
+
+<p></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-HVDjPuxa5b84aa4c77f59.jpg" class="img-responsive" alt="attachments-2018-08-HVDjPuxa5b84aa4c77f59.jpg" /></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-JLXyeiHd5b84aa56a4f29.jpg" class="img-responsive" alt="attachments-2018-08-JLXyeiHd5b84aa56a4f29.jpg" /></p>
+
+<p><span style="font-family:'宋体';">如上图所示，经过长久的等待，终于抓到异常。某种特殊情况下，电源可能会瞬间跌落至</span><span>0V</span><span style="font-family:'宋体';">，随后恢复正常输出；这一个瞬间的跌落，导致模块</span><span>VBAT</span><span style="font-family:'宋体';">端电压直接跌破</span><span>3.4V</span><span style="font-family:'宋体';">，最终异常重启。</span></p>
+
+<p><span style="font-family:'宋体';">和电源厂家沟通后了解到，这个问题并非过热、电流过大的自保护，而是电源动态响应速度跟不上，负载很小的时候，电源本身进入待机模式导致。更换新电源后问题得以解决，模块不再异常重启。</span></p>
+
+<p></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-08-gIl61D8J5b84aa6f16490.jpg" class="img-responsive" alt="attachments-2018-08-gIl61D8J5b84aa6f16490.jpg" /></p>
+
+<p><span style="font-family:'宋体';">很多时候，并不能和电源厂商沟通，而供电不稳时有发生，只能“硬抗”这种波动怎么办呢？简单有效的方法就是使用电容、电池，让他们稳定输出电压。</span></p>
+
+<p><span style="font-family:'宋体';">如果无法改善供电（如风能、太阳能），也无法使用电池、电容，那么只能优化代码逻辑。例如，尽量减少通信频率和时常，减少通信包大小，使瞬时电流不超过阈值以至于引起压降。</span></p>
+
+<p><span style="font-family:'宋体';">所以说呢，只要保证任何情况下，模块</span><span>VBAT</span><span style="font-family:'宋体';">的电压在《硬件设计手册》规定范围内，模块就不会因为供电问题出现异常啦！</span></p>
+
+<p><br /></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/410/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/408/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

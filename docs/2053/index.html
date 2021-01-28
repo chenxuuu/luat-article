@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>对爬虫采集器的认知 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">对爬虫采集器的认知</h1>
+<article class="post markdown-style">
+  <p>网络爬虫通过统一资源定位符URL (Uniform ResourceLocator)来查找目标网页，将用户所关注的数据内容直接返回给用户，并不需要用户以浏览网页的形式去获取信息，为用户节省了时间和精力，并提高了数据采集的准确度，使用户在海量数据中游刃有余。网络爬虫的最终目的就是从网页中获取自己所需的信息。一些爬虫基本库可以开发一个爬虫程序，获取到所需的内容，但是所有的爬虫程序都以这种方式进行编写，工作量未免太大了些，所有才有了爬虫框架。使用爬虫框架可以大大提高效率，缩短开发时间。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201214102340268_wx_article_20190206222137_gsdv1M.jpg" alt="undefined" title="undefined"></p>
+<p>当下是大数据时代，在这个信息爆炸的时代，我们可以利用爬虫获取大量有价值的数据，通过数据分析获得更多隐性的有价值的规律。</p>
+<p>用途广泛。针对电商来说，抓取各种商品信息就可以做到精细化运营，精准营销。对新闻资讯平台和搜索引擎来说，抓取其他平台原创新闻稿，进行热点分析，就可以合理筛选优质内容，打造更有价值的新闻平台。（还可以抓取车票、爬取论文素材等等。已经与我们的生活结合在一起了。）</p>
+<h3 id="通用爬虫"><a href="#通用爬虫" class="headerlink" title="通用爬虫"></a>通用爬虫</h3><p>通用网络爬虫 是 捜索引擎抓取系统（Baidu、Google、Yahoo等）的重要组成部分。主要目的是将互联网上的网页下载到本地，形成一个互联网内容的镜像备份。</p>
+<h3 id="聚焦爬虫"><a href="#聚焦爬虫" class="headerlink" title="聚焦爬虫"></a>聚焦爬虫</h3><p>聚焦爬虫，是”面向特定主题需求”的一种网络爬虫程序，它与通用搜索引擎爬虫的区别在于： 聚焦爬虫在实施网页抓取时会对内容进行处理筛选，尽量保证只抓取与需求相关的网页信息。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2054/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2052/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

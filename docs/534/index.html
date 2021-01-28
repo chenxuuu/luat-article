@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙720开发板连接阿里云MQTT [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙720开发板连接阿里云MQTT</h1>
+<article class="post markdown-style">
+  <blockquote>
+<p>今天来给大家分享一下720开发板通过AT命令连接阿里云物联网平台的方法，阿里云物联网平台支持很多种连接协议，后台非常强大，可以清楚、直观的了解当前设备的连接状况。<br>本文主要介绍的是连接、发送部分，阿里云物联网平台还可以实现规则引擎、边缘计算、设备影子等非常强大的功能，感兴趣的小伙伴自行研究下。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>首先，我们先来了解一下阿里云物联网平台，这里是官方介绍链接：<br><a target="_blank" rel="noopener" href="https://www.aliyun.com/product/iot-deviceconnect">https://www.aliyun.com/product/iot-deviceconnect</a><br>这是关于设备端开发协议的官方文档：<br><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/30540.html">https://help.aliyun.com/document_detail/30540.html</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>本教程对应阿里云中“MQTT客户端域名直连”部分，主要是讲解连接域名、设备ID、用户名、密码的计算步骤</p>
+</blockquote>
+<h1 id="一、阿里云平台设备创建"><a href="#一、阿里云平台设备创建" class="headerlink" title="一、阿里云平台设备创建"></a>一、阿里云平台设备创建</h1><h2 id="1、登陆阿里云-进入控制台-gt-物联网平台"><a href="#1、登陆阿里云-进入控制台-gt-物联网平台" class="headerlink" title="1、登陆阿里云,进入控制台-&gt;物联网平台"></a>1、登陆阿里云,进入控制台-&gt;物联网平台</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_38353.png"><br> 2、进入设备管理-产品<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63872.png"></p>
+<h2 id="3、创建产品"><a href="#3、创建产品" class="headerlink" title="3、创建产品"></a>3、创建产品</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_19354.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_63566.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_15335.png"></p>
+<blockquote>
+<p>关于基础版和高级版可以参考阿里云文档，这里以创建基础版为例</p>
+</blockquote>
+<h2 id="4、添加设备"><a href="#4、添加设备" class="headerlink" title="4、添加设备"></a>4、添加设备</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_73190.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_38825.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84761.png"></p>
+<blockquote>
+<p>此处DeviceName建议填写IMEI号，也可填写其他可以保证唯一的号码（比如SN、MAC等）</p>
+</blockquote>
+<h2 id="5、得到设备证书（三元组数据）"><a href="#5、得到设备证书（三元组数据）" class="headerlink" title="5、得到设备证书（三元组数据）"></a>5、得到设备证书（三元组数据）</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26003.png"></p>
+<blockquote>
+<p>这个设备证书里面有三个参数，稍后计算请求信息会用到，非常重要</p>
+</blockquote>
+<h2 id="6、配置Topic类"><a href="#6、配置Topic类" class="headerlink" title="6、配置Topic类"></a>6、配置Topic类</h2><p>回到刚刚创建的产品，在消息和通信选项卡下，创建Topic类<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_26229.png"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_61826.png"><br>Topic类分为发布、订阅、发布和订阅，发布是指可以向平台发送消息，订阅是指可以从平台接收消息，发布和订阅是指发送消息到平台并从平台接收消息（设备发布的消息平台会返回相同信息）</p>
+<blockquote>
+<p>阿里云Topic规则如下：<br>Topic格式必须以“/”进行分层，区分每个类目。其中前两个类目已经规定好，第一个代表产品标识productKey，第二个${deviceName}通配deviceName。简单来说，Topic类：/pk/${deviceName}/update是具体Topic： /pkTopic格式必须以“/”进行分层，区分每个类目。其中前两个类目已经规定好，第一个代表产品标识productKey，第二个${deviceName}通配deviceName。简单来说，Topic类：/pk/${deviceName}/update是具体Topic： /pk/mydevice/update 或者 /pk/yourdevice/update 的集合</p>
+</blockquote>
+<p>这里我们先添加一个发布和订阅的test Topic类</p>
+<h1 id="二、计算请求信息"><a href="#二、计算请求信息" class="headerlink" title="二、计算请求信息"></a>二、计算请求信息</h1><blockquote>
+<p>本教程示范步骤采用的是“MQTT客户端域名直连”方法，如采用“使用HTTPS认证再连接模式”需要先调用HTTP请求获取设备iotId和密钥iotToken，其余步骤基本相同<br>这里假设我的设备三元组信息如下：<br>ProductKey: a1hahpgAs3s<br>DeviceName: test<br>DeviceSecret: qIpssQEfjxuGoiDHCiQ6PZb1vUJ7SsAM</p>
+</blockquote>
+<h2 id="1、请求域名"><a href="#1、请求域名" class="headerlink" title="1、请求域名"></a>1、请求域名</h2><blockquote>
+<p>${YourProductKey}.iot-as-mqtt.${YourRegionId}.aliyuncs.com:1883<br>${YourProductKey}请替换为您的产品key。<br>${YourRegionId}请参考地域和可用区替换为您的Region ID。</p>
+</blockquote>
+<p>目前阿里云物联网平台在国内只有华东2（上海）节点是开放的，对应的Region ID 为 cn-shanghai</p>
+<blockquote>
+<p>因此我的请求域名为：a1hahpgAs3s.iot-as-mqtt.cn-shanghai.aliyuncs.com</p>
+</blockquote>
+<h2 id="2、请求端口"><a href="#2、请求端口" class="headerlink" title="2、请求端口"></a>2、请求端口</h2><p>阿里云物联网平台请求端口都为1883，与地域、产品、设备无关</p>
+<h2 id="3、请求ID"><a href="#3、请求ID" class="headerlink" title="3、请求ID"></a>3、请求ID</h2><blockquote>
+<p>我的请求ID：test|securemode=3,signmethod=hmacsha1,timestamp=1544257319|</p>
+</blockquote>
+<p>其中test为DeviceName；securemode可选值有2 （TLS直连模式）和3（TCP直连模式）我们这里采用TCP直连模式因此选3；signmethod是加密方法，我们这里采用哈希SHA1加密，官方支持的还有hmacmd5、hmacsha256；timestamp是时间戳，代表当前时间</p>
+<h2 id="4、请求username用户名"><a href="#4、请求username用户名" class="headerlink" title="4、请求username用户名"></a>4、请求username用户名</h2><blockquote>
+<p>我的请求用户名：test&amp;a1hahpgAs3s</p>
+</blockquote>
+<p>其中test为DeviceName;a1hahpgAs3s为我的产品ProductKey</p>
+<h2 id="5、请求password密码"><a href="#5、请求password密码" class="headerlink" title="5、请求password密码"></a>5、请求password密码</h2><blockquote>
+<p>我的请求密码：c65de7069643b59fc972e8884fede9aaffeada38</p>
+</blockquote>
+<p>请求密码计算方法如下：</p>
+<h3 id="（1）拼接签名原文"><a href="#（1）拼接签名原文" class="headerlink" title="（1）拼接签名原文"></a>（1）拼接签名原文</h3><blockquote>
+<p>此处{ {} }中表示对应变量</p>
+</blockquote>
+<p>clientId{ {DeviceName} }deviceName{ {DeviceName} }productKey{ {ProductKey} }timestamp{ {time} }<br>例如，我的签名原文为：clientIdtestdeviceNametestproductKeya1hahpgAs3stimestamp1544257319</p>
+<h3 id="（2）计算签名"><a href="#（2）计算签名" class="headerlink" title="（2）计算签名"></a>（2）计算签名</h3><p>签名密钥为DeviceSecret<br>根据哈希SHA1方法计算得出签名值为c65de7069643b59fc972e8884fede9aaffeada38</p>
+<blockquote>
+<p>签名计算部分比较复杂，因此我用JS开发了一个签名计算工具，地址：<br><a target="_blank" rel="noopener" href="http://lhb.ink/mqtt">http://lhb.ink/mqtt</a><br>工具采用JS计算签名值，所有信息在本地计算不会经过网络，可放心使用</p>
+</blockquote>
+<h1 id="三、合宙720连接MQTT"><a href="#三、合宙720连接MQTT" class="headerlink" title="三、合宙720连接MQTT"></a>三、合宙720连接MQTT</h1><blockquote>
+<p>连接之前，建议将固件版本升级为最新版本</p>
+</blockquote>
+<h2 id="1、连接MQTT"><a href="#1、连接MQTT" class="headerlink" title="1、连接MQTT"></a>1、连接MQTT</h2><p><code>AT+CGREG?</code> 查询注册状态</p>
+<p><code>AT+CGATT?</code> 查看当前GPRS附着状态</p>
+<p><code>AT+CSTT=&quot;3GWAP&quot;</code> 设置APN 我这里用的是联通卡，如果是电信卡换成<code>AT+CSTT=&quot;CMNET&quot;</code></p>
+<p><code>AT+CIICR</code> 激活移动场景</p>
+<p><code>AT+CIFSR</code> 查询当前IP</p>
+<p><code>AT+MCONFIG=&quot;test|securemode=3,signmethod=hmacsha1,timestamp=1544257319|&quot;,&quot;test&amp;a1hahpgAs3s&quot;,&quot;c65de7069643b59fc972e8884fede9aaffeada38&quot;</code> 设置当前连接参数，包括请求客户端ID、用户名、密码，<strong>此处请根据实际设备参数填写</strong></p>
+<p><code>AT+MIPSTART=&quot;a1hahpgAs3s.iot-as-mqtt.cn-shanghai.aliyuncs.com&quot;,&quot;1883&quot;</code>设置当前连接参数，包括请求地址、端口，<strong>此处请根据实际设备参数填写</strong></p>
+<p><code>AT+MCONNECT=1,600</code> 建立连接会话，此处600为MQTT保活时间</p>
+<blockquote>
+<p>设备端在保活时间间隔内，至少需要发送一次报文，包括ping请求。<br>如果服务端在保活时间内无法收到任何报文，物联网平台会断开连接，设备端需要进行重连。<br>设置保活时间的取值，取值范围为30至1200秒，建议取值300秒以上。</p>
+</blockquote>
+<p><code>AT+MSUB=&quot;/a1hahpgAs3s/test/test&quot;,0</code> 订阅消息，第一个test为设备DeviceName，第二个test为消息路径（在一、6中创建的，可在物联网平台配置）</p>
+<p><code>AT+MPUB=&quot;/a1hahpgAs3s/test/test&quot;,0,0,&quot;helloworld&quot;</code>发布消息<code>helloworld</code>到test路径中</p>
+<p><code>AT+MDISCONNECT</code> 关闭MQTT连接</p>
+<p>此部分前后关联较强，附我测试的AT命令交互：</p>
+<blockquote>
+<p>16:39:24.390]发→◇AT+CGREG?<br>[16:39:24.391]收←◆AT+CGREG?<br>+CGREG: 2,1,”2317”,”0a541706”<br>OK<br>[16:39:25.590]发→◇AT+CGATT?<br>[16:39:25.592]收←◆AT+CGATT?<br>+CGATT: 1<br>OK<br>[16:39:27.048]发→◇AT+CSTT=”3GWAP”<br>[16:39:27.050]收←◆AT+CSTT=”3GWAP”<br>OK<br>[16:39:27.844]发→◇AT+CIICR<br>[16:39:27.847]收←◆AT+CIICR<br>[16:39:28.137]收←◆<br>+CGEV: ME PDN ACT 7<br>OK<br>[16:39:29.510]发→◇AT+CIFSR<br>[16:39:29.513]收←◆<br>AT+CIFSR<br>10.69.48.127<br>[16:39:48.025]收←◆+UPGRADEIND: 0<br>[16:39:54.611]收←◆+UPGRADEIND: -1002<br>[16:39:56.309]收←◆<br>+CGEV: NW MODIFY 5,2<br>[16:39:56.339]收←◆<br>+CGEV: NW MODIFY 7,2<br>[16:41:35.502]发→◇AT+MCONFIG=”test|securemode=3,signmethod=hmacsha1,timestamp=1544257319|”,”test&amp;a1hahpgAs3s”,”c65de7069643b59fc972e8884fede9aaffeada38”<br>[16:41:35.505]收←◆<br>AT+MCONFIG=”test|securemode=3,signmethod=hmacsha1,timestamp=1544257319|”,”test&amp;a1hahpgAs3s”,”c65de7069643b59fc972e8884fede9aaffeada38”<br>OK<br>[16:41:36.960]发→◇AT+MIPSTART=”a1hahpgAs3s.iot-as-mqtt.cn-shanghai.aliyuncs.com”,”1883”<br>[16:41:36.962]收←◆AT+MIPSTART=”a1hahpgAs3s.iot-as-mqtt.cn-shanghai.aliyuncs.com”,”1883”<br>OK<br>[16:41:37.271]收←◆<br>CONNECT OK<br>[16:41:38.519]发→◇AT+MCONNECT=1,600<br>[16:41:38.522]收←◆AT+MCONNECT=1,600<br>OK<br>[16:41:38.720]收←◆<br>CONNACK OK<br>[16:41:58.578]发→◇AT+MSUB=”/a1hahpgAs3s/test/test”,0<br>[16:41:58.582]收←◆AT+MSUB=”/a1hahpgAs3s/test/test”,0<br>OK<br>[16:41:58.791]收←◆<br>SUBACK<br>[16:42:06.912]发→◇AT+MPUB=”/a1hahpgAs3s/test/test”,0,0,”helloworld”<br>[16:42:06.915]收←◆AT+MPUB=”/a1hahpgAs3s/test/test”,0,0,”helloworld”<br>OK<br>[16:42:07.073]收←◆<br>+MSUB: “/a1hahpgAs3s/test/test”,10 byte,helloworld<br>[16:42:17.258]发→◇AT+MDISCONNECT<br>[16:42:17.261]收←◆<br>AT+MDISCONNECT<br>OK<br>[16:42:19.824]收←◆<br>CLOSED</p>
+</blockquote>
+<p>注：实际请求请使用根据设备计算的参数进行连接</p>
+<h2 id="2、在阿里云后台查看设备连接情况"><a href="#2、在阿里云后台查看设备连接情况" class="headerlink" title="2、在阿里云后台查看设备连接情况"></a>2、在阿里云后台查看设备连接情况</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44673.png"><br>激活设备：首次连接连接后设备由未激活变为激活状态</p>
+<h2 id="3、查看设备日志"><a href="#3、查看设备日志" class="headerlink" title="3、查看设备日志"></a>3、查看设备日志</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_61952.png"></p>
+<p><em>内容较长难免出现纰漏，如有错误欢迎批评指正</em></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/535/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/533/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

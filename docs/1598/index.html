@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Cat1模块蓝牙功能介绍 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Cat1模块蓝牙功能介绍</h1>
+<article class="post markdown-style">
+  <p>[TOC]</p>
+<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><h3 id="1-1、蓝牙概念"><a href="#1-1、蓝牙概念" class="headerlink" title="1.1、蓝牙概念"></a>1.1、蓝牙概念</h3><p>蓝牙是一种短距离的无线通信技术，工作在2.4GHZ频段，使用IEEE802.15协议。分为经典蓝牙(BR/EDR/AMP)、低功耗蓝牙(BLE)两种技术标准。</p>
+<p>经典蓝牙最早1999年推出的蓝牙1.0版本，到目前最新的蓝牙5.1。通信速度从最早的1.0版本的723.1kbits/s，到5.1版本的48Mbits/s。主要特点如下：</p>
+<ul>
+<li>通信速率高；</li>
+<li>支持音频传输协议；</li>
+<li>功耗高。</li>
+</ul>
+<p>低功耗蓝牙（从蓝牙4.0开始支持)，旨在保持同等通信范围的同时显著降低功耗和成本，场景广泛，主要特点如下：</p>
+<ul>
+<li>低功耗，使用纽扣电池就可运行数月至数年；</li>
+<li>小体积、低成本；</li>
+<li>与现有的大部分手机、平板电脑和计算机兼容。 </li>
+</ul>
+<h3 id="1-2、蓝牙使用场景"><a href="#1-2、蓝牙使用场景" class="headerlink" title="1.2、蓝牙使用场景"></a>1.2、蓝牙使用场景</h3><p>蓝牙的两种协议标准各有不同使用场景，合宙Cat1目前只支持了BLE数传应用，这种应用是对LTE长距离通信的一种补充，具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>通信方式</th>
+<th>是否支持</th>
+<th>协议标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>数传应用</strong><br>穿戴设备<br>医疗设备<br>智能家居设备</td>
+<td>一对一</td>
+<td>已支持</td>
+<td>低功耗蓝牙 BLE</td>
+</tr>
+<tr>
+<td><strong>位置服务应用</strong><br>信标服务<br>室内定位</td>
+<td>一对多</td>
+<td>开发中</td>
+<td>低功耗蓝牙 BLE</td>
+</tr>
+<tr>
+<td><strong>音频应用</strong><br>无线耳机<br>无线音箱<br>车载娱乐</td>
+<td>一对一</td>
+<td>开发中</td>
+<td>经典蓝牙(BR/EDR)</td>
+</tr>
+<tr>
+<td><strong>数据同步</strong><br>电话本同步<br>短信同步<br>文件传输</td>
+<td>一对一</td>
+<td>开发中</td>
+<td>经典蓝牙(BR/EDR)</td>
+</tr>
+</tbody></table>
+<p>下图是对这些分类的具体例子：</p>
+<p><img src="https://www.yuden.co.jp/resource/images/solutions/ble/en/application/img4.jpg"></p>
+<h2 id="二、技术参数"><a href="#二、技术参数" class="headerlink" title="二、技术参数"></a>二、技术参数</h2><h3 id="2-1、硬件特性"><a href="#2-1、硬件特性" class="headerlink" title="2.1、硬件特性"></a>2.1、硬件特性</h3><ul>
+<li>硬件接口</li>
+</ul>
+<p>模块的蓝牙功能需要占用串口2，天线和WiFi公用，所以在使用蓝牙功能后，串口2和WiFi功能将无法使用。</p>
+<ul>
+<li><p>射频性能<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113143109732_%E5%B0%84%E9%A2%91531.png" alt="undefined" title="undefined"></p>
+</li>
+<li><p>功耗数据<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113142837008_%E5%8A%9F%E8%80%972.png" alt="undefined" title="undefined"></p>
+</li>
+</ul>
+<h3 id="2-2、软件特性"><a href="#2-2、软件特性" class="headerlink" title="2.2、软件特性"></a>2.2、软件特性</h3><p>蓝牙协议版本4.2，支持双模。软件主要功能是数据透传。蓝牙协议提供基本的无线通信接口和对端进行连接，连接后可以进行数据传输，具体传输内容可以通过AT指令或二次开发接口进行设置。</p>
+<h2 id="三、功能使用"><a href="#三、功能使用" class="headerlink" title="三、功能使用"></a>三、功能使用</h2><p>蓝牙工作模式分为两种：主模式和从模式，主模式作为连接的发起方，从模式作为连接的接收方。模块支持的功能如下：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>协议标准</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>双向数据透传（主模式）</td>
+<td>低功耗蓝牙 BLE</td>
+</tr>
+<tr>
+<td>双向数据透传（从模式）</td>
+<td>低功耗蓝牙 BLE</td>
+</tr>
+<tr>
+<td>广播单向数传（主模式）</td>
+<td>低功耗蓝牙 BLE</td>
+</tr>
+<tr>
+<td>SPP数传*</td>
+<td>经典蓝牙(BR/EDR)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>*表示正在开发中</p>
+</blockquote>
+<h3 id="3-1、环境准备"><a href="#3-1、环境准备" class="headerlink" title="3.1、环境准备"></a>3.1、环境准备</h3><ul>
+<li>支持蓝牙功能的模块<br>Air720UH-NFM<br>Air720UG-NAM<br>Air720UG-NFM<br>Air724UG-NFM<br>Air724UG-NA<br>Air722UG-NFM<br>Air820UG-NFM</li>
+<li>支持蓝牙功能的固件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>固件</th>
+<th>版本</th>
+<th>下载地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AT</td>
+<td>&gt;= V301825</td>
+<td>暂未对外发布</td>
+</tr>
+<tr>
+<td>Lua</td>
+<td>core &gt;= V3024</td>
+<td><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U">代码包下载地址</a></td>
+</tr>
+<tr>
+<td>CSDK</td>
+<td>core &gt;=V301831</td>
+<td><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_CSDK_Air724U">代码包下载地址</a></td>
+</tr>
+</tbody></table>
+<ul>
+<li>手机（蓝牙APP(以下以nRF Master Control Panel为例)）或者其他带蓝牙功能的设备</li>
+</ul>
+<h3 id="3-2、-双向数据透传（主模式）："><a href="#3-2、-双向数据透传（主模式）：" class="headerlink" title="3.2、 双向数据透传（主模式）："></a>3.2、 双向数据透传（主模式）：</h3><p>该模式下，模块作为主设备，根据从设备的MAC地址进行连接，连接成功后进行数据收发。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113132028756_%E4%B8%BB%E8%AE%BE%E5%A4%87.png" alt="undefined" title="undefined"></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113131915727_%E6%89%93%E5%8D%B0%E6%9C%BA2.jpg" alt="undefined" title="undefined"><br><em>图3.2-1 模块作为主设备，连接蓝牙打印机</em></p>
+<h4 id="3-2-1-主模式Lua接口"><a href="#3-2-1-主模式Lua接口" class="headerlink" title="3.2.1 主模式Lua接口"></a>3.2.1 主模式Lua接口</h4><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>btcore.scan</td>
+<td>开启/关闭扫描</td>
+</tr>
+<tr>
+<td>btcore.connect</td>
+<td>连接从设备</td>
+</tr>
+<tr>
+<td>btcore.findservice</td>
+<td>发现服务</td>
+</tr>
+<tr>
+<td>btcore.findcharacteristic</td>
+<td>发现服务内的特征</td>
+</tr>
+<tr>
+<td>btcore.opennotification</td>
+<td>开启/关闭通知</td>
+</tr>
+<tr>
+<td>btcore.send</td>
+<td>发送数据给从设备</td>
+</tr>
+<tr>
+<td>btcore.recv</td>
+<td>接收从设备发来的数据</td>
+</tr>
+</tbody></table>
+<p> <em><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6?wiki_page_id=1701">1、接口详细介绍，参考API手册</a></em><br><em><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U/blob/master/demo/bluetooth/master.lua">2、接口demo参考：openLuat/Luat_Lua_Air724U/demo/bluetooth/master.lua</a></em></p>
+<h4 id="3-2-2-主模式AT指令"><a href="#3-2-2-主模式AT指令" class="headerlink" title="3.2.2 主模式AT指令"></a>3.2.2 主模式AT指令</h4><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AT+BTCOMM=ENABLE</td>
+<td>开启/关闭蓝牙</td>
+</tr>
+<tr>
+<td>AT+BLESCAN=ENABLE</td>
+<td>扫描周围BLE设备</td>
+</tr>
+<tr>
+<td>AT+BLECOMM=CONNECT</td>
+<td>连接BLE设备</td>
+</tr>
+<tr>
+<td>AT+BLECOMM=FINDSERVICE</td>
+<td>发现服务</td>
+</tr>
+<tr>
+<td>AT+BLECOMM= FINDCHARACTERISTIC</td>
+<td>发现服务内的特征</td>
+</tr>
+<tr>
+<td>AT+BLECOMM= NOTIFICATION</td>
+<td>开启/关闭通知</td>
+</tr>
+<tr>
+<td>AT+BTCOMM=SENDDATA</td>
+<td>发送数据给从设备</td>
+</tr>
+<tr>
+<td>+BLEIND=DATA</td>
+<td>接收从设备发来的数据</td>
+</tr>
+</tbody></table>
+<h3 id="3-3、-双向数据透传（从模式）："><a href="#3-3、-双向数据透传（从模式）：" class="headerlink" title="3.3、 双向数据透传（从模式）："></a>3.3、 双向数据透传（从模式）：</h3><p>该模式下，主设备（例如手机）可以通过搜索来发现模块，并建立连接，模块默认提供了一种数据透传服务，包含了两种特征值，分别是模块给主设备发送数据、主设备给模块发送数据。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113132142840_%E4%BB%8E%E8%AE%BE%E5%A4%87.png" alt="undefined" title="undefined"></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113131514853_%E7%8E%AF%E5%A2%83.png" alt="undefined" title="undefined"><br><em>图3.3-1 手机连接模块</em></p>
+<h4 id="3-3-1、从模式Lua接口"><a href="#3-3-1、从模式Lua接口" class="headerlink" title="3.3.1、从模式Lua接口"></a>3.3.1、从模式Lua接口</h4><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>btcore.advertising</td>
+<td>开启/关闭广播</td>
+</tr>
+<tr>
+<td>btcore.setname</td>
+<td>设置蓝牙名称</td>
+</tr>
+<tr>
+<td>btcore.setadvdata</td>
+<td>设置广播包数据</td>
+</tr>
+<tr>
+<td>btcore.setscanrspdata</td>
+<td>设置响应包数据</td>
+</tr>
+<tr>
+<td>btcore.addservice</td>
+<td>添加服务</td>
+</tr>
+<tr>
+<td>btcore.addcharacteristic</td>
+<td>添加特征</td>
+</tr>
+<tr>
+<td>btcore.adddescriptor</td>
+<td>添加描述</td>
+</tr>
+<tr>
+<td>btcore.send</td>
+<td>发送数据给主设备</td>
+</tr>
+<tr>
+<td>btcore.recv</td>
+<td>接收主设备发来的数据</td>
+</tr>
+</tbody></table>
+<p><em><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6?wiki_page_id=1701">1、接口详细介绍，参考API手册</a></em><br><em><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U/blob/master/demo/bluetooth/slave.lua">2、接口demo参考：openLuat/Luat_Lua_Air724U/demo/bluetooth/slave.lua</a></em></p>
+<h4 id="3-3-2、从模式AT指令"><a href="#3-3-2、从模式AT指令" class="headerlink" title="3.3.2、从模式AT指令"></a>3.3.2、从模式AT指令</h4><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AT+BTCOMM=ENABLE</td>
+<td>开启/关闭蓝牙</td>
+</tr>
+<tr>
+<td>AT+BLECOMM=SETNAME</td>
+<td>设置广播名称</td>
+</tr>
+<tr>
+<td>AT+BLEADV=ADVDATA</td>
+<td>设置广播包数据</td>
+</tr>
+<tr>
+<td>AT+BLEADV=SCANRSPDATA</td>
+<td>设置响应包数据</td>
+</tr>
+<tr>
+<td>AT+BLEADV=ENABLE</td>
+<td>打开/关闭广播</td>
+</tr>
+<tr>
+<td>AT+BTCOMM=SENDDATA</td>
+<td>发送数据给主设备</td>
+</tr>
+<tr>
+<td>+BLEIND=DATA</td>
+<td>接收主设备发来的数据</td>
+</tr>
+</tbody></table>
+<h3 id="3-4、BLE广播模式："><a href="#3-4、BLE广播模式：" class="headerlink" title="3.4、BLE广播模式："></a>3.4、BLE广播模式：</h3><p>该模式下，可以实现一对多进行广播，应用于极小数据量，单向数据传输的场景。模块本身只作为发射端，不作为接收端。例如：抄表、ibeacon等应用可以用该模式进行。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210113132231855_%E5%B9%BF%E6%92%AD.png" alt="undefined" title="undefined"></p>
+<h4 id="3-4-1、广播模式Lua接口"><a href="#3-4-1、广播模式Lua接口" class="headerlink" title="3.4.1、广播模式Lua接口"></a>3.4.1、广播模式Lua接口</h4><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>btcore.advertising</td>
+<td>开启/关闭广播</td>
+</tr>
+<tr>
+<td>btcore.setname</td>
+<td>设置蓝牙名称</td>
+</tr>
+<tr>
+<td>btcore.setadvdata</td>
+<td>设置广播包数据</td>
+</tr>
+<tr>
+<td>btcore.setscanrspdata</td>
+<td>设置响应包数据</td>
+</tr>
+<tr>
+<td>btcore.addservice</td>
+<td>添加服务</td>
+</tr>
+<tr>
+<td>btcore.addcharacteristic</td>
+<td>添加特征</td>
+</tr>
+<tr>
+<td>btcore.adddescriptor</td>
+<td>添加描述</td>
+</tr>
+</tbody></table>
+<p><em><a target="_blank" rel="noopener" href="http://doc.openluat.com/wiki/6?wiki_page_id=1701">1、接口详细介绍，参考API手册</a></em><br><em><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/Luat_Lua_Air724U/blob/master/demo/bluetooth/slave.lua">2、接口demo参考：openLuat/Luat_Lua_Air724U/demo/bluetooth/slave.lua</a></em></p>
+<h4 id="3-4-2、广播模式AT命令"><a href="#3-4-2、广播模式AT命令" class="headerlink" title="3.4.2、广播模式AT命令"></a>3.4.2、广播模式AT命令</h4><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AT+BTCOMM=ENABLE</td>
+<td>开启/关闭蓝牙</td>
+</tr>
+<tr>
+<td>AT+BLECOMM=SETNAME</td>
+<td>设置广播名称</td>
+</tr>
+<tr>
+<td>AT+BLEADV=ADVDATA</td>
+<td>设置广播包数据</td>
+</tr>
+<tr>
+<td>AT+BLEADV=SCANRSPDATA</td>
+<td>设置响应包数据</td>
+</tr>
+<tr>
+<td>AT+BLEADV=ENABLE</td>
+<td>打开/关闭广播</td>
+</tr>
+</tbody></table>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1609/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1590/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

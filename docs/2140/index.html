@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MIT 6.824 Distributed Systems 分布式系统课程系列4 Lab 4: Sharded Key/Value Service(上) [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">MIT 6.824 Distributed Systems 分布式系统课程系列4 Lab 4: Sharded Key/Value Service(上)</h1>
+<article class="post markdown-style">
+  <h1 id="Lab4-分片kv服务-上-配置服务器"><a href="#Lab4-分片kv服务-上-配置服务器" class="headerlink" title="Lab4 分片kv服务(上)(配置服务器)"></a>Lab4 分片kv服务(上)(配置服务器)</h1><hr>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h1><ul>
+<li>Lab3中我们在raft基础上实现了基本的kv服务和log压缩。</li>
+<li>Lab4进一步实现分片式的kv服务，所有key都能得出一个hash值，然后按hash值把key存在不同的节点(或节点集合)。<br>任务分为AB两部分。A实现一个shardmaster，类似于一个管理调度程序。B实现shardserver，具体的kv服务器。本文讲A部分。</li>
+</ul>
+<hr>
+<h1 id="2-The-Shard-Master基本数据"><a href="#2-The-Shard-Master基本数据" class="headerlink" title="2.The Shard Master基本数据"></a>2.The Shard Master基本数据</h1><ul>
+<li><p>shard<br>分片，数据的某一部分集合。整个系统的数据会分散在各个分片里。</p>
+</li>
+<li><p>group<br>server的集合。包含一个或多个server。</p>
+</li>
+<li><p>shard与group的关系<br>一个shard只可属于一个group。一个group可包含(管理)多个shard。<br>比如<br>10个shard，3个group。<br>2个shard里的数据交给group1去储存。<br>3个shard里的数据交给group2去储存。<br>group3里机器最多，剩余的5个shard都交给group3去储存。<br>基本原则是把数据平均分配到所有机器。</p>
+</li>
+</ul>
+<p>提炼出来的核心数据就是一个Config结构体，即一份节点的配置，即shard和group的具体定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type Config struct &#123;</span><br><span class="line">    Num    int              &#x2F;&#x2F; config number</span><br><span class="line">    Shards [NShards]int     &#x2F;&#x2F; shard -&gt; gid          NShards为分片数量。定为10</span><br><span class="line">    Groups map[int][]string &#x2F;&#x2F; gid -&gt; servers[]      哪个group id包含了哪些server</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Num，配置的id。<br>Shards，每个分片所属的group id(gid)。<br>Groups，每个group里的server列表。</li>
+</ul>
+<h1 id="3-主要操作-命令"><a href="#3-主要操作-命令" class="headerlink" title="3.主要操作(命令)"></a>3.主要操作(命令)</h1><ol>
+<li><p>join<br>让某些group加入集群。<br>参数类型为<code>map[int][]string</code><br>比如<code>&#123;1:&quot;x&quot;, &quot;y&quot;, &quot;z&quot;&#125;</code>和<code>&#123;2:&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&#125;</code>，即把1和2两个group加入集群。1包含xyz三个server，2包含abc三个server。</p>
+</li>
+<li><p>leave<br>让某些group离开集群。<br>比如leave(2)，那么group2就要离开集群，这时里面的abc三个server是存了某些shard的数据的，得把这些shard还给系统，分到其他的group里，最后把group2断开。</p>
+</li>
+<li><p>query<br>获取某一份config。</p>
+</li>
+<li><p>move<br>把某个shard交给某个group。即把这个shard的数据挪到指定的group，从此被指定的group管理。</p>
+</li>
+</ol>
+<p>shardmaster主要就是要维护一串配置(Config的数组)(对标kvserver的键值对数据)。<br>一样是client/server架构，利用raft来保证配置数据的一致和可靠。raft里的log项就是一个个join/leave/query/move操作。</p>
+<hr>
+<h1 id="4-基本流程"><a href="#4-基本流程" class="headerlink" title="4.基本流程"></a>4.基本流程</h1><ul>
+<li><p>想通了上述的逻辑，流程其实就很简单了，无非就是通过client发各种操作，加上一系列人工障碍(A部分测试没加障碍，但是B部分会依赖于A，如果到时B部分出了问题还得回来看)。<br>最后所有操作需要达成一致，得到预定的结果。跟lab2的kvserver是一个模式。</p>
+</li>
+<li><p>要做的工作就是抽象一下所有操作(命令)，填入kvserver的框架，操作得到apply以后，按各个操作的定义更新config。</p>
+</li>
+<li><p>这个服务虽简单，但是一样很有意义，用raft实现了另一套新的数据结构和操作的维护。扩展了思路。</p>
+</li>
+</ul>
+<hr>
+<h1 id="5-其他"><a href="#5-其他" class="headerlink" title="5.其他"></a>5.其他</h1><ul>
+<li>巨坑的labrpc<br>之前的代码Op的成员都是string或int等基本类型。现在的操作变复杂，要传入map、数组等。<br>我加了个interface成员，可随意传入不同操作的参数。<br>发现发送AE时，接收AE处解不出Op，解出来是nil。<br>肯定是labgob里编码、类型转换的问题，看又看不懂折腾半天。<br>最后发现StartServer里有个labgob.Register(Op{})，网上也有人提到要注册类型。尝试进行额外的labgob.Register。<br>join的rpc参数是Servers，类型为map[int][]string。<br>labgob.Register(map[int][]string{})这样注册一下解决。<br>有恶心到。</li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2142/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2139/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

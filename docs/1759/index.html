@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>对于javaScript原型学习理解 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">对于javaScript原型学习理解</h1>
+<article class="post markdown-style">
+  <h6 id="首先看一个构造函数"><a href="#首先看一个构造函数" class="headerlink" title="首先看一个构造函数"></a>首先看一个构造函数</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, age, sex</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">    <span class="built_in">this</span>.sex = sex</span><br><span class="line">    <span class="comment">// 不能使用匿名函数，多个对象会存储多个方法。影响性能</span></span><br><span class="line">    <span class="built_in">this</span>.eat = catEat</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">catEat</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&#x27;吃吃吃&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c1 = <span class="keyword">new</span> Cat(<span class="string">&#x27;小花&#x27;</span>, <span class="number">3</span>, <span class="string">&#x27;母&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> c2 = <span class="keyword">new</span> Cat(<span class="string">&#x27;小绿&#x27;</span>, <span class="number">1</span>, <span class="string">&#x27;公&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时返回为true</span></span><br><span class="line"><span class="built_in">console</span>.log(c1.catEat === c2.catEat)</span><br></pre></td></tr></table></figure>
+<h6 id="每一个构造函数都有一个属性：-原型，或者说原型对象"><a href="#每一个构造函数都有一个属性：-原型，或者说原型对象" class="headerlink" title="每一个构造函数都有一个属性： 原型，或者说原型对象"></a>每一个构造函数都有一个属性： 原型，或者说原型对象</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, age, sex</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">    <span class="built_in">this</span>.sex = sex</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype.catEat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&#x27;吃吃吃&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c1 = <span class="keyword">new</span> Cat(<span class="string">&#x27;小花&#x27;</span>, <span class="number">3</span>, <span class="string">&#x27;母&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> c2 = <span class="keyword">new</span> Cat(<span class="string">&#x27;小绿&#x27;</span>, <span class="number">1</span>, <span class="string">&#x27;公&#x27;</span>)</span><br><span class="line"></span><br><span class="line">c1.catEat()</span><br><span class="line">c2.catEat()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此时返回为true</span></span><br><span class="line"><span class="built_in">console</span>.log(c1.catEat === c2.catEat)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.dir(c1);</span><br></pre></td></tr></table></figure>
+<p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201026162050154_image-20201026152351078.png" alt="undefined" title="undefined"></a></p>
+<h6 id="此时，我们可以得出结论。通过Cat对象创建的实例对象，可以访问到Cat-prototype成员"><a href="#此时，我们可以得出结论。通过Cat对象创建的实例对象，可以访问到Cat-prototype成员" class="headerlink" title="此时，我们可以得出结论。通过Cat对象创建的实例对象，可以访问到Cat.prototype成员"></a>此时，我们可以得出结论。通过Cat对象创建的实例对象，可以访问到Cat.prototype成员</h6><h6 id="c1-proto-等于-Cat-prototype-属性"><a href="#c1-proto-等于-Cat-prototype-属性" class="headerlink" title="c1.proto  等于 Cat.prototype 属性"></a>c1.<strong>proto</strong>  等于 Cat.prototype 属性</h6><p>当调用对象的属性或者方法时，先去找对象本身的属性/方法 ，如果对象没有该属性或者方法。此时去调用原型中的属性或者方法。如果对象本身没有该属性或者方法，原型中也没有该属性或者方法，此时会报错</p>
+<p>对于 对象，原型，构造函数的关系， 我们可以通过一张图表示出来</p>
+<p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201026162143934_image-20201026153851102.png" alt="undefined" title="undefined"></a></p>
+<h6 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h6><p>原型的构造函数是什么？ 原型的原型是什么？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> o = c1.__proto__</span><br><span class="line"><span class="built_in">console</span>.log(o.__proto__.constructor)</span><br><span class="line"><span class="built_in">console</span>.log(o.__proto__.__proto__)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201026162216133_image-20201026155151609.png" alt="undefined" title="undefined"></a></p>
+<p>原型对象的<strong>proto</strong> 为 一个 object 对象，而object 的 原型对象为null。</p>
+<h6 id="思考：-1"><a href="#思考：-1" class="headerlink" title="思考："></a>思考：</h6><p>当我们构造方法中设置prototype属性时，一个实例对象修改此属性，会对其他实例对象有影响吗？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, age, sex</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.age = age</span><br><span class="line">    <span class="built_in">this</span>.sex = sex</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype.color = <span class="string">&#x27;white&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c1 = <span class="keyword">new</span> Cat(<span class="string">&#x27;小花&#x27;</span>, <span class="number">3</span>, <span class="string">&#x27;母&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> c2 = <span class="keyword">new</span> Cat(<span class="string">&#x27;小绿&#x27;</span>, <span class="number">1</span>, <span class="string">&#x27;公&#x27;</span>)</span><br><span class="line"></span><br><span class="line">c1.color = <span class="string">&#x27;yellow&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(c1.color)</span><br><span class="line"><span class="built_in">console</span>.log(c2.color)</span><br><span class="line"><span class="built_in">console</span>.dir(c1)</span><br><span class="line"><span class="built_in">console</span>.dir(c2)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201026162251645_image-20201026160335643.png" alt="undefined" title="undefined"></a></p>
+<p>得出结论，只有当获取属性时。受到原型影响，设置属性时，只会为c1创建属性，此时不再访问__proto__属性。</p>
+<p>只有获取收到影响。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1760/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1758/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

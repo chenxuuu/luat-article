@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>7、RDA8910CSDK二次开发：通过DNS解析迈向互联网的第一步 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">7、RDA8910CSDK二次开发：通过DNS解析迈向互联网的第一步</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>  本系列博客所述资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>  本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>  各个厂家的部分配置文件可能不一样，也许会导致设备出现奇怪的问题，其他的模块我也不确定能不能用，自行测试。但是有一点<code>编译下载和监视流程基本一样</code>，可供参考。</p>
+<p>  先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>  我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>  经过一段时间学习，有的人可能会觉得不太对劲。我们这学的不是4g模块吗，怎么用了这么长时间这和网络一点关系都没有啊。劳资学这个就想连个网扎就这么费劲。这博主也真是的叭叭叭写了好几篇没扯到正事。<br><img src="https://img-blog.csdnimg.cn/20200525233120694.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  既然有人提出了这个想法。我仔细一想，哎好像也对。<br><img src="https://img-blog.csdnimg.cn/20200525233540202.png" alt="在这里插入图片描述"><br>  那好今天我们一起来尝试通过cat1连接一下互联网，获取我们想要的信息。在官方提供的库文件中，只有DNS是最简单的（内部实现并不简单，官方都已经封装好了，我们直接用即可），DNS解析实际是一个UDP通讯，这个UDP通讯过几天在讲。今天我们就使用官方提供的函数，进行DNS解析获取一下<code>www.baidu.com</code>的ip地址。</p>
+<h2 id="1-1、什么是DNS解析"><a href="#1-1、什么是DNS解析" class="headerlink" title="1.1、什么是DNS解析"></a>1.1、什么是DNS解析</h2><p>  DNS解析又称域名解析，它的作用是把域名指向网站空间IP，让人们通过注册的域名可以方便地访问到网站的一种服务。IP地址是网络上标识站点的数字地址，为了方便记忆，采用域名来代替IP地址标识站点地址。域名解析就是域名到IP地址的转换过程。域名的解析工作由DNS服务器完成。（<code>百度百科</code>）</p>
+<p><img src="https://img-blog.csdnimg.cn/20200525232744492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="1-2、DNS解析的过程"><a href="#1-2、DNS解析的过程" class="headerlink" title="1.2、DNS解析的过程"></a>1.2、DNS解析的过程</h2><p>  DNS是应用层协议，事实上他是为其他应用层协议工作的，包括不限于HTTP和SMTP以及FTP，用于将用户提供的主机名解析为ip地址。<br>  具体过程如下：<br>①用户主机上运行着DNS的客户端，就是我们的PC机或者手机客户端运行着DNS客户端了。<br>②浏览器将接收到的url中抽取出域名字段，就是访问的主机名，比如<code>http://www.baidu.com/</code>，并将这个主机名传送给DNS应用的客户端。<br>③DNS客户机端向DNS服务器端发送一份查询报文，报文中包含着要访问的主机名字段（中间包括一些列缓存查询以及分布式DNS集群的工作）。<br>④该DNS客户机最终会收到一份回答报文，其中包含有该主机名对应的IP地址。<br>⑤一旦该浏览器收到来自DNS的IP地址，就可以向该IP地址定位的HTTP服务器发起TCP连接。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200525222543549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>作者：wuxinliulei<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23042131/answer/66571369">https://www.zhihu.com/question/23042131/answer/66571369</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h1 id="二、编写测试程序"><a href="#二、编写测试程序" class="headerlink" title="二、编写测试程序"></a>二、编写测试程序</h1><h2 id="2-1、了解本例程所用到的函数"><a href="#2-1、了解本例程所用到的函数" class="headerlink" title="2.1、了解本例程所用到的函数"></a>2.1、了解本例程所用到的函数</h2><p>  使用dns服务需要包含<code>#include &quot;iot_socket.h&quot;&quot;</code>头文件，我们这里只用到了三个函数，分别是：</p>
+<blockquote>
+<p>/*<em>获取网络状态<br>*@param     status:   返回网络状态<br>*@return    TRUE:         成功<br>*    FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li><p>BOOL <code>iot_network_get_status</code> (T_OPENAT_NETWORK_STATUS* status)</p>
+<blockquote>
+<p>/**建立网络连接，实际为pdp激活流程</p>
+</blockquote>
+</li>
+<li><p>@param     status:   返回网络状态</p>
+</li>
+<li><p>@return    TRUE:         成功</p>
+</li>
+<li><p>    FALSE:      失败<br>@note      该函数为异步函数，返回后不代表网络连接就成功了，indCb会通知上层应用网络连接是否成功，连接成功后会进入OPENAT_NETWORK_LINKED状态</p>
+<pre><code>      创建socket连接之前必须要建立网络连接
+      建立连接之前的状态需要为OPENAT_NETWORK_READY状态，否则会连接失败
+</code></pre>
+</li>
+<li><p>*/</p>
+</li>
+</ul>
+<ul>
+<li>BOOL <code>iot_network_connect</code>     (T_OPENAT_NETWORK_CONNECT* connectParam)</li>
+</ul>
+<blockquote>
+<p>/*<em>获取域名对应的IP地址<br>*@param        name:        域名，例如:<a target="_blank" rel="noopener" href="http://www.airm2m.com/www.baidu.com">www.airm2m.com/www.baidu.com</a><br>*@return    struct hostent 结构体: 该结构体包含了一个DNS域名解析后的ip地址<br>*    NULL:  域名解析失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>struct hostent* <code>gethostbyname</code>(const char *name)</li>
+</ul>
+<blockquote>
+<p>/**将数字IP地址转换为点分十进制的ASCII表示形式。<br> <em>@param addr IP地址以网络顺序转换<br> *@return 指向保存ASCII的全局静态（！）缓冲区的指针代表地址<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>char *<code>ipaddr_ntoa</code>(const openat_ip_addr_t *addr)</li>
+</ul>
+<h2 id="2-2、编写测试程序"><a href="#2-2、编写测试程序" class="headerlink" title="2.2、编写测试程序"></a>2.2、编写测试程序</h2><p>  测试程序主要目的是不停的获取当前的网络状态。根据获取到的网络消息判断当前的状态应该干什么事情。必须提示<code>OPENAT_NETWORK_READY</code>，才可以执行链路激活程序。激活正常会提示<code>OPENAT_NETWORK_LINKED</code>，此时才可以通过<code>socket</code>接口建立数据连接。我们这里是每2s向DNS服务器发起一次请求查询<code>www.baidu.com</code>的IP地址。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">T_OPENAT_NETWORK_STATUS status = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//获取网络状态</span></span><br><span class="line">	BOOL err = iot_network_get_status(&amp;status);</span><br><span class="line">	<span class="keyword">if</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[socket] iot_network_get_status error&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;[socket] state:%d,csq:%d,simpresent:%d&quot;</span>, status.state, status.csq, status.simpresent);</span><br><span class="line">		T_OPENAT_NETWORK_CONNECT networkparam = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">		<span class="keyword">switch</span> (status.state)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> OPENAT_NETWORK_DISCONNECT: <span class="comment">//网络断开 表示GPRS网络不可用澹，无法进行数据连接，有可能可以打电话</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_DISCONNECT&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> OPENAT_NETWORK_READY: <span class="comment">//网络已连接 表示GPRS网络可用，可以进行链路激活</span></span><br><span class="line">			<span class="built_in">memcpy</span>(networkparam.apn, <span class="string">&quot;CMNET&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;CMNET&quot;</span>));</span><br><span class="line">			<span class="comment">//建立网络连接，实际为pdp激活流程</span></span><br><span class="line">			iot_network_connect(&amp;networkparam);</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_READY&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> OPENAT_NETWORK_LINKED: <span class="comment">//链路已经激活 PDP已经激活，可以通过socket接口建立数据连接</span></span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_LINKED&quot;</span>);</span><br><span class="line">			<span class="keyword">char</span> *name = <span class="string">&quot;www.baidu.com&quot;</span>;</span><br><span class="line">			<span class="class"><span class="keyword">struct</span> <span class="title">openat_hostent</span> *<span class="title">hostentP</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line">			<span class="keyword">char</span> *ipAddr = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="comment">//获取域名对应的IP地址</span></span><br><span class="line">			hostentP = gethostbyname(name);</span><br><span class="line">			<span class="keyword">if</span> (!hostentP)</span><br><span class="line">			&#123;</span><br><span class="line">				iot_debug_print(<span class="string">&quot;[socket] gethostbyname %s fail&quot;</span>, name);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 将ip转换成字符串</span></span><br><span class="line">			ipAddr = ipaddr_ntoa((<span class="keyword">const</span> <span class="keyword">openat_ip_addr_t</span> *)hostentP-&gt;h_addr_list[<span class="number">0</span>]);</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] gethostbyname %s ip %s&quot;</span>, name, ipAddr);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	osiThreadSleep(<span class="number">2000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="三、编译并下载程序"><a href="#三、编译并下载程序" class="headerlink" title="三、编译并下载程序"></a>三、编译并下载程序</h1><p>  完整代码在这，自取。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Author: your name</span></span><br><span class="line"><span class="comment"> * @Date: 2020-05-19 14:05:32</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-05-23 17:14:18</span></span><br><span class="line"><span class="comment"> * @LastEditors: Please set LastEditors</span></span><br><span class="line"><span class="comment"> * @Description: In User Settings Edit</span></span><br><span class="line"><span class="comment"> * @FilePath: \RDA8910_CSDK\USER\user_main.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;cs_types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_log.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_api.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;am_openat_common.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_uart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_os.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_gpio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_pmd.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_adc.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_vat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_network.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_socket.h&quot;</span></span></span><br><span class="line"><span class="comment">//DNS Demo</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TestTask</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T_OPENAT_NETWORK_STATUS status = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//获取网络状态</span></span><br><span class="line">		BOOL err = iot_network_get_status(&amp;status);</span><br><span class="line">		<span class="keyword">if</span> (!err)</span><br><span class="line">		&#123;</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] iot_network_get_status error&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			iot_debug_print(<span class="string">&quot;[socket] state:%d,csq:%d,simpresent:%d&quot;</span>, status.state, status.csq, status.simpresent);</span><br><span class="line">			T_OPENAT_NETWORK_CONNECT networkparam = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">			<span class="keyword">switch</span> (status.state)</span><br><span class="line">			&#123;</span><br><span class="line">			<span class="keyword">case</span> OPENAT_NETWORK_DISCONNECT: <span class="comment">//网络断开 表示GPRS网络不可用澹，无法进行数据连接，有可能可以打电话</span></span><br><span class="line">				iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_DISCONNECT&quot;</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> OPENAT_NETWORK_READY: <span class="comment">//网络已连接 表示GPRS网络可用，可以进行链路激活</span></span><br><span class="line">				<span class="built_in">memcpy</span>(networkparam.apn, <span class="string">&quot;CMNET&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;CMNET&quot;</span>));</span><br><span class="line">				<span class="comment">//建立网络连接，实际为pdp激活流程</span></span><br><span class="line">				iot_network_connect(&amp;networkparam);</span><br><span class="line">				iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_READY&quot;</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> OPENAT_NETWORK_LINKED: <span class="comment">//链路已经激活 PDP已经激活，可以通过socket接口建立数据连接</span></span><br><span class="line">				iot_debug_print(<span class="string">&quot;[socket] OPENAT_NETWORK_LINKED&quot;</span>);</span><br><span class="line">				<span class="keyword">char</span> *name = <span class="string">&quot;www.baidu.com&quot;</span>;</span><br><span class="line">				<span class="class"><span class="keyword">struct</span> <span class="title">openat_hostent</span> *<span class="title">hostentP</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line">				<span class="keyword">char</span> *ipAddr = <span class="literal">NULL</span>;</span><br><span class="line">				<span class="comment">//获取域名对应的IP地址</span></span><br><span class="line">				hostentP = gethostbyname(name);</span><br><span class="line">				<span class="keyword">if</span> (!hostentP)</span><br><span class="line">				&#123;</span><br><span class="line">					iot_debug_print(<span class="string">&quot;[socket] gethostbyname %s fail&quot;</span>, name);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">// 将ip转换成字符串</span></span><br><span class="line">				ipAddr = ipaddr_ntoa((<span class="keyword">const</span> <span class="keyword">openat_ip_addr_t</span> *)hostentP-&gt;h_addr_list[<span class="number">0</span>]);</span><br><span class="line">				iot_debug_print(<span class="string">&quot;[socket] gethostbyname %s ip %s&quot;</span>, name, ipAddr);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		osiThreadSleep(<span class="number">2000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//main函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//系统休眠</span></span><br><span class="line">	iot_os_sleep(<span class="number">10000</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建一个任务</span></span><br><span class="line">	osiThreadCreate(<span class="string">&quot;TestTask&quot;</span>, TestTask, <span class="literal">NULL</span>, OSI_PRIORITY_NORMAL, <span class="number">2048</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//退出提示</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">appimg_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	OSI_LOGI(<span class="number">0</span>, <span class="string">&quot;application image exit&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  查看输出，日志开机首先输出了<code>OPENAT_NETWORK_DISCONNECT</code>，说明网络不可用。大约20s后输出<code>OPENAT_NETWORK_READY</code>提示网络就绪，可以进行链路激活。激活成功后提示<code>OPENAT_NETWORK_LINKED</code>，后面就在一直循环查询百度的ip地址并输出。<br><img src="https://img-blog.csdnimg.cn/20200525230154335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  虽然我们获取到了baidu.com的ip地址，但是我们怎么知道是可用的呢，万一他是骗我们的呢。<br><img src="https://img-blog.csdnimg.cn/20200525231226822.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  我们只需要把解析出来的ip地址<code>183.232.231.174</code>粘贴在浏览器访问下就知道了，结果如下，显然是没有问题的。正常访问到了百度。<br><img src="https://img-blog.csdnimg.cn/20200525231423383.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/383/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/740/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

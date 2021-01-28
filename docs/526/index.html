@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>air202luat二次开发设备接入阿里云(三) [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">air202luat二次开发设备接入阿里云(三)</h1>
+<article class="post markdown-style">
+  <p style="color: rgb(51, 51, 51);">记录设备接入阿里云的过程</p><p style="color: rgb(51, 51, 51);">三，下发命令</p><p style="color: rgb(51, 51, 51);">上一篇写了上传数据，今天继续分享如何从云平台下发命令控制终端设备</p><p style="color: rgb(51, 51, 51);">1，添加功能，要实现新的事件第一件事还是在阿里云添加功能</p><p style="color: rgb(51, 51, 51);">还是添加一个自定义功能，就是个开关功能选布尔型就可以</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-pItauGRo5bf3f78098db5.png" style="width: 299.5px;" class="img-responsive">2，接下来直接就是修改代码了</p><p style="color: rgb(51, 51, 51);">设备是如何获取我们下发的命令的呢?阿里云使用的是mqtt协议，所以我们就用到了mqtt协议的一个很重要的功能--主题订阅。在阿里云里就是<span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">Topic订阅。</span></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-OjB9Ckwj5bf3f8982e74e.png" style="width: 797px;" class="img-responsive"><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">我们可以看到在我们的产品</span><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">Topic列表里有一条是用于设备属性设置的，我们就是用这个</span><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">Topic下发命令到设备，设备订阅这个</span><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">Topic对消息解析即可</span></p><p style="color: rgb(51, 51, 51);"><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">代码的具体修改</span></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-XOdwOrxF5bf3f9b47fadc.png" style="width: 372px;" class="img-responsive"><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">根据api我们可以在demo里找到如下代码，结合上面说的，我们需要修改订阅topic为我们产品的</span></p><p style="color: rgb(51, 51, 51);"></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-1gPegePv5bf3fa879a89b.png" style="width: 519px;" class="img-responsive"><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">订阅了主题接下来就是对命令解析了</span></p><p style="color: rgb(51, 51, 51);"><span style="background-color: rgb(251, 251, 252); color: rgb(115, 119, 122); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">问题来了，阿里云到底给我们的设备发送了什么呢？第一种方法是去翻阿里的产品文档，另一种是更直观的方法直接在产品里选择调试功能，然后云平台模拟命令下发（也就是阿里云的属性设置）</span></p><p style=""><font color="#333333"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-g0DD5GD25bf3fbba57529.png" style="width: 831px;" class="img-responsive"></font><p><span style="color: rgb(115, 119, 122); background-color: rgb(251, 251, 252); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;">其中的</span><font color="#73777a" face="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif">MessageParams的内容就是云平台下发的数据，把转义符去一下也就是这样一条json数据，很明显我们需要的就PowerSwitch的值</font></p></p><pre style=""><font color="#73777a" face="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif">MessageParams:{
+"method":"thing.service.property.set",
+"id":"189921488",
+"params":{"PowerSwitch":0},
+"version":"1.0.0"
+}"</font></pre><p style=""><font color="#73777a" face="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif">怎么把这个值取出来呢，既然是json数据那肯定还是json数据操作</font></p><p style=""><img src="http://oldask.openluat.com/image/show/attachments-2018-11-lqfWWt1J5bf3fe1e79a07.png" style="width: 170px;" class="img-responsive"><font color="#73777a" face="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif">根据api修改代码</font></p><p style=""><img src="http://oldask.openluat.com/image/show/attachments-2018-11-oPjomgZP5bf405e29a94d.png" style="width: 340.5px;" class="img-responsive"><font color="#73777a" face="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif">然后烧录代码，去阿里云调试设备下发开关指令，可以看到我们成功的控制了一盏灯的开关</font></p><p style=""><img src="http://oldask.openluat.com/image/show/attachments-2018-11-OOKeJauN5bf402bbe906a.png" class="img-responsive" style="width: 363px;"></p><p style=""><font color="#73777a" face="Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif"><br></font></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/527/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/525/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

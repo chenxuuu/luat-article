@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air302接入腾讯物联网通信平台  [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air302接入腾讯物联网通信平台 </h1>
+<article class="post markdown-style">
+  <h1 id="Air302接入腾讯物联网通信平台"><a href="#Air302接入腾讯物联网通信平台" class="headerlink" title="Air302接入腾讯物联网通信平台"></a>Air302接入腾讯物联网通信平台</h1><h3 id="一、前简介"><a href="#一、前简介" class="headerlink" title="一、前简介"></a>一、前简介</h3><p><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/tree/master/bsp/air302">合宙Air302</a>, 是基于移芯EC616的NB-IOT模块。</p>
+<p><a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/iothub">腾讯云物联网通信</a>（Internet of Things Hub， IoT Hub）旨在提供一个安全、稳定、高效的连接平台，帮助开发者低成本、快速地实现“设备-设备”、“设备-用户应用”、“设备-云服务”之间可靠、高并发的数据通信。不仅可以实现设备之间的互动、设备的数据上报和配置下发，还可以基于规则引擎和腾讯云产品打通，方便快捷地实现海量设备数据的存储、计算以及智能分析。</p>
+<p>MQTT是一个基于客户端-服务器的消息发布/订阅传输协议。MQTT协议是轻量、简单、开放和易于实现的，这些特点使它适用范围非常广泛。在很多情况下，包括受限的环境中，如：机器与机器（M2M）通信和物联网（IoT）。其在，通过卫星链路通信传感器、偶尔拨号的医疗设备、智能家居、及一些小型化设备中已广泛使用。</p>
+<h3 id="二、Air302刷入Luat固件"><a href="#二、Air302刷入Luat固件" class="headerlink" title="二、Air302刷入Luat固件"></a>二、Air302刷入Luat固件</h3><p>emmm 这部分还在写，其实已经有了官方教程。</p>
+<h3 id="三、腾讯云注册"><a href="#三、腾讯云注册" class="headerlink" title="三、腾讯云注册"></a>三、腾讯云注册</h3><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/">点击直连腾讯云</a></p>
+<h3 id="四、设置腾讯云物联网通信平台"><a href="#四、设置腾讯云物联网通信平台" class="headerlink" title="四、设置腾讯云物联网通信平台"></a>四、设置腾讯云物联网通信平台</h3><p>1、进入腾讯云物联网通信</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150236051_QQ%E6%88%AA%E5%9B%BE20201206141728.png" alt="undefined" title="undefined"></p>
+<p>2、点击左上侧的创建新产品</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150312977_QQ%E6%88%AA%E5%9B%BE20201206141834.png" alt="undefined" title="undefined"></p>
+<p>3、这里注意，节点类型选设备，产品类型选普通产品（别问为什么，因为这么做简单）</p>
+<p>产品名称随便填，认证方式选密钥认证（这篇文章讲的就是密钥接入，主要还是简单）</p>
+<p>数据格式建议json，比较方便，描述随意了。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150323856_QQ%E6%88%AA%E5%9B%BE20201206142003.png" alt="undefined" title="undefined"></p>
+<p>4、设置完之后，记录下产品ID</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150343240_QQ%E6%88%AA%E5%9B%BE20201206142251.png" alt="undefined" title="undefined"></p>
+<p>5、进到设备列表，这里要添加两个设备，一个设备是air302，另一个设备相当于客户。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150400600_QQ%E6%88%AA%E5%9B%BE20201206142429.png" alt="undefined" title="undefined"><br>密钥选择物联网通信提供的即可。</p>
+<p>6、进入新建好的设备，找到设备密钥一栏。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150411086_QQ%E6%88%AA%E5%9B%BE20201206142559.png" alt="undefined" title="undefined"><br>点击右侧的显示</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150427848_QQ%E6%88%AA%E5%9B%BE20201206142642.png" alt="undefined" title="undefined"></p>
+<p>这里需要注意三个值，client id ；mqtt username；mqtt password；一会儿会用到 </p>
+<p>7、新建信息转发规则（因为两个设备如果信息不转发是不能收到互相的信息的）</p>
+<p>点击左侧的“规则引擎”</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150443315_QQ%E6%88%AA%E5%9B%BE20201206142928.png" alt="undefined" title="undefined"><br>点击新建规则</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150451326_QQ%E6%88%AA%E5%9B%BE20201206142956.png" alt="undefined" title="undefined"></p>
+<p>名称随便填 点击确定</p>
+<p>设置好后会出现这条规则</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150502405_QQ%E6%88%AA%E5%9B%BE20201206143120.png" alt="undefined" title="undefined"><br>不要启用，点击管理</p>
+<p>进入后先点击筛选数据右侧的编辑</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150511405_QQ%E6%88%AA%E5%9B%BE20201206143229.png" alt="undefined" title="undefined"><br> 进入后进行如下的设置</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150521268_QQ%E6%88%AA%E5%9B%BE20201206143430.png" alt="undefined" title="undefined"></p>
+<p>字段填*号，意思是全部转发</p>
+<p>下面三个框框选择你的产品 设备 订阅地址 </p>
+<p>设置好后点击确定</p>
+<p>接下来点击添加行为操作</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150826691_QQ%E6%88%AA%E5%9B%BE20201206143755.png" alt="undefined" title="undefined"></p>
+<p>按照下图设置即可</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150539230_QQ%E6%88%AA%E5%9B%BE20201206144039.png" alt="undefined" title="undefined"></p>
+<p>设置好后回到规则引擎，启用规则皆可。</p>
+<h3 id="五、编写lua脚本"><a href="#五、编写lua脚本" class="headerlink" title="五、编写lua脚本"></a>五、编写lua脚本</h3><p>这里使用了air302的mqtt2 demo修改</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/blob/master/bsp/air302/demo/mqtt2/main.lua">链接在这里</a></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150555443_QQ%E6%88%AA%E5%9B%BE20201206145054.png" alt="undefined" title="undefined"></p>
+<p>这里放一个腾讯的官方文档，链接地址直接复制就行。<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/634/14630">点我直达</a></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206150604781_QQ%E6%88%AA%E5%9B%BE20201206145702.png" alt="undefined" title="undefined"><br>这里改一下就行</p>
+<h3 id="六、上传lua脚本"><a href="#六、上传lua脚本" class="headerlink" title="六、上传lua脚本"></a>六、上传lua脚本</h3><p>建议用python脚本上传</p>
+<p>python air302.py lfs dlfs</p>
+<p>或者python air302.py lfs full</p>
+<hr>
+<p>上传完之后你就会看见腾讯云物联网通信平台显示设备一上线，客户端那里也可以接收到信息。</p>
+<p>至此，air302接入腾讯物联网通信平台就完成了。</p>
+<h5 id="有错误还请指出。"><a href="#有错误还请指出。" class="headerlink" title="有错误还请指出。"></a>有错误还请指出。</h5><p>梦程MI</p>
+<p>2020.12.6</p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/88809897">bilibili</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.dreamcstudio.cn/">个人博客</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1992/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1976/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

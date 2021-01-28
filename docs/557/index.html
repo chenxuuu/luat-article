@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>dtu连接阿里云发送数据 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">dtu连接阿里云发送数据</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;用dtu固件可以方便的实现快速接入阿里云实现数据透传，稀饭放姜大神已经视频演示了如何使用，我这里根据实际项目演示一下如何上报数据。&lt;/p&gt;&lt;p&gt;1，首先按照教程刷好dtu固件，并在dtu的网页上添加好设备（当然你也可以用软件配置）&lt;/p&gt;&lt;p&gt;2，在阿里云新建产品，我这里就用以前演示luat连接阿里云的产品演示，建立过程可以看以前的文章&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-ic7BIpG85c7d035f9061a.png&quot; style=&quot;width: 543px;&quot; class=&quot;img-responsive&quot;&gt;可以看到我们添加的功能类型为属性，所以我们会用的这个两个topic，这里请根据自己项目实际选择&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-MuLRRDSB5c7d03e0859a9.png&quot; style=&quot;width: 543px;&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;3，配置dtu平台&lt;/p&gt;&lt;p&gt;根据刚才解释和稀饭大神教程这里配置就很简单了。&lt;span style=&quot;background-color: rgb(206, 198, 206);&quot;&gt;（注释：qos建议选择1，因为阿里云仅支持对qos1消息内容查询，查询消息可以帮助修改开发过程中的错误）&lt;/span&gt;此处失效，现在都可以查询&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-CuAe3L325c7d0484b4253.png&quot; style=&quot;width: 467.5px;&quot; class=&quot;img-responsive&quot;&gt;确定保存，然后重启一下设备，就可以连接阿里云了。&lt;/p&gt;&lt;p&gt;4，上传数据&lt;/p&gt;&lt;p&gt;组织报文，以前文章介绍过，我们需要的报文如下&lt;/p&gt;&lt;p&gt;&#123;&quot;id&quot;:&quot;1&quot;,&quot;version&quot;:&quot;1.0&quot;,&quot;method&quot;:&quot;thing.event.property.post&quot;,&quot;params&quot;:&#123;&quot;PowerSwitch&quot;:0,&quot;LightVolt&quot;:4.086&#125; &#125;&lt;/p&gt;&lt;p&gt;打开串口调试助手，配置成你dtu平台设置的波特率等参数，发送这条组织好的报文即可。（注意：这里用的是串口不是host口注意接线）&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-kBrRidib5c7d0937cdeec.png&quot; style=&quot;width: 353.5px;&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;回到阿里云，我们可以看到数据更新成功&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-03-k2Qeb8oR5c7d096b1c0ea.png&quot; style=&quot;width: 344px;&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;
+                    
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/558/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/556/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

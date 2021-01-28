@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>lvgl学习笔记 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">lvgl学习笔记</h1>
+<article class="post markdown-style">
+  <h1 id="基础对象"><a href="#基础对象" class="headerlink" title="基础对象"></a>基础对象</h1><p>littleVGL 是以对象为概念的,而其最核心的基础对象是 lv_obj 控件,其他的所有专用控件(比如按钮,标签,列表等)都是在此 lv_obj 对象的基础上衍生出来的,所有的控件对象都具有一些共同的属性,如下所示:</p>
+<ol>
+<li>位置(Position)</li>
+<li>大小(Size)</li>
+<li>父类(Parent)</li>
+<li>是否可拖拽(Drag enable)</li>
+<li>是否可点击(Click enable)等等</li>
+</ol>
+<p>对象分为父对象和子对象，父对象可以被看作是其子对象的容器,每个对象只有一个父对象(screen 对象没有父对象),父对象可以有无限数量的子对象,同时父对象的类型是没有限制,父对象和子对象之间具有如下 2 点特性:</p>
+<ol>
+<li>一起移动<br>如果父对象的位置更改,则子对象将随父对象一起移动,因此子对象的坐标位置是</li>
+</ol>
+<p><strong>以父对象的左上角而言的,而不是以屏幕的左上角</strong><br>2) 子对象只能在父对象的区域内显示<br>如果子对象的一部分在父对象的外面,那么子对象的这一部分将不会被显示出来</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--获取默认屏幕父类</span></span><br><span class="line">    scr0 = lvgl.scr_act()</span><br><span class="line">    <span class="comment">--原型： lv_obj_t * lv_obj_create(lv_obj_t * parent, const lv_obj_t * copy);</span></span><br><span class="line">    <span class="comment">--lua原型：lvgl.obj_create(parent,copy)</span></span><br><span class="line">    <span class="comment">--参数：</span></span><br><span class="line">    <span class="comment">--parent: 指向父对象,如果传 NULL 的话,则是在创建一个 screen 屏幕</span></span><br><span class="line">    <span class="comment">--copy: 此参数可选,表示创建新对象时,把 copy 对象上的属性值复制过来</span></span><br><span class="line">    btn0 = lvgl.btn_create(scr0, <span class="literal">nil</span>)</span><br><span class="line">    <span class="comment">--lvgl.obj_set_opa_scale_enable(btn0,1)</span></span><br><span class="line">    <span class="comment">--lvgl.obj_set_opa_scale(btn0,125)</span></span><br><span class="line">    <span class="comment">--创建一个按钮对象</span></span><br><span class="line">    lvgl.obj_set_size(btn0, <span class="number">50</span>, <span class="number">30</span>)</span><br><span class="line">    lvgl.disp_load_scr(scr0)</span><br></pre></td></tr></table></figure>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1547/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1527/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

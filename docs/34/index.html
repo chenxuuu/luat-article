@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>5、Air720SL模块Luat开发：GPIO输入常见的两种使用 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">5、Air720SL模块Luat开发：GPIO输入常见的两种使用</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>上一篇博文我们讲到了将GPIO初始化为输出功能用来驱动LED或者其他外设，这篇博文我们来继续讲讲GPIO剩下的另外一个功能——输入功能<br>既然是智能设备，那就需要和外界交互信息。获取外界消息的方法有很多。<br>通过互联网访问是一种获取信息的方式。<br><img src="https://img-blog.csdnimg.cn/20200216132129638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>还有是通过自身的传感器或者按钮开关，获取传感信息，也是一种获取信息的方式，它们输出的信号是开关量<br><img src="https://img-blog.csdnimg.cn/20200216132030279.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200216132307740.png" alt="在这里插入图片描述"><br>通过互联网获取信息，我们后面的博客在讲，先不急。<br>我们今天来讲一讲，怎么利用GPIO的输入功能来获取外界的开关信号。</p>
+</blockquote>
+<h1 id="二、编写程序"><a href="#二、编写程序" class="headerlink" title="二、编写程序"></a>二、编写程序</h1><blockquote>
+<p>利用GPIO的输入功能获取开关信号有两种方法，一种是查询法，另外一种是中断法，我们依次讲解</p>
+</blockquote>
+<h2 id="1、查询法"><a href="#1、查询法" class="headerlink" title="1、查询法"></a>1、查询法</h2><blockquote>
+<p>顾名思义，查询法就是不停的查询GPIO的状态，不管开关有没有按下，我都去查询，查询到什么就是什么，我没有查询的时候，你按了也没有用，这种方法的实时性比较低。<br>具体使用方法如下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">GPIO_Input_init</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    local KEY1 </span>= pins.setup(<span class="number">27</span>, nil, pio.PULLUP)--将GPIO27初始化为输入上拉</span><br><span class="line">	local LED1 = pins.setup(<span class="number">64</span>, <span class="number">0</span>)--将GPIO64初始化为输出</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> KEY1() == <span class="number">0</span> then--如果KEY1被接地，那么就点亮LED1</span><br><span class="line">			LED1(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			LED1(<span class="number">0</span>)--否则熄灭LED1</span><br><span class="line">		end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)--一秒查询一次</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查询法用起来比较简单需要不停的去查询<br>假如延时过短，就会出现任务切换频繁，执行效率低，cpu一直在忙着查询。<br>延时时间过长就会出现实时性低，比如我上面的代码key1接通后运气不好的时候需要等一秒钟才会有反应，不建议在对事件敏感的时候使用</p>
+</blockquote>
+<h2 id="2、中断法"><a href="#2、中断法" class="headerlink" title="2、中断法"></a>2、中断法</h2><blockquote>
+<p>中断我对它的理解是，他的优先级高于普通函数，可以打断正在执行的低优先级中断，和普通任务。<br>有打断的意思，只要正在执行的任务优先级比它低，当中断来临时就可以被打断，转而去执行中断函数。<br>中断的原则是快进快出，不能在里面执行复杂的事情，否则会影响其他任务执行。相对普通任务实时性较高，适用于对事件敏感的情况<br>在Air720SL中GPIO输入中断的使用方法如下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">local LED2</span><br><span class="line">function GPIO_Exti_cb(msg)--中断回调函数</span><br><span class="line">    <span class="keyword">if</span> msg == cpu.INT_GPIO_POSEDGE then--如果当前中断是上升沿触发</span><br><span class="line">        LED2(<span class="number">0</span>)--熄灭LED2</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        LED2(<span class="number">1</span>)--否则点亮LED2</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function GPIO_Exti_init()</span><br><span class="line">    local KEY2 = pins.setup(<span class="number">28</span>, GPIO_Exti_cb, pio.PULLUP)--将GPIO28初始化为输入上拉，并且启用中断回调</span><br><span class="line">	LED2 = pins.setup(<span class="number">65</span>, <span class="number">0</span>)--将GPIO65初始化为输出</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>中断的使用方法相比查询到要显得麻烦一下，需要多写一个函数，代码量比较多，但是好处就是实时性高。</p>
+</blockquote>
+<h1 id="三、下载完整的代码到Air720Sl开发板"><a href="#三、下载完整的代码到Air720Sl开发板" class="headerlink" title="三、下载完整的代码到Air720Sl开发板"></a>三、下载完整的代码到Air720Sl开发板</h1><blockquote>
+<p>这里我们直接贴出全部代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;pins&quot;</span></span><br><span class="line"></span><br><span class="line">local function GPIO_Input_init()</span><br><span class="line">    local KEY1 = pins.setup(<span class="number">27</span>, nil, pio.PULLUP)--将GPIO27初始化为输入上拉</span><br><span class="line">	local LED1 = pins.setup(<span class="number">64</span>, <span class="number">0</span>)--将GPIO64初始化为输出</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> KEY1() == <span class="number">0</span> then--如果KEY1被接地，那么就点亮LED1</span><br><span class="line">			LED1(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			LED1(<span class="number">0</span>)--否则熄灭LED1</span><br><span class="line">		end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)--一秒查询一次</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local LED2</span><br><span class="line">function GPIO_Exti_cb(msg)--中断回调函数</span><br><span class="line">    <span class="keyword">if</span> msg == cpu.INT_GPIO_POSEDGE then--如果当前中断是上升沿触发</span><br><span class="line">        LED2(<span class="number">0</span>)--熄灭LED2</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        LED2(<span class="number">1</span>)--否则点亮LED2</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function GPIO_Exti_init()</span><br><span class="line">    local KEY2 = pins.setup(<span class="number">28</span>, GPIO_Exti_cb, pio.PULLUP)--将GPIO28初始化为输入上拉，并且启用中断回调</span><br><span class="line">	LED2 = pins.setup(<span class="number">65</span>, <span class="number">0</span>)--将GPIO65初始化为输出</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">	sys.wait(<span class="number">10000</span>)</span><br><span class="line">    sys.taskInit(GPIO_Input_init)</span><br><span class="line">	sys.taskInit(GPIO_Exti_init)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载程序后运行结果如下，GPIO27控制LED1，GPIO28控制LED2.<br>GPIO27使用一秒查询一次，反应速度感觉明显有卡顿<br>GPIO28采用中断，几乎感觉不出来有延时<br><img src="https://img-blog.csdnimg.cn/20200216125954531.gif" alt="在这里插入图片描述"></p>
+</blockquote>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><h2 id="1、官方的pins库函数"><a href="#1、官方的pins库函数" class="headerlink" title="1、官方的pins库函数"></a>1、官方的pins库函数</h2><ul>
+<li>pins.setup(28, GPIO_Exti_cb, pio.PULLUP)–将GPIO28初始化为输入上拉，并且启用中断回调</li>
+<li>pins.setup(27, nil, pio.PULLUP)–将GPIO27初始化为输入上拉<h2 id="2、两种使用方法的环境"><a href="#2、两种使用方法的环境" class="headerlink" title="2、两种使用方法的环境"></a>2、两种使用方法的环境</h2></li>
+<li>查询法适用于普通场景，对事件敏感度不高的情况，查询不建议太过于频繁，一般按钮的话500ms查询一次，速度都还可以接收，</li>
+<li>中断法适用于强实时性场所，比如某些设备的<code>急停按钮</code>这就不能用查询法了，这类按钮对事件要求比较严格，用中断可以满足要求</li>
+</ul>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/35/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/33/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

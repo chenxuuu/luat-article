@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>14、RDA8910CSDK二次开发：CSDK程序死机了怎么办？ [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">14、RDA8910CSDK二次开发：CSDK程序死机了怎么办？</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所述资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>&emsp;&emsp;本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>&emsp;&emsp;各个厂家的部分配置文件可能不一样，也许会导致设备出现奇怪的问题，其他的模块我也不确定能不能用，自行测试。但是有一点<code>编译下载和监视流程基本一样</code>，可供参考。</p>
+<p>&emsp;&emsp;先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>&emsp;&emsp;我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;前几天米总直播iic遇到了死机的问题。哎，怎么找都找不到死在哪里。俗话说的好，解决bug的办法就是删除bug，于是乎米总就开始了删代码找bug之旅。<br><img src="https://img-blog.csdnimg.cn/20200725175952607.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;直播结束后，我也想到了之前我用csdk写代码的时候。那时遇到了错误，手上又没有什么有效的调试手段。只能采用<code>printf</code>调试大法，每一行执行结束都往串口打印一个数字，这样就能看到程序死机死在了哪里，变量信息也可以使用这个办法打印出来看。这仅限于代码量少的情况，可以尝试使用这个办法调试找bug。如果代码量多，这个办法根本就行不通。</p>
+<p>&emsp;&emsp;那么今天，当你看到这篇文章的时候。这个问题又将不复存在。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200725180356963.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;你猜的没错，我又带着解决办法来了，让你有办法能够轻松找到程序在什么地方发生了宕机。让你能够轻松的看到程序中的全局变量和局部变量的信息。让你找bug时不再是那么的费力！</p>
+<h1 id="二、编写程序"><a href="#二、编写程序" class="headerlink" title="二、编写程序"></a>二、编写程序</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***************</span></span><br><span class="line"><span class="comment">	demo_hello_Debug</span></span><br><span class="line"><span class="comment">****************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_os.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">HANDLE demo_hello_Debug_task;</span><br><span class="line"><span class="keyword">int</span> demo_hello_Debug_num = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">demo_hello_Debug</span><span class="params">(PVOID pParameter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    iot_debug_print(<span class="string">&quot;[hello]demo_hello_Debug&quot;</span>);</span><br><span class="line">    <span class="comment">//关闭看门狗，死机不会重启。默认打开</span></span><br><span class="line">    iot_debug_set_fault_mode(OPENAT_FAULT_HANG);</span><br><span class="line">    <span class="comment">//打开调试信息，默认关闭</span></span><br><span class="line">    iot_vat_send_cmd(<span class="string">&quot;AT^TRACECTRL=0,1,3\r\n&quot;</span>, <span class="keyword">sizeof</span>(<span class="string">&quot;AT^TRACECTRL=0,1,3\r\n&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (n = <span class="number">0</span>; n &lt; <span class="number">15</span>; n++)</span><br><span class="line">    &#123;</span><br><span class="line">        demo_hello_Debug_num++;</span><br><span class="line">        iot_debug_print(<span class="string">&quot;[debug]hello world %d&quot;</span>, n);</span><br><span class="line">        iot_os_sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    n++;</span><br><span class="line">    OPENAT_assert(<span class="number">0</span>, __func__, __LINE__);</span><br><span class="line">    iot_os_delete_task(demo_hello_Debug_task);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    iot_debug_print(<span class="string">&quot;[hello]appimg_enter&quot;</span>);</span><br><span class="line"></span><br><span class="line">    demo_hello_Debug_task = iot_os_create_task(demo_hello_Debug, <span class="literal">NULL</span>, <span class="number">1024</span>, <span class="number">1</span>, OPENAT_OS_CREATE_DEFAULT, <span class="string">&quot;hello_Debug&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">appimg_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    iot_debug_print(<span class="string">&quot;[hello]appimg_exit&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;看到这段代码时，是不是感觉有点眼熟。没想到它又是helloworld，上篇博客也是，这篇博客还是。我就和helloworld杠上了！<br><img src="https://img-blog.csdnimg.cn/20200725175411189.png" alt="在这里插入图片描述"><br>&emsp;&emsp;上面的代码中用到了三个陌生的函数，它们分别是：</p>
+<p>&emsp;&emsp;<code>724内部自带软件看门狗，默认处于开启状态。只要程序运行异常，就会自动重启</code>。重启后异常信息就会丢失，那就没办法读取异常的堆栈信息了，所以在调试阶段推荐使用下面的命令<code>关闭软件看门狗</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**设置软件异常时，设备模式</span></span><br><span class="line"><span class="comment">*@param	  mode:   OPENAT_FAULT_RESET 重启模式</span></span><br><span class="line"><span class="comment">				  OPENAT_FAULT_HANG  调试模式</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>VOID <code>iot_debug_set_fault_mode</code>(E_OPENAT_FAULT_MODE mode)</li>
+</ul>
+<p>&emsp;&emsp;724默认关闭调试信息输出。一般情况下，设备运行后可以在通过串口调试助手发送AT命令<code>AT^TRACECTRL=0,1,3</code>来开启调试信息，每次下载后都需要重新开启。很麻烦，所以程序调试阶段推荐使用虚拟AT通道通过软件自动发送AT命令，达到自动打开调试信息输出的功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**用来发送AT命令</span></span><br><span class="line"><span class="comment">*@param		cmdStr:  AT命令字符串</span></span><br><span class="line"><span class="comment">*@param   	cmdLen:  AT命令长度</span></span><br><span class="line"><span class="comment">*@return	TRUE: 成功   FALSE: 失败</span></span><br><span class="line"><span class="comment">*@note      注意，AT命令字符串cmdStr中需要包含&quot;\r\n&quot;或者&quot;\r&quot;结尾</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>BOOL <code>iot_vat_send_cmd</code>(UINT8* cmdStr, UINT16 cmdLen);</li>
+</ul>
+<p>&emsp;&emsp;这一句代码就是搞事情的，它唯一的就是能让你的程序死机。本例程就是利用它创造了一个死机现场，用于演示。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**assert断言</span></span><br><span class="line"><span class="comment">*@param		condition:	断言条件</span></span><br><span class="line"><span class="comment">*@param		func:	    断言函数</span></span><br><span class="line"><span class="comment">*@param		line:	    断言位置</span></span><br><span class="line"><span class="comment">*@return	TURE: 	    成功</span></span><br><span class="line"><span class="comment">*           FALSE:      失败</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>VOID <code>iot_debug_assert</code>( BOOL condition, CHAR *func,UINT32 line)</li>
+</ul>
+<p>&emsp;&emsp;然后程序中还分别使用了一个全局变量和一个局部变量，等会死机时可以查看死机时的变量值，看看是不是符合预期。</p>
+<h1 id="三、下载验证"><a href="#三、下载验证" class="headerlink" title="三、下载验证"></a>三、下载验证</h1><p>&emsp;&emsp;运行一切正常，没有问题。<br><img src="https://img-blog.csdnimg.cn/2020080120403767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020080120425334.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;等等，好像觉得有什么不对，怎么打印个helloworld就没了。以前的教程到了下载验证确实就没了，但是今天才刚刚开始。<br><img src="https://img-blog.csdnimg.cn/20200801204454986.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;只要等到了上面这样两个东西，那我们今天的内容就正式开始！（没有等到继续等，大概也就15s时间）。</p>
+<h1 id="四、启动调试"><a href="#四、启动调试" class="headerlink" title="四、启动调试"></a>四、启动调试</h1><h2 id="4-1、GDB读取堆栈信息"><a href="#4-1、GDB读取堆栈信息" class="headerlink" title="4.1、GDB读取堆栈信息"></a>4.1、GDB读取堆栈信息</h2><h3 id="4-1-1、点击Tools标签下面的GDB-Launcher。"><a href="#4-1-1、点击Tools标签下面的GDB-Launcher。" class="headerlink" title="4.1.1、点击Tools标签下面的GDB Launcher。"></a>4.1.1、点击<code>Tools</code>标签下面的<code>GDB Launcher</code>。</h3><p><img src="https://img-blog.csdnimg.cn/2020080120482662.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-1-2、在打开的小窗中选择相应的文件。"><a href="#4-1-2、在打开的小窗中选择相应的文件。" class="headerlink" title="4.1.2、在打开的小窗中选择相应的文件。"></a>4.1.2、在打开的小窗中选择相应的文件。</h3><p><img src="https://img-blog.csdnimg.cn/2020080120511991.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;ELF框内选择工程目录下<code>~\iot_sdk_4g_8910Main\hex\Air720U_CSDK_demo_Debug_map\CSDK_RDA8910.elf</code>文件不要选错了！！！</p>
+<p><img src="https://img-blog.csdnimg.cn/20200801205334162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;Mode框内选择<code>8910 AP</code>选项。然后点击Launch。<br><img src="https://img-blog.csdnimg.cn/20200801215153581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-1-3、加载app的elf文件"><a href="#4-1-3、加载app的elf文件" class="headerlink" title="4.1.3、加载app的elf文件"></a>4.1.3、加载app的elf文件</h3><p>&emsp;&emsp;正常情况你会看到这么一个界面。<br><img src="https://img-blog.csdnimg.cn/20200801205807969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;下面这几个按钮等会会用到先介绍一下。从左到右分别为：【寄存器信息】，【内<br>存信息】，【调用栈】，【查看全局变量】，【局部变量】，【不知道是什么】，【gdb控制台】。<br><img src="https://img-blog.csdnimg.cn/20200801210122442.png" alt="在这里插入图片描述"><br>&emsp;&emsp;点击一下第三个按钮看看效果。看到一个<code>OPENAT_assert</code>，而它的上面就只有几个问号。我们的程序中调用的是<code>iot_debug_assert</code>，它们都有一个关键字那就是<code>assert</code>。实际上<code>iot_debug_assert</code>调用的就是底层提供的<code>OPENAT_assert</code>接口。那为什么调试工具能找到<code>OPENAT_assert</code>而找不到<code>iot_debug_assert</code>呢。<br><img src="https://img-blog.csdnimg.cn/20200801210502622.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;上面的现象就是因为刚才加载的实际上是底层的elf文件，现在还没有加载用户编译的<code>app.elf</code>文件。想要加载用户的elf文件，只需要点击一下最后一个按钮（gdb控制台），然后在打开的窗口中输入下面这段命令<code>source D:\AirJob\RDA8910CSDK\iot_sdk_4g_8910Main\start.gdb</code>。这个命令不是固定的，需要根据你工程存放的实际位置修改。<br><img src="https://img-blog.csdnimg.cn/20200801211140202.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><code>注意</code>：输入之前先检查一下工程的根目录下是不是生成了一个<code>start.gdb</code>文件。这个文件是编译结束后<code>自动生成的</code>，需要在gdb控制台里面执行一下。<br><img src="https://img-blog.csdnimg.cn/20200801211419497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;输入结束后控制台会答应一段乱七八糟的数据，只要找一下里面有没有<code>demo_Debug.c</code>这个字段，如果找到了那就成功一半了。<br><img src="https://img-blog.csdnimg.cn/2020080121155665.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;加载成功之后再次点击第三个按钮（需要将之前打开的Stack窗口关闭，重新打开）。这时发现之前的？？被换成了函数。中间的一个<code>demo_hello_Debug</code>就是我们刚才编写的测试任务，在左边也看到了死机位置。<br><img src="https://img-blog.csdnimg.cn/20200801211944353.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="4-2、查看变量信息"><a href="#4-2、查看变量信息" class="headerlink" title="4.2、查看变量信息"></a>4.2、查看变量信息</h2><p>&emsp;&emsp;在demo中我们写了一个<code>demo_hello_Debug_num</code>的全局变量还有一个局部变量用来测试。这里看看能不能在死机时把变量的信息读取出来。</p>
+<h3 id="4-2-1、通过内存信息读取（这个方法只适用于全局变量！！！"><a href="#4-2-1、通过内存信息读取（这个方法只适用于全局变量！！！" class="headerlink" title="4.2.1、通过内存信息读取（这个方法只适用于全局变量！！！"></a>4.2.1、通过内存信息读取（<code>这个方法只适用于全局变量！！！</code></h3><p>）<br>&emsp;&emsp;打开<code>~\iot_sdk_4g_8910Main\hex\Air720U_CSDK_demo_Debug_map\app.map</code>文件，搜索<code>demo_hello_Debug_num</code>记住它前面的地址<code>0x80f00620</code>。<img src="https://img-blog.csdnimg.cn/20200801212701297.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;点击第三个按钮，输入地址信息，读取<code>0x80f00620</code>为首的四个字节<code>0x0000000f</code>。<br><img src="https://img-blog.csdnimg.cn/2020080121291210.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;分析一下程序，全局变量int类型为4个字节。从0开始，在for循环内自加<code>15</code>次。退出循环，然后死机，那么<code>demo_hello_Debug_num</code>的结果为<code>15</code>，而<code>15</code>等于十六进制的<code>0x0f</code>。又因为int是四个字节，所以15应该等于<code>0x0000000f</code>，看一下是不是和上面读取到的数据一样。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> demo_hello_Debug_num = <span class="number">0</span>;</span><br><span class="line">.....</span><br><span class="line">&#123;</span><br><span class="line">.....</span><br><span class="line">    <span class="keyword">for</span> (n = <span class="number">0</span>; n &lt; <span class="number">15</span>; n++)</span><br><span class="line">    &#123;</span><br><span class="line">        demo_hello_Debug_num++;</span><br><span class="line">        iot_debug_print(<span class="string">&quot;[debug]hello world %d&quot;</span>, n);</span><br><span class="line">        iot_os_sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    n++;</span><br><span class="line">    iot_debug_assert(<span class="number">0</span>, __func__, __LINE__);</span><br><span class="line">.....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-2、通过Watch读取（局部变量也可以）"><a href="#4-2-2、通过Watch读取（局部变量也可以）" class="headerlink" title="4.2.2、通过Watch读取（局部变量也可以）"></a>4.2.2、通过Watch读取（局部变量也可以）</h3><p>&emsp;&emsp;有人讲，哎呦这好麻烦啊。还要看map里面的地址，自己去内存找。那么简单的方法来了。<br><img src="https://img-blog.csdnimg.cn/20200801213926258.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;如上图所示，点击第4个按钮，在输入框分别输入<code>demo_hello_Debug_num</code>和<code>n</code>，最后窗口就会显示出变量的信息。<br><code>注意</code>：这里只能查看没有被编译器优化的局部变量值。如果被优化了那就看不了！定义变量时加上<code>volatile</code>关键词可防止被优化。<br><img src="https://img-blog.csdnimg.cn/2020080121430493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="4-2-3、简单残暴直接看"><a href="#4-2-3、简单残暴直接看" class="headerlink" title="4.2.3、简单残暴直接看"></a>4.2.3、简单残暴直接看</h3><p>&emsp;&emsp;鼠标悬停在对应的变量上面稍等片刻，变量值就出来了 ̑̑ฅ( ˃̶˙ω˙˂̶ ฅ) ​​​<br><img src="https://img-blog.csdnimg.cn/20200801214810628.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200801214820380.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1265/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1246/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air602物联网Wi-Fi模块介绍 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air602物联网Wi-Fi模块介绍</h1>
+<article class="post markdown-style">
+  <h3><font>1.模块内置MCU主频是多少，是什么内核：</font></h3>
+
+<pre><span style="font-size:12pt;font-family:'宋体';">目前</span><span style="font-size:12pt;font-family:'宋体';">主频</span><span style="font-size:12pt;font-family:'Times New Roman';">80M</span><span style="font-size:12pt;font-family:'宋体';">，支持切换到</span><span style="font-size:12pt;font-family:'Times New Roman';">40M，内核为Cortex-M3</span><span style="font-size:12pt;font-family:'宋体';">。</span></pre>
+
+<p><span style="font-size:12pt;font-family:'宋体';"><br /></span></p>
+
+<h3>2.模块RAM空间地址使用情况：</h3>
+
+<p><span style="font-size:12pt;font-family:'宋体';">整个</span><span style="font-size:12pt;font-family:'Times New Roman';">RAM</span><span style="font-size:12pt;font-family:'宋体';">空间为</span><span style="font-size:12pt;font-family:'Times New Roman';">288Kbyte</span><span style="font-size:12pt;font-family:'宋体';">，当前的</span><span style="font-size:12pt;font-family:'Times New Roman';">RAM</span><span style="font-size:12pt;font-family:'宋体';">空间划分:</span><br /></p>
+
+<blockquote><table class="table table-bordered"><tr><td><span style="font-family:'宋体';font-size:16px;text-align:justify;">分类</span><br /></td><td><span style="font-family:'宋体';font-size:16px;text-align:justify;">起始地址</span><br /></td><td><span style="font-size:16px;text-align:justify;font-family:'宋体';">大小（</span><span style="font-family:'Times New Roman';font-size:16px;text-align:justify;">Kbyte</span><span style="font-size:16px;text-align:justify;font-family:'宋体';">）</span><br /></td></tr><tr><td><span style="font-family:'宋体';font-size:16px;text-align:justify;">可用空间</span><br /></td><td><span style="font-family:'Times New Roman';font-size:16px;text-align:justify;">0x20000000</span><br /></td><td><span style="font-family:'Times New Roman';font-size:16px;text-align:justify;">240</span><br /></td></tr><tr><td><span style="font-family:'Times New Roman';font-size:16px;text-align:justify;">Wi-Fi</span><span style="font-size:16px;text-align:justify;font-family:'宋体';">使用空间</span><br /></td><td><span style="font-family:'Times New Roman';font-size:16px;text-align:justify;">0x2003C000</span><br /></td><td><span style="font-family:'Times New Roman';font-size:16px;text-align:justify;">48</span></td></tr></table></blockquote>
+
+<p><br /></p>
+
+<h3>3.模块的内置Flash空间分配情况:</h3>
+
+<p>内置Flash总容量为1MBytes，具体分配方式如下</p>
+
+<blockquote><table class="table table-bordered"><tr><td><span style="font-size:12pt;font-family:'宋体';">分类</span><br /></td><td><span style="font-size:12pt;font-family:'宋体';">起始地址</span><br /></td><td><span style="font-size:12pt;font-family:'宋体';">大小（</span><span style="font-size:12pt;font-family:'Times New Roman';">Kbyte</span><span style="font-size:12pt;font-family:'宋体';">）</span><br /></td></tr><tr><td><span style="font-size:12pt;font-family:'宋体';">系统参数</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x8000000</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">8</span><br /></td></tr><tr><td><span style="font-size:12pt;font-family:'宋体';">二级</span><span style="font-size:12pt;font-family:'Times New Roman';">BOOT</span><span style="font-size:12pt;font-family:'宋体';">区域</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x8002000</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">32</span><br /></td></tr><tr><td><span style="font-size:12pt;font-family:'Times New Roman';">IMAGE1</span><span style="font-size:12pt;font-family:'宋体';">头</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x800A000</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">4</span><br /></td></tr><tr><td><span style="font-size:12pt;font-family:'Times New Roman';">IMAGE2</span><span style="font-size:12pt;font-family:'宋体';">头</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x800B000</span><br /></td><td>4</td></tr><tr><td><span style="font-size:12pt;font-family:'宋体';">参数</span><span style="font-size:12pt;font-family:'Times New Roman';">1</span><span style="font-size:12pt;font-family:'宋体';">区域</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x800C000</span><br /></td><td>4</td></tr><tr><td><span style="font-size:12pt;font-family:'宋体';">参数</span><span style="font-size:12pt;font-family:'Times New Roman';">2</span><span style="font-size:12pt;font-family:'宋体';">区域</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x800D000</span><br /></td><td>4</td></tr><tr><td><span style="font-size:12pt;font-family:'Times New Roman';">IMAGE</span><span style="font-size:12pt;font-family:'宋体';">运行区域</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x800E000</span><br /></td><td>450</td></tr><tr><td><span style="font-size:12pt;font-family:'Times New Roman';">IMAGE</span><span style="font-size:12pt;font-family:'宋体';">升级区域</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x807E800</span><br /></td><td>450</td></tr><tr><td><span style="font-size:12pt;font-family:'宋体';">用户区域</span><br /></td><td><span style="font-size:12pt;font-family:'Times New Roman';">0x80EF000</span><br /></td><td>64</td></tr></table><font>注：从</font>0x<span style="font-family:'Times New Roman';font-size:16px;">80</span>FF000地址开始的4K空间请勿使用！</blockquote>
+
+
+
+<p><br /></p>
+
+<h3>4.模块的CSDK开发环境是什么：</h3>
+
+<pre>CSDK使用Keil的MDK开发环境，官方推荐使用MDK5.22版本。解压CSDK包后，使用MDK打开CSDK的目录下的工程文件“Tools/Keil/Project/WM_W600.uvproj”，点击MDK菜单Project-&gt;build target完成编译。</pre>
+
+<p><br /></p>
+
+<h3>5.模块的如何烧写编译后的文件：</h3>
+
+<pre>使用官方的luatools进行，当编译成功后，会在CSDK包目录“Bin”下生成一个名为“WM_W600_SEC.img”的img文件，使用这个文件烧写成功后，重启模块即可运行用户自己的代码。烧写通过串口uart0烧写，开发板上的位置为usb转串口。</pre>
+
+<p><span style="font-size:12pt;font-family:'宋体';"><br /></span></p>
+
+<h3>6.CSDK使用的操作系统：</h3>
+
+<pre><span style="font-size:12pt;font-family:'宋体';">目前C</span><span style="font-size:12pt;font-family:'Times New Roman';">SDK使用的</span><span style="font-size:12pt;font-family:'宋体';">系统为FreeRTOS，</span><span style="font-size:12pt;font-family:'Times New Roman';">RTOS tick</span><span style="font-size:12pt;font-family:'宋体';">值是</span><span style="font-size:12pt;font-family:'Times New Roman';">2ms</span><span style="font-size:12pt;font-family:'宋体';">。</span></pre>
+
+<p><span style="font-size:12pt;font-family:'宋体';"><br /></span></p>
+
+<h3>7.出厂AT指令的串口使用：</h3>
+
+<pre>默认波特率是115200，使用UART0进行通信</pre>
+
+<p><br /></p>
+
+<h3>8.Luatools下载地址：</h3>
+
+<pre><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/luatools-redirect.html">http://www.openluat.com/Product/file/rda8955/luatools-redirect.html</a></pre>
+
+<h3><span style="color:rgb(51,51,51);font-size:14px;font-family:inherit;"><br /></span></h3>
+
+<p><br /></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/396/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/394/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

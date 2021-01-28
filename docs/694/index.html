@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>6、合宙Air模块Luat开发：又是一种新的外设之ADC模数转换，现在我们可以采集模拟量数据了 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">6、合宙Air模块Luat开发：又是一种新的外设之ADC模数转换，现在我们可以采集模拟量数据了</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>GPIO的输入和输出我们已经讲完了，大家只要认真看过我的前几篇博客，相信掌握GPIO是使用方法不是什么难事</p>
+</blockquote>
+<blockquote>
+<p>上篇博文我们讲到了，数字量输入采集<code>也就是GPIO输入</code>，数字量采集只能采集一些开关量，这可以解决绝大部分的问题，但是数字量采集也不是万能的，在遇到某些特殊的传感器时，也会感到无能为力<br><img src="https://img-blog.csdnimg.cn/20200217083126903.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>不是所有的传感器都是数字量输出的，也是有很多传感器是模拟量输出的，那到底什么是模拟量呢</p>
+</blockquote>
+<ul>
+<li>模拟量传感器发出的是连续信号，用电压、电流、电阻等表示被测参数的大小。比如<code>温度传感器、压力传感器、光敏电阻、声敏电阻</code>等都是常见的模拟量传感器<br><img src="https://img-blog.csdnimg.cn/2020021710535543.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200217105637363.png" alt="在这里插入图片描述"></li>
+</ul>
+<blockquote>
+<p>既然这类模拟量传感器输出的是模拟信号，那么就不能使用常规的数字量输入功能进行采集，需采用新的功能<code>ADC模数转换</code>进行采集</p>
+</blockquote>
+<ul>
+<li>ADC是Analog-to-Digital Converter的缩写。指模/数转换器或者模拟/数字转换器。是指将连续变量的模拟信号转换为离散的数字信号的器件。</li>
+<li>典型的模拟数字转换器将模拟信号转换为表示一定比例电压值的数字信号。</li>
+</ul>
+<blockquote>
+<p>在单片机上实现模拟量采集有如下两种方法</p>
+</blockquote>
+<ul>
+<li>在某些单片机上没有ADC硬件接口，比如STC89C51就没有硬件ADC接口。如果想要实现模拟量采集就需要用AD采集芯片，ADC0804就是一种逐次比较型的A/D转换器，它可以把模拟量信号转化为数字量信号，被单片机读取，而不需要单片机具有硬件ADC功能。不过这种ADC采用并口通讯，比较占用普通IO口，GPIO不足的情况还可以使用ET2046采集，这款芯片通讯占用IO较少，价格也相对较高。<br><img src="https://img-blog.csdnimg.cn/20200217133705708.png" alt="在这里插入图片描述"></li>
+<li>还有一种就是硬件ADC功能，比如我们的合宙AIR720SL就带了两路硬件ADC采集功能，如果两路不够用的话，还可以使用ET2046进扩充，至于怎么扩充这里就不做讲解了，大家自行了解，下面我们开始来重点讲Air720SL的硬件ADC使用功能</li>
+</ul>
+<h1 id="二、了解Air720SL硬件设计手册adc部分"><a href="#二、了解Air720SL硬件设计手册adc部分" class="headerlink" title="二、了解Air720SL硬件设计手册adc部分"></a>二、了解Air720SL硬件设计手册adc部分</h1><blockquote>
+<p>打开Air720Sl硬件设计手册找到如下部分<br><img src="https://img-blog.csdnimg.cn/20200217135814264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里要注意的是，Air720SL系列芯片ADC和Air720x系列芯片这两者的电气特性不一样，测量范围也不一样，不要搞错了，否者会烧坏芯片<br>因为我现在还在老家出不去，没有设备供我具体测试，所以等会我就只测量GND看是否有反应，精度也没法测试，测量结果不具有代表性<br>具体使用的话，还是需要自己参考设计手册另行测试的</p>
+</blockquote>
+<h1 id="三、编写测试程序"><a href="#三、编写测试程序" class="headerlink" title="三、编写测试程序"></a>三、编写测试程序</h1><blockquote>
+<p>Air720SL拥有两路硬件ADC功能，分别是GPIO62对应ADC0，GPIO63对应ADC1，两者的电气特性完全一致，分辨率也都是12位</p>
+</blockquote>
+<blockquote>
+<p>首先使用前我们需要包含官方提供的adc驱动库<code>require &quot;adc&quot;</code>，然后才可以使用相关库函数</p>
+</blockquote>
+<blockquote>
+<p>ADC0的测试程序如下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">ADC0_Task</span><span class="params">()</span></span></span><br><span class="line">    local adcValue, voltValue = 0, 0</span><br><span class="line">    local result = adc.open(<span class="number">0</span>)--打开ADC通道<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC0_Task&quot;</span>, <span class="string">&quot;ADC0_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">0</span>)--读取通道<span class="number">0</span>的值</span><br><span class="line">        --adc.read接口返回的voltval放大了<span class="number">3</span>倍，所以需要除以<span class="number">3</span>还原成原始电压</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 0的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">0</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ADC1的测试程序如下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">ADC1_Task</span><span class="params">()</span></span></span><br><span class="line">    local adcValue, voltValue = 0, 0</span><br><span class="line">    local result = adc.open(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC1_Task&quot;</span>, <span class="string">&quot;ADC1_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 1的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">1</span>)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看出来，官方的库封装的很简洁，只需要三个函数就能实现模拟量采集<br>ADC0的测试代码和ADC1的测试代码几乎完全一样，没有什么区别，下面我们直接下载完整的测试程序进行测试</p>
+</blockquote>
+<h1 id="四、下载完整的代码到Air720Sl开发板"><a href="#四、下载完整的代码到Air720Sl开发板" class="headerlink" title="四、下载完整的代码到Air720Sl开发板"></a>四、下载完整的代码到Air720Sl开发板</h1><blockquote>
+<p>这里我们直接贴出全部代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line">--[[</span><br><span class="line">如果使用UART输出日志，打开这行注释的代码<span class="string">&quot;--log.openTrace(true,1,115200)&quot;</span>即可，根据自己的需求修改此接口的参数</span><br><span class="line">如果要彻底关闭脚本中的输出日志（包括调用<span class="built_in">log</span>模块接口和Lua标准print接口输出的日志），执行<span class="built_in">log</span>.openTrace(<span class="literal">false</span>,第二个参数跟调用openTrace接口打开日志的第二个参数相同)，例如：</span><br><span class="line"><span class="number">1</span>、没有调用过sys.opntrace配置日志输出端口或者最后一次是调用<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,nil,<span class="number">921600</span>)配置日志输出端口，此时要关闭输出日志，直接调用<span class="built_in">log</span>.openTrace(<span class="literal">false</span>)即可</span><br><span class="line"><span class="number">2</span>、最后一次是调用<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,<span class="number">1</span>,<span class="number">115200</span>)配置日志输出端口，此时要关闭输出日志，直接调用<span class="built_in">log</span>.openTrace(<span class="literal">false</span>,<span class="number">1</span>)即可</span><br><span class="line">]]</span><br><span class="line">--<span class="built_in">log</span>.openTrace(<span class="literal">true</span>,<span class="number">1</span>,<span class="number">115200</span>)</span><br><span class="line">require <span class="string">&quot;adc&quot;</span></span><br><span class="line"></span><br><span class="line">local function ADC0_Task()</span><br><span class="line">    local adcValue, voltValue = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    local result = adc.open(<span class="number">0</span>)--打开ADC通道<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC0_Task&quot;</span>, <span class="string">&quot;ADC0_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">0</span>)--读取通道<span class="number">0</span>的值</span><br><span class="line">        --adc.read接口返回的voltval放大了<span class="number">3</span>倍，所以需要除以<span class="number">3</span>还原成原始电压</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 0的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">0</span>)</span><br><span class="line">end</span><br><span class="line">local function ADC1_Task()</span><br><span class="line">    --初始化GPIO 比如GPIO_38</span><br><span class="line">    local adcValue, voltValue = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    local result = adc.open(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;ADC1_Task&quot;</span>, <span class="string">&quot;ADC1_Task_run&quot;</span>)</span><br><span class="line">        adcValue, voltValue = adc.read(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> adcValue ~= <span class="number">0xffff</span> then</span><br><span class="line">            <span class="built_in">log</span>.info(<span class="string">&quot;ADC 1的原始测量数据和电压值:&quot;</span>, adcValue, voltValue)</span><br><span class="line">        end</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    end</span><br><span class="line">    adc.close(<span class="number">1</span>)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    sys.taskInit(ADC0_Task)</span><br><span class="line">    sys.taskInit(ADC1_Task)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载程序后，我们将ADC0和ADC1的引脚同时接地引脚在这<img src="https://img-blog.csdnimg.cn/20200217141907494.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<blockquote>
+<p>能够看到ADC1成功检测到了低电平，输出的数据是0。而ADC0却没有任何反应.。<br>这里我也分开单独测试过均没有测试成功。也许是官方的底层固件出了bug，目前我使用的是v0008版本的固件，下个版本也许会修复这个问题，使用的话建议暂时避开ADC0<br><img src="https://img-blog.csdnimg.cn/20200217141937348.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><h2 id="1、官方的adc库函数"><a href="#1、官方的adc库函数" class="headerlink" title="1、官方的adc库函数"></a>1、官方的adc库函数</h2><ul>
+<li>adc.open(0)–打开ADC通道0</li>
+<li>adcValue, voltValue = adc.read(0)–读取通道0的值，读取之前必须先打开ADC0</li>
+<li>adc.close(0)–关闭ADC通道0</li>
+<li>ADC1的使用方法与ADC0一直，换个参数即可</li>
+</ul>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/695/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/693/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

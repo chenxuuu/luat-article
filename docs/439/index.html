@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Luat Console，调试神器！ [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Luat Console，调试神器！</h1>
+<article class="post markdown-style">
+  <pre><code>                    &lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;前言：这次教大家使用Luat的console功能，如果使用过MicroPython，应该对console很熟悉。console，顾名思义，控制台，能做什么？ 理论上在脚本运行的功能都可以在控制台执行。有什么好处？举个简单的例子：反转一个字符串，按照之前的步骤，写一个脚本，下载进模块，成功，万事大吉。失败，从头再来。这样的操作很繁琐。&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;那么使用了console，就可以这样玩&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-jp4zWo8N5b9c6c288acc9.jpg&quot; class=&quot;img-responsive&quot; style=&quot;color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 486px;&quot;&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;这里写图片描述&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;如果手抖打错一个单词，不要着急，再输入一遍即可。&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;所以，使用console，提高调试的效率，加快开发速度。&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-CXctRBd05b9c6c9c1d1f8.jpg&quot; class=&quot;img-responsive&quot; style=&quot;color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 498.4px; height: 297.631px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;使用console功能，需要在main.lua里面加入&lt;/p&gt;&lt;pre class=&quot;prettyprint&quot; style=&quot;outline: 0px; padding: 8px 16px 6px 56px; margin-bottom: 24px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; position: relative; overflow-y: hidden; line-height: 22px; color: rgb(0, 0, 0); background-color: rgb(40, 44, 52); border-width: initial; border-style: none; border-color: initial; font-variant-ligatures: common-ligatures;&quot;&gt;&lt;code class=&quot;has-numbering&quot; style=&quot;outline: 0px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; padding: 0.5em; line-height: 22px; color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); border-radius: 4px; display: block; overflow-x: auto; white-space: pre; word-wrap: normal; text-size-adjust: none; word-break: break-all;&quot;&gt;require &quot;console&quot;
+</code></pre>
+<p>console.setup(1, 115200)    – 设置为串口1，波特率为115200<br></code><ul class="pre-numbering" style="outline: 0px; padding-top: 8px; padding-bottom: 8px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: inherit; word-break: break-all; position: absolute; width: 48px; top: 0px; left: 0px; text-align: right;"><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">1</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">2</li></ul></pre>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;console是通过串口输入，可以使用USB转TTL连接UART，也可以将跳线帽短接UART，使用USB接口 。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;<img src="http://oldask.openluat.com/image/show/attachments-2018-09-F4k0iVD75b9c6ca9a3f05.jpg" class="img-responsive" style="color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 291.5px;"></p><div><br></div>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;注意：如果将跳线帽短接到UART，USB连接的UART，只能进行标准的UART通信。如果要下载程序，打印trace，则需要短接到HOST口上。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;在使用前需要做几个名词解释：</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;API：Luat Lib下面由lua编写的API</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;Lua API：Lua语言自带的API</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;扩展API：用C语言实现的，在lod里面。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;扩展API和Lua API直接可以通过console调用，API需要在脚本里require后才能调用，举个例子：如果使用http，那么需要在main.lua里面require “http”。什么？API说明哪儿找？ 当然上wiki。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;进入正题，打开串口调试助手，选择串口，波特率。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;举几个例子，感受一下</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;1、json</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;<img src="http://oldask.openluat.com/image/show/attachments-2018-09-6OH18WVp5b9c6caee50dc.jpg" class="img-responsive" style="color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 486px;"></p><div><br></div>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;2、Lua string</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;<img src="http://oldask.openluat.com/image/show/attachments-2018-09-Zf2a7zYc5b9c6cb33264f.jpg" class="img-responsive" style="color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 486px;"></p><div><br></div>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;3、misc</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;<img src="http://oldask.openluat.com/image/show/attachments-2018-09-02aqRuHE5b9c6cbfb1b81.jpg" class="img-responsive" style="color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 486px;"></p><div><br></div>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;4、AT命令</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;<img src="http://oldask.openluat.com/image/show/attachments-2018-09-upg0wYbQ5b9c6cc37230e.jpg" class="img-responsive" style="color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 486px;"></p><div><br></div>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;深入分析</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;将console的核心代码提取，精简</p><pre class="prettyprint" style="outline: 0px; padding: 8px 16px 6px 56px; margin-bottom: 24px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; position: relative; overflow-y: hidden; line-height: 22px; color: rgb(0, 0, 0); background-color: rgb(40, 44, 52); border-width: initial; border-style: none; border-color: initial; font-variant-ligatures: common-ligatures;"><code class="has-numbering" style="outline: 0px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; padding: 0.5em; line-height: 22px; color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); border-radius: 4px; display: block; overflow-x: auto; white-space: pre; word-wrap: normal; text-size-adjust: none; word-break: break-all;">newfenv = &#123;                     -- 沙盒新环境，并重写print函数。<br>    print = function( ... )<br>        print(arg[1].."test")<br>    end<br>&#125;               </p>
+<p>setmetatable(newfenv,&#123;__index = _G&#125;)        –新环境继承_G全局表</p>
+<p>–xpcall捕捉脚本异常<br>xpcall(function()<br>    local line = “print(1)”<br>    local f = loadstring(line)<br>    setfenv(f, newfenv)     –在沙盒中执行f()函数<br>    f()<br>end,<br>function() – 错误输出<br>   print(debug.traceback())<br>end<br>)<br>–输出结果  1test<br></code><ul class="pre-numbering" style="outline: 0px; padding-top: 8px; padding-bottom: 8px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: inherit; word-break: break-all; position: absolute; width: 48px; top: 0px; left: 0px; text-align: right;"><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">1</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">2</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">3</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">4</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">5</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">6</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">7</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">8</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">9</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">10</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">11</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">12</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">13</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">14</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">15</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">16</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">17</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">18</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">19</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">20</li></ul></pre>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;1、loadstring</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;Lua里面可以使用loadstring来加载一个字符串，返回function。</p><pre class="prettyprint" style="outline: 0px; padding: 8px 16px 6px 56px; margin-bottom: 24px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; position: relative; overflow-y: hidden; line-height: 22px; color: rgb(0, 0, 0); background-color: rgb(40, 44, 52); border-width: initial; border-style: none; border-color: initial; font-variant-ligatures: common-ligatures;"><code class="has-numbering" style="outline: 0px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; padding: 0.5em; line-height: 22px; color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); border-radius: 4px; display: block; overflow-x: auto; white-space: pre; word-wrap: normal; text-size-adjust: none; word-break: break-all;">f = loadstring("a = 1")   -- 相当于 function () a = 1 end，返回值为function类型<br>f()     --执行函数<br></code><ul class="pre-numbering" style="outline: 0px; padding-top: 8px; padding-bottom: 8px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: inherit; word-break: break-all; position: absolute; width: 48px; top: 0px; left: 0px; text-align: right;"><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">1</li><li style="outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; border-right: 1px solid rgb(197, 197, 197); color: rgb(153, 153, 153);">2</li></ul></pre>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;2、沙盒</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;出于安全或者改变一些内置函数行为的目的，某些程序在沙盒中执行，即使程序崩溃，也不会影响全局域。newfenv为沙盒环境，这儿重写了print函数，在第一个参数后面添加test输出。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;3、xpcall</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;xpcall类似于JAVA中的try…..catch…进行脚本的异常捕捉。</p>&lt;p style=”outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, “ sf=”” ui=”” text”,=”” arial,=”” “pingfang=”” sc”,=”” “hiragino=”” sans=”” gb”,=”” “microsoft=”” yahei”,=”” “wenquanyi=”” micro=”” hei”,=”” sans-serif;=”” font-variant-ligatures:=”” common-ligatures;”=””&gt;在理解了上面程序后，不难了解console的运行过程。从串口接收到数据后，执行串口接收中断程序，通过loadstring将串口数据包装为function，重写print和sendat函数，在沙盒中运行，并将结果通过uart输出。</p>
+                    </p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/440/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/438/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

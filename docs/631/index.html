@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>支持iRTU的GPS功能的开源服务端 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">支持iRTU的GPS功能的开源服务端</h1>
+<article class="post markdown-style">
+  <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>源码地址: <a target="_blank" rel="noopener" href="https://gitee.com/wendal/irtu-gps">https://gitee.com/wendal/irtu-gps</a></p>
+<p>基于<a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">iRTU</a>项目,实现GPS数据的接收和展示</p>
+<p>服务器信息: gps.nutz.cn 端口 19002 前端页面地址是 <a target="_blank" rel="noopener" href="http://gps.nutz.cn/">http://gps.nutz.cn/</a> 预编译包可以”发行版”页面找到</p>
+<p>技术特点:</p>
+<ol>
+<li>基于smart-socket的高性能io框架,轻松支持10w设备同时在线</li>
+<li>直接支持iRTU内置的JSON注册包</li>
+<li>无缝支持GPS的json数据包和hex数据包, 推荐选用hex,节省流量,性能更高</li>
+<li>自动建表,自动初始化. 默认配置H2数据库, 无需额外安装. 可按需要使用其他数据库</li>
+<li>基于NutzBoot,单个jar即可运行, 无需web容器,内存占用最低可到48mb</li>
+<li>配套微信小程序 <a target="_blank" rel="noopener" href="https://gitee.com/wendal/irtu-gps-miniapp">https://gitee.com/wendal/irtu-gps-miniapp</a> 欢迎试用<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_42420.jpg"></li>
+</ol>
+<h2 id="iRTU配置实例"><a href="#iRTU配置实例" class="headerlink" title="iRTU配置实例"></a>iRTU配置实例</h2><ul>
+<li>所需硬件: Air800 M4开发板, 或 A9532L车载GPS定位器. 前者在 <a target="_blank" rel="noopener" href="http://m.openluat.com/">http://m.openluat.com</a> 有售, 后者开源可自行打样.</li>
+<li>工具软件: Luatools最新版, 可到 <a target="_blank" rel="noopener" href="http://www.openluat.com/">http://www.openluat.com</a> 的产品中心下载</li>
+<li>底层软件: iRTU 1.8.7 <a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU/releases">https://github.com/hotdll/iRTU/releases</a></li>
+<li>刷机教程: <a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/4">http://oldask.openluat.com/article/4</a></li>
+<li>QQ支持群: 合宙Luat(稀饭放姜iRTU) 952343033</li>
+</ul>
+<p>使用上述材料刷机为iRTU固件后,请联系”稀饭放姜”,把imei和账号发给他, 将设备加入到你的账号下.</p>
+<p>配置页面 <a target="_blank" rel="noopener" href="http://dtu.openluat.com/">http://dtu.openluat.com</a> 账号名为手机号码,密码默认是888888</p>
+<h3 id="配置注册包为JSON"><a href="#配置注册包为JSON" class="headerlink" title="配置注册包为JSON"></a>配置注册包为JSON</h3><p>建议新建一个分组来存放新的配置信息.</p>
+<p>json注册包才包含imei, 用于服务器识别设备.<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24661.jpg"></p>
+<h3 id="配置串口1和串口2-均为115200-8N1"><a href="#配置串口1和串口2-均为115200-8N1" class="headerlink" title="配置串口1和串口2,均为115200 8N1"></a>配置串口1和串口2,均为115200 8N1</h3><p>串口常规设置<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33686.jpg"></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78117.jpg"></p>
+<h3 id="配置网络通道"><a href="#配置网络通道" class="headerlink" title="配置网络通道"></a>配置网络通道</h3><p>配置为demo服务器的地址,用通道2!!!<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68338.jpg"></p>
+<h3 id="配置GPS参数"><a href="#配置GPS参数" class="headerlink" title="配置GPS参数"></a>配置GPS参数</h3><p>绑定通道2</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_90324.jpg"></p>
+<h3 id="重启设备并访问前端页面"><a href="#重启设备并访问前端页面" class="headerlink" title="重启设备并访问前端页面"></a>重启设备并访问前端页面</h3><ul>
+<li>记得把设备的分组改成上面的配置分组.</li>
+<li>重启设备(断电重启或者复位)后, 设备会获取到信息的配置信息, 然后再次重启</li>
+<li>待设备再次启动完成后, 网络灯慢闪, 打开前端页面(例如demo页面 <a target="_blank" rel="noopener" href="http://gps.nutz.cn/">http://gps.nutz.cn</a> ),输入imei, 若定位成功, 即可看到设备的当前位置.</li>
+<li>提醒: 室内无GPS信号,请到室外空旷处.</li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/633/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/630/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

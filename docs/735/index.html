@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>1、RDA8910CSDK二次开发：环境搭建 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">1、RDA8910CSDK二次开发：环境搭建</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所述资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>&emsp;&emsp;本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>&emsp;&emsp;先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>&emsp;&emsp;我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、环境搭建前准备"><a href="#一、环境搭建前准备" class="headerlink" title="一、环境搭建前准备"></a>一、环境搭建前准备</h1><h2 id="1-1、准备硬件"><a href="#1-1、准备硬件" class="headerlink" title="1.1、准备硬件"></a>1.1、准备硬件</h2><p>&emsp;&emsp;这里我选用的是合宙商城推出的的Air724UG开发板，前段时间合宙搞活动19.9可以买一个开发板加一个芯片，抢到的小伙伴也都陆陆续续收到货了。</p>
+<p>&emsp;&emsp; 该开发板在淘宝和合宙商城都有出售。价格199软妹币，还可以接受。<br><img src="https://img-blog.csdnimg.cn/2020051911371329.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>Air724UG淘宝链接：<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-22701068354.15.60712761TuYlsJ&id=614125604268">淘宝购买点我</a></li>
+<li>Air724UG合宙商城：<a target="_blank" rel="noopener" href="http://m.openluat.com/product/1264">商城购买点我</a>，也可关注合宙的微信公众号自行购买</li>
+</ul>
+<p>&emsp;&emsp;这个模块安信可也有得卖，动手能力强的小伙伴可以自己画板子，不行的话那就等等，据八卦消息，安信可的开发板也快出来了。<br><img src="https://img-blog.csdnimg.cn/20200519114453900.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>安信可cat-01淘宝链接：<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-16491566042.17.24216e465toAYL&id=615816689044">淘宝购买点我</a></li>
+</ul>
+<h2 id="1-2、准备软件"><a href="#1-2、准备软件" class="headerlink" title="1.2、准备软件"></a>1.2、准备软件</h2><ul>
+<li>Windows10 USB驱动下载：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_44570083/12438107">点我</a></li>
+<li>Win7/Win8 USB驱动下载：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_44570083/12438113">点我</a></li>
+<li>coolwatch_win32_R2.0.0002(调试软件)：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_44570083/12438131">点我</a></li>
+<li>UpgradeDownload_R23.0.0001(下载软件)：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_44570083/12438137">点我</a></li>
+</ul>
+<p>&emsp;&emsp;上面3个链接全部下载（驱动USB选一个就行了，没必要全部下载），如下图所示，将它们全部解压<br><img src="https://img-blog.csdnimg.cn/20200519115448691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="1-3、准备开发包"><a href="#1-3、准备开发包" class="headerlink" title="1.3、准备开发包"></a>1.3、准备开发包</h2><p>&emsp;&emsp;这里将开发包托管到了码云上面，获取开发包需要安装Git<br>，自己去百度下载安装就行了，这里就不放链接了。<br>&emsp;&emsp;右键选择<code>Git Bash Here</code>，打开Git窗口。<br><img src="https://img-blog.csdnimg.cn/20200519120045783.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;输入这条指令，回车开始克隆仓库（<code>开发包不要放在c盘，放在c盘会编译失败</code>）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive https:<span class="comment">//gitee.com/chenxiahuaxu/RDA8910_CSDK.git</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2020051912061543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;克隆完成后会在目录下生成一个<code>RDA8910_CSDK</code>的文件夹。<br><img src="https://img-blog.csdnimg.cn/20200519120716605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="二、开始环境搭建"><a href="#二、开始环境搭建" class="headerlink" title="二、开始环境搭建"></a>二、开始环境搭建</h1><h2 id="2-1、安装驱动"><a href="#2-1、安装驱动" class="headerlink" title="2.1、安装驱动"></a>2.1、安装驱动</h2><p>&emsp;&emsp;打开解压后的<code>RDA8910DriversForWin10</code><br><img src="https://img-blog.csdnimg.cn/20200519121107623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;根据自己的操作系统位数，选中安装程序，如下图所示。<br>&emsp;&emsp;基于x64那就选择<code>DPInst64.exe</code>安装<br>&emsp;&emsp;基于x86那就选择<code>DPInst32.exe</code>安装<br>&emsp;&emsp;我这里电脑是64位的，所以选择<code>DPInst64.exe</code>安装程序<br><img src="https://img-blog.csdnimg.cn/20200212211325596.png" alt="在这里插入图片描述"><br>&emsp;&emsp;安装成功后将开发板插上电脑，将开关拨到On，并且按下开机键，稍等一会正常情况下，开发板三个灯都会正常亮起，并伴随着闪烁</p>
+<p>&emsp;&emsp;打开，设备管理器查看端口，是否有如下三个设备，如果没有，那就是驱动没有安装成功，回去重新安装驱动<br><img src="https://img-blog.csdnimg.cn/20200519121346224.png" alt="在这里插入图片描述"></p>
+<p><code>注意</code>：如果是win10系统，需要禁用驱动程序强制签名，否则安装失败，自行百度相关教程这里不多做赘述</p>
+<h2 id="2-2、编译固件"><a href="#2-2、编译固件" class="headerlink" title="2.2、编译固件"></a>2.2、编译固件</h2><p>&emsp;&emsp;这里使用的是VsCode作为开发的IDE，用Code打开<code>RDA8910_CSDK</code>文件夹（<code>开发包不要放在c盘，放在c盘会编译失败</code>）。<br><img src="https://img-blog.csdnimg.cn/20200519142046862.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;将<code>demo</code>里面的<code>0_HelloWorld</code>文件夹里面所有的内容复制到<code>USER</code>目录下，并覆盖。<br><img src="https://img-blog.csdnimg.cn/20200519142240520.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;鼠标右击<code>USER</code>文件在，选择在终端打开<br><img src="https://img-blog.csdnimg.cn/2020051914233082.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;输入<code>.\build.bat</code>回车，开始编译，编译时间大概十秒左右。<br><img src="https://img-blog.csdnimg.cn/20200519142503680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;提示<code>[25/25] Generating ../hex/RDA8910_CSDK_USER/RDA8910_CSDK_USER_APP.pac, ../hex/RDA8910_CSDK_USER/RDA8910_CSD...pac, ../hex/RDA8910_CSDK_USER_map/CSDK_V442_RDA8910.map, ../hex/RDA8910_CSDK_USER_map/CSDK_V442_RDA8910.elf</code> 代表编译成功<br><img src="https://img-blog.csdnimg.cn/20200519142543371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="2-3、下载固件"><a href="#2-3、下载固件" class="headerlink" title="2.3、下载固件"></a>2.3、下载固件</h2><h3 id="2-3-1、通过软件下载"><a href="#2-3-1、通过软件下载" class="headerlink" title="2.3.1、通过软件下载"></a>2.3.1、通过软件下载</h3><p>&emsp;&emsp;打开<code>UPGRADEDOWNLOAD_R23.0.0001\Bin</code>，双击<code>UpgradeDownload.exe</code><br><img src="https://img-blog.csdnimg.cn/20200519142814722.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200519142858589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;点击第一个齿轮图标<img src="https://img-blog.csdnimg.cn/20200519142940241.png" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;加载RDA8910_CSDK目录<code>RDA8910_CSDK\build\hex\RDA8910_CSDK_USER\RDA8910_CSDK_USER.pac</code>下的固件，<br><img src="https://img-blog.csdnimg.cn/20200519143203637.png" alt="在这里插入图片描述"><br>&emsp;&emsp;点击第三个<img src="https://img-blog.csdnimg.cn/20200519143231263.png" alt="在这里插入图片描述">图标，软件进入等待下载状态。<br><img src="https://img-blog.csdnimg.cn/20200519143254755.png" alt="在这里插入图片描述"><br>&emsp;&emsp;将开发板连接到电脑（<code>确保驱动是安装正确</code>），开机后设备管理器显示<br><img src="https://img-blog.csdnimg.cn/20200519143445248.png" alt="在这里插入图片描述"><br>&emsp;&emsp;按住boot按键<code>不放</code>，按复位键松开，系统提示正在下载就可以松开boot按键了<br><img src="https://img-blog.csdnimg.cn/20200519143533391.png" alt="在这里插入图片描述"><br>&emsp;&emsp;此时设备管理器只有一个<code>SPRD U2S Diag</code>，</p>
+<p><img src="https://img-blog.csdnimg.cn/20200519143611975.png" alt="在这里插入图片描述"><br>&emsp;&emsp;等待下载完成，重启按一下复位键，使开发板退出Download模式，进入运行模式。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200519143659654.png" alt="在这里插入图片描述"></p>
+<h3 id="2-3-2、通过命令行下载（推荐）"><a href="#2-3-2、通过命令行下载（推荐）" class="headerlink" title="2.3.2、通过命令行下载（推荐）"></a>2.3.2、通过命令行下载（推荐）</h3><p> &emsp;&emsp;两种下载方式二选一，建议选用命令行下载，更简单。<br>  &emsp;&emsp;编译完成后，在命令行输入<code>.\flash.bat</code>，进入下载等待状态。<br>  <img src="https://img-blog.csdnimg.cn/20200522194646457.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  &emsp;&emsp;按住boot按键<code>不放</code>，按复位键松开，系统提示正在下载就可以松开boot按键了<br>  <img src="https://img-blog.csdnimg.cn/20200522194748784.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> &emsp;&emsp;等待下载完成，重启按一下复位键，使开发板退出Download模式，进入运行模式。<br> <img src="https://img-blog.csdnimg.cn/20200522194840969.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="2-4、运行监视"><a href="#2-4、运行监视" class="headerlink" title="2.4、运行监视"></a>2.4、运行监视</h2><p>&emsp;&emsp;打开<code>\coolwatch_win32_R2.0.0002</code>，双击<code>coolwatcher.exe</code>。<br><img src="https://img-blog.csdnimg.cn/20200519143947859.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;软件左侧选择<code>8910</code>，右侧的<code>lastcomport</code>，填写设备管理器中<code>RDA8910 USB Device 2 AP Diag</code>所对应的COM口，我这里是COM9，所以填写9。<br><img src="https://img-blog.csdnimg.cn/20200519144129339.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200519144330706.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;点击OK进入软件，如果软件如下图所示，则代表连接成功。<br><img src="https://img-blog.csdnimg.cn/20200519144426819.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;点击任务栏Plugins选择Tracer打开监视窗口，右下角会出现监视窗口。<br><img src="https://img-blog.csdnimg.cn/20200519144544988.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020051914455431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;这时候发现点击<img src="https://img-blog.csdnimg.cn/20200519144722538.png" alt="在这里插入图片描述">绿色箭头没有任何反应。<br><img src="https://img-blog.csdnimg.cn/20200519144751573.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;打开串口调试助手，随便哪个都行，记住设备管理器中<code>RDA8910 USB Device 1 AT</code>所对应的COM口，我这里是COM8。<br><img src="https://img-blog.csdnimg.cn/20200519144831327.png" alt="在这里插入图片描述"><br>&emsp;&emsp;在串口调试助手中，选择COM8端口，波特率设置为921600，发送<code>AT^TRACECTRL=0,1,3</code>命令，后面必须要加一个<code>回车换行</code>。<br><img src="https://img-blog.csdnimg.cn/20200519144931212.png" alt="在这里插入图片描述"><br>&emsp;&emsp;提示OK代表日志信息打开成功，<code>默认不会打开日志输出</code>。<br><img src="https://img-blog.csdnimg.cn/20200519145722966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&emsp;&emsp;这时候再次点击绿色按钮<img src="https://img-blog.csdnimg.cn/20200519144722538.png" alt="在这里插入图片描述">发现调试信息已经开始输出了，HelloWorld成功打印。<br><img src="https://img-blog.csdnimg.cn/20200519150142208.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/736/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/734/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

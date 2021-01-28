@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>详解lua的string与hex数据(十六进制) [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">详解lua的string与hex数据(十六进制)</h1>
+<article class="post markdown-style">
+  <h1 id="本文希望阐述的问题"><a href="#本文希望阐述的问题" class="headerlink" title="本文希望阐述的问题"></a>本文希望阐述的问题</h1><p>在lua中处理 string 与 hex(十六进制数) 的思维转换</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>luat在处理通信的时候,总会设计到数据处理,例如:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">socket:send</span><br><span class="line">socket:recv</span><br><span class="line">spi.send</span><br><span class="line">spi.recv</span><br><span class="line">uart.<span class="built_in">write</span></span><br></pre></td></tr></table></figure>
+<p>这些方法要么发送的string,要么返回string, 而不是使用其他编程语言的byte[]/char[], 因为lua没有byte和char</p>
+<h2 id="什么是hex"><a href="#什么是hex" class="headerlink" title="什么是hex"></a>什么是hex</h2><p>先看hex的表现形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">字符串&quot;1&quot; 的 ASCII码是 0x31</span><br><span class="line">字符串&quot;2&quot; 的 ASCII码是 0x32</span><br><span class="line"></span><br><span class="line">0x3132         -- 数值标识</span><br><span class="line">&quot;3132&quot;         -- hex字符串,这个给人看的HEX字符串</span><br><span class="line">&quot;12&quot;           -- 与0x3132等价一个lua string</span><br><span class="line">&#123;0x31, 0x32&#125;   -- lua数组(table)</span><br><span class="line">[0x31, 0x32]   -- java&#x2F;c&#x2F;c++的byte[]&#x2F;char[]</span><br></pre></td></tr></table></figure>
+<h2 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h2><p>把0x3132写入uart, socket/spi都是同理</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 方法<span class="number">1</span>, 使用<span class="built_in">string</span>.<span class="built_in">char</span>, 逐个字节描述</span><br><span class="line"><span class="keyword">local</span> data = <span class="built_in">string</span>.<span class="built_in">char</span>(<span class="number">0x31</span>, <span class="number">0x32</span>)</span><br><span class="line">uart.<span class="built_in">write</span>(id, data)</span><br><span class="line"></span><br><span class="line">// 方法<span class="number">2</span>, 使用 <span class="built_in">string</span>.fromHex, 传入<span class="number">2</span>的倍数长度的hex字符串</span><br><span class="line"><span class="keyword">local</span> data = <span class="built_in">string</span>.fromHex(<span class="string">&quot;3132&quot;</span>)</span><br><span class="line">uart.<span class="built_in">write</span>(id, data)</span><br><span class="line"></span><br><span class="line">// 方法<span class="number">3</span>, 使用pack库, H代表<span class="number">2</span>字节符号数, I代表<span class="number">4</span>字节无符号数, wiki可查</span><br><span class="line"><span class="keyword">local</span> data = pack.pack(<span class="string">&quot;H&quot;</span>, <span class="number">0x3132</span>)</span><br><span class="line">uart.<span class="built_in">write</span>(id, data)</span><br></pre></td></tr></table></figure>
+<p>将socket读取的数据转换为数值, uart/spi均同理</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> re, data = socket:recv(<span class="number">1000</span>) <span class="comment">-- 等待1秒</span></span><br><span class="line"><span class="comment">-- 注意, data是lua string, 内容是 &quot;12&quot;, 对应hex值 [0x31,0x32]</span></span><br><span class="line"><span class="comment">-- lua string不是数组不是table,不能直接下标读取</span></span><br><span class="line">打印其hex字符串形式</span><br><span class="line"><span class="keyword">local</span> hexStr, <span class="built_in">len</span> = <span class="built_in">string</span>.toHex(data) <span class="comment">-- 返回值&quot;3132&quot;,2,后面的2是长度</span></span><br><span class="line"><span class="built_in">print</span>(hexStr) <span class="comment">-- 将输出 3132</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--- 方式1,使用pack.unpack</span></span><br><span class="line"><span class="comment">-- 分解为2个数, b是无符号单字节数,2代表数量</span></span><br><span class="line"><span class="keyword">local</span> nexti, numa, numb = pack.<span class="built_in">unpack</span>(data, <span class="string">&quot;b2&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(numa) <span class="comment">-- 数字 31</span></span><br><span class="line"><span class="built_in">print</span>(numb) <span class="comment">-- 数字 32</span></span><br><span class="line">直接取第二个数, 位置写<span class="number">2</span></span><br><span class="line"><span class="keyword">local</span> nexti, numb = pack.<span class="built_in">unpack</span>(data,<span class="string">&quot;b&quot;</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(numb) <span class="comment">-- 数字 32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 方式2,使用string.byte</span></span><br><span class="line"><span class="keyword">local</span> numa = <span class="built_in">string</span>.<span class="built_in">byte</span>(data, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">local</span> numb = <span class="built_in">string</span>.<span class="built_in">byte</span>(data, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(numa) <span class="comment">-- 数字 31</span></span><br><span class="line"><span class="built_in">print</span>(numb) <span class="comment">-- 数字 32</span></span><br></pre></td></tr></table></figure>
+<h2 id="扩展链接"><a href="#扩展链接" class="headerlink" title="扩展链接"></a>扩展链接</h2><p>string.byte用法<br><a target="_blank" rel="noopener" href="http://wiki.openluat.com/doc/luatApi/#stringbyte">http://wiki.openluat.com/doc/luatApi/#stringbyte</a></p>
+<p>string.fromHex用法<br><a target="_blank" rel="noopener" href="http://wiki.openluat.com/doc/luatApi/#stringfromhex">http://wiki.openluat.com/doc/luatApi/#stringfromhex</a></p>
+<p>string.toHex用法<br><a target="_blank" rel="noopener" href="http://wiki.openluat.com/doc/luatApi/#stringtohex">http://wiki.openluat.com/doc/luatApi/#stringtohex</a></p>
+<p>pack库<br><a target="_blank" rel="noopener" href="http://wiki.openluat.com/doc/luatApi/#packpack">http://wiki.openluat.com/doc/luatApi/#packpack</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/584/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/582/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

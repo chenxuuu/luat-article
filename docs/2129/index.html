@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>流媒体文档说明 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">流媒体文档说明</h1>
+<article class="post markdown-style">
+  <h2 id="接口介绍"><a href="#接口介绍" class="headerlink" title="接口介绍"></a>接口介绍</h2><h3 id="流录音接口"><a href="#流录音接口" class="headerlink" title="流录音接口"></a>流录音接口</h3><h4 id="record-start"><a href="#record-start" class="headerlink" title="record.start"></a>record.start</h4><p>介绍流录音接口参数</p>
+<ul>
+<li><p>语法</p>
+<p>  <code> record.start(seconds, cbFnc, type, quality, format, streamRptLen)</code> </p>
+</li>
+<li><p>参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>取值释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>seconds</td>
+<td>number</td>
+<td>seconds，录音时长，单位：秒<br>流录音模式下，如果想长时间录音，可以将此参数设置为0x7FFFFFFF，相当于录音2147483647秒=24855天</td>
+</tr>
+<tr>
+<td>cbFnc</td>
+<td>function</td>
+<td>type参数为”STREAM”时，回调函数的调用形式为：<br>cbFnc(result,size,tag)<br>result：录音结果，true表示成功，false或者nil表示失败<br>size：number类型，每次上报的录音数据流的大小，单位是字节，在result为true时才有意义<br>tag：string类型，”STREAM”表示录音数据流通知，”END”表示录音结束</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>type，录音模式<br>“STREAM”表示流录音模式，录音数据保存在内存中，每隔一段时间执行一次cbFnc函数去读取录音数据流，录音结束后再执行一次cbFnc函数</td>
+</tr>
+<tr>
+<td>quality</td>
+<td>number</td>
+<td>可选参数，默认为1，quality，录音质量，0：一般质量 1：中等质量 2：高质量 3：无损质量</td>
+</tr>
+<tr>
+<td>format</td>
+<td>number</td>
+<td>可选参数，默认为3，format，录音格式，1:pcm 2:wav 3:amrnb 4:speex<br>pcm格式：录音质量参数无效，采样率：8000，单声道，采样精度：16 bit，5秒钟录音80KB左右<br>wav格式：录音质量参数无效，比特率：128kbps，5秒钟录音80KB左右<br>amrnb格式：录音质量参数有效<br>录音质量为0时：比特率：5.15kbps，5秒钟录音3KB多<br>录音质量为1时：比特率：6.70kbps，5秒钟录音4KB多<br>录音质量为2时：比特率：7.95kbps，5秒钟录音4KB多<br>录音质量为3时：比特率：12.2kbps，5秒钟录音7KB多<br>speex格式：录音质量参数无效，pcm格式128kbps后的压缩格式，5秒钟6KB左右</td>
+</tr>
+<tr>
+<td>streamRptLen</td>
+<td>number</td>
+<td>可选参数，默认为nil，streamRptLen，流录音时，每次上报的字节阀值</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>返回值</p>
+<p>  无</p>
+</li>
+<li><p>例子</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 流录音模式，录音5秒，一般质量，amrnb格式，每隔一段时间执行一次cbFnc函数，录音结束后再执行一次cbFnc函数：  </span><br><span class="line">record.start(5,cbFnc,&quot;STREAM&quot;)  </span><br><span class="line">-- 流录音模式，录音5秒，一般质量，amrnb格式，每产生500字节的录音数据执行一次cbFnc函数，录音结束后再执行一次cbFnc函数：  </span><br><span class="line">record.start(5,cbFnc,&quot;STREAM&quot;,nil,nil,500)  </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="流播放接口"><a href="#流播放接口" class="headerlink" title="流播放接口"></a>流播放接口</h3><h4 id="audiocore-streamplay"><a href="#audiocore-streamplay" class="headerlink" title="audiocore.streamplay"></a>audiocore.streamplay</h4><p>流式播放音频数据，音频数据格式支持：mp3、wav、amr、pcm、spx</p>
+<ul>
+<li><p>语法</p>
+<p>  <code> audiocore.streamplay(audioFormat,audioData)</code> </p>
+</li>
+<li><p>参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>取值释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>audioFormat</td>
+<td>number</td>
+<td>音频数据格式；支持audiocore.MP3、audiocore.WAV、audiocore.AMR、audiocore.PCM、audiocore.SPX</td>
+</tr>
+<tr>
+<td>audioData</td>
+<td>string</td>
+<td>音频数据</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<ul>
+<li><p>返回值</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>取值释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>acceptedAudioDataLen</td>
+<td>number</td>
+<td>接收的音频数据长度</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>例子</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">local tBuffer &#x3D; &#123;&#125;</span><br><span class="line">local tStreamType</span><br><span class="line">local function consumer()</span><br><span class="line">    sys.taskInit(function()</span><br><span class="line">        audio.setVolume(7)</span><br><span class="line">        while true do</span><br><span class="line">            while #tBuffer&#x3D;&#x3D;0 do</span><br><span class="line">                sys.waitUntil(&quot;DATA_STREAM_IND&quot;)</span><br><span class="line">            end</span><br><span class="line">            local data &#x3D; table.remove(tBuffer,1)</span><br><span class="line">            --log.info(&quot;testAudioStream.consumer remove&quot;,data:len())</span><br><span class="line">            local procLen &#x3D; audiocore.streamplay(tStreamType,data)</span><br><span class="line">            if procLen&lt;data:len() then</span><br><span class="line">                --log.warn(&quot;produce fast&quot;)</span><br><span class="line">                table.insert(tBuffer,1,data:sub(procLen+1,-1))</span><br><span class="line">                sys.wait(5)</span><br><span class="line">            end</span><br><span class="line">        end</span><br><span class="line">    end)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function producer(streamType)</span><br><span class="line">    sys.taskInit(function()</span><br><span class="line">        while true do</span><br><span class="line">            tStreamType &#x3D; streamType</span><br><span class="line">            local tAudioFile &#x3D;</span><br><span class="line">            &#123;</span><br><span class="line">                [audiocore.AMR] &#x3D; &quot;tip.amr&quot;,</span><br><span class="line">                [audiocore.SPX] &#x3D; &quot;record.spx&quot;,</span><br><span class="line">                [audiocore.PCM] &#x3D; &quot;alarm_door.pcm&quot;,</span><br><span class="line">            &#125;</span><br><span class="line">            local fileHandle &#x3D; io.open(&quot;&#x2F;lua&#x2F;&quot;..tAudioFile[streamType],&quot;rb&quot;)</span><br><span class="line">            if not fileHandle then</span><br><span class="line">                log.error(&quot;testAudioStream.producer open file error&quot;)</span><br><span class="line">                return</span><br><span class="line">            end</span><br><span class="line">            while true do</span><br><span class="line">                local data &#x3D; fileHandle:read(streamType&#x3D;&#x3D;audiocore.SPX and 1200 or 1024)</span><br><span class="line">                if not data then</span><br><span class="line">                    fileHandle:close() </span><br><span class="line">                    return </span><br><span class="line">                end</span><br><span class="line">                table.insert(tBuffer,data)</span><br><span class="line">                if #tBuffer&#x3D;&#x3D;1 then </span><br><span class="line">                    sys.publish(&quot;DATA_STREAM_IND&quot;) </span><br><span class="line">                end</span><br><span class="line">                --log.info(&quot;testAudioStream.producer&quot;,data:len())</span><br><span class="line">                sys.wait(10)</span><br><span class="line">                </span><br><span class="line">            end</span><br><span class="line">        end</span><br><span class="line">    end)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">sys.timerStart(function()</span><br><span class="line">    --producer(audiocore.AMR)</span><br><span class="line">    --producer(audiocore.SPX)</span><br><span class="line">    producer(audiocore.PCM)</span><br><span class="line">    consumer()</span><br><span class="line">end,3000)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><h4 id="流播放填充数据填充问题"><a href="#流播放填充数据填充问题" class="headerlink" title="流播放填充数据填充问题"></a>流播放填充数据填充问题</h4><p>流播放音频数据时，在core中有一个4K字节的缓冲区，用来存放音频数据，调用audiocore.streamplay接口时，音频数据被填充到这个缓冲区内，被填充的最大长度为缓冲区的剩余字节数；<br>例如：缓冲区还剩1000字节可以填充，如果此时调用audiocore.streamplay填充3000字节数据，则实际只能将这3000字节数据的前1000字节填充到缓冲区，返回值acceptedAudioDataLen的值为1000，表示填充的字节数，剩余的2000字节被丢弃</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2133/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2120/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

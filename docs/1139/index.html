@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>骑士智能科技Mini_Air302开发板|Air302模块下载LuatOS固件教程 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">骑士智能科技Mini_Air302开发板|Air302模块下载LuatOS固件教程</h1>
+<article class="post markdown-style">
+  <h1 align="left"><span lang="EN-US">1</span>、概述 <span lang="EN-US"><o:p></o:p></span></h1><p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast">&nbsp; &nbsp;Air302模块是合宙基于移芯EC616芯片推出的NB-IOT模组，在目前2G退网的潮流下，很多传输数据小、对低功耗要求高的物联网设备从2G转向NB-IOT网络，这样不仅可以满足上传需求，另外对功耗的要求也得到了满足。</span></p><p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast"><br></span></p><p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast">&nbsp; &nbsp;骑士智能科技 Mini_Air302</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">开发板是专用于合宙</span><span lang="EN-US" style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">Air302
+NB-IOT</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">模块在</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+LuatOS </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">开源</span><span style="font-family: 宋体; color: rgb(51, 51, 51); background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">嵌入式硬件的实时操作系统</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">环境下的开发评估板。</span><span lang="EN-US" style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">Mini_Air302</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">板内集成了</span><span style="font-size:12.0pt;line-height:
+107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast">模块</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">运行所需要的必要外设，如</span><span lang="EN-US" style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> SIM </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">卡座，天线，供电等，能保证只需</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+USB </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">线连接</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+PC </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">就能使整个系统运行。<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">开发板的配置如下：</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+&quot;MS Gothic&quot;;mso-bidi-font-family:&quot;MS Gothic&quot;">➢</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+Micro USB</span><span style="font-size:12.0pt;line-height:107%;font-family:
+宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">连接器直接</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+5V </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">供电。</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+&quot;MS Gothic&quot;;mso-bidi-font-family:&quot;MS Gothic&quot;">➢</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">内置</span><span lang="EN-US" style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast">LDO</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">降压到</span><span style="font-size:12.0pt;line-height:
+107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> <span lang="EN-US">3.3V </span></span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">供电，模块电源更稳定。</span><span style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> <span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+&quot;MS Gothic&quot;;mso-bidi-font-family:&quot;MS Gothic&quot;">➢</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">通用串口以及其他</span><span lang="EN-US" style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> IO </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">均以排针引出。</span><span style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> <span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+&quot;MS Gothic&quot;;mso-bidi-font-family:&quot;MS Gothic&quot;">➢</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">内置串口转</span><span lang="EN-US" style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast">USB</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">芯片<span lang="EN-US">(CH340N)</span>，通过</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+MicroUSB</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">连接</span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">PC</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">，调试和下载更方便。</span><span style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> <span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+&quot;MS Gothic&quot;;mso-bidi-font-family:&quot;MS Gothic&quot;">➢</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">模块</span><span lang="EN-US" style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> RESET </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">按键、唤醒按键和下载用的<span lang="EN-US">BOOT</span>按键。</span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast">
+<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;line-height:107%;font-family:
+&quot;MS Gothic&quot;;mso-bidi-font-family:&quot;MS Gothic&quot;">➢</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">通用</span><span lang="EN-US" style="font-size:12.0pt;
+line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:
+minor-fareast;mso-hansi-theme-font:minor-fareast"> led </span><span style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">指示灯，电源状态指示灯，网络状态状态指示灯。</span><span style="font-size:
+12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:minor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast"> <span lang="EN-US"><o:p></o:p></span></span></p><p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><span style="font-size: 12pt; line-height: 107%; font-family: &quot;MS Gothic&quot;;">➢</span><span style="font-size: 12pt; line-height: 107%; font-family: 宋体;"> </span><span style="font-size: 12pt; line-height: 107%; font-family: 宋体;">简易式<span lang="EN-US">6P</span></span><span style="font-size: 12pt; line-height: 107%; font-family: 宋体;">插拔<span lang="EN-US">SIM </span></span><span style="font-size: 12pt; line-height: 107%; font-family: 宋体;">卡座</span></p><p><br></p><h1 align="left"><span lang="EN-US">2</span>、 外设分布介绍<span lang="EN-US" style="font-size:12.0pt;line-height:107%;mso-ascii-font-family:宋体;
+mso-ascii-theme-font:minor-fareast;mso-fareast-font-family:宋体;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:宋体;mso-hansi-theme-font:minor-fareast">&lt;o:p&gt;</o:p></span></h1><p class="MsoNormal"><span lang="EN-US" style="font-size:14.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">PCB</span><span style="font-size:14.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-bidi-font-family:宋体">尺寸<span lang="EN-US">52*30mm</span></span></p><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715194339310_001.jpg" alt="001.jpg" class="img-responsive" style="width: 50%;"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715194400105_002.png" alt="002.png" class="img-responsive" style="width: 50%;"></p><p class="MsoNormal"><br></p><h2 align="left"><span lang="EN-US">3、&nbsp;</span>我们把已经准备好的<span lang="EN-US" style="font-family: inherit; font-size: 1.2rem;">NB</span><span style="font-family: inherit; font-size: 1.2rem;">卡安装到开发板</span></h2><h2 align="left"><span style="font-family: inherit; font-size: 1.2rem;"><br></span></h2><p class="MsoNormal"></p>
+</p><p class="MsoNormal"><span style="font-family:宋体;mso-bidi-font-family:宋体;
+color:red">注意：<span lang="EN-US">sim</span>卡缺口朝外<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><br></p><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715194718087_004.png" alt="004.png" class="img-responsive"><br></p><h2 align="left"><span lang="EN-US">4.&nbsp;</span>安装天线座</h2>
+
+<p><span style="font-size: 11pt; line-height: 107%; font-family: 宋体;">将配套</span><span lang="EN-US" style="font-size: 11pt; line-height: 107%; font-family: Calibri, sans-serif;">PCB</span><span style="font-size: 11pt; line-height: 107%; font-family: 宋体;">天线的</span><span lang="EN-US" style="font-size: 11pt; line-height: 107%; font-family: Calibri, sans-serif;">IPEX</span><span style="font-size: 11pt; line-height: 107%; font-family: 宋体;">头按压到</span><span lang="EN-US" style="font-size: 11pt; line-height: 107%; font-family: Calibri, sans-serif;">Mini_Air302</span><span style="font-size: 11pt; line-height: 107%; font-family: 宋体;">开发板的天线座上</span><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715211405598_005.png" alt="005.png" class="img-responsive" style="width: 50%;"></p><p class="MsoNormal"><br></p><h3><span lang="EN-US">5.&nbsp;</span>通过<span lang="EN-US">USB micro</span>线（安卓通用手机线）给开发板供电<br><span lang="EN-US">&lt;o:p&gt;</o:p></span></h3><p class="MsoNormal"></p>
+</p><p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:Calibri;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri">插上</span><span lang="EN-US">USB</span><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri">线后，开发板的</span><span lang="EN-US">PWR(</span><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri">电源指示</span><span lang="EN-US">)</span><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri">灯会亮起，并且模块会自动开机。</span><span lang="EN-US"><o:p></o:p></span></p><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715212302768_006.png" alt="006.png" class="img-responsive" style="width: 25%;"></p><p class="MsoNormal"><br></p><p class="MsoNormal">
+
+</p><p class="MsoNormal"><span style="font-family:宋体;mso-bidi-font-family:宋体">由于模块默认是<span lang="EN-US">AT</span>固件，所以我们可以通过串口调试助手发送<span lang="EN-US">AT</span>命令调试<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715212656543_007.png" alt="007.png" class="img-responsive" style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; width: 50%;"></p><p class="MsoNormal"><br></p><h2 align="left"><span lang="EN-US">6 </span>下载<span lang="EN-US">LuatOS</span>固件到<span lang="EN-US">Mini_Air302</span>开发板</h2><h2 align="left"><br></h2><h2 align="left"><span lang="EN-US"><o:p></o:p></span></h2><p class="MsoNormal"><span style="font-family:宋体;mso-bidi-font-family:宋体">本节教程我们会通过<span lang="EN-US">Luatools</span>下载<span lang="EN-US">LuatOS</span>固件到<span lang="EN-US">Mini_Air302</span>开发板<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal"><span lang="EN-US" style="font-family:宋体;mso-bidi-font-family:
+宋体"><o:p>&nbsp;</o:p></span></p><p class="MsoNormal">
+
+
+
+
+
+</p><h3><span lang="EN-US">6.1 </span>首先打开<span lang="EN-US">Luatools V2</span>并更新到新版</h3><h3><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213139176_008.png" alt="008.png" class="img-responsive" style="width: 50%;"></h3><h3><br></h3><h3><span lang="EN-US">6.2 </span>打开选项<span lang="EN-US">-&gt;</span>工具配置，将波特率设置为<span lang="EN-US">921600</span>，然后重启<span lang="EN-US">Luatools</span>工具<span lang="EN-US"><o:p></o:p></span></h3><h3><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213228052_009.png" alt="009.png" class="img-responsive" style="width: 100%;"></h3><p><br></p><h3><span lang="EN-US">6.3 </span>勾选<span lang="EN-US">4G</span>模块串口打印并且打开串口<span lang="EN-US"><o:p></o:p></span></h3><h3><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213334473_010.png" alt="010.png" class="img-responsive" style="width: 100%;"></h3><p><br></p><h3><span lang="EN-US">6.4 </span>在<span lang="EN-US">Luatools</span>工具内创建<span lang="EN-US">Air302</span>项目</h3><h3><br></h3><h3><span lang="EN-US"><o:p></o:p></span></h3><p>
+
+</p><p class="MsoNormal"><span style="font-family:宋体;mso-bidi-font-family:宋体">如果手里没有<span lang="EN-US">LuatOS</span>固件，可以进入河北骑士<span lang="EN-US">[</span>合宙<span lang="EN-US">NB-IOT</span>模块<span lang="EN-US">]</span>交流群：<span lang="EN-US">972784352</span>，或者<span lang="EN-US">LuatOS</span>技术交流：<span lang="EN-US">1061642968 </span>获取<span lang="EN-US">Air302</span>模块的<span lang="EN-US">LuatOS</span>固件。</span></p><p class="MsoNormal"><span style="font-family:宋体;mso-bidi-font-family:宋体"><br></span><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213532788_011.png" alt="011.png" class="img-responsive" style="width: 100%;"></p><p class="MsoNormal"><br></p><p class="MsoNormal"><span style="font-family:宋体;mso-bidi-font-family:宋体"><span lang="EN-US"><o:p></o:p></span></span></p><h3><span lang="EN-US">6.5 </span>按下<span lang="EN-US">boot</span>按键不放同时按一下复位按键，让开发板进入下载模式</h3><h3><br></h3><h3><span lang="EN-US"><o:p></o:p></span></h3><p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:Calibri;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri">此时开发板电源指示灯和网络灯同时亮起，</span><span lang="EN-US">Air302</span><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri">模块进入</span><span lang="EN-US">BOOT</span><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri">模式</span></p><p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:Calibri;mso-fareast-theme-font:
+minor-fareast;mso-hansi-font-family:Calibri"><br></span><span lang="EN-US"><o:p></o:p></span></p><p>
+
+
+
+</p><p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:Calibri;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;color:red">注意：模块只有进入</span><span lang="EN-US" style="mso-fareast-font-family:宋体;mso-fareast-theme-font:minor-fareast;
+color:red">BOOT</span><span style="font-family:宋体;mso-ascii-font-family:Calibri;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;color:red">模式才可以下载固件。</span></p><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213617815_012.png" alt="012.png" class="img-responsive" style="width: 25%;"></p><p class="MsoNormal"><br></p><h3><span lang="EN-US">6.6 </span>添加底层<span lang="EN-US">core</span>和脚本文件，并点击下载固件</h3><h3><br></h3><h3><span lang="EN-US"><o:p></o:p></span></h3><p class="MsoNormal">
+
+<p><span lang="EN-US" style="mso-fareast-font-family:宋体;mso-fareast-theme-font:minor-fareast;
+color:red">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:Calibri;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;color:red">注意：首次下载需要点击下载底层和脚本，后面下载的话只需要点击下载脚本就可以了。</span></p><p class="MsoNormal"><span style="font-family:宋体;mso-ascii-font-family:Calibri;
+mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;color:red"><br></span><span lang="EN-US" style="mso-fareast-font-family:宋体;mso-fareast-theme-font:minor-fareast;
+color:red">&lt;o:p&gt;</o:p></span></p><h3><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213744573_013.png" alt="013.png" class="img-responsive" style="width: 100%;"></h3><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;点击下载底层和脚本开始下载固件</p><p><br></p><p><br></p><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715213921038_014.png" alt="014.png" class="img-responsive" style="width: 100%;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LuatOS固件下载中</p><p><br></p><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715214010726_015.png" alt="015.png" class="img-responsive" style="width: 100%;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;固件下载完成</p><h3><span lang="EN-US">&lt;o:p&gt;</o:p></span></h3><p class="MsoNormal"><br></p><h3><span lang="EN-US">6.7 </span>返回<span lang="EN-US">luatools</span>工具首界面，查看模块打印的信息</h3><p><br></p><h3><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715214114235_016.png" alt="016.png" class="img-responsive" style="width: 100%;"><br></h3><h3><b><span lang="EN-US" style="font-size:10.5pt;line-height:110%;font-family:&quot;Segoe UI Emoji&quot;,sans-serif;
+mso-fareast-font-family:宋体;mso-fareast-theme-font:minor-fareast;mso-bidi-font-family:
+&quot;Segoe UI Emoji&quot;">&lt;o:p&gt;</o:p></span></b></h3><p class="MsoNormal"><b><span style="font-size:10.5pt;line-height:107%;
+font-family:宋体;mso-bidi-font-family:宋体;color:red">至此<span lang="EN-US">Mini_Air302</span>下载<span lang="EN-US">LuatOS</span>固件已经完成，接下来大家可以尽情测试其他<span lang="EN-US">demo</span>文件。</span></b></p><p class="MsoNormal"><br></p><p class="MsoNormal"><b><span style="font-size:10.5pt;line-height:107%;
+font-family:宋体;mso-bidi-font-family:宋体;color:red"><span lang="EN-US">&lt;o:p&gt;</o:p></span></span></b></p><p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">&lt;o:p&gt;如果大家手里没有开发板或者模块，可以去我们淘宝店购买哈。</o:p></span></p><p class="MsoNormal"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715214326047_O1CN01ktoYcP20IoYKWXryX_!!575106827.jpg" alt="O1CN01ktoYcP20IoYKWXryX_!!575106827.jpg" class="img-responsive" style="width: 25%;"></p><p class="MsoNormal">合宙Mini_Air302开发板NB-IOT物联网模块支持LuatOS骑士智能科技-淘宝网</p><p class="MsoNormal">温馨提示：购买的时候建议购买标准版或者高配版，这两个带移动NB卡，买回去就可以调试，无卡版本不带NB卡，除非自己有NB卡才可以购买。</p><p class="MsoNormal"><a href="https://item.taobao.com/item.htm?spm=a230r.1.14.52.1b163324p8guS8&amp;id=622755228249&amp;ns=1&amp;abbucket=3#detail" target="_blank">https://item.taobao.com/item.htm?spm=a230r.1.14.52.1b163324p8guS8&amp;id=622755228249&amp;ns=1&amp;abbucket=3#detail</a></p><p class="MsoNormal"><br><span lang="EN-US" style="font-size:12.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:宋体">&lt;o:p&gt;<br></o:p></span></p><p><span style="font-size: 12pt; line-height: 107%; font-family: 宋体;"></p>
+<p></span><br></p><p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US">&lt;v:shape id=”图片_x0020_26” o:spid=”_x0000_i1025” type=”#_x0000_t75” style=”width:187.2pt;height:261pt;visibility:visible;<br> mso-wrap-style:square”&gt;<br> &lt;v:imagedata src=”file:///C:/Users/longmain/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png” o:title=””&gt;<br></v:imagedata></v:shape></span><span lang="EN-US" style="font-size: 12pt; line-height: 107%;">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal" align="center" style="text-align:center"><span lang="EN-US" style="font-size:12.0pt;line-height:107%;font-family:宋体;mso-ascii-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-no-proof:yes">&lt;v:shapetype id=”_x0000_t75” coordsize=”21600,21600” o:spt=”75” o:preferrelative=”t” path=”m@4@5l@4@11@9@11@9@5xe” filled=”f” stroked=”f”&gt;<br> &lt;v:stroke joinstyle=”miter”&gt;<br> &lt;v:formulas&gt;<br>  &lt;v:f eqn=”if lineDrawn pixelLineWidth 0”&gt;<br>  &lt;v:f eqn=”sum @0 1 0”&gt;<br>  &lt;v:f eqn=”sum 0 0 @1”&gt;<br>  &lt;v:f eqn=”prod @2 1 2”&gt;<br>  &lt;v:f eqn=”prod @3 21600 pixelWidth”&gt;<br>  &lt;v:f eqn=”prod @3 21600 pixelHeight”&gt;<br>  &lt;v:f eqn=”sum @0 0 1”&gt;<br>  &lt;v:f eqn=”prod @6 1 2”&gt;<br>  &lt;v:f eqn=”prod @7 21600 pixelWidth”&gt;<br>  &lt;v:f eqn=”sum @8 21600 0”&gt;<br>  &lt;v:f eqn=”prod @7 21600 pixelHeight”&gt;<br>  &lt;v:f eqn=”sum @10 21600 0”&gt;<br> </v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:formulas><br> &lt;v:path o:extrusionok=”f” gradientshapeok=”t” o:connecttype=”rect”&gt;<br> &lt;o:lock v:ext=”edit” aspectratio=”t”&gt;<br></o:lock></v:path></v:stroke></v:shapetype>&lt;v:shape id=”图片_x0020_5” o:spid=”_x0000_i1026” type=”#_x0000_t75” style=”width:237.6pt;height:316.8pt;visibility:visible;mso-wrap-style:square”&gt;<br> &lt;v:imagedata src=”file:///C:/Users/longmain/AppData/Local/Temp/msohtmlclip1/01/clip_image001.jpg” o:title=””&gt;<br></v:imagedata></v:shape></span><span lang="EN-US" style="font-size:12.0pt;line-height:107%;
+font-family:宋体;mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
+mso-hansi-theme-font:minor-fareast">&lt;o:p&gt;</o:p></span></p></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1205/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1138/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

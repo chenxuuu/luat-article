@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>同步时模块时钟的N种方法 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">同步时模块时钟的N种方法</h1>
+<article class="post markdown-style">
+  <p><span style="font-family:'宋体';">很多场景中，由于业务需要，模块需要保持正确的系统时钟，才能正常工作。但是模块上电后的初试时间戳是</span><span style="font-size:9pt;font-family:'Segoe UI', sans-serif;">1338516000</span><span style="font-family:'宋体';">（即</span><span style="font-size:9pt;font-family:'Segoe UI', sans-serif;">2012/06/01,10:00:00</span><span style="font-family:'宋体';">），所以同步时钟成为了开发者要解决的重要问题。</span></p>
+
+<p><span style="font-family:'宋体';">首先我们捋一下思路——模块要如何执行动作，执行何种动作，才可以同步时钟呢？基于这个疑问，我们先做一个定义：</span></p>
+
+<p style="text-align:center;"><span style="font-family:'宋体';">只有当模块和外界以某种方式产生数据交互，且模块收到完整数据并正确解析时，才可以完成对应操作。</span></p>
+
+<p><span style="font-family:'宋体';">定义中指的“某种方式”是没有局限性的，也就是说开发者可以自由发挥想象力，只有你想不到，没有它做不到。接下来为大家介绍一些常见的和不常见的方式，方便开发者根据不同场景选择合适的方式。</span></p>
+
+<p><span style="font-family:'宋体';">（下文中，如无额外说明，均指</span><span>Lua</span><span style="font-family:'宋体';">方式的二次开发）</span></p>
+
+<h3><span style="font-family:'宋体';">一、常见且常用的</span><span>NTP</span></h3>
+
+<p><span>NTP</span><span style="font-family:'宋体';">是大家众所周知的、广泛使用的、精确可靠的时钟同步方式。具有高效、准确、流量少，易实现的特点。</span><span>NTP</span><span style="font-family:'宋体';">这种方式，就是使用“定义”中的蜂窝网络，和远端</span><span>NTP</span><span style="font-family:'宋体';">服务器交互数据，收到服务器的回应并解析，重新设定系统时钟，完成同步。</span></p>
+
+<p><span style="font-family:'宋体';">我司的</span><span>lua</span><span style="font-family:'宋体';">代码也提供了相应的基础库，开发者只需要简单的调用相应的函数，即可实现同步时钟：</span></p>
+
+<p><span>luaScript:</span></p>
+
+<p><span>require”ntp”<span>                                         </span>--</span><span style="font-family:'宋体';">对，就这一行代码即可哦</span></p>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span>luaTask:</span></p>
+
+<p><span>require”ntp”</span></p>
+
+<p><span>ntp.timeSync()<span>                                      </span>--</span><span style="font-family:'宋体';">只同步一次</span></p>
+
+<p><span>--ntp.timeSync(1)<span>                                 </span>--</span><span style="font-family:'宋体';">每</span><span>1</span><span style="font-family:'宋体';">小时同步一次</span></p>
+
+<p><span style="font-family:'宋体';">实际运行一下，看看效果如何：</span></p>
+
+<p></p>
+
+<p><img style="width:355px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-dnuA9feY5b854314ec6ea.png" class="img-responsive" alt="attachments-2018-08-dnuA9feY5b854314ec6ea.png" /></p>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">需要注意的是，</span><span>NTP</span><span style="font-family:'宋体';">使用的是多个免费公共的</span><span>NTP</span><span style="font-family:'宋体';">服务器来同步时钟，所以不能保证任何时间任何地点都能百分百同步到正确的时间。如果开发者项目中的业务逻辑严格依赖于时钟同步功能，建议使用开发者自己的服务器进行同步。</span></p>
+
+<h3><span style="font-family:'宋体';">二、精确到纳秒的</span><span>GPS</span></h3>
+
+<p><span style="font-family:'宋体';">如果开发者使用的是</span><span>Air8xx</span><span style="font-family:'宋体';">系列模块，或者是其他挂载</span><span>GPS</span><span style="font-family:'宋体';">模块的</span><span>Air2xx</span><span style="font-family:'宋体';">系列产品，那么可以是用这个方式进行同步。</span></p>
+
+<p><span style="font-family:'宋体';">由于卫星定位系统的特性，每颗卫星都有精确到纳秒级的铯原子钟，才能实现全球的精确定位。故此，当开发者使用含</span><span>GPS</span><span style="font-family:'宋体';">功能的模块时，可以使用</span><span>GPS</span><span style="font-family:'宋体';">授时特性实现同步时钟。此种方式，就是使用“定义”中的</span><span>GPS</span><span style="font-family:'宋体';">卫星信号，解析数据，设定模块系统时钟，完成同步。</span></p>
+
+<p><span style="font-family:'宋体';">实现原理并不复杂，只要解析</span><span>GPS</span><span style="font-family:'宋体';">模块上报</span><span>GGA</span><span style="font-family:'宋体';">即可：</span></p>
+
+<p><span style="font-family:'宋体';">格式：</span><span>$--GGA,hhmmss.ss,llll.ll,a,yyyyy.yy,a,x,xx,x.x,x.x,M,x.x,M,x.x,xxxx*hh</span></p>
+
+<p><span style="font-family:'宋体';">示例：</span><span>$GPGGA,065545.789,2109.9551,N,12023.4047,E,1,9,0.85,18.1,M,8.0,M,,*5E</span></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span style="font-family:'宋体';">名称</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">样例</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">单位</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">描述</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">消息</span><span>ID</span></p>
+  </td>
+  <td>
+  <p><span>$GPGGA</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>GGA </span><span style="font-family:'宋体';">协议头</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>UTC </span><span style="font-family:'宋体';">时间</span></p>
+  </td>
+  <td>
+  <p><span>065545.789</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>hhmmss.sss</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">纬度</span></p>
+  </td>
+  <td>
+  <p><span>2109.9551</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>ddmm.mmmm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>N/S</span></p>
+  </td>
+  <td>
+  <p><span>N</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>N=</span><span style="font-family:'宋体';">北，</span><span>S=</span><span style="font-family:'宋体';">南</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">经度</span></p>
+  </td>
+  <td>
+  <p><span>12023.4047</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>dddmm.mmmm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>E/W</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>W=</span><span style="font-family:'宋体';">西，</span><span>E=</span><span style="font-family:'宋体';">东</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">定位指示</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>0:</span><span style="font-family:'宋体';">未定位</span></p>
+  <p><span>1:SPS </span><span style="font-family:'宋体';">模式，定位有效</span></p>
+  <p><span>2:</span><span style="font-family:'宋体';">差分，</span><span>SPS </span><span style="font-family:'宋体';">模式，定位有效</span></p>
+  <p><span>3:PPS </span><span style="font-family:'宋体';">模式，定位有效</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">卫星数目</span></p>
+  </td>
+  <td>
+  <p><span>9</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">范围</span><span> 0 </span><span style="font-family:'宋体';">到</span><span> 12</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>HDOP</span></p>
+  </td>
+  <td>
+  <p><span>0.85</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">水平精度</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>MSL </span><span style="font-family:'宋体';">幅度</span></p>
+  </td>
+  <td>
+  <p><span>18.1</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">米</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">单位</span></p>
+  </td>
+  <td>
+  <p><span>M</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">米</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">大地</span></p>
+  </td>
+  <td>
+  <p><span>-2.2</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">米</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">单位</span></p>
+  </td>
+  <td>
+  <p><span>M</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">差分时间</span></p>
+  </td>
+  <td>
+  <p><span>8.0</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">秒</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">当没有</span><span> DGPS </span><span style="font-family:'宋体';">时，无效</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">差分</span><span> ID</span></p>
+  </td>
+  <td>
+  <p><span>0000</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">校验和</span></p>
+  </td>
+  <td>
+  <p><span>*5E</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>&lt;CR&gt;&lt;LF&gt;</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">消息结束</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-family:'宋体';"> </span></p>
+
+<p><span style="font-family:'宋体';">当然，解析</span><span>RMC</span><span style="font-family:'宋体';">亦可哦：</span></p>
+
+<p><span style="font-family:'宋体';">格式：</span><span>$--RMC,hhmmss.ss,A,llll.ll,a,yyyyy.yy,a,x.x,x.x,xxxx,x.x,a*hh</span></p>
+
+<p><span style="font-family:'宋体';">例句：</span><span>$GPRMC,100646.000,A,3109.9704,N,12123.4219,E,0.257,335.62,291216,,,A*59</span></p>
+
+<p><span> </span></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span style="font-family:'宋体';">名称</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">样例</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">单位</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">描述</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">消息</span><span>ID</span></p>
+  </td>
+  <td>
+  <p><span>$GPRMC</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>RMC </span><span style="font-family:'宋体';">协议头</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>UTC </span><span style="font-family:'宋体';">时间</span></p>
+  </td>
+  <td>
+  <p><span>100646.000</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>hhmmss.sss</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">状态</span></p>
+  </td>
+  <td>
+  <p><span>A</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>A=</span><span style="font-family:'宋体';">数据有效；</span><span>V=</span><span style="font-family:'宋体';">数据无效</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">纬度</span></p>
+  </td>
+  <td>
+  <p><span>2109.9704</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>ddmm.mmmm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>N/S</span></p>
+  </td>
+  <td>
+  <p><span>N</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>N=</span><span style="font-family:'宋体';">北，</span><span>S=</span><span style="font-family:'宋体';">南</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">经度</span></p>
+  </td>
+  <td>
+  <p><span>11123.4219</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>dddmm.mmmm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>E/W</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>W=</span><span style="font-family:'宋体';">西，</span><span>E=</span><span style="font-family:'宋体';">东</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">地面速度</span></p>
+  </td>
+  <td>
+  <p><span>0.257</span></p>
+  </td>
+  <td>
+  <p><span>Knot</span><span style="font-family:'宋体';">（节）</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">方位</span></p>
+  </td>
+  <td>
+  <p><span>335.62</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">度</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">日期</span></p>
+  </td>
+  <td>
+  <p><span>291216</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>ddmmyy</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">磁变量</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">校验和</span></p>
+  </td>
+  <td>
+  <p><span>*59</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>&lt;CR&gt;&lt;LF&gt;</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">消息结束</span></p>
+  </td>
+ </tr></table>
+
+<p><span> </span></p>
+
+<p><span style="font-family:'宋体';">我司的</span><span>lua</span><span style="font-family:'宋体';">代码也提供了相应的基础库，开发者只需要简单的调用相应的函数，即可实现同步时钟：</span></p>
+
+<p><span>luaScript:</span></p>
+
+<p><span>require"gps"</span></p>
+
+<p><span>gps.init()<span>                                                                             </span>--</span><span style="font-family:'宋体';">初始化</span></p>
+
+<p><span>gps.setfixmode(0)<span>                                                            </span>--GPS+BD</span><span style="font-family:'宋体';">定位</span></p>
+
+<p><span>gps.settimezone(gps.GPS_BEIJING_TIME)<span>                </span>--</span><span style="font-family:'宋体';">设置时区为北京</span></p>
+
+<p><span>gps.open(gps.DEFAULT,{cause="time_sync"})<span>          </span>--</span><span style="font-family:'宋体';">打开</span><span>gps</span></p>
+
+<p><span>--</span><span style="font-family:'宋体';">剩下的</span><span>gps.lua</span><span style="font-family:'宋体';">都会自动处理好了</span></p>
+
+<p></p>
+
+<p><img style="width:485.5px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-9dN9W6V25b854359764d4.png" class="img-responsive" alt="attachments-2018-08-9dN9W6V25b854359764d4.png" /></p>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span>luaTask:</span></p>
+
+<p><span>require"gps"</span></p>
+
+<p><span>require”sys”</span></p>
+
+<p><span>require”misc”</span></p>
+
+<p><span>gps.open(gps.DEFAULT,{tag="time_sync"})</span></p>
+
+<p><span>sys.timeLoopStart(<span>   </span>function()</span></p>
+
+<p><span>If gps.isFix then</span></p>
+
+<p><span>misc.setClock(gps.getUtcTime())</span></p>
+
+<p><span>end</span></p>
+
+<p><span>end, 60000)</span></p>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">相对于使用</span><span>NTP</span><span style="font-family:'宋体';">等方式，此方法不受蜂窝网络限制，即使无卡或者卡欠费，也可以准确校时。但是需要注意的是，此种方法略有局限性：</span></p>
+
+<ol><li><span style="font-family:'宋体';">必须使用有</span><span>GPS</span><span style="font-family:'宋体';">芯片的模块，或者挂在</span><span>GPS</span><span style="font-family:'宋体';">模块，且必须可以搜到</span><span>1</span><span style="font-family:'宋体';">颗以上卫星才能获取时间；</span></li><li><span style="font-family:'宋体';">卫星播发的时间是</span><span>UTC</span><span style="font-family:'宋体';">，所以开发者还需要根据经度判断时区做对应的加减才可以；</span><span><br /></span></li><li><span style="font-family:'宋体';">要注意定位数据的有效性。</span></li></ol>
+
+<h3><span style="font-family:'宋体';">三、薅基站羊毛的</span><span>AT+CLTS</span></h3>
+
+<p><span style="font-family:'宋体';">如果我告诉你，基站也有授时服务哦，惊不惊喜，意不意外？</span></p>
+
+<p><span style="font-family:'宋体';">模块首次搜到基站的时候，即可获得基站下发的时间信息。发</span><span>AT+CLTS</span><span style="font-family:'宋体';">即可。</span></p>
+
+<p><span style="font-family:'宋体';">由于此方法通用性并不是非常强，所以仅贴出</span><span>AT</span><span style="font-family:'宋体';">交互流程，有能力的开发者请自行改写</span><span>lua</span><span style="font-family:'宋体';">代码吧：</span></p>
+
+<p></p>
+
+<p><img style="width:266.5px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-UVPu8pBv5b85439ad292a.png" class="img-responsive" alt="attachments-2018-08-UVPu8pBv5b85439ad292a.png" /></p>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">需要注意的是，此方法存在一定局限性：</span><span>1</span><span style="font-family:'宋体';">、不是所有的基站都会下发，存在返回是</span><span>nil</span><span style="font-family:'宋体';">的情况（具体要看基站的配置）；</span><span>2</span><span style="font-family:'宋体';">、只有附着的那一刻是准确的，随后再发</span><span>AT+CLTS</span><span style="font-family:'宋体';">都是恒定值（即附着时），除非进入飞行模式后再离开飞行模式，重新获取一次；</span><span>3</span><span style="font-family:'宋体';">、需要有卡才能使用。</span></p>
+
+<h3><span style="font-family:'宋体';">四、让运营商来给你打工的</span><span>SMS</span></h3>
+
+<p><span style="font-family:'宋体';">有什么办法让运营商来给你打工吗？当然啦，今天就让运营商来出一次血——利用运营商下行短信的时间同步模块时钟。</span></p>
+
+<p><span>luaScript &amp; luaTask:</span></p>
+
+<p><span>require”sms”</span></p>
+
+<p><span>local function
+procnewsms(num, data, datetime)</span></p>
+
+<p><span><span>         </span>print("procnewsms", num, data,
+datetime)</span></p>
+
+<p><span>end</span></p>
+
+<p><span>sms.regnewsmscb(procnewsms)</span></p>
+
+<p><span>sms.send("10086",
+"hi, china mobile")</span></p>
+
+<p><span>--</span><span style="font-family:'宋体';">给</span><span>10068</span><span style="font-family:'宋体';">发一条内容为“</span><span>hi, china mobile</span><span style="font-family:'宋体';">”的短信，等他返回短信的时候，就自带</span><span>datetime</span><span style="font-family:'宋体';">啦，开发者可以根据</span><span>datetime</span><span style="font-family:'宋体';">同步时系统时钟。</span></p>
+
+<p><span style="font-family:'宋体';">此种方法基本上百试百灵，而且给运营商发短信时双向免费的哦；不过一定要注意使用的</span><span>SIM</span><span style="font-family:'宋体';">卡是否又短信功能。如果没有，是无法使用这个方法同步时钟的。</span></p>
+
+<h2><span style="font-family:'宋体';">结束语</span></h2>
+
+<p><span style="font-family:'宋体';">不论是直接去访问</span><span>time.123cha.com</span><span style="font-family:'宋体';">这种提时钟的网页，抓取关键数据；还是通过</span><span>mqtt</span><span style="font-family:'宋体';">传输时间字符串；哪怕打电话给模块，通过</span><span>DTMF</span><span style="font-family:'宋体';">设置时间，都是完全没问题的。</span><span><br /></span></p>
+
+<p><span><br /></span><span style="font-family:'宋体';">正如“定义”所言，只要能产生数据交互，一切就皆有可能。</span></p>
+
+<p></p>
+
+<p><br /></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/413/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/411/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

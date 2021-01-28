@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>稀饭放姜 iRTU 学习日记 （1）：认识iRTU开源电路 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">稀饭放姜 iRTU 学习日记 （1）：认识iRTU开源电路</h1>
+<article class="post markdown-style">
+  <p>###Openluat Air720D 4G DTU主控板 是由合宙开源社区技术大拿“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品，纯iRTU血统，电路软件均彻底开源。 前不久有幸收到了一片样板，遂对其开始进行研究。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85822.jpg"></p>
+<p>从图上看，模块居于电路板的右上方，模块左侧为供电电路，下方从左到右顺次为用于调试的USB插口、UART转RS485 IC、Nano SIM卡座，右下角有一个不太明显的工作状态指示灯，最下面是电源供电和RS485通讯接口。 应该说这是我见过的最精简的DTU主板了，在不损失性能的前提下把器件优化做到了极致，ESD保护器件和电源退耦合又一样都不缺。 正所谓多一分冗余，少一分不足，平衡点选的恰到好处。 </p>
+<p>下面是DTU主控板的一些基本电气及机械参数（数据来源：DTU-Air720D 硬件用户手册 ）</p>
+<p>传输方式：</p>
+<p>基于RS485通讯协议的双线式数据传输(-15v ~ -3v 代表 1 +3v ~ +15v 代表 0)</p>
+<p>串口最高速率为921600bps</p>
+<p>工作电压：</p>
+<p>9-24VDC（实测输入低至5V也是可以工作的）</p>
+<p>外形尺寸:</p>
+<p>70x43x15(不包含天线座和插接件)</p>
+<p>100x43x20(含天线座和插接件)</p>
+<p>重量：</p>
+<p>23克（不含接插件）<br>28克 (含接插件)</p>
+<p>下面是根据合宙官方提供的的介绍图纸加以描述而来的功能分解图</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_86828.png"></p>
+<p>电路的主料为合宙出品的Air720D 2G/4G移动双模数据通讯模组，下面是基本常用的参数：</p>
+<p>尺寸：32mmX29mmX2.4mm<br>供电电压：3.3V-4.2V,推荐3.8V, 突发模式下最大电流为1.8A，待机电流为1.8-5.5mA<br>通讯接口：USB2.0（从模式），UARTx2（UART1调试串口最高115200bps，UART2主串口最高921600bps），I2Cx1<br>通讯频段：2G B3/B8, 4G-LTE-FDD B3/B8, 4G-LTE-TDD B34/B38/B39/B40/B41<br>工作温度：-40°C ~ +85°C</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99020.png"></p>
+<p>这是我摘录下来的iRTU，Air720部分原理图，图纸源文件在iRTU群（QQ群号：952343033）提供下载 。iRTU与外部RS485设备通讯采用的是串口1，GPIO67为LED状态信号灯，GPIO54（I2C_SDA)作为复位引脚，板载USB2.0 TypeB接口用于下载和调试固件。 SIM卡座外接4根引脚支持1.8V-3.3V 中国移动IC卡。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89972.png"></p>
+<p>此处有几个点我还没搞明白</p>
+<p>1） datatsheet上说明串口1最高仅支持115200bps，但是产品说明书中本产品的最高波特率为921600bps，是否有特殊的优化实现这一点。</p>
+<p>2） Reset没有使用硬件的标准RESET_IN引脚而是使用了GPIO54。</p>
+<p>3） 控制RS485方向的IO口为GPIO13，这个端口原来是做sim卡存在检测的，应为输入IO，此处用作输出IO。</p>
+<p>我将在今后的测试中尝试自己测试，并在社群中寻求“稀饭放姜”老师的帮助把这些点搞清楚。</p>
+<p>电源部分采用的合宙官方推荐的久经考验的JW5026 DC-DC降压电路，平均输出电流标称为1A，最大输入电流为1.7A。 </p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24464.png"></p>
+<p>因为开关频率达到了MHz级（1.1MHz），因此布线时需要对RF参数及EMC参数进行全盘考虑，此板Layout由“稀饭放姜”亲自主持设计，性能自然不俗，读者在设计电路的时候可以多加参考，少走弯路。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_32037.jpg"><br>Air720D采用的是1.8V IO 电平，为了与SP3485CN转换芯片要求的3.3V电平相匹配，加入了3片74LVC1T45进行电平转换。 该芯片的电平转换范围为1.65V-5.5V，也能满足其他场合的电平转换应用，如1.8转5V，3.3V转5V等。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_45839.png"></p>
+<p>“稀饭放姜”在后续的版本中，又将74LV1T45改为了更为精简的N沟道MOS管PNMET20V06E电平转换电路，跟进一步降低了电路成本。凸显了他扎实的电路设计能力和务实的作风。 电路工作原理如下，如果是低电平MOS管导通，将MOS管漏极同步拉低，如果是高电平，MOS管截止，漏极呈现高阻，由外部电源电压上拉到合适的电平</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44036.png"></p>
+<p>由于Air720D的IO口输出电压仅为1.8V，驱动能力也比较差，因此指示灯部分如果直接驱动，发光管亮度将非常低，增加一个常见的NPN型三极管2N5551进行电压放大解决了这个问题。 三极管在开关状态下基本上属于饱和状态，使用了1个4.7KOhm的输入电阻，按B-E结压降0.7V计算，Air720 IO驱动输出电流约为230uA。三极管输出限流电阻为470Ohm，红色发光管2V工作电压，E-C结饱和压降0.4V计算，输出电流约为1.9mA亮度适中。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35424.png"></p>
+<p>这款主控板还在USB的D+,D-引脚上对地增加了两枚PESDMC9D5VU保护二极管，在SIM卡的4个引出脚上对地添加了PESDLC553T5VU保护二极管阵列 对裸露IO口进行静电保护处理。 在SP3485CN输出的485_A，485_B引脚上对地和相互间增加了SMF6.0A钳位二极管用于芯片保护，在方方面面都进行了周全的工业设计，完全满足直接量产生产的设计标准。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_70534.jpg"></p>
+<p> 只需再配上壳子就是性能优秀的一款DTU产品了。读者可以自行淘宝购买配置。</p>
+<p>下一篇，我将尝试对720DTU主控大板进行功能测试。时间所限，本次先写到这里，感谢您的阅读。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/647/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/645/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

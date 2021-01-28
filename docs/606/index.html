@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>玩转天猫精灵（一）云端开发 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">玩转天猫精灵（一）云端开发</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;最近在和群友玩天猫精灵，记录一下如何将我们自己的硬件接入天猫精灵并通过它控制设备，可以用在智能家居开发。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-08-AQOUjXbI5d517b50eb3d9.png&quot; style=&quot;width: 50%;&quot; class=&quot;img-responsive&quot;&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;span style=&quot;color: rgb(77, 77, 77); font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px;&quot;&gt;整体业务流程如图，当我们发出一条语音指令，天猫精灵会在本地进行识别并将结果上传到天猫精灵后台，天猫精灵后台会根据语音数据库对消息内容进行匹配，如果是匹配好的控制设备的指令，天猫精灵后台会推送消息到阿里云物联平台，平台推送指令到设备。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 16px; outline: 0px; padding: 0px; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;找到阿里云物联网，行业服务，智能生活开放平台。&lt;/p&gt;&lt;p style=&quot;margin-bottom: 16px; outline: 0px; padding: 0px; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-08-dueJgRPA5d517ba6dd7df.png&quot; style=&quot;width: 277px;&quot; class=&quot;img-responsive&quot;&gt;智能生活开发平台，新建项目&lt;/p&gt;&lt;p style=&quot;margin-bottom: 16px; outline: 0px; padding: 0px; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2019-08-q1KyBFco5d517bbbb37b6.png&quot; style=&quot;width: 252px;&quot; class=&quot;img-responsive&quot;&gt;&lt;span style=&quot;font-size:10.5pt;mso-bidi-font-size:11.0pt;
+</code></pre>
+<p>font-family:等线;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:minor-fareast;<br>mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;<br>mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:<br>ZH-CN;mso-bidi-language:AR-SA”&gt;创建产品</span></p><p style="margin-bottom: 16px; outline: 0px; padding: 0px; font-family: &quot;Microsoft YaHei&quot;, &quot;SF Pro Display&quot;, Roboto, Noto, Arial, &quot;PingFang SC&quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-mm4NYzfP5d517be340048.png" style="width: 277px;" class="img-responsive">选择分类为灯</p><p style="margin-bottom: 16px; outline: 0px; padding: 0px; font-family: &quot;Microsoft YaHei&quot;, &quot;SF Pro Display&quot;, Roboto, Noto, Arial, &quot;PingFang SC&quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-oz1UXPQY5d517c04b88bc.png" style="width: 277px;" class="img-responsive"></p><p class="MsoNormal">创建完成，点击创建的产品<span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p style="margin-bottom: 16px; outline: 0px; padding: 0px; font-family: &quot;Microsoft YaHei&quot;, &quot;SF Pro Display&quot;, Roboto, Noto, Arial, &quot;PingFang SC&quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-AT4us1pc5d517c3d93b68.png" style="width: 277px;" class="img-responsive"></p><p class="MsoNormal">默认功能即可</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-GgZ8l0XR5d517c50cbab3.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">选合宙模组<span lang="EN-US">202</span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-juYmOJpY5d517c662ecb0.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">添加设备</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-1qJA6dGC5d517c7b075dd.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal"><span lang="EN-US">Imei</span>做设备名</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-VOM0H10u5d517c8d75ea1.png" style="width: 277px;" class="img-responsive"></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">记录三元组</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-wqtuttZK5d517cd84593f.png" style="width: 277px;" class="img-responsive"></p><p class="MsoNormal">激活公版<span lang="EN-US">app</span>按钮</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-KxqiACA65d517ced74cb7.png" style="width: 277px;" class="img-responsive"></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-OTBvOfP25d517cf5af0de.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">配置面板</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-HPZu1S4V5d517d0e76340.png" style="width: 167px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">选最简单的就可以</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-PmxwMMeA5d517d25df826.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">分享方式默认</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-1C93AIEd5d517dd56ea2f.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">点进语言管理</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-lh6dJs7k5d517de85f606.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">设置中文即可，其他不用管</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-eauh626G5d517dfdcad95.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">可以看到天猫精灵已经支持这么多类设备</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-8JQ3C8n05d517e14268dc.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-GqKlMqKh5d517e1cde18c.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">选配网二维码（<span lang="EN-US">2G</span>不需要配网，但是需要设备在线然后扫码绑定）</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-jkIuVCQE5d517e2f457bd.png" style="width: 144px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">复制链接</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-rnOWc3hX5d517e4d9ee71.png" style="width: 207px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">末尾根据提示替换成设备名，我用了<span lang="EN-US">imei</span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-1jodnCas5d517e8ab203c.png" style="width: 277px;" class="img-responsive"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal">云平台操作结束<span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;</o:p></span></p><p class="MsoNormal"><span lang="EN-US">&lt;o:p&gt;<br></o:p></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span><br></p></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/607/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/605/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

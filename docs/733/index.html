@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>724UG 开发板点7735S 彩屏的曲折过程。 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">724UG 开发板点7735S 彩屏的曲折过程。</h1>
+<article class="post markdown-style">
+  <p><br></p><p>&nbsp; &nbsp; &nbsp; &nbsp;首先要申明：合宙开发板，点彩屏其实非常简单！官方例子,屏幕接上就亮!</p><p>&nbsp; &nbsp; &nbsp; &nbsp;但是，我的点亮之路却很曲折，很像“天将降大任于斯人也，必先苦其心志.....”</p><p>&nbsp; &nbsp; &nbsp; &nbsp;某一天， 724的板子（黑色）刚刚到收，我就迫不及待的把LUAT玩起来，</p><p>&nbsp;花了几天时间,把什么UART,TCP，UDP,HTTP,MQTT,FOTA，MP3，FLASH r/w，定时器,TASK，GPIO&nbsp; 等等都走一趟，</p><p>&nbsp;其中自然不能少了彩屏。于是淘宝了一片128x160 的7735S， 接上去之后,不亮。</p><p>下载不同的例子，修改参数，都不行，怎么办？怀疑例子不对，怀疑屏幕坏了?怀疑接线又问题?</p><p>于是拿起万用表，看看VLCD 是否有电压，，一看没有电压，接着补习一下 pmd.LDO_VLCD 的电压范围，0~15 等级，实测输出都是0.0V</p><p>取下显示屏，重新上电运行， 还是0.0V， 这个管脚直接从模块内部出来的，难不成这个LDO坏了？</p><p>&nbsp; &nbsp; &nbsp; &nbsp;我立刻联系了官方技术人员， 用我提供的最简化代码，他们测试，这个VLCD 是有电压的，而且可以配置1.8~3.2之间,</p><p>基本可以断定这个管脚出了问题。</p><p>&nbsp; &nbsp; &nbsp;第二天,我找朋友借来一个新的724开发板（绿色），下程序下去，走起， 屏幕亮了， 屏幕上无内容，这又是什么原因呢？</p><p>VLCD 测试是有电了，又是下不同的DEMO代码 ，修改不同的参数修改， 总之就是不不出图像！</p><p>按照以前点黑白屏 128X64XXYY 系列的经验, 就算是驱动不完全对应，总能显示出点东西出来,细节再去看相片LCD 的资料调整下参数。</p><p>伤脑筋! 于是拿宏晶的51板子搭线，照着淘宝商家的例子，烧录下去，还是不显示东西，还真是邪门，莫非淘宝的屏幕也不行？</p><p>&nbsp; &nbsp; 不能就这么放弃吧？&nbsp; 我换了一家淘宝店,也换个尺寸，这次购买的是 80 x 160 7735S 。屏幕到了之后， 第一件事，就是在绿色开发板，</p><p>接上去，开机直接就出图了，只是内容排版和 128X160的位置不同，这个好说。然后，我将其他几个DEMO 分别烧录下去，什么都不修改，</p><p>也都能显示（最多就是，反彩色，或位置差异），说明什么? 说明,要运气好,验证彩屏也就是十分钟内的事情.</p><p>&nbsp; &nbsp; &nbsp;一件在很多人看起来简单不过的事情，在我身上经历了几天时间，如果当时某个环节放弃了，也许思维仍然定格在可能是这个原因，</p><p>可能是那个原因，然而，就忽略自己脸黑(非洲酋长)的原因； 多少人买个彩屏回来，直接点亮，幸福如此这般。</p><p>&nbsp; &nbsp; &nbsp;板子LDO没电压是我的原因吗？ 淘宝的屏幕出问题也是我原因吗？ 也许是吧.&nbsp; 爬出坑后，那些拦路虎，也都变成了插曲。</p><p>回想起来,可能除了不抛弃不放弃这一点可取之处之外,技术上实在也没什么亮点了,当然这个过程总有合宙的技术人员贴心相伴.</p><p>&nbsp; &nbsp; 作为回馈,我协助QQ群里的的某些玩家点亮彩屏, 并把我还是把踩坑的过程写出来</p><p>下图是我开始点亮的状态(未修改参数)</p><p><img src="https://oldask.openluat.com/image/show/attachments-2020-05-RL8LreP45eb96bf28f7a1.png" class="img-responsive" style="width: 376.5px;">下面是我修改参数后的.</p><p><img src="https://oldask.openluat.com/image/show/attachments-2020-05-ajkjTtao5eb96da069abd.png" class="img-responsive" style="width: 544px;"></p><p>下面是协助QQ群里另外一个朋友点亮 128X160的屏幕<img src="https://oldask.openluat.com/image/show/attachments-2020-05-FKQjCg5g5eb96f9f89439.png" class="img-responsive" style="width: 510px;"></p><p>源代码如下:</p><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163802774_GiAZC6J45eb9702300e02_COLOR_LCD.rar">COLOR_LCD.rar</a></p><p>希望大家都是欧皇,干嘛嘛顺.<br></p><p><br></p><p><br></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/734/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/284/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

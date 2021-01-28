@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Luat训练营-第1天 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Luat训练营-第1天</h1>
+<article class="post markdown-style">
+  <p>@<a href="Luat%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC1%E5%A4%A9">TOC</a></p>
+<h2 id="相关事宜"><a href="#相关事宜" class="headerlink" title="相关事宜"></a>相关事宜</h2><p>1.福利很多板子、优惠券！！（优秀作业、优秀案例）<br>2.训练营进行中回放可以在腾讯课堂回看，训练营结束后可以在哔哩哔哩 UID:88809897中查看</p>
+<h2 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h2><h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><p>1.使用Visual Studio Code(群文件-&gt; 学习工具/自行下载)<br>2.安装插件：chinese(中文环境)<br>                lua(环境插件)<br>                luat(环境插件)</p>
+<p>3.调试：①在线调试（doc.openluat.com/java）<br>          ②本地调试（需要安装lua环境）<br>          ③Visual Studio Code安装插件，安装后点击右上角三角即可运行（code runner插件）</p>
+<h3 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello lua&quot;</span>)<span class="comment">--控制台打印输出</span></span><br></pre></td></tr></table></figure>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">air = <span class="string">&quot;hello world&quot;</span><span class="comment">--字符串变量赋值</span></span><br><span class="line"><span class="built_in">print</span>(air)<span class="comment">--打印变量</span></span><br><span class="line">air2 = <span class="number">6</span><span class="comment">--数字变量赋值</span></span><br><span class="line"><span class="built_in">print</span>(air2)<span class="comment">--打印变量</span></span><br></pre></td></tr></table></figure>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--这是一个单行注释</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">这是一个多行注释</span></span><br><span class="line"><span class="comment">]]</span></span><br></pre></td></tr></table></figure>
+<h3 id="多变量赋值"><a href="#多变量赋值" class="headerlink" title="多变量赋值"></a>多变量赋值</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">air,air2 = <span class="string">&quot;hw&quot;</span>,<span class="number">6</span> <span class="comment">--按次序赋值</span></span><br><span class="line"><span class="built_in">print</span>(air)<span class="comment">--打印</span></span><br><span class="line"><span class="built_in">print</span>(air2)<span class="comment">--打印</span></span><br></pre></td></tr></table></figure>
+<h3 id="nil"><a href="#nil" class="headerlink" title="nil"></a>nil</h3><p><code>nil</code>表示没有任何有效值，只要是没有声明的值，它就是<code>nil</code>.</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a)<span class="comment">--a没有声明，直接打印就会是nil类型</span></span><br><span class="line">b = <span class="literal">nil</span> <span class="comment">--将变量声明为nil类型</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br></pre></td></tr></table></figure>
+<h3 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h3><p>使用Day1讲的用法，写一个自己的程序。<br>要求<br>1、禁止抄袭<br>2、代码量不少于10行<br><img src="https://img-blog.csdnimg.cn/20210119144738946.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello lua !!&quot;</span>)<span class="comment">--打印</span></span><br><span class="line">num = <span class="number">10</span><span class="comment">--变量赋值</span></span><br><span class="line">num1,num2 = <span class="number">5</span>,<span class="literal">nil</span> <span class="comment">--多变量赋值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;the num is &quot;</span>,num)<span class="comment">--打印</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;the num1 is &quot;</span>,num1)<span class="comment">--打印</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;the num2 is &quot;</span>,num2)<span class="comment">--打印</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">进行变量赋值</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line">num,num1 = num1,num2<span class="comment">--多变量赋值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;changed the num is &quot;</span>,num)<span class="comment">--打印</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;changed the num1 is &quot;</span>,num1)<span class="comment">--打印</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;the num2 is &quot;</span>,num2)<span class="comment">--打印</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="第2天"><a href="#第2天" class="headerlink" title="第2天"></a>第2天</h2><p><a href="https://doc.luatos.wiki/2353#_219">第二天</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2353/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2348/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

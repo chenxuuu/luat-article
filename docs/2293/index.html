@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>umi-library的基本使用 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">umi-library的基本使用</h1>
+<article class="post markdown-style">
+  <h1 id="umi-library"><a href="#umi-library" class="headerlink" title="umi-library"></a>umi-library</h1><h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/umi-library">官网地址</a></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>可以使用umi-library将自己的组件打包成各种类型的包,同时支持生成在线文档</p>
+<h2 id="打包方式说明"><a href="#打包方式说明" class="headerlink" title="打包方式说明"></a>打包方式说明</h2><ul>
+<li><p>babel方式打包 将按照源代码的文件目录进行打包</p>
+</li>
+<li><p>默认为<a target="_blank" rel="noopener" href="https://www.rollupjs.com/">rollup</a>方式(将文件合并成一个)</p>
+</li>
+</ul>
+<h2 id="打包文件格式说明"><a href="#打包文件格式说明" class="headerlink" title="打包文件格式说明"></a>打包文件格式说明</h2><ul>
+<li>esm：es6语法格式(也叫AMD)，主要用在浏览器中 export default …；可以做 tree-shaking(打包成一个文件，但是项目中使用时只引入需要的那一部分)</li>
+<li>cjs： es5的语法(也叫CommonJS)，目前主要给node用； module.exports=…</li>
+<li>umd：兼容esm和cjs，先判断是否支持node模块module.exports</li>
+</ul>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i umi-library</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>新建.umirc.library.js文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  entry: &#x27;src/index.js&#x27;, // 默认入口位置。可以不配置</span><br><span class="line">  esm: &#123;</span><br><span class="line">      type:&#x27;babel&#x27;, // 或者type:rollup</span><br><span class="line">      file: &#x27;name&#x27;, // 指定 esm 的输出文件名。</span><br><span class="line">      mjs: true, // 是否同时输出一份给浏览器用的 esm，以 .mjs 为后缀。</span><br><span class="line">      <span class="comment">// mjs 目前不通用，除非你知道这是什么，否则不要配置。</span></span><br><span class="line">      minify:true , // 压缩格式</span><br><span class="line">  &#125;, </span><br><span class="line">  cjs: &#x27;babel&#x27;, // 也支持如上面esm一样的配置，这是简写</span><br><span class="line">  umd:&#123;</span><br><span class="line">      globals:&#123; // 指定rollup的golbals配置</span><br><span class="line">          </span><br><span class="line">      &#125;,</span><br><span class="line">      name:&#x27;&#x27; // 指定rollup的name配置</span><br><span class="line">      minFile:true, // 指定生成压缩版本</span><br><span class="line">      file:&#x27;&#x27;// 指定umd的文件输出名</span><br><span class="line">  &#125;,</span><br><span class="line">   autoprefixer&#123; // 配置参数传给 autoprefixer，详见 autoprefixer#options，常用的有 flexbox 和 browsers。</span><br><span class="line">      browsers: [</span><br><span class="line">        &#x27;ie&gt;8&#x27;,</span><br><span class="line">        &#x27;Safari &gt;= 6&#x27;,</span><br><span class="line">      ],</span><br><span class="line">  &#125;,</span><br><span class="line">  extraBabelPlugins:[ // 额外的babel plugin</span><br><span class="line">      [&#x27;babel-plugin-import&#x27;, &#123; <span class="comment">// 例如配置按需加载antd</span></span><br><span class="line">          libraryName:&#x27;antd&#x27;,</span><br><span class="line">          libraryDirectory:&#x27;es&#x27;,</span><br><span class="line">          style:true</span><br><span class="line">      &#125;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="文档相关配置"><a href="#文档相关配置" class="headerlink" title="文档相关配置"></a>文档相关配置</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  doc: &#123;  //文档相关配置</span><br><span class="line">    themeConfig: &#123; mode: &#x27;dark&#x27; &#125; &#125;,</span><br><span class="line">    htmlContext: &#123; // 扩展 html 模板。</span><br><span class="line">      head: &#123;</span><br><span class="line">        favicon: &#x27;&#x27;,</span><br><span class="line">        meta: [],</span><br><span class="line">        links: [</span><br><span class="line">          &#123; rel: &#x27;stylesheet&#x27;, href: &#x27;foo.css&#x27; &#125;,</span><br><span class="line">        ],</span><br><span class="line">        scripts: [</span><br><span class="line">          &#123; src: &#x27;bar.js&#x27; &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">      body: &#123;</span><br><span class="line">        scripts: [</span><br><span class="line">          &#123; src: &#x27;hoo.js&#x27; &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="使用命令"><a href="#使用命令" class="headerlink" title="使用命令"></a>使用命令</h3><ul>
+<li>打包： <code>umi-library build</code></li>
+<li>打包简写： <code>umi-lib build</code></li>
+<li>运行文档：<code> umi-lib doc dev</code></li>
+<li>打包文档：<code>umi-lib doc build</code></li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2296/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2259/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

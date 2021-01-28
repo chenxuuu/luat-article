@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>理解Lua 语言中的点、冒号与self [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">理解Lua 语言中的点、冒号与self</h1>
+<article class="post markdown-style">
+  <div id="pro-mian-header" style="margin: 0px; padding: 40px 0px 0px; font-family: Verdana, Arial, Helvetica, sans-serif;"><div class="content-top" style="margin: 0px; padding: 0px;"><p style="margin-bottom: 0px; padding: 0px; font-size: 22px; color: rgb(0, 0, 0);">lua编程中，经常遇到函数的定义和调用，有时候用点号调用，有时候用冒号调用，这里简单的说明一下原理。如：</p></div></div><div class="content-bg" style="margin: 0px; padding: 0px; width: auto; max-width: 980px; font-family: Verdana, Arial, Helvetica, sans-serif;"><div class="content-intro view-box " style="margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 15px 0px 20px; line-height: 1.7; color: rgb(51, 51, 51); outline: none; overflow-wrap: break-word; min-height: 600px; margin-top: 0px !important;"><div class="view-body think-editor-content" style="margin: 0px; padding: 0px;"><h3 style="margin-right: 0px; margin-left: 0px; padding: 0px; font-weight: 600; color: rgb(51, 51, 51); line-height: 1.7; font-size: 14px;">点号调用：</h3><pre style="margin-top: 15px; margin-bottom: 15px; padding: 10px 5px; position: relative; width: auto; max-width: 700px; line-height: 1.7; background: rgb(239, 239, 239); border-radius: 3px; font-size: 14px; font-family: Consolas, &quot;Courier New&quot;, Courier, monospace; border-color: rgb(221, 221, 221);"><code class="hljs javascript" style="margin: 0px; display: block; overflow-x: auto; background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; color: rgb(51, 51, 51); font-size: 14px; font-family: Consolas, &quot;Courier New&quot;, Courier, monospace;">-- 点号定义和点号调用:
+girl = &#123;money = <span class="hljs-number" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0);">200</span>&#125;
+
+<p><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px; font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px;">function</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">goToMarket</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">girl ,someMoney</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)<br>    </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> = </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> - </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">someMoney</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><br></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">end</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"></p>
+<p></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">goToMarket</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">girl ,100</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)<br></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">print</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">girl.money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)</span></span></span></code></pre><h3 style="margin-right: 0px; margin-left: 0px; padding: 0px; font-weight: 600; color: rgb(51, 51, 51); line-height: 1.7; font-size: 14px;">引用参数self：</h3><pre style="margin-top: 15px; margin-bottom: 15px; padding: 10px 5px; position: relative; width: auto; max-width: 700px; line-height: 1.7; background: rgb(239, 239, 239); border-radius: 3px; font-size: 14px; font-family: Consolas, &quot;Courier New&quot;, Courier, monospace; border-color: rgb(221, 221, 221);"><code class="hljs javascript" style="margin: 0px; display: block; overflow-x: auto; background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; color: rgb(51, 51, 51); font-size: 14px; font-family: Consolas, &quot;Courier New&quot;, Courier, monospace;">-- 参数self指向调用者自身(类似于c++里的<span class="hljs-keyword" style="margin: 0px; padding: 0px; font-weight: bold;">this</span> 指向当前类)<br>girl = &#123;money = <span class="hljs-number" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0);">200</span>&#125;</p>
+<p><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px; font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px;">function</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">goToMarket</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">self ,someMoney</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)<br>    </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">self</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> = </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">self</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> - </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">someMoney</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><br></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">end</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"></p>
+<p></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">goToMarket</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">girl, 100</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)<br></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">print</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">girl.money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)</span></span></span></code></pre><h3 style="margin-right: 0px; margin-left: 0px; padding: 0px; font-weight: 600; color: rgb(51, 51, 51); line-height: 1.7; font-size: 14px;">冒号调用：</h3><pre style="margin-top: 15px; margin-bottom: 15px; padding: 10px 5px; position: relative; width: auto; max-width: 700px; line-height: 1.7; background: rgb(239, 239, 239); border-radius: 3px; font-size: 14px; font-family: Consolas, &quot;Courier New&quot;, Courier, monospace; border-color: rgb(221, 221, 221);"><code class="hljs javascript" style="margin: 0px; display: block; overflow-x: auto; background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; color: rgb(51, 51, 51); font-size: 14px; font-family: Consolas, &quot;Courier New&quot;, Courier, monospace;">-- 冒号定义和冒号调用:<br>girl = &#123;money = <span class="hljs-number" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0);">200</span>&#125;</p>
+<p><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px; font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-keyword" style="margin: 0px; padding: 0px;">function</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">:</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">goToMarket</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">someMoney</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)<br>    </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">self</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> = </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">self</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">.</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"> - </span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">someMoney</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><br></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">end</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"></p>
+<p></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">girl</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">:</span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">goToMarket</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">100</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)<br></span></span><span class="hljs-title" style="margin: 0px; padding: 0px; color: rgb(136, 0, 0); font-weight: bold;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-title" style="margin: 0px; padding: 0px;">print</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">(</span></span><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-params" style="margin: 0px; padding: 0px;">girl.money</span></span></span></span></span><span class="hljs-function" style="margin: 0px; padding: 0px;"><span class="hljs-function" style="margin: 0px; padding: 0px;">)</span></span></span></code></pre><p style="margin-bottom: 5px; padding: 0px; overflow-wrap: break-word; line-height: 1.7;">冒号定义和冒号调用其实跟上面的效果一样，只是把第一个隐藏参数省略了，而该参数self指向调用者自身。</p><p style="margin-bottom: 5px; padding: 0px; overflow-wrap: break-word; line-height: 1.7;"><strong style="margin: 0px; padding: 0px;">总结：</strong>冒号只是起了省略第一个参数self的作用，该self指向调用者本身，并没有其他特殊的地方。</p></div></div></div></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/537/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/535/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

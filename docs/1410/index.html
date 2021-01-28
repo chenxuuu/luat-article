@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>内存泄漏分析工具 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">内存泄漏分析工具</h1>
+<article class="post markdown-style">
+  <h2 id="内存泄漏分析工具"><a href="#内存泄漏分析工具" class="headerlink" title="内存泄漏分析工具"></a>内存泄漏分析工具</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h4><p>​            长期以来，内存泄漏分析起来是比较痛疼并且耗时。如果不知道程序跑了那些应用，或者程序应用比较复杂，尤其难分析。目前我们分析内存泄漏的方法是通过dump 堆文件，然后从中找出蛛丝马迹，可是这个堆文件打印出来的函数调用有几万次，很难通过对比发现问题，基于这个痛点，开发了一个内存泄漏分析工具。</p>
+<h4 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路:"></a>解决思路:</h4><p> 如果我们将dump 出来的堆文件，用脚本语言整理一下：</p>
+<ol>
+<li>按照首字母排序</li>
+<li>显示调用次数</li>
+<li>显示当前函数总申请大小</li>
+</ol>
+<p>这样通过对比一份正常运行相同业务强制死机的堆文件，和 一份内存泄漏导致死机的堆文件，就可以通过总大小和申请次数来判断或者缩小判断哪个地方导致的泄漏</p>
+<h4 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h4><h5 id="1-下载-MemoryAnalysis-py-文件"><a href="#1-下载-MemoryAnalysis-py-文件" class="headerlink" title="1.下载 MemoryAnalysis.py 文件"></a>1.下载 <a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200721191935976_MemoryAnalysis.py">MemoryAnalysis.py</a> 文件</h5><h5 id="2-让正常使用过程中的模块死机（要保证和死机的模块保证同一个应用场景）"><a href="#2-让正常使用过程中的模块死机（要保证和死机的模块保证同一个应用场景）" class="headerlink" title="2.让正常使用过程中的模块死机（要保证和死机的模块保证同一个应用场景）"></a>2.让正常使用过程中的模块死机（要保证和死机的模块保证同一个应用场景）</h5><h6 id="1-1802-1802S-死机方法"><a href="#1-1802-1802S-死机方法" class="headerlink" title="1.1802/1802S 死机方法"></a>1.1802/1802S 死机方法</h6><p>   发送AT*EXASSERT=1 后发送 AT+LOG=14,即可让模块死机</p>
+<h6 id="2-8910-死机方法"><a href="#2-8910-死机方法" class="headerlink" title="2.8910 死机方法"></a>2.8910 死机方法</h6><p>   通过发送AT*EXASSERT=1 后使用coolwatch如下按钮进入死机模式<br>   <img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824214107711_QQ%E5%9B%BE%E7%89%8720200824213751.png"></p>
+<h5 id="3-获取堆文件"><a href="#3-获取堆文件" class="headerlink" title="3 获取堆文件"></a>3 获取堆文件</h5><p>​    i.1802/1802S先按照 <a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200824211221041_asr%20ARM%20%E5%B9%B3%E5%8F%B0%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98.7z">ARM ASR dump 工具</a>  中的方法将heap dump 出来</p>
+<p>​    ii.8910 使用下图所示方法dump heap</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824212016825_QQ%E5%9B%BE%E7%89%8720200824211532.png"></p>
+<h5 id="4-修改脚本"><a href="#4-修改脚本" class="headerlink" title="4.修改脚本"></a>4.修改脚本</h5><p>  这些文件按放入 <a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200721191935976_MemoryAnalysis.py">MemoryAnalysis.py</a> 同级目录下，并根据平台将PLAT_TYPE 改为”ASR” 或者 ”RDA“ ， 同时将这些文件放入到fileList 列表中。</p>
+<h5 id="6-运行脚本，"><a href="#6-运行脚本，" class="headerlink" title="6.运行脚本，"></a>6.运行脚本，</h5><p>1.每份heap 文件 都会生成一个 以analysis.txt 结尾的文件，文件会显示每个获取堆空间的函数，以及获取的总大小，和总次数，并按照字母排序出来</p>
+<h5 id="7-开始分析（注意左侧是死机的dump）"><a href="#7-开始分析（注意左侧是死机的dump）" class="headerlink" title="7.开始分析（注意左侧是死机的dump）"></a>7.开始分析（注意左侧是死机的dump）</h5><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824212540972_QQ%E5%9B%BE%E7%89%8720200824212521.png"><br><em>左侧死机的这个函数总共获取的空间，和调用次数，比右侧这个正常的明显大出很多</em></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1414/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1405/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>为什么Air2xx/Air8xx系列2G模块要用看门狗，而Air7xx系列模块不需要看门狗？ [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">为什么Air2xx/Air8xx系列2G模块要用看门狗，而Air7xx系列模块不需要看门狗？</h1>
+<article class="post markdown-style">
+  <p>合宙的Air2xx和Air8xx系列模块，一直以稳定和质优价廉著称，深受开发者喜爱。而这两个系列的2G模块，文档都推荐开发者使用看门狗芯片，以提高芯片运行稳定性。</p>
+<p>所以开发者养成了随手加个看门狗+喂狗的习惯。但是Air7xx系列4G模块好像反其道而行之，没有看门狗了，这是为什么呢？</p>
+<blockquote>
+<p>名词解释<br>PMU - Power Management Unit，电源管理单元，为单片机提供所需的稳定电源。<br>BB - BaseBand，基带。合成即将发射的基带信号，或对接收到的基带信号进行解码。近似于过去的猫（modem，调制解调器）。</p>
+</blockquote>
+<p>##2G模块 (RDA8955)<br>Air202等2G模块采用的是RDA8955芯片。由于2G比较成熟且简单，所以8955将BB、PMU、Transceiver集成在了一起。</p>
+<p>这样做的好处是集成度高、成本低；坏处是关联性强。最明显的一点是BB死机时PMU也会挂掉，所以在这种情况下我们在设计上加了外置单片机看门狗。</p>
+<p>整体死掉，就没有办法重启了，所以用外置的看门狗芯片重启模块。</p>
+<hr>
+<p>##4G模块 (ASR1802)<br>Air720等4G模块采用的是ASR1802芯片。它是一颗集成度非常高的4G多模BB芯片，同时辅以ASR系列的PMU和Transceicer一起工作。</p>
+<p>当BB死机后，PMU内的看门狗可以将BB复位。所以4G模块直接用了PMU的做看门狗。如此一来，4G模块算是内置了“看门狗”，所以不需要开发者再使用外置的看门狗芯片了。</p>
+<p>那么，PMU是如何兼任看门狗的呢？</p>
+<hr>
+<p>###PMU的打狗棒法</p>
+<p>开机键是挂在PMU上的，所以开机键检测由PMU硬件实现——当PMU检测到开机键接地一定时间<em>（开机键接地时间通过PMU寄存器记录）</em>后即开机，当检测到开机键接地超过一定时间后则断开所有电源输出重新上电开机；</p>
+<blockquote>
+<p>当开机键一直接地时，BB过一段时间就通过I2C去清掉PMU寄存器里的开机键接地的时间记录，类似于一次喂狗<em>（清掉开机时间寄存器）</em>。当BB死机后无法清掉该寄存器。所以，PMU会将BB复位；</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/450/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/448/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

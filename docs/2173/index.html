@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>mysql的索引和优化 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">mysql的索引和优化</h1>
+<article class="post markdown-style">
+  <ul><li>索引</li><ul><li>主键索引</li><ul><li><span style="color:#121212">加速查询 + 列值唯一 + 不可以为null + 表中只有一个</span></li><li>主键索引是在主键上的索引，设置key的时候，sql会自动创建主键索引。</li></ul><li>普通索引</li><ul><li><span style="color:#121212">作用：仅加速查询</span></li><li>创建非主键列上字段的索引。         </li></ul><li>聚合索引</li><ul><li><span style="color:#121212">多列组合成一个索引，用于加速查询</span></li><li>一张表有多个索引，也成为复合索引。</li></ul><li>唯一索引</li><ul><li><span style="color:#121212">作用：加速查询 + 列值唯一 + 可以为null + 表中只有一个</span></li></ul><li>全文索引</li></ul></ul><h5 id="cdf978f3" data-lake-id="4ea76454d8549c6ef4836a4f86715dd0" data-wording="true">索引的语法</h5><p style="text-indent:2em;" data-lake-id="c7decbb81426e61b5d84738cc4dff52f" data-wording="true">查看某张表的索引：SHOW INDEX FROM 表名；</p><p style="text-indent:2em;" data-lake-id="15945592b2a5a1dfc2a4210674449380" data-wording="true">创建普通索引：ALTER TABLE 表名 ADD INDEX 索引名 (加索引的列)</p><p style="text-indent:2em;" data-lake-id="0e36c8ea895a88aad82a8784544b26e1" data-wording="true">创建聚合索引：ALTER TABLE 表名 ADD INDEX 索引名 (加索引的列1,加索引的列2)</p><p style="text-indent:2em;" data-lake-id="adeffab2a93c2dfd46dbc07746519a42" data-wording="true">删除某张表的索引：DROP INDEX 索引名 ON 表名;</p><h5 id="9a7b7b2c" data-lake-id="21156ee85772604f15bf5b18ad60c036" data-wording="true">索引的注意事项和优化</h5><p style="text-indent:2em;" data-lake-id="af5297e392aecf0535224823af470c88" data-wording="true">1、应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。</p><p style="text-indent:2em;" data-lake-id="6e9f858f0cb58048d2ca2db1f364c41e" data-wording="true">解释：</p><p style="text-indent:2em;" data-lake-id="703805d39de81e9bc0f3d2f09b61c28d" data-wording="true">不等于 也是一个很大的范围，和全盘扫描没啥区别。</p><p style="text-indent:2em;" data-lake-id="0800f809f86755574f8c09ff1f834def"><br/></p><p style="text-indent:2em;" data-lake-id="563c0865b49b15d9359514c4bceeeab0" data-wording="true">2、对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p><p style="text-indent:2em;" data-lake-id="421d4e73a25e50b3d2085fafcd07b211" data-wording="true">3、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描。</p><p style="text-indent:2em;" data-lake-id="0faf2b784d6572bd687c9342180b6d64" data-wording="true">解释:</p><p style="text-indent:2em;" data-lake-id="8a11cb7188070ae187aabb0da6aafdb3" data-wording="true">如果项目有非要用空值的话，可以在字段默认0。</p><p style="text-indent:2em;" data-lake-id="6ad2467fc79990ef07abd9663859cd0f" data-wording="true">4、尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描 如：</p><p style="text-indent:2em;" data-lake-id="81d2de9400db2eeeea4b11715dbb62cf" data-wording="true"><code><span style="color:#121212">select id from t where num=10 or num=20</span></code></p><p style="text-indent:2em;" data-lake-id="25845b2889b248118c8697259f317efd" data-wording="true">优化为;</p><p style="text-indent:2em;" data-lake-id="f6583481c065635856bb7bc977cfbca4" data-wording="true"><code><span style="color:#121212">select * from t where num=10 union select * from t where num=20;</span></code></p><p style="text-indent:2em;" data-lake-id="209ce2492241148c74502afbe47cecd3" data-wording="true"><span style="color:#121212">解释：</span></p><p style="text-indent:2em;" data-lake-id="1ad4b1010af502f95709bff8303abebd" data-wording="true">在查询条件中使用OR连接多个条件会导致索引失效，这时应该改为两次查询，然后用UNION ALL连接起来。</p><p style="text-indent:2em;" data-lake-id="3eb2b627313ffb1ceddece50a3a02aee" data-wording="true">5、下面的查询也将导致全表扫描：</p><p style="text-indent:2em;" data-lake-id="c06fc9d2f42d52d3297e9a18cd833476" data-wording="true"><code>select id from t where name like &quot;%zheng&quot;</code></p><p style="text-indent:2em;" data-lake-id="382f491fa72ffab76974f70b1ed7fdae" data-wording="true">优化为;</p><p style="text-indent:2em;" data-lake-id="bd5e2c8583bee2f6595c797748ae743b" data-wording="true"><code>select id from t where name like &quot;zheng%&quot;</code></p><p style="text-indent:2em;" data-lake-id="e9155c533da23629079ceb2c49fb6cae" data-wording="true">解释：</p><p style="text-indent:2em;" data-lake-id="7fe0ea69f14240069f9a5b276a1a7193" data-wording="true">%在mysql中作为一个通配符，既然作为通配符，模糊查询时需要一个一个进行匹配 如A,B,C,D,E,.... 匹配完了，才开始zheng这个模糊查询，就像在上海坐地铁一样，准备要做中科路，自己还要一条一条线去找那条线是去中科路的，如果一开始知道13号线通中科路的话，就会快的很多。</p><p style="text-indent:2em;" data-lake-id="8d61147930708dc079c5d3f498362909" data-wording="true">6、<span style="color:#121212">不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</span></p><p style="text-indent:2em;" data-lake-id="84a5bf0184cc8fe4530d5bdacfa91452" data-wording="true">7、 最左前缀集合，如：聚合索引 （a,b,c）</p><p style="text-indent:2em;" data-lake-id="d51efacd2bbf5d55040ac9b3f516818d" data-wording="true"><code>正确使用的索引语句</code></p><p style="text-indent:2em;" data-lake-id="6fcf69b0416733cd47f6de26f6b5e80d" data-wording="true"><code>select * from aaa where a = &quot;&quot; and b = &quot;&quot; and c = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="ed1ca6ed2233ff75977db45f021742a1" data-wording="true"><code>select * from aaa where a = &quot;&quot; and b = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="f3c93b12f5ac71852f1d6c5c692a4b1f" data-wording="true"><code>select * from aaa where a = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="6b049ed147047c813428d44554e46af5" data-wording="true"><code>不正确使用索引</code></p><p style="text-indent:2em;" data-lake-id="354bf4dee2de830f27deb7670fc95e1d" data-wording="true"><code>select * from aaa where c = &quot;&quot; and b = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="54633dd10ce5c9796e665a3886f0eaa9" data-wording="true"><code>select * from aaa where c = &quot;&quot; and a = &quot;&quot;</code></p><p style="text-indent:2em;" data-lake-id="6e324a881c9c233610b47c63ad3bad42" data-wording="true">看过以上sql可以看出来，创建了三个字段的索引等于创建了<span style="color:#121212">a、a,b、a,b,c三个索引</span></p><p data-lake-id="bab55d787f0866f3f83fb73b1f2cdc37" data-wording="true">8、短索引 </p><p data-lake-id="0257d51f684012927d74eaeaea6b9a5f"><br/></p><h5 data-lake-id="56eeb941838af7263351053d65d330cd" id="jQD8K" data-wording="true">问题</h5><p style="text-indent:2em;" data-lake-id="30871b52ca6235c1e5e77f19dafda431" data-wording="true">以前遇到一个问题，在数据量大的时候，因有一个字段是str类型，而我查询的时候是用int类型查询</p><p style="text-indent:2em;" data-lake-id="65ad9219c508b89c9b8a0cf723a991a5" data-wording="true"><code>select * from aaa where a = 123</code></p><p style="text-indent:2em;" data-lake-id="155f2cab5a7d72c3dc0a8b58d8322573" data-wording="true">查询一条数据在10s以上，明明有索引为什么那么慢，然后改成</p><p style="text-indent:2em;" data-lake-id="700f2a89dd4ce942ab160e38a9bc1a81" data-wording="true"><code>select * from aaa where a = &quot;123&quot;</code></p><p style="text-indent:2em;" data-lake-id="b42b91be1672df34f7c06ed39c51c068" data-wording="true">查询一条数据在1s之内，查阅资料才知道：</p><p style="text-indent:2em;" data-lake-id="f65a460937345bbfd340ce3f8cda8827" data-wording="true"><span style="color:#4d4d4d"><span style="font-size:16px">当MySQL中字段为int类型时，搜索条件where num=&quot;111&quot; 与where num=111都可以使用该字段的索引。</span></span></p><p style="text-indent:2em;" data-lake-id="d88c4511a6d13c27a857db783880835e" data-wording="true"><span style="color:#4d4d4d"><span style="font-size:16px">当MySQL中字段为str类型时，搜索条件where num=&quot;111&quot; 可以使用索引，where num=111 不可以使用索引。</span></span></p><p style="text-indent:2em;" data-lake-id="d7e5f8076a225ff23945b15a1c4ddfa5"><br/></p><p data-lake-id="258f929f20eaa47dada8e8c4753db84a" data-wording="true">总结：</p><p style="text-indent:2em;" data-lake-id="6a985c5273643c1f245cbb66480026fa" data-wording="true"><span style="color:#121212">如果=和in一起使用的话，mysql会帮助优化成最佳索引</span></p><p style="text-indent:2em;" data-lake-id="1a92ce8cd4c328bf19e07afcf53493eb" data-wording="true"><span style="color:#121212">尽量不要新建索引，适当扩展索引，索引也不是越多越好，对于更新，插入有所影响</span></p><p style="text-indent:2em;" data-lake-id="660aa9a5b93e2f90026cd1f49a35d157" data-wording="true"><span style="color:#121212">explain命令，准备运行一个sql时，先用explain命令看下sql的执行计划</span></p><p data-lake-id="a7842b6a6d688d0d0b90b112948385ca" data-wording="true"><span style="color:#121212">不能再where的左边进行函数或者表达式运算</span></p><p data-lake-id="ab41577d0b7121e0bdf9d008b057393b" data-wording="true"><span style="color:#121212">避免全盘查询</span></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2175/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2172/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

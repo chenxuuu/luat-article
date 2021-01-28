@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">教你用Air720 模块通过AT指令以MQTTS方式连接华为云（下篇）</h1>
+<article class="post markdown-style">
+  <p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/902">教你用Air720 模块通过AT指令以MQTTS方式连接华为云(上篇)</a></p>
+<h1 id="生成MQTTS连接参数"><a href="#生成MQTTS连接参数" class="headerlink" title="生成MQTTS连接参数"></a>生成MQTTS连接参数</h1><p>上篇创建了真实测试设备，需要记录下设备ID和密匙，用于生成连接参数。<br><img src="/static/editormd/php/../uploads/5_34803.jpg" alt="![](/static/editormd/php/../uploads/5_49337.jpg)"><br>1.设备ID<br><code>9e352064-f339-45e3-842d-ab7b27616414</code><br>2.密匙<br><code>4aa2c87b6696ee37ce83</code></p>
+<p>点击确定后进入在线调测页面<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_50453.jpg"></p>
+<p>点击左侧菜单设备管理，可以看到设备列表中，刚创建的设备状态是离线。一会儿使用Air720连接成功后，就变成在线状态了。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40999.jpg"><br>点击左侧对接信息，可得到MQTT的连接ip和好、端口号<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78142.jpg"></p>
+<h2 id="MQTT连接参数"><a href="#MQTT连接参数" class="headerlink" title="MQTT连接参数"></a>MQTT连接参数</h2><p>根据文档<a target="_blank" rel="noopener" href="https://support.huaweicloud.com/api-IoT/iot_06_3009.html" title="MQTT CONNECT连接鉴权">MQTT CONNECT连接鉴权</a>，摘要如下：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39842.jpg"></p>
+<p>cliendID=9e352064-f339-45e3-842d-ab7b27616414_0_0_2019071713<br>Username=9e352064-f339-45e3-842d-ab7b27616414<br>Password=162298e5d1aee9a239ea5b5fd711c31393d1a4b05e7cea5eba912e6c26b3305e</p>
+<blockquote>
+<p>上面的Password的值为使用“HMACSHA256”算法以时间戳为秘钥，对secret进行加密后的值。secret为注册设备时平台返回的secret，也就是上面创建设备时生成密匙。</p>
+</blockquote>
+<p>这里给出一段使用Python生成上述参数的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> pytz</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> hmac</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">HMACSHA256</span>(<span class="params">message,key</span>):</span></span><br><span class="line">    <span class="keyword">return</span> hmac.new(key.encode(<span class="string">&#x27;utf-8&#x27;</span>),message.encode(<span class="string">&#x27;utf-8&#x27;</span>),hashlib.sha256).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地时间转换为UTC</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">local_to_utc</span>(<span class="params">local_ts, utc_format=<span class="string">&#x27;%Y%m%d%H&#x27;</span></span>):</span></span><br><span class="line">    local_tz = pytz.timezone(<span class="string">&#x27;Asia/Chongqing&#x27;</span>)   </span><br><span class="line">    local_dt = local_tz.localize(local_ts)</span><br><span class="line">    utc_dt = local_dt.astimezone(pytz.utc)</span><br><span class="line">    <span class="keyword">return</span> utc_dt.strftime(utc_format)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_utc_timstamp</span>():</span></span><br><span class="line">    local_tz=pytz.timezone(<span class="string">&#x27;Asia/Shanghai&#x27;</span>)</span><br><span class="line">    local_dt=local_tz.localize(datetime.datetime.now())</span><br><span class="line">    utc_dt=local_dt.astimezone(pytz.utc)</span><br><span class="line">    <span class="keyword">return</span> utc_dt.strftime(<span class="string">&#x27;%Y%m%dT%H%M%SZ&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	deviceId=<span class="string">&#x27;9e352064-f339-45e3-842d-ab7b27616414&#x27;</span></span><br><span class="line">    secret = <span class="string">&#x27;4aa2c87b6696ee37ce83&#x27;</span></span><br><span class="line">	utctimestamp = local_to_utc(datetime.datetime.now())</span><br><span class="line">    clientId = <span class="string">&#x27;_&#x27;</span>.join([deviceId , <span class="string">&#x27;0&#x27;</span> , <span class="string">&#x27;0&#x27;</span> , utctimestamp])</span><br><span class="line">    print(clientId)</span><br><span class="line">    password = HMACSHA256(secret , utctimestamp)</span><br><span class="line">    print(password)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用上述参数和地址及端口号，已经CA证书就可以成功连接到华为云了。<br>这时回到设备管理页面，可以看到设备状态已经变为在线。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59655.jpg"></p>
+<h2 id="Topic订阅、发布"><a href="#Topic订阅、发布" class="headerlink" title="Topic订阅、发布"></a>Topic订阅、发布</h2><p>订阅和发布，参考文档说明<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39029.jpg"><br>根据上面描述，<br>设备如果要从平台获取消息和数据，需要在登录成功后发起mqtt消息订阅topic<br>设备订阅：订阅消息topic格式为：“/huawei/v1/devices/9e352064-f339-45e3-842d-ab7b27616414/command/json”<br>设备如果要通过MQTT通道上报数据，需要发给指定的topic<br>上报消息的topic格式为：“/huawei/v1/devices/9e352064-f339-45e3-842d-ab7b27616414/data/json”</p>
+<p>订阅上述topic后，进入设备调试页面<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95641.jpg"><br>从应用模拟界面发toggle字段命令”ON”,点击发送<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_91475.jpg"><br>从sscom的Air720串口接收可以看到，模块收到华为云平台下发的JSON格式的命令。toggle的值是“ON”<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_75366.jpg"></p>
+<h2 id="Air720数据上报"><a href="#Air720数据上报" class="headerlink" title="Air720数据上报"></a>Air720数据上报</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80611.jpg"></p>
+<p>根据这个说明，结合设备的Profile订阅，数据上报的格式为<br>MQTT Topic: /huawei/v1/devices/9e352064-f339-45e3-842d-ab7b27616414/data/json<br>Air720发送的payload：<br>{<br>    “msgType”: “deviceReq”,<br>    “data”: [<br>    {<br>        “serviceId”: “ServiceWin”,<br>        “serviceData”: {<br>            “Status”: 0<br>        },<br>        “eventTime”: “ 20170915T121603Z”<br>    }<br>    ]<br>}</p>
+<p>设备发送后，在应用模拟端收到status数据0<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33822.jpg"></p>
+<p>通过上述内容，实现了一个MQTTS的连接，订阅，上报的过程，后续就可以根据业务需求具体实现一个物联网应用了。其他华为云的功能不再赘述，自己挖掘一下吧。</p>
+<p>当然Air720模块还有其他很强大的功能，特别是支持Lua，强大的二次开发能力，实时技术支持，软件开源包括底层C代码，和Lua代码，值得我们去细细研究。</p>
+<p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/902">教你用Air720 模块通过AT指令以MQTTS方式连接华为云(上篇)</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/593/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/591/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

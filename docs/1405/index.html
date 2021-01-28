@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Cat.1 模块FOTA远程升级不完全指南 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Cat.1 模块FOTA远程升级不完全指南</h1>
+<article class="post markdown-style">
+  <h2 id="1-AT版本"><a href="#1-AT版本" class="headerlink" title="1. AT版本"></a>1. AT版本</h2><h5 id="AT版本的远程升级主要是对AT固件的版本升级，升级方式可以通过合宙官方iot平台升级，同样也可以使用自己的服务器来搭建升级服务"><a href="#AT版本的远程升级主要是对AT固件的版本升级，升级方式可以通过合宙官方iot平台升级，同样也可以使用自己的服务器来搭建升级服务" class="headerlink" title="AT版本的远程升级主要是对AT固件的版本升级，升级方式可以通过合宙官方iot平台升级，同样也可以使用自己的服务器来搭建升级服务"></a>AT版本的远程升级主要是对AT固件的版本升级，升级方式可以通过合宙官方<a target="_blank" rel="noopener" href="http://iot.openluat.com/" title="iot平台">iot平台</a>升级，同样也可以使用自己的服务器来搭建升级服务</h5><h4 id="1-IOT平台升级指南"><a href="#1-IOT平台升级指南" class="headerlink" title="1. IOT平台升级指南"></a>1. IOT平台升级指南</h4><ul>
+<li>首先明确模块的当前版本与要升级到的版本，通过命令ATI来查询模块当前版本<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823233101822_ATI.png" alt="ATI" title="ATI"><br>现在我的版本是V838,我打算升级到官网最新版本V907</li>
+<li>打开合宙官网在产品中心找到对应的产品，比方说我这里是Air724UG，下载最新的AT固件V907<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823233530525_V907.png" alt="V907" title="V907"></li>
+<li>解压得到两个文件，bin结尾的是远程升级文件，pac结尾的是Luatools下载使用的固件<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823233850206_PACANDBIN.png" alt="PACANDBIN" title="PACANDBIN"></li>
+<li>我们这里要用到的是bin后缀的这个文件，打开iot平台：<a target="_blank" rel="noopener" href="http://iot.openluat.com/">http://iot.openluat.com</a> 找到你购买的模块所在的产品，打开它，找到设备列表查找要升级的模块是否在设备列表中<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823234319884_%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8.png" alt="设备列表" title="设备列表"></li>
+<li>如果你要升级的设备在设备列表中，那么就可以进入下一步固件升级-&gt;升级配置了，点击新建固件，在弹出的窗口上传我们刚才下载的bin结尾的远程升级文件<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823234719549_%E5%8D%87%E7%BA%A7%E9%85%8D%E7%BD%AE.png" alt="升级配置" title="升级配置"></li>
+<li>在上传固件的选项中，允许升级，第二项根据自己的需求进行设置，如果要将产品下的所有设备都进行升级就选择允许全项目升级，如果只想指定特定的设备升级就选择否，我这里选择只升级特定的设备<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823235020881_%E4%B8%8A%E4%BC%A0%E5%9B%BA%E4%BB%B6.png" alt="上传固件" title="上传固件"></li>
+<li>上传完成后在固件信息里可以看到添加的选项，点击它弹出的窗口可以添加要升级的设备的IMEI（tip：查询模块IMEI可以使用命令AT+CGSN）<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823235646841_%E6%B7%BB%E5%8A%A0%E8%AE%BE%E5%A4%871.png" alt="添加设备1" title="添加设备1"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200823235710563_%E6%B7%BB%E5%8A%A0%E8%AE%BE%E5%A4%872.png" alt="添加设备2" title="添加设备2"></li>
+<li>上面这些步骤都做好之后，来到模块这边查询手册得知，AT版本升级使用的命令是AT+UPGRADE<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824000204099_UPGRADE.png" alt="AT+UPGRADE" title="AT+UPGRADE"></li>
+<li>发送AT+UPGRADE手动触发升级（tip：通过串口发送命令可以看到完整的下载升级流程，通过USBAT口发送升级命令只能看到下载过程，无法看到升级过程）<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824001055079_%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B.png" alt="升级过程" title="升级过程"></li>
+<li>恭喜你成功从V838版本通过合宙iot平台的FOTA的方式升级到了更新的V907版本！:tada:<h4 id="2-自定义服务器升级指南"><a href="#2-自定义服务器升级指南" class="headerlink" title="2. 自定义服务器升级指南"></a>2. 自定义服务器升级指南</h4></li>
+<li>使用自己的服务器来升级模块和使用iot平台升级最重要的区别是下载固件的来源不同。</li>
+<li>其实FOTA的过程是新老版本生成差分包再进行升级的过程，那么这个差分的过程在哪里呢？使用合宙iot平台升级，差分的过程在iot服务器后台，那使用自己的服务器该怎么办呢？答案当然是自己来完成差分的过程，放在服务器等待模块来下载。</li>
+<li>手动生成差分包的过程使用doc平台工具中的差分工具<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824004216775_%E5%B7%AE%E5%88%86%E5%B7%A5%E5%85%B7.png" alt="差分工具" title="差分工具"></li>
+<li>本次我们从V838升级到V907需要准备各自的bin远程升级文件，上传完成后等待差分完成，下载得到的差分文件，我这里为了美观，将他比较长的名字改为了ota.bin。</li>
+<li>接下来就是服务器配置的环节了，这里你需要有一台可以在公网上访问的服务器，我这里使用的是一台安装了Ubuntu的公网服务器，将我们在上一步得到的差分文件上传到服务器硬盘中<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824005148149_%E4%B8%8A%E4%BC%A0%E6%9C%8D%E5%8A%A1%E5%99%A8.png" alt="上传服务器" title="上传服务器"></li>
+<li>模块端获取自定义服务器上的差分包的方式是通过Http GET下载的方式，所以我们需要创建一个Http服务，使差分包可以通过Http GET的方式下载，我这里使用Python内建的Http服务，开启方法是<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server</span><br></pre></td></tr></table></figure>
+这个操作可以在执行命令的目录开启一个Http服务，用来访问当前目录的文件。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824005613661_httpserver.png" alt="httpserver" title="httpserver"></li>
+<li>可以看到http服务监听的端口是8000，通过浏览器访问公网服务器ip的8000端口可以看到这样的页面就说明服务开启正常<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824005926211_Bowser.png" alt="Bowser" title="Bowser"></li>
+<li>此时查阅AT手册可知AT+UPGRADE命令设置自定义服务器的方式为tag参数中的url<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824134919316_URLTAG.png" alt="URLTAG" title="URLTAG"></li>
+<li>模块设置方式如图<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824010502184_UPGRADEURL.png" alt="UPGRADEURL" title="UPGRADEURL"></li>
+<li>手动发送AT+UPGRADE即可触发升级，与iot升级一样可以从串口观察到相同的升级过程，在服务器终端中一样可以看到模块的本次下载请求<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200824011524460_serverinfo.png" alt="serverinfo" title="serverinfo"></li>
+<li>恭喜你成功从V838版本通过自己服务器搭建FOTA服务的方式升级到了更新的V907版本！:tada:<h2 id="2-Lua版本"><a href="#2-Lua版本" class="headerlink" title="2. Lua版本"></a>2. Lua版本</h2><h5 id="Lua版本的远程升级包含Core的升级和Lua脚本的升级，升级方式同样可以选择通过合宙官方iot平台升级，或使用自己的服务器来搭建升级服务"><a href="#Lua版本的远程升级包含Core的升级和Lua脚本的升级，升级方式同样可以选择通过合宙官方iot平台升级，或使用自己的服务器来搭建升级服务" class="headerlink" title="Lua版本的远程升级包含Core的升级和Lua脚本的升级，升级方式同样可以选择通过合宙官方iot平台升级，或使用自己的服务器来搭建升级服务"></a>Lua版本的远程升级包含Core的升级和Lua脚本的升级，升级方式同样可以选择通过合宙官方<a target="_blank" rel="noopener" href="http://iot.openluat.com/" title="iot平台">iot平台</a>升级，或使用自己的服务器来搭建升级服务</h5><h4 id="1-IOT平台升级指南-1"><a href="#1-IOT平台升级指南-1" class="headerlink" title="1. IOT平台升级指南"></a>1. IOT平台升级指南</h4></li>
+<li>首先明确模块当前使用的Core版本和脚本版本，Core版本可以通过从USBAT口发送ATI查询，也可以通过LuaTask API（rtos.get_version()）来获取当前版本，脚本版本可以通过查询全局变量VERSION获取（_G.VERSION）<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825111242991_LuaCoreAndVersion.png" alt="LuaCoreAndVersion" title="LuaCoreAndVersion"></li>
+<li>我这里打算将Core从V0018升级到V0019，将脚本版本从V1.0.0升级到V2.0.0</li>
+<li>脚本中需要设置全局变量PRODUCT_KEY，因为iot平台升级会用到这个KEY，这个KEY来自于iot平台中的产品信息中的ProductKey，还需要引入lib中的update，调用update.request()来请求升级服务器，根据lib中的注释可知如果我们使用iot平台进行升级，在request函数中可以不传入任何参数。（为了测试方便，在1.0.0的脚本中设置为开机就请求升级，而在2.0.0中为了防止反复升级去掉了升级代码）<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PRODUCT_KEY = <span class="string">&quot;XXXXXXXXXXXXXXXX&quot;</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;update&quot;</span></span><br><span class="line">update.request()</span><br></pre></td></tr></table></figure></li>
+<li>在脚本中添加一段循环打印Core版本和脚本版本的代码，用来观察我们的固件和脚本是否升级<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sys.taskInit(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">		<span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">			<span class="built_in">log</span>.info(<span class="string">&quot;VERSION&quot;</span>, rtos.get_version(), <span class="built_in">_G</span>.VERSION)</span><br><span class="line">			sys.wait(<span class="number">10000</span>)</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure></li>
+<li>使用Luatools生成要升级到的版本的远程升级文件，打开Luatools的项目管理窗口，选择我们要升级的版本的Core V0019和脚本V2.0.0，选择升级文件包含Core和脚本，点击生成量产文件。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825124414210_%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86.png" alt="项目管理" title="项目管理"></li>
+<li>量产文件生成后，默认保存在Luatools目录下<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825111812109_%E8%BF%9C%E7%A8%8B%E5%8D%87%E7%BA%A7%E6%96%87%E4%BB%B6.png" alt="远程升级文件" title="远程升级文件"></li>
+<li>将V0019+V2.0.0的远程升级文件上传到iot平台，方法和上传AT远程升级文件一样</li>
+<li>将我们V0018+V1.0.0模块重启触发升级代码，重启之后观察打印，确实从V0018+V1.0.0升级到了V0019+V2.0.0<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825135912090_updateinfo.png" alt="updateinfo" title="updateinfo"></li>
+<li>恭喜你成功从V0018+V1.0.0版本通过合宙iot平台的FOTA的方式升级到了更新的V0019+V2.0.0版本！:tada:<h4 id="2-自定义服务器升级指南-1"><a href="#2-自定义服务器升级指南-1" class="headerlink" title="2. 自定义服务器升级指南"></a>2. 自定义服务器升级指南</h4></li>
+<li>使用自己的服务器来升级Lua版本类似于使用自己的服务器来升级AT固件，由于使用自己的服务器缺少差分流程，所以需要我们手动进行差分</li>
+<li>分别生成V0018+V1.0.0和V0019+V2.0.0的远程升级文件<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825111812109_%E8%BF%9C%E7%A8%8B%E5%8D%87%E7%BA%A7%E6%96%87%E4%BB%B6.png" alt="远程升级文件" title="远程升级文件"></li>
+<li>在doc的差分工具上分别上传V0018+V1.0.0和V0019+V2.0.0生成差分包<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825155640042_Lua%E5%B7%AE%E5%88%86.png" alt="Lua差分" title="Lua差分"></li>
+<li>和AT固件自定义服务器一样的方法，将下载得到的差分包放在公网服务器上，并开启HttpGet服务</li>
+<li>参考lib中update.lua中request方法的注释可知，如果要使用自定义服务器的话，需要在第二个url参数中传入自定义服务器上差分包的下载地址<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">&quot;update&quot;</span></span><br><span class="line">update.request(<span class="literal">nil</span>,<span class="string">&quot;http://&lt;ipaddress&gt;:8000/ota.bin&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>将我们V0018+V1.0.0模块重启触发升级代码，重启之后观察打印，确实从V0018+V1.0.0升级到了V0019+V2.0.0<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825135912090_updateinfo.png" alt="updateinfo" title="updateinfo"></li>
+<li>从服务器终端也可以看到请求记录<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825163415880_Lua%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%88%E7%AB%AF%E8%AE%B0%E5%BD%95.png"></li>
+<li>恭喜你成功从V0018+V1.0.0版本通过自己服务器搭建FOTA服务的方式升级到了更新的V0019+V2.0.0版本！:tada:</li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1410/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1403/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

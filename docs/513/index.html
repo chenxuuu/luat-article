@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>10-MQTT介绍 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">10-MQTT介绍</h1>
+<article class="post markdown-style">
+  <p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <a href="https://www.cnblogs.com/yangfengwu/p/9953920.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 18pt;">https://www.cnblogs.com/yangfengwu/p/9953920.html</span></a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181113204859133-68284583.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">看到这个项目第一想法肯定需要一个服务器,所有的wifi设备和手机都去连接这个服务器,然后服务器进行信息的中转</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">这个服务器呢第一种方式是自己开发</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">就变成了</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181113204957137-904417626.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">其实MQTT的基本功能就是上面的</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">还要说一点MQTT实质上就是个TCP服务器</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;"><a href="https://www.cnblogs.com/yangfengwu/p/9124299.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/9124299.html</a>   </span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">然后在TCP的基础上封装了一套协议</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">只要大家的设备支持TCP，也就可以自己写封装函数，然后实现MQTT功能</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">现在说一下两个设备是如何通信的</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">假设设备1   先连接MQTT服务器  然后告诉MQTT服务器它接收标志是1111的消息</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">假设设备2   先连接MQTT服务器  然后告诉MQTT服务器它接收标志是2222的消息</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">然后设备1 ， 发送消息的时候 ， 消息的开头写上标志 2222 然后后面跟上数据，  服务器收到以后就转发给接收标志是2222的设备</span><span style="font-size: 24px;">   ，这样设备2就接收到了设备1的数据</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">然后设备2 ， 发送消息的时候 ， 消息的开头写上标志 1111 然后后面跟上数据，  服务器收到以后就转发给接收标志是1111的设备   ，这样设备1就接收到了设备2的数据</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">其实具体的协议呢看下面，  这是我用单片机写的MQTT封包，就是在网络芯片实现TCP的基础上让芯片连接MQTT服务器，然后实现通信</span></p><div class="cnblogs_code" style="background-color: rgb(245, 245, 245); border: 1px solid rgb(204, 204, 204); padding: 5px; overflow: auto; margin: 5px 0px; font-family: "Courier New" !important; font-size: 12px !important;"><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div><pre style="margin-bottom: 0px; font-family: "Courier New" !important; font-size: 12px !important;"><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">/*</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">*
+* @brief  连接服务器的打包函数
+* @param  
+* @retval 
+* @example 
+*</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">*/</span>
+<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> ConnectMqtt(<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> *ClientID,<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> *Username,<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> *<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">Password)
+{
+    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">int</span> ClientIDLen =<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> strlen(ClientID);
+    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">int</span> UsernameLen    =<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> strlen(Username);
+    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">int</span> PasswordLen =<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> strlen(Password);
+    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">int</span> DataLen = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;
+    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">int</span> Index = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;
+    </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">int</span> i = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;
+    DataLen </span>= <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">12</span> + <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2</span>+<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">2</span>+ClientIDLen+UsernameLen+<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">PasswordLen;
+    MqttSendData[</span><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0x10</span>;                <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">MQTT Message Type CONNECT</span>
+    MqttSendData[<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">1</span>] = DataLen;    <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">剩余长度(不包括固定头部)</span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> Protocol Name Length MSB    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">4</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> Protocol Name Length LSB    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">M</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> ASCII Code for M    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">Q</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> ASCII Code for Q    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">T</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> ASCII Code for T    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">T</span><span style="color: rgb(128, 0, 0); line-height: 1.5 !important;">'</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> ASCII Code for T    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">4</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> MQTT Protocol version = 4    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xc2</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> conn flags </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> Keep-alive Time Length MSB    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">60</span>;        <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> Keep-alive Time Length LSB  60S心跳包  </span>
+    MqttSendData[Index++] = (<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff00</span>&ClientIDLen)>><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">8</span>;<span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> Client ID length MSB    </span>
+    MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff</span>&ClientIDLen;    <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> Client ID length LSB  </span>
+
+<pre><code>&lt;span style=&quot;color: rgb(0, 0, 255); line-height: 1.5 !important;&quot;&gt;for&lt;/span&gt;(i = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0&lt;/span&gt;; i &lt; ClientIDLen; i++&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt;)
+&#123;
+    MqttSendData[Index &lt;/span&gt;+ i] =&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; ClientID[i];          
+&#125;
+Index &lt;/span&gt;= Index +&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; ClientIDLen;
+
+&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255); line-height: 1.5 !important;&quot;&gt;if&lt;/span&gt;(UsernameLen &gt; &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt;)
+&#123;   
+    MqttSendData[Index&lt;/span&gt;++] = (&lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0xff00&lt;/span&gt;&amp;UsernameLen)&gt;&gt;&lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;8&lt;/span&gt;;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;username length MSB    &lt;/span&gt;
+    MqttSendData[Index++] = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0xff&lt;/span&gt;&amp;UsernameLen;    &lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;username length LSB    &lt;/span&gt;
+    &lt;span style=&quot;color: rgb(0, 0, 255); line-height: 1.5 !important;&quot;&gt;for&lt;/span&gt;(i = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0&lt;/span&gt;; i &lt; UsernameLen ; i++&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt;)
+    &#123;
+        MqttSendData[Index &lt;/span&gt;+ i] =&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; Username[i];    
+    &#125;
+    Index &lt;/span&gt;= Index +&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; UsernameLen;
+&#125;
+
+&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255); line-height: 1.5 !important;&quot;&gt;if&lt;/span&gt;(PasswordLen &gt; &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt;)
+&#123;    
+    MqttSendData[Index&lt;/span&gt;++] = (&lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0xff00&lt;/span&gt;&amp;PasswordLen)&gt;&gt;&lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;8&lt;/span&gt;;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;password length MSB    &lt;/span&gt;
+    MqttSendData[Index++] = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0xff&lt;/span&gt;&amp;PasswordLen;    &lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;password length LSB    &lt;/span&gt;
+    &lt;span style=&quot;color: rgb(0, 0, 255); line-height: 1.5 !important;&quot;&gt;for&lt;/span&gt;(i = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0&lt;/span&gt;; i &lt; PasswordLen ; i++&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt;)
+    &#123;
+        MqttSendData[Index &lt;/span&gt;+ i] =&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; Password[i];    
+    &#125;
+    Index &lt;/span&gt;= Index +&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; PasswordLen; 
+&#125;    
+&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 255); line-height: 1.5 !important;&quot;&gt;return&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); line-height: 1.5 !important;&quot;&gt; Index;
+</code></pre>
+<p>}</p>
+<p></span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">/<em></span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"></em></p>
+<ul>
+<li>@brief  MQTT订阅/取消订阅数据打包函数</li>
+<li>@param  SendData </li>
+<li>@param  topic                主题 </li>
+<li>@param  qos         消息等级 </li>
+<li>@param  whether     订阅/取消订阅请求包</li>
+<li>@retval </li>
+<li>@example </li>
+<li></span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">*/</span><br><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> MqttSubscribeTopic(<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> *topic,<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> qos,<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> whether)<br>{<br>   Index </span>= <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;<br> i </span>= <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">(whether)<pre><code>   MqttSendData[Index&lt;/span&gt;++] = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0x82&lt;/span&gt;;                        &lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;0x82 &lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;消息类型和标志 SUBSCRIBE 订阅&lt;/span&gt;
+</code></pre>
+   <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">else</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"><pre><code>   MqttSendData[Index&lt;/span&gt;++] = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;0xA2&lt;/span&gt;;                        &lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;0xA2 取消订阅&lt;/span&gt;
+</code></pre>
+<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">
+   MqttSendData[Index</span>++] = strlen(topic) + <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">5</span>;                <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">剩余长度(不包括固定头部)</span>
+   MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>;                          <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">消息标识符,高位</span>
+   MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0x01</span>;                    <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">消息标识符,低位</span>
+   MqttSendData[Index++] = (<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff00</span>&strlen(topic))>><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">8</span>;    <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">主题长度(高位在前,低位在后)</span>
+   MqttSendData[Index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff</span>&strlen(topic);              <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">主题长度 </span>
+   
+   <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">for</span> (i = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>;i < strlen(topic); i++<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)
+   {
+       MqttSendData[Index </span>+ i] =<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> topic[i];
+   }
+   Index </span>= Index +<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> strlen(topic);
+   
+   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">(whether)
+   {
+       MqttSendData[Index] </span>= qos;<span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">QoS级别</span>
+       Index++<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;
+   }
+   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">return</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> Index;
+}
+
+
+</li>
+</ul>
+<p></span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">/<em></span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"></em></p>
+<ul>
+<li><p>@brief  MQTT发布数据打包函数</p>
+</li>
+<li><p>@param  mqtt_message </p>
+</li>
+<li><p>@param  topic                主题 </p>
+</li>
+<li><p>@param  qos         消息等级 </p>
+</li>
+<li><p>@retval </p>
+</li>
+<li><p>@example </p>
+</li>
+<li><p></span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">*/</span><br><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> MqttPublishData(<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> * topic, <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> * message,<span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> length, <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> qos)<br>{<br>   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> topic_length =<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> strlen(topic);<br>   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> message_length =<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> length;<br>   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> i,index=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;<br>   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">static</span> <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">char</span> id=<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;</p>
+<p>   MqttSendData[index</span>++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0x30</span>;    <span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;"> MQTT Message Type PUBLISH  </span></p>
+<p>   <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">(qos)</p>
+<pre><code>   MqttSendData[index&lt;/span&gt;++] = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;2&lt;/span&gt; + topic_length + &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;2&lt;/span&gt; + message_length;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;数据长度&lt;/span&gt;
+</code></pre>
+<p>   <span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">else</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"></p>
+<pre><code>   MqttSendData[index&lt;/span&gt;++] = &lt;span style=&quot;color: rgb(128, 0, 128); line-height: 1.5 !important;&quot;&gt;2&lt;/span&gt; + topic_length + message_length;   &lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 128, 0); line-height: 1.5 !important;&quot;&gt; Remaining length  &lt;/span&gt;
+</code></pre>
+<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">
+ 
+   MqttSendData[index</span>++] = (<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff00</span>&topic_length)>><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">8</span>;<span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">主题长度</span>
+   MqttSendData[index++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff</span>&<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">topic_length;
+        
+   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">for</span>(i = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>; i < topic_length; i++<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)
+   {
+       MqttSendData[index </span>+ i] = topic[i];<span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">拷贝主题</span>
+<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">    }
+   index </span>+=<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> topic_length;
+       
+   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">if</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">(qos)
+   {
+       MqttSendData[index</span>++] = (<span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff00</span>&id)>><span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">8</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;
+       MqttSendData[index</span>++] = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0xff</span>&<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">id;
+       id</span>++<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">;
+   }
+ 
+   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">for</span>(i = <span style="color: rgb(128, 0, 128); line-height: 1.5 !important;">0</span>; i < message_length; i++<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">)
+   {
+       MqttSendData[index </span>+ i] = message[i];<span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">//</span><span style="color: rgb(0, 128, 0); line-height: 1.5 !important;">拷贝数据</span>
+<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;">    }
+   index </span>+=<span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> message_length;
+       
+   </span><span style="color: rgb(0, 0, 255); line-height: 1.5 !important;">return</span><span style="color: rgb(0, 0, 0); line-height: 1.5 !important;"> index;
+}</span></pre><div class="cnblogs_code_toolbar" style="margin-top: 5px;"><span class="cnblogs_code_copy" style="padding-right: 5px; line-height: 1.5 !important;"><a title="复制代码" style="color: rgb(0, 51, 153); border-bottom: 1px dashed rgb(0, 51, 153); padding-bottom: 2px; background-color: rgb(245, 245, 245) !important; border-top: none !important; border-right: none !important; border-left: none !important; border-image: initial !important;"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="max-width: 900px; height: auto; border-width: initial !important; border-style: none !important;"></a></span></div></div><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://item.taobao.com/item.htm?spm=a1z38n.10677092.0.0.8a931debd5LqD6&id=582060294154" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);"><span style="font-size: 24px;">https://item.taobao.com/item.htm?spm=a1z38n.10677092.0.0.8a931debd5LqD6&id=582060294154</span></a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">当然啦，咱现在用的WIFI和GPRS里面已经写好了这种组合包，咱直接调用API就可以了</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 18pt;">其实大家不需要去研究这个协议，最起码现在不需要，我只是让大家稍微了解下MQTT，后期如果真的需要研究了，再研究</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><span style="font-size: 24px;">也不迟，现在就是先学会用</span></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">资料链接</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">链接：<a href="https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw</a> 密码：p9qs</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">基础教程源码链接如果失效,请在淘宝介绍中下载,由于链接还是失效,请联系卖家,谢谢</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&id=569295486025</a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> </p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"> <span style="font-size: 18pt;"><a href="https://www.cnblogs.com/yangfengwu/p/9955765.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/9955765.html</a></span></p></li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/514/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/512/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

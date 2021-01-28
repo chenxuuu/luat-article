@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>720X系列模块 FTP常见用法 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">720X系列模块 FTP常见用法</h1>
+<article class="post markdown-style">
+  <h3 id="本教程以720H模块，V1446固件为例，测试FTP常见的3大用法"><a href="#本教程以720H模块，V1446固件为例，测试FTP常见的3大用法" class="headerlink" title="本教程以720H模块，V1446固件为例，测试FTP常见的3大用法"></a>本教程以720H模块，V1446固件为例，测试FTP常见的3大用法</h3><h4 id="1-模块上电开机后，基本查询如下："><a href="#1-模块上电开机后，基本查询如下：" class="headerlink" title="1.模块上电开机后，基本查询如下："></a>1.模块上电开机后，基本查询如下：</h4><p>[15:56:42.592]发→◇AT+CPIN?              //查询模块SIM卡是否被识别<br>[15:56:42.594]收←◆AT+CPIN?<br>+CPIN: READY<br>OK<br>[15:56:53.270]发→◇AT+CSQ           //查询模块信号强度<br>[15:56:53.273]收←◆AT+CSQ<br>+CSQ: 25,99<br>OK<br>[15:56:55.894]发→◇AT+CGATT?//查询模块是否附着网络<br>[15:56:55.898]收←◆AT+CGATT?<br>+CGATT: 1<br>OK</p>
+<h4 id="2-常见用法（已省略基本查询）"><a href="#2-常见用法（已省略基本查询）" class="headerlink" title="2.常见用法（已省略基本查询）"></a>2.常见用法（已省略基本查询）</h4><h5 id="2-1-FTP-GET"><a href="#2-1-FTP-GET" class="headerlink" title="2.1  FTP GET"></a>2.1  FTP GET</h5><p>[15:57:00.582]发→◇AT+SAPBR=3,1,”CONTYPE”,”GPRS”<br>[15:57:00.585]收←◆AT+SAPBR=3,1,”CONTYPE”,”GPRS”<br>OK<br>[15:57:01.517]发→◇AT+SAPBR=3,1,”APN”,””<br>[15:57:01.520]收←◆AT+SAPBR=3,1,”APN”,””<br>OK<br>[15:57:02.366]发→◇AT+SAPBR=1,1<br>[15:57:02.371]收←◆AT+SAPBR=1,1<br>OK<br>[15:57:03.302]发→◇AT+SAPBR=2,1<br>[15:57:03.304]收←◆AT+SAPBR=2,1<br>+SAPBR: 1,1,”10.162.173.20”<br>OK<br>//以上为PDP激活过程<br>[15:57:06.326]发→◇AT+FTPCID=1<br>[15:57:06.331]收←◆AT+FTPCID=1<br>OK<br>[15:57:24.862]发→◇AT+FTPSERV=”XX.X.87.100”//设置服务器ip地址，也可以使用域名，测试以实际服务器为准<br>[15:57:24.868]收←◆AT+FTPSERV=”XX.X.87.100”<br>OK<br>[15:57:26.798]发→◇AT+FTPUN=”user”<br>[15:57:26.803]收←◆AT+FTPUN=”user”<br>OK<br>[15:57:28.950]发→◇AT+FTPPW=”123456”<br>[15:57:28.955]收←◆AT+FTPPW=”123456”<br>OK<br>//以上为FTP服务器基本参数设置<br>[15:57:29.450]发→◇AT+FTPGETPATH=”/“<br>[15:57:29.457]收←◆AT+FTPGETPATH=”/“//设置下载文件路径<br>OK<br>[15:57:31.062]发→◇AT+FTPGETNAME=”1223.txt”//设置服务器端目标文件的名称<br>[15:57:31.068]收←◆AT+FTPGETNAME=”1223.txt”<br>OK<br>[15:57:39.557]发→◇AT+FTPGET=1     //开始下载会话<br>[15:57:39.563]收←◆AT+FTPGET=1<br>OK<br>[15:57:40.516]收←◆<br>+FTPGET: 1,1   //必须等到这条上报，才能发下一条指令<br>[15:57:43.550]发→◇AT+FTPGET=2,1460//一次读入最多1460字节<br>[15:57:43.556]收←◆AT+FTPGET=2,1460<br>+FTPGET: 2,1460<br>When doctors think all of their patients are heterosexual, those who identify …………(此处省略若干数据)………… LGBTQ patients sho//这是读入的1460字节数据<br>OK<br>[15:57:48.286]发→◇AT+FTPGET=2,1460//如果目标文件大于1460字节，需要在第一次读完数据后，再次发送这条指令，读取下一部分数据，直至结束<br>[15:57:48.294]收←◆AT+FTPGET=2,1460<br>+FTPGET: 2,214<br>uld get the same quality of care other patients get.  Increasing LGBTQ student enrollment in medical schools and training in LGBTQ health issues can help reach those goals, advocates say.<br>Research shows that patie//文件较小，本次读入214字节，已全部读完<br>OK<br>[15:57:59.871]收←◆<br>+FTPGET: 1,0            //提示会话结束<br>[15:58:35.726]发→◇AT+FTPQUIT<br>[15:58:35.733]收←◆AT+FTPQUIT<br>+CME ERROR: 3<br>//已上报+FTPGET: 1,0  表示会话已结束，所以， AT+FTPQUIT退出当前FTP会话 返回error3，属于正常。也 可 以 在 提 示+FTPGET: 1,0 前，主动用AT+FTPQUIT退出当前FTP会话 。</p>
+<h5 id="2-2-FTP-PUT-举例：给同一文件PUT-2次数据，每次1360字节（1358字节-r-n"><a href="#2-2-FTP-PUT-举例：给同一文件PUT-2次数据，每次1360字节（1358字节-r-n" class="headerlink" title="2.2 FTP PUT(举例：给同一文件PUT 2次数据，每次1360字节（1358字节+\r\n)"></a>2.2 FTP PUT(举例：给同一文件PUT 2次数据，每次1360字节（1358字节+\r\n)</h5><p>…………此处省略基本查询和PDP激活过程…………<br>[18:16:00.412]发→◇AT+FTPCID=1<br>[18:16:00.415]收←◆AT+FTPCID=1<br>OK<br>[18:16:03.612]发→◇AT+FTPSERV=”XX.X.87.100”<br>[18:16:03.615]收←◆AT+FTPSERV=”XX.X.87.100”<br>OK<br>[18:16:04.605]发→◇AT+FTPUN=”user”<br>[18:16:04.613]收←◆AT+FTPUN=”user”<br>OK<br>[18:16:05.541]发→◇AT+FTPPW=”123456”<br>[18:16:05.546]收←◆AT+FTPPW=”123456”<br>OK<br>//以上为FTP服务器基本参数设置<br>[18:16:26.604]发→◇AT+FTPPUTNAME=”HZ.txt”//设置上传文件的名称<br>[18:16:26.609]收←◆AT+FTPPUTNAME=”HZ.txt”<br>OK<br>[18:16:29.198]发→◇AT+FTPPUTPATH=”/11/“//设置上传文件的路径<br>[18:16:29.204]收←◆AT+FTPPUTPATH=”/11/“<br>OK<br>[18:16:31.229]发→◇AT+FTPPUT=1<br>[18:16:31.235]收←◆AT+FTPPUT=1<br>OK<br>[18:16:31.877]收←◆<br>+FTPPUT: 1,1,1360//必须等到这个上报<br>[18:16:34.117]发→◇AT+FTPPUT=2,1360//单次上传的最大长度为1360字节<br>[18:16:34.122]收←◆AT+FTPPUT=2,1360<br>+FTPPUT: 2,1360<br>[18:16:37.017]发→◇11111111111111111111111111111111111111111111111111111111111111………（此处省略若干字节）…………1111111111111111111111111111111111111111111111111111111111166<br>[18:16:37.032]收←◆<br>OK<br>+FTPPUT: 1,1,1360//第一次成功PUT 1360字节数据<br>[18:16:46.669]发→◇AT+FTPPUT=2,1360<br>[18:16:46.676]收←◆AT+FTPPUT=2,1360<br>+FTPPUT: 2,1360<br>[18:16:49.678]发→◇11111111111111111111111111111111111111111111111111111111111111…………（此处省略若干字节）…………11111111111111188<br>[18:16:49.695]收←◆<br>OK<br>+FTPPUT: 1,1,1360//给同一文件，第二次成功PUT 1360字节数据<br>[18:17:08.590]发→◇AT+FTPQUIT<br>[18:17:08.593]收←◆AT+FTPQUIT//主动结束FTP会话<br>OK<br>[18:17:08.639]收←◆<br>+FTPPUT: 1,86</p>
+<h5 id="2-3FTP下载-断点续传流程"><a href="#2-3FTP下载-断点续传流程" class="headerlink" title="2.3FTP下载 断点续传流程"></a>2.3FTP下载 断点续传流程</h5><h5 id="2-3-1确认服务器支持断点续传"><a href="#2-3-1确认服务器支持断点续传" class="headerlink" title="2.3.1确认服务器支持断点续传"></a>2.3.1确认服务器支持断点续传</h5><h5 id="2-3-2流程如下"><a href="#2-3-2流程如下" class="headerlink" title="2.3.2流程如下"></a>2.3.2流程如下</h5><p>…………此处已省略模块开机基本查询和模块PDP激活过程…………<br>[18:56:53.795]发→◇AT+FTPCID=1<br>[18:56:53.801]收←◆AT+FTPCID=1<br>xxO<br>[18:56:56.442]发→◇AT+FTPSERV=”xx.x.87.100”<br>[18:56:56.447]收←◆AT+FTPSERV=”xx.x.87.100”<br>OK<br>[18:56:58.090]发→◇AT+FTPUN=”user”<br>[18:56:58.092]收←◆AT+FTPUN=”user”<br>OK<br>[18:56:59.794]发→◇AT+FTPPW=”123456”<br>[18:56:59.800]收←◆AT+FTPPW=”123456”<br>OK<br>[18:57:01.450]发→◇AT+FTPGETPATH=”/“<br>[18:57:01.457]收←◆AT+FTPGETPATH=”/“<br>OK<br>[18:57:09.402]发→◇AT+FTPGETNAME=”1223.txt”<br>[18:57:09.409]收←◆AT+FTPGETNAME=”1223.txt”<br>OK<br>[18:57:11.362]发→◇AT+FTPGET=1<br>[18:57:11.367]收←◆AT+FTPGET=1<br>OK<br>[18:57:12.340]收←◆<br>+FTPGET: 1,1<br>[18:57:17.906]发→◇AT+FTPGET=2,100<br>[18:57:17.912]收←◆AT+FTPGET=2,100<br>+FTPGET: 2,100<br>When doctors think all of their patients are heterosexual, those who identify in other ways can feel//成功下载100字节<br>OK<br>[18:57:26.557]收←◆<br>+FTPGET: 1,1<br>[18:57:27.866]发→◇AT+FTPQUIT//关闭会话<br>[18:57:27.872]收←◆AT+FTPQUIT<br>OK<br>[18:57:27.991]收←◆<br>+FTPGET: 1,86<br>[18:57:33.745]发→◇AT+FTPREST=101//设置下载节点为101字节，（此断点只要小于文档数据长度，可任意设置），表示模块此次会从101字节处开始下载<br>[18:57:33.751]收←◆AT+FTPREST=101<br>OK<br>[18:57:55.929]发→◇AT+FTPGET=1<br>[18:57:55.936]收←◆AT+FTPGET=1<br>OK<br>[18:57:56.577]收←◆<br>+FTPGET: 1,1<br>[18:58:21.071]收←◆<br>+FTPGET: 1,1<br>[18:58:24.089]发→◇AT+FTPGET=2,500//从101字节处开始下载，本次下载500字节<br>[18:58:24.093]收←◆AT+FTPGET=2,500<br>+FTPGET: 2,500<br>ignored. They also are less likely to seek medical care. This can lead to health problems including high rates of depression, suicidal behavior, alcohol and drug use and ineffective health screenings. That information comes from LGBTQ advocates in the United States.  But changes are coming to the medical field, these advocates say.   Feroe displays a button resembling a Harvard School of Medicine coat of arms lion, in rainbow colors that symbolize LGBTQ pride, left, and a button featuring pronou<br>OK<br>[18:58:31.069]收←◆<br>+FTPGET: 1,1<br>[18:58:45.233]发→◇AT+FTPQUIT<br>[18:58:45.236]收←◆AT+FTPQUIT//关闭会话<br>OK<br>[18:58:45.714]收←◆<br>+FTPGET: 1,86</p>
+<h4 id="3-备注"><a href="#3-备注" class="headerlink" title="3.备注"></a>3.备注</h4><h5 id="3-1模块ftp默认是被动模式，不支持主动模式，无法设置主动模式，公网下要想模块正常连接服务器，服务器肯定不能设置为主动模式，否则哪家模块都不能用。"><a href="#3-1模块ftp默认是被动模式，不支持主动模式，无法设置主动模式，公网下要想模块正常连接服务器，服务器肯定不能设置为主动模式，否则哪家模块都不能用。" class="headerlink" title="3.1模块ftp默认是被动模式，不支持主动模式，无法设置主动模式，公网下要想模块正常连接服务器，服务器肯定不能设置为主动模式，否则哪家模块都不能用。"></a>3.1模块ftp默认是被动模式，不支持主动模式，无法设置主动模式，公网下要想模块正常连接服务器，服务器肯定不能设置为主动模式，否则哪家模块都不能用。</h5>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/741/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/739/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

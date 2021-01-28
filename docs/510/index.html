@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>7-关于STM32底层程序使用说明 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">7-关于STM32底层程序使用说明</h1>
+<article class="post markdown-style">
+  <p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://www.cnblogs.com/yangfengwu/p/9357695.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/9357695.html</a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">基础教程源码链接请在淘宝介绍中下载,由于链接很容易失效,如果失效请联系卖家,谢谢</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&amp;id=569295486025" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&amp;id=569295486025</a></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;一，关于环形队列</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">其实环形队列用来接收数据比较好，看一下典型的应用</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="https://www.cnblogs.com/yangfengwu/p/6921832.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/6921832.html</a>&nbsp; &nbsp;缓存数据</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><a href="http://www.cnblogs.com/yangfengwu/p/6822984.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">http://www.cnblogs.com/yangfengwu/p/6822984.html</a>&nbsp; &nbsp; &nbsp;原理介绍</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">说白了就是利用程序把数组做成了一个环</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">我的程序为每一个串口发送分配了一个数组（环形队列）</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110194006787-360595923.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">发送数据可以</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;<img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110194452303-1038615099.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;实际上呢是这样运行的</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110194753560-753815616.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110194948181-1481521403.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110195107424-1834216616.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;用环形队列的好处就是直接一直往里面丢数据就可以了。</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">当然自己也可以用一个数组实现。记住哈，只要发送数据是中断发送，这样的程序就OK了，这样不会阻挡住主程序运行，</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;<img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110195312571-217923490.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110200044080-1681652988.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">二，关于我写的Flash存储数据</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110200246579-174028544.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">我自己因为厌烦用地址存，然后数据多了。。。麻烦，所以我在地址之上增加了用标号加数据的形式</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">存数据的时候</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110200625605-1242803793.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;读出来</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;<img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110201408530-556028215.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;<img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110202118987-749311655.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;<img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110201951491-337455350.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">c8t6总共才64</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110202024849-1922569454.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">三，DMA &nbsp;ADC采集&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">采集的四路电压，采集的数据在</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110202926741-1132811054.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110203139085-1142383673.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">其实我也有对数据做处理的程序</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110203503915-348701903.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;冒泡采用的左右冒泡</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110203551196-1042983600.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">还有数据转换什么的&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110203736284-841260574.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;也就这些</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">哦哦哦还有 &nbsp;printf</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110204158608-1504666025.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">忘了还有</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">串口接收到数据各自的标志位会置一，以串口1为例</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110204845076-337056155.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;然后只需要在主函数里面</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;"><img src="https://img2018.cnblogs.com/blog/819239/201811/819239-20181110204955367-388530847.png" alt="" style="max-width: 900px; height: auto;"></p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;</p><p style="margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;">&nbsp;<a href="https://www.cnblogs.com/yangfengwu/p/9953703.html" target="_blank" style="color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);">https://www.cnblogs.com/yangfengwu/p/9953703.html</a></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/511/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/509/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

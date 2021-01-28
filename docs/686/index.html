@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>【MQTT】为什么我收不到“遗嘱消息”呢？ [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">【MQTT】为什么我收不到“遗嘱消息”呢？</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;日前，有开发者在交流群中提问：&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: 微软雅黑, &#39;MS Sans Serif&#39;, sans-serif; font-size: 13.3333330154419px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(255, 237, 196);&quot;&gt;我按官方的MQTT api,&amp;nbsp; “遗嘱”效果是反的：掉线时没有消息，上线时反而有消息。&lt;/span&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;本文就来讲解一下，什么情况使用遗嘱消息，什么情况下会触发遗嘱，以及如何避免它产生的误判。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;h2&gt;什么是遗嘱&lt;/h2&gt;&lt;p&gt;顾名思义，就是dying message。该“内定”的消息，是MQTT Client 连接 MQTT Broker 时定义的，Broker 记录下该消息。&lt;/p&gt;&lt;p&gt;其后，不论任何情况下，MQTT Client 与 MQTT Broker 之间的连接发生错误，MQTT Broker都会自动发出该消息到对应的主题。&lt;/p&gt;&lt;p&gt;典型的“异常情况”有：&lt;/p&gt;&lt;ol&gt;&lt;li&gt;MQTT Client 没有上报 close 就和 MQTT Broker 断开连接；&lt;/li&gt;&lt;li&gt;多个 keepalive 周期内没有心跳包上报；&lt;/li&gt;&lt;li&gt;其他相同 ClientID 登录 MQTT Broker 时。&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;也就是说，灵活的使用遗嘱，可以更方便的应对设备通信时发生的各种异常情况（如模块掉线、设备被盗、流量卡欠费、网咯信号差等等）。&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;h2&gt;如何启用MQTT遗嘱&lt;/h2&gt;&lt;p&gt;默认的MQTT例程中，没有遗嘱的相关内容。不过不用担心，MQTT 已有相关API，敬请查阅：&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://wiki.openluat.com/doc/luatApi/#mqttclientclientid-keepalive-username-password-cleansession-will-version&quot;&gt;https://wiki.openluat.com/doc/luatApi/#mqttclientclientid-keepalive-username-password-cleansession-will-version&lt;/a&gt;&lt;/p&gt;&lt;p&gt;示例代码：&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;require &quot;mqtt&quot;&lt;br&gt;module(..., package.seeall)&lt;br&gt;&lt;br&gt;-- 这里请填写修改为自己的IP和端口&lt;br&gt;local host, port = &quot;lbsmqtt.airm2m.com&quot;, 1884&lt;br&gt;&lt;/p&gt;&lt;p&gt;sys.taskInit(function()&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; while true do&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; while not socket.isReady() do sys.wait(1000) end&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; local mqttc = &lt;b&gt;mqtt.client(misc.getImei(), 300, &quot;username&quot;, &quot;password&quot;, nil, &lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;
+</code></pre>
+<p><span style="background-color: rgb(255, 255, 0);">{qos=0, retain=0, topic=”/willmsg”, payload=misc.getImei()..”device_conn_err”}</span></span>, “3.1”)</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while not mqttc:connect(host, port) do sys.wait(2000) end<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if mqttc:subscribe(string.format(“/device/%s/req”, misc.getImei())) then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if mqttc:publish(string.format(“/device/%s/report”, misc.getImei()), “test publish “ .. os.time()) then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while true do<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local r, data, param = mqttc:receive(120000, “pub_msg”)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if r then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.info(“这是收到了服务器下发的消息:”, data.payload or “nil”)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elseif data == “pub_msg” then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.info(“这是收到了订阅的消息和参数显示:”, data, param)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqttc:publish(string.format(“/device/%s/resp”, misc.getImei()), “response “ .. param)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elseif data == “timeout” then<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.info(“这是等待超时主动上报数据的显示!”)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqttc:publish(string.format(“/device/%s/report”, misc.getImei()), “test publish “ .. os.time())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqttc:disconnect()<br>&nbsp;&nbsp;&nbsp; end<br>end)</p><p>– 测试代码,用于发送消息给socket<br>sys.taskInit(function()<br>&nbsp;&nbsp;&nbsp; while true do<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sys.publish(“pub_msg”, “11223344556677889900AABBCCDDEEFF” .. os.time())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sys.wait(180000)<br>&nbsp;&nbsp;&nbsp; end<br>end)<br></p></blockquote><p>后端程序的 MQTT Client 订阅 “/willmsg” 这个主题。</p><p>当该某 MQTT Client 和 MQTT Broker 连接出错时，Broker 就会自动向 “/willmsg” 主题下发内容为 “868570000000000device_conn_err”（例） 的消息。</p><p><br></p><h2>为什么我没有收到遗嘱<br></h2><p>通常，这是因为测试时，MQTT Client “掉线”时间不够长造成的。测试中，至少要等3个 Keepalive 周期，才会收到 MQTT Broker 下发的内容。</p><p>如果长时间测试仍没有收到，那么可能是如下原因：</p><ol><li>模块代码错误，或者网络错误等其他情况，或者没有成功连接到 MQTT Broker；</li><li>后台订阅的主题，和模块的遗嘱不是同一个主题；</li><li>MQTT Broker 不支持遗嘱；</li></ol><p><br></p><h2>为什么我收到了好多次遗嘱</h2><p>通常是因为模块端频繁掉线或者重连，MQTT Broker 认为上一个 MQTT Client 已经阵亡了，所以向既定主题发布了对应的消息。<br></p><p>开发者需要根据自己的需求，使用不同的主题和payload，区分遗嘱消息和正常消息，并做好对应的处理。<br></p><p><br></p><p><br></p></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/14/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/685/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

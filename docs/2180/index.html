@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>你了解的跨域是怎样的？ [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">你了解的跨域是怎样的？</h1>
+<article class="post markdown-style">
+  <p>心声：跨域，相信很多人对这个词都不陌生…那么你对它的理解是什么呢？？？本人对这个概念属于入门级别的菜鸟，一直知道它，但是对它一直有种“忽远忽近的感觉”，最近正在进行学习，查阅资料，也对它有了进一步的了解。</p>
+<p>常见场景：<br><em>你：你了解跨域吗？<br>我：嗯，了解，使用CORS/JSONP等进行解决…</em></p>
+<p>这个场景也许你也经历过。我经历了…大部分情况下，我们只回答了怎么解决这个问题，<strong>of course</strong> 单纯的对于开发任务来说，知道怎么解决就行了；但是有没有想过为什么会存在这些问题？如何来的？其中是怎样过程呢？</p>
+<p><strong>提问：<br>1、为什么浏览器会引入跨域机制<br>2、跨域浏览器到底有没有发出去，收到响应<br>3、跨域的预检</strong></p>
+<p>若干秒过去了…/(ㄒoㄒ)/~~<br>在进一步了解跨域时，首先了解一些基础的问题点。。。</p>
+<h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><p>什么是跨域？就是浏览器限制了向不同的域发起请求！！！也就是我们所谓的协议、域名、端口号不同<br>也就是所谓的“同源策略”，协议、域名、端口号相同：保证数据的安全性 ！！！</p>
+<blockquote>
+<p>网上的一个例子，想必更能说明问题：<br>设想这样一种情况：A 网站是一家银行，用户登录以后，A 网站在用户的机器上设置了一个 Cookie，包含了一些隐私信息（比如存款总额）。用户离开 A 网站以后，又去访问 B 网站，如果没有同源限制，B 网站可以读取 A 网站的 Cookie，那么隐私信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。</p>
+</blockquote>
+<p>跨域的解决方式：</p>
+<p><strong>CORS</strong><br>常见配置：（可能有其他的方式，有兴趣小伙伴自行拓展）<br>Access-Control-Allow-Origin（必须）: 设置允许的域名 ，只能填*<br>Access-Control-Allow-Methods（必须）：常见的一些常用请求方法，比如 post get等，<br>Access-Control-Allow-Headers：当预请求中含有请求头时吗，这是必须的<br>Access-Control-Allow-Credentials（可选）：<br>Access-Control-Max-Age（可选）：这里和浏览器的缓存机制有关</p>
+<p>浏览器将CORS请求大致分为两种：简单 、 非简单<br>简单：使用post、get、head中的一种；请求头头信息不超出指定的几种字段（Accept Accept-Language Content-Language  Last-Event-ID Content-Type）<br>非简单：请求方法是put、delete ；Content-Type 类型是appliction/json<br>CORS大致分为这两种，不是ta就是ta</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/4/11/16a0ab6de903b2b0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="示意图" title="CORS"><br>如下图：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201231212145417_QQ%E5%9B%BE%E7%89%8720201231212131.png" alt="undefined" title="undefined"></p>
+<p>处理跨域的方式还有：<br>JSONP、服务器代理等等 暂不作说明</p>
+<p>待续…</p>
+<p>参考资料：<br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/04/cors.html" title="跨域资源共享 CORS 详解">跨域资源共享 CORS 详解</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2223/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2176/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

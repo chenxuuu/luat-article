@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>网卡模式下获取Air720的运行状态 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">网卡模式下获取Air720的运行状态</h1>
+<article class="post markdown-style">
+  <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ol>
+<li>需要获取联网状态,设备识别号(IMEI),ICCID,重启设备</li>
+<li>通过AT可以获取网络状态,SIM的ICCID</li>
+<li>linux下需要修改内核驱动才能出AT口</li>
+</ol>
+<h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p>获取信息</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">&quot;sysinfo&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;hardware_version&quot;</span>: <span class="string">&quot;NZ_SSG_V20&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;device_name&quot;</span>: <span class="string">&quot;MIFI&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;version_num&quot;</span>: <span class="string">&quot;NZ_NZ_CP_2.174.000X&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;version_date&quot;</span>: <span class="string">&quot;Oct  6 2018&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;model_name&quot;</span>: <span class="string">&quot;LV01&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;main_chip_name&quot;</span>: <span class="string">&quot;PXA1802&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;ssg_version&quot;</span>: <span class="string">&quot;LV01MVL01&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;ssg_compile_time&quot;</span>: <span class="string">&quot;Oct  6 2018 10:38:24&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;current_device_mac&quot;</span>: <span class="string">&quot;ac:3d:d3:d5:6d:af&quot;</span></span><br><span class="line">   &#125;,</span><br><span class="line">      <span class="attr">&quot;wan&quot;</span>: &#123;</span><br><span class="line">          <span class="comment">// ...</span></span><br><span class="line">         <span class="attr">&quot;IMEI&quot;</span>: <span class="string">&quot;869300038716XXX&quot;</span></span><br><span class="line">         <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">   <span class="comment">//... 剩下的省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="突破口"><a href="#突破口" class="headerlink" title="突破口"></a>突破口</h2><ol>
+<li>设备自带一个网页管理工具</li>
+<li>该工具需要登录,基于变种的Digest realm登录验证</li>
+<li>网页是通过ajax访问/xml_action.cgi读取和操作设备</li>
+<li>必须先完成一次登录,才能通过普通的Digest realm机制访问xml_action</li>
+</ol>
+<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 访问&#x2F;login.cgi,服务器返回header WWW-Authenticate</span><br><span class="line">2. 解析WWW-Authenticate,得到nonce</span><br><span class="line">3. 先使用uri&#x3D;&#x2F;cgi&#x2F;protected.cgi生成签名,作为url参数. 这点非常重要</span><br><span class="line">4. 再使用uri&#x3D;&#x2F;cgi&#x2F;xml_action.cgi生成普通的Digest realm签名,放入header</span><br><span class="line">5. 使用上两步的参数和签名,访问&#x2F;login.cgi, 服务器返回200代表登录成功,500代表失败</span><br><span class="line">6. 使用普通Digest realm签名,访问&#x2F;xml_action.cgi, 可以读取和操作设备</span><br></pre></td></tr></table></figure>
+<h3 id="Digest-realm签名算法简介"><a href="#Digest-realm签名算法简介" class="headerlink" title="Digest realm签名算法简介"></a>Digest realm签名算法简介</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/HTTP%E6%91%98%E8%A6%81%E8%AE%A4%E8%AF%81">https://zh.wikipedia.org/wiki/HTTP%E6%91%98%E8%A6%81%E8%AE%A4%E8%AF%81</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HA1 &#x3D; md5_hex(username:realm:password)</span><br><span class="line">HA2 &#x3D; md5_hex(method:uri) &#x2F;&#x2F; method是GET&#x2F;POST&#x2F;PUT等, uri是&#x2F;cgi&#x2F;protected.cgi(仅登录)或&#x2F;xml_action.cgi</span><br><span class="line">&#x2F;&#x2F; 其中nonce是访问&#x2F;login.cgi时获取的</span><br><span class="line">&#x2F;&#x2F; nonceCount是16进制自增数列,login总是1,后续请求逐次+1</span><br><span class="line">&#x2F;&#x2F; clientNonce是客户端随机字符串,长度12字节,数字+字母就行</span><br><span class="line">&#x2F;&#x2F; qop总是auth</span><br><span class="line">RE &#x3D; md5_hex(HA1:nonce:nonceCount:clientNonce:qop:HA2)</span><br></pre></td></tr></table></figure>
+<h2 id="演示代码"><a href="#演示代码" class="headerlink" title="演示代码"></a>演示代码</h2><p>基于Java的示例代码,2018-10-06的AT固件验证有效<br><a target="_blank" rel="noopener" href="https://gitee.com/wendal/Air720Master">https://gitee.com/wendal/Air720Master</a></p>
+<h2 id="附上部分可以操作"><a href="#附上部分可以操作" class="headerlink" title="附上部分可以操作"></a>附上部分可以操作</h2><p>module总是duster,还没发现例外</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; http:&#x2F;&#x2F;192.168.0.1&#x2F;xml_action.cgi?method&#x3D;get&amp;module&#x3D;duster&amp;file&#x3D;status1</span><br><span class="line">&#x2F;&#x2F; 全部状态? status1</span><br><span class="line">&#x2F;&#x2F; 流量信息 statistics</span><br><span class="line">&#x2F;&#x2F; 上网配置 wan</span><br><span class="line">&#x2F;&#x2F; 局域网配置 lan</span><br><span class="line">&#x2F;&#x2F; PIN&#x2F;PUK设置 pin_puk</span><br><span class="line">&#x2F;&#x2F; USSD设置 ussd</span><br><span class="line">&#x2F;&#x2F; 联网设备 device_management_all</span><br><span class="line">&#x2F;&#x2F; 设备统计 device_management</span><br><span class="line">&#x2F;&#x2F; 日志 detailed_log</span><br><span class="line">&#x2F;&#x2F; 自定义防火墙 custom_fw</span><br><span class="line">&#x2F;&#x2F; 端口过滤 port_filter</span><br><span class="line">&#x2F;&#x2F; 端口转发 port_forwarding</span><br><span class="line">&#x2F;&#x2F; 电话本 phonebook</span><br><span class="line">&#x2F;&#x2F; 短信 message</span><br><span class="line">&#x2F;&#x2F; 管理员配置 admin</span><br><span class="line">&#x2F;&#x2F; 固件版本 firmware</span><br><span class="line">&#x2F;&#x2F; 重启 reset</span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/466/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/464/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>luat程序如何实现延时运行 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">luat程序如何实现延时运行</h1>
+<article class="post markdown-style">
+  <p>某些时候，开发者的程序需要实现等待外部设备上报消息，或者延迟执行。但是Luat底层没有提供直接的wait函数，也不能用while(i–)这种形式实现延时，那么，如果遇到这种情况，怎么处理呢？</p>
+<blockquote>
+<p>为什么不能用**while(i–)**呢？因为Luat的架构是这样的：硬件—底层—luavm—lua代码；如果底层检测到死循环，会认为代码出错，直接重启模块了。所以while循环的方式行不通。<br>lua的代码都是时间分片运行的，所以可以使用LuaTasK架构的协程实现近似的wait功能（是协程，不是线程哦）。<br>同时，由于通信模块中断优先级限制，小于10ms的延时，不会精准。</p>
+</blockquote>
+<p>##硬阻塞rtos.sleep(time)<br>底层没有提供软sleep，调用该接口会硬阻塞直到计时结束。在此期间所有代码<strong>停止执行</strong>。使用方法如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(“start test.”)</span><br><span class="line">rtos.sleep(<span class="number">1000</span>)</span><br><span class="line"><span class="built_in">print</span>(“test success.”)</span><br></pre></td></tr></table></figure>
+<p>##sys.wait(time)<br>这是LuaTasK架构提供的一个任务延时函数。<strong>它只能用于任务函数中</strong>。在其他地方中使用，会出现问题。在任务函数中执行这个函数，其他代码、任务的运行<strong>不受影响</strong>。<br>它的原理就是挂起协程，当计时结束，再恢复协程。使用方法如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>”sys”</span><br><span class="line"><span class="comment">--测试wait</span></span><br><span class="line">sys.taskInit(	<span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">					<span class="built_in">print</span>(“start test.”)</span><br><span class="line">					sys.wait(<span class="number">1000</span>)</span><br><span class="line">					<span class="built_in">print</span>(“test success.”)</span><br><span class="line">				<span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--测试任务函数的wait是否互相影响</span></span><br><span class="line">sys.taskInit(	<span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">					<span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">						<span class="built_in">print</span>(“<span class="built_in">running</span>…”)</span><br><span class="line">						sys.wait(<span class="number">100</span>)</span><br><span class="line">					<span class="keyword">end</span></span><br><span class="line">				<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>##sys.waitUntil(msg, timeOut)<br>仅仅延时是不能满足需求的，LuaTasK架构还支持任务的消息等待。同样的，<strong>它只能用于任务函数中</strong>。<br>当程序执行到此，自动停止，直到收到消息（或者超时），在任务函数中执行这个函数，其他代码、任务的运行<strong>不受影响</strong>。<br>使用方法如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>”sys”</span><br><span class="line">sys.taskInit(	<span class="function"><span class="keyword">function</span><span class="params">()</span></span> </span><br><span class="line">					<span class="built_in">print</span>(“start test.”)</span><br><span class="line">					<span class="comment">--收到消息“TEST”或者50s超时，则继续执行代码</span></span><br><span class="line">					sys.waitUntil(“TEST”, <span class="number">50000</span>)</span><br><span class="line">					<span class="built_in">print</span>(“test success.”)</span><br><span class="line">				<span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--10秒后发布消息“TEST”</span></span><br><span class="line">sys.timerStart(sys.publish, <span class="number">10000</span>, “TEST”)</span><br></pre></td></tr></table></figure>
+<p>##sys.timerStart(time) / sys.timerLoopStart(time)<br>LuaTasK还提供了timer可供开发者调用。其中timerStart是一次性定时器，timerLoopStart是循环定时器。不论定时器是否开启，均可使用sys.timerStop(id)停止定时器。</p>
+<p>使用方法如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>”sys”</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timerTest</span><span class="params">()</span></span></span><br><span class="line">	<span class="built_in">print</span>(“timerTest succ.”)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loopTimerTest</span><span class="params">()</span></span></span><br><span class="line">	<span class="built_in">print</span>(“loopTimerTest succ.”)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--开启一次性定时器</span></span><br><span class="line">sys.timerStart(timerTest, <span class="number">10000</span>)</span><br><span class="line"><span class="comment">--开启一个循环定时器</span></span><br><span class="line">sys.timerLoopStart(loopTimerTest, <span class="number">3000</span>)</span><br><span class="line"><span class="comment">--如果关闭定时器，可以使用如下代码：</span></span><br><span class="line"><span class="comment">--sys.timerStop(timerTest)</span></span><br><span class="line"><span class="comment">--sys.timerStop(loopTimerTest)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--如果timer中是匿名函数，则可以用如下方法关闭：</span></span><br><span class="line"><span class="comment">--[[timerID = sys.timerLoopStart(	function() </span></span><br><span class="line"><span class="comment">										print(“loopTimer naked function test.”)</span></span><br><span class="line"><span class="comment">									end, 3000)</span></span><br><span class="line"><span class="comment">sys.timerStop(timerID)]]</span></span><br></pre></td></tr></table></figure>
+<p>##os.time()<br>如果开发者不需要非常精确的定时器，但是需要长时间计时（譬如两个小时后关闭gpio输出），使用os.time()时间戳更好一些。</p>
+<p>记录下当前时间戳os.time()，并存使用nvm demo存储到flash；然后使用sys.timerLoopStart去循环检查当前时间戳是否到达计时时间。这样可以避免意外重启等原因造成定时器失效的情况。</p>
+<p>示例代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>”nvm”</span><br><span class="line"><span class="built_in">require</span>”sys”</span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;config&quot;</span></span><br><span class="line">nvm.init(<span class="string">&quot;config.lua&quot;</span>)</span><br><span class="line">nvm.set(“tmpStp”, <span class="built_in">os</span>.<span class="built_in">time</span>())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeChk</span><span class="params">()</span></span></span><br><span class="line">	<span class="comment">--如果当前时间，大于保存的时间+60秒 </span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">os</span>.<span class="built_in">time</span>() &gt; nvm.get(“tmpStp”) + <span class="number">60</span> <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">print</span>(“<span class="built_in">time</span> up”)</span><br><span class="line">		sys.timerStop(timeChk)</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">sys.timerLoopStart(timeChk, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p>##rtos.tick()<br>这个函数返回开机上电后的ticks时间计数。<br>每 tick 时长：2G模块1/16384秒；4G模块5毫秒。<br>如果开发者需要开机时间，可以使用这个函数。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/451/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/449/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

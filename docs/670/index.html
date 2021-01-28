@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器</h1>
+<article class="post markdown-style">
+  <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。在前几篇的文章里，我讲述了如何使用手机客户端和PC客户端通过UPWs服务器向iRTU控制器发送透传指令。 今天这篇文章是上两篇文章的一个实际应用，在本文中，我将介绍将iRTU与市面上的一款Modbus继电器相连实现远程开关继电器的功能。</p>
+<h2 id="Modbus简介"><a href="#Modbus简介" class="headerlink" title="Modbus简介"></a>Modbus简介</h2><p>Modbus是由Modicon（现为施耐德电气公司的一个品牌）在1979年发明的，是全球第一个真正用于工业现场的总线协议。 直到如今，Modbus在各个工业场合依然被广泛采用，下面简单的介绍一下Modbus的报文格式</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_18812.jpg"></p>
+<p>Modbus对设备的控制是通过对一系列寄存器的读写完成的。 设备地址是一个8bit的字节，规定了总线上要进行通讯的设备地址，最多可以有247个设备，地址为0的时候为广播地址，所有设备都应该进行解析，248-255是供用户扩展之用。 功能代码是具体执行的功能，数据部分是可变长度的整字节数据，报文尾部有一个双8Bit的CRC校验位。 当通讯命令发送至仪器时，符合相应地址码的设备接通讯命令，并除去地址码，读取信息，如果没有出错，则执行相应的任务；然后把执行结果返送给发送者。返送的信息中包括地址码、执行动作的功能码、执行动作后结果的数据以及错误校验码。如果出错就返回任何信息。</p>
+<p>下面以我购得的一个具有4路输出的Modbus继电器模块所采用的通讯报文</p>
+<pre><code>--下行报文 （iRTU-&gt;Modbus继电器）
+01 05 00 00 FF 00 98 35
+</code></pre>
+<p>01-&gt;地址码，购买的设备默认起始为01，模块上有一个5位的拨码开关，通过调节增加地址，比如 ON|OFF|OFF|OFF|OFF的地位为02</p>
+<p>05-&gt;功能码，控制打开继电器</p>
+<p>00 00-&gt;寄存器起始位，00 00 代表第一个继电器， 00 01 代表第二个， 00 10 代表第三个，0011 代表第四个</p>
+<p>98 35-&gt;CRC16校验和</p>
+<pre><code>--上行报文 （Modbus-&gt;iRTU）
+FE 05 00 00 FF 00 98 35
+</code></pre>
+<p>返回内容与发送内容相同，证明执行成功，如果执行不成功，则没有返回</p>
+<p>##电路连接方式</p>
+<p>本次试验电路测试中采用了合宙生态企业深圳飞思创生产的DTU400-485 4G三模iRTU，不久前商家搞活动促销以99元购得。 </p>
+<p>该DTU终端内部采用合宙出品的Air720G全网通4G模块，功能与合宙出品的4G DTU大板基本相同，但额外外置一个5-36V的电源输入接口，使用起来非常方便。 </p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80941.jpg"></p>
+<p>下图是本次实验用到的物料</p>
+<p>DTU400-485 X1</p>
+<p>CS-IO404 Modbus继电器 X1</p>
+<p>USB转RS485转接头 X1</p>
+<p>电话线 1盘</p>
+<p>导线 X 4 </p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_38702.jpg"></p>
+<p>下面是连线方式，其中RS485转换头和传输线仅供配置用，配置完成后可以移除。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_61025.jpg"></p>
+<p>##实现方法</p>
+<p>第一步：按照上图将电路连接完成，完成后如下图所示效果</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_44703.jpg"></p>
+<p>第二步：编写上下行数据流模板</p>
+<p>下行数据流模板(DTU-&gt;Modbus继电器)，该模板用于将手机发送的继电器控制指令翻译为Modbus继电器的控制报文。</p>
+<pre><code>--Download steam
+function
+
+    local str=...
+    --从MTCP协议中拆出命令
+    local dat=str:sub(40,-3)
+    local ret=&quot;&quot;
+
+    --判断发送的指令，是否与预置指令一致，如果一致则下发响应的Modbus命令
+    if (dat:sub(1,8)==&quot;relay1on&quot;) then
+
+        --Modbus地址 01，命令：控制继电器 05，第一个继电器 0000，动作：打开 FF00 ，校验和 8C3A
+        ret= string.fromHex(&quot;01 05 00 00 FF 00 8C 3A&quot;)
+    elseif (dat:sub(1,8)==&quot;relay2on&quot;) then
+        ret= string.fromHex(&quot;01 05 00 01 FF 00 DD FA&quot;)
+    elseif (dat:sub(1,8)==&quot;relay3on&quot;) then
+        ret= string.fromHex(&quot;01 05 00 02 FF 00 6D FB&quot;)
+    elseif (dat:sub(1,8)==&quot;relay4on&quot;) then
+        ret= string.fromHex(&quot;01 05 00 03 FF 00 3C 3B&quot;)
+    
+    elseif (dat:sub(1,9)==&quot;relay1off&quot;) then
+        --Modbus地址 01，命令：控制继电器 05，第一个继电器 0000，动作：关闭 0000 ，校验和 CDCA
+        ret= string.fromHex(&quot;01 05 00 00 00 00 CD CA&quot;)
+    elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
+        ret= string.fromHex(&quot;01 05 00 01 00 00 9C 0A&quot;)
+    elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
+        ret= string.fromHex(&quot;01 05 00 02 00 00 6C 0A&quot;)
+    elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
+        ret= string.fromHex(&quot;01 05 00 03 00 00 3D CA&quot;)
+    else 
+        ret =dat
+    end
+
+return ret
+
+end
+</code></pre>
+<p>上行数据流模板(Modbus继电器-&gt;DTU)，该模板用于将Modbus继电器返回的报文翻译成手机的回报信息。</p>
+<pre><code>--Upload stream
+function 
+
+local a=...
+
+local ret=&quot;&quot;
+local str=&quot;&quot;
+
+--判断报文是否为继电器状态返回
+if (a:sub(1,2)==string.fromHex(&quot;01 05&quot;)) then 
+    --第4位是继电器编号
+    local relayNO=a:sub(4,4):byte()     
+    --第5位是继电器状态，0为关闭 255是打开
+    local relayStatus=a:sub(5,5):byte()
+    local no=tostring(relayNO,10)
+    local stat
+    if (relayStatus==255) then stat=&quot;ON&quot; else stat=&quot;OFF&quot; end        
+    str=&quot;Relay NO.:&quot;..no..&quot; Status is:&quot;..stat          
+else
+    str=string.toHex(a, &quot; &quot;)
+end
+
+local totallen=41+str:len()
+local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
+
+return ret
+
+end
+</code></pre>
+<p>第三步：配置iRTU</p>
+<p>将编写好的上下行数据流模板和Upws服务器参数通过串口工具配置到DTU</p>
+<p>服务器设置：</p>
+<p>1） 配置iRTU为UDP传输模式，服务器地址为 box.miuser.net，DPU端口为7101</p>
+<p>2） 每隔10S发送一次心跳包，心跳包的内容为 005501B01000000000100000000000000011234iRTUUPWs 1.0.000</p>
+<p>3） 使用数据通道1通过数据模板进行透传，并绑定到到iRTU串口1</p>
+<p>4） 串口1 波特率设置为9600bps，停止位1，奇偶校验无</p>
+<p>第四步，打开LLCCOM调试工具，将以上配置信息通过串口工具写入iRTU</p>
+<pre><code>config,writeconfig,&#123;&quot;fota&quot;:0,&quot;uartReadTime&quot;:&quot;25&quot;,&quot;flow&quot;:&quot;&quot;,&quot;param_ver&quot;:&quot;1&quot;,&quot;pwrmod&quot;:&quot;normal&quot;,&quot;password&quot;:&quot;&quot;,&quot;netReadTime&quot;:&quot;300&quot;,&quot;passon&quot;:1,&quot;nolog&quot;:&quot;0&quot;,&quot;plate&quot;:0,&quot;reg&quot;:0,&quot;convert&quot;:0,&quot;uconf&quot;:[[1,&quot;9600&quot;,8,2,0,&quot;&quot;],[2,&quot;115200&quot;,8,2,0,&quot;&quot;]],&quot;conf&quot;:[[&quot;udp&quot;,&quot;005501B01000000000100000000000000011234iRTUUPWs 1.0.000&quot;,10,&quot;box.miuser.net&quot;,7101,1,&quot;&quot;,&quot;&quot;,&quot;&quot;],[],[],[],[],[],[]],&quot;preset&quot;:&#123;&quot;number&quot;:&quot;&quot;,&quot;delay&quot;:&quot;&quot;,&quot;smsword&quot;:&quot;&quot;&#125;,&quot;apn&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;cmds&quot;:[[],[]],&quot;pins&quot;:[],&quot;gps&quot;:&#123;&quot;pio&quot;:[],&quot;fun&quot;:[]&#125;,&quot;upprot&quot;:[&quot;--Upload stream\nfunction \n\n    local a=...\n\n    local ret=\&quot;\&quot;\n    local str=\&quot;\&quot;\n\n    if (a:sub(1,2)==string.fromHex(\&quot;01 05\&quot;)) then \n        local relayNO=a:sub(4,4):byte()     \n        local relayStatus=a:sub(5,5):byte()\n        local no=tostring(relayNO,10)\n        local stat\n        if (relayStatus==255) then stat=\&quot;ON\&quot; else stat=\&quot;OFF\&quot; end        \n        str=\&quot;Relay NO.:\&quot;..no..\&quot; Status is:\&quot;..stat          \n    else\n        str=string.toHex(a, \&quot; \&quot;)\n    end\n\n    local totallen=41+str:len()\n    local ret=string.format(\&quot;%04d\&quot;,totallen)..\&quot;01\&quot;..\&quot;C\&quot;..\&quot;01\&quot;..\&quot;0000000001\&quot;..\&quot;0000000000000001\&quot;..\&quot;1234\&quot;..str..\&quot;05\&quot;\n\n    return ret\n    \nend &quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;dwprot&quot;:[&quot;--Download steam\nfunction\n\n    local str=...\n    local dat=str:sub(40,-3)\n    local ret=\&quot;\&quot;\n    if (dat:sub(1,8)==\&quot;relay1on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 00 FF 00 8C 3A\&quot;)\n    elseif (dat:sub(1,8)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 01 FF 00 DD FA\&quot;)\n    elseif (dat:sub(1,8)==\&quot;relay3on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 02 FF 00 6D FB\&quot;)\n    elseif (dat:sub(1,8)==\&quot;relay4on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 03 FF 00 3C 3B\&quot;)\n\n    elseif (dat:sub(1,9)==\&quot;relay1off\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 00 00 00 CD CA\&quot;)\n    elseif (dat:sub(1,9)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 01 00 00 9C 0A\&quot;)\n    elseif (dat:sub(1,9)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 02 00 00 6C 0A\&quot;)\n    elseif (dat:sub(1,9)==\&quot;relay2on\&quot;) then\n        ret= string.fromHex(\&quot;01 05 00 03 00 00 3D CA\&quot;)\n    else \n        ret =dat\n    end\n\n    return ret\n\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;warn&quot;:&#123;&quot;adc0&quot;:[],&quot;adc1&quot;:[],&quot;vbatt&quot;:[],&quot;gpio&quot;:[]&#125; &#125;
+</code></pre>
+<p>默认串口速率为115200，打开LLC，把以上内容粘贴到发送框里，点击发送，即可。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_53595.jpg"></p>
+<p>第五步，通过扫描二维码，对继电器进行控制。在命令行里输入relay1on,可以看到继电器被打开。再输入relay1off，可以看到继电器被关闭。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96933.jpg"></p>
+<p>第六步，最终效果</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_74941.jpg"></p>
+<p>网络继电器的用途很广，现代农业里面的浇水施肥，基本上都是靠这个来控制的，不到两百块钱就可以控制220V水泵给自己家的地远程浇水了！ 您看过本文以后是不是心动了呢，那就赶快行动吧。 下一篇文章，我们将尝试使用同样的原理通过另一款温度传感器采集环境温湿度信息。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA">https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA</a> 提取码：a610 </p>
+<p>本文参考资料如下：</p>
+<p>1 iRTU项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
+<p>2 UPWS项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
+<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
+<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/671/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/669/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

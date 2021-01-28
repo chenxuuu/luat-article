@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>yield与dva流程控制 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">yield与dva流程控制</h1>
+<article class="post markdown-style">
+  <h2 id="yield与dva流程控制"><a href="#yield与dva流程控制" class="headerlink" title="yield与dva流程控制"></a>yield与dva流程控制</h2><h3 id="dva-js"><a href="#dva-js" class="headerlink" title="dva.js"></a>dva.js</h3><p>dva 首先是一个基于 <a target="_blank" rel="noopener" href="https://github.com/reduxjs/redux">redux</a> 和 <a target="_blank" rel="noopener" href="https://github.com/redux-saga/redux-saga">redux-saga</a> 的数据流方案，然后为了简化开发体验，dva 还额外内置了 <a target="_blank" rel="noopener" href="https://github.com/ReactTraining/react-router">react-router</a> 和 <a target="_blank" rel="noopener" href="https://github.com/github/fetch">fetch</a>，所以也可以理解为一个轻量级的应用框架。</p>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><ul>
+<li><strong>yield是ES6的新关键字</strong>，使生成器函数执行暂停，yield关键字后面的表达式的值返回给生成器的调用者。它可以被认为是一个基于生成器的版本的return关键字。</li>
+<li>yield关键字实际返回一个IteratorResult（迭代器）对象，它有两个属性，value和done，分别代表返回值和是否完成。</li>
+<li>yield无法单独工作，需要配合generator(生成器)的其他函数，如next，懒汉式操作，展现强大的主动控制特性。</li>
+</ul>
+<h4 id="迭代器-Iterator-和生成器-Generator"><a href="#迭代器-Iterator-和生成器-Generator" class="headerlink" title="迭代器(Iterator)和生成器(Generator)"></a>迭代器(Iterator)和生成器(Generator)</h4><p><strong>迭代器</strong>：迭代器是一种特殊对象，它具有一些专门为迭代过程设计的专有接口，所有的迭代器对象都有一个next()方法，每次调用都返回一个结果对象。</p>
+<p>下面用ES5的语法创建一个迭代器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createIterator</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> done = (i &gt;= items.length);</span><br><span class="line">            <span class="keyword">var</span> value = !done ? items[i++] : <span class="literal">undefined</span>;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                done: done,</span><br><span class="line">                value: value</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>生成器:</strong> 生成器是一种返回迭代器的函数，通过function关键字后的星号(*)来表示，函数中会用到新的关键字yield。</p>
+<blockquote>
+<p>星号可以紧挨着function关键字，也可以在中间添加一个空格。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 生成器能像正规函数那样被调用，但会返回一个迭代器</span></span><br><span class="line"><span class="keyword">let</span> iterator = createIterator();</span><br><span class="line"><span class="built_in">console</span>.log(iterator.next().value); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next().value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next().value); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<strong>createlterator()前的星号表明它是一个生成器；yield关键字也是ES6的新特性，可以通过它来指定调用迭代器的next()方法时的返回值及返回顺序</strong>。生成迭代器后，连续3次调用它的next()方法返回3个不同的值，分别是1、2和3。生成器的调用过程与其他函数一样，最终返回的是创建好的迭代器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; items.length; i++) &#123;</span><br><span class="line">        <span class="keyword">yield</span> items[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> iterator = createIterator([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: 1, done: false &#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: 2, done: false &#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: 3, done: false &#125;&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: undefined, done: true &#125;&quot;</span></span><br><span class="line"><span class="comment">// 之后的所有调用</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &quot;&#123; value: undefined, done: true &#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>生成器函数最有趣的部分是，每当执行完一条yield语句后函数就会自动停止执行。</strong></p>
+<p><strong>【使用限制】yield关键字只可在生成器内部使用，在其他地方使用会导致程序抛出错误</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span> *(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    items.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 语法错误</span></span><br><span class="line">        <span class="keyword">yield</span> item + <span class="number">1</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><span style="font-size:14px;"><strong>从字面上看，yield关键字确实在createlterator()函数内部，但是它与return关键字一样，二者都不能穿透函数边界。嵌套函数中的return语句不能用作外部函数的返回语句，而此处嵌套函数中的yield语句会导致程序抛出语法错误。</strong></span></p>
+<p>也可以通过函数表达式来创建生成器，只需在function关键字和小括号中间添加一个星号(*)即可</p>
+<h4 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h4><p>　可迭代对象具有Symbol.iterator属性，是一种与迭代器密切相关的对象。</p>
+<p>​    Symbol.iterator通过指定的函数可以返回一个作用于附属对象的迭代器。在ES6中，<strong>所有的集合对象(数组、Set集合及Map集合)和字符串都是可迭代对象</strong>，这些对象中都有默认的迭代器。ES6中新加入的特性for-of循环需要用到可迭代对象的这些功能。</p>
+<p>……</p>
+<h3 id="简单模拟dva处理effects函数"><a href="#简单模拟dva处理effects函数" class="headerlink" title="简单模拟dva处理effects函数"></a>简单模拟dva处理effects函数</h3><p>经过以上对于yield与迭代器的分析，我们可以以call为例模拟dva的处理流程。</p>
+<ul>
+<li>遍历model下的effects</li>
+<li>遍历effects下的函数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟业务流程</span></span><br><span class="line"><span class="comment">// models</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">requestCom</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> comRes = <span class="keyword">yield</span> getCommit</span><br><span class="line">        <span class="keyword">let</span> repRes = <span class="keyword">yield</span> getReply.bind(<span class="built_in">this</span>, comRes.id)</span><br><span class="line">        <span class="built_in">console</span>.log(repRes);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 获取评论</span></span><br><span class="line"><span class="keyword">const</span> getCommit = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="attr">id</span>: <span class="string">&quot;1&quot;</span>, <span class="attr">value</span>: <span class="string">&quot;评论&quot;</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 根据id获取评论下的回复</span></span><br><span class="line"><span class="keyword">const</span> getReply = <span class="function">(<span class="params">id</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!id) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">101</span>, <span class="attr">content</span>: <span class="string">&quot;hahah&quot;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">102</span>, <span class="attr">content</span>: <span class="string">&quot;heheh&quot;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">103</span>, <span class="attr">content</span>: <span class="string">&quot;huhuh&quot;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">id</span>: <span class="number">104</span>, <span class="attr">content</span>: <span class="string">&quot;xixix&quot;</span> &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// dva流程</span></span><br><span class="line"><span class="keyword">let</span> resCommIterator = requestCom()</span><br><span class="line">    <span class="comment">// TODO fn 类型判断、可迭代判断 ...</span></span><br><span class="line">    <span class="comment">// redux-saga.js</span></span><br><span class="line">    <span class="comment">// createPromiseMiddleware.js</span></span><br><span class="line"><span class="keyword">let</span> comValue = resCommIterator.next().value;</span><br><span class="line"><span class="keyword">let</span> repValue = resCommIterator.next(comValue()).value</span><br><span class="line"><span class="keyword">let</span> result = repValue()</span><br><span class="line"><span class="built_in">console</span>.log(comValue());</span><br><span class="line"><span class="built_in">console</span>.log(repValue());</span><br></pre></td></tr></table></figure>
+<p>业务代码中的写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// models -- comment</span></span><br><span class="line">* <span class="function"><span class="title">fetch_add_topic</span>(<span class="params">&#123;&#125;, &#123; call, put, select &#125;</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> commResponse = <span class="keyword">yield</span> call(get_topic);</span><br><span class="line">            <span class="keyword">if</span> (ValidResponse(commResponse)) &#123;</span><br><span class="line">				<span class="keyword">let</span> id = commResponse.data.id</span><br><span class="line">              	<span class="keyword">const</span> replyResponse = <span class="keyword">yield</span> call(get_reply, &#123;id&#125;);</span><br><span class="line">                <span class="keyword">if</span> (ValidResponse(commResponse)) &#123;</span><br><span class="line">                  message.success(<span class="string">&quot;获取成功！&quot;</span>)</span><br><span class="line">                    <span class="keyword">yield</span> put(&#123;</span><br><span class="line">                        type: <span class="string">&#x27;saveReply&#x27;</span>,</span><br><span class="line">                        payload: &#123; <span class="attr">data</span>: replyResponse.data, <span class="attr">topic_id</span>: payload.topic_id&#125;,</span><br><span class="line">                    &#125;);   </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line"><span class="comment">// services          </span></span><br><span class="line"><span class="comment">// 获取评论</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">get_topic</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> request(<span class="string">&#x27;/dev/site/topic&#x27;</span>, &#123;</span><br><span class="line">        method: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        params,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取回复</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">get_reply</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> request(<span class="string">&#x27;/dev/site/reply&#x27;</span>, &#123;</span><br><span class="line">        method: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        params,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><p>dva/ createPromiseMiddleware.js</p>
+<p>.umi/plugin-dva/dva.ts</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2150/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2142/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

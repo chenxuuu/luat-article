@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>稀饭放姜 iRTU 学习日记 （2）：实现最基本的一个应用-RS485透传 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">稀饭放姜 iRTU 学习日记 （2）：实现最基本的一个应用-RS485透传</h1>
+<article class="post markdown-style">
+  <h4 id="openluat-Air720D-4G-DTU主控板-是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G-4G-双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU-配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。"><a href="#openluat-Air720D-4G-DTU主控板-是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G-4G-双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU-配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。" class="headerlink" title="openluat Air720D 4G DTU主控板 是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU 配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。"></a>openluat Air720D 4G DTU主控板 是由合宙开源社区技术专家“稀饭放姜”设计，上海合宙物联网公司推出的一款移动2G/4G 双模DTU产品。只需要加上壳子就成为一个性能优秀的DTU产品。今天的学习日记里面，我将尝试使用iRTU 配合另一个开源小项目UPWS做一个最基本的工业应用案例：RS485数据双向透传。</h4><h2 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h2><p>通过一个手机浏览器和iRTU的485端口建立透传连接，可以互相透明传输文本或者二进制数据。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16150.jpg"></p>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_30818.jpg"></p>
+<ol>
+<li>iRTU通过UDP端口连接到远程的UPWS服务器,并发送上线消息</li>
+</ol>
+<p>服务地址为 udp://box.miuser.net:7101</p>
+<p>2）手机通过微信扫描二维码或浏览器输入网址打开iRTU测试小程序页面通过Websocket接口连接到UPWS服务器，并发送上线消息</p>
+<p>服务地址为：ws://box.miuser.net:9000</p>
+<p>3）电脑客户端接一个USB转UART串口的连接线，再转接一个UART转RS485的连接板连接到iRTU上，并使用串口调试工具打开USB串口</p>
+<p>4）通过手机客户端可以和LLCOM串口调试工具建立起双向的文本命令传输，传输支持中文和英文。</p>
+<p>下面是硬件连线示意图</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80141.jpg"></p>
+<h2 id="硬件连接具体步骤"><a href="#硬件连接具体步骤" class="headerlink" title="硬件连接具体步骤"></a>硬件连接具体步骤</h2><p>器材准备</p>
+<ol>
+<li>Air720D 4G DTU主控板+2G/4G全频段天线</li>
+</ol>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93772.jpg"></p>
+<p>2）RS485转UART小板+USB转串口线</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_37087.jpg"></p>
+<ol start="3">
+<li>USB 5V电源+ USB线</li>
+</ol>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39112.jpg"></p>
+<ol start="4">
+<li><p>DTU供电连接线两根+RS485传输线一盘<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95425.jpg"></p>
+</li>
+<li><p>手机一部+电脑一部 （很普通，就不拍照了）</p>
+</li>
+</ol>
+<p>连接方式如下</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51276.jpg"></p>
+<p>电路连接好后，将sim卡插入iRTU板子sim卡座上，通上电源我们应该能看到iRTU灯有规律的闪烁，此时证明iRTU工作已经正常。准备开始接收指令</p>
+<h2 id="iRTU配置步骤"><a href="#iRTU配置步骤" class="headerlink" title="iRTU配置步骤"></a>iRTU配置步骤</h2><p>此时我们打开LLCCOM调试工具，发送如下指令序列，对iRTU进行配置</p>
+<p>串口波特率训练</p>
+<pre><code>--发送
+AT
+--返回
+AT
+</code></pre>
+<p>查询版本</p>
+<pre><code>--发送
+rrpc,getver
+--返回
+rrpc,getver,1.8.7
+</code></pre>
+<p>查询设备IMEI</p>
+<pre><code>--发送
+rrpc,getimei
+--返回
+rrpc,getimei,866262042499144
+</code></pre>
+<p>配置为连接UPWS服务器</p>
+<pre><code>--发送
+config,writeconfig,&#123;&quot;fota&quot;:0,&quot;uartReadTime&quot;:&quot;25&quot;,&quot;flow&quot;:&quot;&quot;,&quot;param_ver&quot;:&quot;1&quot;,&quot;pwrmod&quot;:&quot;normal&quot;,&quot;password&quot;:&quot;&quot;,&quot;netReadTime&quot;:&quot;0&quot;,&quot;passon&quot;:1,&quot;nolog&quot;:&quot;0&quot;,&quot;plate&quot;:0,&quot;reg&quot;:0,&quot;convert&quot;:0,&quot;uconf&quot;:[[1,&quot;115200&quot;,8,2,0,&quot;&quot;],[2,&quot;115200&quot;,8,2,0,&quot;&quot;]],&quot;conf&quot;:[[&quot;udp&quot;,&quot;005501B01000000000100000000000000011234iRTUUPWs 1.0.000&quot;,10,&quot;box.miuser.net&quot;,7101,1,&quot;&quot;,&quot;&quot;,&quot;&quot;],[],[],[],[],[],[]],&quot;preset&quot;:&#123;&quot;number&quot;:&quot;&quot;,&quot;delay&quot;:&quot;&quot;,&quot;smsword&quot;:&quot;&quot;&#125;,&quot;apn&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;cmds&quot;:[[],[]],&quot;pins&quot;:[],&quot;gps&quot;:&#123;&quot;pio&quot;:[],&quot;fun&quot;:[]&#125;,&quot;upprot&quot;:[&quot;\nfunction\nlocal str=...\nlocal totallen=41+str:len()\nlocal ret=string.format(\&quot;%04d\&quot;,totallen)..\&quot;01\&quot;..\&quot;C\&quot;..\&quot;01\&quot;..\&quot;0000000001\&quot;..\&quot;0000000000000001\&quot;..\&quot;1234\&quot;..str..\&quot;05\&quot;\nreturn ret\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;dwprot&quot;:[&quot;function\nlocal str=...\nlocal ret=str:sub(40,-3)\nreturn ret\nend&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;warn&quot;:&#123;&quot;adc0&quot;:[],&quot;adc1&quot;:[],&quot;vbatt&quot;:[],&quot;gpio&quot;:[]&#125; &#125;
+--返回    
+OK
+</code></pre>
+<p>配置iRTU的是一个Json字符串，具体各个字段的含义在 “iRTU参考手册”上可查，目前最新版是V3.1 </p>
+<p>此配置字段的含义如下：</p>
+<p>1） 配置iRTU为UDP传输模式，服务器地址为 box.miuser.net，端口为7101</p>
+<p>2） 每隔10 S发送一次心跳包，心跳包的内容为 005501B01000000000100000000000000011234iRTUUPWs 1.0.000</p>
+<p>3） 使用数据通道1通过数据模板进行透传，并绑定到到iRTU串口1</p>
+<p>4） 上行数据流模板代码为</p>
+<pre><code>--固定头，标识模板开始
+function
+--接收从硬件通道传入的数据
+local str=...
+--计算包长度
+local totallen=41+str:len()
+--拼接发送的数据包，各个字段内容详见MTCP通讯协议，包含在UPWS协议中，文末有开源地址
+local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
+--返回拼接好的数据包，给iRTU底层发送
+return ret
+end
+</code></pre>
+<p>5） 下行数据流模板代码为</p>
+<pre><code>--固定头，标识模板开始
+function
+--接收从服务器发来的原始数据
+local str=...
+--提取其中的有效数据字段
+local ret=str:sub(40,-3)
+--输出给硬件数据通道
+return ret
+end
+</code></pre>
+<p>关于UPWS数据报文格式及iRTU数据流模板更详细的介绍篇幅所限就不在此敷述了，请参与文末的资料链接进行相关阅读。也可以在Bilibili上 搜索“稀饭放姜” 相关视频教程了解。</p>
+<p>方便起见”飞思创-Luat生态伙伴” 提供了一款图形化的iRTU配置工具：“iRTU ConfigTool” 最新版本是V1.3.6，性能很不错。</p>
+<h2 id="iRTU透传使用方法"><a href="#iRTU透传使用方法" class="headerlink" title="iRTU透传使用方法"></a>iRTU透传使用方法</h2><p>下面我说说使用iRTU透传的具体的使用方法。</p>
+<p>打开手机浏览器输入如下网址，打开IRTU连接测试小工具 </p>
+<p><a target="_blank" rel="noopener" href="http://box.miuser.net/iRTU_UPWs/UPWsiRTU.htm?ID=0000000001&amp;MM=0000000000000001">http://box.miuser.net/iRTU_UPWs/UPWsiRTU.htm?ID=0000000001&amp;MM=0000000000000001</a></p>
+<p>为了简便起见我已经生成好了一个二维码，直接扫描二维码就行了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_27057.png"></p>
+<p>其中ID为10位10进制数字，MM为16位16进制数字，作用为UPWS的通讯信道UID和通讯密码，此处设置要与上面iRTU设置的心跳包与数据流模板的相对应的字段相一致，才能正常通讯。 使用前需要相应修改为任意合规的数字，直接在iRTU配置字段里进行相应的搜索替换即可。</p>
+<p>打开电脑，运行LLCOM,在程序底部，确认对应的串口号，并点击打开串口即可收到iRTU透传工具发送的心跳包。此时通过软件发送的指令就可以传输到了手机上了，反之手机上发送的指令也可以在LLCOM接收到。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66580.jpg"></p>
+<h2 id="常见故障排除"><a href="#常见故障排除" class="headerlink" title="常见故障排除"></a>常见故障排除</h2><p>1 iRTU状态灯不亮，或反复重启（灯亮一会，就灭，间隔大于3s）</p>
+<p>A：供电不足，5V供电需要较粗的电缆及2A的电源输出电流，如果没有条件可以提高输入电压到6V-12V</p>
+<p>B：固件不可恢复错误，可以开盒重刷DTU固件，固件下载地址在QQ群952343033，群文件中</p>
+<p>2 iRTU接收不到心跳包</p>
+<p>A: 检查服务器地址，端口,MM,ID均设置正常，注意数字的位数，发送字段是有长度校验的，错误的包长度会导致解析错误。</p>
+<p>B：检查RS458 A端口 B端口是否接反</p>
+<p>3 通讯数据格式混乱</p>
+<p>A: 检查数据流模板是否被魔改了</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>本文所提及的文档及工具资料包：</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA">https://pan.baidu.com/s/15QICk163bI5NCB8M0SSDpA</a> 提取码：a610 </p>
+<p>本文参考资料如下：</p>
+<p>1 iRTU项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hotdll/iRTU">https://github.com/hotdll/iRTU</a></p>
+<p>2 UPWS项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miuser00/UdpPlugWebsocket">https://github.com/miuser00/UdpPlugWebsocket</a></p>
+<p>3 LLC能跑Lua脚本的串口调试工具项目开源地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
+<h2 id="技术咨询方式"><a href="#技术咨询方式" class="headerlink" title="技术咨询方式"></a>技术咨询方式</h2><p>合宙Luat(稀饭放姜iRTU) QQ群：952343033</p>
+<h2 id="720DTU主控板购买链接"><a href="#720DTU主控板购买链接" class="headerlink" title="720DTU主控板购买链接"></a>720DTU主控板购买链接</h2><p><a target="_blank" rel="noopener" href="http://m.openluat.com/product/724">http://m.openluat.com/product/724</a></p>
+<p>供电电源，串口转USB电缆，485转Uart小板均为淘宝公板电路，请自行选购。</p>
+<p>谢谢您阅读本文，并祝您开发一切顺利</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/648/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/646/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

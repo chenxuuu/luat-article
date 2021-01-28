@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MIT 6.824 Distributed Systems 分布式系统课程系列1 Lab1-MapReduce [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">MIT 6.824 Distributed Systems 分布式系统课程系列1 Lab1-MapReduce</h1>
+<article class="post markdown-style">
+  <h1 id="MIT-6-824-Distributed-Systems-分布式系统课程系列1-Lab1-MapReduce"><a href="#MIT-6-824-Distributed-Systems-分布式系统课程系列1-Lab1-MapReduce" class="headerlink" title="MIT 6.824 Distributed Systems 分布式系统课程系列1 Lab1-MapReduce"></a>MIT 6.824 Distributed Systems 分布式系统课程系列1 Lab1-MapReduce</h1><ul>
+<li><p>该课程包括分布式系统相关的各种知识。包括mapreduce，raft算法，Zookeeper,比特币等等。</p>
+</li>
+<li><p>配备4个lab，需要动手写代码，实现mapreduce，raft算法，在raft基础上建立分布式kv服务。</p>
+</li>
+<li><p>同时可学一下go语言。go语言争议很大，之前粗略看过两次都丧失兴趣。这次正好强制再学一次并实际应用。</p>
+</li>
+<li><p>课程主页<br><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.824/">https://pdos.csail.mit.edu/6.824/</a><br><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.824/schedule.html">https://pdos.csail.mit.edu/6.824/schedule.html</a><br>还有配套的视频。可去各大视频网站查找。</p>
+</li>
+</ul>
+<hr>
+<p>go 1.15安装</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/golang/go/wiki/Ubuntu">https://github.com/golang/go/wiki/Ubuntu</a></p>
+<pre><code>sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt update
+sudo apt install golang-go
+
+export PATH=$PATH:/usr/lib/go-1.15/bin
+</code></pre>
+<hr>
+<h2 id="实验主页"><a href="#实验主页" class="headerlink" title="实验主页"></a>实验主页</h2><p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.824/labs/lab-mr.html">https://pdos.csail.mit.edu/6.824/labs/lab-mr.html</a></p>
+<ul>
+<li>做一个mapreduce程序。处理多个文本，统计里面每个单词的数量。</li>
+<li>基本原理就是分而治之，分割任务，分配给多个机器去处理，得到一些可独立处理的中间结果，再多个机器做汇总的任务，得到最终结果。</li>
+<li>通过lab1可熟悉最基本的go代码：基本语法、文件操作、编解码、错误处理、rpc等等。</li>
+</ul>
+<h2 id="课程示例代码："><a href="#课程示例代码：" class="headerlink" title="课程示例代码："></a>课程示例代码：</h2><pre><code>git clone git://g.csail.mit.edu/6.824-golabs-2020 6.824
+
+cd 6.824
+cd src/main
+go build -buildmode=plugin ../mrapps/wc.go      把wc变成一个类似插件
+go run mrsequential.go wc.so pg*.txt            跑mrsequential.go，用wc.so插件里的函数处理文件pg*.txt。
+</code></pre>
+<p>最终测试是运行 <code>/src/main/test-mr.sh</code><br>需要看一下这个测试脚本来搞清流程。</p>
+<h2 id="看示例代码："><a href="#看示例代码：" class="headerlink" title="看示例代码："></a>看示例代码：</h2><ul>
+<li><p>mrsequential.go是个顺序执行的流程，实现了最简单的mapreduce。</p>
+</li>
+<li><p>map函数把文字分割成单词，返回包含所有{单词,1}键值对的数组。框架把相同键的数据给reduce函数，reduce函数统计相同键数据的数量。</p>
+</li>
+<li><p>最后把每个单词的数量输出到mr-out-0文件。</p>
+</li>
+<li><p>import “plugin”<br>可把自己的代码编成plugin。选择plugin里的函数。</p>
+</li>
+</ul>
+<ul>
+<li>intermediate = append(intermediate, kva…)<br>把kva里的每项添加到intermediate。这写法有点。。。<br>tgpl 139</li>
+</ul>
+<h2 id="实验任务："><a href="#实验任务：" class="headerlink" title="实验任务："></a>实验任务：</h2><ul>
+<li><p>完成mr/master.go, mr/worker.go, and mr/rpc.go<br>做两个程序，一个master一个worker。实现一个分布式的mapreduce。</p>
+</li>
+<li><p>一个master进程，多个worker进程。worker通过rpc向master请求任务并执行。</p>
+</li>
+</ul>
+<h2 id="流程解析"><a href="#流程解析" class="headerlink" title="流程解析"></a>流程解析</h2><ul>
+<li>得看mapreduce论文或网友解读，不然只看实验要求的话很难猜出它的逻辑。</li>
+<li>论文里的那张流程图非常清晰。程序分为两个过程，先多个worker做map，生成中间文件，再多个worker做reduce，生成数个最终文件。</li>
+</ul>
+<ol>
+<li>a个原始文本分为a个map任务，编号X。</li>
+<li>master分配map任务给worker，处理分到的文件，得到一串键值对，value都是1，如{‘about’, 1}。</li>
+<li>存入中间文件。怎么存，要用ihash当前单词，再%nReduce得到Y。按XY存到mr-X-Y文件。</li>
+<li>master分配reduce任务给worker。此时所有单词的数据是按单词的hash再%nReduce分割在不同Y编号中的。那么对于每个Y，可以把所有X文件里的键值对数量累加一下，存到mr-out-Y。此时每个mr-out-Y文件就存了以hash分割的所有原始数据的单词数据。</li>
+<li>test-mr.sh这个测试程序就是把所有mr-out-Y文件里的数据整合起来排序。得到的结果如果与mrsequential.go得到的结果一样就通过测试。</li>
+</ol>
+<h2 id="go相关："><a href="#go相关：" class="headerlink" title="go相关："></a>go相关：</h2><ul>
+<li><p>怎么好像每运行一次后都要再编译下plugin？</p>
+</li>
+<li><p>rpc: gob error encoding body: gob: type xxxx has no exported fields<br>定义结构，成员名字首字母要大写，不然rpc这边会报错。</p>
+</li>
+<li><p>文件Create后马上Open。再写会失败。</p>
+</li>
+<li><p>go的rpc还挺方便。但如果要用别的语言交互，还是得整协议。<br>文档：<br><a target="_blank" rel="noopener" href="https://golang.google.cn/pkg/net/rpc/#Register">https://golang.google.cn/pkg/net/rpc/#Register</a><br><a target="_blank" rel="noopener" href="https://drstearns.github.io/tutorials/gojson/">https://drstearns.github.io/tutorials/gojson/</a></p>
+</li>
+</ul>
+<h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><p>没有做的很完善精细，只是跑通测试。仅供参考。</p>
+<h3 id="rpc-go"><a href="#rpc-go" class="headerlink" title="rpc.go"></a>rpc.go</h3><pre><code>package mr
+
+//
+// RPC definitions.
+//
+// remember to capitalize all names.
+//
+
+import &quot;os&quot;
+import &quot;strconv&quot;
+
+//
+// example to show how to declare the arguments
+// and reply for an RPC.
+//
+
+type ExampleArgs struct &#123;
+    X int
+&#125;
+
+type ExampleReply struct &#123;
+    ServerStatus int
+&#125;
+
+// Add your RPC definitions here.
+
+//type Task struct &#123;
+//    Text string
+//&#125;
+
+type Task struct &#123;
+    TaskType int
+    TaskID int
+    FileName string
+    NReduce int
+    NMap int
+&#125;
+
+type TaskResult struct &#123;
+    TaskType int
+    Result bool
+    TaskID int
+    //Data []KeyValue
+
+&#125;
+
+// Cook up a unique-ish UNIX-domain socket name
+// in /var/tmp, for the master.
+// Can&#39;t use the current directory since
+// Athena AFS doesn&#39;t support UNIX-domain sockets.
+func masterSock() string &#123;
+    s := &quot;/var/tmp/824-mr-&quot;
+    s += strconv.Itoa(os.Getuid())
+    return s
+&#125;
+</code></pre>
+<h3 id="master-go"><a href="#master-go" class="headerlink" title="master.go"></a>master.go</h3><pre><code>package mr
+
+import &quot;log&quot;
+import &quot;net&quot;
+import &quot;os&quot;
+import &quot;net/rpc&quot;
+import &quot;net/http&quot;
+
+import &quot;fmt&quot;
+//import &quot;io/ioutil&quot;
+
+type Master struct &#123;
+    // Your definitions here.
+    map_task_status map[int]int
+    map_task_content map[int]string
+    map_task_count int
+    map_current_task int
+    map_done_task_count int
+
+    nReduce int
+
+    reduce_task_status map[int]int
+    reduce_task_count int
+    reduce_current_task int
+    reduce_done_task_count int
+
+    server_status int
+&#125;
+
+// Your code here -- RPC handlers for the worker to call.
+
+//
+// an example RPC handler.
+//
+// the RPC argument and reply types are defined in rpc.go.
+//
+func (m *Master) Example(args *ExampleArgs, reply *ExampleReply) error &#123;
+
+    return nil
+&#125;
+
+func (m *Master) FetchTask(args *ExampleArgs, task *Task) error &#123;
+    fmt.Println(&quot;FetchTask&quot;)
+    //fmt.Println(m.map_current_task)
+
+    //task.Text = m.task_content[m.map_current_task]
+
+    //m.map_current_task += 1
+
+    if m.map_current_task &lt; m.map_task_count &#123; // map 未结束
+        task.TaskType = 0
+        task.TaskID = m.map_current_task
+        task.FileName = m.map_task_content[m.map_current_task]
+        task.NReduce = m.nReduce
+        task.NMap = m.map_task_count
+
+        m.map_current_task += 1
+    &#125; else &#123;
+        task.TaskType = 1
+        task.TaskID = m.reduce_current_task
+        task.NReduce = m.nReduce
+        task.NMap = m.map_task_count
+
+        m.reduce_current_task += 1
+    &#125;
+
+    return nil
+&#125;
+
+func (m *Master) ReportTask(result *TaskResult, reply *ExampleReply) error &#123;
+    fmt.Println(&quot;ReportTask&quot;)
+
+    if result.TaskType == 0 &#123; // 简化
+        m.map_done_task_count ++
+    &#125; else &#123;
+        m.reduce_done_task_count ++
+    &#125;
+
+    if m.map_done_task_count == m.map_task_count &amp;&amp; m.reduce_done_task_count == m.reduce_task_count &#123;
+        reply.ServerStatus = 1
+        m.server_status = 1
+    &#125; else &#123;
+        reply.ServerStatus = 0
+    &#125;
+    
+    return nil
+&#125;
+
+//
+// start a thread that listens for RPCs from worker.go
+//
+func (m *Master) server() &#123;
+    rpc.Register(m)
+    rpc.HandleHTTP()
+    //l, e := net.Listen(&quot;tcp&quot;, &quot;:1234&quot;)
+    sockname := masterSock()
+    os.Remove(sockname)
+    l, e := net.Listen(&quot;unix&quot;, sockname)
+    if e != nil &#123;
+        log.Fatal(&quot;listen error:&quot;, e)
+    &#125;
+    go http.Serve(l, nil)
+&#125;
+
+//
+// main/mrmaster.go calls Done() periodically to find out
+// if the entire job has finished.
+//
+func (m *Master) Done() bool &#123;
+    ret := false
+
+    // Your code here.
+    //if m.map_done_task_count == m.map_task_count &#123;
+    //    ret = true
+    //&#125;
+
+    if m.server_status == 1&#123;
+        ret = true
+    &#125; 
+
+    return ret
+&#125;
+
+//
+// create a Master.
+// main/mrmaster.go calls this function.
+// nReduce is the number of reduce tasks to use.
+//
+func MakeMaster(files []string, nReduce int) *Master &#123;
+    m := Master&#123;&#125;
+
+    // Your code here.
+
+    m.server_status = 0
+
+    // 读所有输入文件。每个文件的内容存作为一个task，存到一个
+    m.map_task_status = make(map[int]int)
+    m.map_task_content = make(map[int]string)
+    m.map_task_count = 0
+    m.map_current_task = 0
+    m.map_done_task_count = 0
+
+    m.nReduce = nReduce
+
+    for _, filename := range files &#123;
+        /*
+        file, err := os.Open(filename)
+        if err != nil &#123;
+            log.Fatalf(&quot;cannot open %v&quot;, filename)
+        &#125;
+        content, err := ioutil.ReadAll(file)
+        if err != nil &#123;
+            log.Fatalf(&quot;cannot read %v&quot;, filename)
+        &#125;
+        file.Close()*/
+
+        m.map_task_status[m.map_task_count] = 0
+        m.map_task_content[m.map_task_count] = string(filename)
+
+        fmt.Println(m.map_task_count)
+        fmt.Println(len(string(filename)))
+        m.map_task_count += 1
+    &#125;
+
+    fmt.Println(m.map_task_content)
+
+    // reduce tasks
+    m.reduce_task_status = make(map[int]int)
+    m.reduce_task_count = nReduce
+    m.reduce_current_task = 0
+    m.reduce_done_task_count = 0
+
+    for i := 0; i &lt; nReduce; i++ &#123;
+        m.reduce_task_status[i] = 0
+    &#125;
+
+    m.server()
+    return &amp;m
+&#125;
+</code></pre>
+<h3 id="worker-go"><a href="#worker-go" class="headerlink" title="worker.go"></a>worker.go</h3><pre><code>package mr
+
+import &quot;fmt&quot;
+import &quot;log&quot;
+import &quot;net/rpc&quot;
+import &quot;hash/fnv&quot;
+import &quot;io/ioutil&quot;
+import &quot;os&quot;
+import &quot;encoding/json&quot;
+import &quot;sort&quot;
+
+//
+// Map functions return a slice of KeyValue.
+//
+type KeyValue struct &#123;
+    Key   string
+    Value string
+&#125;
+
+// for sorting by key.
+type ByKey []KeyValue
+
+// for sorting by key.
+func (a ByKey) Len() int           &#123; return len(a) &#125;
+func (a ByKey) Swap(i, j int)      &#123; a[i], a[j] = a[j], a[i] &#125;
+func (a ByKey) Less(i, j int) bool &#123; return a[i].Key &lt; a[j].Key &#125;
+
+//
+// use ihash(key) % NReduce to choose the reduce
+// task number for each KeyValue emitted by Map.
+//
+func ihash(key string) int &#123;
+    h := fnv.New32a()
+    h.Write([]byte(key))
+    return int(h.Sum32() &amp; 0x7fffffff)
+&#125;
+
+//
+// main/mrworker.go calls this function.
+//
+func Worker(mapf func(string, string) []KeyValue,
+    reducef func(string, []string) string) &#123;
+
+    // Your worker implementation here.
+
+    // uncomment to send the Example RPC to the master.
+    // CallExample()
+    //GetTask()
+
+    for true &#123;
+        // declare an argument structure.
+        args := ExampleArgs&#123;&#125;
+
+        // fill in the argument(s).
+        args.X = 99
+
+        // declare a reply structure.
+        //reply := ExampleReply&#123;&#125;
+        task := Task&#123;&#125;
+
+        // send the RPC request, wait for the reply.
+        err := call(&quot;Master.FetchTask&quot;, &amp;args, &amp;task)
+
+        if !err &#123;
+            log.Fatal(&quot;rpc error:&quot;, err)
+            break
+        &#125;
+
+        fmt.Printf(&quot;task.TaskType %d\n&quot;, task.TaskType)
+
+        if task.TaskType == 0 &#123;
+            file_name := task.FileName
+
+            file, err := os.Open(file_name)
+            if err != nil &#123;
+                log.Fatalf(&quot;cannot open %v&quot;, file_name)
+            &#125;
+            content, err := ioutil.ReadAll(file)
+            if err != nil &#123;
+                log.Fatalf(&quot;cannot read %v&quot;, file_name)
+            &#125;
+            file.Close()
+
+
+            map_data := make(map[int][]KeyValue)
+
+            kva := mapf(&quot;gg&quot;, string(content))
+
+            for _, kv := range kva &#123;
+                //fmt.Printf(&quot;%s %s\n&quot;, kv.Key, kv.Value)
+                hash_id := ihash(kv.Key) % task.NReduce
+
+                map_data[hash_id] = append(map_data[hash_id], kv)
+            &#125;
+
+            // 输出到临时文件 mr-task.TaskID-hash_id
+            for hash_id, data  := range map_data &#123;
+                file_name := fmt.Sprintf(&quot;mr-%d-%d&quot;, task.TaskID, hash_id)
+
+                file, err := os.Create(file_name)
+
+                //file, err := os.Open(file_name)
+                if err != nil &#123;
+                    log.Fatalf(&quot;cannot create %v&quot;, file_name)
+                &#125;
+
+                enc := json.NewEncoder(file)
+                for _, kv := range data &#123;
+                    //fmt.Printf(&quot;%s %s\n&quot;, kv.Key, kv.Value)
+                    err := enc.Encode(&amp;kv)
+                    if err != nil &#123;
+                        fmt.Println(err)
+                        log.Fatalf(&quot;Encode error&quot;)
+                    &#125;
+                &#125;
+
+                file.Close()
+            &#125;
+
+            // report
+            // declare an argument structure.
+            reply := ExampleReply&#123;&#125;
+
+            // declare a reply structure.
+            //reply := ExampleReply&#123;&#125;
+            task_result := TaskResult&#123;&#125;
+            task_result.Result = true
+            task_result.TaskType = task.TaskType
+            task_result.TaskID = task.TaskID
+            //task_result.Data = 
+
+            // send the RPC request, wait for the reply.
+            call(&quot;Master.ReportTask&quot;, &amp;task_result, &amp;reply)
+
+            if reply.ServerStatus == 1 &#123;
+                fmt.Println(&quot;server tasks all done&quot;)
+                break
+            &#125;
+        &#125; else &#123;
+            // 把所有mr-X-Y整合为mr-out-Y
+
+            //file_names := fmt.Sprintf(&quot;mr-*-%d&quot;, task.TaskID)
+
+            kva := []KeyValue&#123;&#125;
+
+            //for _, filename := range file_names &#123;
+            for t := 0; t &lt; task.NMap; t ++ &#123;
+                filename := fmt.Sprintf(&quot;mr-%d-%d&quot;, t, task.TaskID)
+
+                file, err := os.Open(filename)
+                if err != nil &#123;
+                    log.Fatalf(&quot;cannot open %v&quot;, filename)
+                &#125;
+
+                /*
+                content, err := ioutil.ReadAll(file)
+                if err != nil &#123;
+                    log.Fatalf(&quot;cannot read %v&quot;, filename)
+                &#125;*/
+
+                dec := json.NewDecoder(file)
+
+                for &#123;
+                    var kv KeyValue
+                    if err := dec.Decode(&amp;kv); err != nil &#123;
+                      break
+                    &#125;
+                    kva = append(kva, kv)
+                &#125;
+
+                file.Close()
+
+                //kva := mapf(filename, string(content))
+                //intermediate = append(intermediate, kva...)
+            &#125;
+
+            sort.Sort(ByKey(kva))
+
+            file_name := fmt.Sprintf(&quot;mr-out-%d&quot;, task.TaskID)
+
+            file, err := os.Create(file_name)
+            if err != nil &#123;
+                log.Fatalf(&quot;cannot create %v&quot;, file_name)
+            &#125;
+
+            i := 0
+            for i &lt; len(kva) &#123;
+                j := i + 1
+                for j &lt; len(kva) &amp;&amp; kva[j].Key == kva[i].Key &#123;
+                    j++
+                &#125;
+                values := []string&#123;&#125;
+                for k := i; k &lt; j; k++ &#123;
+                    values = append(values, kva[k].Value)
+                &#125;
+                output := reducef(kva[i].Key, values)
+
+                // this is the correct format for each line of Reduce output.
+                fmt.Fprintf(file, &quot;%v %v\n&quot;, kva[i].Key, output)
+
+                i = j
+            &#125;
+
+            file.Close()
+
+            // report
+            // declare an argument structure.
+            reply := ExampleReply&#123;&#125;
+
+            // declare a reply structure.
+            //reply := ExampleReply&#123;&#125;
+            task_result := TaskResult&#123;&#125;
+            task_result.Result = true
+            task_result.TaskType = task.TaskType
+            task_result.TaskID = task.TaskID
+            //task_result.Data = 
+
+            // send the RPC request, wait for the reply.
+            call(&quot;Master.ReportTask&quot;, &amp;task_result, &amp;reply)
+
+            if reply.ServerStatus == 1 &#123;
+                fmt.Println(&quot;server tasks all done&quot;)
+                break
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+func GetTask() &#123;
+
+    // declare an argument structure.
+    args := ExampleArgs&#123;&#125;
+
+    // fill in the argument(s).
+    args.X = 99
+
+    // declare a reply structure.
+    //reply := ExampleReply&#123;&#125;
+    task := Task&#123;&#125;
+
+    // send the RPC request, wait for the reply.
+    call(&quot;Master.FetchTask&quot;, &amp;args, &amp;task)
+
+    // reply.Y should be 100.
+    fmt.Printf(&quot;task.TaskType %s\n&quot;, task.TaskType)
+&#125;
+
+func ReportTask() &#123;
+&#125;
+
+//
+// example function to show how to make an RPC call to the master.
+//
+// the RPC argument and reply types are defined in rpc.go.
+//
+func CallExample() &#123;
+
+    // declare an argument structure.
+    args := ExampleArgs&#123;&#125;
+
+    // fill in the argument(s).
+    args.X = 99
+
+    // declare a reply structure.
+    reply := ExampleReply&#123;&#125;
+
+    // send the RPC request, wait for the reply.
+    call(&quot;Master.Example&quot;, &amp;args, &amp;reply)
+&#125;
+
+//
+// send an RPC request to the master, wait for the response.
+// usually returns true.
+// returns false if something goes wrong.
+//
+func call(rpcname string, args interface&#123;&#125;, reply interface&#123;&#125;) bool &#123;
+    // c, err := rpc.DialHTTP(&quot;tcp&quot;, &quot;127.0.0.1&quot;+&quot;:1234&quot;)
+    sockname := masterSock()
+    c, err := rpc.DialHTTP(&quot;unix&quot;, sockname)
+    if err != nil &#123;
+        log.Fatal(&quot;dialing:&quot;, err)
+    &#125;
+    defer c.Close()
+
+    err = c.Call(rpcname, args, reply)
+    if err == nil &#123;
+        return true
+    &#125;
+
+    fmt.Println(err)
+    return false
+&#125;
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1759/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1732/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

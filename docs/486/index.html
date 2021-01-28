@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>AIR202模块配合ONENET平台发送心跳包失败问题 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">AIR202模块配合ONENET平台发送心跳包失败问题</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;现实用AIR202_S5最小系统板做一个小开发，配合移动的onenet物联网平台。&lt;/p&gt;&lt;p&gt;air202的开发使用lua脚本，对mqtt的配置如下：&lt;/p&gt;&lt;div style=&quot;color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; line-height: 19px; white-space: pre;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #c586c0;&quot;&gt;local&lt;/span&gt; subTopic = &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;/lock/176766/45967572/get&quot;&lt;/span&gt; &lt;span style=&quot;color: #6a9955;&quot;&gt;--设备端需要订阅的topic&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #c586c0;&quot;&gt;local&lt;/span&gt; mqttIp,mqttPort =  &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;mqtt.heclouds.com&quot;&lt;/span&gt;,&lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;6002&quot;&lt;/span&gt; &lt;span style=&quot;color: #6a9955;&quot;&gt;--定义onenet的服务器域名和端口&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #c586c0;&quot;&gt;local&lt;/span&gt; clientId = &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;xxx&quot;&lt;/span&gt; &lt;span style=&quot;color: #6a9955;&quot;&gt;--在onenet平台创建设备时，系统自动生成的设备id&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #c586c0;&quot;&gt;local&lt;/span&gt; userName = &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;xxx&quot;&lt;/span&gt;  &lt;span style=&quot;color: #6a9955;&quot;&gt;--在onenet平台创建设备时，系统生成的产品id&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #c586c0;&quot;&gt;local&lt;/span&gt; passWord = &lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;xxxx=&quot;&lt;/span&gt; &lt;span style=&quot;color: #6a9955;&quot;&gt;--onenet平台的APIkey&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: #c586c0;&quot;&gt;local&lt;/span&gt; keepAlive = &lt;span style=&quot;color: #b5cea8;&quot;&gt;600&lt;/span&gt;  &lt;/div&gt;&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;上面的keepAlive单位是秒，也就是多少秒后发送心跳包来保持长连接。&lt;/p&gt;&lt;p&gt;设备启动后，一切正常，然而在10分钟（600秒）后，LuaTool界面提示错误日志如下：&lt;/p&gt;&lt;p&gt;[2018-10-23 08:42:06.827]: [I]-[mqtt.client:checkKeepAlive]&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;pingreq send fail&lt;/p&gt;&lt;p&gt;[2018-10-23 08:42:06.827]: [D]-[mqtt.client:write]&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;C000&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;2&lt;/p&gt;&lt;p&gt;[2018-10-23 08:42:06.827]: [W]-[socket.client:send]&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;error&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;6, SEND FAIL&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;当出现上面错误提示的时候，AIR202会重连，也会连接成功，经过多次观察，发现重连成功后10分钟又再次出现该问题，这样是严重影响正常使用的。&lt;/p&gt;&lt;p&gt;上面问题周期性出现，且间隔都是10分钟，因此基本可以断定，是模组每隔600s发送心跳包，但是发送失败了。&lt;/p&gt;&lt;p&gt;模组使用的是移动的手机卡，考虑到mqtt是基于tcp的长连接，要想维持长连接必须间隔性的发送心跳包来告诉运行商，这个tcp连接我还要用，不要给我切断，所以怀疑是不是600秒发一次心跳包时间间隔太久了呢？&lt;/p&gt;&lt;p&gt;于是，将600s，修改为120s，也就是让模组每隔2分钟就发心跳包，然后进行测，问题得以解决。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;总结：&lt;/p&gt;&lt;p&gt;[2018-10-23 08:42:06.827]: [I]-[mqtt.client:checkKeepAlive]&lt;span style=&quot;white-space: pre;&quot;&gt;    &lt;/span&gt;pingreq send fail&lt;/p&gt;&lt;p&gt;[2018-10-23 08:42:06.827]: [D]-[mqtt.client:write]&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;C000&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;2&lt;/p&gt;&lt;p&gt;[2018-10-23 08:42:06.827]: [W]-[socket.client:send]&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;error&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;6, SEND FAIL&lt;/p&gt;&lt;p&gt;出现上面问题的原因，与模组无关，与onenet物联网平台无关，只跟自己程序里心跳包发送间隔时间太长有关，时间改短点。&lt;/p&gt;&lt;p&gt;有人会觉得心跳包间隔时间短，那发送频率高，多么浪费流量啊？其实不然，你长时间不发送数据，你即使发送几个字节，那么运营商也会按照1K来计算的。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+                    
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/487/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/485/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

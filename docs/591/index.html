@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>教你用Air720 模块通过AT指令以MQTTS方式连接华为云（上篇） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">教你用Air720 模块通过AT指令以MQTTS方式连接华为云（上篇）</h1>
+<article class="post markdown-style">
+  <p><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/903">教你用Air720 模块通过AT指令以MQTTS方式连接华为云(下篇)</a></p>
+<h1 id="Air720模块介绍"><a href="#Air720模块介绍" class="headerlink" title="Air720模块介绍"></a>Air720模块介绍</h1><blockquote>
+<p>Air720模块是一款带分集接收功能的4G多模无线通信模块，其中Air720D支持LTE-TDD/GPRS双模，Air720H支持LTE-TDD/LTE-FDD/TD-SCDMA/WCDMA/GPRS五模，二者硬件封装和软件完全兼容，几乎能够满足所有的M2M的需求，包括汽车及个人追踪服务、无线POS机、智能计量、工业级PDA以及其它M2M的应用<br>##Air720支持两种开发模式</p>
+<ol>
+<li>传统的AT指令模式：MCU通过AT指令控制Air720H进行网络数据传输或其他各种应用；</li>
+<li>合宙特有的Lua脚本二次开发模式：Air720H拥有丰富的硬件接口及GPIO，可以通过Lua脚本调用由合宙<br>官方提供的API接口对外设或GPIO进行编程设计，省掉主控MCU，极大的减少了客户的开发周期和成本</li>
+</ol>
+</blockquote>
+<p>本文介绍一下如何使用AT指令模式连接华为云。</p>
+<p>首先介绍一下涉及到的AT指令，AT指令固件从V1104版本增加了MQTT证书认证方式，而这也是华为云MQTT连接需要CA证书，正好可以使用Air720模块实现这个功能。</p>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>AT命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发</td>
+<td>AT+CGATT?</td>
+<td>查看当前GPRS附着状态</td>
+</tr>
+<tr>
+<td>收</td>
+<td>+CGATT: 1</td>
+<td>state&gt;=1， 标明当前GPRS已经附着</td>
+</tr>
+<tr>
+<td></td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+FSCREATE=”server.crt”</td>
+<td>创建CA 证书文件</td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+FSWRITE=”server.crt”,0,1402,15</td>
+<td>1402是华为云CA证书的实际长度，15是超时时间</td>
+</tr>
+<tr>
+<td>收</td>
+<td>&gt;</td>
+<td>出现&gt;符号后输入CA证书文件的内容</td>
+</tr>
+<tr>
+<td>发</td>
+<td>CA证书文件的实际内容</td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td>证书接收完成</td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+SSLCFG=”cacert”,88,”server.crt”</td>
+<td>设置CA证书证书文件名称， server.crt为CA证书文件名称</td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+MCONFIG=<clientid>,<username>,<password></td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+SSLMIPSTART=<svraddr>,<port></td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>CONNECT OK</td>
+<td>收到这条后发下面指令</td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+MCONNECT=1,60</td>
+<td>建立mqtt会话</td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>CONNACK OK</td>
+<td>收到CONNACK OK后才能发布和订阅消息</td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+MSUB=”mqtt/topic”,0</td>
+<td>订阅</td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>SUBACK</td>
+<td></td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+MPUB=”mqtt/topic”,0,0,”SSSSddddd”</td>
+<td></td>
+</tr>
+<tr>
+<td>收</td>
+<td>+MSUB: “mqtt/topic”,9 byte,SSSSddddd</td>
+<td></td>
+</tr>
+<tr>
+<td>发</td>
+<td>AT+MDISCONNECT</td>
+<td>关闭MQTT连接</td>
+</tr>
+<tr>
+<td>收</td>
+<td>OK</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><code>以上是涉及MQTTS连接的指令，具体指令参加官网AT命令手册</code></p>
+<p>下面先用SSCOM以手动方式测试一下连接华为云的方法，其中的连接参数是我已经在华为云建立好的设备连接参数，后文会介绍如何在华为云建立产品和设备，并获取连接参数的方法。</p>
+<hr>
+<ol>
+<li>华为云CA证书。把下面内容保存到一个文本文件中，命名为server.crt<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIID4DCCAsigAwIBAgIJAK97nNS67HRvMA0GCSqGSIb3DQEBCwUAMFMxCzAJBgNV</span><br><span class="line">BAYTAkNOMQswCQYDVQQIEwJHRDELMAkGA1UEBxMCU1oxDzANBgNVBAoTBkh1YXdl</span><br><span class="line">aTELMAkGA1UECxMCQ04xDDAKBgNVBAMTA0lPVDAeFw0xNjA1MDQxMjE3MjdaFw0y</span><br><span class="line">NjA1MDIxMjE3MjdaMFMxCzAJBgNVBAYTAkNOMQswCQYDVQQIEwJHRDELMAkGA1UE</span><br><span class="line">BxMCU1oxDzANBgNVBAoTBkh1YXdlaTELMAkGA1UECxMCQ04xDDAKBgNVBAMTA0lP</span><br><span class="line">VDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJxM9fwkwvxeILpkvoAM</span><br><span class="line">Gdqq3x0G9o445F6Shg3I0xmmzu9Of8wYuW3c4jtQ&#x2F;6zscuIGyWf06ke1z&#x2F;&#x2F;AVZ&#x2F;o</span><br><span class="line">dp8LkuFbBbDXR5swjUJ6z15b6yaYH614Ty&#x2F;d6DrCM+RaU+FWmxmOon9W&#x2F;VELu2BB</span><br><span class="line">NXDQHJBSbWrLNGnZA2erk4JSMp7RhHrZ0QaNtT4HhIczFYtQ2lYF+sQJpQMrjoRn</span><br><span class="line">dSV9WB872Ja4DgcISU1+wuWLmS&#x2F;NKjIvOWW1upS79yu2I4Rxos2mFy9xxz311rGC</span><br><span class="line">Z3X65ejFNzCUrNgf6NEP1N7wB9hUu7u50aA+&#x2F;56D7EgjeI0gpFytC+a4f6JCPVWI</span><br><span class="line">Lr0CAwEAAaOBtjCBszAdBgNVHQ4EFgQUcGqy59oawLEgMl21&#x2F;&#x2F;7F5RyABpwwgYMG</span><br><span class="line">A1UdIwR8MHqAFHBqsufaGsCxIDJdtf&#x2F;+xeUcgAacoVekVTBTMQswCQYDVQQGEwJD</span><br><span class="line">TjELMAkGA1UECBMCR0QxCzAJBgNVBAcTAlNaMQ8wDQYDVQQKEwZIdWF3ZWkxCzAJ</span><br><span class="line">BgNVBAsTAkNOMQwwCgYDVQQDEwNJT1SCCQCve5zUuux0bzAMBgNVHRMEBTADAQH&#x2F;</span><br><span class="line">MA0GCSqGSIb3DQEBCwUAA4IBAQBgv2PQn66gRMbGJMSYS48GIFqpCo783TUTePNS</span><br><span class="line">tV8G1MIiQCpYNdk2wNw&#x2F;iFjoLRkdx4va6jgceht5iX6SdjpoQF7y5qVDVrScQmsP</span><br><span class="line">U95IFcOkZJCNtOpUXdT+a3N+NlpxiScyIOtSrQnDFixWMCJQwEfg8j74qO96UvDA</span><br><span class="line">FuTCocOouER3ZZjQ8MEsMMquNEvMHJkMRX11L5Rxo1pc6J&#x2F;EMWW5scK2rC0Hg91a</span><br><span class="line">Lod6aezh2K7KleC0V5ZlIuEvFoBc7bCwcBSAKA3BnQveJ8nEu9pbuBsVAjHOroVb</span><br><span class="line">8&#x2F;bL5retJigmAN2GIyFv39TFXIySw+lW0wlp+iSPxO9s9J+t</span><br><span class="line">-----END CERTIFICATE-----</span><br></pre></td></tr></table></figure></li>
+<li>连接参数</li>
+</ol>
+<p>-1.  <code>AT+MCONFIG=8598553f-1f3d-47e6-a7b4-bbdabce316ba_0_0_2019071115,8598553f-1f3d-47e6-a7b4-bbdabce316ba,36d37c72b6cb7f5eb04cc2499946d835121e22ae866783cf9792627b7ca59624</code><br>-2. <code>AT+SSLMIPSTART=49.4.93.24,8883</code><br>-3. <code>AT+MSUB=&quot;/huawei/v1/devices/8598553f-1f3d-47e6-a7b4-bbdabce316ba/command/json&quot;, 0</code><br>-4.<code>AT+MSUB=&quot;/huawei/v1/devices/8598553f-1f3d-47e6-a7b4-bbdabce316ba/data/json&quot;, 0</code><br>-5.<code>AT + MPUB = &quot;/huawei/v1/devices/8598553f-1f3d-47e6-a7b4-bbdabce316ba/data/json&quot;, 0,0,&quot;&#123;\22msgType\22:\22deviceReq\22,\22data\22: [&#123;\22serviceId\22: \22ServiceWin\22,\22serviceData\22:&#123;\22Status\22: &#125;,\22eventTime\22:\2220180915T121606Z\22&#125;]&#125;&quot;</code></p>
+<p>3.连接过程和结果，按照下图命令顺序和上面给出的连接参数，可以看到连接，订阅，发布几个过程成功。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_73562.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_58465.jpg"></p>
+<hr>
+<h1 id="华为云设置过程"><a href="#华为云设置过程" class="headerlink" title="华为云设置过程"></a>华为云设置过程</h1><h2 id="注册华为云账号，并完成实名认证。"><a href="#注册华为云账号，并完成实名认证。" class="headerlink" title="注册华为云账号，并完成实名认证。"></a>注册华为云账号，并完成实名认证。</h2><p>过程就不详述了。具体进入<a target="_blank" rel="noopener" href="https://developer.huaweicloud.com/iot" title="华为云IOT开发者注册">华为云IOT开发者注册链接</a>，按照提示一步步完成</p>
+<h2 id="进入开发者中心"><a href="#进入开发者中心" class="headerlink" title="进入开发者中心"></a>进入开发者中心</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39077.jpg" alt="点击免费体验" title="点击免费体验"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_65241.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_13351.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_78907.jpg"></p>
+<h2 id="点击-，新建项目"><a href="#点击-，新建项目" class="headerlink" title="点击+，新建项目"></a>点击+，新建项目</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_14074.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57252.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80437.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_31978.jpg"><br>保存应用ID和密匙，这个在应用开发时需要用到，在MQTTS链接时不需要。</p>
+<h2 id="进入新建项目，新建产品"><a href="#进入新建项目，新建产品" class="headerlink" title="进入新建项目，新建产品"></a>进入新建项目，新建产品</h2><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_37227.jpg"><br>点击产品开发<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16380.jpg"><br>点击新建产品<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_85695.jpg"><br>选择自定义产品<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_37466.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_62749.jpg"><br>填写产品信息，其中协议类型选MQTT，数据格式选JSON<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_76915.jpg"><br>然后进入产品开发，选刚刚建立的产品，进入Profile定义，也就是定义数据点<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80871.jpg"><br>参照下图进行profile定义，实际上是定义了一组Json数据格式<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_40313.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_80136.jpg"><br>进入在线调测，点击新增测试设备<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97498.jpg"><br>选择真实设备，设备名和标识随便填，连接方式选直连<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_99369.jpg"><br>点击创建，生成的设备ID和密匙要记下来，一会儿需要用来生成MQTTS的连接参数。</p>
+<p>写不下了，分成两篇，未完待续，见下篇。<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/903">教你用Air720 模块通过AT指令以MQTTS方式连接华为云(下篇)</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/592/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/590/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

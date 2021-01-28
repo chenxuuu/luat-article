@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>4、合宙Air模块Luat开发：用GPIO输出功能实现一个简单的LED灯闪烁 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">4、合宙Air模块Luat开发：用GPIO输出功能实现一个简单的LED灯闪烁</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>本系列教程选择使用Luat在模块上进行二次开发，那么就要把Air720SL模块当作一个普通的单片机来学。</p>
+</blockquote>
+<blockquote>
+<p>既然我们谈到了单片机那么驱动外设是必不可少的，单片机的外设有很多中，常见的有GPIO，UART，IIC，ADC，DAC，SPI等等。<br>就拿我们的Air720SL来讲，其拥有的外设也不少，可玩性还是很高的。<br><img src="https://img-blog.csdnimg.cn/20200214121656756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>如果仅仅把它当作一个通讯模块来用，显得有点浪费。<br>既然厂商开发了这么多外设功能，那我们要想办法把他用起来，而不是放在那里吃灰，要想方设法榨干它的身体</p>
+</blockquote>
+<blockquote>
+<p>俗话说得好，不学爬怎么学跑呢，对吧。<br>学习也是一样，我们要从简单的学起不是上来就干最难的。<br>在上面这么多种外设中，GPIO无疑是最简单的，最容易的，也是最基本的，而GPIO又有输入和输出的功能。<br>想要点亮一个灯，那就需要用到GPIO的输出功能。那我们现在闲话少说，开始学习新的内容</p>
+</blockquote>
+<h1 id="二、磨刀不误砍柴工"><a href="#二、磨刀不误砍柴工" class="headerlink" title="二、磨刀不误砍柴工"></a>二、磨刀不误砍柴工</h1><h2 id="1、怎么才能点亮一个灯"><a href="#1、怎么才能点亮一个灯" class="headerlink" title="1、怎么才能点亮一个灯"></a>1、怎么才能点亮一个灯</h2><blockquote>
+<p>我们这里就长话短说，想要灯亮首先得满足led灯的电压要求，其次还要形成足够的电流，led才能点亮。<br>在我们的开发板这里我们就不需要考虑这些，官方的就是计算好的，我们只需要让它形成电流即可，形成电流的条件是在led两端要有压差</p>
+</blockquote>
+<blockquote>
+<p>现在我们打开开发板原理图，找到指示灯模块，如下图所示<br><img src="https://img-blog.csdnimg.cn/20200214123820350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>从原理图得知，LED实际上是由三极管控制的<br>如果想要LED1和LED2两端形成压差，那就要使三极管导通<br>在本图中三极管导通的条件是Vb&gt;Ve，Ve=0，那么就需要Vb&gt;0<br><img src="https://img-blog.csdnimg.cn/20200214143011480.png" alt="在这里插入图片描述"><br>而Vb的电压是由GPIO输出经过电阻分压，而形成的，也就是说，要想LED点亮，那么GPIO需要输出高电平，我们分别控制GPIO64和GPIO65就能控制LED</p>
+</blockquote>
+<h2 id="2、尝试点亮一个灯"><a href="#2、尝试点亮一个灯" class="headerlink" title="2、尝试点亮一个灯"></a>2、尝试点亮一个灯</h2><blockquote>
+<p>既然知道了应该怎样才能点亮一个灯，那我们现在就来试一下，验证刚才的分析对不对<br>首先我们需要包含一个库<code>pin</code>库，<code>require &quot;pins&quot;</code>才能使用GPIO驱动相关的库函数<br>然后在main程序里写入如下代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">local function <span class="title">user_main</span><span class="params">()</span></span></span><br><span class="line">    --初始化GPIO 比如GPIO_64</span><br><span class="line">    local LED1 = pins.setup(<span class="number">64</span>, <span class="number">0</span>)</span><br><span class="line">	local LED2 = pins.setup(<span class="number">65</span>, <span class="number">0</span>)</span><br><span class="line">	LED1(<span class="number">1</span>)--让指示灯亮</span><br><span class="line">	LED2(<span class="number">1</span>)--让指示灯亮</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载测试程序，等待片刻LED1（第二个灯）和LED2（第三个灯）成功点亮，<code>第一个灯是电源灯，不控制的话开机就会亮</code><br><img src="https://img-blog.csdnimg.cn/20200214131242363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>接下来我们测量一下GPIO64的引脚电平，果然是高电平点亮LED，说明我们刚才的分析没有问题<br><img src="https://img-blog.csdnimg.cn/20200214132321971.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h1 id="三、下载完整的代码到Air720Sl开发板"><a href="#三、下载完整的代码到Air720Sl开发板" class="headerlink" title="三、下载完整的代码到Air720Sl开发板"></a>三、下载完整的代码到Air720Sl开发板</h1><blockquote>
+<p>这里我们直接贴出全部代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;pins&quot;</span></span><br><span class="line">local function LED0()</span><br><span class="line">    --初始化GPIO 比如GPIO_64</span><br><span class="line">    local ledpin = pins.setup(<span class="number">64</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        ledpin(<span class="number">1</span>)--让指示灯亮<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">        ledpin(<span class="number">0</span>); --让指示灯灭<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">LED1</span><span class="params">()</span></span></span><br><span class="line">    --初始化GPIO 比如GPIO_65</span><br><span class="line">    local ledpin = pins.setup(<span class="number">65</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,<span class="number">5</span> <span class="keyword">do</span></span><br><span class="line">        ledpin(<span class="number">1</span>)--让指示灯亮<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">        ledpin(<span class="number">0</span>); --让指示灯灭<span class="number">500</span>ms</span><br><span class="line">        sys.wait(<span class="number">500</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="function">local function <span class="title">user_main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	sys.<span class="title">wait</span><span class="params">(<span class="number">10000</span>)</span></span></span><br><span class="line"><span class="function">    sys.<span class="title">taskInit</span><span class="params">(LED0)</span>  </span></span><br><span class="line"><span class="function">    sys.<span class="title">taskInit</span><span class="params">(LED1)</span>  </span></span><br><span class="line"><span class="function">end</span></span><br><span class="line"><span class="function"></span></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载程序后运行结果如下，LED1和LED2以1HZ频率闪烁，LED2闪烁5次后停止<br><img src="https://img-blog.csdnimg.cn/20200214140728460.gif" alt="在这里插入图片描述"></p>
+</blockquote>
+<h1 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h1><h2 id="1、官方的pins库函数"><a href="#1、官方的pins库函数" class="headerlink" title="1、官方的pins库函数"></a>1、官方的pins库函数</h2><ul>
+<li>pins.setup(pin, val, pull)：配置GPIO模式</li>
+<li>pins.close(pin)：关闭GPIO模式</li>
+<li>GPIO的操作直接使用setup函数的返回值即可</li>
+</ul>
+<h2 id="2、学会驱动GPIO输出有什么作用"><a href="#2、学会驱动GPIO输出有什么作用" class="headerlink" title="2、学会驱动GPIO输出有什么作用"></a>2、学会驱动GPIO输出有什么作用</h2><ul>
+<li>直接驱动LED灯</li>
+<li>直接驱动继电器，间接控制插座或者其他强电开关，实现自动控制</li>
+<li>在没有硬件IIC的芯片上，可以使用GPIO输入和输出功能，模拟软件IIC</li>
+<li>这里只列出了三种比较常用的用法，其他用法还有很多，需要自己摸索</li>
+</ul>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/24/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/691/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

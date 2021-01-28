@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Mongodb分片(sharding)配置 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Mongodb分片(sharding)配置</h1>
+<article class="post markdown-style">
+  <h1 id="Mongodb分片-sharding-配置"><a href="#Mongodb分片-sharding-配置" class="headerlink" title="Mongodb分片(sharding)配置"></a>Mongodb分片(sharding)配置</h1><p>xc</p>
+<p>本文介绍mongodb分片的配置</p>
+<hr>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>分片的主要思想就是把一块较大的数据分散到多台机器上，实现提速。</p>
+<p>从 <a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center/community">https://www.mongodb.com/download-center/community</a><br>下载server，mongos，shell，tool四个deb包，dpkg -i安装。(从apt装的话太卡了)</p>
+<p>分片文档 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/sharding/">https://docs.mongodb.com/manual/sharding/</a></p>
+<p><code>replica set</code>副本集。就是一组数据库节点，里面每个节点的数据是一致的。 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/replication/">https://docs.mongodb.com/manual/replication/</a></p>
+<p><code>mongos</code>是路由，应用程序要连到mongos，而不是直接连mongod。<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/sharded-cluster-query-router/">https://docs.mongodb.com/manual/core/sharded-cluster-query-router/</a></p>
+<p><code>config server</code>存某个分片的配置。mongos根据这个来路由。<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/">https://docs.mongodb.com/manual/core/sharded-cluster-config-servers/</a></p>
+<p><code>shard</code>是分片，包含实际数据。<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/sharded-cluster-shards/">https://docs.mongodb.com/manual/core/sharded-cluster-shards/</a></p>
+<hr>
+<h2 id="分片配置"><a href="#分片配置" class="headerlink" title="分片配置"></a>分片配置</h2><p>部署步骤参考文档 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/">https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/</a></p>
+<p>以两台机器为例</p>
+<pre><code>db1  1.1.1.1              
+db2  2.2.2.2
+</code></pre>
+<p>程序结构</p>
+<pre><code>    [db1]                       [db2]
+    
+                             mongos:27017
+                                   
+config_server:27019          config_server:27019
+ 
+shard:27018                  shard:27018
+</code></pre>
+<p>一共要起1个mongos，4个mongod(2个config。2个shard)。</p>
+<p>先手动创建目录</p>
+<pre><code>目录结构
+├── mongodb
+│   ├── config
+│   │   ├── config_server.conf
+│   │   └── shard.conf
+│   ├── data
+│   │   ├── config_server
+│   │   │   ├── data
+│   │   │   └── log
+│   │   ├── mongos
+│   │   │   └── log
+│   │   └── shard
+│   │       ├── data
+│   │       └── log
+│   └── temp
+   
+</code></pre>
+<h3 id="1-启动config-server"><a href="#1-启动config-server" class="headerlink" title="1.启动config server"></a>1.启动config server</h3><p>config server是当作一个replica set副本集的，用mongod启动。<br>与正常副本集的区别是clusterRole设置为configsvr。</p>
+<pre><code>sudo mongod --config /airm2m_data/airm2m/database/mongodb/config/config_server.conf
+</code></pre>
+<p>两台机器都启动</p>
+<h3 id="2-初始化config-server副本集"><a href="#2-初始化config-server副本集" class="headerlink" title="2.初始化config server副本集"></a>2.初始化config server副本集</h3><p>db2<br>mongo –port 27019 连上config server</p>
+<pre><code>rs.initiate(
+    &#123;
+        _id:&quot;config_server&quot;,
+        configsvr:true,
+        members: [
+          &#123; _id : 0, host : &quot;2.2.2.2:27019&quot; &#125;,
+          &#123; _id : 1, host : &quot;1.1.1.1:27019&quot; &#125;
+        ]
+    &#125;
+)
+</code></pre>
+<p>其中members包含2个config server的信息<br>rs.status()可查看副本集状态</p>
+<h3 id="3-启动shard分片"><a href="#3-启动shard分片" class="headerlink" title="3.启动shard分片"></a>3.启动shard分片</h3><p>配置clusterRole: shardsvr</p>
+<pre><code>sudo mongod --config /airm2m_data/airm2m/database/mongodb/config/shard.conf
+</code></pre>
+<h3 id="4-初始化shard副本集"><a href="#4-初始化shard副本集" class="headerlink" title="4.初始化shard副本集"></a>4.初始化shard副本集</h3><p>这里每个shard只包含了一个节点。如果机器多，一个shard可以有多个节点分布在多台机器，这样每个shard的数据也会被同步到各个节点来保证安全。</p>
+<p>db2<br>mongo –port 27018 连上shard</p>
+<pre><code>    rs.initiate(
+      &#123;
+        _id :&quot;air_shard&quot;,
+        members: [
+          &#123; _id : 0, host : &quot;2.2.2.2:27018&quot; &#125;
+        ]
+      &#125;
+    )
+</code></pre>
+<p>db1<br>mongo –port 27018 连上shard</p>
+<pre><code>    rs.initiate(
+      &#123;
+        _id :&quot;air_shard_2&quot;,
+        members: [
+          &#123; _id : 0, host : &quot;1.1.1.1:27018&quot;&#125;
+        ]
+      &#125;
+    )
+</code></pre>
+<h3 id="5-启动mongos"><a href="#5-启动mongos" class="headerlink" title="5.启动mongos"></a>5.启动mongos</h3><p>配置里指定configDB为config_server</p>
+<pre><code>sudo mongos --config /airm2m_data/airm2m/database/mongodb/config/mongos.conf
+</code></pre>
+<h3 id="6-往mongos里添加分片"><a href="#6-往mongos里添加分片" class="headerlink" title="6.往mongos里添加分片"></a>6.往mongos里添加分片</h3><p>mongo –port 27017 连上mongos</p>
+<pre><code>sh.addShard(&quot;air_shard/2.2.2.2:27018&quot;)
+sh.addShard(&quot;air_shard_2/1.1.1.1:27018&quot;)
+sh.status()可查看分片状态
+</code></pre>
+<p>这时可以创建数据了，添加数据，默认会选一个shard。</p>
+<h3 id="7-开启分片"><a href="#7-开启分片" class="headerlink" title="7.开启分片"></a>7.开启分片</h3><pre><code>sh.enableSharding(&quot;test1&quot;) 打开某个数据库的分片
+sh.shardCollection(&quot;test1.a&quot;, &#123;mnc : 1&#125;) 打开某个collection的分片
+</code></pre>
+<p>继续往mongso节点添加数据，当数据量超过一个chunk时就会开始往别的shard挪数据。<br>可以设置chunk size</p>
+<hr>
+<h2 id="权限配置"><a href="#权限配置" class="headerlink" title="权限配置"></a>权限配置</h2><h3 id="1-给mongos、两个shard都添加一个root用户，有所有权限。"><a href="#1-给mongos、两个shard都添加一个root用户，有所有权限。" class="headerlink" title="1.给mongos、两个shard都添加一个root用户，有所有权限。"></a>1.给mongos、两个shard都添加一个root用户，有所有权限。</h3><pre><code>db.createUser(
+  &#123;
+    user: &quot;admin&quot;,
+    pwd: &quot;123456&quot;,
+    roles: [ &quot;root&quot; ]
+  &#125;
+)
+</code></pre>
+<h3 id="2-配置key。各个节点之间用key鉴权。"><a href="#2-配置key。各个节点之间用key鉴权。" class="headerlink" title="2.配置key。各个节点之间用key鉴权。"></a>2.配置key。各个节点之间用key鉴权。</h3><p>生成key</p>
+<pre><code>openssl rand -base64 756 &gt; mongodb_key
+chmod 400 mongodb_key
+</code></pre>
+<p>所有配置都加上</p>
+<pre><code>keyFile: /airm2m_data/airm2m/database/mongodb/config/mongodb_key
+</code></pre>
+<p>authorization保持disabled<br>重启所有节点</p>
+<h3 id="3-添加各app小号"><a href="#3-添加各app小号" class="headerlink" title="3.添加各app小号"></a>3.添加各app小号</h3><p>mongos和shard里都添加一下。</p>
+<pre><code>use admin
+db.auth(&#39;admin&#39;, &#39;123456&#39;)
+db.createUser(  
+  &#123;  
+    user: &quot;bsgps_worker&quot;,  
+    pwd: &quot;123456&quot;,  
+    roles: [ &#123; role: &quot;readWrite&quot;, db: &quot;bsgps&quot; &#125; ]  
+&#125;)
+</code></pre>
+<p>要use admin后添加用户，这样能添加到admin表里。修改权限时也在admin里操作。<br>如果把用户添加到实际数据库比如bsgps，python程序貌似权限转换有点问题。(需要authSource指定默认数据库，而且直接读别的数据库会报权限错误。)</p>
+<p>添加权限的命令：</p>
+<pre><code>use admin
+db.grantRolesToUser( &quot;bsgps_worker&quot;, [ &#123; role: &quot;readWrite&quot;, db: &quot;openluat&quot; &#125; ])
+</code></pre>
+<hr>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>1、所有app只接入mongos这个唯一的入口。管理员分析数据可以单独接入两个shard。<br>接入mongos目前看来是有几毫秒延迟的，即使只有一个数据库，并没有开启分片。例如查基站，直接进数据库查一个需要0.5毫秒，进mongos查就要0.9毫秒。</p>
+<p>2、创建数据库必须在mongos操作，因为在某个shard创建的话貌似不能同步到mongos。<br>在mongos里创建数据库时它会自己选一个shard，没法默认建在某个shard上(见 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/sharded-cluster-shards/index.html">https://docs.mongodb.com/manual/core/sharded-cluster-shards/index.html</a>)<br>这时如果collection需要分片，则在mongos里操作(上面第7点)。<br>如果不需要分片，可以用movePrimary命令挪到db2(如果没有自动创建在db2)。</p>
+<pre><code>db.adminCommand( &#123; movePrimary : &quot;mongos_create&quot;, to : &quot;air_shard&quot; &#125; )
+</code></pre>
+<hr>
+<h2 id="一些操作"><a href="#一些操作" class="headerlink" title="一些操作"></a>一些操作</h2><p>设置shard最大容量。可以限制弱的机器分到的数据量。<br><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/manage-sharded-cluster-balancer">https://docs.mongodb.com/manual/tutorial/manage-sharded-cluster-balancer</a></p>
+<p>设置Chunk Size<br><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/modify-chunk-size-in-sharded-cluster/">https://docs.mongodb.com/manual/tutorial/modify-chunk-size-in-sharded-cluster/</a></p>
+<p>删除一个分片<br><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/command/removeShard/">https://docs.mongodb.com/manual/reference/command/removeShard/</a><br>进入mongos</p>
+<pre><code>db.adminCommand( &#123; removeShard : &quot;air_shard_2&quot; &#125; )
+</code></pre>
+<p>分片里的数据会挪到其他分片<br>如果分片里有不分片的collection，得用movePrimary挪走，然后再次removeShard才能彻底删除。否则貌似mongos状态会有问题，刷不出数据。</p>
+<p>往副本集里添加一个节点<br><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/expand-replica-set/">https://docs.mongodb.com/manual/tutorial/expand-replica-set/</a><br>用rs.add()</p>
+<p>从副本集里删除一个节点<br><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/remove-replica-set-member/">https://docs.mongodb.com/manual/tutorial/remove-replica-set-member/</a><br>可以用rs.remove()也可以用rs.reconfig()</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/720/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/718/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

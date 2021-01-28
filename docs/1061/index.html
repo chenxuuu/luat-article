@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Air720U&amp;724U&amp;722U&amp;820U AT固件更新说明 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Air720U&amp;724U&amp;722U&amp;820U AT固件更新说明</h1>
+<article class="post markdown-style">
+  <p><a href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201124173259386_AirM2M_720U_V1622_LTE_AT.zip" target="_blank">AirM2M_720U_V1622_LTE_AT.zip</a></p><p>修改记录：</p><p>1.AT V1560 长时间挂测 USB AT DIAG口不通了，回退合并<br/>2.485存在内存泄漏<br/>3.linux下ECM无法使用<br/>4.音频播放+gpio会卡死<br/>5.dns task堆栈溢出<br/>6.AT^SYSINFO返回的信息不对<br/>7.V301401 AT+CGNDEL=3删除epo命令返回错误</p><p></p><p><a href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201024113032329_AirM2M_720U_V1342_LTE_AT.zip" target="_blank">AirM2M_720U_V1342_LTE_AT.zip</a></p><p><span style="line-height:1"><span style="letter-spacing:0px">修改记录：</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">1.激活ipv4v6,使用RNDIS上网无法使用连接ipv6地址</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">2.添加AT+TCPUSERPARAM</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">3.开发切换音频通道AT,重启后生效(默认是classD)</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">4.采用软复位重启模块后，osiGetBootCauses接口无法获取到正确结果</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">5.添加AT*USB=HOTPLUG,0/1</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">6.标准AT指令增加RI动作的配置</span></span><br/><span style="line-height:1"><span style="letter-spacing:0px">7.AT*CSQ=1打开CSQ主动上报，缺少*CESQ: &lt;rxlev&gt;,&lt;ber&gt;,&lt;rscp&gt;,&lt;ecno&gt;,&lt;rsrq&gt;,&lt;rsrp&gt;,&lt;sinr&gt;</span></span></p><p></p><p></p><p><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200914094734892_AirM2M_720U_V1066_LTE_AT.zip">AirM2M_720U_V1066_LTE_AT.zip</a></p><p><span style="line-height:1"><span style="letter-spacing:0px">修改记录：</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">1.默认承载未激活时，让cgatt返回0</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">2.去除代码中对gps存在的检测</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">3.TTS支持英文字母播报</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">4.去除GPIO 13  拉高进入校准模式功能</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">5.用FS_O_WRONLY打开文件后无法写文件</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">6.修改UDP丢包问题</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">7.优化功能测试</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">8.非boot下载，概率性无法启动的问题</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">9.修改CCFC=2,2总是返回error问题</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">10.自动更改core里的函数名</span></span></p><p><span style="line-height:1"><span style="letter-spacing:0px">11.V897 AT+RNDISCALL=?缺少第二个参数取值</span></span><br/></p><p><a href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200803195833_AirM2M_720U_V907_LTE_AT.pac" target="_blank">AirM2M_720U_V907_LTE_AT</a></p><p class="braft-code-block" data-offset-key="2c3da-0-0">修改记录：<br/>1:开发通用工厂测试<br/>2:V838 AT*CSQ命令实现<br/>3:升级到W20.30.1<br/>4:NAT PPP拨号之后无法PING外网<br/>5:AT+RNDISCALL增加一个参数来确认是否需要保存当前设置，0或者没有第二个参数不保存，1，保存<br/>6:FOTA失败后，查询AT+UPGRADE?返回值不对<br/>7:添加GPIO 测试AT 命令<br/>8:使用pwm接口后无法休眠<br/>9:增加mqtt定长发送指令MPUBEX<br/><br/></p><p><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8910/AirM2M_720U_V838_LTE_AT.zip">AirM2M_720U_V838_LTE_AT</a></p><p>修改记录：</p><p>1.MQTT的AT模式模块自动维护心跳 <br/>2.支持最大2384 MPUB 发送 </p><p>3:服务器关闭，没有closed 上报 </p><p>4:开启CSDT=1 PDP就掉激活了/开关一次CSDT之后 GPIO23接地掉卡上报的信息有误</p><p>5:AT+FTPGETTOFS命令，当文件名字达到64位长度时，每次执行都失败</p><p>6:FSLS查看一个空目录的时候会返回错误</p><p>7:FTPEXTGET命令保存的文件，无法删除</p><p>8:AT^HEARTBEATHEX命令设置心跳内容后，模块收到的心跳数据是错的 </p><p> <br/><br/></p><p><a href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200529110544_AirM2M_720U_V584_LTE_AT.pac" target="_blank">AirM2M_720U_V584_LTE_AT</a></p><p>修改记录：</p><p>1:CEREG和CREG命令返回的tac/LAC数据不对<br/>2:当没一路PDP 激活的时候，查询CGDCONT 返回+CGDCONT:<br/>3:提高通话音量和音频播放音量基础音量<br/>4:修改在数据传输中，禁用rndis ，有概率出现eth allocate req fail ，并且无法发送AT 问题<br/>5:修改VOLTE 默认打开<br/><br/></p><p></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1062/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1054/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

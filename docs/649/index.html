@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>720模块USB描述符详解 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">720模块USB描述符详解</h1>
+<article class="post markdown-style">
+  <p>@[TOC]<br>#Air720系列模块简介<br>**<br>Air720系列模块是合宙出品的4G LTE模块，拥有丰富功能模块以及完善AT指令，用户可以通过AT指令实现所需的功能，也可以插上PC的USB当作网卡使用，也可以使用PPP拨号等等。这些功能都可以用720的USB设备实现，下面就介绍下Air720系列模块强大的USB设备。<br>**<br>#Air720系列模块USB功能介绍</p>
+<table>
+<thead>
+<tr>
+<th>接口名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NDIS</td>
+<td>RNDIS网卡接口</td>
+</tr>
+<tr>
+<td>AT</td>
+<td>发送AT指令</td>
+</tr>
+<tr>
+<td>modem</td>
+<td>PPP拨号和发送AT指令</td>
+</tr>
+<tr>
+<td>diag</td>
+<td>调试抓log接口</td>
+</tr>
+</tbody></table>
+<p>#Air720系列模块USB描述符<br>##设备描述符<br>Offset|Name|Description|Value<br>—|—|—|—<br>1|bLength|此描述符的字节数|0x12<br>2|bDescriptorType|描述符类型|0x01<br>3|bcdUSB|此设备与描述表兼容的USB设备说明版本号|0x0002<br>5|bDeviceClass|设备类码|0xef<br>6|bDeviceSubClass|子类掩码（根据设备类码查看）|0x02<br>7|bDeviceProtocol|协议码|0x01<br>8|bMaxPacketSize0|端点0的最大包大小|0x40<br>9|idVendor|厂商标志|0x1286<br>11|idProduct|产品标志|0x4e3d<br>13|bcdDevice|设备发行号（BCD码）|0x0001<br>15|iManufacturer|描述厂商信息的字符串描述符的索引值。|0x01<br>16|iProduct|描述产品信息的字串描述符的索引值t|0x02<br>17|iSerialNumber|描述设备序列号信息的字串描述符的索引值|0x03<br>18|bNumConfigurations|可能的配置描述符数目|0x01<br>##配置描述符<br>Offset|Name|Description|Value<br>—|—|—|—<br>1|bLength|此描述符的字节数|0x09<br>2|bDescriptorType|描述符类型|0x02<br>3|wTotalLength|此配置信息的总长|0xde00<br>5|bNumInterfaces|此配置所支持的接口个数|0x05<br>6|bConfigurationValue|在SetConfiguration（）请求中用作参数来选定此配置|0x01<br>7|iConfiguration|描述此配置的字串描述表索引|0x00<br>8|bmAttributes|配置特性：D6：自给电源, D5：远程唤醒|0xc0<br>9|MaxPower|    在此配置下的总线电源耗费量 (mA)|0xfa</p>
+<p>#Air720系列模块USB接口描述符<br>##RNDIS接口组合描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x08<br>|2|bDescriptorType|描述符类型（IAD描述符类型）|0x0b<br>|3|bFirstInterface|起始接口|0x00<br>|4|bInterfaceCount|接口数|0x02<br>|5|bFunctionClass|类型码|0xe0<br>|6|bFunctionSubClass|子类型码|0x01<br>|7|bFunctionProtocol|协议码|0x03<br>|8|Index|描述字符串索引|0x05<br>###RNDIS 通信类接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x00<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x01<br>|6|bInterfaceClass|无线控制器类|0xe0<br>|7|bInterfaceSubclass|抽象控制模型|0x01<br>|8|bInterfaceprotocol|协议码|0x03<br>|9|iInterface|描述此接口的字串描述表的索引值|0x05<br>###RNDIS 数据类接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x01<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x02<br>|6|bInterfaceClass|CDC数据类|0x0a<br>|7|bInterfaceSubclass|抽象控制模型|0x00<br>|8|bInterfaceprotocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x05<br>###RNDIS端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x85<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x1000<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x06<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x87<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00</p>
+<p>##AT接口<br>###AT接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x02<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x03<br>|6|bInterfaceClass|厂商定义的设备|0xFF<br>|7|bInterfaceSubClass|设备子类码|0x00<br>|8|bInterfaceProtocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x0B<br>###AT接口端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8c<br>|4|bmAttributes|端点特性（中断传送）|0x03<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x1000<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x0d<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出终结点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8e<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>##MODEM接口<br>###MODEM接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x03<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x03<br>|6|bInterfaceClass|厂商定义的设备|0xFF<br>|7|bInterfaceSubClass|设备子类码|0x00<br>|8|bInterfaceProtocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x08<br>###MODEM接口端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8a<br>|4|bmAttributes|端点特性（中断传送）|0x03<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x10000<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x01<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x82<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0002<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>##DIAG接口<br>###DIAG接口描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x09<br>|2|bDescriptorType|描述符类型|0x04<br>|3|bInterfaceNumber|此接口的索引|0x04<br>|4|bAlternateSetting|可选设置的索引值|0x00<br>|5|bNumEndpoints|此接口用的端点数量|0x03<br>|6|bInterfaceClass|厂商定义的设备|0xFF<br>|7|bInterfaceSubClass|设备子类码|0x00<br>|8|bInterfaceProtocol|协议码|0x00<br>|9|iInterface|描述此接口的字串描述表的索引值|0x0B<br>###DIAG接口端点描述符<br>####通知端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x8b<br>|4|bmAttributes|端点特性（中断传送）|0x03<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0010<br>|7|bInterval|端点数据传输的访问间隔|0x10<br>####输入端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x07<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x03<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0200<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>####输出端点描述符<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|此描述符的字节数|0x84<br>|2|bDescriptorType|描述符类型（端点描述符）|0x05<br>|3|bEndpointAddress|端点号及传输方向|0x0d<br>|4|bmAttributes|端点特性（批传送）|0x02<br>|5|wMaxPacketSize|端点支持的最大数据包长度|0x0200<br>|7|bInterval|端点数据传输的访问间隔|0x00<br>##功能描述符<br>详细参数请查看USB-CDC类相关文档。<br>###Header Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bLength|表示该描述符的长度|0x05<br>|2|bDescriptorType|CS_INTERFACE|0x24<br>|3|bDescriptorSubtype|Header Func Desc|0x00<br>|4|bcdCDC|BCD编码CDC版本号字段|0x1001<br>###Call Managment Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bFunctionLength |FunctionLength|0x05<br>|2|bDescriptorType|CS_INTERFACE |0x24<br>|3|bDescriptorSubtype| Call Management Func Desc|0x01<br>|4|bmCapabilities||0x00<br>|5|bDataInterface||0x01<br>###ACM Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bFunctionLength |FunctionLength|0x04<br>|2|bDescriptorType|CS_INTERFACE |0x24<br>|3|bDescriptorSubtype|Abstract Control Management desc|0x02<br>|4|bmCapabilities|D0:The device does not handle call management D1：self handle|0x00<br>###Union Functional Descriptor<br>|Offset|Name|Description|Value<br>|—|—|—|—<br>|1|bFunctionLength |FunctionLength|0x05<br>|2|bDescriptorType|CS_INTERFACE |0x24<br>|3|bDescriptorSubtype|Union func desc|0x06<br>|4|bControlInterface|The interface number designated as the controlling interface for the union|0x00<br>|5|bSubordinateInterface0|Interface number of first subordinate interfacein the union|0x01<br>#Air720系列模块USB抓包分析<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_35093.png"><br><strong>使用工具：BusHound<br>如上图所示：CTL是HOST发送的获取描述符的请求，IN是设备的回复。数据是横向解读。依次是:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">设备配置描述符（09 02 de 00 05 01 00 c0 fa）</span><br><span class="line">	NDIS接口组合描述符(08 0b 00 02 e0 01 03 05)</span><br><span class="line">	NDIS通信类接口描述符(09 04 00 00 01 e0 01 03 05)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01 00 01 04 24 02 00 05 24 06 00 01)</span><br><span class="line">		通知端点描述符（07 05 85 03 10 00 10）</span><br><span class="line">	NDIS数据类接口描述符(09 04 01 00 02 0a 00 00 05)</span><br><span class="line">		输出端点描述符(07 05 87 02 00 02 00</span><br><span class="line">		输入端点描述符(07 05 06 02 00 02 00)</span><br><span class="line">	AT接口描述符(09 04 02 00 03 ff 00 00 0b)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01 00 00 04 24 02 02 05 24 06 00 00)</span><br><span class="line">		通知端点描述符(07 05 8c 03 10 00 10)</span><br><span class="line">		输出端点描述符(07 05 8e 02 00 02 00)</span><br><span class="line">		输入端点描述符(07 05 0d 02 00 02 00)</span><br><span class="line">	MODEM接口描述符(09 04 03 00 03 ff 00 00 08)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01 00 00 04 24 0202 05 24 06 00 00)</span><br><span class="line">		通知端点描述符(07 05 8a 03 10 00  10)</span><br><span class="line">		输出端点描述符(07 05 82 02 00 02 00)</span><br><span class="line">		输入端点描述符(07 05 01 02 00 02 00)</span><br><span class="line">	DIAG接口描述符(09 04 04 00 03 ff 00 00 0b)</span><br><span class="line">	功能描述符(05 24 00 10 01 05 24 01  00 00 04 24 02 02 05 24 06 00 00)</span><br><span class="line">		通知端点描述符(07 05 8b 03 10 00 10)</span><br><span class="line">		输出端点描述符(07 05 84 02 00 02 00)</span><br><span class="line">		输入端点描述符(07 05 03 02 00 02 00)</span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/650/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/648/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

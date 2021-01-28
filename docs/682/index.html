@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>【4G】4G模块串口时隐时现的解决方法 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">【4G】4G模块串口时隐时现的解决方法</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;使用4G模块进行二次开发时，有的群友碰到4G模块串口“时隐时现”的情况：&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&lt;img style=&quot;width: 503px;&quot; src=&quot;https://oldask.openluat.com/image/show/attachments-2020-02-lY5nXP0R5e3781215a8a3.png&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;伴随系统发现新硬件的提示音，设备管理器中，串口经常“失踪”后又“诈尸”&lt;br&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;blockquote&gt;&lt;p&gt;&lt;img style=&quot;width: 497px;&quot; src=&quot;https://oldask.openluat.com/image/show/attachments-2020-02-q3O1ZvuT5e378127638a7.png&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;Luatools也不能正确识别串口，无法打印任何Trace&lt;br&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;通常，造成串口无法识别，或者频繁闪现的原因，是模块反复重启造成的。只有模块重启时，系统才会不断地“发现新硬件”。&lt;/p&gt;&lt;p&gt;那么，什么情况会造成模块反复重启呢？通常&lt;b&gt;供电不足&lt;/b&gt;和&lt;b&gt;代码错误&lt;/b&gt;两个原因。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;h2&gt;供电不足&lt;br&gt;&lt;/h2&gt;&lt;p&gt;针对&lt;b&gt;供电不足&lt;/b&gt;导致重启的情况，建议开发者检查供电问题，如果是使用USB线供电，不要使用usb-hub，也不要插在前面板，尽量使用机箱后边的插口。尽量使用足够粗的microUSB数据线，避免压降导致供电不足（必要时，可以双插usb线增强供电），模块反复重启。必要时，建议使用示波器查看供电情况。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;h2&gt;代码错误&lt;br&gt;&lt;/h2&gt;&lt;p&gt;而&lt;b&gt;代码错误&lt;/b&gt;导致的重启，通常AT模式不会遇到，只有Luat才会出现。&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt;&lt;img style=&quot;width: 491.5px;&quot; src=&quot;https://oldask.openluat.com/image/show/attachments-2020-02-Pr7JCmyn5e3782b4753b6.png&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;进行语法检测，可以有效避免由于代码错误导致的异常重启&lt;br&gt;&lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;开发者在下载Lua脚本，建议进行语法检测，避免常见的语法错误；另外可以使用UART1/2输出TRACE。&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;由于模块重启速度很快，但是Windows识别新硬件需要很久的时间，所以通常会错过模块输出的错误信息，没有错误信息就没有办法进一步跟踪调试程序。那么怎么办呢？&lt;/p&gt;&lt;p&gt;如果开发者没有使用UART1/2，那么可以使用UART1/2输出TRACE，打开串口调试助手查看模块输出的重启日志，进一步分析代码运行的错误（波特率115200）。&lt;/p&gt;&lt;p&gt;通过UART1/2查看TRACE，这样一来，就不会因为Windows识别新硬件速度慢，而错过模块输出的错误信息了。&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;仍然反复重启，且找不到错误原因，那么建议开发者使用S720开发板进行对比测试。通常可能是布线问题，供电问题等多种因素造成的反复重启。&lt;/p&gt;&lt;p class=&quot;title&quot;&gt;如果开发者遇到无法解决又无法判断根源的反复重启问题，请参考文章：&lt;a href=&quot;https://doc.luatos.wiki/618&quot; target=&quot;_blank&quot;&gt;《关于Windows/Linux系统下如何用USB口抓取4G模块底层Trace？》&lt;/a&gt;&lt;/p&gt;&lt;p class=&quot;title&quot;&gt;抓取到相关底层日志后，进QQ群交流：851800257&lt;br&gt;&lt;/p&gt;
+                    
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/683/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/681/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

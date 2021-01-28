@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MIT 6.S081 操作系统课程系列3 Page tables [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">MIT 6.S081 操作系统课程系列3 Page tables</h1>
+<article class="post markdown-style">
+  <h1 id="MIT-6-S081-操作系统课程系列3-Page-tables"><a href="#MIT-6-S081-操作系统课程系列3-Page-tables" class="headerlink" title="MIT 6.S081 操作系统课程系列3 Page tables"></a>MIT 6.S081 操作系统课程系列3 Page tables</h1><hr>
+<p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/labs/pgtbl.html">https://pdos.csail.mit.edu/6.828/2020/labs/pgtbl.html</a><br><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/xv6/book-riscv-rev1.pdf">https://pdos.csail.mit.edu/6.828/2020/xv6/book-riscv-rev1.pdf</a><br>本次实验需要读xv6手册第3章。看相关kernel代码。<br>理解页表的原理并实现一些相关功能。</p>
+<hr>
+<p>页表的作用是通过地址映射，使得每个进程看上去拥有自己独立的地址空间和内存，但实际是所有进程共用一套物理内存和地址。</p>
+<h3 id="分页硬件"><a href="#分页硬件" class="headerlink" title="分页硬件"></a>分页硬件</h3><ul>
+<li><p>riscv指令(user和kernel)都只操作虚拟地址。riscv硬件会把虚拟地址映射到实际地址。<br>xv6系统下，只会用到64bit的虚拟地址里的低39bit。页表逻辑上就是一个数组，包含pow(2, 27)=134217728个页表项(page table entries(<code>PTE</code>))。</p>
+</li>
+<li><p>看手册图3.1和3.2。<br>每个PTE为64bit，包含一个44bit的页号physical page number(PPN)，一些标志位，和一些备用的bit。<br>分页硬件用虚拟地址39bit里的高27bit查到一个PTE，再把PTE里的PPN(44bit)和原始虚拟地址的后12bit(39 - 27)拼起来组成一个56bit的物理地址。</p>
+</li>
+<li><p>分页的粒度常用<code>4096(4k)</code>字节。后续可以看到很多内存操作都会处理4k对齐，内存也是按页分配。</p>
+</li>
+<li><p>134217728(512 * 512 * 512)个PTE存在三级树形结构里，每层刚好512项。<br>上面说的用高27bit查PTE，即前9bit对应第一级的index，中9bit对应第二级的index，后9bit对应第三级的index。<br>只要有一级找不到，就会报page-fault异常，交给kernel处理。</p>
+</li>
+<li><p>PTE里有十个左右的各种标志位。<br><code>PTE_V</code> PTE是否存在<br><code>PTE_U</code> 如果开启，kernel下不允许读。<br><code>PTE_R</code> 是否允许读<br><code>PTE_W</code> 是否允许写<br><code>PTE_X</code> 是否允许执行</p>
+</li>
+</ul>
+<hr>
+<h3 id="kernel地址空间"><a href="#kernel地址空间" class="headerlink" title="kernel地址空间"></a>kernel地址空间</h3><ul>
+<li><p>xv6给每个进程维护两个页表，一个用作user地址空间，一个kernel地址空间。<br>kernel会给自己的地址空间做详细的配置，比如哪些资源映射到哪些虚拟地址。见memlayout.h。</p>
+</li>
+<li><p>qemu<br>qemu是一个模拟软件。现在为我们的模拟的物理内存从0x80000000开始到0x88000000，一共128m(见memlayout.h，从<code>KERNBASE</code>到<code>PHYSTOP</code>)。<br>也会模拟io设备比如磁盘。qemu把设备接口做成内存映射(0x88000000以下)的寄存器暴露给软件。<br>kernel通过读写这些地址跟设备交互。</p>
+</li>
+<li><p>kernel获取设备地址是用的”直接映射”，即虚拟地址和实际地址一样。直接映射就省去了转换操作，很多场景会用到。</p>
+</li>
+<li><p>仔细看下手册图3.3，kernel的地址空间。<br><code>MAXVA</code>为0x4000000000(256G字节)。虚拟地址的寻址空间为0<del>(0x4000000000-1)<br><code>KERNBASE</code>为0x80000000(2G字节)。之前的都是kernel特殊使用。<br><code>PHYSTOP</code>为0x88000000，与<code>KERNBASE</code>之间的128M为实际的可用内存。<br>其中<code>KERNBASE</code>开始存kernel代码和数据。<br>kernel的代码和数据的末尾称为<code>end</code>(见kalloc.c)。<br><code>end</code>到<code>PHYSTOP</code>就是被内存管理系统控制(通过kalloc/kfree)的内存(见kalloc.c)。就是图中的freememory。<br>用户进程分配到的物理内存都是分布在freememory里。虽然寻址空间都是0</del>(0x4000000000-1)。</p>
+</li>
+</ul>
+<hr>
+<h3 id="创建地址空间"><a href="#创建地址空间" class="headerlink" title="创建地址空间"></a>创建地址空间</h3><ul>
+<li><p>看页表相关代码vm.c<br>主要的数据pagetable_t是一个uint64 *(riscv.h)</p>
+</li>
+<li><p>看懂<code>walk</code>函数<br>pte_t *walk(pagetable_t pagetable, uint64 va, int alloc)<br>给一个pagetable头地址(L2页表地址)(物理地址)，一个虚拟地址va，一个alloc选项。<br>返回va的物理地址。</p>
+</li>
+<li><p>看图3.2<br>L2L1L0为上述三级PTE。<br>先有L2页表的地址。</p>
+<pre><code>  1.拿L2的9bit(PX宏展开就是把va的对应级别的9bit拿出来)，可以得到L2中对应的PTE项，检查它的PTE_V标志。
+      1.1如果PTE_V标识为0说明该PTE不存在，那么看alloc选项。
+          1.1.1如果为0，函数返回0。
+          1.1.2如果为1，用kalloc()分配一个页，并标记PTE_V有效。计算L1的页表地址(PTE2PA宏是把PTE的44bitPPN拿出来左移12bit)。
+      1.2如果PTE_V标志为1说明该PTE有效，计算L1的页表地址。
+</code></pre>
+<p>  同样算法从L1得到L0的页表地址后，直接拿出L0数组里对应的PTE项，返回其地址。</p>
+<p>  需要注意的是新的页表最开始只分配了一页的内存，只能支持一小部分的PTE，如果发现下一级的页表头不存在，说明还没给它分配内存，那么要根据alloc来分配内存。</p>
+</li>
+<li><p>页对齐<br>目的是方便兼容不同硬件和提高效率，不对齐会有额外的io开销。<br>两个计算对齐地址的宏:<br><code>PGROUNDDOWN</code>把地址往下对齐一页，不满一页的值抹掉，比如0x1003会变成0x1000。<br>  <code>PGROUNDUP</code>把地址往上对齐一页，只要超出1就会往上走一页，比如0x1001会变成0x2000。<br>  如果正好是对齐的地址比如0x1000，都不会发生改变。</p>
+</li>
+<li><p>看懂<code>mappages</code>函数<br>int mappages(pagetable_t pagetable, uint64 va, uint64 size, uint64 pa, int perm)<br>给一个pagetable头地址(L2页表地址)(物理地址)，一个虚拟地址va，一个数size，一个物理地址pa， 一个配置项perm。</p>
+<p>  功能就是更新页表里的项，给定size，对于从va和pa开始的size个字节(以页分组)，va和pa地址一一对应，把映射关系安装到页表。<br>  把va和va+size对齐一下分别作为头尾。开始循环。</p>
+<p>  对于其间的每个虚拟地址，调<code>walk</code>得到其PTE位置，再把物理地址pa转成PTE赋值到页表。每次循环va和pa都往后走一页。</p>
+</li>
+<li><p>kvmmap()用mappages把映射关系安装到kernel的页表。<br>在main()里kvminit()用kvmmap安装一系列硬件等映射。这个发生在页表使能之前，所以地址都是物理地址。</p>
+</li>
+</ul>
+<hr>
+<h3 id="物理地址的分配"><a href="#物理地址的分配" class="headerlink" title="物理地址的分配"></a>物理地址的分配</h3><p>见kalloc.c。上次lab已经看懂了它的原理，这里跳过。</p>
+<hr>
+<h3 id="进程地址空间"><a href="#进程地址空间" class="headerlink" title="进程地址空间"></a>进程地址空间</h3><ul>
+<li><p>每个进程有独立的页表，当进程发生切换时也会切换页表。<br>见图2.3。进程的用户内存从0开始到<code>MAXVA</code>(riscv.h)，一共是256G字节大小。</p>
+</li>
+<li><p>进程向xv6内核请求更多内存时，xv6用kalloc分配物理页。然后往页表中插入PTE项(指向新分配的物理地址)(就是把映射关系装进页表)。</p>
+</li>
+<li><p>通过巧妙的设计，不同进程的虚拟地址会映射到不同的物理地址，不会相互干扰。进程自己可见的内存地址时连续的，虽然实际对应的物理地址是散乱的。</p>
+</li>
+</ul>
+<hr>
+<h3 id="sbrk"><a href="#sbrk" class="headerlink" title="sbrk"></a>sbrk</h3><ul>
+<li><p>按linux手册的描述，sbrk改变program break的位置，改变了进程的数据段。program break变大的效果就是增大了进程的内存，反之减小。</p>
+</li>
+<li><p>看xv6的sbrk，直接调用growproc(n)来增减内存。<br>如果n大于0，用uvmalloc增加。<br>如果n小于0，用uvmdealloc减小。<br>相关的函数基本都建立在之前看过的kfree/kalloc/walk/mappages基础之上，</p>
+</li>
+<li><p>整理一下内存和分页相关的函数</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>kalloc</td>
+<td>分配一页4096字节物理内存</td>
+</tr>
+<tr>
+<td>kfree</td>
+<td>回收一页4096字节物理内存</td>
+</tr>
+<tr>
+<td>freerange</td>
+<td>用kfree回收范围内物理内存</td>
+</tr>
+<tr>
+<td>walk</td>
+<td>在页表中找虚拟地址对应的PTE地址(可选是否为未分配内存的PTE分配内存)</td>
+</tr>
+<tr>
+<td>freewalk</td>
+<td>递归形式。用kfree回收整个页表本身。</td>
+</tr>
+<tr>
+<td>mappages</td>
+<td>往页表中安装虚拟地址-物理地址的对应关系。如果PTE没分配内存，分配内存。</td>
+</tr>
+<tr>
+<td>kvmmap</td>
+<td>用mappages把地址对应关系安装到kernel的页表</td>
+</tr>
+<tr>
+<td>uvmunmap</td>
+<td>把页表里从虚拟地址va开始的n个page的对应关系删除(可选是否kfree物理地址)</td>
+</tr>
+<tr>
+<td>uvmdealloc</td>
+<td>给定新老内存size，用uvmunmap删除其间的va对应关系(可选是否回收内存)。</td>
+</tr>
+<tr>
+<td>uvmalloc</td>
+<td>给定新老内存size。遍历老size到新size之间的页，每个页先kalloc分配物理内存，再mappages安装到页表。</td>
+</tr>
+<tr>
+<td>copyout</td>
+<td>把数据从物理地址copy到虚拟地址对应的物理地址</td>
+</tr>
+<tr>
+<td>copyin</td>
+<td>把数据从虚拟地址对应的物理地址copy到物理地址</td>
+</tr>
+<tr>
+<td>uvmcreate</td>
+<td>用kalloc分配一页，创建一个空页表。</td>
+</tr>
+<tr>
+<td>uvmfree</td>
+<td>用uvmunmap删除页表中从0开始n个地址的对应关系(同时kfree每页的物理地址)。再freewalk删除页表本身。</td>
+</tr>
+<tr>
+<td>uvmcopy</td>
+<td>给定新老两个页表和size，把老页表0开始到size的虚拟地址的数据复制到新页表。从0开始的每一页虚拟地址，找到老表的PTE、物理地址，kalloc分配一页，把物理地址上的数据复制到新分配的页，再用mappages把虚拟地址和新分配的页安装到页表。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<hr>
+<h3 id="exec流程"><a href="#exec流程" class="headerlink" title="exec流程"></a>exec流程</h3><ul>
+<li><p>ELF(Executable Linking Format)文件是广泛用于类unix系统的文件格式，xv6的应用程序就是用的elf文件。<br><a target="_blank" rel="noopener" href="https://wiki.osdev.org/ELF">https://wiki.osdev.org/ELF</a><br><a target="_blank" rel="noopener" href="https://elinux.org/Executable_and_Linkable_Format_(ELF)">https://elinux.org/Executable_and_Linkable_Format_(ELF)</a><br><a target="_blank" rel="noopener" href="https://linuxhint.com/understanding_elf_file_format/">https://linuxhint.com/understanding_elf_file_format/</a></p>
+</li>
+<li><p>格式定义见elf.h，有一个elf头elfhdr，一个program头proghdr。<br>每个proghdr定义一个需要加载到内存的应用程序。<br>每个xv6程序只包含一个proghdr，其他系统可能包含多个。</p>
+</li>
+<li><p>exec(exec.c)目的是运行一个程序(可执行的文件)。先用namei(fs.c)打开要执行的文件。再读elfhdr。检查ELF_MAGIC(elf.h)。<br>用proc_pagetable(exec.c)创建user页表。<br>对于每一个程序段，用uvmalloc分配内存，更新页表。用loadseg把程序段加载到指定地址。<br>再处理exec参数。设置寄存器以运行指定的程序。</p>
+</li>
+<li><p>其实细节很复杂。后续会不断更新理解。</p>
+</li>
+</ul>
+<hr>
+<h3 id="做题1-打印页表"><a href="#做题1-打印页表" class="headerlink" title="做题1.打印页表"></a>做题1.打印页表</h3><ul>
+<li><p>vm.c里做一个函数vmprint，给定页表头和level，打印出页表所有非空的PTE和物理地址。插到exec函数返回前。<br>参考freewalk做一个递归打印每个PTE，依靠level填上前缀即可。</p>
+</li>
+<li><p>用make grade测试，测试通过会打印出：pte printout: OK</p>
+</li>
+</ul>
+<hr>
+<h3 id="做题2-每个进程独有的kernel页表"><a href="#做题2-每个进程独有的kernel页表" class="headerlink" title="做题2.每个进程独有的kernel页表"></a>做题2.每个进程独有的kernel页表</h3><ul>
+<li><p>得反复看代码，了解进程的结构和工作流程，内存、页表的布局。</p>
+</li>
+<li><p>看proc.h，默认的代码下，每个进程有一个独立的用户页表pagetable。而kernel页表是所有进程共用(见vm.c)。</p>
+</li>
+<li><p>NPROC最大进程数为64(param.h)</p>
+</li>
+<li><p>TRAMPOLINE为MAXVA前一页，也就是整个虚拟地址空间的最后一页。</p>
+</li>
+<li><p>看proc.c<br><code>procinit</code><br>初始化进程表。给进程表每项分配一页作为kernel栈(kstack)，用KSTACK把每个kernel栈的虚拟地址顺序按排在TRAMPOLINE之前。<br>最后用kvminithart使能kernel页表。</p>
+</li>
+<li><p><code>allocproc</code><br>初始化一个进程。从进程表里找一个state为UNUSED的项，allocpid分配新的pid，为trapframe分配一页，proc_pagetable创建一个空的用户页表，初始化context结构体，context包含一批寄存器。切换进程的swith函数需要传入这个context。</p>
+</li>
+<li><p>allocproc在userinit和fork里用到。</p>
+</li>
+<li><p><code>userinit</code><br>在main函数里会调userinit，创建第一个user进程。<br>用allocproc分配一个进程，初始化，配置成initcode，也就是init.c的main，起sh程序(sh.c)。<br>进程的state设为RUNNABLE。<br>main最后会调scheduler()开始进程的调度，系统的进程就跑起来了。</p>
+</li>
+<li><p>scheduler<br>每个cpu都会起一个。会跑一个for的死循环，不会返回。<br>每次循环从进程表里找一个RUNNABLE的进程，设为RUNNING，用swtch()切换，执行找到的进程。</p>
+</li>
+<li><p>fork<br>用allocproc分配一个子进程，用uvmcopy复制一份页表到子进程，同时复制父进程user页表的数据到子进程。子进程状态设为RUNNABLE。</p>
+</li>
+</ul>
+<h4 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h4><p>默认代码里只有唯一一个kernel页表(vm.c的kernel_pagetable)，现在要求做成每个进程自己维护一个kernel页表，进程运行时切换到自己的kernel页表。</p>
+<ol>
+<li>proc结构体添加一个kernel页表</li>
+<li>目前allocproc函数里会创建用户页表，很自然可以把创建kernel页表加到此处。</li>
+<li>做一个make_kernel_page_table函数。里面创建一个空页表作为每个进程的kernel页表。</li>
+<li>make_kernel_page_table里把进程的kstack的映射安装到新页表(kstack默认在procinit里初始化过，所以只安装映射即可)</li>
+<li>make_kernel_page_table里参考kvminit把映射安装到进程自己的kernel页表。</li>
+<li>freeproc里free自己的kernel页表。</li>
+<li>scheduler里swith之前要切换到进程的kernel页表。参考kvminithart。</li>
+</ol>
+<h4 id="Debug："><a href="#Debug：" class="headerlink" title="Debug："></a>Debug：</h4><h5 id="p-gt-sz问题"><a href="#p-gt-sz问题" class="headerlink" title="p-&gt;sz问题"></a>p-&gt;sz问题</h5><ul>
+<li><p>出现panic: uvmunmap: walk<br>因为freeproc里我仿照uvmfree()删除自己的kernel页表，而size不明确，用p-&gt;sz是不对的，导致uvmunmap里walk找不到va的对应关系而出panic。<br>那么size到底是多少，这个非常值得追踪一下。</p>
+</li>
+<li><p>看一下进程的p-&gt;sz赋值情况(暂时找到这些)</p>
+<ol>
+<li>userinit。第一个进程。sz写死的PGSIZE。</li>
+<li>exec。对每个程序段用uvmalloc扩大内存大小，最后再加2个page。比如echo执行时是12k(3页)。</li>
+<li>growproc。直接扩大内存n字节。可以看出sz大小不是页对齐的。但映射永远是页对齐的。</li>
+<li>fork。子进程直接设为父进程的sz。</li>
+</ol>
+</li>
+<li><p>最后看下来kernel页表不会像user页表那么随意变化。原始代码对kernel_pagetable的操作只在kvminit里。<br>那么参考kvminit反向操作一下，unmap就行了，不用管p-&gt;sz。</p>
+</li>
+<li><p>另外kstack也需要处理。添加映射和删除映射要配对，否则容易出panic。</p>
+</li>
+</ul>
+<h5 id="执行一个命令后shell无反应"><a href="#执行一个命令后shell无反应" class="headerlink" title="执行一个命令后shell无反应"></a>执行一个命令后shell无反应</h5><ul>
+<li><p>原因是在用户进程switch那，我们做成了切换到进程自己的kernel页表，但如果没有进程了就出问题了，相当于没有kernel页表了。<br>课程主页也有提示，没有可执行的进程时得切换到原始的kernel页表。<br>在<code>found == 0</code>时要切换回默认的kernel页表。</p>
+</li>
+<li><p>make qemu进入系统测试一下常用命令<br>没问题后输usertests进行系统各项测试。可能会持续十几分钟。虚拟机的话多给点内存，否则可能卡住。<br>最后打印出ALL TESTS PASSED说明成功。</p>
+</li>
+</ul>
+<hr>
+<h3 id="做题3-简化copyin-copyinstr"><a href="#做题3-简化copyin-copyinstr" class="headerlink" title="做题3.简化copyin/copyinstr"></a>做题3.简化copyin/copyinstr</h3><ul>
+<li><p>看懂copyin<br>给定页表，目标地址dst，起始地址va，长度len。把va开始的len长度的地址范围的数据复制到dst。<br>细节是头尾没页对齐的部分分别复制，中间对齐的部分整页整页地复制。</p>
+</li>
+<li><p>copyinstr<br>和copyin类似，给定最大长度，复制字符串。碰到0要停止。</p>
+</li>
+<li><p>lab2里用了copyout。总结一下。<br>copyout把物理地址的数据复制到目标虚拟地址转换后的物理地址。按课程的说法就是kernel的数据复制到user。<br>copyin 把虚拟地址转换后的物理地址的数据复制到目标物理地址。按课程的说法就是user的数据复制到kernel。<br>in就是进kernel。out就是出到user。<br>在exec流程里，user程序把参数地址(虚拟，用户只允许用虚拟地址)存进某个寄存器，再调用exec(system call)。<br>然后进入kernel程序，取user存的参数的虚拟地址，会用fetchaddr，最后用到copyin把虚拟地址的参数copy出来。</p>
+</li>
+<li><p>任务是简化copyin。用vmcopyin.c里的copyin_new代替原始的copyin。<br>copyin_new直接一个memmove复制数据，不用一页页做地址转换再复制。</p>
+</li>
+<li><p>这里卡了半天没懂他的意思。既然物理地址不一定连续，怎么可能用一个memmove复制连续物理地址上的大批数据呢？<br>后来反复看手册和代码，参考网上的信息顿悟。</p>
+</li>
+<li><p>这里有一个理解的缺失：kernel页表到底是用在哪的？<br>kernel_pagetable这个变量搜了所有代码，只有kvminithart里传进去，其他没有实质使用。</p>
+</li>
+<li><p>大胆总结：<br>kvminithart里是把kernel_pagetable喂给硬件分页了。<br>kvminit初始化时是把kernel data和freememory都线性映射到kernel_pagetable了(这里一直没仔细看)。<br>在一个较低的层面，可能是驱动或更下面，至少是memmove之下，硬件分页一定会按kernel_pagetable做一次转换的。<br>就是说memmove执行的时候会把地址按kernel_pagetable做一次转换。</p>
+</li>
+<li><p>这样就清楚了，需要事先把用户虚拟地址上的数据都做好映射，同步到进程自己的kernel页表，再喂给硬件分页。<br>硬件分页处理用户进程，默认是用了线性的映射，现在要改成处理user页表的映射。<br>本质上就是要把copyin里的一页页转换交给硬件分页处理，从而简化了copyin的代码。<br>地址的转换仍然是存在的。</p>
+</li>
+<li><p>需要把进程的user页表完全同步到kernel页表。<br>什么时候同步？user映射发生变化的时候。<br>仔细看代码会发现p-&gt;sz的变化总是伴随着user页表映射的变化。<br>刚好上边总结过p-&gt;sz的赋值情况。跟课程的提示完全一致。<br>那么p-&gt;sz发生变化的时候同步一下user页表就行了。</p>
+</li>
+</ul>
+<h5 id="其他问题点"><a href="#其他问题点" class="headerlink" title="其他问题点"></a>其他问题点</h5><ul>
+<li><p>页表、内存相关的边界处理一定要严谨，否则各种panic。必须看懂代码。</p>
+</li>
+<li><p>同步user页表时PTE_U要关掉。否则copyin_new时会panic，因为PTE_U打开时kernel不允许读。<br>这个非常坑，课程有提示，但是很难联系上。</p>
+</li>
+<li><p>需要同步user页表到kernel页表，但user地址空间是从0到MAXVA，与kvminit里kernel页表其他的初始化可能会冲突。<br>课程给的解法是把用户的最大虚拟地址定为kernel页表用到的最低的地址。课程说是PLIC，但看手册和代码最低是CLINT的0x2000000？？<br>growproc里扩大内存时先判断一下地址，如果大于PLIC返回-1。这样把虚拟地址控制在PLIC以下。<br>测试里的sbrkmuch会分配100m内存，如果限制在CLINT的话内存只有32m了，也会失败。</p>
+</li>
+<li><p>growproc里的同步<br>不能偷懒每次都unmap全部再map，这样太慢了。必须只更新扩大或缩小的部分，处理好边界和对齐问题。</p>
+</li>
+<li><p>卡死的问题<br>最后测试还是会卡死，也不报错，不知道原因。单个测试某项能通过。<br>把切换kernel页表和copyin/copyinstr替换关掉就没问题。看来代码还是有问题。<br>发现多次运行不存在的命令后shell会卡死，cpu跑满。<br>仔细看下sh和exec的流程。</p>
+<p>  main-&gt;userinit-&gt;init.c的main<br>死循环里先fork，子进程exec运行sh，父进程等待这个sh的结果。<br>sh.c里main不断等输入，就是我们看到的shell界面。<br>输入命令后fork，子进程调exec运行命令。父进程sh等待子进程返回。</p>
+<p>  基本就是切换结束时某个环节出了问题。<br>颠来倒去查了很久实在没辙了。<br>看别人代码发现切换kernel页表swtch之后要立马切换回来。如果等到found==0才切换，某些情况会有概率回不来，原因暂不深究了。<br>这样测试能通过了。有恶心到。</p>
+</li>
+<li><p>sbrk问题<br>测试里有一个分配所有内存的操作，不断地分配直到返回0xffffffffffffffffLL，其实是-1。<br>运行make grade时sbrkmuch会失败。但单独运行usertests sbrkmuch是好的。先搁置。</p>
+</li>
+<li><p>另一个卡死<br>exec里走到bad时不要回收kernel页表。在freeproc里回收就够了。</p>
+</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>细节其实非常多，运气不好或者理解不够深就得花很多时间看代码和调试。<br>通过这次实验。研究了大量页表、内存分配和进程相关的底层代码。对内存操作有了很多新的认识。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2383/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2374/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

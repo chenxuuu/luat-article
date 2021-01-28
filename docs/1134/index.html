@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air302模块硬件设计手册V1.3 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air302模块硬件设计手册V1.3</h1>
+<article class="post markdown-style">
+  <p>@[TOC]</p>
+<p> </p>
+<h1 id="1-绪论"><a href="#1-绪论" class="headerlink" title="1.绪论"></a>1.绪论</h1><p>本文档定义了Air302模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air302模块于无线应用。</p>
+<p> </p>
+<h1 id="2-综述"><a href="#2-综述" class="headerlink" title="2.综述"></a>2.综述</h1><p>Air302模块是一款超低成本、超低功耗的NB-IOT模块，支持3GPP Rel14 NB-IOT标准。</p>
+<p>Air302的工作频段是：B1 B3 B5 B8。</p>
+<p>Air302具有17.7mm ×  14.8mm × 2.3mm的超小尺寸，几乎能够满足所有的M2M的需求。</p>
+<p>Air302 有丰富的外围接口，支持UART，SPI，I2C等各种接口，可支持最多19个GPIO，并支持ADC，满足各种应用场景的使用要求。</p>
+<p>Air302是贴片式模块，采用LCC封装，可以通过其管脚焊盘内嵌于客户应用中，提供了模块与客户主板间丰富的硬件接口。</p>
+<p>Air302模块采用了省电技术，电流功耗在PSM模式下，低至800nA。</p>
+<p>Air302内嵌TCP UDP PPP HTTPS SSL等协议，已内嵌的扩展AT命令可以使用户更容易地使用这些互联网协议。</p>
+<p>Air302模块完全符合RoHS标准。</p>
+<p>表格1：模块主要特征</p>
+<table>
+<thead>
+<tr>
+<th align="left">特征</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">频段</td>
+<td align="left">支持B1 B3 B5 B8</td>
+</tr>
+<tr>
+<td align="left">发射功率</td>
+<td align="left">23 +/-1 dBm</td>
+</tr>
+<tr>
+<td align="left">供电</td>
+<td align="left">VBAT   2.2V ~ 4.3V，典型值3.3V</td>
+</tr>
+<tr>
+<td align="left">功耗</td>
+<td align="left">•PSM: 800nA</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">•DRX(2.56s)： 110uA</td>
+</tr>
+<tr>
+<td align="left">特性</td>
+<td align="left">支持 3GPP R14 NB-IOT     Category NB2, 2-HARQ</td>
+</tr>
+<tr>
+<td align="left">温度范围</td>
+<td align="left">正常工作温度：-40°C ~ +85°C</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">存储温度：-45°C ~ +90°C</td>
+</tr>
+<tr>
+<td align="left">SIM卡接口</td>
+<td align="left">支持SIM/USIM卡：1.8V，3V</td>
+</tr>
+<tr>
+<td align="left">天线接口特性阻抗</td>
+<td align="left">50 Ω</td>
+</tr>
+<tr>
+<td align="left">串口</td>
+<td align="left">UART0：用于软件调试</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">UART1：用于AT命令和升级软件</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">UART2：通用串口</td>
+</tr>
+<tr>
+<td align="left">SPI</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">I2C</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">实时时钟</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">尺寸</td>
+<td align="left">17.7±0.15 × 14.8±0.15 ×2.3±0.2mm</td>
+</tr>
+<tr>
+<td align="left">重量</td>
+<td align="left">1.2g</td>
+</tr>
+</tbody></table>
+<p> </p>
+<h2 id="2-1-功能图"><a href="#2-1-功能图" class="headerlink" title="2.1.    功能图"></a>2.1.    功能图</h2><p>下图为Air302功能框图，阐述了其主要功能：<br>•    存储器<br>•    射频<br>•    电源管理<br>•    接口部分<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715194523197_113.jpg"><br>图表1：功能框图</p>
+<h2 id="2-2-评估板"><a href="#2-2-评估板" class="headerlink" title="2.2.    评估板"></a>2.2.    评估板</h2><p>为了有助于测试及使用Air302，合宙提供一套评估板。评估板包括Air302模块、EVB_Air302等。</p>
+<h1 id="3-应用接口"><a href="#3-应用接口" class="headerlink" title="3.    应用接口"></a>3.    应用接口</h1><p>模块采用LCC封装，38个SMT焊盘管脚，后续章节详细阐述了以下接口的功能：</p>
+<p>•    电源供电(请参考电源供电章节)<br>•    开关机(请参考开关机章节)<br>•    省电技术(请参考省电技术章节)<br>•    串口(请参考串口章节)<br>•    SIM卡接口(请参考SIM卡章节)</p>
+<h2 id="3-1-管脚描述"><a href="#3-1-管脚描述" class="headerlink" title="3.1.    管脚描述"></a>3.1.    管脚描述</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200825151259967_Air302_%E7%AE%A1%E8%84%9A%E5%9B%BE.png"><br>图表2：管脚排列图（正视图）</p>
+<p>表格2：管脚描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">电源</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">VBAT</td>
+<td align="left">37 38</td>
+<td align="left">I</td>
+<td align="left">模块主电源VBAT=2.2V~4.3V</td>
+<td align="left">Vmax= 4.3V Vmin=2.2V Vnorm=3.3V</td>
+<td align="left">内部连接到ADC，可读取VBAT电压</td>
+</tr>
+<tr>
+<td align="left">VDDIO</td>
+<td align="left">24</td>
+<td align="left">O</td>
+<td align="left">输出 2.8V，10mA 模块进入PSM模式后会关闭这个电源</td>
+<td align="left">Vmax=2.95V</td>
+<td align="left">1.如果不用则悬空 2.如果用这个管脚给外部供电，推荐并联一个2~4.7uF的去耦电容，负载电流不要超过10mA</td>
+</tr>
+<tr>
+<td align="left">GND</td>
+<td align="left">15 31 33 35 36 39 40 41</td>
+<td align="left"></td>
+<td align="left">模块地</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">复位</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">RESET</td>
+<td align="left">34</td>
+<td align="left">I</td>
+<td align="left">复位管脚，低电平有效。把管脚拉低200ms以上重启模块</td>
+<td align="left">VILmax=0.4V</td>
+<td align="left">无需外部上拉</td>
+</tr>
+<tr>
+<td align="left">模块网络指示</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">NET_LED (GPIO_19)</td>
+<td align="left">13</td>
+<td align="left">O</td>
+<td align="left">网络状态指示</td>
+<td align="left">VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">不用则悬空</td>
+</tr>
+<tr>
+<td align="left">UART1</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">UART1_TXD (GPIO_12)</td>
+<td align="left">8</td>
+<td align="left">O</td>
+<td align="left">模块发送数据</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax=VDDIO+0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">可用来升级软件和AT 通讯</td>
+</tr>
+<tr>
+<td align="left">UART1_RXD (GPIO_13)</td>
+<td align="left">9</td>
+<td align="left">I</td>
+<td align="left">模块接收数据</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">UART2</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">UART2_RXD (GPIO_2)</td>
+<td align="left">27</td>
+<td align="left">I</td>
+<td align="left">硬件UART2</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax=VDDIO+0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">不用则悬空</td>
+</tr>
+<tr>
+<td align="left">UART2_TXD (GPIO_3)</td>
+<td align="left">28</td>
+<td align="left">O</td>
+<td align="left"></td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">调试串口UART0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">UART0_RXD (GPIO_4)</td>
+<td align="left">25</td>
+<td align="left">I</td>
+<td align="left">用于软件调试</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax=VDDIO+0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">不用则悬空</td>
+</tr>
+<tr>
+<td align="left">UART0_TXD (GPIO_5)</td>
+<td align="left">26</td>
+<td align="left">O</td>
+<td align="left"></td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">调试口SWD</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">SWCLK</td>
+<td align="left">10</td>
+<td align="left">O</td>
+<td align="left">用于软件调试</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax=VDDIO+0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">不用则悬空</td>
+</tr>
+<tr>
+<td align="left">SWDIO</td>
+<td align="left">11</td>
+<td align="left">I/O</td>
+<td align="left"></td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">I2C</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">I2C_CLK (GPIO_10)</td>
+<td align="left">30</td>
+<td align="left">O</td>
+<td align="left">I2C时钟信号，使用时需要外加上拉电阻</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax=VDDIO+0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">不用则悬空</td>
+</tr>
+<tr>
+<td align="left">I2C_SDA (GPIO_8)</td>
+<td align="left">29</td>
+<td align="left">I/O</td>
+<td align="left">I2C数据信号，使用时需要外加上拉电阻</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SPI</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">SPI_CS (GPIO_16)</td>
+<td align="left">2</td>
+<td align="left">O</td>
+<td align="left">SPI 片选信号</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax= VDDIO +0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">不用则悬空；</td>
+</tr>
+<tr>
+<td align="left">SPI_CLK (GPIO_15)</td>
+<td align="left">3</td>
+<td align="left">O</td>
+<td align="left">SPI 时钟信号</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SPI_MOSI (GPIO_11)</td>
+<td align="left">4</td>
+<td align="left">O</td>
+<td align="left">SPI Master out Slaver in</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SPI_MISO (GPIO_14)</td>
+<td align="left">5</td>
+<td align="left">I</td>
+<td align="left">SPI Master in Slaver out</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SIM卡接口</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">SIM_VDD</td>
+<td align="left">21</td>
+<td align="left">O</td>
+<td align="left">SIM卡供电电压</td>
+<td align="left">模块自动选择1.8V或3.0V</td>
+<td align="left">SIM卡接口建议使用TVS管做ESD防护，SIM卡座到模块最长线径不要超过 20cm</td>
+</tr>
+<tr>
+<td align="left">SIM_RST</td>
+<td align="left">20</td>
+<td align="left">O</td>
+<td align="left">SIM卡复位</td>
+<td align="left">3V:VOLmax=0.36 VOHmin=0.9×SIM_VDD 1.8V:VOLmax=0.2×SIM_VDD VOHmin=0.9×SIM_VDD</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SIM_DAT</td>
+<td align="left">22</td>
+<td align="left">I/O</td>
+<td align="left">SIM卡数据线</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">SIM_CLK</td>
+<td align="left">23</td>
+<td align="left">O</td>
+<td align="left">SIM卡时钟线</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ADC</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">ADC0</td>
+<td align="left">14</td>
+<td align="left">I</td>
+<td align="left">模数转换器</td>
+<td align="left">输入范围0~3.4V 12bit</td>
+<td align="left">不用则悬空</td>
+</tr>
+<tr>
+<td align="left">下载模式</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">BOOT/GPIO_1</td>
+<td align="left">1</td>
+<td align="left">I</td>
+<td align="left">在上电之前把GPIO_1 拉低模块会进入下载模式</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax= VDDIO +0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left">正常工作请保持悬空</td>
+</tr>
+<tr>
+<td align="left">休眠唤醒</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">WAKEUP_IN</td>
+<td align="left">12</td>
+<td align="left">I</td>
+<td align="left">在模块进入休眠后，拉低这个管脚可以唤醒模块</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax= VDDIO +0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">GPIO</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">GPIO_9</td>
+<td align="left">6</td>
+<td align="left">I/O</td>
+<td align="left">通用GPIO，注意在PSM模式下不可用</td>
+<td align="left">VILmin=-0.3V VILmax=0.25×VDDIO VIHmin=0.75×VDDIO VIHmax= VDDIO +0.3 VOHmin=0.85×VDDIO VOLmax=0.15×VDDIO</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">GPIO_7</td>
+<td align="left">7</td>
+<td align="left">I/O</td>
+<td align="left">通用GPIO，注意在PSM模式下不可用</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">GPIO_18</td>
+<td align="left">18</td>
+<td align="left">I/O</td>
+<td align="left">通用GPIO，注意在PSM模式下不可用</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">GPIO_19</td>
+<td align="left">19</td>
+<td align="left">I/O</td>
+<td align="left">通用GPIO，注意在PSM模式下不可用</td>
+<td align="left">同上</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">AON_GPIO_4</td>
+<td align="left">16</td>
+<td align="left">I/O</td>
+<td align="left">通用GPIO，可在PSM模式下使用， AON_GPIO只有内部下拉， 其他GPIO只有内部上拉</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">AON_GPIO_2</td>
+<td align="left">17</td>
+<td align="left">I/O</td>
+<td align="left">通用GPIO，可在PSM模式下使用， AON_GPIO只有内部下拉， 其他GPIO只有内部上拉</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">射频接口</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">管脚名</td>
+<td align="left">管脚号</td>
+<td align="left">I/O</td>
+<td align="left">管脚描述</td>
+<td align="left">电气特性</td>
+<td align="left">备注</td>
+</tr>
+<tr>
+<td align="left">ANT</td>
+<td align="left">32</td>
+<td align="left">I/O</td>
+<td align="left">NB射频信号输入输出</td>
+<td align="left">50欧姆特性阻抗</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="3-2-工作模式"><a href="#3-2-工作模式" class="headerlink" title="3.2.    工作模式"></a>3.2.    工作模式</h2><p>下表简要的叙述了接下来几章提到的各种工作模式。<br>表格3：工作模式</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">工作模式</td>
+<td align="left">模块处于活动状态，所有功能正常可用，可以进行数据发送和接收。模块在此模式下可切换到 待机模式或 PSM 模式</td>
+</tr>
+<tr>
+<td align="left">待机模式</td>
+<td align="left">模块处于浅睡眠状态，网络处于连接状态，可接受寻呼消息。模块在此模式下可切换至 工作模式或者 PSM 模式</td>
+</tr>
+<tr>
+<td align="left">PSM 模式</td>
+<td align="left">模块只有 RTC 工作，网络处于非连接状态，不可接受寻呼消息。当 DTE（Data Terminal Equipment）主动发送数据或者定时器 T3412（与周期性更新相关）超时后，模块将被唤醒。</td>
+</tr>
+</tbody></table>
+<h2 id="3-3-省电技术"><a href="#3-3-省电技术" class="headerlink" title="3.3.    省电技术"></a>3.3.    省电技术</h2><p>PSM 的主要目的是降低模块功耗，延长电池的供电时间。下图显示了模块在不同模式下的功耗示意图。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715145004215_3.jpg"><br>图表3：工作模式示意图<br>模块进入 PSM 的过程如下：模块在与网络端建立连接或跟踪区更新（TAU）时，会在请求消息中申请 进入 PSM，网络端在应答消息中配置 T3324 定时器数值返给模块。当 T3324 定时器超时后，模块进入 PSM。 模块在针对紧急业务进行连网或进行公共数据网络初始化时，不能申请进入 PSM。 </p>
+<p>当模块处于 PSM 模式时，将关闭连网活动，包括搜寻小区消息、小区重选等。但是 T3412 定时器（与 周期性 TAU 更新相关）仍然继续工作。 </p>
+<p>模块退出 PSM 模式有两种方式：一种由 DTE 主动发送数据退出 PSM 模式，另一种是当 T3412 定器超时后，TAU 启动，模块退出 PSM。</p>
+<h2 id="3-4-电源供电"><a href="#3-4-电源供电" class="headerlink" title="3.4.    电源供电"></a>3.4.    电源供电</h2><h3 id="3-4-1-供电参考电路"><a href="#3-4-1-供电参考电路" class="headerlink" title="3.4.1.    供电参考电路"></a>3.4.1.    供电参考电路</h3><p>模块的电源设计对其性能至关重要，必须选择能够提供至少 0.5A 电流能力的电源为模块供电。Air302 可使用低静态电流的 LDO 作为供电电源，也支持锂亚电池、锂锰电池供电；其电源输入电压范围应为 2.2V~4.3V。模块在数传工作中，必须确保电源电压跌落不低于模块最低工作电压 2.2V。为了确保更好的 电源供电性能，在靠近模块 VBAT 输入端，建议并联一个低 ESR 的 47uF 的钽电容，以及 100nF、100pF 和 22pF 的滤波电容。同时，建议在靠近 VBAT 输入端增加一个 TVS 管以提高模块的浪涌电压承受能力，原则上，VBAT 走线越长，线宽越宽。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715145201483_4.jpg"><br>图表4：VBAT输入参考电路</p>
+<h2 id="3-5-开关机"><a href="#3-5-开关机" class="headerlink" title="3.5.    开关机"></a>3.5.    开关机</h2><h3 id="3-5-1-开机"><a href="#3-5-1-开机" class="headerlink" title="3.5.1.    开机"></a>3.5.1.    开机</h3><p>Air302模块上电后会自动开机。</p>
+<h3 id="3-5-2-RESET重启"><a href="#3-5-2-RESET重启" class="headerlink" title="3.5.2    RESET重启"></a>3.5.2    RESET重启</h3><p>Air302模块第34脚为reset管脚，可以通过拉低RESET管脚200ms左右来重启模块。<br>推荐使用OC驱动电路来控制RESET管脚。下图为参考电路：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715145301948_5.jpg"></p>
+<p>图表5：开集驱动参考重启电路</p>
+<p>另一种控制RESET管脚重启的方法是直接使用一个按钮开关。按钮附近需放置一个TVS管用以ESD保护。下图为参考电路：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715145352085_6.jpg"><br>图表6：按键重启参考电路</p>
+<h2 id="3-6-串口"><a href="#3-6-串口" class="headerlink" title="3.6.    串口"></a>3.6.    串口</h2><p>模块提供了三个通用异步收发器：主串口UART1、调试串口UART0、通用串口UART2。</p>
+<p>主串口UART1</p>
+<p>UART1 可用来升级模块的固件，同时也用来和模块进行AT指令的交互。<br>•    UART1_TXD：发送数据到DTE设备的RXD端<br>•    UART1_RXD：从DTE设备TXD端接收数据</p>
+<p>UART0 可用来打印调试log。<br>•    UART0_TXD：发送数据到DTE设备的RXD端<br>•    UART0_RXD：从DTE设备TXD端接收数据</p>
+<p>通用串口UART2                                                                                    </p>
+<p>•    UART2_TXD：发送数据到DTE的串口<br>•    UART2_RXD：从DTE的串口接收数据</p>
+<p>串口逻辑电平如下表所示：<br>表格4：串口逻辑电平</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">最小值</th>
+<th align="left">最大值</th>
+<th align="left">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">VIL</td>
+<td align="left">0</td>
+<td align="left">0.25×VDDIO</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">VIH</td>
+<td align="left">0.75×VDDIO</td>
+<td align="left">VDDIO +0.3</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">VOL</td>
+<td align="left">0</td>
+<td align="left">0.15×VDDIO</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">VOH</td>
+<td align="left">0.85×VDDIO</td>
+<td align="left">VDDIO</td>
+<td align="left">V</td>
+</tr>
+</tbody></table>
+<p>表格5：串口管脚定义</p>
+<table>
+<thead>
+<tr>
+<th align="left">接口</th>
+<th align="left">名称</th>
+<th align="left">管脚</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">UART1</td>
+<td align="left">UART1_TXD</td>
+<td align="left">8</td>
+<td align="left">串口发送数据</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">UART1_RXD</td>
+<td align="left">9</td>
+<td align="left">串口接收数据</td>
+</tr>
+<tr>
+<td align="left">UART0</td>
+<td align="left">UART0_RXD</td>
+<td align="left">25</td>
+<td align="left">串口接收数据</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">UART0_TXD</td>
+<td align="left">26</td>
+<td align="left">串口发送数据</td>
+</tr>
+<tr>
+<td align="left">UART2</td>
+<td align="left">UART2_RXD</td>
+<td align="left">27</td>
+<td align="left">串口接收数据</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">UART2_TXD</td>
+<td align="left">28</td>
+<td align="left">串口发送数据</td>
+</tr>
+</tbody></table>
+<h3 id="3-6-1-主串口UART1"><a href="#3-6-1-主串口UART1" class="headerlink" title="3.6.1.    主串口UART1"></a>3.6.1.    主串口UART1</h3><h4 id="3-6-1-1-主串口特点"><a href="#3-6-1-1-主串口特点" class="headerlink" title="3.6.1.1    主串口特点"></a>3.6.1.1    主串口特点</h4><p>•    8个数据位，无奇偶校验，一个停止位。<br>•    用以AT命令传送，数传，CSD传真等等。<br>•    支持波特率如下：4900,9600, 115200,921600</p>
+<h4 id="3-6-1-2-主串口连接方式"><a href="#3-6-1-2-主串口连接方式" class="headerlink" title="3.6.1.2    主串口连接方式"></a>3.6.1.2    主串口连接方式</h4><p>三线制的串口请参考如下的连接方式：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715155221097_7.png"><br>图表7：串口三线制连接方式示意图</p>
+<h3 id="3-6-2-调试串口UART0"><a href="#3-6-2-调试串口UART0" class="headerlink" title="3.6.2.    调试串口UART0"></a>3.6.2.    调试串口UART0</h3><p>•    数据线：UART0_TXD和UART0_RXD<br>•    调试口仅用作软件调试，波特率配置为921600bps<br>•    串口会自动向外面输出log信息</p>
+<p>调试串口连线参考如下方式连接：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715155412740_7.png"><br>图表8：软件调试连线图</p>
+<h3 id="3-6-3-串口应用"><a href="#3-6-3-串口应用" class="headerlink" title="3.6.3.    串口应用"></a>3.6.3.    串口应用</h3><p>对于3.3V电压系统情况下的串口电平匹配电路参考如下，强烈建议在RXD等模块输入的端口上使用分压电阻的方式，将电压分压到2.8V。</p>
+<p>5V系统的电平匹配，模块和外设之间的电平匹配可以参考如下的连接方式，如下的虚线部分可以参考上面的实线电路（虚线部分模块发送参考模块TXD的电路设计，虚线部分模块接收参考模块RXD的电路设计）。<br>VCC_MCU是客户端的I/O电平电压。VDDIO是模块输出的I/O电平电压。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715155459587_8.jpg"><br>图表9：5V电平转换电路</p>
+<p>当模块和RS232设备进行通信时，需要在他们之间加RS232电平转换电路。因为模块的串口配置都不是RS232电平，仅支持CMOS电平。下图为模块跟PC通信时，串口电平转换电路。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715155530467_9.jpg"><br>图表10：RS232电平转换电路</p>
+<h2 id="3-7-SIM卡接口"><a href="#3-7-SIM卡接口" class="headerlink" title="3.7.    SIM卡接口"></a>3.7.    SIM卡接口</h2><p>SIM卡通过模块内部的电源供电，支持1.8V和3.0V供电。<br>下表介绍了SIM的接口管脚定义。<br>表格6：SIM卡接口管脚定义</p>
+<table>
+<thead>
+<tr>
+<th align="left">管脚名</th>
+<th align="left">管脚号</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">SIM_VDD</td>
+<td align="left">21</td>
+<td align="left">SIM卡供电电源。自动侦测SIM卡工作电压。精度3.0V±10%和1.8V±10%。最大供电电流10mA。</td>
+</tr>
+<tr>
+<td align="left">SIM_RST</td>
+<td align="left">20</td>
+<td align="left">SIM卡复位脚</td>
+</tr>
+<tr>
+<td align="left">SIM_DATA</td>
+<td align="left">22</td>
+<td align="left">SIM卡数据线</td>
+</tr>
+<tr>
+<td align="left">SIM_CLK</td>
+<td align="left">23</td>
+<td align="left">SIM卡时钟线</td>
+</tr>
+</tbody></table>
+<p>下图是SIM接口的参考电路，使用6pin的SIM卡座。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715155752433_10.jpg"><br>图表11：使用6pin SIM卡座参考电路图(SIM)</p>
+<p>在SIM卡接口的电路设计中，为了确保SIM卡的良好的功能性能和不被损坏，在电路设计中建议遵循以下设计原则：<br>•    SIM卡座与模块距离摆件不能太远，越近越好，尽量保证SIM卡信号线布线不超过20cm。<br>•    SIM卡信号线布线远离RF线和VBAT电源线。<br>•    SIM_VDD的布线宽度不小于0.3mm，且在SIM_VDD与SIM_GND之间的旁路电路不超过1uF，并靠近SIM卡座摆放。<br>•    为了防止可能存在的SIM_CLK信号对SIM_DATA信号的串扰，两者布线不要太靠近，在两条走线之间增加地屏蔽。且对SIM_RST信号也需要地保护。<br>•    为了保证良好的ESD保护，建议加TVS管，并靠近SIM卡座摆放。选择的ESD器件寄生电容不大于50pF，例如WILL (<a target="_blank" rel="noopener" href="http://www.willsemi.com/">http://www.willsemi.com</a>) ESDA6V8AV6。在模块和SIM卡之间也可以串联22欧姆的电阻用以抑制杂散EMI，增强ESD防护。SIM卡的外围电路必须尽量靠近SIM卡座。</p>
+<h2 id="3-8-ADC0"><a href="#3-8-ADC0" class="headerlink" title="3.8.    ADC0"></a>3.8.    ADC0</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715155828891_11.jpg"><br>图表12：ADC0 内部框图<br>AUXADC 包含了以下功能性模块：<br>（1）ADC0经过分压电路的调整后，将该电压信号送入 AUXADC 的输入口。<br>（2）温度传感器：芯片温度发生变化时，Thermal Sensor 的电压输出信号也会随之变化。<br>（3）将输入的VBAT电压信号，量化成 12 位的数字数据。<br>ADC0的输入电压可以在 0<del>3.4V 范围内波动，但需要调整分压比，务必保证 AUXADC 输入端电压在 0</del>1.2V 范围</p>
+<h2 id="3-9-网络状态指示"><a href="#3-9-网络状态指示" class="headerlink" title="3.9.    网络状态指示"></a>3.9.    网络状态指示</h2><p>NET_LED管脚信号可以用指示灯来指示网络的状态。该管脚工作状态如下表所示：<br>表格7：NET_LED的工作状态</p>
+<table>
+<thead>
+<tr>
+<th align="left">状态</th>
+<th align="left">模块功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">关闭</td>
+<td align="left">模块没有运行</td>
+</tr>
+<tr>
+<td align="left">亮0.3秒，灭5.7秒</td>
+<td align="left">未检测到SIM卡</td>
+</tr>
+<tr>
+<td align="left">亮0.3秒，灭3.7秒</td>
+<td align="left">检测到SIM卡，未注册上NB网络</td>
+</tr>
+<tr>
+<td align="left">亮0.3秒，灭1.7秒</td>
+<td align="left">附着上NB网络，未连接上服务器</td>
+</tr>
+<tr>
+<td align="left">亮0.1秒，灭0.1秒</td>
+<td align="left">连接上服务器</td>
+</tr>
+</tbody></table>
+<p>参考电路如下图：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715160002071_12.jpg"><br>图表13：NET_LED参考电路</p>
+<h1 id="4-射频接口"><a href="#4-射频接口" class="headerlink" title="4.射频接口"></a>4.射频接口</h1><p>管脚 32是 RF天线输入端。RF接口50欧姆阻抗匹配。</p>
+<p>表格8：RF_ANT管脚定义</p>
+<table>
+<thead>
+<tr>
+<th align="left">管脚名称</th>
+<th align="left">管脚号</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ANT</td>
+<td align="left">32</td>
+<td align="left">射频焊盘</td>
+</tr>
+<tr>
+<td align="left">GND</td>
+<td align="left">15,31,33,35,36</td>
+<td align="left">地</td>
+</tr>
+</tbody></table>
+<h2 id="4-1-射频参考电路"><a href="#4-1-射频参考电路" class="headerlink" title="4.1.    射频参考电路"></a>4.1.    射频参考电路</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715160135235_13.jpg"><br>图表14：射频参考电路</p>
+<p>Air302提供了一个RF天线焊盘作为天线连接接口。连接到模块RF天线焊盘的RF走线必须使用微带线或者其他类型的 RF走线，阻抗必须控制在50欧姆左右。为了获得更好的射频性能，RF输入端口两侧各有接地焊盘。<br>为了最小化 RF走线或者RF线缆上的损耗，必须谨慎设计，严格控制到50欧姆阻抗。
+ </p>
+<h2 id="4-2-RF输出功率"><a href="#4-2-RF输出功率" class="headerlink" title="4.2.    RF输出功率"></a>4.2.    RF输出功率</h2><p>表格9：RF传导功率</p>
+<table>
+<thead>
+<tr>
+<th align="left">频段</th>
+<th align="left">信道</th>
+<th align="left">传导发射功率（dBm）（典型值）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">B1</td>
+<td align="left">18050</td>
+<td align="left">22.25</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">18300</td>
+<td align="left">22.8</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">18550</td>
+<td align="left">22.5</td>
+</tr>
+<tr>
+<td align="left">B3</td>
+<td align="left">19250</td>
+<td align="left">22.3</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">19575</td>
+<td align="left">22</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">19900</td>
+<td align="left">22.2</td>
+</tr>
+<tr>
+<td align="left">B5</td>
+<td align="left">20450</td>
+<td align="left">22.4</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">20525</td>
+<td align="left">22.5</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">20600</td>
+<td align="left">22.6</td>
+</tr>
+<tr>
+<td align="left">B8</td>
+<td align="left">21500</td>
+<td align="left">22.2</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">21625</td>
+<td align="left">22.2</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">21750</td>
+<td align="left">22.5</td>
+</tr>
+</tbody></table>
+<p> </p>
+<h2 id="4-3-RF传导灵敏度"><a href="#4-3-RF传导灵敏度" class="headerlink" title="4.3.    RF传导灵敏度"></a>4.3.    RF传导灵敏度</h2><p>表格10：RF传导灵敏度</p>
+<table>
+<thead>
+<tr>
+<th align="left">频段</th>
+<th align="left">信道</th>
+<th align="left">灵敏度（dBm）（典型值）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">B1</td>
+<td align="left">18050</td>
+<td align="left">-118.4</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">18300</td>
+<td align="left">-118.3</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">18550</td>
+<td align="left">-118.2</td>
+</tr>
+<tr>
+<td align="left">B3</td>
+<td align="left">19250</td>
+<td align="left">-118.5</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">19575</td>
+<td align="left">-118.3</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">19900</td>
+<td align="left">-118.6</td>
+</tr>
+<tr>
+<td align="left">B5</td>
+<td align="left">20450</td>
+<td align="left">-118.6</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">20525</td>
+<td align="left">-118.2</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">20600</td>
+<td align="left">-118.2</td>
+</tr>
+<tr>
+<td align="left">B8</td>
+<td align="left">21500</td>
+<td align="left">-118.7</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">21625</td>
+<td align="left">-118.6</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">21750</td>
+<td align="left">-118.4</td>
+</tr>
+</tbody></table>
+<h2 id="4-4-工作频率"><a href="#4-4-工作频率" class="headerlink" title="4.4.    工作频率"></a>4.4.    工作频率</h2><p>表格11：模块工作频率</p>
+<table>
+<thead>
+<tr>
+<th align="left">频段</th>
+<th align="left">接收频率</th>
+<th align="left">发射频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">B1</td>
+<td align="left">2110MHz~2170MHz</td>
+<td align="left">1920MHz~1980MHz</td>
+</tr>
+<tr>
+<td align="left">B3</td>
+<td align="left">1805MHz~1880MHz</td>
+<td align="left">1710MHz~1785MHz</td>
+</tr>
+<tr>
+<td align="left">B5</td>
+<td align="left">869MHz~894MHz</td>
+<td align="left">824MHz~849MHz</td>
+</tr>
+<tr>
+<td align="left">B8</td>
+<td align="left">925MHz~960MHz</td>
+<td align="left">880MHz~915MHz</td>
+</tr>
+</tbody></table>
+<p> </p>
+<h2 id="4-5-推荐RF焊接方式"><a href="#4-5-推荐RF焊接方式" class="headerlink" title="4.5.    推荐RF焊接方式"></a>4.5.    推荐RF焊接方式</h2><p>如果连接外置天线的射频连接器是通过焊接方式与模块相连的，请务必注意连接线的剥线方式及焊接方法，尤其是地要焊接充分，请按照下图中正确的焊接方式进行操作，以避免因焊接不良引起线损增大。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715160727970_14.jpg"><br>图表15：射频焊接方式建议</p>
+<h1 id="5-电器特性，可靠性，射频特性"><a href="#5-电器特性，可靠性，射频特性" class="headerlink" title="5.    电器特性，可靠性，射频特性"></a>5.    电器特性，可靠性，射频特性</h1><h2 id="5-1-绝对最大值"><a href="#5-1-绝对最大值" class="headerlink" title="5.1.    绝对最大值"></a>5.1.    绝对最大值</h2><p>下表所示是模块数字、模拟管脚的电源供电电压电流最大耐受值。</p>
+<p>表格12：绝对最大值</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">最小</th>
+<th align="left">最大</th>
+<th align="left">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">VBAT</td>
+<td align="left">-0.3</td>
+<td align="left">4.3</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">电源供电峰值电流</td>
+<td align="left">0</td>
+<td align="left">0.3</td>
+<td align="left">A</td>
+</tr>
+<tr>
+<td align="left">数字管脚处电压</td>
+<td align="left">-0.3</td>
+<td align="left">3.3</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">模拟管脚处电压</td>
+<td align="left">-0.3</td>
+<td align="left">3.0</td>
+<td align="left">V</td>
+</tr>
+<tr>
+<td align="left">关机模式下数字/模拟管脚处电压</td>
+<td align="left">-0.25</td>
+<td align="left">0.25</td>
+<td align="left">V</td>
+</tr>
+</tbody></table>
+<h2 id="5-2-工作温度"><a href="#5-2-工作温度" class="headerlink" title="5.2.    工作温度"></a>5.2.    工作温度</h2><p>表格13：工作温度</p>
+<table>
+<thead>
+<tr>
+<th align="left">温度</th>
+<th align="left">最低</th>
+<th align="left">典型</th>
+<th align="left">最高</th>
+<th align="left">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">正常工作温度</td>
+<td align="left">-40</td>
+<td align="left">25</td>
+<td align="left">85</td>
+<td align="left">℃</td>
+</tr>
+<tr>
+<td align="left">存储温度</td>
+<td align="left">-45</td>
+<td align="left"></td>
+<td align="left">90</td>
+<td align="left">℃</td>
+</tr>
+</tbody></table>
+<h2 id="5-3-功耗"><a href="#5-3-功耗" class="headerlink" title="5.3.    功耗"></a>5.3.    功耗</h2><p>表格14：功耗</p>
+<p>测试条件：25摄氏度，VBAT=3.3V</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">最小值</th>
+<th align="left">平均值</th>
+<th align="left">最大值</th>
+<th align="left">单位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">PSM模式    睡眠状态</td>
+<td align="left"></td>
+<td align="left">0.88</td>
+<td align="left"></td>
+<td align="left">uA</td>
+</tr>
+<tr>
+<td align="left">待机状态    DRX=2.56s, ECL0</td>
+<td align="left"></td>
+<td align="left">110</td>
+<td align="left"></td>
+<td align="left">uA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B1 Singletone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">25.2</td>
+<td align="left">89.7</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">41.8</td>
+<td align="left">87.1</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">128.2</td>
+<td align="left">266.5</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B1 12tone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">12.2</td>
+<td align="left">88.7</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">14.8</td>
+<td align="left">88.9</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">25.6</td>
+<td align="left">265.7</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B3 Singletone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">25.7</td>
+<td align="left">88.8</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">41.2</td>
+<td align="left">87.5</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">129.7</td>
+<td align="left">264.5</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B3 12tone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">12.7</td>
+<td align="left">88.3</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">14.5</td>
+<td align="left">88.4</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">25</td>
+<td align="left">265.1</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B5 Singletone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">20.5</td>
+<td align="left">88.6</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">35</td>
+<td align="left">87.7</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">129</td>
+<td align="left">265.1</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B5 12tone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">9.8</td>
+<td align="left">87.7</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">11.5</td>
+<td align="left">88.1</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">22.57</td>
+<td align="left">272.1</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B8 Singletone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">20.79</td>
+<td align="left">91.6</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">35.7</td>
+<td align="left">90.8</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">127</td>
+<td align="left">258.3</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">发送电流    B8 12tone</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">0dBm</td>
+<td align="left"></td>
+<td align="left">9.87</td>
+<td align="left">92.3</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">10dBm</td>
+<td align="left"></td>
+<td align="left">11.5</td>
+<td align="left">92.53</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">23dBm</td>
+<td align="left"></td>
+<td align="left">22.29</td>
+<td align="left">267.2</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">接收电流</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">B1</td>
+<td align="left"></td>
+<td align="left">10.3</td>
+<td align="left">88.9</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">B3</td>
+<td align="left"></td>
+<td align="left">10.5</td>
+<td align="left">88.7</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">B5</td>
+<td align="left"></td>
+<td align="left">8.26</td>
+<td align="left">88.52</td>
+<td align="left">mA</td>
+</tr>
+<tr>
+<td align="left">B8</td>
+<td align="left"></td>
+<td align="left">8.28</td>
+<td align="left">91.88</td>
+<td align="left">mA</td>
+</tr>
+</tbody></table>
+<h2 id="5-4-静电防护"><a href="#5-4-静电防护" class="headerlink" title="5.4.    静电防护"></a>5.4.    静电防护</h2><p>在模块应用中，由于人体静电，微电子间带电摩擦等产生的静电，通过各种途径放电给模块，可能会对模块造成一定的损坏，所以 ESD保护必须要重视，不管是在生产组装、测试，研发等过程，尤其在产品设计中，都应采取防 ESD保护措施。如电路设计在接口处或易受 ESD点增加 ESD保护，生产中带防ESD手套等。<br>下表为模块重点PIN脚的ESD耐受电压情况。<br>表格15：ESD性能参数（温度：25℃, 湿度：45%）</p>
+<table>
+<thead>
+<tr>
+<th align="left">管脚名</th>
+<th align="left">接触放电</th>
+<th align="left">空气放电</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">VBAT,GND</td>
+<td align="left">±5KV</td>
+<td align="left">±10KV</td>
+</tr>
+<tr>
+<td align="left">RF_ANT</td>
+<td align="left">±5KV</td>
+<td align="left">±10KV</td>
+</tr>
+<tr>
+<td align="left">Others</td>
+<td align="left">±0.5KV</td>
+<td align="left">±1KV</td>
+</tr>
+</tbody></table>
+<h1 id="6-机械尺寸"><a href="#6-机械尺寸" class="headerlink" title="6.    机械尺寸"></a>6.    机械尺寸</h1><p>该章节描述模块的机械尺寸以及客户使用该模块设计的推荐封装尺寸。</p>
+<h2 id="6-1-模块机械尺寸"><a href="#6-1-模块机械尺寸" class="headerlink" title="6.1.    模块机械尺寸"></a>6.1.    模块机械尺寸</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715194340753_111.jpg"><br>图表16：Air302正视图（单位：毫米）
+ </p>
+<h2 id="6-2-推荐PCB封装"><a href="#6-2-推荐PCB封装" class="headerlink" title="6.2.    推荐PCB封装"></a>6.2.    推荐PCB封装</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715194417408_112.jpg"><br>图表17：推荐封装（单位：毫米）<br>注意：推荐PCB板上模块和其他元器件之间间距推荐至少3mm。</p>
+<h2 id="6-3-模块正视图"><a href="#6-3-模块正视图" class="headerlink" title="6.3.    模块正视图"></a>6.3.    模块正视图</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715162634504_17.jpg"><br>图表18：模块正视图</p>
+<h2 id="6-4-模块底视图"><a href="#6-4-模块底视图" class="headerlink" title="6.4.    模块底视图"></a>6.4.    模块底视图</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715162714173_18.jpg"><br>图表19：模块底视图</p>
+<h1 id="7-存储和生产"><a href="#7-存储和生产" class="headerlink" title="7.    存储和生产"></a>7.    存储和生产</h1><h2 id="7-1-存储"><a href="#7-1-存储" class="headerlink" title="7.1.    存储"></a>7.1.    存储</h2><p>Air302以真空密封袋的形式出货。模块的存储需遵循如下条件：<br>环境温度低于40摄氏度，空气湿度小于90%情况下，模块可在真空密封袋中存放12个月。<br>当真空密封袋打开后，若满足以下条件，模块可直接进行回流焊或其它高温流程：<br>•    模块环境温度低于30摄氏度，空气湿度小于60%，工厂在72小时以内完成贴片。<br>•    空气湿度小于10%</p>
+<p>若模块处于如下条件，需要在贴片前进行烘烤：<br>•    当环境温度为23摄氏度（允许上下5摄氏度的波动）时，湿度指示卡显示湿度大于10%<br>•    当真空密封袋打开后，模块环境温度低于30摄氏度，空气湿度小于60%，但工厂未能在72小时以内完成贴片<br>•    当真空密封袋打开后，模块存储空气湿度大于10%<br>如果模块需要烘烤，请在125摄氏度下（允许上下5摄氏度的波动）烘烤48小时。<br>注意：模块的包装无法承受如此高温，在模块烘烤之前，请移除模块包装。如果只需要短时间的烘烤，请参考IPC/JEDECJ-STD-033规范。</p>
+<h2 id="7-2-生产焊接"><a href="#7-2-生产焊接" class="headerlink" title="7.2.    生产焊接"></a>7.2.    生产焊接</h2><p>用印刷刮板在网板上印刷锡膏，使锡膏通过网板开口漏印到 PCB上，印刷刮板力度需调整合适，为保证模块印膏质量，Air302模块焊盘部分对应的钢网厚度应为 0.2mm。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715162751112_19.jpg"><br>图表20：印膏图</p>
+<p>为避免模块反复受热损伤，建议客户 PCB板第一面完成回流焊后再贴模块。推荐的炉温曲线图如下图所示：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200715162823038_20.jpg"></p>
+<p>图表21：炉温曲线</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1138/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1128/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

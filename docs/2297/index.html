@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>小标签，大用途2 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">小标签，大用途2</h1>
+<article class="post markdown-style">
+  <p><strong>input</strong>标签规定了用户可以在其中输入数据的输入字段。输入字段可通过多种方式改变，取决于 type 属性。</p>
+<h2 id="type属性及其对应形态一览"><a href="#type属性及其对应形态一览" class="headerlink" title="type属性及其对应形态一览"></a>type属性及其对应形态一览</h2><h4 id="一、普通输入类"><a href="#一、普通输入类" class="headerlink" title="一、普通输入类"></a>一、普通输入类</h4><p>1.默认情况下type=“text” disabled/radonly为不可点击状态/只读状态（可以聚焦但是没有光标）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input value&#x3D;&quot;你好&quot; type&#x3D;&quot;text&quot; disabled&gt;</span><br><span class="line">&lt;input value&#x3D;&quot;你好&quot; type&#x3D;&quot;text&quot; readonly&gt;</span><br></pre></td></tr></table></figure>
+<input value="你好" type="text" disabled>
+<input value="你好" type="text" readonly>
+
+<p>2.只可写数字，字母敲不上去</p>
+<p><code>&lt;input type=&quot;number&quot;&gt;</code><br><input type="number"></p>
+<p>3.密码框<br><code>&lt;input type=&quot;password&quot;&gt;</code><br><input type="password"></p>
+<p>4.支持<strong>html5</strong>的浏览器会自动验证<strong>email</strong>域值的格式合法性。<code>&lt;input type=&quot;email&quot;&gt;</code><br>当输入的不是email格式的内容时，在支持html5的浏览器中提交该表单会出个提示说不是合法的email格式，样式与普通input无异，在手机端会唤出英文键盘。</p>
+<h4 id="二、按钮类"><a href="#二、按钮类" class="headerlink" title="二、按钮类"></a>二、按钮类</h4><p>1.相当于普通button，需加一个value属性来确定按钮的文字</p>
+<p><code>&lt;input type=&quot;button&quot; onclick=&quot;click()&quot; value=&quot;按钮&quot;&gt;</code></p>
+<input type="button" onclick="click()" value="按钮">
+
+<p>2.点击选择文件<br><code>&lt;input type=&quot;file&quot;&gt;</code><br><input type="file"></p>
+<p>3.单选框：需要name属性进行分组，name相同的只可进行单选，name不同互不影响，value为提交时input的代表值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;input name&#x3D;&quot;sex&quot; type&#x3D;&quot;radio&quot; value&#x3D;&#39;1&#39;&gt;男</span><br><span class="line">&lt;input name&#x3D;&quot;sex&quot; type&#x3D;&quot;radio&quot; value&#x3D;&#39;2&#39;&gt;女</span><br><span class="line"></span><br><span class="line">&lt;input name&#x3D;&quot;age&quot; type&#x3D;&quot;radio&quot; value&#x3D;&#39;1&#39;&gt;16-18</span><br><span class="line">&lt;input name&#x3D;&quot;age&quot; type&#x3D;&quot;radio&quot; value&#x3D;&#39;2&#39;&gt;18-22</span><br></pre></td></tr></table></figure>
+<p><input name="sex" type="radio" value='1'>男 <input name="sex" type="radio" value='2'>女</p>
+<p><input name="age" type="radio" value='1'>16-18 <input name="age" type="radio" value='2'>18-22</p>
+<p>4.进度条（通过min，max，和value控制进度条的起点终点和现在的位置）</p>
+<p><code>&lt;input type=&quot;range&quot; min=1 max=200 value=10&gt;</code><br><input type="range" min=1 max=200 value=10></p>
+<p>5.重置按钮 点击可使整个表单恢复初始状态（用form标签包裹的视为一个表单）</p>
+<p><code>&lt;input type=&quot;reset&quot; value=&quot;点我你就白写了&quot;&gt;</code></p>
+<form><input > <input type="reset" value="点我你就白写了"></form>
+
+<p>6.提交表单（点击提交整个表单的按钮）<br><code>&lt;input type=&quot;submit&quot;&gt;</code></p>
+<form><input > <input type="submit"></form>
+
+<h4 id="三、选择时间类"><a href="#三、选择时间类" class="headerlink" title="三、选择时间类"></a>三、选择时间类</h4><p>1.年/月/日<br><code>&lt;input type=&quot;date&quot;&gt;</code><br><input type="date"></p>
+<p>2.年/月/日 时：分<br><code>&lt;input type=&quot;datetime-local&quot;&gt;</code><br><input type="datetime-local"></p>
+<p>3.- -年- -月<br><code>&lt;input type=&quot;month&quot;&gt;</code><br><input type="month"></p>
+<p>4.时：分<br><code>&lt;input type=&quot;time&quot;&gt;</code><br><input type="time"><br>5. - –年 第- –周<br><code>&lt;input type=&quot;week&quot;&gt; </code><br><input type="week"> </p>
+<h4 id="四、其他神奇类"><a href="#四、其他神奇类" class="headerlink" title="四、其他神奇类"></a>四、其他神奇类</h4><p>1.上传图片功能（与img标签用法相似，需传入src属性、alt属性）<br>不同点：input的图片可点击（小手形态）可聚焦，在表单中自带submit功能。（<code>创建一个图像控件，该控件单击后将导致表单立即被提交。</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;image&quot; src&#x3D;&quot;.&#x2F;QQ截图20210108183129.png&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210111155948226_20210109171747979_image.png" alt="undefined" title="undefined"></p>
+<p>2.type=“hidden”，什么也没有，让人直呼(shen)神(ma)奇(gui)，跟css里的display：none的作用好像也没啥不同。<br><code>&lt;input type=&quot;hidden&quot;&gt;</code><br><input type="hidden"></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2299/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2296/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

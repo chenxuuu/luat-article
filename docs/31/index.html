@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>2、Air720SL模块Luat开发：第一个Luat的Hello [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">2、Air720SL模块Luat开发：第一个Luat的Hello</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>学习过C语言的朋友应该很清楚（没有学过可以直接跳过前言，以下纯属闲聊），C语言入门第一课就是HelloWorld，下面的这段代码大家都不陌生</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world!\n&quot;</span>);</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在c语言里，想要使用printf函数就需要包含<code>#include &lt;stdio.h&gt;</code>，<br>想要程序能够运行，那需要有main函数，程序以main函数作为程序入口，开始执行</p>
+</blockquote>
+<blockquote>
+<p>而Lua是一个脚本语言，相比C语言要少了很多限制，它可以不需要main函数，甚至参数可以不用定义，直接使用，系统会根据里面的值，自动创建一个对应的变量存储它，用起来十分方便。<br>直接写一个<code>str=“abc”</code>系统会自动给这个数据创建一个String类型的变量存储<br> 直接写一个<code>str=123</code>系统会自动给这个数据创建一个Number类型的变量存储<br>开始运行时直接从上到下顺序执行（下面这段程序，是我随便打出来的，没有什么实际意义）</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tab1=&#123;&#125;</span><br><span class="line">print(tab2.key1)</span><br><span class="line">print(tab2[<span class="string">&quot;key1&quot;</span>])</span><br><span class="line">print(tab2.key2)</span><br><span class="line">print(tab3[<span class="number">1</span>])</span><br><span class="line">print(tab3[<span class="number">2</span>])</span><br><span class="line">print(tab3[<span class="number">3</span>])</span><br><span class="line">print(tab3[<span class="number">4</span>])</span><br><span class="line">tab1.key1=<span class="string">&quot;www.baidu.com&quot;</span></span><br><span class="line">print(tab1[<span class="string">&quot;key1&quot;</span>])</span><br><span class="line">print(tab1.key1)</span><br><span class="line">tab1[<span class="string">&quot;key2&quot;</span>]=<span class="string">&quot;haha&quot;</span></span><br><span class="line">print(tab1[<span class="string">&quot;key2&quot;</span>])</span><br><span class="line">print(tab1.key2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们这里也不例外，我选择将HelloWorld作为本系列教程的第一个程序，<br>闲话扯了这么多，下面开始正式我们的Helloworld例程</p>
+</blockquote>
+<h1 id="二、新建一个工程"><a href="#二、新建一个工程" class="headerlink" title="二、新建一个工程"></a>二、新建一个工程</h1><h2 id="1、创建文件"><a href="#1、创建文件" class="headerlink" title="1、创建文件"></a>1、创建文件</h2><blockquote>
+<p>在一个自己能找到的地方，比如桌面，实际随便哪里都行，新建一个文件夹，命名为0_HelloWorld<br><img src="https://img-blog.csdnimg.cn/20200212222315435.png" alt="在这里插入图片描述"><br>进去新建一个文本文档命名为main.lua，注意后缀名，最好是.lua，不要是.txt，其他的后缀名我也没试过<br><img src="https://img-blog.csdnimg.cn/20200212222624121.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<h2 id="2、编写程序"><a href="#2、编写程序" class="headerlink" title="2、编写程序"></a>2、编写程序</h2><blockquote>
+<p>双击main.lua打开复制如下代码，然后<code>保存</code></p>
+</blockquote>
+<blockquote>
+<p>这里有些朋友可能会说，你刚才在前言上面不是说可以不用main函数吗，这里怎么有个<code>user_main()</code><br>没错确实可以不用main函数，不信等会你测试完成我的代码后，可以自己试，不会有任何问题<br>我这里利用系统任务创建了一个main函数，可能是因为我有强迫症吧<br>我个人觉得lua虽然可以直接写程序，但是文件一多，程序就显得比较乱<br>这是我的个人原因，我习惯有一个函数能够统一运行用户程序代码，以后的教程我放出来的程序都会是这个程序格式<br>可以将下面这段程序理解为一个工程模板，以后的程序我都是在这个模板上面改的</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;LED&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">		print(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">		sys.wait(<span class="number">1000</span>)</span><br><span class="line">	end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架，下面不要随便动</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个程序的主逻辑很简单，在一个死循环里面<code>while true do</code>不停的做<code>print(&quot;Hello World&quot;)</code>输出，然后延时1000ms，继续循环</p>
+</blockquote>
+<ul>
+<li>print(“Hello World”)：输出函数</li>
+<li>sys.wait(1000)：阻塞延时函数单位毫秒</li>
+<li>sys.taskInit(user_main)：创建一个任务，这里创建的是user_main()</li>
+<li>sys.init(0, 0)：系统框架初始化</li>
+<li>sys.run()：系统开始运行</li>
+</ul>
+<h2 id="3、下载脚本"><a href="#3、下载脚本" class="headerlink" title="3、下载脚本"></a>3、下载脚本</h2><blockquote>
+<p>打开LuaTools(不知道这是什么东西的，去看我的第一篇博客<code>1、Air720SL模块Luat开发：环境搭建</code>，从本文的目录处可找到入口)<br><img src="https://img-blog.csdnimg.cn/20200212231613579.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击右边蓝色按钮<code>下载Lua脚本</code><img src="https://img-blog.csdnimg.cn/2020021223165889.png" alt="在这里插入图片描述">进入如下界面<br><img src="https://img-blog.csdnimg.cn/20200212231800607.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击添加脚本，添加刚才写的程序<br><img src="https://img-blog.csdnimg.cn/20200212231856340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击下载脚本，会弹出如下界面<br><img src="https://img-blog.csdnimg.cn/20200212231941488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>直接点击确定，下载器会自动完成脚本库的添加，并且进入下载状态<br><img src="https://img-blog.csdnimg.cn/2020021223203293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>按下复位按钮，程序开始下载，等待下载完成<br><img src="https://img-blog.csdnimg.cn/20200212232143469.png" alt="在这里插入图片描述"><br>关闭下载界面，回到主界面，选择USB打印，并且打开端口<img src="https://img-blog.csdnimg.cn/202002122322121.png" alt="在这里插入图片描述"><br>系统会打印一些无关的消息，我们的<code>Hello World</code>就藏在里面<br><img src="https://img-blog.csdnimg.cn/20200212232405188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>自己要是不想找的话，那就等一会，系统会逐渐停止抽搐<br><img src="https://img-blog.csdnimg.cn/20200212232639885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">直到满屏的<code>Hello World</code>出现，我们的第一个例程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/32/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/30/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>CoolWatcher抓取底层trace [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">CoolWatcher抓取底层trace</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;在模块运行过程中，可能出现一些使用LuaTools也无法看出问题的奇怪现象，，这时就需要用到“大杀器” CoolWatcher来抓取模块底层的trace。&lt;/span&gt;&lt;/p&gt;&lt;h5&gt;&lt;b&gt;&lt;font color=&quot;#333333&quot;&gt;注意：&lt;/font&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;CoolWatcher不能放在中文目录下&lt;/span&gt;&lt;/b&gt;&lt;/h5&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt; 1、下载 &lt;/span&gt;&lt;a href=&quot;http://www.openluat.com/Product/file/rda8955/cooltools.7z&quot; target=&quot;_blank&quot;&gt;CoolWatcher&lt;/a&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;，解压到任意目录，点击`coolwatcher.exe`打开软件。&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903162616184_QQ截图20200903161638.png&quot; alt=&quot;QQ截图20200903161638.png&quot; class=&quot;img-responsive&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;2.确认模块host硬件连接正常，选择coolwatcher 工具上 8955，&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;选择模块连接的端口号，&lt;/span&gt;点击OK&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903162637358_2.png&quot; alt=&quot;2.png&quot; class=&quot;img-responsive&quot;&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903162749657_3.png&quot; alt=&quot;3.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903163052893_9.png&quot; alt=&quot;9.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;3.&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;在菜单栏上选择`Plugins-&amp;gt;Activate Tracer`，打开tracer界面 &lt;/span&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903163116663_4.png&quot; alt=&quot;4.png&quot; class=&quot;img-responsive&quot;&gt;4.&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;先确认工具设置正常，如图点击过滤按钮，如图所示，检查设置，确认后，点击&amp;nbsp; ok&lt;/span&gt;&lt;/p&gt;&lt;p&gt;注意：&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;Split Size 设置trace文件大小，如果大于设置值，则分包保存，如果是连续挂测，最好设置为最大99999，这样可以减少文件个数。Directory为trace保存位置。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;Received为接收trace的时间，需要一直开启&lt;/span&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903163349323_6.png&quot; alt=&quot;6.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;5.&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;注：下面红框对应的功能分别为：开始 trace，停止 trace，清空trace，过滤 trace，应用过滤，保存 trace，使能 trace 时间。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;点击开始按钮，模块上电开机，开始抓底层日志，测试结束后，点击保存。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903163914312_10.png&quot; alt=&quot;10.png&quot; class=&quot;img-responsive&quot;&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;6.日志默认保存在logs文件夹&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200903164536717_11.png&quot; alt=&quot;11.png&quot; class=&quot;img-responsive&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(51, 51, 51);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/442/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/440/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

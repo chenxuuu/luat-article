@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>dtu阿里云设备影子 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">dtu阿里云设备影子</h1>
+<article class="post markdown-style">
+  <p>阿里云支持设备影子开发，可以参考<a href="https://help.aliyun.com/document_detail/53930.html?spm=a2c4g.11186623.6.628.14467434isHbuI" target="_blank">传送门</a>，我这里只演示一下如何使用。</p><p>1，新建产品</p><p>这次我们直接新建一个基础版就可以</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-8BG3IKCj5c7d2af6bec69.png" style="width: 307px;" class="img-responsive"></p><p>2，配置dtu</p><p>这次订阅主题比较特别不在设备的topic里而是文档说明里</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-1591lqSU5c7d2d582ff33.png" style="width: 419px;" class="img-responsive">也就是这样</p><p>/shadow/update/a1JvMM3l4n0/${deviceName}</p><p>/shadow/get/a1JvMM3l4n0/${deviceName}</p><p>根据自己的改一下</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-7ZdxvGrf5c7d2d938e036.png" style="width: 467px;" class="img-responsive">3，测试</p><p>测试影子json</p><p></p><p>{</p><p>&nbsp; "method": "update",&nbsp;</p><p>&nbsp; "state": {</p><p>&nbsp; &nbsp; "reported": {</p><p>&nbsp; &nbsp; &nbsp; "color": "blue"</p><p>&nbsp; &nbsp; }</p><p>&nbsp; },&nbsp;</p><p>&nbsp; "version": 3</p><p>}</p><p>注意version必须比前一次你发送的大，不然不更新</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-tjps2oIf5c7d2dfdb51d0.png" style="width: 353.5px;" class="img-responsive"></p><p>发送，并收到云端回复</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-IhsdM9ol5c7d2e5535e3f.png" style="width: 353.5px;" class="img-responsive">获取当前影子状态。</p><p>4，总结</p><p>影子比较简单</p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/560/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/558/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

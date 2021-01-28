@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Air722UG开发板入门指南 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Air722UG开发板入门指南</h1>
+<article class="post markdown-style">
+  <h1 id="合宙Air722UG开发板入门指南"><a href="#合宙Air722UG开发板入门指南" class="headerlink" title="合宙Air722UG开发板入门指南"></a>合宙Air722UG开发板入门指南</h1><p>Air722UG是合宙继Air724UG后又一款Cat.1模组，Air722UG是一款超小封装 LTE Cat.1 bis 模块，采用紫光展锐的UIS8910平台，支持 LTE 3GPP Rel.13 技术。未来物联网通信将转至Cat.1，此产品将是非常好的入门产品。</p>
+<p>Air722UG 内置丰富的网络协议，集成多个工业标准接口，并支持多种驱动和软件功能（如Windows 7/8/8.1/10 ，Linux，Android等操作系统下的 USB 驱动等），极大地拓展了其在 M2M 领域的应用范围，如 CPE、路由器、数据卡、平板电脑、车载、安防以及工业级 PDA 等。Air722UG 支持TTS，支持SPI LCD，支持SPI Camera， 支持3*2 阵列键盘。支持多种开发方式，如USB上网、标准AT、Lua脚本二次开发等，并可提供专业且及时的在线技术支持。</p>
+<h6 id="当然了，合宙模块最大优势不就是LUAT编程吗？贼香"><a href="#当然了，合宙模块最大优势不就是LUAT编程吗？贼香" class="headerlink" title="当然了，合宙模块最大优势不就是LUAT编程吗？贼香"></a>当然了，合宙模块最大优势不就是LUAT编程吗？贼香</h6><hr>
+<h3 id="1、模块介绍"><a href="#1、模块介绍" class="headerlink" title="1、模块介绍"></a>1、模块介绍</h3><p>1 个 USB 2.0 高速接口（最高达 480Mbps） </p>
+<p>1.8V/3.0V (U)SIM 卡接口 </p>
+<p>2个 NETLIGHT 接口 (NET_STATUS 和NET_MODE) </p>
+<p>1路模拟语音输出 </p>
+<p>3个 UART 接口 </p>
+<p>1 个 SPI 接口 </p>
+<p>1 个 SPI LCD 接口</p>
+<p>1 个 SPI Camera 接口 </p>
+<p>1 个 MMC 接口 PWRKEY（低电平有效） </p>
+<p>支持3*2 阵列键盘 </p>
+<p>4个 ADC 接口 </p>
+<p>支持背光亮度控制</p>
+<h3 id="2、开发板介绍"><a href="#2、开发板介绍" class="headerlink" title="2、开发板介绍"></a>2、开发板介绍</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205151609494_IMG_20201205_140117.jpg" alt="undefined" title="undefined"><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205151630447_IMG_20201205_140128.jpg" alt="undefined" title="undefined"></p>
+<p>Air722UG开发板（就是官方卖199那款）采用单sim卡单tf卡设计，IO丝印正反印刷。</p>
+<p>开发板底部有两个microUSB设计，左侧标有USB的直连模组，可用于固件下载，软件调试，AT指令，数据传输，USB虚拟串口。（使用前需安装驱动，安装驱动教程在下面）</p>
+<p>右侧标有UART字样的为串口调试，串口转接芯片为CH340N，可用于AT命令和数据传输，自适应波特率（赞）。</p>
+<h3 id="3、模组引脚介绍"><a href="#3、模组引脚介绍" class="headerlink" title="3、模组引脚介绍"></a>3、模组引脚介绍</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205151712282_20201022163857914_Air722UG_%E7%AE%A1%E8%84%9A%E5%9B%BE.png" alt="undefined" title="undefined"></p>
+<h2 id="初次使用教程"><a href="#初次使用教程" class="headerlink" title="初次使用教程"></a>初次使用教程</h2><h3 id="1、安装驱动"><a href="#1、安装驱动" class="headerlink" title="1、安装驱动"></a>1、安装驱动</h3><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205151754750_QQ%E6%88%AA%E5%9B%BE20201205142233.png" alt="undefined" title="undefined"></p>
+<p>在合宙官网可以下载驱动 <a target="_blank" rel="noopener" href="http://www.openluat.com/product_center/product_detail?id=40">链接</a></p>
+<p>下载后解压</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205151824581_QQ%E6%88%AA%E5%9B%BE20201205142353.png" alt="undefined" title="undefined"><br>win10系统进入第一个文件夹，win7/8系统进入第二个文件夹</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205151833028_QQ%E6%88%AA%E5%9B%BE20201205142432.png" alt="undefined" title="undefined"></p>
+<p>32位系统执行安装DPInst32.exe</p>
+<p>64位系统执行安装DPInst64.exe</p>
+<p>之后就按下一步执行安装就好了，安装完成后建议重启下在执行下面的操作。</p>
+<h3 id="2、软件准备"><a href="#2、软件准备" class="headerlink" title="2、软件准备"></a>2、软件准备</h3><p>这里需要准备下载调试工具，合宙官方已经提供了。<a target="_blank" rel="noopener" href="http://www.openluat.com/product_center/product_detail?id=40">链接直达</a><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152038264_QQ%E6%88%AA%E5%9B%BE20201205142625.png" alt="undefined" title="undefined"></p>
+<p>Luatool V2工具，是一款极其强大的调试下载工具。</p>
+<p>首次打开前请新建一个文件夹，并把下载的exe放到文件夹里面（注意：建议文件夹路径里面不要包含中文，以免造成麻烦），首次打开会进行更新和下载必要文件，耗时可能较长建议耐心等待。</p>
+<p>下面是我下载完后的样子</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152057836_QQ%E6%88%AA%E5%9B%BE20201205143013.png" alt="undefined" title="undefined"><br>之后使用时直接打开Luatools_v2.exe即可使用。</p>
+<p>以下是工具打开的样子<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152127500_QQ%E6%88%AA%E5%9B%BE20201205143136.png" alt="undefined" title="undefined"></p>
+<h3 id="3、初次使用"><a href="#3、初次使用" class="headerlink" title="3、初次使用"></a>3、初次使用</h3><p>使用microUSB线连接电脑，插入USB丝印的端口即可（若供电不足可用另一根线插入uart，同时插入电脑usb端口）</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201206205123194_1607258655032.png" alt="undefined" title="undefined"></p>
+<p>连接上电脑后 打开电脑的设备管理器，正常会有几个设备出现（端口号是随机的）<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152245942_QQ%E6%88%AA%E5%9B%BE20201205143746.png" alt="undefined" title="undefined"><br>出现以上几个设备证明驱动安装成功，开发板和电脑已经建立通信，默认的出厂固件是AT固件，现在我们去打开luatools工具，勾选上4G模块USB打印，此时软件就会自动建立通信。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152317067_QQ%E6%88%AA%E5%9B%BE20201205144206.png" alt="undefined" title="undefined"><br>显示这样就证明第一次上电就完成了。</p>
+<h6 id="接下来我们进入进阶部分。"><a href="#接下来我们进入进阶部分。" class="headerlink" title="接下来我们进入进阶部分。"></a>接下来我们进入进阶部分。</h6><h3 id="4、下载固件"><a href="#4、下载固件" class="headerlink" title="4、下载固件"></a>4、下载固件</h3><p>现在来用luatools下载固件</p>
+<p>首先我们需要下载到air722ug的配套固件，还是去合宙官网下载。<a target="_blank" rel="noopener" href="http://www.openluat.com/product_center/product_detail?id=40">链接直达</a><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152514229_QQ%E6%88%AA%E5%9B%BE20201205144729.png" alt="undefined" title="undefined"><br>第一个是Luat编程用的，第二个是AT用的，根据个人需求下载。</p>
+<p>下载完成后解压<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152543825_QQ%E6%88%AA%E5%9B%BE20201205144839.png" alt="undefined" title="undefined"><br>这个是AT固件解压后的样子，pac文件就是要下载的固件<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152557180_QQ%E6%88%AA%E5%9B%BE20201205144938.png" alt="undefined" title="undefined"><br>这个是Luat固件解压后的样子，无后缀的是普通固件 ，后置float的支持浮点，后置tts的支持语音，根据需求刷写即可，不同版本占用内存不同。</p>
+<h6 id="开始下载"><a href="#开始下载" class="headerlink" title="开始下载"></a>开始下载</h6><p>点击luatools里面的下载固件按钮<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152632776_QQ%E6%88%AA%E5%9B%BE20201205145151.png" alt="undefined" title="undefined"><br>在这里点击“选择文件”，选择你要刷写的pac文件。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152726219_QQ%E6%88%AA%E5%9B%BE20201205145228.png" alt="undefined" title="undefined"><br>选择完点击下载即可，正常情况下板子会自动进入下载模式，等待一会就会显示下载成功。</p>
+<p>如果板子出错，可使用usb boot下载，具体操作如下</p>
+<p>按住板子右下的boot按钮，然后上电，这时设备管理器中会显示一个新的端口<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152754896_QQ%E6%88%AA%E5%9B%BE20201205145542.png" alt="undefined" title="undefined"><br>之后进入luatools里面的下载固件功能，</p>
+<p>勾选上USB BOOT下载<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152813740_QQ%E6%88%AA%E5%9B%BE20201205145626.png" alt="undefined" title="undefined"><br>点击下载即可刷入固件<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152829515_QQ%E6%88%AA%E5%9B%BE20201205145843.png" alt="undefined" title="undefined"></p>
+<p>下载成功后板子自动重启。</p>
+<h3 id="5、Luat项目测试"><a href="#5、Luat项目测试" class="headerlink" title="5、Luat项目测试"></a>5、Luat项目测试</h3><p>合宙模块最突出的优点就是luat编程（真的很香）</p>
+<p>进行luat编程前要先刷入luat固件，前面讲了。</p>
+<p>然后准备官方demo，这些demo非常的好用，CV工程师必备demo。（此处来个滑稽）</p>
+<p>官方demo在luat固件下载页面可以找到。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152852242_QQ%E6%88%AA%E5%9B%BE20201205150206.png" alt="undefined" title="undefined"><br>就是这个luatask。。。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152903731_QQ%E6%88%AA%E5%9B%BE20201205150241.png" alt="undefined" title="undefined"><br>demo里面就是官方的示例</p>
+<p>doc是文档存放处</p>
+<p>lib是官方库，编写程序时需要调用</p>
+<h6 id="现在-来输入一个demo试试效果"><a href="#现在-来输入一个demo试试效果" class="headerlink" title="现在 来输入一个demo试试效果"></a>现在 来输入一个demo试试效果</h6><p>打开luatools工具<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152924495_QQ%E6%88%AA%E5%9B%BE20201205150406.png" alt="undefined" title="undefined"><br>点击这个功能按钮<br>进行如下的初步设置<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205152946503_QQ%E6%88%AA%E5%9B%BE20201205150620.png" alt="undefined" title="undefined"><br>因为luatools自带了lib，如果你只用了官方的lib就不需要再加入，只需勾选添加默认lib即可。（luac加密那个不用勾选，我之前测试的时候不小心选上的）</p>
+<p>设置完之后即可点击下载脚本，进度条走完程序就成功刷入到了板子内部。<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201205153003661_QQ%E6%88%AA%E5%9B%BE20201205150930.png" alt="undefined" title="undefined"><br>emo效果就是这样了。</p>
+<hr>
+<h4 id="至此呢，初步教程就结束了，接下来就是根据个人需求写写程序刷入就好了，第一次写文字教程，经验不足，如有错误请指出来，我定会改正，谢谢大家"><a href="#至此呢，初步教程就结束了，接下来就是根据个人需求写写程序刷入就好了，第一次写文字教程，经验不足，如有错误请指出来，我定会改正，谢谢大家" class="headerlink" title="至此呢，初步教程就结束了，接下来就是根据个人需求写写程序刷入就好了，第一次写文字教程，经验不足，如有错误请指出来，我定会改正，谢谢大家"></a>至此呢，初步教程就结束了，接下来就是根据个人需求写写程序刷入就好了，第一次写文字教程，经验不足，如有错误请指出来，我定会改正，谢谢大家</h4><hr>
+<p>​                                                                                                                                                                梦程MI<br>                                                                                                                                                 2020.12.05</p>
+<p>bilibili:梦程MI<br><a target="_blank" rel="noopener" href="https://www.dreamcstudio.cn/" title="我的博客">我的博客</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1976/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1966/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

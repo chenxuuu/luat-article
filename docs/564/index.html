@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>自己开发微信小程序控制Air202模块（3）烧写程序并测试 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">自己开发微信小程序控制Air202模块（3）烧写程序并测试</h1>
+<article class="post markdown-style">
+  <h3 id="1、烧写程序"><a href="#1、烧写程序" class="headerlink" title="1、烧写程序"></a>1、烧写程序</h3><p>烧写软件为合宙官方的LuaTools工具，快速下载地址：<br><a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/rda8955/luatools-redirect.html">http://www.openluat.com/Product/file/rda8955/luatools-redirect.html</a><br>打开LuaTools.exe，下载lua脚本<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_66745.png"><br>点击下载，然后自动添加库文件，选择第二版库文件LuaTask，然后点确定。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_91553.png"></p>
+<h3 id="2、下载完成后关掉，重启模块"><a href="#2、下载完成后关掉，重启模块" class="headerlink" title="2、下载完成后关掉，重启模块"></a>2、下载完成后关掉，重启模块</h3><p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_77057.png"><br>在阿里云物联网平台，设备列表中看到设备处于在线状态，说明模块已经连接上阿里云了。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_74631.png"></p>
+<h3 id="3、在线调试设备"><a href="#3、在线调试设备" class="headerlink" title="3、在线调试设备"></a>3、在线调试设备</h3><p>点击监控运维-&gt;在线调试，选择产品、设备进入在线调试页面。如下图<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_48302.png"><br>选择功能（主灯开关），方法（设置）<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_57010.png"><br>将 LightSwitch的状态改为1，发送指令<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24381.png"><br>实施日志中出现云端下发数据，说明阿里云已经将数据下发到<br>/sys/a1sLSgWRLGZ/${deviceName}/thing/service/property/set这个主题下。<br>然后在LuaTools工具中查看设备端的打印日志<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_23035.png"><br>可以看到设备已经接受到了阿里云发过来的数据<br>现在你的LED已经被点亮了<br>然后在阿里云在线调试中将LightSwitch的状态改为0，发送指令，可以看到灯会熄灭。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84154.png"></p>
+<h2 id="到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。"><a href="#到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。" class="headerlink" title="到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。"></a>到现在整个阿里云与硬件部分已经完成了，后面的几篇主要写写阿里云API的应用，然后再写关于微信小程序的开发，从微信小程序通过阿里云API来控制设备。</h2>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/565/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/563/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

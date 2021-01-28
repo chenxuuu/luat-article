@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Air系列模块配套元件常见用法 二极管，上篇 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Air系列模块配套元件常见用法 二极管，上篇</h1>
+<article class="post markdown-style">
+  <h2 id="二极管是什么"><a href="#二极管是什么" class="headerlink" title="二极管是什么"></a>二极管是什么</h2><p>我们现在所说的二极管，全称是晶体二极管，这是相对于电子二极管说的。因为最早的二极管是电子二极管。 现在用的比较多的是贴片晶体二极管，比如下图的M7的Marking代表1N4007，因为贴片原件往往比较小，所以型号一般印简称，对于常用的二极管，不清楚的可以用芯片上的Marking在淘宝搜一下就知道全称了。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84552.png"></p>
+<h2 id="二极管的工作原理"><a href="#二极管的工作原理" class="headerlink" title="二极管的工作原理"></a>二极管的工作原理</h2><p><strong>二极管的主要功能是单向导电性。</strong> 这个功能是靠一个PN结来实现的。它的导电是由多子空穴、电子两种电荷形成的，这两种电荷运动方向相反，在正偏条件下（p区接电源正极，n区接电源负极），外加电压与pn结内电场方向相反互相抵消，根据电荷异性相吸原理，p型半导体内的多子空穴向负极方向定向移动，n型半导体内的多子电子向电源正极方向定向移动，二者在移动过程中不断复合消失，这样就形成了二极管导通情况下的正向电流，方向由p区指向n区。当外加电压极性相反时，也即反偏时（p区接电源负极，n区接电源正极），pn结内电场宽度增加，p区内的电子很难跨越势垒向电源正极移动，因此二极管截止的时候反向漏电流极小。</p>
+<h2 id="二极管的参数"><a href="#二极管的参数" class="headerlink" title="二极管的参数"></a>二极管的参数</h2><p>二极管通常在电路图上用英文字母“D”来表示。理想二极管是单向导通的，即正向电流无限大，反向电流为0，真实的二极管是理想二极管叠加其他附加电特性的产物。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_64189.png"></p>
+<p>我们以辉煌了几十年的整流二极管1N4007为例，来了解一下二极管常用参数，这是一个非常畅销的二极管产品。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59773.png"></p>
+<p>1 最大正向电压</p>
+<p>这是我们希望尽量小的一个数值，一般来说，硅管在0.7V-1V，锗管在0.3V-0.6V，正向压降带来二极管的功率耗散，是二极管发热的主因。而且正向电压往往会随着输入电流的增大而变大，又会造成输出电压的更大波动。 </p>
+<p>2 最大反向电流</p>
+<p>这是我们希望尽量小的一个数值，反应相电流最温度增大而增大，一般都是uA级别的，大多数情况下可以忽略，但是在极微小电路场合，比如电池供电的场合就要特别注意了。</p>
+<p>3 结电容</p>
+<p>这也是我们希望尽量小的一个数值，由于工艺影响，在PN结上总会有一个寄生电容，理解方便就是等效于二极管上面并一个电容，所以在高频的场合就会形成额外的交流通路，这在射频领域是非常影响电路性能的，所以要特别注意。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_90912.png"></p>
+<p>4 最大反向电压</p>
+<p>最大反向电压也就是我们常说的耐压，有峰值电压、均方根电压和直流阻断电压只分。平时使用安全起见就看那个最小值就可以，也就是均方根电压。 二极管使用不能超过这个耐压，不然二极管会被击穿。</p>
+<p>5 最大平均电流</p>
+<p>最大平均电流和二极管的发热直接相关，不能过流太久，不然同样会烧毁二极管，个别的尖峰可以电流很大，但是压降也会相应增大很多。</p>
+<p>6 工作结温度</p>
+<p>过热的节温度会导致二极管损坏，过低的温度会改变二极管的电特性，所以二极管的结温度（内部温度）要在正常的工作区间。考虑到封装的热阻，一般二极管外部温度不能超过120度。</p>
+<h2 id="二极管的类型"><a href="#二极管的类型" class="headerlink" title="二极管的类型"></a>二极管的类型</h2><p>根据不同的用途，二极管也分为不同的类型。</p>
+<p>整流二极管:</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59403.png"></p>
+<p>图例为 1N4007</p>
+<p>特点:工作频率低,允许的工作温度高,允许通过的正向电流大反向击穿电压高.<br>作用:将交流电变成直流电.</p>
+<p>检波二极管：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_50906.png"></p>
+<p>图例为 1N4148</p>
+<p>它的结电容小开关速度快，用来单向快速导通关闭的场合，如检波器和高频整流。</p>
+<p>稳压二极管</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93046.png"></p>
+<p>利用PN结反向击穿所表现出稳压特性而制成的器件.稳压管在电路中是反向连接的.在一定条件下它能使稳压管所接电路两端电压稳定在一个规定的范围内.在是电路中一般起保护作用.</p>
+<p>图例为 zmm3V3</p>
+<p>发光二极管(LED)</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_61153.png"></p>
+<p>图例为 0805红色LED</p>
+<p>发光二极管是一种将电信号转换成光信号的半导体器件,具有单向导电性,正向导通时才能发光。 发光管有不同颜色，红色、橙色、绿色，白色等。 根据掺杂的成分不同，发光的颜色不同，导通电压也不完全相同。</p>
+<p>瞬变电压抑制二极管（TVS)</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24336.png"></p>
+<p>图例为 SMF6.0CA</p>
+<p>瞬变电压抑制二极管是在稳压管工艺基础上发展起来的一种新产品，其电路符号和普通稳压二极管相同，外形也与普通二极管无异，当TVS二极管的两极受到反向瞬态高能量冲击时，它能以10-12秒量级的速度，将其两极间的高阻抗变为低阻抗，吸收高达数千瓦的浪涌功率，使两极间的电压钳位于一个预定值，有效地保护电子线路中的精密元器件，免受各种浪涌脉冲的损坏。</p>
+<p>防静电二极管(ESD)</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67145.png"></p>
+<p>图例为 PESDMC9D5VU</p>
+<p>顾名思义用于防止高达数千伏特的静电损坏并联在二极管上的其他元器件。</p>
+<p>变容二极管</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_59478.png"></p>
+<p>图例为KV1471</p>
+<p>变容二极管是利用 PN 结的电容随外加偏压而变化这一特性制成的非线性电容元件，被广泛地用于参量放大器，电子调谐及倍频器等微波电路中。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/656/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/654/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

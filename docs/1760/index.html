@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>前端处理html转pdf基础 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">前端处理html转pdf基础</h1>
+<article class="post markdown-style">
+  <h3 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h3><p>为了方便用户的操作，有些时候前端需要将对应的html界面转为pdf，格式相对比较稳定；用于更方便的保存和查看。</p>
+<h3 id="工具库（jspdf-html2canvas）"><a href="#工具库（jspdf-html2canvas）" class="headerlink" title="工具库（jspdf/html2canvas）"></a>工具库（jspdf/html2canvas）</h3><p>jspdf：jsPDF 是一个基于 HTML5 的客户端解决方案,用于生成各种用途的 PDF 文档。<br>html2canvas：html2canvas可以通过纯JS对浏览器端经行截屏，但截图的精确度还有待提高，部分css不可识别，所以在canvas中不能完美呈现原画面样式（但是在这里主要时为了描绘一个canvas容器，用于承载主要内容）</p>
+<p>CDN资源：可用于引用静态cdn资源进行开发（一般<strong>不</strong>直接引用）</p>
+<script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+<script src="https://cdn.bootcss.com/jspdf/1.3.4/jspdf.debug.js"></script>
+
+<p>使用方法：<br>npm install jspdf html2canvas –save（或者使用cnpm/yarn）<br><strong>注意（坑）：</strong><br>大多数情况使用npm直接安装会报错，现象：<br><a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201026200536343_error1.png" alt="undefined" title="undefined"></a><br>在package.json文件中查看已经有jspdf了，但是项目却整体挂了：此时千万别想太多不是你代码的问题（前提：你能保证在安装之前项目是能正常运行的），很大可能是因为你在安装过程中出现了一些位置的bug（原因暂不清除，本人使用npm安装5遍左右，导致项目挂了，百度结果：资源下载不完全/需要安装python环境/需要在git中安装；在下逐一尝试，然并卵………..“口吐芬芳”）<br>解决方法：<br>1、所有环境对应重新安装一边，不要嫌麻烦，即使你知道这样可能没什么用（可能实际真的没什么用）；<br>2、不适用npm安装，使用yarn进行安装  yarn add xxx<br>3、耐心等待<br>4、重新启动项目</p>
+<p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">var target &#x3D; document.getElementById(&quot;detail_info&quot;);</span><br><span class="line">    target.style.background &#x3D; &quot;#FFFFFF&quot;;  &#x2F;&#x2F;设置背景色</span><br><span class="line">    &#x2F;&#x2F;官网推荐写法(html2canvas(target).then(canvas &#x3D;&gt;&#123;&#125;)，建议不要使用function()&#123;&#125;</span><br><span class="line">    html2canvas(target).then(canvas &#x3D;&gt; &#123;  </span><br><span class="line">      var contentWidth &#x3D; canvas.width;</span><br><span class="line">      var contentHeight &#x3D; canvas.height;</span><br><span class="line">      &#x2F;&#x2F;一页pdf显示html页面生成的canvas高度;</span><br><span class="line">      var pageHeight &#x3D; contentWidth &#x2F; 592.28 * 841.89;</span><br><span class="line">      &#x2F;&#x2F;未生成pdf的html页面高度</span><br><span class="line">      var leftHeight &#x3D; contentHeight;</span><br><span class="line">      &#x2F;&#x2F;页面偏移</span><br><span class="line">      var position &#x3D; 0;</span><br><span class="line">      &#x2F;&#x2F;a4纸的尺寸[595.28,841.89]，html页面生成的canvas在pdf中图片的宽高</span><br><span class="line">      var imgWidth &#x3D; 595.28;</span><br><span class="line">      var imgHeight &#x3D; 592.28 &#x2F; contentWidth * contentHeight;</span><br><span class="line">      var pageData &#x3D; canvas.toDataURL(&#39;image&#x2F;jpeg&#39;, 1.0);</span><br><span class="line">      var pdf &#x3D; new jsPDF(&#39;&#39;, &#39;pt&#39;, &#39;a4&#39;);</span><br><span class="line">      &#x2F;&#x2F;有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)</span><br><span class="line">      &#x2F;&#x2F;当内容未超过pdf一页显示的范围，无需分页</span><br><span class="line">      if (leftHeight &lt; pageHeight) &#123;</span><br><span class="line">        pdf.addImage(pageData, &#39;JPEG&#39;, 0, 0, imgWidth, imgHeight);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        while (leftHeight &gt; 0) &#123;</span><br><span class="line">          pdf.addImage(pageData, &#39;JPEG&#39;, 0, position, imgWidth, imgHeight)</span><br><span class="line">          leftHeight -&#x3D; pageHeight;</span><br><span class="line">          position -&#x3D; 841.89;</span><br><span class="line">          &#x2F;&#x2F;避免添加空白页</span><br><span class="line">          if (leftHeight &gt; 0) &#123;</span><br><span class="line">            pdf.addPage();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      pdf.save(&quot;发货单.pdf&quot;);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<p>注释：detail_info是你所要转pdf的对应的容器id<br>此处注意：<br>你有可能见到这种写法：<a href="undefined" title="undefined"><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201026201328488_error2.png" alt="undefined" title="undefined"></a><br>这种方法存在弊端（不适用于所有浏览器的使用）；<br>官方推荐写法参见我的代码；</p>
+<p>本文是根据本人的实际开发情况进行描述的，并不全面，多多指教！！！</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1775/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1759/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title> js事件循环机制之宏任务与微任务 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title"> js事件循环机制之宏任务与微任务</h1>
+<article class="post markdown-style">
+  <blockquote>
+<ul>
+<li>JavaScript是单线程的语言</li>
+<li>Event Loop是JavaScript的执行机制</li>
+</ul>
+</blockquote>
+<h4 id="js事件循环"><a href="#js事件循环" class="headerlink" title="js事件循环"></a>js事件循环</h4><p>js是单线程，所以js任务也要一个一个按顺序执行。如果一个任务耗时过长，那么其后的任务必须等着。这就会导致图片加载，请求数据会让降低线程效率。所以js中将任务分为了两类：</p>
+<ul>
+<li>同步任务</li>
+<li>异步任务</li>
+</ul>
+<p>当我们打开网站时，网页的渲染过程就是一大堆同步任务，比如页面骨架和页面元素的渲染。而像加载图片音乐之类占用资源大耗时久的任务，就是异步任务。关于这部分有严格的文字定义，这里就不再赘述。</p>
+<p>如下一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<p><code>script start</code></p>
+<p><code>script end, </code></p>
+<p><code>promise1,</code></p>
+<p><code> promise2,</code> </p>
+<p><code> setTimeout</code></p>
+<h5 id="为什么会出现这样打印顺序呢？"><a href="#为什么会出现这样打印顺序呢？" class="headerlink" title="为什么会出现这样打印顺序呢？"></a>为什么会出现这样打印顺序呢？</h5><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201231101322194_164974fb89da87c5.png" alt="undefined" title="undefined"></p>
+<blockquote>
+<p><font style="font-size:12px;">图片来源于网络</font></p>
+</blockquote>
+<p>解读：</p>
+<ul>
+<li>同步和异步任务分别进入不同的执行”场所”，同步的进入主线程，异步的进入Event Table并注册函数</li>
+<li>当指定的事情完成时，Event Table会将这个函数移入Event Queue。</li>
+<li>主线程内的任务执行完毕为空，会去Event Queue读取对应的函数，进入主线程执行。</li>
+<li>上述过程会不断重复，也就是常说的Event Loop(事件循环)。</li>
+</ul>
+<p>js引擎存在monitoring process进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去Event Queue那里检查是否有等待被调用的函数。</p>
+<p>以下代码的执行流程如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = [];</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:www.javascript.com,</span><br><span class="line">    data:data,</span><br><span class="line">    success:<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;发送成功!&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;代码执行结束&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Ajax进入Event Table,注册回调函数success</li>
+<li>执行<code>console.log(&#39;代码执行结束&#39;)</code></li>
+<li>Ajax事件完成，回调函数success进入Event Queue</li>
+<li>主线程从Event Queue读取回调函数success并执行</li>
+</ul>
+<h4 id="微任务-Micro-tasks-与宏任务-task"><a href="#微任务-Micro-tasks-与宏任务-task" class="headerlink" title="微任务(Micro tasks)与宏任务(task)"></a>微任务(Micro tasks)与宏任务(task)</h4><p><font style="font-size:14px"><strong>微任务和宏任务皆为异步任务，它们都属于一个队列;主要区别在于他们的执行顺序，Event Loop的走向和取值。那么他们之间到底有什么区别呢？</strong></font></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201231101223459_164974fa4b42e4af.png" alt="undefined" title="undefined"></p>
+<blockquote>
+<p> <font style="font-size:12px;">图片来源于网络</font></p>
+</blockquote>
+<p>宏任务一般是：包括整体代码script，setTimeout，setInterval、setImmediate。</p>
+<p>微任务：原生Promise(有些实现的promise将then方法放到了宏任务中)、process.nextTick、Object.observe(已废弃)、 MutationObserver 记住就行了。</p>
+<h4 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h4><p>大名鼎鼎的setTimeout无需再多言，大家对他的第一印象就是异步可以延时执行，我们经常这么实现延时3秒执行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;延时3秒&#x27;</span>);</span><br><span class="line">&#125;,<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<p>但是有时候也会出现写的延时3秒，实际却5，6秒才执行函数的情况。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">   test()</span><br><span class="line">&#125;,<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;123&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 概念代码，模拟同步代码执行速度慢</span></span><br><span class="line">sleep(<span class="number">10000000</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>task()进入Event Table并注册,计时开始。</p>
+</li>
+<li><p>执行sleep函数，很慢，定时器仍在计时。</p>
+</li>
+<li><p>3秒到了，计时事件timeout完成，task()进入Event Queue，但是sleep还未执行完成。</p>
+</li>
+<li><p>sleep终于执行完了，task()终于从Event Queue进入了主线程执行。</p>
+</li>
+</ul>
+<p>我们还经常遇到<code>setTimeout(fn,0)</code>这样的代码，这里的0秒并不代表能立即执行，它的的含义是，指定某个任务在主线程最早可得的空闲时间执行，意思就是不用再等多少秒了，只要主线程执行栈内的同步任务全部执行完成，栈为空就马上执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;先执行这里&#x27;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;执行啦&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//代码2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;先执行这里&#x27;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;执行啦&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><font style="font-size='12px'">要补充的是，即便主线程为空，setTimeout的0毫秒实际上也是达不到的。根据HTML标准，最低是4毫秒。</font></p>
+</blockquote>
+<h4 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval"></a>setInterval</h4><p>setInterval与setTimeout差不多，只不过setInterval是循环执行的。对于执行循序而言，setInterval会每隔特定时间将注册的函数放入Event Queue，如果前面的任务执行时间过长，同样需要等待。</p>
+<h4 id="Promise与process-nextTick-callback"><a href="#Promise与process-nextTick-callback" class="headerlink" title="Promise与process.nextTick(callback)"></a>Promise与process.nextTick(callback)</h4><ul>
+<li>Promise的定义和功能本文不再赘述，可以学习一下 <a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/promise">阮一峰老师的Promise</a></li>
+<li>而process.nextTick(callback)类似node.js版的”setTimeout”，在事件循环的下一次循环中调用 callback 回调函数</li>
+</ul>
+<blockquote>
+<p><strong>不同类型的任务会进入对应的Event Queue，比如<code>setTimeout</code>和<code>setInterval</code>会进入相同的Event Queue。</strong></p>
+</blockquote>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;2&#x27;</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;3&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;5&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;6&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;7&#x27;</span>);</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;8&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;9&#x27;</span>);</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;10&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;11&#x27;</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;12&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>第一轮事件循环流程分析如下：</p>
+<ul>
+<li>整体script作为第一个宏任务进入主线程，遇到console.log，输出<code>1</code>。</li>
+<li>遇到setTimeout，其回调函数被分发到宏任务Event Queue中。我们暂且记为<code>setTimeout1</code>。</li>
+<li>遇到process.nextTick()，其回调函数被分发到微任务Event Queue中。我们记为<code>process1</code>。</li>
+<li>遇到Promise，new Promise直接执行，输出7。then被分发到微任务Event Queue中。我们记为<code>then1</code>。</li>
+<li>又遇到了setTimeout，其回调函数被分发到宏任务Event Queue中，我们记为<code>setTimeout2</code>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>宏任务Event Queue</th>
+<th align="right">微任务Event Queue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>setTimeout1</td>
+<td align="right">process1</td>
+</tr>
+<tr>
+<td>setTimeout2</td>
+<td align="right">then1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>上表是第一轮事件循环宏任务结束时各Event Queue的情况，此时已经输出了<code>1</code>和<code>7</code>。</li>
+</ul>
+<p>我们发现了process1和then1两个微任务。</p>
+<ul>
+<li>执行process1,输出<code>6</code>。</li>
+<li>执行then1，输出<code>8</code>。</li>
+</ul>
+<p>好了，第一轮事件循环正式结束，这一轮的结果是输出<code>1，7，6，8</code>。那么第二轮时间循环从setTimeout1宏任务开始：</p>
+<ul>
+<li>首先输出<code>2</code>。接下来遇到了process.nextTick()，同样将其分发到微任务Event Queue中，记为process2。</li>
+<li>new Promise立即执行输出<code>4</code>，then也分发到微任务Event Queue中，记为then2</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>宏任务Event Queue</th>
+<th align="right">微任务Event Queue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>setTimeout2</td>
+<td align="right">process3</td>
+</tr>
+<tr>
+<td></td>
+<td align="right">then3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>第三轮事件循环宏任务执行结束，执行两个微任务process3和then3。</li>
+<li>输出<code>10</code>。</li>
+<li>输出<code>12</code>。</li>
+<li>第三轮事件循环结束，第三轮输出<code>9，11，10，12</code>。</li>
+<li>整段代码，共进行了三次事件循环，完整的输出为<code>1，7，6，8，2，4，3，5，9，11，10，12</code>。(请注意，node环境下的事件监听依赖libuv与前端环境不完全相同，输出顺序可能会有误差)</li>
+</ul>
+<blockquote>
+<p>希望大家看了本篇文章都有收获 …</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2165/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2152/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

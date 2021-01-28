@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Luat WiFi模块AT指令手册及示例（二） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Luat WiFi模块AT指令手册及示例（二）</h1>
+<article class="post markdown-style">
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><span style="font-weight:700;"><span style="font-size:12pt;">2.2.2.5<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">工作模式：</span><span style="font-size:12pt;">AT+ATM</span></span></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询工作模式。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">）：</span></span></p>
+
+<table class="MsoNormalTable"><tr><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ATM=[!?][mode]</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=mode]</span></p></td></tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-hmk8UcI35b8e27ad53bba.jpg" class="img-responsive" style="width:620.5px;" alt="attachments-2018-09-hmk8UcI35b8e27ad53bba.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;"><br />l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></span><br /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">查询当前工作模式：</span></p>
+
+<table class="MsoNormalTable"><tr><td><p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p></td><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ATM=?</span></p></td></tr><tr><td><p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p></td><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=1</span></p></td></tr></table>
+
+<p> </p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">修改模式为自动工作模式：</span></p>
+
+<table class="MsoNormalTable"><tr><td><p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p></td><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ATM=!0</span></p></td></tr><tr><td><p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p></td><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p></td></tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><span style="font-weight:700;"><span style="font-size:12pt;">2.2.2.6<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">自动工作模式下的</span><span style="font-size:12pt;">socket</span><span style="font-size:12pt;font-family:'黑体';">连接：</span><span style="font-size:12pt;">AT+ATRM</span></span></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询自动工作模式下自动创建的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">连接信息。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">）：</span></span></p>
+
+<table class="MsoNormalTable"><tr><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ATRM=[!?][protocol],[cs],[host/timeout],[port]</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=protocol,cs, host/timeout,port]</span></p></td></tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></span><span style="font-weight:700;"><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       protocol</span><span style="font-size:10.5pt;font-family:'宋体';">：协议类型</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-S10bs9UL5b8e28cb2cdd3.jpg" class="img-responsive" style="width:665.5px;" alt="attachments-2018-09-S10bs9UL5b8e28cb2cdd3.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">  具体请参考：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><a><span style="font-family:'宋体';">自动工作模式下的透传应用<br /></span></a></span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<p><span> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.7<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">无线网络名称：</span><span style="font-size:12pt;">AT+SSID</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">STA</span><span style="font-size:10.5pt;font-family:'宋体';">模式下需要加入的无线网络名称，即</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ssid</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SSID=[!?][ssid]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=ssid]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ssid: </span><span style="font-size:10.5pt;font-family:'宋体';">无线网络名称，</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1~32</span><span style="font-size:10.5pt;font-family:'宋体';">个字符，加不加双引号都可以</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SSID=! Air_Test_WiFi</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+  </td>
+ </tr></table>
+
+<p> <span style="font-family:'宋体';">具体请参考本文档：</span><span><span style="font-family:Arial, sans-serif;"><a>STA<span style="font-family:'宋体';">加入</span>AP<span style="font-family:'宋体';">流程</span></a></span></span></p>
+
+
+
+
+
+<p> </p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.8<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;">SoftAP</span><span style="font-size:12pt;font-family:'黑体';">无线网络名称：</span><span style="font-size:12pt;">AT+APSSID</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       SoftAP</span><span style="font-size:10.5pt;font-family:'宋体';">无线网络名称，即</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SSID</span><span style="font-size:10.5pt;font-family:'宋体';">，在</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SoftAP</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">APSTA</span><span style="font-size:10.5pt;font-family:'宋体';">模式有效。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">APSSID</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">=[!?][ssid]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=ssid]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ssid: </span><span style="font-size:10.5pt;font-family:'宋体';">无线网络名称，</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1~32</span><span style="font-size:10.5pt;font-family:'宋体';">个字符，加不加双引号都可以</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+APSSID=!"AAAA-Test-Wifi"</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+  </td>
+ </tr></table>
+
+<p> <span style="font-family:'宋体';">具体应用请参考本文档</span><span><a> <span style="font-family:'宋体';">创建</span>SoftAP<span style="font-family:'宋体';">流程</span></a></span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.9<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">无线网络安全模式：</span><span style="font-size:12pt;">AT+ENCRY</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询无线网络安全模式。需要特别说明的是除了</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">OPEN</span><span style="font-size:10.5pt;font-family:'宋体';">模式以外，其它安全模式都需要配合</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+KEY</span><span style="font-size:10.5pt;font-family:'宋体';">指令设置正确的网络密钥，此外</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AP</span><span style="font-size:10.5pt;font-family:'宋体';">或者</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AD-HOC</span><span style="font-size:10.5pt;font-family:'宋体';">模式时，模块仅支持设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">OPEN</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WEP64</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WEP128</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-family:'Times New Roman';font-size:9.3333330154419px;"> </span><span style="font-family:'Times New Roman';font-size:9.3333330154419px;">     </span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ENCRY=[!?][encry
+  mode]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=encry
+  mode]</span></p>
+  </td>
+ </tr></table>
+
+<p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       encry mode: </span><span style="font-size:10.5pt;font-family:'宋体';">安全模式</span></p>
+
+
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-EnomYayV5b8e2bde1bab3.jpg" class="img-responsive" style="width:553.5px;" alt="attachments-2018-09-EnomYayV5b8e2bde1bab3.jpg" /><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><br /></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">查询网络安全模式：</span></p>
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ENCRY=?</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=0</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">设置网络安全模式为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WEP64</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><br /></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ENCRY=!1</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.10<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;">SoftAP</span><span style="font-size:12pt;font-family:'黑体';">无线网络安全模式：</span><span style="font-size:12pt;">AT+APENCRY</span></b></h4>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">        </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能</span></b><b><span style="font-family:'宋体';">：</span></b></p>
+
+
+
+<p><span style="font-family:'宋体';">设置</span><span style="font-family:Arial, sans-serif;">/</span><span style="font-family:'宋体';">查询</span><span style="font-family:Arial, sans-serif;">SoftAP</span><span style="font-family:'宋体';">无线网络安全模式。</span><span style="font-family:'宋体';">除了</span><span style="font-family:Arial, sans-serif;">OPEN</span><span style="font-family:'宋体';">模式以外，其它安全模式都需要配合</span><span style="font-family:Arial, sans-serif;">AT+APKEY</span><span style="font-family:'宋体';">指令设置正确的网络密钥。</span></p>
+
+<p><span style="font-family:Wingdings;">l <span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式</span></b><b><span style="font-family:'宋体';">（</span></b><b><span style="font-family:'宋体';">ASCII</span></b><b><span style="font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ENCRY=[!?][encry
+  mode]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=encry
+  mode]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">        </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数</span></b><b><span style="font-family:'宋体';">：</span></b><b><span style="font-family:'宋体';">  </span></b></p>
+
+
+
+<p><span style="font-family:Arial, sans-serif;">       encry mode: </span><span style="font-family:'宋体';">安全模式</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-pERRCviD5b8e2db5563e7.jpg" class="img-responsive" style="width:650.5px;" alt="attachments-2018-09-pERRCviD5b8e2db5563e7.jpg" /><span style="font-family:Arial, sans-serif;font-size:10.5pt;"><br /> </span><span style="font-family:'宋体';"><br /></span></p>
+
+
+
+<h4><b><span style="font-size:12pt;">2.2.2.11<span style="font-size:7pt;font-family:'Times New Roman';">   
+</span></span><span style="font-size:12pt;font-family:'黑体';">网络密钥：</span><span style="font-size:12pt;">AT+KEY</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询网络密钥。需要说明的是，在使用本命令设置网络密钥之前有时候需要使用</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ENCRY</span><span style="font-size:10.5pt;font-family:'宋体';">命令设置网络安全模式。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+KEY=[!?][format],[index],[key]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=format,index,key]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Format</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">密钥格式</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-x5z1LIeg5b8e3472c734d.jpg" class="img-responsive" style="width:525px;" alt="attachments-2018-09-x5z1LIeg5b8e3472c734d.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">index</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">密钥索引号，</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1</span><span style="font-size:10.5pt;font-family:'宋体';">～</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">4</span><span style="font-size:10.5pt;font-family:'宋体';">用于</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WEP</span><span style="font-size:10.5pt;font-family:'宋体';">加密密钥，其它加密方式固定为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">0</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   key</span><span style="font-size:10.5pt;font-family:'宋体';">：密钥字符串，</span><span style="font-size:11pt;font-family:'宋体';">加不加双引号皆可</span><span style="font-size:10.5pt;font-family:'宋体';">，根据不同的安全模式，密钥使用的长度与格式要求定义如下</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-Va5VGQ035b8e3564cc9ad.jpg" class="img-responsive" style="width:637.5px;" alt="attachments-2018-09-Va5VGQ035b8e3564cc9ad.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">注</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">16</span><span style="font-size:10.5pt;font-family:'宋体';">进制字符指</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">0~9</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">a~f</span><span style="font-size:10.5pt;font-family:'宋体';">（不区分大小写），如</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">"11223344dd"</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">注</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">2</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">字符指国际标准化组织（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ISO</span><span style="font-size:10.5pt;font-family:'宋体';">）规定的标准</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">字符集中的数字</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">0~9</span><span style="font-size:10.5pt;font-family:'宋体';">与字母</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">a~z</span><span style="font-size:10.5pt;font-family:'宋体';">（区分大小写），如</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">"14u6E"</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+KEY=!1,0,"A123456"</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.12<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;">SoftAP</span><span style="font-size:12pt;font-family:'黑体';">网络密钥：</span><span style="font-size:12pt;">AT+APKEY</span></b></h4>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-family:'宋体';">设置</span><span style="font-family:Arial, sans-serif;">/</span><span style="font-family:'宋体';">查询</span><span style="font-family:Arial, sans-serif;">SoftAP</span><span style="font-family:'宋体';">无线网络密钥。需要说明的是，在使用本命令设置网络密钥之前必须首先使用</span><span style="font-family:Arial, sans-serif;">AT+APENCRY</span><span style="font-family:'宋体';">命令设置无线网络安全模式。</span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';"> 
+</span></span><b><span style="font-family:'宋体';">格式（</span></b><b><span style="font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-family:Arial, sans-serif;">AT+APKEY=[!?][format],[index],[key]</span></p>
+  <p><span style="font-family:Arial, sans-serif;">+OK[=format,index,key]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';"> 
+</span></span><b><span style="font-family:'宋体';">参数：</span></b><b><span style="font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:11pt;font-family:Arial, sans-serif;">format: </span><span style="font-size:11pt;font-family:'宋体';">密钥格式</span><br /></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-dP1AISaA5b8e36d7532d1.jpg" class="img-responsive" style="width:619.5px;" alt="attachments-2018-09-dP1AISaA5b8e36d7532d1.jpg" /></p>
+
+<p><span style="font-family:Arial, sans-serif;">index: </span><span style="font-family:'宋体';">密钥索引号，</span><span style="font-family:Arial, sans-serif;">1</span><span style="font-family:'宋体';">～</span><span style="font-family:Arial, sans-serif;">4</span><span style="font-family:'宋体';">用于</span><span style="font-family:Arial, sans-serif;">WEP</span><span style="font-family:'宋体';">加密密钥，其它加密方式固定为</span><span style="font-family:Arial, sans-serif;">0</span></p>
+
+<p><span style="font-family:Arial, sans-serif;">key: </span><span style="font-family:'宋体';">密钥字符串，加不加双引号皆可，根据不同的安全模式，密钥使用的长度与格式要求定义如下：</span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-sSR99IfJ5b8e3780e4050.jpg" class="img-responsive" style="width:632px;" alt="attachments-2018-09-sSR99IfJ5b8e3780e4050.jpg" /></p>
+
+<p><span style="font-family:'宋体';">注</span><span style="font-family:Arial, sans-serif;">1</span><span style="font-family:'宋体';">：</span><span style="font-family:Arial, sans-serif;">16</span><span style="font-family:'宋体';">进制字符指</span><span style="font-family:Arial, sans-serif;">0~9</span><span style="font-family:'宋体';">、</span><span style="font-family:Arial, sans-serif;">a~f</span><span style="font-family:'宋体';">（不区分大小写），如</span><span style="font-family:Arial, sans-serif;">"11223344dd"</span></p>
+
+<p><span style="font-family:'宋体';">注</span><span style="font-family:Arial, sans-serif;">2</span><span style="font-family:'宋体';">：</span><span style="font-family:Arial, sans-serif;">ASCII</span><span style="font-family:'宋体';">字符指国际标准化组织（</span><span style="font-family:Arial, sans-serif;">ISO</span><span style="font-family:'宋体';">）规定的标准</span><span style="font-family:Arial, sans-serif;">ASCII</span><span style="font-family:'宋体';">字符集中的数字</span><span style="font-family:Arial, sans-serif;">0~9</span><span style="font-family:'宋体';">与字母</span><span style="font-family:Arial, sans-serif;">a~z</span><span style="font-family:'宋体';">（区分大小写），如</span><span style="font-family:Arial, sans-serif;">"14u6E"</span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';"> 
+</span></span><b><span style="font-family:'宋体';">示例：</span></b></p>
+
+
+
+
+
+<p> </p>
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+APKEY=!1,1,123456</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.13<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">设置</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">查询指定</span><span style="font-size:12pt;">AP</span><span style="font-size:12pt;font-family:'黑体';">的</span><span style="font-size:12pt;">BSSID</span><span style="font-size:12pt;font-family:'黑体';">地址：</span><span style="font-size:12pt;">AT+BSSID</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询指定</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AP</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">BSSID</span><span style="font-size:10.5pt;font-family:'宋体';">地址，本设置仅在模块作为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">STA</span><span style="font-size:10.5pt;font-family:'宋体';">时</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">infra</span><span style="font-size:10.5pt;font-family:'宋体';">网络下有效。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+BSSID=[!?][</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mode],[bssid]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mode,bssid]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mode</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">BSSID</span><span style="font-size:10.5pt;font-family:'宋体';">模式</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-k0nZjX5U5b8e389a6db61.jpg" class="img-responsive" style="width:625px;" alt="attachments-2018-09-k0nZjX5U5b8e389a6db61.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">bssid</span><span style="font-size:10.5pt;font-family:'宋体';">：网络</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">BSSID</span><span style="font-size:10.5pt;font-family:'宋体';">，长度为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">12</span><span style="font-size:10.5pt;font-family:'宋体';">的十六进制数，格式为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">001EE3A34455</span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></b></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.14<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">设置</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">查询指定无线信道方式：</span><span style="font-size:12pt;">AT+CHL</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询指定无线信道方式。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+CHL=[!?][</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> mode],[channel]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mode,channel]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> mode</span><span style="font-size:10.5pt;font-family:'宋体';">：信道模式</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-C9jM8PLd5b8e428eca195.jpg" class="img-responsive" style="width:534px;" alt="attachments-2018-09-C9jM8PLd5b8e428eca195.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.15<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">设置</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">查询</span><span style="font-size:12pt;">SoftAP</span><span style="font-size:12pt;font-family:'黑体';">无线信道方式：</span><span style="font-size:12pt;">AT+APCHL</span></b></h4>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-family:'宋体';"> </span><span style="font-family:'宋体';">设置</span><span style="font-family:Arial, sans-serif;">/</span><span style="font-family:'宋体';">查询</span><span style="font-family:Arial, sans-serif;">SoftAP</span><span style="font-family:'宋体';">无线信道方式。</span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';"> 
+</span></span><b><span style="font-family:'宋体';">格式（</span></b><b><span style="font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-family:Arial, sans-serif;">AT+APCHL=[!?][</span><span style="font-family:Arial, sans-serif;">
+  mode],[channel]</span></p>
+  <p><span style="font-family:Arial, sans-serif;">+OK[=</span><span style="font-family:Arial, sans-serif;">mode,channel]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';"> 
+</span></span><b><span style="font-family:'宋体';">参数：</span></b><b><span style="font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:11pt;font-family:Arial, sans-serif;">    mode</span><span style="font-size:11pt;font-family:'宋体';">：信道模式</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WwCrg1xR5b8e42a04b931.jpg" class="img-responsive" style="width:534px;" alt="attachments-2018-09-WwCrg1xR5b8e42a04b931.jpg" /></p>
+
+<p><span style="font-size:11pt;font-family:'宋体';"> <br /></span></p>
+
+<p><span style="font-family:Arial, sans-serif;">channel: </span><span style="font-family:'宋体';">无线信道号，有效范围</span><span style="font-family:Arial, sans-serif;">1</span><span style="font-family:'宋体';">～</span><span style="font-family:Arial, sans-serif;">14</span></p>
+
+<p><span style="font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.16<span style="font-size:7pt;font-family:'Times New Roman';">    </span></span><span style="font-size:12pt;font-family:'黑体';">无线信道列表：</span><span style="font-size:12pt;">AT+CHLL</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">    </span><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询无线信道列表。无线信道列表参数用于规定模块的工作信道范围，不包含在列表中的信道将不会被扫描，合理的使用本参数，可以加快模块的扫描以及联网速度。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+CHLL=[!?][channel
+  list]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=channel
+  list]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">channel
+list</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">无线信道列表，采用</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">16</span><span style="font-size:10.5pt;font-family:'宋体';">进制格式，从最低位开始，每一位表示一个信道，缺省为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">3fff</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;font-family:'宋体';">表示</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1~14</span><span style="font-size:10.5pt;font-family:'宋体';">所有信道。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+
+
+<p><b> </b></p>
+
+
+
+<h4><b><span style="font-size:12pt;">2.2.2.17<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'黑体';">使能自动创建</span><span style="font-size:12pt;">adhoc</span><span style="font-size:12pt;font-family:'黑体';">网络功能：</span><span style="font-size:12pt;">AT+WATC</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">     </span><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询是否使能自动创建</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">adhoc</span><span style="font-size:10.5pt;font-family:'宋体';">网络功能。本设置仅在无线网络类型设置为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">adhoc</span><span style="font-size:10.5pt;font-family:'宋体';">时有效，表示当加入网络失败时是否自动创建同名的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">adhoc</span><span style="font-size:10.5pt;font-family:'宋体';">网络。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+WATC=[!?][enable]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=enable]</span></p>
+  
+ 
+
+<p><br /></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">    enable</span><span style="font-size:10.5pt;font-family:'宋体';">：使能标志</span><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-ubvYta6L5b8e440d2425b.jpg" class="img-responsive" style="width:544px;" alt="attachments-2018-09-ubvYta6L5b8e440d2425b.jpg" /></p>
+
+<p><span> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.18<span style="font-size:7pt;font-family:'Times New Roman';">        </span></span><span style="font-size:12pt;font-family:'黑体';">打开</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">关闭自动节能模式：</span><span style="font-size:12pt;">AT+WPSM</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span><span style="font-size:10.5pt;font-family:'宋体';">打开</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">关闭自动节能模式。</span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:'宋体';">注：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">这种节能模式是</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">wifi</span><span style="font-size:10.5pt;font-family:'宋体';">协议的节能模式，只是关闭了无线的收发并降低</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">CPU</span><span style="font-size:10.5pt;font-family:'宋体';">主频，这种模式</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">CPU</span><span style="font-size:10.5pt;font-family:'宋体';">没有休眠</span><span style="font-family:'宋体';">，所以可以接收</span><span>AT/RI</span><span style="font-family:'宋体';">指令。</span></p>
+
+<p><span style="font-family:'宋体';">打开节能模式后，</span><span>WiFi</span><span style="font-family:'宋体';">模块在无线空闲之后会进入</span><span>WiFi_off</span><span style="font-family:'宋体';">状态，没有被外部唤醒的情况下，在</span><span>beacon</span><span style="font-family:'宋体';">帧的</span><span>TIM</span><span style="font-family:'宋体';">信息元素指示的时间周期【最小</span><span>100ms</span><span style="font-family:'宋体';">】到来时打开</span><span>WiFi</span><span style="font-family:'宋体';">，根据</span><span>Beacon</span><span style="font-family:'宋体';">帧中的</span><span>TIM</span><span style="font-family:'宋体';">域判断是否有数据需要接收【包括广播帧和单播帧】，如果没有数据，则立即进入</span><span>WiFi_off</span><span style="font-family:'宋体';">状态，如果有数据处理完毕之后无线空闲时再进入</span><span>WiFi_off</span><span style="font-family:'宋体';">状态；如果</span><span>WiFi_off</span><span style="font-family:'宋体';">时有外部唤醒则会打开</span><span>WiFi</span><span style="font-family:'宋体';">，直到下次无线空闲再进入</span><span>WiFi_off</span><span style="font-family:'宋体';">状态。</span></p>
+
+<p><span style="font-family:'宋体';">唤醒模块的方式：</span><span>AT</span><span style="font-family:'宋体';">口直接发送数据会唤醒模块</span></p>
+
+<p style="text-align:justify;"><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+WPSM=[!?][enable]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=enable]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> enable</span><span style="font-size:10.5pt;font-family:'宋体';">：使能标志</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-NQ4zhmkr5b8e44558ff18.jpg" class="img-responsive" style="width:544px;" alt="attachments-2018-09-NQ4zhmkr5b8e44558ff18.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例</span></b></p>
+
+
+
+<p><b><span style="font-size:10.5pt;font-family:'宋体';">打开节能模式（注：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+WPSM=1</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">在模块加入热点以后输入才有效）：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WPSM=1</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+
+<p><b><span style="font-size:10.5pt;font-family:'宋体';">关闭节能模式：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+WPSM=0</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span></p>
+
+<p><br /></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.19<span style="font-size:7pt;font-family:'Times New Roman';">         </span></span><span style="font-size:12pt;font-family:'黑体';">使能</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">禁止</span><span style="font-size:12pt;">AP SSID</span><span style="font-size:12pt;font-family:'黑体';">广播：</span><span style="font-size:12pt;">AT+BRDSSID</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:'宋体';">使能</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">禁止</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AP SSID</span><span style="font-size:10.5pt;font-family:'宋体';">广播，该设置仅在模块作为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AP</span><span style="font-size:10.5pt;font-family:'宋体';">时有效。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+BRDSSID=[!?][enable]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=enable]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> enable</span><span style="font-size:10.5pt;font-family:'宋体';">：是否使能</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SSID</span><span style="font-size:10.5pt;font-family:'宋体';">广播</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-dqbOYnXz5b8e465632414.jpg" class="img-responsive" style="width:527.5px;" alt="attachments-2018-09-dqbOYnXz5b8e465632414.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span> </span><b><span style="font-size:12pt;">2.2.2.20<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;">UART</span><span style="font-size:12pt;font-family:'黑体';">口数据格式：</span><span style="font-size:12pt;">AT+UART</span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">uart</span><span style="font-size:10.5pt;font-family:'宋体';">接口数据格式。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+UART=[!?][baudrate],[databit],[stopbit],[parity],[flowcontrol]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=baudrate,databit,stopbit,parity]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">baud
+rate</span><span style="font-size:10.5pt;font-family:'宋体';">：波特率，有效值范围</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1200</span><span style="font-size:10.5pt;font-family:'宋体';">～</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">115200bps</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-s8aczmmC5b8e48c9db112.jpg" class="img-responsive" style="width:535px;" alt="attachments-2018-09-s8aczmmC5b8e48c9db112.jpg" /><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WETjbVQX5b8e48b57778c.jpg" class="img-responsive" style="width:537.5px;" alt="attachments-2018-09-WETjbVQX5b8e48b57778c.jpg" /></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WETjbVQX5b8e48b57778c.jpg" class="img-responsive" style="width:537.5px;" alt="attachments-2018-09-WETjbVQX5b8e48b57778c.jpg" /><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><br /></span></p>
+
+
+
+<p> </p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.21<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'黑体';">是否内置使能</span><span style="font-size:12pt;">WEB</span><span style="font-size:12pt;font-family:'黑体';">管理服务器：</span><span style="font-size:12pt;">AT+WEBS</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询内置是否使能</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WEB</span><span style="font-size:10.5pt;font-family:'宋体';">管理服务器</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+WEBS=[!?][enable],[port]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=enable,port]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">enable</span><span style="font-size:10.5pt;font-family:'宋体';">：使能标志</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-gOfGTBFi5b8e4944b262a.jpg" class="img-responsive" style="width:544px;" alt="attachments-2018-09-gOfGTBFi5b8e4944b262a.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">port</span><span style="font-size:10.5pt;font-family:'宋体';">：服务器端口号，缺省为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">80</span></p>
+
+
+
+<p> </p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.22<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:12pt;font-family:'黑体';">设备名称：</span><span style="font-size:12pt;">AT+DNAME</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询设备名称。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+DNAME=[!?][devicename]
+  </span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=devicename]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">devicename</span><span style="font-size:10.5pt;font-family:'宋体';">：设备名称，</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1~32</span><span style="font-size:10.5pt;font-family:'宋体';">个字符</span></p>
+
+<p><span> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.23<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'黑体';">系统登录密码：</span><span style="font-size:12pt;">AT+PASS</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询系统登录密码。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+PASS=[!?][pass]
+  </span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=pass]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">pass</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">6</span><span style="font-size:10.5pt;font-family:'宋体';">个</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">字符</span></p>
+
+
+
+<p> </p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.24<span style="font-size:7pt;font-family:'Times New Roman';">        </span></span><span style="font-size:12pt;font-family:'黑体';">接收用户数据：</span><span style="font-size:12pt;">AT+CUSTDATA</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">接收通过一键配置工具发送的用户数据，使用前要先发送</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+ONESHOT=1</span><span style="font-size:10.5pt;font-family:'宋体';">命令，将模块配置成一键配置模式。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+CUSTDATA[=?]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=data</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><span style="font-size:10.5pt;font-family:'宋体';">无</span></p>
+
+
+
+
+
+<p> </p>
+
+<h4><b><span style="font-size:12pt;">2.2.2.25<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-size:12pt;font-family:'黑体';">查询配置的联网参数：</span><span style="font-size:12pt;">AT+CNTPARAM</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">查询配置的联网参数。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+CNTPARAM[=?]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=,[bssid],[ssid],</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span><span style="font-size:10.5pt;font-family:'宋体';">无。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span><span style="font-size:10.5pt;font-family:'宋体';">返回值：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">bssid_en</span><span style="font-size:10.5pt;font-family:'宋体';">值的含义</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-krKgSBcr5b8e4af6cecae.jpg" class="img-responsive" style="width:530px;" alt="attachments-2018-09-krKgSBcr5b8e4af6cecae.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span> </span></p>
+
+<h3><b><span style="font-size:14pt;">2.2.3<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:14pt;font-family:'宋体';">网络控制类</span></b></h3>
+
+
+
+<h4><b><span style="font-size:12pt;">2.2.3.1<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-size:12pt;font-family:'黑体';">网卡接口模式</span><span style="font-size:12pt;">:</span><span style="font-size:12pt;">AT+PORTM</span></b></h4>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询网卡的接口模式。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+PORTM=[!?][mode]</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=mode]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b></p>
+
+
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mode</span><span style="font-size:10.5pt;font-family:'宋体';">：接口模式</span><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-kKekaVCw5b8e4b9e93c47.jpg" class="img-responsive" style="width:529px;" alt="attachments-2018-09-kKekaVCw5b8e4b9e93c47.jpg" /></p>
+
+<p><br /></p>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">查询网卡接口模式：</span></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+PORTM=?</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=0</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p>
+
+<h4><b><span style="font-size:12pt;">2.2.3.2<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:12pt;font-family:'黑体';">获取外网域名的</span><span style="font-size:12pt;">IP</span><span style="font-size:12pt;font-family:'黑体';">地址：</span><span style="font-size:12pt;">AT+SKGHBN</span></b></h4>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">获取外网域名的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">IP</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SKGHBN =[!?][URL] </span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=IP]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b></p>
+
+
+
+<p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span></b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">URL</span><span style="font-size:10.5pt;font-family:'宋体';">：外网域名</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">IP</span><span style="font-size:10.5pt;font-family:'宋体';">：对应的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">IP</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">  加网成功后才能查询外网域名的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">IP</span><span style="font-size:10.5pt;font-family:'宋体';">地址，如下：</span></p>
+
+<table class="MsoNormalTable"><tr><td><b><br /></b></td><td><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-q5J8YCjy5b8e4e1d8357a.jpg" class="img-responsive" style="width:590.5px;" alt="attachments-2018-09-q5J8YCjy5b8e4e1d8357a.jpg" /><b><br /></b></p></td></tr><tr><td><b><br /></b></td><td><p><b><br /></b></p>
+
+<h4><b><span style="font-size:12pt;">2.2.3.3<span style="font-size:7pt;font-family:'Times New Roman';">         </span></span><span style="font-size:12pt;font-family:'黑体';">设置</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">查询</span><span style="font-size:12pt;">WPS</span><span style="font-size:12pt;font-family:'黑体';">功能：</span><span style="font-size:12pt;">AT+WWPS</span></b></h4>
+
+<p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">功能：</span><span style="font-size:10.5pt;font-family:'宋体';background-color:transparent;">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;">/</span><span style="font-size:10.5pt;font-family:'宋体';background-color:transparent;">查询</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;"> WPS </span><span style="font-size:10.5pt;font-family:'宋体';background-color:transparent;">功能。</span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">格式（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+WWPS=[!?][mode],[pin]</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK[=mode],[pin]</b></span></p>
+  </td>
+ </tr></table><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mode</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">WPS </span><span style="font-size:10.5pt;font-family:'宋体';">功能选择，为空的参数不用填写。</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-DE1JcJZ55b8e4efe2887b.jpg" class="img-responsive" style="width:531.5px;" alt="attachments-2018-09-DE1JcJZ55b8e4efe2887b.jpg" /></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">pin</span><span style="font-size:10.5pt;font-family:'宋体';">：无线路由器的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">PIN</span><span style="font-size:10.5pt;font-family:'宋体';">码</span></b></p><p><b> </b></p><h4><b><span style="font-size:12pt;">2.2.3.4<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><span style="font-size:12pt;font-family:'黑体';">加入指定</span><span style="font-size:12pt;">AP</span><span style="font-size:12pt;font-family:'黑体';">：</span><span style="font-size:12pt;">AT+WJOIN</span></b></h4><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p><p><b><span style="font-size:10.5pt;font-family:'宋体';">根据设置的网络类型的不同，</span><span style="font-size:10.5pt;font-family:'宋体';">加入</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">创建指定网络。</span><span style="font-size:10.5pt;font-family:'宋体';">如果当前网络类型为为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> STA </span><span style="font-size:10.5pt;font-family:'宋体';">时，本指令功能为连接</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> AP</span><span style="font-size:10.5pt;font-family:'宋体';">。如果当前网络类型</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SoftAP </span><span style="font-size:10.5pt;font-family:'宋体';">时，本指令功能为创建</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> SoftAP</span><span style="font-size:10.5pt;font-family:'宋体';">。如果当前网络类型为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> Adhoc</span><span style="font-size:10.5pt;font-family:'宋体';">，本指令功能为连接指定</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> Adhoc </span><span style="font-size:10.5pt;font-family:'宋体';">网络，并可根据设置参数选择是否在未检测到指定</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> SSID</span><span style="font-size:10.5pt;font-family:'宋体';">的网络，则自动创建该网络。如果当前网络已经处于联网或已创建状态，则直接返回网络连接信息。对于</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> ASCII </span><span style="font-size:10.5pt;font-family:'宋体';">格式，系统在网络连接成功后返回响应消息。</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">格式（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+WJOIN</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK=,,,,,</b></span></p>
+  </td>
+ </tr></table><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">参数：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></b></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;"><b>b</b></span></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;">ssid</span><span style="font-size:10.5pt;font-family:'宋体';background-color:transparent;">：网络</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;">BSSID</span><span style="font-size:10.5pt;font-family:'宋体';background-color:transparent;">，长度为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;">12</span><span style="font-size:10.5pt;font-family:'宋体';background-color:transparent;">的十六进制数，格式为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:transparent;">001EE3A34455</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-N41OapWb5b8e4ffc7604b.jpg" class="img-responsive" style="width:622.5px;" alt="attachments-2018-09-N41OapWb5b8e4ffc7604b.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><b><br /></b></span></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SSID: </span><span style="font-size:10.5pt;font-family:'宋体';">无线网络名称，</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1~32</span><span style="font-size:10.5pt;font-family:'宋体';">个字符，双引号包围</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">rssi</span><span style="font-size:10.5pt;font-family:'宋体';">：网络信号强度，不含负号，单位</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Db</span><span style="font-size:10.5pt;font-family:'宋体';">，即</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">50</span><span style="font-size:10.5pt;font-family:'宋体';">表示信号强度为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">-50Db</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';"><b>→</b></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+SSID=TP-LINK_HyFi_1E</b></span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';"><b>←</b></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK</b></span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';"><b>→</b></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+KEY=1,0,""</b></span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';"><b>←</b></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK</b></span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';"><b>→</b></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+WJOIN</b></span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';"><b>←</b></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK=3c46d82bd81e,0,11,0,"TP-LINK_HyFi_1E",53</b></span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b> </b></span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b> </b></span></p><h4><b><span style="font-size:12pt;">2.2.3.5<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:12pt;font-family:'黑体';">断开当前网络：</span><span style="font-size:12pt;">AT+WLEAV</span></b></h4><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:'宋体';">该指令仅在模块作为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">STA</span><span style="font-size:10.5pt;font-family:'宋体';">时有效，用于断开当前无线网络。</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">格式（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+WLEAV</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK</b></span></p>
+  </td>
+ </tr></table><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">参数：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span><span style="font-size:10.5pt;font-family:'宋体';">无</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:'宋体';">加网后查询连接状态，然后退网后查询连接状态：</span><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-GisNIttM5b8e5127e64e7.jpg" class="img-responsive" style="width:565.5px;" alt="attachments-2018-09-GisNIttM5b8e5127e64e7.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><b><br /></b></span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b> </b></span></p><h4><b><span style="font-size:12pt;">2.2.3.6<span style="font-size:7pt;font-family:'Times New Roman';">        </span></span><span style="font-size:12pt;font-family:'黑体';">扫描无线网络：</span><span style="font-size:12pt;">AT+WSCAN</span></b></h4><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">     </span><span style="font-size:10.5pt;font-family:'宋体';">该指令仅在模块作为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">STA</span><span style="font-size:10.5pt;font-family:'宋体';">时有效，用于扫描无线网络，完成后返回。</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">格式（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+WSCAN</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK=,,,,,</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>,,,,,</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>……</b></span></p>
+  
+  </td>
+ </tr></table><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">参数：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">       </span><span style="font-size:10.5pt;font-family:'宋体';">同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+WJOIN</span></b></p><p><b><span style="font-family:Wingdings;background-color:transparent;">l</span><span style="font-size:7pt;font-family:'Times New Roman';background-color:transparent;"> </span><span style="font-family:'宋体';font-size:10.5pt;background-color:transparent;">示</span><span style="font-size:10.5pt;font-family:'宋体';">例：</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-2PpT9seU5b8e523863c9a.jpg" class="img-responsive" style="width:628px;" alt="attachments-2018-09-2PpT9seU5b8e523863c9a.jpg" /><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b><br /></b></span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b> </b></span></p><h4><b><span style="font-size:12pt;">2.2.3.7<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><span style="font-size:12pt;font-family:'黑体';">查询本端网络连接状态：</span><span style="font-size:12pt;">AT+LKSTT</span></b></h4><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">功能：</span><span style="font-size:10.5pt;font-family:'宋体';">查询本端网络连接状态。</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">格式（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>AT+LKSTT</b></span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><b>+OK[=status,ip,netmask,gateway,dns1,dns2]</b></span></p>
+  </td>
+ </tr></table><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">参数：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+<p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">status: </span><span style="font-size:10.5pt;font-family:'宋体';">连接状态</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-GOgeUHBv5b8e537d3c38d.jpg" class="img-responsive" style="width:530px;" alt="attachments-2018-09-GOgeUHBv5b8e537d3c38d.jpg" /></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Ip</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址，数据格式为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">"192.168.1.22"</span><span style="font-size:10.5pt;font-family:'宋体';">，不含引号</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">netmask</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">子网掩码，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">gateway</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">网关地址，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">dns1</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">DNS1</span><span style="font-size:10.5pt;font-family:'宋体';">地址，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></b></p><p><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">dns2</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">DNS2</span><span style="font-size:10.5pt;font-family:'宋体';">地址，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p><p><b><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">加网后查询连接状态，然后退网后查询连接状态：</span></b></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-DlAFWsMO5b8e542f79137.jpg" class="img-responsive" style="width:563.5px;" alt="attachments-2018-09-DlAFWsMO5b8e542f79137.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><b><br /></b></span></p><p><b> </b></p><h4><b><span style="font-size:12pt;">2.2.3.8<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:12pt;font-family:'黑体';">设置</span><span style="font-size:12pt;">/</span><span style="font-size:12pt;font-family:'黑体';">查询</span><span style="font-size:12pt;">SoftAP</span><span style="font-size:12pt;font-family:'黑体';">状态：</span><span style="font-size:12pt;">AT+APLKSTT</span></b></h4><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p><p><span style="font-size:10.5pt;font-family:'宋体';">设置</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">/</span><span style="font-size:10.5pt;font-family:'宋体';">查询</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SoftAP</span><span style="font-size:10.5pt;font-family:'宋体';">无线信道状态，仅在</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">SoftAP</span><span style="font-size:10.5pt;font-family:'宋体';">、</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">APSTA</span><span style="font-size:10.5pt;font-family:'宋体';">模式有效。</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AP</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">LKSTT&lt;CR&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=status,ip,netmask,gateway,dns1,dns2]&lt;CR&gt;&lt;LF&gt;&lt;CR&gt;&lt;LF&gt;</span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">  </span></b></p><p><span style="background-color:transparent;font-size:10.5pt;font-family:Arial, sans-serif;">  status:
+</span><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">连接状态</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-jzuzcgXp5b8f2c4268045.png" class="img-responsive" style="width:515px;" alt="attachments-2018-09-jzuzcgXp5b8f2c4268045.png" /></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Ip</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址，数据格式为</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">”192.168.1.22”</span><span style="font-size:10.5pt;font-family:'宋体';">，不含引号</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Netmask</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">子网掩码，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Gateway</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:'宋体';">网关地址，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">dns1</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">DNS1</span><span style="font-size:10.5pt;font-family:'宋体';">地址，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">dns2</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">DNS2</span><span style="font-size:10.5pt;font-family:'宋体';">地址，数据格式同</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-UBVYjCxL5b8f2cdff1d12.jpg" class="img-responsive" style="width:648px;" alt="attachments-2018-09-UBVYjCxL5b8f2cdff1d12.jpg" /></p><p> </p><h4><b><span style="font-size:12pt;">2.2.3.9<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:12pt;font-family:'黑体';">查询已经连接的</span><span style="font-size:12pt;">station </span><span style="font-size:12pt;font-family:'黑体';">：</span><span style="font-size:12pt;">AT+SLIST</span></b></h4><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b><span style="background-color:transparent;font-size:10.5pt;font-family:Arial, sans-serif;">   </span><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">查询已经连接的</span><span style="background-color:transparent;font-size:10.5pt;font-family:Arial, sans-serif;">station</span><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">。</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SLIST&lt;CR&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK[=sta_number,sta_mac1,sta_ip1,sta_mac2,sta_ip2…]&lt;CR&gt;&lt;LF&gt;&lt;CR&gt;&lt;LF&gt;</span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">sta_number:
+</span><span style="font-size:10.5pt;font-family:'宋体';">已经连接的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">station</span><span style="font-size:10.5pt;font-family:'宋体';">数目</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">sta_mac:
+station</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">mac</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">sta_ip: station</span><span style="font-size:10.5pt;font-family:'宋体';">的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ip</span><span style="font-size:10.5pt;font-family:'宋体';">地址</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p><p><span style="font-size:10.5pt;font-family:'宋体';">紧接着</span><span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><a><span style="font-family:'宋体';"><span>设置</span></span>/<span style="font-family:'宋体';"><span>查询</span></span>SoftAP<span style="font-family:'宋体';"><span>状态：</span></span>AT+APLKSTT</a></span></span><span style="font-size:10.5pt;font-family:'宋体';">中的示例。在没有任何手机加入</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Luat_TEST_AP</span><span style="font-size:10.5pt;font-family:'宋体';">这个热点之前查询</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SLIST</span><span style="font-size:10.5pt;font-family:'宋体';">：</span></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="background-color:rgb(239,239,239);"><span style="font-size:10.5pt;font-family:'宋体';">→</span></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:rgb(239,239,239);">AT+SLIST</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="background-color:rgb(239,239,239);"><span style="font-size:10.5pt;font-family:'宋体';">←</span></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:rgb(239,239,239);">+OK=0</span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:'宋体';">然后，手机加入</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">Luat_TEST_AP</span><span style="font-size:10.5pt;font-family:'宋体';">，查询</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SLIST</span><span style="font-size:10.5pt;font-family:'宋体';">：</span></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="background-color:rgb(239,239,239);"><span style="font-size:10.5pt;font-family:'宋体';">→</span></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:rgb(239,239,239);">AT+SLIST</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="background-color:rgb(239,239,239);"><span style="font-size:10.5pt;font-family:'宋体';">←</span></span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;background-color:rgb(239,239,239);">+OK=1,,94-FE-22-9A-B5-28,192.168.1.2</span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><br /></span></p><h4><b><span style="font-size:12pt;">2.2.3.10<span style="font-size:7pt;font-family:'Times New Roman';">         
+</span></span><span style="font-size:12pt;font-family:'黑体';">建立</span><span style="font-size:12pt;">socket</span><span style="font-size:12pt;font-family:'黑体';">连接：</span><span style="font-size:12pt;">AT+SKCT</span></b><span style="font-size:7pt;font-family:'Times New Roman';"> </span></h4><p><span style="background-color:transparent;font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">      </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p><p><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">建立</span><span style="background-color:transparent;font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">。在</span><span style="background-color:transparent;font-size:10.5pt;font-family:Arial, sans-serif;">client</span><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">模式，等待连接完成（成功或失败）后返回；在</span><span style="background-color:transparent;font-size:10.5pt;font-family:Arial, sans-serif;">server</span><span style="background-color:transparent;font-size:10.5pt;font-family:'宋体';">模式下，创建完成后直接返回。</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p><table class="MsoNormalTable"><tr><td><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SKCT=[protocol],[cs],[host_timeout],&lt;remote_port&gt;,&lt;local_port&gt;&lt;CR&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=&lt;socket&gt;&lt;CR&gt;&lt;LF&gt;&lt;CR&gt;&lt;LF&gt;</span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-iMrNJx2B5b8f2eec3b875.jpg" class="img-responsive" style="width:649px;" alt="attachments-2018-09-iMrNJx2B5b8f2eec3b875.jpg" /></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">remote_port</span><span style="font-size:10.5pt;font-family:'宋体';">：远程端口号</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">local_port</span><span style="font-size:10.5pt;font-family:'宋体';">：本地端口号</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">号</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">       </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SKCT=0,0,180.97.81.180,51950,37189</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=1</span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1</span><span style="font-size:10.5pt;font-family:'宋体';">是</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket id</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span></p><h4><b><span style="font-size:12pt;">2.2.3.11<span style="font-size:7pt;font-family:'Times New Roman';">     </span></span><span style="font-size:12pt;font-family:'黑体';">通过指定的</span><span style="font-size:12pt;">socket</span><span style="font-size:12pt;font-family:'黑体';">发送数据：</span><span style="font-size:12pt;">AT+SKSND</span></b></h4><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p><p><span style="font-size:10.5pt;font-family:'宋体';">通过指定的</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">发送数据，完成后返回。此命令使用二进制格式发送数据，用户应在接收到模块的响应消息（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span><span style="font-size:10.5pt;font-family:'宋体';">）之后再开始发送原始数据。模块接收完指定长度的数据后自动结束数据传输阶段，并将数据发送到网络上，多余的数据将被丢弃。否则，模块在等待超时（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">1s</span><span style="font-size:10.5pt;font-family:'宋体';">）后，强制结束数据传输阶段并将已经接收到的数据发送到网络上。</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;font-family:'宋体';">格式（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span><span style="font-size:10.5pt;font-family:'宋体';">）：</span></p><table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SKSND=&lt;socket&gt;,&lt;size&gt;&lt;CR&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=&lt;actualsize&gt;&lt;CR&gt;&lt;LF&gt;&lt;CR&gt;&lt;LF&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">[data steam]</span></p>
+  </td>
+ </tr></table><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">号</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">size</span><span style="font-size:10.5pt;font-family:'宋体';">：准备发送的数据长度，字节数</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">actualsize</span><span style="font-size:10.5pt;font-family:'宋体';">：允许发送的数据长度，字节数</span></p><p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">data steam</span><span style="font-size:10.5pt;font-family:'宋体';">：原始数据</span></p><p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b><span style="background-color:transparent;"> </span></p><p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-yJuCJexM5b8f32281c919.jpg" class="img-responsive" style="width:572px;" alt="attachments-2018-09-yJuCJexM5b8f32281c919.jpg" /></p></td></tr><tr><td><br /><br /></td><td></td></tr></table></td></tr></table>
+
+<h4><b><span style="font-size:12pt;">2.2.3.12<span style="font-size:7pt;font-family:'Times New Roman';">        </span></span><span style="font-size:12pt;font-family:'黑体';">读取指定</span><span style="font-size:12pt;">socket</span><span style="font-size:12pt;font-family:'黑体';">的接收缓冲区中的数据：</span><span style="font-size:12pt;">AT+SKRCV</span></b></h4>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">功能：</span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">读取指定</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">的接收缓冲区中的数据，完成后返回。接收到此命令后，模块将在发送完成相应消息（</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK</span><span style="font-size:10.5pt;font-family:'宋体';">）</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">后使用二进制格式传送指定长度数据。</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">格式（</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">ASCII</span></b><b><span style="font-size:10.5pt;font-family:'宋体';">）：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SKRCV=&lt;socket&gt;,&lt;maxsize&gt;&lt;CR&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=&lt;size&gt;&lt;CR&gt;&lt;LF&gt;&lt;CR&gt;&lt;LF&gt;</span></p>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">[data steam]</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">参数：</span></b><b><span style="font-size:10.5pt;font-family:Arial, sans-serif;">   </span></b></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">：</span><span style="font-size:10.5pt;font-family:Arial, sans-serif;">socket</span><span style="font-size:10.5pt;font-family:'宋体';">号</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">maxsize</span><span style="font-size:10.5pt;font-family:'宋体';">：可接收的最大数据长度</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">size</span><span style="font-size:10.5pt;font-family:'宋体';">：实际接收到的数据长度</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">data
+steam</span><span style="font-size:10.5pt;font-family:'宋体';">：原始数据</span></p>
+
+
+
+<p><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><b><span style="font-size:10.5pt;font-family:'宋体';">示例：</span></b></p>
+
+
+
+<table class="MsoNormalTable"><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">→</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">AT+SKRCV=2,20</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">+OK=17</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-size:10.5pt;font-family:'宋体';">←</span></p>
+  </td>
+  <td>
+  <p><span style="font-size:10.5pt;font-family:Arial, sans-serif;">HELLO WIFI MODULE</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:Arial, sans-serif;"><br /></span><span style="font-family:'宋体';background-color:transparent;"> </span><span style="font-size:10.5pt;font-family:Arial, sans-serif;"> </span><span style="font-family:'宋体';background-color:transparent;"> </span></p>
+
+<h4><br /></h4>
+
+<div><h4><span style="font-weight:bold;">相关文章：</span></h4><p><a href="http://oldask.openluat.com/article/43" target="_blank" rel="noreferrer noopener">合宙Luat WiFi模块AT指令手册及示例（三）</a></p><p><a href="http://oldask.openluat.com/article/40" target="_blank" rel="noreferrer noopener">合宙Luat WiFi模块AT指令手册及示例（一）</a><br /></p><p><br /></p><p><br /></p></div>
+
+
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/425/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/423/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

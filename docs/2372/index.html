@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Luat训练营-第4天 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Luat训练营-第4天</h1>
+<article class="post markdown-style">
+  <p>@<a href="Luat%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC4%E5%A4%A9">TOC</a></p>
+<h2 id="第3天内容复习"><a href="#第3天内容复习" class="headerlink" title="第3天内容复习"></a>第3天内容复习</h2><p><a href="https://doc.luatos.wiki/2360">第3日内容</a></p>
+<h2 id="第4天内容"><a href="#第4天内容" class="headerlink" title="第4天内容"></a>第4天内容</h2><h3 id="模块化编程"><a href="#模块化编程" class="headerlink" title="模块化编程"></a>模块化编程</h3><p>module 将文件声明为模块，写法 module(…, package.seeall)<br>require 引入一个文件包</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>(..., <span class="built_in">package</span>.<span class="built_in">seeall</span>) <span class="comment">--使得文件中的函数在何处都可调用</span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;pins&quot;</span> <span class="comment">--用到了pin库，该库为luatask专用库，需要进行引用</span></span><br></pre></td></tr></table></figure>
+<h3 id="跨文件调用-Lua5-1"><a href="#跨文件调用-Lua5-1" class="headerlink" title="跨文件调用 Lua5.1"></a>跨文件调用 Lua5.1</h3><p>新建一个文件叫tools.lua，把这个函数放进去</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使这个代码在哪个文件里都能被调用 </span></span><br><span class="line"><span class="built_in">module</span>(..., <span class="built_in">package</span>.<span class="built_in">seeall</span>) </span><br><span class="line"><span class="comment">---函数功能：</span></span><br><span class="line"><span class="comment">-- 生成从1-max的table </span></span><br><span class="line"><span class="comment">-- @输入值：table的最大值 </span></span><br><span class="line"><span class="comment">-- @返回： table结果 </span></span><br><span class="line"><span class="comment">-- @例子： local list = getNumberList(10)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNumberList</span><span class="params">(max)</span></span> </span><br><span class="line">    <span class="keyword">local</span> t = &#123;&#125; </span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,<span class="built_in">max</span> <span class="keyword">do</span> </span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(t,i) </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> t </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>封装的这个函数就能在其他文件里调用</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--引用tools.lua文件，并加载 </span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;tools&quot;</span></span><br><span class="line"><span class="keyword">local</span> list = tools.getNumberList(<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="跨文件调用-Lua5-3"><a href="#跨文件调用-Lua5-3" class="headerlink" title="跨文件调用 Lua5.3"></a>跨文件调用 Lua5.3</h3><p>新建一个文件叫tools.lua，把这个函数放进去</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">---函数功能：</span></span><br><span class="line"><span class="comment">-- 生成从1-max的table </span></span><br><span class="line"><span class="comment">-- @输入值：table的最大值 </span></span><br><span class="line"><span class="comment">-- @返回： table结果 </span></span><br><span class="line"><span class="comment">-- @例子： local list = getNumberList(10) </span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">getNumberList</span><span class="params">(max)</span></span> </span><br><span class="line">    <span class="keyword">local</span> t = &#123;&#125; </span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,<span class="built_in">max</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">table</span>.<span class="built_in">insert</span>(t,i) </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">return</span> t </span><br><span class="line"><span class="keyword">end</span> <span class="comment">--手动返回一个table，包含了上面的函数 </span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    getNumberList = getNumberList,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>封装的这个函数就能在其他文件里调用</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--引用tools.lua文件，并加载 </span></span><br><span class="line"><span class="built_in">require</span><span class="string">&quot;tools&quot;</span></span><br><span class="line"><span class="keyword">local</span> list = tools.getNumberList(<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="※string库"><a href="#※string库" class="headerlink" title="※string库"></a>※string库</h3><h4 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h4><p><code>string.len</code>接收一个字符串，返回它的长度。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;hello lua&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">len</span>(a))<span class="comment">--空格也算</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串大小写转换"><a href="#字符串大小写转换" class="headerlink" title="字符串大小写转换"></a>字符串大小写转换</h4><p><code>string.upper(s)</code>接收一个字符串 s，返回一个把所有小写字母变成大写字母的字符串。<br><code>string.lower(s)</code>接收一个字符串 s，返回一个把所有大写字母变成小写字母的字符串。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;hello lua&quot;</span></span><br><span class="line">a = <span class="built_in">string</span>.<span class="built_in">upper</span>(a)<span class="comment">--大写a</span></span><br><span class="line"><span class="built_in">print</span>(a)<span class="comment">--打印a </span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">lower</span>(a))<span class="comment">--小写a</span></span><br></pre></td></tr></table></figure>
+<h4 id="字符串索引"><a href="#字符串索引" class="headerlink" title="字符串索引"></a>字符串索引</h4><p><code>string.sub(s, i [, j])</code>返回字符串 s 中，从索引 i 到索引 j 之间的子字符串。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">d = <span class="string">&quot;123456789&quot;</span></span><br><span class="line">dout = <span class="built_in">string</span>.<span class="built_in">sub</span>(d,<span class="number">4</span>,<span class="number">6</span>) <span class="comment">-- 打印从4-6</span></span><br><span class="line"><span class="built_in">print</span>(dout)</span><br></pre></td></tr></table></figure>
+<h4 id="字符串编码"><a href="#字符串编码" class="headerlink" title="字符串编码"></a>字符串编码</h4><p><code>string.char (...)</code>接收 0 个或更多的整数（整数范围：0~255），返回这些整数所对应的 ASCII 码字符组成的字符串。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 抄大佬的</span></span><br><span class="line">t=&#123;<span class="number">0x79</span>,<span class="number">0x6F</span>,<span class="number">0x75</span>,<span class="number">0x20</span>,<span class="number">0x61</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x20</span>,<span class="number">0x72</span>,<span class="number">0x69</span>,<span class="number">0x67</span>,<span class="number">0x68</span>,<span class="number">0x74</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;真正的字符串内容：&quot;</span>)</span><br><span class="line">m=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> k,vinipairs(t) <span class="keyword">do</span></span><br><span class="line">    m=m..<span class="built_in">string</span>.<span class="built_in">char</span>(t[k])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(m)</span><br></pre></td></tr></table></figure>
+<p><code>string.byte</code>返回字符 s[i]、s[i + 1]、s[i + 2]、······、s[j] 所对应的 ASCII 码。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;123&quot;</span></span><br><span class="line">b = <span class="built_in">string</span>.<span class="built_in">byte</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br></pre></td></tr></table></figure>
+
+
+<p><code>string.format(formatstring, ...)</code>按照格式化参数formatstring，返回后面…内容的格式化版本。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%.4f&quot;</span>, <span class="number">3.1415926</span>)) <span class="comment">-- 保留4位小数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%d %x %o&quot;</span>, <span class="number">31</span>, <span class="number">31</span>, <span class="number">31</span>))<span class="comment">-- 十进制数31转换成不同进制 d,m,y = 29,7,2015 </span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%s %02d/%02d/%d&quot;</span>, <span class="string">&quot;today is:&quot;</span>, d, m, y))</span><br></pre></td></tr></table></figure>
+<h3 id="luat框架"><a href="#luat框架" class="headerlink" title="luat框架"></a>luat框架</h3><p>Lua 协同程序(coroutine)与线程比较类似：拥有独立的堆栈，独立的局部变量，独立的指令指针，同时又与其它协同程序共享全局变量和其它大部分东西。协同是非常强大的功能，但是用起来也很复杂。</p>
+<p>线程与协同程序的主要区别在于，一个具有多个线程的程序可以同时运行几个线程，而协同程序却需要彼此协作的运行。在任一指定时刻只有一个协同程序在运行，并且这个正在运行的协同程序只有在明确的被要求挂起的时候才会被挂起。协同程序有点类似同步的多线程，在等待同一个线程锁的几个线程有点类似协同。<br><a target="_blank" rel="noopener" href="https://www.w3cschool.cn/lua/lua-coroutine.html">协同程序更详细介绍</a></p>
+<h3 id="Air724UG介绍"><a href="#Air724UG介绍" class="headerlink" title="Air724UG介绍"></a>Air724UG介绍</h3><p><a target="_blank" rel="noopener" href="http://www.openluat.com/product_center/product_detail?id=13">724UG</a></p>
+<h2 id="第5天"><a href="#第5天" class="headerlink" title="第5天"></a>第5天</h2><p><a href="https://doc.luatos.wiki/2383">第五天</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2373/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2360/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

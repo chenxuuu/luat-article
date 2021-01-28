@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MIT 6.824 Distributed Systems 分布式系统课程系列3 Lab3-Fault-tolerant Key/Value Service [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">MIT 6.824 Distributed Systems 分布式系统课程系列3 Lab3-Fault-tolerant Key/Value Service</h1>
+<article class="post markdown-style">
+  <h1 id="MIT-6-824-Distributed-Systems-分布式系统课程系列3-Lab3-Fault-tolerant-Key-Value-Service"><a href="#MIT-6-824-Distributed-Systems-分布式系统课程系列3-Lab3-Fault-tolerant-Key-Value-Service" class="headerlink" title="MIT 6.824 Distributed Systems 分布式系统课程系列3 Lab3-Fault-tolerant Key/Value Service"></a>MIT 6.824 Distributed Systems 分布式系统课程系列3 Lab3-Fault-tolerant Key/Value Service</h1><ul>
+<li>实验主页：<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.824/labs/lab-kvraft.html">https://pdos.csail.mit.edu/6.824/labs/lab-kvraft.html</a></li>
+<li>任务：在raft基础上实现一个分布式可容灾的kv服务。</li>
+</ul>
+<hr>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h1><ul>
+<li><p>在Lab2中我们学习并实现了raft算法。有了raft，我们其实已经实现了数据的一致性存储和容灾。<br>比如起3个raft节点，把一批数据存进某个节点，数据在三个节点上都会保持强一致性。<br>整个系统可以承受在某个时间点有1个节点出现故障。<br>如果配置大量节点，比如9台服务器，可靠性会非常有保障。可承受4台机器同时出故障</p>
+</li>
+<li><p>这次任务是在raft的基础上实现一个key/value服务。<br>虽然是一个相对简单的kv服务，但是掌握基本技术之后可扩展为更复杂的应用，比如分布式数据库或分布式文件系统等等。</p>
+</li>
+<li><p>任务分为AB两部分。A部分是基础的kv服务。B部分引入log压缩(log快照)。</p>
+</li>
+</ul>
+<hr>
+<h1 id="2-kv服务"><a href="#2-kv服务" class="headerlink" title="2. kv服务"></a>2. kv服务</h1><h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><ul>
+<li><p>有数个raft节点。实现数据一致性。</p>
+</li>
+<li><p>有数个kvserver实体。存储实际的kv数据。可看作数据库实体。<br>一个kvserver绑定一个raft节点。</p>
+</li>
+<li><p>可有任意多个client实体，即客户端。可以看作连接数据库的客户端工具。</p>
+</li>
+<li><p>比如有3台机器，每个机器上跑一个kvserver，每个kvserver里包含一个raft节点。<br>raft节点之间可互通。kvserver可与自己的raft节点交互。<br>client为任意多个，可与任意kvserver交互。</p>
+</li>
+</ul>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><ul>
+<li>数据就是简单的key和value键值对。都是string类型。</li>
+</ul>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ul>
+<li>实现3个操作：Put(key, value)赋值，Append(key, arg)追加，Get(key)取值。</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="一些要点"><a href="#一些要点" class="headerlink" title="一些要点"></a>一些要点</h3><ul>
+<li>只要多数server能互通，client发命令必须要能返回，不能无限卡死。否则允许卡死。</li>
+<li>client发一个命令必须等到server回复才能返回。这里肯定是简化了，现实应用肯定得有个超时提示。</li>
+<li>没有commit的log可能被清掉(别的命令覆盖)。一旦commit，就不能被清掉，如果发生，那数据就坏了，就是实现有问题。</li>
+<li>看一下论文第8章，少走弯路。</li>
+</ul>
+<h3 id="基本流程-TestBasic3A"><a href="#基本流程-TestBasic3A" class="headerlink" title="基本流程 TestBasic3A"></a>基本流程 TestBasic3A</h3><ul>
+<li><p>GenericTest是通用的测试流程。包含起kvserver，起client，发命令，设置网络故障、网络分组，重启节点等各种测试流程。</p>
+</li>
+<li><p>最简单的测试。5个server</p>
+</li>
+<li><p>make_config<br>对每个server调StartServer(我们实现)进行我们kv服务的初始化：起一个KVServer，KVServer包含一个raft节点。</p>
+</li>
+<li><p>makeClient<br>用MakeClerk(我们实现)创建客户端(他所谓的clerk)。</p>
+</li>
+<li><p>一些初始化后进入测试循环。</p>
+</li>
+<li><p>spawn_clients_and_wait<br>起一个channel<br>用run_client起一个client并调用循环里的闭包<br>等待channel的数据</p>
+</li>
+<li><p>闭包函数主要做一顿kv操作。先put一个值。<br>再进入一个循环(会持续5秒(见done_clients))，每次随机选一个操作：</p>
+</li>
+</ul>
+<p>1.append。key是server id，value是根据循环造的一个值。并记下append后的值。<br>2.get。用key获取获取value，跟记下的值对比。不一样就是测试失败。</p>
+<ul>
+<li><p>5秒过后<br>做一些模拟(断网、重启等)，现在是最简测试，所以跳过。<br>对每个server的kv进行检查(checkClntAppends)。因为存入的值是定了规则的，所以可检查正确性。<br>最后对log的大小做一些检查</p>
+</li>
+<li><p>代码可总体分为3层：client，server，raft。<br>client可看作各种数据库连接工具。处理人类或测试程序发来的请求，与server交互，获取结果。client可以自己选择连哪个server<br>server实现kv存储，与raft系统交互，根据raft的指示来执行实际的kv操作。<br>raft负责每个kv操作在整个系统中的一致性。<br>例如一个命令来了以后，raft得把它安全复制到多数server后才通知server这个命令已经完成复制了，可以执行。然后各个server才能执行这个命令。然后client才能看到这个命令执行的最终结果。</p>
+</li>
+</ul>
+<ul>
+<li><p>client.go里。Get和PutAppend，直接给server发Get和PutAppend的rpc。<br>client把命令发给谁？<br>应该找leader发，并记录每一次的leader。如果leader改变，rpc应该返回相应的错误，client就找新的leader。</p>
+</li>
+<li><p>PutAppend怎样算成功？<br>命令提交给raft，按说要等raft把这个命令复制到多数server，再发apply消息后，kv服务才真正执行PutAppend，再返回成功。<br>看测试代码是Append之后必须Get到正确的值，也就是应用层面是不考虑任何超时的。<br>所以为了迎合测试，每次发命令一定要等到正确执行才返回。<br>在server里rf.Start()之后，要死等apply消息，等到才返回。<br>这里可以思考一些异常，如果leader apply这个之后马上挂了。下次这个client发命令时会连一个新的leader。这时会不会造成重发？各server的命令数据是否正确？</p>
+</li>
+<li><p>rpc的reliable问题<br>发rpc如果能收到正常回复，无论成功还是失败，都是好的。<br>如果rpc无响应，就麻烦，无法确定是什么情况。<br>测试程序可以模拟rpc不稳定，可能</p>
+</li>
+</ul>
+<p>1.对端收不到rpc(不执行)。<br>2.对端收到rpc，执行以后，回复结果时网络不通。<br>这两种情况rpc都会失败，得重发，但是2的情况可能造成一条命令重复执行。<br>想到序列号的方法，给每一个命令做一个唯一的sn，收到命令后每次判断一下sn是否已经执行过，就可能避免重复执行了。也保证了操作的幂等性。怎么做唯一sn？现实中应该也是很有讲究，这里直接用随机数简化。</p>
+<ul>
+<li>ApplyMsg的接收<br>在每个kvserver里起一个ApplyTask的goroutine专门收ApplyMsg(在lab2里是测试程序收的这个消息)，收到就实际执行命令。<br>对于不是收命令的server，不做其他事情。<br>如果是该server接收的命令，那么得通知client命令已经执行完，让client返回。前面说过现在的模式是client发命令必须死等一个确切的结果。<br>我加了另一个channel来传这个消息。</li>
+</ul>
+<h3 id="TestOnePartition3A"><a href="#TestOnePartition3A" class="headerlink" title="TestOnePartition3A"></a>TestOnePartition3A</h3><ul>
+<li><p>这个测试把server分割成两个群体，把当前leader放在少数群体。</p>
+</li>
+<li><p>Put(cfg, ckp2a, “1”, “15”)发到少数群体，是无法commit的，也就无法apply，client也就阻塞无法返回。<br>直到走到”Test: completion after heal (3A)”，恢复所有网络，p2的leader发的ae可以传到p1了，p1的leader发的ae也可以传到p2了，这时p1的leader的term一定是领先p2的，因为分割后p1没有leader，一定会选一个新的，term变大。<br>那么p2的leader一定会变成follwer。p2接收的Put命令会被p1的命令冲掉。kvserver应该返回wrongleader给client，client重新找leader发这个命令。<br>重点是kvserver执行命令等结果期间要能识别自己的命令被冲掉(因为自己的leader身份失效)。</p>
+</li>
+<li><p>Get()必须从多数群体中获取，否则可能获得失效的数据。<br>课程提示一个简单的方法。可以把Get也看作PutAppend，也走一遍一致性流程，这样肯定是从多数群体取值了。</p>
+</li>
+<li><p>一个死锁问题<br>LeaderSendAE里发ApplyMsg时我是先锁住rf然后进循环挨个检测index是否可以apply，有时会出现一次可以apply多个index的情况。<br>那么问题来了，循环里会往channel发消息，这样就带着锁到了一个kvserver的线程，这个线程里又会走到一个rf.GetState()的检测，GetState是要锁的。如果LeaderSendAE的第二个消息没发出去，就走到GetState()的话，就死锁了。<br>把ApplyMsg消息的发送挪到一个单独的goroutine，结构更好，耦合低，循环检测，每次循环加锁就行，解决问题。<br>其实lab2也是这么推荐的。</p>
+</li>
+<li><p>后话，挪到单独goroutine后，后来偶尔发现lab2的TestFigure8Unreliable2C居然过不了，能达成一致，但是很慢，耗了三分钟，测试程序最多给2分钟。而不挪出来只用40秒。<br>因为挪出来后，循环里要每次加锁，这样死循环争锁影响了性能。<br>还是改为最开始的方式，循环外面加锁，里面发消息。而接受消息的代码之前刚好做了优化，不连续发消息，而是设置kv的全局变量，另起goroutine来监控。所以不会死锁了。<br>注意死循环里看情况要加个sleep，否则会很卡。<br>最终形态就是死循环里每轮sleep10毫秒，争锁，然后循环发一波apply。<br>但是有个问题，在最坏的情况下，每一波只能apply一个命令的话，还是很耗时。当然如果每次来一个命令也说明命令不是很多。<br>一个很好的优化就是把多个apply打包一次发走。暂时跳过。</p>
+</li>
+<li><p>go test -race的问题<br>可以检测可能的race condition。比如有个变量某一处加了锁，另外一处没加，运行时如果出现篡改的可能，它就会检测出来报错。<br>是否有必要？比如有的地方我绝对有把握不会死锁。<br>如果统一加上锁肯定能避免一些难查的死锁。在lab2里试过，感觉有的地方略显啰嗦。特别是打印变量时，比较繁琐。</p>
+</li>
+</ul>
+<h2 id="以下走进了死路"><a href="#以下走进了死路" class="headerlink" title="以下走进了死路"></a>以下走进了死路</h2><h5 id="TestManyPartitionsOneClient3A"><a href="#TestManyPartitionsOneClient3A" class="headerlink" title="TestManyPartitionsOneClient3A"></a>TestManyPartitionsOneClient3A</h5><ul>
+<li><p>一个client。随机分组。<br>发现一个问题。如果client发了一个命令cmd1，leader1短暂变成follower，client返回准备重发cmd1，leader1这时又变成leader.<br>那么记过就是client认为只发了一个cmd1，但实际leader1上存了两个cmd1。<br>问题在于client被返回wrongleader时，第一个cmd1没有被删除。一般情况如果有leader2取代leader1，那么会把cmd1擦掉，没问题。<br>但如果leader1又做回leader，那么老的cmd1就会保留，出现重复。<br>可能的解法：<br>start会生成一个index，跟踪这个index，如果能apply，没问题。如果被擦除，返回wrongleader。其他情况都死等。期间不要自行检查leader。</p>
+</li>
+<li><p>这又会引出一个问题，一个命令可能会单纯被清掉而不是被覆盖(比如一个高term的leader1复活，发ae给leader2，leader2变成follower并且被清掉不同的命令)。<br>考虑上面说的情况：（ca为commit和apply。t1为term1。）</p>
+</li>
+</ul>
+<p>|       |   1     |       2    |          3   |           4   |          5   |           6|<br>| — | — | — | — | — | — | — |  — | — | — |<br>|2 Leader1|   put’’0 ca |  x 0 0 y ca  |  x 0 1 y ca t1  | x 0 2 y t1|<br>|1 Leader2  | put’’0 ca  | x 0 0 y ca  |  x 0 1 y t1  |   t2|<br>|3    | …|<br>|4    | …|<br>|5   |  …|</p>
+<ul>
+<li><p>2先当leader，给2发一个命令，未复制成功时，被独立分割，1再当leader。<br>这时把1和2联通。1和2的身份都是leader。<br>2给1发AE会失败，因为term小。<br>1给2发AE会成功。因为1、2两点都通过。</p>
+</li>
+<li><p>问题是到底需不要把2的index4上的log删掉？<br>论文图2收AE的第3点。字面上是如果出现冲突要删掉冲突和之后的log。目前的实现是删掉。<br>如果把index4删掉，然后白等，就会导致index4没法apply。导致client卡死。因为按上面的等待index的实现，没考虑直接删除index4的情况。</p>
+</li>
+<li><p>如果不删，这时2会变成Follower，1继续做leader，虽然2比1多一个命令。<br>如果这时给1发命令。1会发ae把2的index4冲掉。<br>如果一直不发，那么2的index4的命令永远得不到返回，造成cleint卡死。那么这个情况按理要给这个client返回wrongleader吧。</p>
+</li>
+<li><p>想个办法，还是按删掉的实现来。<br>raft做个接口查询某个index上的命令。kvserver定时把正在等待的index查一遍，如果发现被删除，那么返回wrongleader。</p>
+</li>
+</ul>
+<h4 id="按这个思路来，感觉问题越来越多，越来越复杂。是不是钻了牛角尖？"><a href="#按这个思路来，感觉问题越来越多，越来越复杂。是不是钻了牛角尖？" class="headerlink" title="按这个思路来，感觉问题越来越多，越来越复杂。是不是钻了牛角尖？"></a>按这个思路来，感觉问题越来越多，越来越复杂。是不是钻了牛角尖？</h4><ul>
+<li>再从头理一遍client的交互。<br>client发命令，每个kvserver里起一个map判断重复，记录每个client的最高sn。<br>防止的是：实际commit但没有返回给client，比如rpc故障，client又把命令提交一遍。<br>这里有个问题，如果这时出了新的leader，client重新提交给新的leader，是否能防住？<br>如果是的话，那么是可以在kvserver里给等待命令设一个超时的，不死等index，而是返回让client重发命令。直接从源头解决了问题，不会造成client卡死了。<br>为什么重发命令给新leader可以判断重复？</li>
+</ul>
+<p>|     |             1   |  2  | 3  |4  |5  |  index|<br>| — | — | — | — | — | — | — |  — | — | — |<br>| —–&gt;0 Leader   | cmd1<br>|      1     |    cmd1|<br>|    2       |  cmd1|<br>|      3    |<br>|    4    |</p>
+<ul>
+<li>client先连0，成功复制到012，commit，这意味着cmd1在系统里是确定的，一定会执行，不会被清除。<br>当raft返回apply消息到kvserver时（这里简化为一定能成功返回apply消息），kvserver会记录cmd1的client和sn，这样后续就能判断重复了。<br>注意，发到0，但是012收apply消息时都会记录。这样后续再发到012时都能判断重复了。<br>下一个命令有没有可能发到3或4，不可能，因为34是少数，不管网络怎么分割，新leader一定是在012中产生。<br>也就是说只要命令得到成功复制，新的leader一定存了这个命令的唯一标识，一定可以判断出重复。<br>一个不爽的地方是重复的命令也会存到raft的log里，如果要做恢复数据等操作，还需要判断重复。</li>
+</ul>
+<ul>
+<li>因为开始没有完全想清楚判断重复命令的细节，所以绕了弯路。<br>最后在kvserver等待index那加上超时返回wrongleader，让client重发。解决了重发问题。<br>过了partitions, one client和partitions, many clients这两个测试。</li>
+</ul>
+<h3 id="TestPersistOneClient3A"><a href="#TestPersistOneClient3A" class="headerlink" title="TestPersistOneClient3A"></a>TestPersistOneClient3A</h3><ul>
+<li>从这开始，会重启kvserver。raft的log已经实现了持久化没问题，但kvserver也是有很多状态和数据的。<br>课程里好像没有直接提怎么恢复kvserver的数据。只在Part B开始时带了一句，As things stand now with your code, a rebooting server replays the complete Raft log in order to restore its state.<br>那么就从raft的log里恢复数据试试。<br>replay比想象的要容易，把rf的log跑一遍，同时更新命令sn信息，判断一下重复命令不要执行就行了。</li>
+</ul>
+<ul>
+<li>到这里3A都通过了测试。跑一遍耗时4分钟。</li>
+</ul>
+<h3 id="go相关"><a href="#go相关" class="headerlink" title="go相关"></a>go相关</h3><ul>
+<li><p>发AE时rpc传的arg参数在接收的地方变成了nil。<br>导致panic: runtime error: invalid memory address or nil pointer dereference<br>最后定位到labrpc.go的dispatch函数和value.go里的Elem()。<br>估计是新的命令类型造成。之前的命令是一个int没有问题。<br>我直接传的PutAppendArgs类型报错。后来用了server.go里他定义好的Op类型就不报错。搞不懂，用不同文件的类型会出这种错。<br>一堆reflect、value、type比较底层的东西，看不懂放弃。有恶心到。</p>
+</li>
+<li><p>简单情况下，channel如果没有人接收消息，发消息就会一直阻塞？</p>
+</li>
+<li><p>消息里放int64好像有时发不出去。不确定。</p>
+</li>
+<li><p>居然不能直接给map里的某个元素赋值</p>
+</li>
+</ul>
+<hr>
+<h1 id="3-log压缩"><a href="#3-log压缩" class="headerlink" title="3. log压缩"></a>3. log压缩</h1><h3 id="论文解读"><a href="#论文解读" class="headerlink" title="论文解读"></a>论文解读</h3><ul>
+<li><p>log不能任其增长。如果量巨大，即占空间，replay也很耗时。<br>需要一个机制来把老的的log信息给挪走。</p>
+</li>
+<li><p>“快照”是一种最简单的压缩方式：<br>在某个时间点，当前系统的整个状态会存为一个快照并持久化备用，然后把这个时间点之前的log删除。</p>
+</li>
+<li><p>chubby和zookeeper都用到了快照。</p>
+</li>
+<li><p>作者又比较了一下其他的log压缩方法。结论是快照更简洁。</p>
+</li>
+<li><p>图12描述了raft的快照。<br>一个快照包含了最后的term和index，以及每个key的当前值(只保留最新的值，过程(log)丢弃)。</p>
+</li>
+<li><p>图13描述了具体算法。即“安装快照(IS)”rpc。<br>IS一定是leader发出。可分次发送（我们实际不实现），可作为一次心跳。</p>
+</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li><p>kvserver每次收到正常apply的命令后需要检测一下raft的log大小，超出一定值就要发起存快照的操作。<br>把本地kv数据发给raft，raft删除被快照覆盖的log，再把快照和log持久化。<br>重要的原则是保持所有数据不丢，要么在快照里要么在log里，并已经持久化。</p>
+</li>
+<li><p>每个节点只保存一份快照。保存快照后，要记录快照最末log的index和term。</p>
+</li>
+<li><p>leader发AE时如果对端需要的index落在自己的快照里，给对端发自己的快照，即InstallSnapshot RPC。<br>否则正常发AE。</p>
+</li>
+<li><p>raft收到快照后判断有效性，再把快照发给自己的kvserver，kvserver拿到后直接覆盖本地kv数据。log和快照都要做好持久化。</p>
+</li>
+</ol>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><ul>
+<li>引入快照后，log的一些边界上的操作可能需要大范围改造，改得更通用、清晰，是一种进步。<br>改动后一定要保持lab2能通过测试。<br>可能需要折腾一番才能稳定下来。</li>
+</ul>
+<h3 id="一个错误场景"><a href="#一个错误场景" class="headerlink" title="一个错误场景"></a>一个错误场景</h3><ul>
+<li><p>TestSnapshotRecoverManyClients3B报错。get出来的值是值比预期要短，是个旧的值。</p>
+</li>
+<li><p>原因：raft收到有效的快照后，把本地log清空，发给kvserver安装，但是没有持久化。<br>如果这时服务重启，这个raft节点选为leader，数据就丢失了，因为log删了，log持久化了，但快照却没持久化。违反了上述数据不能丢失的原则。</p>
+</li>
+</ul>
+<h3 id="go相关-1"><a href="#go相关-1" class="headerlink" title="go相关"></a>go相关</h3><ul>
+<li><p>go test -race的问题<br>出现一个经典的ab/ba死锁的情况。检测不出来。具体没懂。</p>
+</li>
+<li><p>channel的问题<br>循环阻塞读消息进行处理，里面加锁，容易死锁。可改成读出消息后进队列，再另起goroutine循环处理。</p>
+</li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1978/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1973/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

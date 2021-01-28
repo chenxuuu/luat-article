@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air720系列模块如何设置频段 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air720系列模块如何设置频段</h1>
+<article class="post markdown-style">
+  <h1 id="Air720系列模块如何设置频段"><a href="#Air720系列模块如何设置频段" class="headerlink" title="Air720系列模块如何设置频段"></a>Air720系列模块如何设置频段</h1><h2 id="1，设置之前先举几个常用4G频段的例子："><a href="#1，设置之前先举几个常用4G频段的例子：" class="headerlink" title="1，设置之前先举几个常用4G频段的例子："></a>1，设置之前先举几个常用4G频段的例子：</h2><h3 id="（1）4G频段配置举例（仅4G模式）："><a href="#（1）4G频段配置举例（仅4G模式）：" class="headerlink" title="（1）4G频段配置举例（仅4G模式）："></a>（1）4G频段配置举例（仅4G模式）：</h3><hr>
+<ol>
+<li>设置4G频段1：AT*BAND=5,74,129,0,1</li>
+<li>设置4G频段3：AT*BAND=5,74,129,0,4</li>
+<li>设置4G频段5：AT*BAND=5,74,129,0,16</li>
+<li>设置4G频段8：AT*BAND=5,74,129,0,128</li>
+<li>设置4G频段38：AT*BAND=5,74,129,32,0</li>
+<li>设置4G频段39：AT*BAND=5,74,129,64,0</li>
+<li>设置4G频段40：AT*BAND=5,74,129,128,0</li>
+<li>设置4G频段41：AT*BAND=5,74,129,256,0</li>
+</ol>
+<hr>
+<h3 id="（2）2G频段配置举例（仅2G模式）："><a href="#（2）2G频段配置举例（仅2G模式）：" class="headerlink" title="（2）2G频段配置举例（仅2G模式）："></a>（2）2G频段配置举例（仅2G模式）：</h3><hr>
+<ol>
+<li>设置为DCS GSM 1800：AT*BAND=0,2</li>
+<li>设置为EGSM 900：AT*BAND=0,8</li>
+<li>设置为GSM 850：AT*BAND=0,64</li>
+</ol>
+<hr>
+<h2 id="2，如何配置频段？"><a href="#2，如何配置频段？" class="headerlink" title="2，如何配置频段？"></a>2，如何配置频段？</h2><h3 id="（1）模式的选择"><a href="#（1）模式的选择" class="headerlink" title="（1）模式的选择"></a>（1）模式的选择</h3><hr>
+<p>例如：指令 AT\BAND=AT*BAND=5,74,129,0,1<br>该指令的第一个参数就是模式，配置的是仅4G模式<br>关于模式的对应关系如下所示：<br>0 – GSM network（仅2G模式，只工作在2G模式下）<br>1 – UMTS network（仅3G模式，只工作在3G模式下）<br>2 – Dual mode(GSM and UMTS) (auto)<br>3 – Dual mode(GSM and UMTS) (GSM preferred)<br>4 – Dual mode(GSM and UMTS) (UMTS preferred)<br>5 – LTE network（仅4G模式，只工作在4G模式下）<br>6 – Dual mode(GSM and LTE)(auto)<br>7 – Dual mode(GSM and LTE)( GSM preferred)<br>8 – Dual mode(GSM and LTE)(LTE preferred)<br>9 – Dual mode(UMTS and LTE)(auto)<br>10 – Dual mode(UMTS and LTE)(UMTS preferred)<br>11 – Dual mode(UMTS and LTE)(LTE preferred)<br>12 – Trip mode(auto)<br>13 – Trip mode(GSM preferred)<br>14 – Trip mode(TD preferred)<br>15 – Trip mode(LTE preferred)（多模式，4G优先）</p>
+<hr>
+<h3 id="（2）频段的配置"><a href="#（2）频段的配置" class="headerlink" title="（2）频段的配置"></a>（2）频段的配置</h3><p><strong>2G,3G,4G的频段分别该怎么配置？</strong></p>
+<hr>
+<p>例如：AT*BAND=5,74,129,0,1<br>第二个参数74就是配置2G频段的数值，<br>第三个参数129就是配置3G频段的数值，<br>4G频段的配置比较特殊：<br>第四个参数代表4G频段 band33及以上的频段的数值<br>第五个参数代表4G频段 1~32频段的数值</p>
+<hr>
+<p><strong>频段的数值是如何换算的尼？</strong></p>
+<hr>
+<p>通过以上的举例，不难发现频段与数据位是相对应的，例如BAND3就是数据位3为1，转为数值就为4。<br>band1 – 0000 0001 – 1<br>band3 – 0000 0100 – 4<br>band5 – 0001 0000 – 16<br>band8 – 1000 0000 – 128</p>
+<p>2G比较特殊，其转换关系为：<br>1 –- PGSM 900 (standard or primary)<br>2 –- DCS GSM 1800<br>4 –- PCS GSM 1900<br>8 –- EGSM 900 (extended)<br>16 –- GSM 450<br>32 –- GSM 480<br>64 –- GSM 850</p>
+<hr>
+<p><strong>如何配置多频段尼？</strong></p>
+<hr>
+<p>配置多频段就是相应频段的值想加或者相应位数置为1再转化为十进制数值：<br>如 ：AT*BAND=15,74,129,480,149<br>2G多频段：<br>74 = GSM850(64) + EGSM900(8) + DCS GSM 1800(2)<br>3G多频段：<br>129 = UMTS_BAND_8(128) + UMTS_BAND_1(1)<br>4G多频段：<br>480 = TDLTE_BAND_38(32) + TDLTE_BAND_39(64) + TDLTE_BAND_40(128) + TDLTE_BAND_41(256)<br>149 = TDLTE_BAND_1(1) + TDLTE_BAND_3(4) + TDLTE_BAND_5(16) + TDLTE_BAND_8(128)</p>
+<hr>
+<p><strong>配置结束了，怎么查看模块是注册上哪个频段尼？</strong></p>
+<hr>
+<p>用AT*BANDIND?查询：<br>例如：AT*BANDIND?<br>返回：*BAND: 0, 5, 7<br>第一个参数：set from MT to TE<br>0 – disable<br>1 – enable<br>第二个参数：当前注册的频段，为频段5<br>第三个参数：为7表示为4G<br>0 – GSM<br>1 – GSM Compact<br>2 – UTRAN<br>3 – GSM EGPRS<br>4 – UTRAN HSDPA<br>5 – UTRAN HSUPA<br>6 – UTRAN HSPA<br>7 – EUTRAN<br>8 – UTRAN HSPA+</p>
+<hr>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/501/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/499/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

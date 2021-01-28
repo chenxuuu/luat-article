@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>onenet 新版MQTTS 连接代码分享 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">onenet 新版MQTTS 连接代码分享</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;luat 编写代码连接onenet 新版MQTTS代码&lt;/p&gt;&lt;p&gt;代码功能：1.动态生成token 密钥&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 2.根据IMEI号码 自动创建 平台设备&lt;/p&gt;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 3. 利用生成的token 连接MQTTS 上传数据&lt;/p&gt;&lt;p&gt;工程代码分享github&amp;nbsp;https://github.com/CQADu/luat-onenet-MQTTS.git&lt;/p&gt;&lt;p&gt;token&lt;/p&gt;&lt;table class=&quot;highlight tab-size js-file-line-container&quot; style=&quot;border-collapse: collapse; border-spacing: 0px; box-sizing: border-box; color: rgb(36, 41, 46); font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;&quot; data-tab-size=&quot;8&quot;&gt;&lt;tbody style=&quot;box-sizing: border-box;&quot;&gt;&lt;tr style=&quot;box-sizing: border-box;&quot;&gt;&lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC61&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--[[&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L62&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;62&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC62&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;连接onenet后台 的token 创建函数&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L63&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;63&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC63&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;参数 et 密钥过期时间点 字符串&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L64&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;64&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC64&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; res 实例名称 有API访问的密钥 和设备mqtt 登陆用的密钥&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L65&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;65&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC65&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;     access_key 产品key&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L66&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;66&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC66&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;返回连接用的 密钥&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L67&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;67&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC67&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;说明：加密方式 为sha1&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L68&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;68&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC68&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;]]&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L69&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;69&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC69&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;pl-en&quot; style=&quot;box-sizing: border-box; color: rgb(111, 66, 193);&quot;&gt;OnenetTokenCreate&lt;/span&gt;(&lt;span class=&quot;pl-smi&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46);&quot;&gt;et&lt;/span&gt; , &lt;span class=&quot;pl-smi&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46);&quot;&gt;res&lt;/span&gt; ,&lt;span class=&quot;pl-smi&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46);&quot;&gt;access_key&lt;/span&gt;)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L70&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;70&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC70&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt; 密钥时间只能一个小时有效 &lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L71&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;71&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC71&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt;res = &quot;products/&quot;.. tostring(productsId)&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L72&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;72&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC72&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt;et = os.time() + 3600&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L73&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;73&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC73&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt;et = 1578231806&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L74&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;74&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC74&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    method &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;sha1&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L75&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;75&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC75&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    version &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;2018-10-31&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L76&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;76&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC76&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    org1 &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; et &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;pl-cce&quot; style=&quot;box-sizing: border-box;&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; method &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;pl-cce&quot; style=&quot;box-sizing: border-box;&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt;&amp;nbsp; res &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;pl-cce&quot; style=&quot;box-sizing: border-box;&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; version&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L77&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;77&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC77&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    log.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;info&lt;/span&gt;(&lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;org1=&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt;org1)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L78&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;78&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC78&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    key&amp;nbsp; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; crypto.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;base64_decode&lt;/span&gt;(access_key,&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;string.len&lt;/span&gt;(access_key)) &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt; 解码&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L79&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;79&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC79&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;br&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L80&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;80&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC80&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    sign_b &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; crypto.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;hmac_sha1&lt;/span&gt;(org1,&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;string.len&lt;/span&gt;(org1),key,&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;string.len&lt;/span&gt;(key)) &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt; 采用hmac 里面的sha1 加密算法&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L81&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;81&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC81&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    log.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;info&lt;/span&gt;(&lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;Hmac_sha1 Hex data = &lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; sign_b)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L82&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;82&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC82&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    sign_b &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;hex_to_binary&lt;/span&gt;(sign_b)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L83&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;83&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC83&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    log.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;info&lt;/span&gt;(&lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;Hmac_sha1 Hex data2 = &lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; sign_b)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L84&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;84&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC84&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;br&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L85&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;85&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC85&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    sign &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; crypto.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;base64_encode&lt;/span&gt;( sign_b, &lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;string.len&lt;/span&gt;(sign_b) ) &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt; 对hmac 出来的数据进行 base64 编码&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L86&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;86&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC86&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;br&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L87&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;87&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC87&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    hmacUrl &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;urlEncode&lt;/span&gt;(sign)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L88&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;88&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC88&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    log.&lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;info&lt;/span&gt;(&lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;经过url 编码的hamc 加密码=&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;..&lt;/span&gt; hmacUrl)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L89&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;89&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC89&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    resUrl &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;urlEncode&lt;/span&gt;(res) &lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;&lt;span class=&quot;pl-c&quot; style=&quot;box-sizing: border-box; color: rgb(106, 115, 125);&quot;&gt;--&lt;/span&gt; res 字符串也 url 编码&lt;/span&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L90&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;90&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC90&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;    &lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;pl-c1&quot; style=&quot;box-sizing: border-box; color: rgb(0, 92, 197);&quot;&gt;string.format&lt;/span&gt;(&lt;span class=&quot;pl-s&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;version=%s&amp;amp;res=%s&amp;amp;et=%s&amp;amp;method=%s&amp;amp;sign=%s&lt;span class=&quot;pl-pds&quot; style=&quot;box-sizing: border-box; color: rgb(3, 47, 98);&quot;&gt;&#39;&lt;/span&gt;&lt;/span&gt; ,version, resUrl, et, method, hmacUrl) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style=&quot;box-sizing: border-box;&quot;&gt;
+    &lt;td class=&quot;blob-num js-line-number&quot; id=&quot;L91&quot; style=&quot;box-sizing: border-box; color: rgba(27, 31, 35, 0.3); cursor: pointer; font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; min-width: 50px; -ms-user-select: none; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; text-align: right; vertical-align: top; white-space: nowrap; width: 1%;&quot; data-line-number=&quot;91&quot;&gt;&lt;/td&gt;
+    &lt;td class=&quot;blob-code blob-code-inner js-file-line&quot; id=&quot;LC91&quot; style=&quot;box-sizing: border-box; color: rgb(36, 41, 46); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; line-height: 20px; overflow: visible; overflow-wrap: normal; padding-bottom: 0px; padding-left: 10px; padding-right: 10px; padding-top: 0px; position: relative; vertical-align: top; white-space: pre;&quot;&gt;&lt;span class=&quot;pl-k&quot; style=&quot;box-sizing: border-box; color: rgb(215, 58, 73);&quot;&gt;end&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;&lt;b&gt;&lt;/b&gt;&lt;i&gt;&lt;/i&gt;&lt;u&gt;&lt;/u&gt;&lt;sub&gt;&lt;/sub&gt;&lt;sup&gt;&lt;/sup&gt;&lt;strike&gt;&lt;/strike&gt;&lt;br&gt;&lt;/p&gt;
+                    
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/686/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/684/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

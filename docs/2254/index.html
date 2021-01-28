@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>2、8910芯片USB描述符：接口描述符---概述 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">2、8910芯片USB描述符：接口描述符---概述</h1>
+<article class="post markdown-style">
+  <h1 id="二、接口描述符-概述"><a href="#二、接口描述符-概述" class="headerlink" title="二、接口描述符-概述"></a>二、接口描述符-概述</h1><p>&emsp;&emsp;接口描述符一般是按设备的运行状态分类，这样设备可以在不同的接口中切换来实现设备运行状态的切换，如在设备在运行状态下使用正常的接口描述符，在停止状态下使用该接口描述符的备用接口描述符。</p>
+<p>&emsp;&emsp;USB协议规定，接口描述符不能单独返回，必须附着在配置描述符后一并返回。</p>
+<h2 id="2-1、接口关联描述符（8字节）"><a href="#2-1、接口关联描述符（8字节）" class="headerlink" title="2.1、接口关联描述符（8字节）"></a>2.1、接口关联描述符（8字节）</h2><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度（位）</th>
+<th>偏移量（位）</th>
+<th>十六进制值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bLength</strong></td>
+<td>8</td>
+<td>72</td>
+<td>0x08</td>
+<td>描述符大小为8字节</td>
+</tr>
+<tr>
+<td><strong>bDescriptorType</strong></td>
+<td>8</td>
+<td>80</td>
+<td>0x0B</td>
+<td>接口类型</td>
+</tr>
+<tr>
+<td><strong>bFirstInterface</strong></td>
+<td>8</td>
+<td>88</td>
+<td>0x00</td>
+<td>起始接口号是0</td>
+</tr>
+<tr>
+<td><strong>bInterfaceCount</strong></td>
+<td>8</td>
+<td>96</td>
+<td>0x02</td>
+<td>接口数为2</td>
+</tr>
+<tr>
+<td><strong>bFunctionClass</strong></td>
+<td>8</td>
+<td>104</td>
+<td>0xE0</td>
+<td>该接口属于无线控制器类</td>
+</tr>
+<tr>
+<td><strong>bFunctionSubClass</strong></td>
+<td>8</td>
+<td>112</td>
+<td>0x01</td>
+<td>该接口属于RF控制器子类</td>
+</tr>
+<tr>
+<td><strong>bFunctionProtocol</strong></td>
+<td>8</td>
+<td>120</td>
+<td>0x03</td>
+<td>该接口使用设备线适配器同步流接口协议</td>
+</tr>
+<tr>
+<td><strong>iFunction</strong></td>
+<td>8</td>
+<td>128</td>
+<td>0x05</td>
+<td>接口字符串描述符索引为5</td>
+</tr>
+<tr>
+<td><img src="https://img-blog.csdnimg.cn/20210109174558545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2255/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2253/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

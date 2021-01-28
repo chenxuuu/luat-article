@@ -23,7 +23,7 @@ def get(i):
         if info["code"] != 0:
             print("no article")
             return
-        title = info["data"]["title"]
+        title = info["data"]["title"].replace("\"", "\\\"")
         time_local = time.localtime(info["data"]["publish_at"])
         publish_time = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
         url = "http://doc.openluat.com/api/site/text?id="+str(info["data"]["text_id"])
@@ -32,10 +32,13 @@ def get(i):
         if info["code"] != 0:
             print("no article")
             return
-        text = info["data"]["content"].replace("\r", "")
+        text = info["data"]["content"].replace("\r", "").replace("{{", "{ {").replace("}}", "} }")
+        text = re.sub('http://doc.openluat.com/article/(.+?)/0',
+                lambda x: "https://doc.luatos.wiki/{}".format(x.group(1)),
+                text)
         md = open(str(i)+".md", "w",encoding='utf-8')
         md.write("---\n")
-        md.write("title: "+title+"\n")
+        md.write("title: \""+title+"\"\n")
         md.write("date: "+publish_time+"\n")
         md.write("---\n\n")
         md.write(text)
@@ -46,7 +49,7 @@ def get(i):
 
 
 items = list(range(0,2421))
-pool = ThreadPool()
+pool = ThreadPool(100)
 pool.map(get, items)
 pool.close()
 pool.join()

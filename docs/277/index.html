@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>上海合宙Luat Air724模块 入门指南（2）GPIO [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">上海合宙Luat Air724模块 入门指南（2）GPIO</h1>
+<article class="post markdown-style">
+  <h2 id="本文要介绍的内容"><a href="#本文要介绍的内容" class="headerlink" title="本文要介绍的内容"></a>本文要介绍的内容</h2><p>1） GPIO循环读取输入电平操作</p>
+<p>2） GPIO中断读取输入电平操作</p>
+<p>3） GPIO输出操作</p>
+<h2 id="硬件资源简介"><a href="#硬件资源简介" class="headerlink" title="硬件资源简介"></a>硬件资源简介</h2><p>Air724 共有标明的GPIO引脚31个，GPIO0-GPIO7 GPIO9-GPIO31，其中初始状态随不同固件可能稍有不同，也有引脚会因为固件不同造成不可用。 所以开发前建议尽量锁定固件版本，进行实际测试再进行相关电路开发。</p>
+<p>GPIO有两种表示方法一种是 pio.P0_18，另一种是直接输入数字18，实际使用中二种方法等价。</p>
+<p>下面是基本的使用步骤：</p>
+<h2 id="电压域配置"><a href="#电压域配置" class="headerlink" title="电压域配置"></a>电压域配置</h2><p>对于有指定电压域的GPIO，使用前应该先做相应配置，电压域的使用方法如下：</p>
+<pre><code>x=2
+pmd.ldoset(x,pmd.LDO_VMMC)
+pmd.ldoset(x,pmd.LDO_VLCD)
+pmd.ldoset(x,pmd.LDO_VSIM1)
+
+其中 x 取值为 0-15
+
+x=0时：关闭LDO
+x=1时：LDO输出1.716V
+x=2时：LDO输出1.828V
+x=3时：LDO输出1.939V
+x=4时：LDO输出2.051V
+x=5时：LDO输出2.162V
+x=6时：LDO输出2.271V
+x=7时：LDO输出2.375V
+x=8时：LDO输出2.493V
+x=9时：LDO输出2.607V
+x=10时：LDO输出2.719V
+x=11时：LDO输出2.831V
+x=12时：LDO输出2.942V
+x=13时：LDO输出3.054V
+x=14时：LDO输出3.165V
+x=15时：LDO输出3.177V
+</code></pre>
+<p>通过以上代码，可以把所有GPIO口配置成1.8V 电压。 输入检测状态 高于1.2V为高电平，低于0.6V为低电平。 电压域的对应关系请参考硬件手册。</p>
+<h2 id="GPIO输入"><a href="#GPIO输入" class="headerlink" title="GPIO输入"></a>GPIO输入</h2><p>大多数引脚在GPIO输入模式下可以配置成上拉或者非上拉状态，提供约50uA的高电平电流。</p>
+<pre><code>--配置GPIO0为上拉状态或非上拉状态
+
+PIO=0
+配置为上拉状态
+pio.pin.setpull(pio.PULLUP,PIO)
+配置为非上拉状态
+pio.pin.setpull(pio.NOPULL,PIO)
+</code></pre>
+<p>输入有两种方法进行检测</p>
+<h3 id="1-轮询法"><a href="#1-轮询法" class="headerlink" title="1.轮询法"></a>1.轮询法</h3><pre><code>--GPIO19配置为输入，可通过getGpio19Fnc()获取输入电平
+
+local getGpio19Fnc = pins.setup(19)
+
+sys.timerLoopStart(function()
+    log.info(&quot;testGpioSingle.getGpio19Fnc&quot;,getGpio19Fnc())
+end,1000)
+</code></pre>
+<p>以上代码含义为每秒查询一次GPIO19的状态，并打印出来，输入为高电平则显示1，低电平则显示0</p>
+<h3 id="2-中断法"><a href="#2-中断法" class="headerlink" title="2. 中断法"></a>2. 中断法</h3><pre><code>--先定义一个中断处理函数，这个函数必须在GPIO配置之前出现
+
+--GPIO13配置为中断输入状态
+function gpio13IntFnc(msg)
+    log.info(&quot;testGpioSingle.gpio13IntFnc&quot;,msg,getGpio13Fnc())
+    --上升沿中断
+    if msg==cpu.INT_GPIO_POSEDGE then
+    --下降沿中断
+    else
+    end
+end
+
+--GPIO13配置为中断，可通过getGpio13Fnc()获取输入电平，产生中断时，自动执行gpio13IntFnc函数
+getGpio13Fnc = pins.setup(13,gpio13IntFnc)
+</code></pre>
+<h2 id="GPIO输出"><a href="#GPIO输出" class="headerlink" title="GPIO输出"></a>GPIO输出</h2><p>配置GPIO输出使用以下语句</p>
+<pre><code>    local setGpio18Fnc = pins.setup(18,level)
+</code></pre>
+<p>其中level=0为高电平，level=1为低电平，以下代码为每秒钟变换一次GPIO18的电平状态</p>
+<pre><code>--GPIO18配置为输出，默认输出低电平，可通过setGpio18Fnc(0或者1)设置输出电平
+local setGpio18Fnc = pins.setup(pio.P0_18,0)
+sys.timerLoopStart(function()
+    level = level==0 and 1 or 0
+    setGpio18Fnc(level)
+    log.info(&quot;testGpioSingle.setGpio18Fnc&quot;,level)
+end,1000)
+</code></pre>
+<p>以上代码均为官方DEMO ，安装Luatools V2后会自动生成，存放目录为：</p>
+<p>LuatoolsV2\resource\8910_script\script_LuaTask_V2.3.0\demo\gpio\gpioSingle</p>
+<p>以下地址为DEMO下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://file.miuser.net/Luat/Air724/LuatDEMO/Air724DEMO_V0009.rar">https://file.miuser.net/Luat/Air724/LuatDEMO/Air724DEMO_V0009.rar</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/732/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/273/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

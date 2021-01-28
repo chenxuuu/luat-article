@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Cron定时执行库 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Cron定时执行库</h1>
+<article class="post markdown-style">
+  <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>直接上代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--新建cron对象</span></span><br><span class="line"><span class="keyword">local</span> c = cron.Cron()</span><br><span class="line"><span class="comment">--设置回调，不要让这个函数被阻塞</span></span><br><span class="line">c:SetCallBack(<span class="function"><span class="keyword">function</span> <span class="params">(_,name)</span></span></span><br><span class="line">    <span class="comment">--回调函数返回的是这个cron的唯一名称</span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;cron trigger&quot;</span>, name)</span><br><span class="line">    <span class="comment">--打印这个cron的配置</span></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;cron info&quot;</span>, name, c:Get(name))</span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line">sys.taskInit(<span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">    <span class="comment">--检查是否已经初始化（时间已同步）</span></span><br><span class="line">    <span class="comment">--如果是2g模块，记得同步时间</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> c:Initial() <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;initial&quot;</span>,<span class="string">&quot;waiting&quot;</span>)</span><br><span class="line">        sys.wait(<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;cron initial&quot;</span>, <span class="string">&quot;done&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">--每分钟执行一次</span></span><br><span class="line">    <span class="comment">--负号代表*/</span></span><br><span class="line">    <span class="comment">--Add: (name,min,day,mon,year,week)</span></span><br><span class="line">    <span class="comment">--名称必须为唯一值</span></span><br><span class="line">    <span class="comment">--时间参数均可为空，默认为-1</span></span><br><span class="line">    c:Add(<span class="string">&quot;test every 1 minute&quot;</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">--每两分钟执行一次</span></span><br><span class="line">    c:Add(<span class="string">&quot;test every 2 minutes&quot;</span>,<span class="number">-2</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">--每小时45分种时执行一次</span></span><br><span class="line">    c:Add(<span class="string">&quot;test at 45 minute&quot;</span>,<span class="number">45</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">--打印所有cron的配置</span></span><br><span class="line">    <span class="keyword">local</span> list = c:List()</span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">1</span>,#list <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;cron info&quot;</span>, list[i], c:Get(list[i]))</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><p>点我下载<a target="_blank" rel="noopener" href="https://1dv.papapoi.com/luat/lua%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81/moonscript/cron.lua">cron.lua</a></p>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p>本库使用moonscript编写，点我下载<a target="_blank" rel="noopener" href="https://1dv.papapoi.com/luat/lua%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81/moonscript/cron.moon">cron.moon</a>：</p>
+<figure class="highlight moon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--定时器组件</span></span><br><span class="line"><span class="built_in">module</span> ..., <span class="built_in">package</span>.seeall</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Cron</span></span></span><br><span class="line">    <span class="comment">--是否初始化完成</span></span><br><span class="line">    <span class="name">initial</span>: <span class="literal">false</span></span><br><span class="line">    <span class="comment">--待处理的事件篮子</span></span><br><span class="line">    <span class="name">basket</span>: &#123;&#125;</span><br><span class="line">    <span class="comment">--回调函数</span></span><br><span class="line">    <span class="name">cbFunc</span>: <span class="literal">nil</span></span><br><span class="line">    <span class="comment">--是否开启</span></span><br><span class="line">    <span class="name">enable</span>: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--检查时间是否匹配</span></span><br><span class="line"><span class="function">    <span class="title">check</span> = <span class="params">(set,time)</span>-&gt;</span></span><br><span class="line">        <span class="keyword">if</span> set &lt; <span class="number">0</span></span><br><span class="line">            <span class="keyword">return</span> time%(-set) == <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> set == time</span><br><span class="line"></span><br><span class="line">    <span class="comment">--循环执行检查，一分钟一次</span></span><br><span class="line">    <span class="name">run</span>: <span class="function">=&gt;</span></span><br><span class="line">        sys.taskInit -&gt;</span><br><span class="line">            <span class="built_in">next</span> = (<span class="built_in">os</span>.date <span class="string">&quot;*t&quot;</span>).sec</span><br><span class="line">            sys.wait (<span class="number">60</span>-<span class="built_in">next</span>)*<span class="number">1000</span></span><br><span class="line">            <span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">unless</span> @enable<span class="comment">--对象停止后结束任务</span></span><br><span class="line">                t = <span class="built_in">os</span>.date <span class="string">&quot;*t&quot;</span></span><br><span class="line">                <span class="keyword">for</span> i, v <span class="keyword">in</span> <span class="built_in">pairs</span> @basket</span><br><span class="line">                    <span class="keyword">if</span> (check v.min,t.min) <span class="keyword">and</span></span><br><span class="line">                        (check v.day,t.day) <span class="keyword">and</span></span><br><span class="line">                        (check v.mon,t.month) <span class="keyword">and</span></span><br><span class="line">                        (check v.year,t.year) <span class="keyword">and</span></span><br><span class="line">                        (check v.week,t.wday)</span><br><span class="line">                        @cbFunc i <span class="keyword">if</span> @cbFunc</span><br><span class="line">                <span class="built_in">next</span> = (<span class="built_in">os</span>.date <span class="string">&quot;*t&quot;</span>).sec</span><br><span class="line">                sys.wait (<span class="number">61</span>-<span class="built_in">next</span>)*<span class="number">1000</span><span class="comment">--+1s</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--定时器初始化</span></span><br><span class="line">    <span class="name">Initial</span>: <span class="function">=&gt;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span> <span class="keyword">if</span> @initial</span><br><span class="line">        <span class="comment">--开机后默认时间肯定是2020年之前</span></span><br><span class="line">        @initial = (<span class="built_in">os</span>.date <span class="string">&quot;*t&quot;</span>).year &gt;= <span class="number">2020</span></span><br><span class="line">        @run! <span class="keyword">if</span> @initial</span><br><span class="line">        @initial</span><br><span class="line"></span><br><span class="line">    <span class="comment">--新建对象后的事件</span></span><br><span class="line">    <span class="comment">--新建的时候顺带检查一下初始化状态</span></span><br><span class="line">    <span class="name">new</span>: <span class="function">=&gt;</span></span><br><span class="line">        @Initial!</span><br><span class="line"></span><br><span class="line">    <span class="comment">--设置回调函数</span></span><br><span class="line">    <span class="comment">--定时器触发后，会调用该函数</span></span><br><span class="line">    <span class="name">SetCallBack</span>: <span class="function"><span class="params">(func)</span> =&gt;</span></span><br><span class="line">        @cbFunc = func</span><br><span class="line"></span><br><span class="line">    <span class="comment">--添加要执行的cron事件</span></span><br><span class="line">    <span class="comment">--name为定时器名称，唯一值，不可重复</span></span><br><span class="line">    <span class="name">Add</span>: <span class="function"><span class="params">(name,min=<span class="number">-1</span>,hour=<span class="number">-1</span>,day=<span class="number">-1</span>,mon=<span class="number">-1</span>,year=<span class="number">-1</span>,week=<span class="number">-1</span>)</span> =&gt;</span></span><br><span class="line">        @basket[name] = &#123;:min,:hour,:day,:mon,:year,:week&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">--去掉cron事件</span></span><br><span class="line">    <span class="comment">--name为定时器名称，唯一值，不可重复</span></span><br><span class="line">    <span class="name">Del</span>: <span class="function"><span class="params">(name)</span> =&gt;</span></span><br><span class="line">        @basket[name] = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--查看cron事件配置</span></span><br><span class="line">    <span class="comment">--name为定时器名称，唯一值，不可重复</span></span><br><span class="line">    <span class="name">Get</span>: <span class="function"><span class="params">(name)</span> =&gt;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">unless</span> @basket[name]</span><br><span class="line">        @basket[name].min,@basket[name].day,@basket[name].mon,@basket[name].year,@basket[name].week</span><br><span class="line"></span><br><span class="line">    <span class="comment">--获取cron名称列表</span></span><br><span class="line">    <span class="name">List</span>: <span class="function">=&gt;</span></span><br><span class="line">        k = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">pairs</span> @basket</span><br><span class="line">            <span class="built_in">table</span>.insert k,i</span><br><span class="line">        k</span><br><span class="line"></span><br><span class="line">    <span class="comment">--销毁对象，停止所有定时器任务</span></span><br><span class="line">    <span class="name">Distory</span>: <span class="function">=&gt;</span></span><br><span class="line">        @enable = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/835/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/791/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>8、合宙Air模块Luat开发：基于官方库的二次封装，使串口更加易用 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">8、合宙Air模块Luat开发：基于官方库的二次封装，使串口更加易用</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><blockquote>
+<p>每次写博客最痛苦的事情就是把要讲的东西用小白都能听懂的方式描述一遍，所以我决定换一种方式来写这篇博客，不扯这些乱七八糟的东西，默认大家都在其他地方了解过什么是串口，这里只教怎么用</p>
+</blockquote>
+<ul>
+<li>串口通讯协议简介</li>
+</ul>
+<blockquote>
+<p>串口通讯(Serial Communication)是一种设备间非常常用的串行通讯方式，因为它简单便捷，大部分电子设备都支持该通讯方式，电子工程师在调试设备时也经常使用该通讯方式输出调试信息，因为Air720SL自有一个USB端口用于程序下载和log打印，所以这里主要是讲怎么和其他的单片机或者通讯，不建议用来打印调试信息。</p>
+</blockquote>
+<ul>
+<li>串口通讯的波特率</li>
+</ul>
+<blockquote>
+<p>串口通讯是一种异步通信，异步通讯中由于没有时钟信号，所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码。常见的波特率为9600、19200、115200等。</p>
+</blockquote>
+<ul>
+<li>通讯的起始和停止信号</li>
+</ul>
+<blockquote>
+<p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0的数据位表示，而数据包的停止信号可由 0.5、1、1.5或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
+</blockquote>
+<ul>
+<li>数据位长度</li>
+</ul>
+<blockquote>
+<p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度常被约定为 5、6、7或 8位长。</p>
+</blockquote>
+<ul>
+<li>数据校验</li>
+</ul>
+<blockquote>
+<p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差，可以在传输过程加上校验位来解决这个问题。校验方法有奇校验(odd)、偶校验(even)、0校验(space)、1校验(mark)以及无校验(noparity)。在无校验的情况下，数据包中不包含校验位。</p>
+</blockquote>
+<blockquote>
+<p>以上内容引用<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24550925/article/details/85335709">开源一小步的ESP32的两个UART实验</a>有兴趣的自行了解</p>
+</blockquote>
+<h1 id="二、Air720SL开发板硬件部分"><a href="#二、Air720SL开发板硬件部分" class="headerlink" title="二、Air720SL开发板硬件部分"></a>二、Air720SL开发板硬件部分</h1><ul>
+<li><p>查看硬件设计手册能够看到Air720Sl模组一共拥有两个串口，串口2为主串口，串口1为辅助串口<br><img src="https://img-blog.csdnimg.cn/2020030518115642.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200305181220854.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>官方的开发板用了一个开关，使开发板能够很方便的在一个usb口上实现串口1和串口2的切换<br><img src="https://img-blog.csdnimg.cn/20200305184058469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="三、编写驱动库函数"><a href="#三、编写驱动库函数" class="headerlink" title="三、编写驱动库函数"></a>三、编写驱动库函数</h1></li>
+<li><p>官方的串口驱动库可以通过订阅系统消息，产生中断来实现通知用户已经接收到数据，但是这个通知是硬件FIFO是从空到非空的时候产生中断，如果在中断到来的那一刻立即去读取可能会存在数据读取不完整。</p>
+</li>
+<li><p>串口会存在分包发送的现象，那么就需要用户自己实现整合多个数据包的内容。</p>
+</li>
+<li><p>官方的串口demo也给出了解决方案，就是利用数据包接收超时来判断系统有没有接受到完整的数据包，这样的话串口接收程序就显得比较复杂，用户需要考虑的东西比较多，用起来也不是很方便</p>
+</li>
+</ul>
+<blockquote>
+<p>我这里基于官方的demo进行了二次封装，采用回调通知的方式通知用户接收到了完整的数据包，提供的库函数包内部自整合的超时合包机制，以及延时读取机制，保证在通知用户的时候已经接收到完整的数据（如果出现通讯故障，是没法保证的）</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line">--- 模块功能：更加易用的串口</span><br><span class="line">-- @author CX</span><br><span class="line">-- @<span class="keyword">module</span></span><br><span class="line">-- @license MIT</span><br><span class="line">-- @copyright CX</span><br><span class="line">-- @release <span class="number">2020.02</span><span class="number">.13</span></span><br><span class="line"><span class="keyword">module</span>(..., package.seeall)</span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;clib&quot;</span></span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">-------------------------------函数说明---------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">--[[</span><br><span class="line">* @description: Uart初始化</span><br><span class="line">* @param</span><br><span class="line">----------uart_id            &#123;numble&#125; 串口号，可选<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">----------baud_rate          &#123;numble&#125; 波特率，可选<span class="number">1200</span>，<span class="number">2400</span>，<span class="number">4800</span>，<span class="number">9600</span>，<span class="number">10400</span>，<span class="number">14400</span>，<span class="number">19200</span>，<span class="number">28800</span>，<span class="number">38400</span>，<span class="number">57600</span>，<span class="number">115200</span>，<span class="number">230400</span>，<span class="number">460800</span>，<span class="number">921600</span></span><br><span class="line">----------data_bits          &#123;numble&#125; 数据位，<span class="number">7</span>或<span class="number">8</span></span><br><span class="line">----------parity             &#123;numble&#125; 校验位，可选uart.PAR_EVEN, uart.PAR_ODD或uart.PAR_NONE</span><br><span class="line">----------stop_bits          &#123;numble&#125; 停止位，可选uart.STOP_1，uart.STOP_2</span><br><span class="line">----------receive_cb         &#123;function&#125; 接收到数据回调函数，回调函数参数uid：接收到数据的串口id</span><br><span class="line">---------------------------------------------------------------------str：接收到的完整数据</span><br><span class="line">---------------------------------------------------------------------len：接收到的数据长度</span><br><span class="line">* @<span class="keyword">return</span>: 无</span><br><span class="line"></span><br><span class="line">function Uart_Init(uart_id, baud_rate, data_bits, parity, stop_bits, receive_cb)</span><br><span class="line">]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--[[</span><br><span class="line">* @description: 串口发送</span><br><span class="line">* @param</span><br><span class="line">----------uart_id            &#123;numble&#125; 串口号，可选<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">----------String             &#123;String&#125; 要发送的数据</span><br><span class="line">----------sent_cb            &#123;function&#125; 可选，数据发送成功回调函数，回调函数参数uid：发送成功的串口id，</span><br><span class="line">* @<span class="keyword">return</span>: 无</span><br><span class="line">function Uart_Sent(uart_id, String, sent_cb)</span><br><span class="line">]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--[[</span><br><span class="line">* @description: 串口关闭，释放占用的资源</span><br><span class="line">* @param</span><br><span class="line">----------uart_id   &#123;numble&#125; 串口号，可选<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">* @<span class="keyword">return</span>: 无</span><br><span class="line">function Uart_Close(uart_id)</span><br><span class="line">]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">-------------------------------下面都不要管了----------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">------------------------------------------------------------------------------------</span><br><span class="line">local Uart_Receive_Data = &#123;&#125;</span><br><span class="line">local Uart_Receive_cb = &#123;&#125;</span><br><span class="line">local Uart_Sent_cb = &#123;&#125;</span><br><span class="line">local Uart_Sent_Busy = &#123;&#125;</span><br><span class="line">local function Uart_Receive_timeout(uid)</span><br><span class="line">    local str = table.concat(Uart_Receive_Data[uid])</span><br><span class="line">    <span class="keyword">if</span> Uart_Receive_cb[uid] then</span><br><span class="line">        Uart_Receive_cb[uid](uid, str, <span class="meta">#str)</span></span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">local function Uart_Re_Notice(uid, ulength)</span><br><span class="line">    Uart_Receive_Data[uid] = &#123;&#125;</span><br><span class="line">    table.insert(Uart_Receive_Data[uid], uart.read(uid, <span class="number">1000</span>))</span><br><span class="line">    sys.timerStart(Uart_Receive_timeout, <span class="number">100</span>, uid)</span><br><span class="line">end</span><br><span class="line">local function Uart_Se_Notice(uid, ulength)</span><br><span class="line">    Uart_Sent_Busy[uid] = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">if</span> Uart_Sent_cb[uid] then</span><br><span class="line">        Uart_Sent_cb[uid](uid)</span><br><span class="line">    end</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;uart&quot;</span> .. uid .. <span class="string">&quot;send done&quot;</span>)</span><br><span class="line">end</span><br><span class="line">--[[</span><br><span class="line">* @description: Uart初始化</span><br><span class="line">* @param</span><br><span class="line">----------uart_id            &#123;numble&#125; 串口号，可选<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">----------baud_rate          &#123;numble&#125; 波特率，可选<span class="number">1200</span>，<span class="number">2400</span>，<span class="number">4800</span>，<span class="number">9600</span>，<span class="number">10400</span>，<span class="number">14400</span>，<span class="number">19200</span>，<span class="number">28800</span>，<span class="number">38400</span>，<span class="number">57600</span>，<span class="number">115200</span>，<span class="number">230400</span>，<span class="number">460800</span>，<span class="number">921600</span></span><br><span class="line">----------data_bits          &#123;numble&#125; 数据位，<span class="number">7</span>或<span class="number">8</span></span><br><span class="line">----------parity             &#123;numble&#125; 校验位，可选uart.PAR_EVEN, uart.PAR_ODD或uart.PAR_NONE</span><br><span class="line">----------stop_bits          &#123;numble&#125; 停止位，可选uart.STOP_1，uart.STOP_2</span><br><span class="line">----------receive_cb         &#123;function&#125; 接收到数据回调函数，回调函数参数uid：接收到数据的串口id</span><br><span class="line">---------------------------------------------------------------------str：接收到的完整数据</span><br><span class="line">---------------------------------------------------------------------len：接收到的数据长度</span><br><span class="line">* @<span class="keyword">return</span>: 无</span><br><span class="line">]]</span><br><span class="line">function Uart_Init(uart_id, baud_rate, data_bits, parity, stop_bits, receive_cb)</span><br><span class="line">    <span class="keyword">if</span> receive_cb == nil then</span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;CXUART&quot;</span>, <span class="string">&quot;Please fill in the receive data callback function!&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    end</span><br><span class="line">    Uart_Receive_cb[uart_id] = receive_cb</span><br><span class="line">    Uart_Sent_Busy[uart_id] = <span class="literal">false</span></span><br><span class="line">    pm.wake(<span class="string">&quot;mcuart&quot;</span>)</span><br><span class="line">    uart.setup(uart_id, baud_rate, data_bits, parity, stop_bits, nil, <span class="number">1</span>)</span><br><span class="line">    uart.on(uart_id, <span class="string">&quot;receive&quot;</span>, Uart_Re_Notice)</span><br><span class="line">    uart.on(uart_id, <span class="string">&quot;sent&quot;</span>, Uart_Se_Notice)</span><br><span class="line">end</span><br><span class="line">--[[</span><br><span class="line">* @description: 串口发送</span><br><span class="line">* @param</span><br><span class="line">----------uart_id            &#123;numble&#125; 串口号，可选<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">----------String             &#123;String&#125; 要发送的数据</span><br><span class="line">----------sent_cb            &#123;function&#125; 数据发送成功回调函数，可选</span><br><span class="line">* @<span class="keyword">return</span>: 无</span><br><span class="line">]]</span><br><span class="line">function Uart_Sent(uart_id, String, sent_cb)</span><br><span class="line">    <span class="keyword">if</span> Uart_Sent_Busy[uart_id] == <span class="literal">false</span> then</span><br><span class="line">        Uart_Sent_Busy[uart_id] = <span class="literal">true</span></span><br><span class="line">        Uart_Sent_cb[uart_id] = sent_cb</span><br><span class="line">        uart.write(uart_id, String)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;CXUART&quot;</span>, <span class="string">&quot;Device is busy, please try again later&quot;</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">--[[</span><br><span class="line">* @description: 串口关闭，释放占用的资源</span><br><span class="line">* @param</span><br><span class="line">----------uart_id   &#123;numble&#125; 串口号，可选<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">* @<span class="keyword">return</span>: 无</span><br><span class="line">]]</span><br><span class="line">function Uart_Close(uart_id)</span><br><span class="line">    uart.close(uart_id)</span><br><span class="line">    Uart_Receive_Data[uart_id] = nil</span><br><span class="line">    Uart_Receive_cb[uart_id] = nil</span><br><span class="line">    Uart_Sent_Busy[uart_id] = nil</span><br><span class="line">    Uart_Sent_cb[uart_id] = nil</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面直接给出了二次封装的库函数代码，使用者只需要新建一个文件，我这里是新建了一个<code>CXUART.lua</code>，具体新建什么文件，看心情自己定，然后将上面的代码全部复制放到文件中保存</p>
+</blockquote>
+<h1 id="四、编写测试程序并且下载测试程序到开发板"><a href="#四、编写测试程序并且下载测试程序到开发板" class="headerlink" title="四、编写测试程序并且下载测试程序到开发板"></a>四、编写测试程序并且下载测试程序到开发板</h1><blockquote>
+<p>这里我们直接贴出全部代码</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">--必须在这个位置定义PROJECT和VERSION变量</span><br><span class="line">--PROJECT：ascii <span class="built_in">string</span>类型，可以随便定义，只要不使用,就行</span><br><span class="line">--VERSION：ascii <span class="built_in">string</span>类型，如果使用Luat物联云平台固件升级的功能，必须按照<span class="string">&quot;X.X.X&quot;</span>定义，X表示<span class="number">1</span>位数字；否则可随便定义</span><br><span class="line">PROJECT = <span class="string">&quot;UART&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line">require <span class="string">&quot;sys&quot;</span></span><br><span class="line">--加载日志功能模块，并且设置日志输出等级</span><br><span class="line">--如果关闭调用<span class="built_in">log</span>模块接口输出的日志，等级设置为<span class="built_in">log</span>.LOG_SILENT即可</span><br><span class="line">require <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line">require <span class="string">&quot;CXUART&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">local function Test_Task()</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">log</span>.info(<span class="string">&quot;Test_Task_run&quot;</span>)</span><br><span class="line">        sys.wait(<span class="number">5000</span>)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function MyUart_receive_cb(uid, str, len)--串口接收回调函数</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;uart&quot;</span> .. uid .. <span class="string">&quot;:Len:&quot;</span> .. len)</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">&quot;uart&quot;</span> .. uid .. <span class="string">&quot;:str:&quot;</span> .. str)</span><br><span class="line">    CXUART.Uart_Sent(uid, str)--原封不动返回</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">local function user_main()</span><br><span class="line">    sys.taskInit(Test_Task)</span><br><span class="line">    sys.wait(<span class="number">5000</span>)</span><br><span class="line">    CXUART.Uart_Init(<span class="number">1</span>, <span class="number">9600</span>, <span class="number">8</span>, uart.PAR_NONE, uart.STOP_1, MyUart_receive_cb)  --串口<span class="number">1</span>初始化</span><br><span class="line">    CXUART.Uart_Init(<span class="number">2</span>, <span class="number">115200</span>, <span class="number">8</span>, uart.PAR_NONE, uart.STOP_1, MyUart_receive_cb)--串口<span class="number">2</span>初始化</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">--启动系统框架</span><br><span class="line">sys.taskInit(user_main)</span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载程序需要连同库函数文件一并下载<br><img src="https://img-blog.csdnimg.cn/20200305190517364.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</blockquote>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><h2 id="1、我提供的库函数"><a href="#1、我提供的库函数" class="headerlink" title="1、我提供的库函数"></a>1、我提供的库函数</h2><ul>
+<li><code>Uart_Init(uart_id, baud_rate, data_bits, parity, stop_bits, receive_cb)</code>–串口初始化</li>
+<li><code>Uart_Sent(uart_id, String, sent_cb)</code>–串口发送数据</li>
+<li><code>Uart_Close(uart_id)</code>–关闭串口，释放资源</li>
+</ul>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的第二篇博文<code>2、Air720SL模块Luat开发：第一个Luat的Hello World</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/708/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/706/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

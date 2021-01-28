@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Air720U&amp;724U&amp;722U Lua 固件更新说明 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Air720U&amp;724U&amp;722U Lua 固件更新说明</h1>
+<article class="post markdown-style">
+  <p><code>Lua固件更新说明如下：</code></p>
+<p>@<a href="%E7%9B%AE%E5%BD%95%E5%90%8D%E7%A7%B0">TOC</a></p>
+<ul>
+<li><strong>空间说明</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Luat二次开发使用的Flash空间有两部分：脚本区和文件系统区</span><br><span class="line"></span><br><span class="line">脚本区：</span><br><span class="line">通过Luatools烧写的所有文件，都存放在此区域</span><br><span class="line">非TTS版本为720KB，TTS版本为426KB；如果烧录时，超过此限制，Luatools会报错</span><br><span class="line">不同版本的core可能会有差异，以版本每次的更新记录为准</span><br><span class="line"></span><br><span class="line">文件系统区：</span><br><span class="line">程序运行过程中实时创建的文件都会存放在此区域</span><br><span class="line">总空间为1.2MB </span><br><span class="line">不同版本的core可能会有差异，可通过rtos.get_fs_free_size()查询剩余的文件系统可用空间</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Luat二次开发可用的ram空间有1.36MB</span><br><span class="line">可通过collectgarbage(&quot;count&quot;)查询已经使用的内存空间（返回值单位为KB）,总的1.36MB减去使用的内存，就是当前剩余的Lua运行可用内存</span><br></pre></td></tr></table></figure></li>
+<li><strong>底层固件功能列表</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>LCD</th>
+<th>字库</th>
+<th>图片</th>
+<th>扫码</th>
+<th>二维码生成</th>
+<th>摄像头</th>
+<th>TTS</th>
+<th>WIFI Scan</th>
+<th>蓝牙</th>
+<th>SD卡</th>
+<th>littleVGL</th>
+<th>VOLTE</th>
+<th>脚本文件</th>
+<th>文件系统空间</th>
+<th>RAM空间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Luat_RDA8910</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>720KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_FLOAT</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>720KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_TTS</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>426KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_TTS_FLOAT</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>426KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_TTS_NOLVGL</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>426KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_TTS_NOVOLTE_FLOAT</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>426KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_TTS_NOLVGL_FLOAT</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>426KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+<tr>
+<td>Luat_RDA8910_BT_FLOAT</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>720KB</td>
+<td>1.3MB</td>
+<td>1.36MB</td>
+</tr>
+</tbody></table>
+<h3 id="底层core下载地址"><a href="#底层core下载地址" class="headerlink" title="底层core下载地址"></a>底层core下载地址</h3><ul>
+<li>最新版本：<ul>
+<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201030145113567_core_V0022.zip">CORE_V0022</a></li>
+</ul>
+</li>
+<li>历史版本：<ul>
+<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20210113175605790_CORE_V0019.rar">CORE_V0019</a></li>
+</ul>
+</li>
+</ul>
+<p><code>注：  .pac后缀的是本地烧录固件； .bin后缀的是空中升级文件</code></p>
+<h3 id="上层软件下载地址"><a href="#上层软件下载地址" class="headerlink" title="上层软件下载地址"></a>上层软件下载地址</h3><ul>
+<li>最新版本：<br><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20210127105045913_script_LuaTask_V2.3.7.zip">上层软件LuaTask_V2.3.7（demo+lib)</a> </li>
+<li>历史版本：</li>
+<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201222164107696_script_LuaTask_V2.3.6.zip">上层软件LuaTask_V2.3.6（demo+lib）</a></li>
+<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20201030144159021_script_LuaTask_V2.3.5.zip">上层软件LuaTask_V2.3.5（demo+lib）</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openLuat/Luat_4G_RDA_8910/tree/master/script_LuaTask">上层软件LuaTask _V2.3.4  (demo+lib)</a></li>
+</ul>
+<hr>
+<h3 id="底层core固件更新说明"><a href="#底层core固件更新说明" class="headerlink" title="底层core固件更新说明"></a>底层core固件更新说明</h3><ul>
+<li><p><strong>0022底层固件更新说明</strong><br>1:添加rtos.setTransData<br>2:添加Socket Options参数设置接口sock_setopt,lua通过设置opt实现保活功能<br>3:添加AT+TCPUSERPARAM<br>4:新接口接口lua otp接口<br>5:支持关机充电功能 ，lua项目打开充电开机功能<br>6:添加des_encrypt和des_decrypt接口<br>7:添加AT*USB=HOTPLUG,0/1</p>
+</li>
+<li><p><strong>0019底层固件更新说明</strong><br>1:升级到19<br>2:支持应用层更新audio校准参数<br>3:开发通用工厂测试<br>4:同时建大于3路ssl tcp时会死机<br>5:升级到W20.30.1<br>6:多中断设置后触发中断会导致死机<br>7:vbus插入消息上报<br>8:耳机通道等级3的音量不正常<br>9:8910平台LUA版本增加读取客户版本号的AT指令，兼容之前1802平台的“AT+LUAINFO?”<br>10:NAT PPP拨号之后无法PING外网<br>11:添加GPIO 测试AT 命令<br>12:阿里云OTA升级失败<br>13:重启开机原因值不对的问题<br>14:解决speex流播放出现的死机问题<br>15:修改注网太快，lua task还没跑起来的时候就已经注册上网，会有很多主动上报丢掉的问题<br>16:ui字库错位，显示出来的文字不正确<br>17:ui分辨率设置为320会重启<br>18:添加camera 预览放缩和反转接口<br>19:使用充电头供电，1s刷新界面，一段时间后不刷新了<br>20:mqtt 挂测死机<br>21:1. 添加VGA拍照功能，不支持VGA扫码<br>22:无法dhcp 获取IP 问题<br>23:添加disp.camerawritereg，设置camera sensor的寄存器<br>24:模块下载断电变砖<br>25:camera 户外拍照很白的问题<br>26:添加nv项，控制usbrst中的延时时间，AT*USB=RSTDELAY,xxx<br>27:有些主控开机太慢导致识别不到模块的usb<br>28:V0018 wifi扫描得到的ap mac地址有的丢了0<br>29:fota升级后,升级文件没有清除，导致文件系统空间变少<br>30:修改反复open / close uart会内存泄漏的问题<br>31:修改注网太快，lua task还没跑起来的时候就已经注册上网，会有很多主动上报丢掉的问题</p>
+</li>
+</ul>
+<hr>
+<h3 id="上层脚本更新说明"><a href="#上层脚本更新说明" class="headerlink" title="上层脚本更新说明"></a>上层脚本更新说明</h3><ul>
+<li><p><strong>2.3.7上层脚本更新说明</strong><br>发布时间：2021/01/27 09:50<br>修改记录：<br>  一、lib脚本修改<br>lib脚本版本号：2.3.7<br>(1)mqtt.lua：修正“subscribe订阅，服务器返回订阅失败时，代码逻辑无法检测到失败”的问题<br>(2)aLiYun.lua：支持最新的阿里云公共实例和企业版示例的MQTT直连方式<br>(3)audio.lua：新增“设置mic增益”的功能接口audio.setMicGain<br>(4)audio.lua：支持“audio.setChannel接口设置输入mic通道”的功能<br>(5)patch.lua：修正“2.3.6版本中spi.send_recv接口，接收不到数据”的问题<br>  二、demo脚本修改<br>(1)i2c：新增mpu6xxx、aht10驱动文件<br>(2)rtmp：新增rtmp demo<br>(3)aLiYun：公共实例和企业版示例的MQTT直连方式demo<br>(4)call：新增mic增益设置功能演示<br>(5)call：新增mic增益设置和mic通道选择功能演示<br>(6)txiot：新增腾讯云demo<br>(7)modbus：新增modbus demo<br>(8)bluetooth：新增beacon功能演示</p>
+</li>
+<li><p><strong>2.3.6上层脚本更新说明</strong><br>发布时间：2020/12/22 10:45<br>修改记录：<br>  一、lib脚本修改<br>lib脚本版本号：2.3.6<br>(1)audio.lua：支持“多mp3文件拼接播放”功能<br>(2)http.lua：支持HEAD操作<br>(3)sys.lua：修正“某个task中如果有sys.waitUntil，并且这个task循环的创建和销毁，造成内存泄漏”的问题<br>(4)net.lua:修正“core升级为0022之后，2g卡不能上网”的问题<br>(5)aLiYun.lua：mqtt直连方式，增加获取username和password的函数设置功能<br>  二、demo脚本修改<br>(1)bluetooth：新增蓝牙demo，需要配合Luat_V3开头的core固件才能使用，此类core固件还没有发布<br>(2)crypto：新增des和des3功能示例<br>(3)ftp：新增ftp demo</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>2.3.5上层脚本更新说明</strong><br>1:aLiYun.lua：新增setConnectMode接口，可设置为MQTT-TCP直连模式、直连域名、直连端口、clientid生成规则<br>2：aLiYun.lua：新增setRegion接口，可设置地域id<br>3：aLiYun.lua：支持连接状态下的主题订阅功能<br>4：audio.lua：play接口支持一次传入多文件连续拼接播放功能<br>5：nvm.lua：init接口支持“本地烧录软件时是否擦除nvm中已有的参数”功能<br>6：cc.lua：修正“通话中发送dtmf失败”的问题<br>7：net.lua：修正“core概率性不上报^MODE: %d,%d，导致网络逻辑异常”的问题<br>8：gpsZkw.lua、agpsZkw.lua：支持Air820UX系列模块的gps以及agps功能</p>
+</li>
+<li><p><strong>2.3.2上层脚本更新说明</strong><br>发布时间：2020/05/31 10:10<br>修改记录：<br>  一、lib脚本修改<br>  lib脚本版本号：2.3.2<br>  (1)scanCode：支持摄像头拍照和扫码功能<br>  (2)record：支持流式录音功能<br>  (3)wifiScan：支持wifi热点扫描功能<br>  (4)audio：支持通话音量调节功能<br>  (5)http：修正“transfer-encoding区分大小写导致的chunk编码数据无法正常解析”的问题<br>  二、demo脚本修改<br>  (1)完善或者支持camera、record、wifi、audio、call demo</p>
+</li>
+</ul>
+<ul>
+<li><strong>2.3.1上层脚本更新说明</strong><br>发布时间：2020/05/04 22:48<br>修改记录：<br>  一、lib脚本修改<br>  lib脚本版本号：2.3.1<br>  (1)audio.lua：修正“TTS速度设置错误”的问题<br>  (2)record.lua：新增录音功能<br>  二、demo脚本修改<br>  (1)alarm：新增闹钟demo<br>  (2)record：新增录音demo</li>
+</ul>
+<ul>
+<li><strong>2.3.0上层脚本更新说明</strong><br>发布时间：2020/04/23 15:03<br>修改记录：<br>  一、lib脚本修改<br>  lib脚本版本号：2.3.0<br>  (1)audio.lua：新增audio.setChannel接口，可以设置音频输出通道</li>
+</ul>
+<ul>
+<li><strong>2.2.9上层脚本更新说明</strong><br>发布时间：2020/04/11 23:43<br>修改记录：<br>  lib脚本版本号：2.2.9<br>  (1)支持tts、call功能<br>  (2)添加GPIO ldo电压域的控制说明<br>  (3)修改开发板默认netLed的控制方式，ldo电压域的控制放到main.lua去控制，不再写在netLed.lua中去控制</li>
+</ul>
+<ul>
+<li><strong>2.2.8上层脚本更新说明</strong><br>发布时间：2020/04/09 23:37<br>修改记录：<br>  lib脚本版本号：2.2.8<br>  (1)支持ui、audio、qrcode功能<br>  (2)修正“部分sim卡无法触发上网逻辑”的问题<br>  (3)修正“网络指示灯不亮”的问题</li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1349/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1277/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

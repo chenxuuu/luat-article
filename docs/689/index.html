@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>1、合宙Air模块Luat开发：环境搭建 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">1、合宙Air模块Luat开发：环境搭建</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<blockquote>
+<p>本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。</p>
+</blockquote>
+<blockquote>
+<p>先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获<br>我使用的是Air720SL模块，如果在其他模块上不能用，那就是底层core固件暂时还没有支持，这里的代码是没有问题的。例程仅供参考！</p>
+</blockquote>
+<h1 id="一、环境搭建前准备"><a href="#一、环境搭建前准备" class="headerlink" title="一、环境搭建前准备"></a>一、环境搭建前准备</h1><h2 id="1、准备硬件"><a href="#1、准备硬件" class="headerlink" title="1、准备硬件"></a>1、准备硬件</h2><blockquote>
+<p>为了避免不必要的麻烦，这里我选用的是合宙商城推出的的Air720SL开发板。<br>相比720x系列，720sl开发板内置了一张esim卡，不需要自己在另外购买物联卡，<br>该开发板在淘宝和合宙商城都有出售。价格199软妹币，还可以接受。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200212204008504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="Air720SL开发板"></p>
+<ul>
+<li>淘宝链接：<a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-22403489719.51.3d727118bUwz0j&id=610853578601">淘宝购买点我</a></li>
+<li>合宙商城：<a target="_blank" rel="noopener" href="http://m.openluat.com/product/1192">商城购买点我</a>，也可关注合宙的微信公众号自行购买</li>
+</ul>
+<h2 id="2、准备软件"><a href="#2、准备软件" class="headerlink" title="2、准备软件"></a>2、准备软件</h2><ul>
+<li>Windows USB驱动下载：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/AirM2M_USB_Download&Com_Driver_for_4G_V1.0.0.4.7z">点我</a></li>
+<li>Luat下载调试工具1.6.4：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/LuaTools%201.6.4_4G.7z">点我</a></li>
+<li>底层软件CORE V0008：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802s/core_V0008.zip">点我</a></li>
+<li>上层软件luaTask V2.2.7 (Demo + Lib)：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/asr1802/script_LuaTask_V2.2.7.zip">点我</a></li>
+</ul>
+<blockquote>
+<p>上面4个链接全部下载，如下图所示<br><img src="https://img-blog.csdnimg.cn/20200212210602349.png" alt="在这里插入图片描述"><br>全部解压</p>
+</blockquote>
+<h1 id="二、开始环境搭建"><a href="#二、开始环境搭建" class="headerlink" title="二、开始环境搭建"></a>二、开始环境搭建</h1><blockquote>
+<h2 id="1、安装驱动"><a href="#1、安装驱动" class="headerlink" title="1、安装驱动"></a>1、安装驱动</h2><p> 打开解压后的AirM2M_USB_Download&amp;Com_Driver_for_4G_V1.0.0.4<br> <img src="https://img-blog.csdnimg.cn/20200212211006986.png" alt="在这里插入图片描述"><br> 根据自己的操作系统位数，选中安装程序，如下图所示。<br> 基于x64那就选择DrvInstaller_x64安装<br> 基于x86那就选择DrvInstaller安装<br> 我这里电脑是64位的，所以选择DrvInstaller_x64安装程序<br> <img src="https://img-blog.csdnimg.cn/20200212211325596.png" alt="在这里插入图片描述"><br> 安装成功后将开发板插上电脑，将开关拨到On，并且按下开机键，稍等一会正常情况下，开发板三个灯都会正常亮起，并伴随着闪烁<br> <img src="https://img-blog.csdnimg.cn/20200212212145553.png" alt="在这里插入图片描述">&gt;<img src="https://img-blog.csdnimg.cn/20200212212058300.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200212213241185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p> 打开，设备管理器查看端口，是否有如下三个设备，如果没有，那就是驱动没有安装成功，回去重新安装驱动<br> <img src="https://img-blog.csdnimg.cn/20200212212243174.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<p>**注意：如果是win10系统，需要禁用驱动程序强制签名，否则安装失败，自行百度相关教程这里不多做赘述</p>
+<h2 id="2、下载底层软件"><a href="#2、下载底层软件" class="headerlink" title="2、下载底层软件"></a>2、下载底层软件</h2><p> 开发板出厂自带AT固件，我们需要的是Luat二次开发，所以需要替换底层固件</p>
+<blockquote>
+<p>打开解压后的LuaTools<br><img src="https://img-blog.csdnimg.cn/20200212212708156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择运行LuaTools.exe，可能会自动更新，允许即可，等待片刻<br><img src="https://img-blog.csdnimg.cn/20200212212944418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择右上角绿色图标下载CORE(.blf)<img src="https://img-blog.csdnimg.cn/20200212213333976.png" alt="在这里插入图片描述">打开后如下图所示<br><img src="https://img-blog.csdnimg.cn/2020021221342430.png" alt="在这里插入图片描述"><br>选择浏览文件，选中打开刚才下载的底层固件core_V0008里面的Luat_V0008_ASR1802S中的Luat_V0008_ASR1802S.blf。还有一个Float版本是支持小数运算的，运行会占用更多ram，我们暂时不需要进行小数运算，所以选则正常版本<br><img src="https://img-blog.csdnimg.cn/20200212213606704.png" alt="在这里插入图片描述"><br>去掉勾选的usb_boot，Air720sl支持usb_boot下载，但是可能是我的操作原因，失败率相对较高，用起来很不方便，这里推荐去掉usb_boot，然后点击下载<br><img src="https://img-blog.csdnimg.cn/20200212213921600.png" alt="在这里插入图片描述"><br>只需按一下开发板上的重启按钮即可<img src="https://img-blog.csdnimg.cn/20200212214015907.png" alt="在这里插入图片描述">就是下面的那一个红色按钮，这时开发板会进入下载状态，不要有任何操作，等待下载完成即可<br><img src="https://img-blog.csdnimg.cn/20200212214116698.png" alt="在这里插入图片描述"><br>关闭下载窗口，发现主窗口，上面的状态已经由AT变成了Luat，软件版本也不一样了<br><img src="https://img-blog.csdnimg.cn/20200212214236967.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20200212214224975.png" alt="在这里插入图片描述"><br>到此为止，Luat开发环境搭建完成</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/690/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/22/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

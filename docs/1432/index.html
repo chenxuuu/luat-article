@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Erlang学习笔记/快速入门 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Erlang学习笔记/快速入门</h1>
+<article class="post markdown-style">
+  <h1 id="Erlang学习笔记-快速入门"><a href="#Erlang学习笔记-快速入门" class="headerlink" title="Erlang学习笔记/快速入门"></a>Erlang学习笔记/快速入门</h1><p>Erlang比较神秘，小众。函数式编程。主要适用于服务器端长连接、高并发处理，最初是爱立信针对电信系统专门设计，公认很稳定、容错好，广泛用于通信系统。</p>
+<p>据说很多思想现在看来非常超前并且仍然超前并且不会过时。</p>
+<p>各种原因导致不流行（函数式编程不直观，思维方式跟主流语言有差别，不善推广等）</p>
+<p>Whatsapp用了大量erlang</p>
+<p>国内有很多网游公司用了erlang。阿里内部有用（<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/46442333%EF%BC%89%E3%80%82">https://www.zhihu.com/question/46442333）。</a></p>
+<p>我们常用的rabbitmq和emq都是erlang做的。</p>
+<p>看下来至少在保持住大量长连接方面比较靠谱，还天生支持”协程“、集群、分布式。内置分布式数据库。</p>
+<p>有必要学习一下。可能在一些基础应用上省些力气。</p>
+<p>语法、思想确实需要适应。有的写法非常简明，有的写法就像数学公式，非常优美，比如三五行代码就可以实现一个简单的快速排序。</p>
+<hr>
+<h4 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h4><p>Programming Erlang.2Ed<br>erlang发明者的书</p>
+<p>Designing for Scalability with ErlangOTP Implement Robust, Fault-Tolerant Systems<br>深入学习。otp等。</p>
+<p>Erlang and OTP in Action<br>otp</p>
+<p>Introducing Erlang Getting Started in Functional Programming<br>内容少。可快速学习或当作参考</p>
+<p>learn_you_some_erlang_for_great_good<br>结构类似第一本。可作参考。</p>
+<hr>
+<h4 id="安装erlang运行环境"><a href="#安装erlang运行环境" class="headerlink" title="安装erlang运行环境"></a>安装erlang运行环境</h4><p><a target="_blank" rel="noopener" href="https://www.erlang.org/downloads">https://www.erlang.org/downloads</a><br>官网下载erlang环境。目前版本是OTP 23。安装后可用erlang shell直接编译和运行erlang代码。</p>
+<p>简单的命令可用erlang shell。<br>复杂的可用ide。后续会介绍。</p>
+<p><a target="_blank" rel="noopener" href="https://www.erlang.org/">https://www.erlang.org/</a>  官网<br><a target="_blank" rel="noopener" href="https://erldocs.com/">https://erldocs.com/</a>     在线文档</p>
+<p>windows环境变量path里添加erlang的bin目录</p>
+<hr>
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><ul>
+<li><p>注释<br>%号后面是注释</p>
+</li>
+<li><p>句号<br>命令结束时用英文句号.结尾。<br>X = 20.</p>
+</li>
+<li><p>变量<br>大写字母或_开头的字符串表示一个变量。变量只能赋值（绑定）一次。之后不能再赋值，否则报错。<br>X = 20. % 绑定了20<br>如果再输X = 20.会报错</p>
+</li>
+<li><p>atom<br>小写字母开头的字符串。可以看作一个标签。常用于各种匹配。</p>
+</li>
+<li><p>多元组tuple<br>P = {2, gg, {name, 3} }.<br>PP = {k, P}<br>可嵌套。其中gg, name, k都是atom。P, PP是tuple变量，绑定了相应的值。<br>可以反向取出tuple中的值。<br>{P1, P2, P3} = P. % 这样P1绑定了2，P2绑定了gg，<br>P3绑定了{name, 3}</p>
+</li>
+<li><p>列表List。跟数组一个意思，可存数字，atom，tuple，list等。<br>A = [{a, 2}, 3, b]</p>
+</li>
+<li><p>取出list中的数据<br>可以用[HEAD|TAIL]的形式去匹配list。|左边的HEAD会匹配开头的一个元素，TAIL会匹配剩下的list。<br>例如<br>L = [1,2,3,4,5,6].<br>[L1|L2] = L. % L1为1，L2为[2,3,4,5,6]。注意L2还是一个list<br>[L3,L4|L5] = L. % L3为1，L4为2，L5为[3,4,5,6]。</p>
+</li>
+<li><p>字符串<br>Name = “Shagua”. % 绑定字符串<br>[83,117,114,112,114,105,115,101]. % 会输出”Surprise”<br>B = “信仰” % 会输出[20449,20208]<br>这里会有各种转换，默认貌似是utf8编码。</p>
+</li>
+<li><p>模式匹配<br>erlang里充满了匹配。<br>{X, abc} = {123, abc}. % 成功 X绑定了123<br>{A, B, C} = {1, 2, “ggg”}. % 成功<br>{AA, BB, CC} = { {aa, a}, bb, “cc”}. % 成功<br>{AAA, BBB} = {“a”, “b”, cc}. % 失败 ”形状“不一致<br>[H|T] = [1,2,3,4]. % 成功 H=1， T= [2,3,4]<br>[A, B, C | T] = [a, b, c, d, e, f]. % 成功 A = a, B = b, C = c, T = [d, e, f]<br>{GG, abc} = {123, gg}. % 失败 abc和gg两个atom匹配不了</p>
+</li>
+</ul>
+<hr>
+<h4 id="模块和函数"><a href="#模块和函数" class="headerlink" title="模块和函数"></a>模块和函数</h4><h5 id="开始用ide"><a href="#开始用ide" class="headerlink" title="开始用ide"></a>开始用ide</h5><p>ide用intellij idea社区版。<br><a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/download/">https://www.jetbrains.com/idea/download/</a></p>
+<p>ide的erlang插件。本来可以在ide里装，但是被墙。只能下载后本地安装。<br><a target="_blank" rel="noopener" href="https://github.com/ignatov/intellij-erlang">https://github.com/ignatov/intellij-erlang</a></p>
+<p>打开ide，配置plugin，选从硬盘安装上面的插件。</p>
+<p>新建erlang项目，src目录下新建Erlang File，选Empty module，指定模块名test。看到有几行默认代码。</p>
+<p>改一下代码。</p>
+<p>-module(test). 指定这个erlang模块名字是test</p>
+<p>-export([gg/0]). 表示这个模块会暴露一个接口gg，斜杠后面是参数个数，0就是0个参数。</p>
+<p>gg()-&gt;<br>    io:format(“gg~n”).</p>
+<p>定义一个函数gg，没有参数。<br>io是erlang自带的io库。format可打印字符。~n是换行。</p>
+<p>ide里run。看到打印出gg。这样环境就ok了。</p>
+<p>以后每次新学一个内容可以新建一个module，在ide中右键recompile，然后在test中调用。<br>也可以盯着一个module改代码。</p>
+<h5 id="run的配置"><a href="#run的配置" class="headerlink" title="run的配置"></a>run的配置</h5><p>打开Edit Configuration，可修改运行配置。<br>可以看到Module and function 默认生成了test gg。<br>即运行test模块的gg函数。<br>以后要运行多个模块多个函数的话需要自行添加和修改这个config。</p>
+<h5 id="函数的例子1："><a href="#函数的例子1：" class="headerlink" title="函数的例子1："></a>函数的例子1：</h5><pre><code>-module(geometry).
+-export([area/1]).
+area(&#123;rectangle, Width, Height&#125;) -&gt; 
+    Width * Height;
+area(&#123;square, Side&#125;) -&gt; 
+    Side * Side.
+</code></pre>
+<p>同样的函数名area有两个，参数的匹配模式不一样，可以共存。注意中间是用;分隔的。</p>
+<p>调用方式：</p>
+<pre><code>A = area(&#123;rectangle, 3, 4&#125;).
+</code></pre>
+<p>会匹配第一个定义(两个rectangle匹配)</p>
+<pre><code>B = area(&#123;square, 12&#125;).
+</code></pre>
+<p>会匹配第二个定义(两个square匹配)</p>
+<p>可以进行扩展</p>
+<pre><code>area(&#123;circle, Radius&#125;) -&gt; 3.14159 * Radius * Radius.
+</code></pre>
+<h5 id="函数的例子2："><a href="#函数的例子2：" class="headerlink" title="函数的例子2："></a>函数的例子2：</h5><p>erlang没有直接的循环。可以这样做一个循环：</p>
+<pre><code>for(Max, Max, F) -&gt; [F(Max)];
+for(I, Max, F) -&gt; [F(I)|for(I+1, Max, F)].
+</code></pre>
+<p>从第二个函数开始。对I调用F，作为list的第一个元素，再把I+1，再次调for，把返回接到list后面。<br>如果I增加到与Max相同，则匹配到第一个for，返回F(I)。<br>这样实现了对I到Max都调用F，把结果组成一个list。</p>
+<h5 id="函数的例子3："><a href="#函数的例子3：" class="headerlink" title="函数的例子3："></a>函数的例子3：</h5><pre><code>sum([H|T]) -&gt; H + sum(T);
+sum([]) -&gt; 0. 
+</code></pre>
+<p>非空list匹配第一个sum，取出第一个元素H，对于list后续部分调用sum，最后返回两者的和。<br>到最后T为空时，返回0，全过程结束。<br>这样实现了求list的和。</p>
+<h5 id="函数的例子4："><a href="#函数的例子4：" class="headerlink" title="函数的例子4："></a>函数的例子4：</h5><p>list可以做这样的变换</p>
+<pre><code>L = [1,2,3,4,5].
+[2*X || X &lt;- L ].     % [2,4,6,8,10]
+</code></pre>
+<p>这样可以对list每个元素进行操作，得到新的list。</p>
+<pre><code>qsort([]) -&gt; [];
+qsort([Pivot|T]) -&gt;
+    qsort([X || X &lt;- T, X &lt; Pivot])
+    ++ [Pivot] ++
+    qsort([X || X &lt;- T, X &gt;= Pivot]).
+</code></pre>
+<p>这个例子实现快速排序。快速排序主要思想时分而治之。简单说是取数组中一个元素A，把比它小的放左边，把比它大的放右边，这样A的位置必然是正确的，然后把左右部分都这样递归操作下去，最后就能排好序。<br>当然这里只是一个简单的实现，现实实现要考虑各种情况、初始化数据，如何取A等。</p>
+<p>[Pivot|T] 这个参数就把第一个元素当作了标点。其余的为T<br>1.<code>[X || X &lt;- T, X &lt; Pivot]</code> 把T中所有小于Pivot的元素做成一个list，并对其qsort。<br>2.<code>[Pivot]</code><br>3.<code>[X || X &lt;- T, X &gt;= Pivot]</code> 把T中所有大于Pivot的元素做成一个list，并对其qsort。<br>把123接起来就得到了排好序的list。</p>
+<hr>
+<h4 id="case功能"><a href="#case功能" class="headerlink" title="case功能"></a>case功能</h4><p>就是根据匹配，分情况处理。</p>
+<pre><code>case Expression of
+    Pattern1 -&gt; Expr_seq1;
+    Pattern2 -&gt; Expr_seq2;
+    ...
+end
+
+
+fall_velocity(Planemo, Distance) -&gt;
+    case Planemo of
+        earth -&gt; math:sqrt(2 * 9.8 * Distance);
+        moon -&gt; math:sqrt(2 * 1.6 * Distance);
+        mars -&gt; math:sqrt(2 * 3.71 * Distance) % no closing period!
+    end.
+</code></pre>
+<hr>
+<h3 id="二进制数据和位操作"><a href="#二进制数据和位操作" class="headerlink" title="二进制数据和位操作"></a>二进制数据和位操作</h3><p>&lt;&lt;5,10,20&gt;&gt;.<br>双尖括号包起来就是字节串。里面每个元素值必须在0-255之间。否则会被截取后8位。</p>
+<p>按位拼字节<br>X = 1.<br>Y = 2.<br>Z = 233.<br>MM = &lt;&lt;X:3, Y:1, Z:2&gt;&gt;.<br>MM. % 得到 &lt;&lt;9:6&gt;&gt;</p>
+<p>XYZ分别取最后3位1位2位再接起来得到1001即9。6bit。</p>
+<p>FF = &lt;&lt;X:3, Y:1, Z:5&gt;&gt;.<br>FF. % 得到&lt;&lt;36,1:1&gt;&gt;<br>233 = 0b11101001，最后5位拿出来。前四位拼到前一个字节，最后剩一个1。<br>0b00100100,0b1</p>
+<p>按位取字节<br>&lt;&lt;A:5, B:1, C:3&gt;&gt; = FF.<br>A得到0b00100。B得到0b1。C得到0b1<br>取的时候总长度要匹配，否则报错。</p>
+<p>解析和拼装协议数据可能会非常方便。</p>
+<p>其他复杂用法。。</p>
+<hr>
+<h3 id="Erlang进程"><a href="#Erlang进程" class="headerlink" title="Erlang进程"></a>Erlang进程</h3><p>process是erlang的核心概念，erlang的进程是在erlang虚拟机层面实现的，不是操作系统层面的进程。可与协程类比。</p>
+<p>shell里输入self().<br>返回&lt;0.102.0&gt;这样的数据，为当前进程的标识，即Pid。</p>
+<h5 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念:"></a>基本概念:</h5><p>process的创建和销毁非常快<br>process间传消息非常快<br>process跨平台，在所有平台表现一致<br>可以同时存在大量的process<br>process不共享内存，是完全独立的。<br>process间通信的唯一方式是传消息</p>
+<h5 id="基本操作1："><a href="#基本操作1：" class="headerlink" title="基本操作1："></a>基本操作1：</h5><p>创建一个process，使用Mod模块的Func函数，参数为Args。返回Pid</p>
+<pre><code>Pid = spawn(Mod, Func, Args).
+</code></pre>
+<h5 id="基本操作2："><a href="#基本操作2：" class="headerlink" title="基本操作2："></a>基本操作2：</h5><p>发Message给Pid</p>
+<pre><code>Pid ! Message.
+</code></pre>
+<h5 id="基本操作3："><a href="#基本操作3：" class="headerlink" title="基本操作3："></a>基本操作3：</h5><p>收数据</p>
+<pre><code>receive
+    Pattern1 -&gt;
+        Expressions1;
+    Pattern2 -&gt;
+        Expressions2;
+    ...
+end
+</code></pre>
+<p>现在可以做一个简单的服务。</p>
+<p>起一个server.erl</p>
+<pre><code>-module(server).
+-author(&quot;xc&quot;).
+
+-export([loop/0]).                            % 导出loop接口
+
+loop()-&gt;
+    io:format(&quot;loop~n&quot;),
+    receive                                   % 接收数据
+        &#123;From, &#123;rectangle, Width, Height&#125; &#125;-&gt;  % 匹配长方形参数
+            From ! Width * Height,            % 发送结果到From
+            loop();                           % 再次开始收数据。通常这样递归会不断消耗栈空间，最后溢出。erlang有尾递归优化，不会重复消耗栈。
+        &#123;From, &#123;circle, R&#125; &#125;-&gt;                 % 匹配圆形参数
+            io:format(&quot;circle~n&quot;),
+            From ! 3.14159 * R * R,
+            loop();
+        &#123;From, Other&#125;-&gt;                       % 匹配其他
+            From ! &#123;error, Other&#125;,
+            loop()
+    after 5000 -&gt;                             % 5秒超时会走到这里
+        io:format(&quot;timeout 1~n&quot;),
+        loop()
+    end.
+</code></pre>
+<p>起一个test.erl，启动server的loop，并给它发消息。</p>
+<pre><code>-module(test).
+-author(&quot;xc&quot;).
+
+-export([test_1/0]).                     % 导出test_1接口
+-import(server, [loop/0]).               % 导入loop接口
+
+test_1 ()-&gt;
+    Pid = spawn(server, loop, []),       % 创建一个process，运行server模块的loop函数。得到Pid
+    Pid ! &#123;self(), &#123;circle, 12&#125; &#125;,        % 发消息给Pid。消息是&#123;自身Pid, &#123;circle, 12&#125; &#125;，匹配到loop中的&#123;From, &#123;circle, R&#125; &#125;
+    receive
+        Result -&gt;
+            io:format(&quot;~p~n&quot;, [Result])
+        after 3000-&gt;
+            io:format(&quot;after 3000&quot;)
+    end.
+</code></pre>
+<p>可以把某个pid和atom绑定，变的好读好找。以后直接给这个atom发消息就行了。</p>
+<pre><code>Pid1 = spawn(bounce,report,[1]).
+register(bounce,Pid1).
+bounce ! hello.
+</code></pre>
+<hr>
+<p>另外erlang自带一个监控页面。有当前节点的各种重要数据，包括mnesia数据库。还可以进行相关操作。<br>observer:start().</p>
+<hr>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><ul>
+<li><p>tuple到record</p>
+</li>
+<li><p>record(planemo, {name, gravity, diameter, distance_from_sun}).</p>
+</li>
+<li><p>map<br>Planemos = #{ earth =&gt; 9.8, moon =&gt; 1.6, mars =&gt; 3.71 }.<br>maps:get(moon, Planemos). % 取</p>
+</li>
+<li><p>ETS: Erlang Term Storage<br>一种erlang数据表</p>
+<p>有四种形式<br>set<br>同个key只能存一个值</p>
+<p>ordered set<br>同个key只能存一个值。key有序</p>
+<p>bag<br>同个key可以存多个值。同个key下的值不能重复。</p>
+<p>duplicate bag<br>同个key可以存多个值。同个key下的值可以重复。</p>
+<p>创建表</p>
+<pre><code>  T = ets:new(my_table, [ordered_set])
+</code></pre>
+<p>插入数据</p>
+<pre><code>  ets:insert(T, &#123;gg, &#123;gt, &quot;4wf&quot;, &lt;&lt;56&gt;&gt;&#125; &#125;).
+</code></pre>
+<p>observer:start().可看数据</p>
+<p>取数据</p>
+<pre><code>  ets:lookup(T, gg).
+</code></pre>
+<p>删除数据</p>
+<pre><code>  ets:delete(TT, gg).
+</code></pre>
+<p>删除表</p>
+<pre><code>  ets:delete(TT).
+</code></pre>
+</li>
+</ul>
+<ul>
+<li>mnesia(希腊语memory)<br>erlang自带的数据库。轻量快速、分布式、可同步、支持事务。<br>可直接存在内存。可直接存erlang的record。<br>不适用于大规模数据(虽然有成功案例)，非常适合小规模应用、集群节点间维护一致的数据等。</li>
+</ul>
+<hr>
+<p>-sname</p>
+<p>monitor_node</p>
+<p>net_adm:ping()</p>
+<p>net_adm:world()</p>
+<hr>
+<h3 id="程序发布"><a href="#程序发布" class="headerlink" title="程序发布"></a>程序发布</h3><p>rebar3是erlang常用的打包、发布工具。</p>
+<p><a target="_blank" rel="noopener" href="http://www.rebar3.org/">www.rebar3.org</a><br>下载rebar3</p>
+<p>按<a target="_blank" rel="noopener" href="https://www.rebar3.org/docs/getting-started">https://www.rebar3.org/docs/getting-started</a><br>windows上在rebar3文件同个目录建一个rebar3.cmd</p>
+<p>填入<br>@echo off<br>escript.exe “%~dpn0” %*</p>
+<p>保存。再cmd运行rebar3 –help。可正常运行即可。</p>
+<p>创建新app<br>rebar3 new app myapp</p>
+<p>编译<br>rebar3两个文件复制进目录<br>rebar3 compile</p>
+<p>创建新release<br>rebar3 new release myrelease</p>
+<p>rebar3 compile</p>
+<hr>
+<h3 id="erlang版本管理"><a href="#erlang版本管理" class="headerlink" title="erlang版本管理"></a>erlang版本管理</h3><p>erlang otp会持续进化、发布新版本。那么如果需要测试、对比、升级的话，需要不同版本共存。</p>
+<p>用kerl可以管理erlang版本<br><a target="_blank" rel="noopener" href="https://github.com/kerl/kerl">https://github.com/kerl/kerl</a></p>
+<hr>
+<h3 id="Elixr"><a href="#Elixr" class="headerlink" title="Elixr"></a>Elixr</h3><p>原版erlang还是比较晦涩，有诸多不便。<br>Elixr在erlang基础上发展和改进。沿用erlang的vm。<br>把erlang的语法和otp改的更舒服。<br>另外扩展了多种工具、功能（模板、测试、打包发布）。</p>
+<hr>
+<h3 id="哈哈那上面erlang是不是白学了？"><a href="#哈哈那上面erlang是不是白学了？" class="headerlink" title="哈哈那上面erlang是不是白学了？"></a>哈哈那上面erlang是不是白学了？</h3>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1444/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1431/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

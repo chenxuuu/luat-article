@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title> Luat_IOT_SDK_C 语言用户开发指导手册 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title"> Luat_IOT_SDK_C 语言用户开发指导手册</h1>
+<article class="post markdown-style">
+  <p>@[TOC]</p>
+<h1 id="C-SDK代码git服务器地址"><a href="#C-SDK代码git服务器地址" class="headerlink" title="C_SDK代码git服务器地址"></a><strong>C_SDK代码git服务器地址</strong></h1><p><code>git clone http://36.7.87.100:10101/r/iot_csdk_rda8910.git</code></p>
+<hr>
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h1><p>本文档主要对 720U系列模块CSDK版本用户程序编程进行指导。此CSDK版本针对合宙模块提供的一套C语言的软件开发环境，让客户像开发单片机一下，使用合宙的无线通信模块。</p>
+<p>#2 开发环境搭建<br>##2.1 下载驱动<br>从官网下载最新的驱动程序，驱动下载地址：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/uis8910dm/sw_file_20200303181718_8910_module_usb_driver_signed%20_20200303_hezhou.7z" title="8910_module_usb_driver">8910_module_usb_driver</a><br>下载完成后解压安装包，进入安装包文件\8910_module_usb_driver_signed _20200303_hezhou</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091000756_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091000756_图片</a> 1.png)</p>
+<p>##2.2 安装驱动<br>根据自己的操作系统选择进入对应的文件夹。<br>例如：win10基于X64系统，选择DriversForWin10/DPInst64.exe进行安装</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091105089_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091105089_图片</a> 2.png)</p>
+<p>##2.3 驱动测试<br>安装成功后将开发板插上电脑，将开关拨到On，并且长按开机键，等待模块正常运行后查看设备管理器/端口，是否有如下左图三个设备。如果没有，查看设备管理器中其他设备有无驱动未安装如下右图，如果有说明驱动安装失败，需要重新安装驱动；否则建议更换USB线束后重新安装驱动。</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091131241_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091131241_图片</a> 3.png)![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091141512_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091141512_图片</a> 1_2.png)</p>
+<p>#3 用户程序编译<br>进入iot_sdk_4g_8910/project文件夹，双击运行cmd.exe，在命令行选择对应的demo文件进行编译。<br>例如：编译demo_hello文件，命令行输入demo_hello.bat，回车运行bat文件，此时开始编译文件。</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091208310_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091208310_图片</a> 4.png)<br>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091230208_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091230208_图片</a> 6.png)</p>
+<p>编译结束后，在iot_sdk_4g_8910目录下出现hex文件夹，对应的目录下面包含编译项目的文件；</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091257996_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091257996_图片</a> 7.png)<br>Air720U_CSDK_demo_hello目录下<br>包含csdk层的下载固件： Air720U_CSDK_demo_hello_APP.pac<br>包含底层和csdk层的下载固件： Air720U_CSDK_demo_hello.pac<br>包含csdk层的OTA升级固件： hello_1.0.0_CSDK_V574_RDA8910_app.dfota.bin<br>包含底层和csdk层的OTA升级固件： hello_1.0.0_CSDK_V574_RDA8910.dfota.bin</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091322187_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091322187_图片</a> 8.png)<br>Air720U_CSDK_demo_hello_map目录下 包含编译生成的map和elf文件。</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091347883_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091347883_图片</a> 9.png)<br>如果编译出现错误，可以在cmd命令行中搜索”error”来定位错误位置。</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091401662_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091401662_图片</a> 10.png)<br>#4 下载运行<br>##4.1 下载工具介绍<br>下载工具使用的是合宙官方工具luatools。下载地址：<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/luatoolsV2-redirect.html" title="luatools v2">luatools v2</a></p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091423443_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091423443_图片</a> 11.png)<br>##4.2 固件选择<br> 点击右上角下载固件图标，在下载固件弹窗中选择需要下载的文件，<br>例如socket_demo固件：<br>hex/Air720U_CSDK_demo_socket/Air720U_CSDK_demo_socket.pac</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091440340_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091440340_图片</a> 13.png)<br>##4.3 下载固件<br>勾选USB BOOT下载，点击下载。长按模块上的U_BOOT键，再按重启键进入下载模式进行下载，下载过程中会有进度条提示下载进度，完成时会显示下载成功。</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091456379_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091456379_图片</a> 14.png)<br>下载工具LuaTools的使用指南：<a href="https://doc.luatos.wiki/713">https://doc.luatos.wiki/713</a></p>
+<h1 id="5-新建工程"><a href="#5-新建工程" class="headerlink" title="5 新建工程"></a>5 新建工程</h1><h2 id="5-1-建立新项目"><a href="#5-1-建立新项目" class="headerlink" title="5.1 建立新项目"></a>5.1 建立新项目</h2><p>首先下载并解压iot_sdk_4g_8910.zip文件，在iot_sdk_4g_8910/demo目录下新建项目的文件夹；<br>例如：test</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604223534721_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604223534721_图片</a> 11_2.png)<br>在新建的文件夹下面新建两个文件：CMakeLists.txt和test.c；<br>可以从demo文件中拷贝一份过来再进行修改使用。</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604223556471_%E5%9B%BE%E7%89%872.png"><br>在test.c中建立入口函数，并加入自己开始执行的程序代码：</p>
+<pre><code>#include &quot;iot_debug.c&quot;
+
+static void test(void)
+&#123;
+    iot_debug_print(&quot;[test] hello world&quot;);
+&#125;
+
+int appimg_enter(void *param)/*入口函数*/
+&#123;    
+    iot_debug_print(&quot;[test] appimg_enter&quot;);
+    test();
+    return 0;
+&#125;
+
+void appimg_exit(void)
+&#123;
+    iot_debug_print(&quot;[test] appimg_exit&quot;);
+&#125;
+</code></pre>
+<p>将CMakeLists.txt里面如代码注释位置改成包含入口函数的*.c文件名称<br>例如：test.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#&#x2F;*</span><br><span class="line">#*CMakeLists.txt</span><br><span class="line">#*&#x2F;</span><br><span class="line">if(CONFIG_APPIMG_LOAD_FLASH)</span><br><span class="line">#&#x2F;*入口函数的*.c文件*&#x2F;</span><br><span class="line">add_appimg($&#123;target&#125; $&#123;flash_ldscript&#125; test.c)</span><br><span class="line">else(CONFIG_APPIMG_LOAD_FLASH)</span><br><span class="line">#&#x2F;*入口函数的*.c文件*&#x2F;</span><br><span class="line">add_appimg($&#123;target&#125; $&#123;file_ldscript&#125; test.c)</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-添加代码"><a href="#5-2-添加代码" class="headerlink" title="5.2 添加代码"></a>5.2 添加代码</h2><p>自己的程序代码按照如下格式加入CMakeLists.txt文件中进行编译使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#&#x2F;*</span><br><span class="line">#*CMakeLists.txt</span><br><span class="line">#*&#x2F;</span><br><span class="line">if(CONFIG_APPIMG_LOAD_FLASH)</span><br><span class="line">#&#x2F;*入口函数的*.c文件*&#x2F;</span><br><span class="line">add_appimg($&#123;target&#125; $&#123;flash_ldscript&#125; test.c)</span><br><span class="line">else(CONFIG_APPIMG_LOAD_FLASH)</span><br><span class="line">#&#x2F;*入口函数的*.c文件*&#x2F;</span><br><span class="line">add_appimg($&#123;target&#125; $&#123;file_ldscript&#125; test.c)</span><br><span class="line">endif()</span><br><span class="line">#&#x2F;*头文件位置*&#x2F;</span><br><span class="line">target_include_directories($&#123;target&#125; PUBLIC ..&#x2F;..&#x2F;api&#x2F;include)</span><br><span class="line">target_include_directories($&#123;target&#125; PUBLIC include)</span><br><span class="line">#&#x2F;*源文件位置*&#x2F;</span><br><span class="line">target_sources($&#123;target&#125; PRIVATE</span><br><span class="line">	api.c</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>需要使用CSDK提供的API可以参考iot_sdk_4g_8910/demo目录下包含各个功能的例子，选择需要的功能参考demo中项目代码进行添加，实现自己想要的功能。<br>用户可使用的API所在文件：iot_sdk_4g_8910/api目录下所包含的相关头文件，API使用方法请参考《Luat_IoT_LTE_SDK_C语言编程手册.chm》<br>注意：除了iot_sdk_4g_8910/api目录下所包含的相关头文件提供的API可使用外，其它*.h中的API不要使用，否则会出现无法预知的错误，请切记。<br>其它标准库函数调用，只要包含对应的标准头文件即可，当前是支持的。比如要使用 strcpy 函数，则需要包含头文件：#include “string.h”<br>##5.3 建立编译bat文件<br>在iot_sdk_4g_8910/demo目录下建立自己的编译bat文件</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091715768_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091715768_图片</a> 15.png)<br>修改bat文件内容，修改内容为demo中对应新建文件夹名称</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091731766_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091731766_图片</a> 16.png)</p>
+<p>#6 如何调试<br>##6.1 调试工具介绍<br>Coolwatcher 工具是通过USB Diag口或者设备的 host 口进行通信。使用USB Diag口进行通信使用USB线直接连接模块的USB管脚到PC的USB接口；host 口进行通信波特率为 921600，由于速率较高，所以建议使用 FTDI 等高速 USB 转串口线，其他 USB 转串口线可能会导致通信中断，从而影响调试。<br>Coolwatcher工具下载地址：<a target="_blank" rel="noopener" href="http://openluat-erp.oss-cn-hangzhou.aliyuncs.com/erp_site_file/product_file/sw_file_20200428182924_8910_coolwatch_win32_R2.0.0002.7z" title="Coolwatcher下载">Coolwatcher下载</a></p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091753409_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091753409_图片</a> 4_3.png)</p>
+<p>##6.2 打开调试工具<br>1 确认通信串口号<br>电脑设备管理器中查看串口号，如下图</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091818145_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091818145_图片</a> 72.png)<br>2 配置工具<br>选择【8910】和 lastcomport，确认串口后点击【OK】</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091854645_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091854645_图片</a> 76.png)<br>Lastcomport 和设备管理器中的串口号对应，例如【COM3】就填写 3。<br>3 确认打开是否正常<br>如果串口正常打开，工具左侧会有如下提示</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091927947_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091927947_图片</a> 10_2.png)</p>
+<h2 id="6-3-查看trace"><a href="#6-3-查看trace" class="headerlink" title="6.3 查看trace"></a>6.3 查看trace</h2><p>1 打开 trace tool<br>选择【plugs-&gt;Active Tracer】,工具右侧会出现【Trace tool】栏，如果没出现就右击一下工具空白处，选择【Trace tool】。<br>模块开机后，通过串口工具发AT^TRACECTRL=0,1,3 这个指令，将日志打开<br>       <code> 注意：AT^TRACECTRL=0,1,3是永久生效的，可以断电保存</code></p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091949010_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604091949010_图片</a> 15_2.png)<br>2 trace tool 工具说明<br>下图红框从左到右分别为【开始 trace】，【停止 trace】，【清空 trace】，【过滤 trace】，【应用过滤】，【保存 trace】，【使能 trace 时间】【设置 comment on/off】</p>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604092006703_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604092006703_图片</a> 17.png)<br>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604092020696_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604092020696_图片</a> 16_2.png)</p>
+<h2 id="6-4-常见问题"><a href="#6-4-常见问题" class="headerlink" title="6.4 常见问题"></a>6.4 常见问题</h2><p>1 无法正常通信<br>一旦串口无法正常通信，就无法进行调试、输出 trace。<br>无法通信分为以下两种情况：</p>
+<ol>
+<li>电脑串口异常<br>这种情况下，coolwatcher 工具都会无法正常打开对应串口，可以重新插拔串口尝试恢复</li>
+</ol>
+<p>![](<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604092042004_%E5%9B%BE%E7%89%87">http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604092042004_图片</a> 1_3.png)<br>2) 工具异常<br>在以上信息都确认没有问题的情况下，如果依然无法正常调试，可以通过【coolwatcher 命令行窗口】输入【reop】或者重启 coolwatcher 软件来恢复</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/789/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/751/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>air202luat二次开发设备接入阿里云（二） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">air202luat二次开发设备接入阿里云（二）</h1>
+<article class="post markdown-style">
+  <p style="color: rgb(51, 51, 51);">记录设备接入阿里云的过程</p><p style="color: rgb(51, 51, 51);">二，上传数据</p><p style="color: rgb(51, 51, 51);">上一篇介绍了如何连接阿里云，物联网设备用到最多的就是数据上传，这次我们用air202上传数据到阿里云</p><p style="color: rgb(51, 51, 51);">1，添加功能</p><p style="color: rgb(51, 51, 51);">由于上一次我们选择的是自定义，所以我们的产品是空的没有任何功能，我们为他添加一个功能用于数据上传</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-9asjFTFn5bf119d29482d.png" style="width: 551.5px;" class="img-responsive">由于设备上没有传感器，所以我选择了上传设备的工作电压</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-9VoxtWNP5bf11a51773b2.png" style="width: 267.5px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-OJYlXX5Y5bf11b05044ec.png" style="width: 554px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">2，修改代码</p><p style="color: rgb(51, 51, 51);">根据demo与api</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-WzpROIDE5bf11d7a5f557.png" style="width: 381.5px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">这里是我们要上传的<span style="color: rgb(55, 61, 65); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 16px; font-weight: 700;">Topic</span></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-4F3Z4dIR5bf11f9b8da8d.png" style="width: 593.5px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">也就是对应我们产品里的<span style="color: rgb(55, 61, 65); font-family: &quot;Helvetica Neue&quot;, Helvetica, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif; font-size: 16px; font-weight: 700;">Topic</span><br><img src="http://oldask.openluat.com/image/show/attachments-2018-11-A2pFduyt5bf11ffa8e35b.png" style="width: 567px;" class="img-responsive"><br></p><p style=""><font color="#333333">qos1data就是我们要上传的值</font><br></p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-eA72VQvL5bf11da015f7e.png" style="width: 634.5px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">根据阿里云的文档我们需要构造一个json用于上传数据</p><p style="color: rgb(51, 51, 51);">首先我们创建一个table，params里是我们要上传的参数</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-1ibQY7T45bf11cc3082b6.png" style="width: 225px;" class="img-responsive"></p><p style="color: rgb(51, 51, 51);">根据api</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-n7O9Q9Un5bf11bbda6241.png" style="width: 187px;" class="img-responsive">我们需要调用misc这个库，之前的代码引用过这个库了所以我们可以直接使用</p><p style="color: rgb(51, 51, 51);">由于api返回值是mv所以我们把他转成v，然后赋值给我们的表里的参数</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-6vK2OPKM5bf11f25f2836.png" style="width: 232px;" class="img-responsive">然后将table转换成json</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-b0Gub56Q5bf11f5c3d953.png" style="width: 176.5px;" class="img-responsive">所以最终我们的代码应该修改成</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-HCH4z1DP5bf120c105378.png" style="width: 615.5px;" class="img-responsive">3，烧录代码</p><p style="color: rgb(51, 51, 51);">之前写了就不再赘述</p><p style="color: rgb(51, 51, 51);">4，查看数据</p><p style="color: rgb(51, 51, 51);">打开我们阿里云的控制台找到我们的设备，发现我们的数据上传成功</p><p style="color: rgb(51, 51, 51);"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-3aWlahRh5bf1215f8ad1b.png" style="width: 564.5px;" class="img-responsive"><img src="http://oldask.openluat.com/image/show/attachments-2018-11-ehHtGq6L5bf1216e68fd2.png" style="width: 316.5px;" class="img-responsive"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/525/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/523/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

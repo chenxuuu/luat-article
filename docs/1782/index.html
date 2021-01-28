@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>1、杂项：Windows服务器openssh连接(含ssh免密登录) [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">1、杂项：Windows服务器openssh连接(含ssh免密登录)</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;前几天搞到了一台性能不错的台式机，想着把它拿来当作编译服务器用。折腾半天装了个linux系统，各种驱动一打，是真的浪费时间。结果最后发现公司的编译环境在linux系统上跑不起来。当时整个人都裂开了，这种说不出来感觉，就像到嘴的鸭子跑了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101202641472.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;无奈之下又花费几个小时重新格盘装了个windows系统，装上后配置了下远程桌面连接和文件共享。虽然可以实现在本机上编译代码然后远程连接到服务器上编译。搞好后又总感觉缺了点什么，不是很方便，主要还是来回切换人太麻烦了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101205152670.png#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;几个月前我正好折腾了下<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/106672329">wsl上的vscode远程编译</a>，那感觉确实不错。当时就想既然vscode都能实现wsl的远程编译，那么搞下服务器的远程编译应该也不是问题，结果在插件市场一搜还真有。只不过需要服务器具有ssh远程连接的功能，至于怎么在vscode上远程编译后面再说。今天我们就一起来看看怎么才能搞一下windows服务器的ssh连接。</p>
+<h1 id="二、启用windows的ssh功能"><a href="#二、启用windows的ssh功能" class="headerlink" title="二、启用windows的ssh功能"></a>二、启用windows的ssh功能</h1><p>&emsp;&emsp;Windows系统其实提供了ssh的拓展功能，只不过默认没有打开。就像wsl一样，这些功能受众很小，一般人根本用不上它。所以我们需要手动去打开它，服务器和客户端上都要去打开，不然用不了。也可以通过第三方软件去实现这个功能，客户端用<code>xshell</code>，服务器用<code>freesshd</code>。不过这些都是需要安装第三方软件的，不靠谱。我们选择的是windows内置的<code>openssh</code>的功能。</p>
+<p>1、打开Windows系统设置，点击应用选项</p>
+<p><img src="https://img-blog.csdnimg.cn/2020110121004082.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>2、点击应用和功能选项卡里可选功能</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101210207115.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>3、点击添加功能，这没什么好说的。按照上面点就行了</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101210316547.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>4、搜索ssh，会出现以下两个结果。一般情况下服务器只要安装OpenSSH服务器，客户端那就安装OpenSSH客户端即可。不过我这里建议大家两个都装上，至少在服务器上要两个都装上（<code>为什么</code>？后面再说）。客户端上那无所谓，装一个就行了。安装的时间比较慢，稍等便可即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101210710586.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="三、配置服务自启动"><a href="#三、配置服务自启动" class="headerlink" title="三、配置服务自启动"></a>三、配置服务自启动</h1><p>1、服务器上两个软件都安装好后需要配置下服务自启动，以便每次重启电脑都能自动启动服务。在服务里，找到这个东西<code>OpenSSH SSH Server</code></p>
+<p><img src="https://img-blog.csdnimg.cn/20201101213010588.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>2、点击属性设置，将启动类型设置成自动启动，并且点击启动按钮，立即启动服务。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101213054245.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="四、回环连接测试"><a href="#四、回环连接测试" class="headerlink" title="四、回环连接测试"></a>四、回环连接测试</h1><p>1、打开PowerShell或者CMD，输入 <code>ssh CX@127.0.0.1</code>测试本地是否可以正常连接，这里用的就是上面第4点安装的ssh客户端去连接自己的ssh服务器。回车后，输入<code>yes</code>！。（格式：<code>ssh   用户名@IP地址</code>），我这里是本地所以直接填的网卡回环地址。客户机如果想要连接服务器的话需要填写服务器实际的ip地址，填127.0.0.1是没用的！！！</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101213454835.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>2、输入用户密码，这里输入的密码不可见，输完直接回车即可</p>
+<p><img src="https://img-blog.csdnimg.cn/2020110121354722.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>3、正常的话PowerShell界面会刷新，变成下面的样子。以前玩过linux上ssh连接的同学，一看这个界面就知道这玩意已经是连接上了服务器了，自动定位到了登录用户的家目录。到这一步就说明服务器没什么问题了，后面就是需要使用客户端去进行远端连接。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101213800212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="五、关闭防火墙"><a href="#五、关闭防火墙" class="headerlink" title="五、关闭防火墙"></a>五、关闭防火墙</h1><p>1、点击系统和安全</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101214706716.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>2、点击Windows Defender防火墙</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101214733904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>3、我这里的服务器只在个人的局域网使用，图个简单，就直接把防火墙关了。真正的网络服务器可千万别这么干。有需要的同学，了解下端口放行。我们ssh服务默认用到了22端口。配置下出入站放行22端口就行了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101214844588.png#pic_center" alt="在这里插入图片描述"></p>
+<p>4、不多比比，直接关掉</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101215052155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="六、远端连接"><a href="#六、远端连接" class="headerlink" title="六、远端连接"></a>六、远端连接</h1><h2 id="6-1、密码连接"><a href="#6-1、密码连接" class="headerlink" title="6.1、密码连接"></a>6.1、密码连接</h2><p>&emsp;&emsp;和上面本地回环测试差不多，在客户端机器上，输入连接命令，不过需要把ip地址换成服务器实际的ip地址。我这里给服务器配置的是固定ip192.168.1.100。只要两台机器在一个局域网内，同时服务器端端口被放行或者防火墙被关闭，是可以直接输入密码连接成功的。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101215526540.png#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201101215723100.png#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="6-2、证书连接"><a href="#6-2、证书连接" class="headerlink" title="6.2、证书连接"></a>6.2、证书连接</h2><p>&emsp;&emsp;一般情况下来说密码连接应该也就够用了，不过密码连接还有一点不太好的地方就是每次重新连接都必须输一次密码。像我这么懒的人每次都要输密码那简直不能忍，太麻烦了。密码要是复杂的话还要输半天，搞不好就输错了还得重来。</p>
+<p>&emsp;&emsp;ssh还有一种连接方式就是证书连接，证书连接相比密码登录要更安全点。最重要的是配置一次，就可以实现终身免密登录，对于懒癌患者那就是香到爆炸。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101220901231.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>1、首先需要在客户端上生成密钥，在<code>客户端的PowerShell</code>中输入ssh-keygen -t rsa -C “192.168.1.100 openssh”，用-C来指定所指定的注释，可以方便用户标识这个密钥，指出密钥的用途或其他有用的信息。我这里也是随便写的，然后什么都不要管，什么都不要输入，一路回车。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101221504602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>2、命令执行完毕后会在<code>C:\Users\CX\.ssh</code>下生成两个文件，分别为<code>id_rsa</code>(私钥)、<code>id_rsa.pub</code>（公钥）</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101221612191.png#pic_center" alt="在这里插入图片描述"></p>
+<p>3、把<code>id_rsa.pub</code>公钥拷贝到Windows服务器中需要登陆的用户名下的<code>.ssh</code>文件夹中<code>C:\Users\CX\.ssh</code>（这是个隐藏文件夹，需要打开显示隐藏文件的功能才行，没有的话可以新建一个），然后将<code>id_rsa.pub</code>文件改名为改名为<code>authorized_keys</code>。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101222339757.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>4、最后一步，<code>非常重要！非常重要！非常重要！</code>，重要的是说三遍。下面写的几点搞错一个客户端都连接不上。</p>
+<p>（1）打开<code>C:\ProgramData\ssh</code>文件夹下的<code>sshd_config</code>文件。检查<code>PubkeyAuthentication</code>值是不是<code>yes</code>。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101222653713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>（2）将<code>AuthorizedKeysFile</code>值改为<code>.ssh/authorized_keys</code><br><img src="https://img-blog.csdnimg.cn/20201101222732921.png#pic_center" alt="在这里插入图片描述"></p>
+<p>（3）把最后两行注释掉，<code>一定要注释！！！！！</code></p>
+<p><img src="https://img-blog.csdnimg.cn/20201101222800882.png#pic_center" alt="在这里插入图片描述"></p>
+<p>（4）服务器控制台输入<code>Restart-Service sshd</code>，重启sshd服务<img src="https://img-blog.csdnimg.cn/20201101223023628.png#pic_center" alt="在这里插入图片描述"></p>
+<p>5、输入<code>ssh -i C:\Users\CX\.ssh\id_rsa CX@192.168.1.100</code>回车，输入yes。格式：ssh  -i  <code>私钥地址</code>  <code>用户名</code>@<code>IP地址</code>。私钥就是上面生成的那个，没有后缀的文件。这样就可以实现免密登录，把这条命令保存为批处理文件，每次只要运行一下就会自动连接上了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101223559222.png#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="七、编译一下试试"><a href="#七、编译一下试试" class="headerlink" title="七、编译一下试试"></a>七、编译一下试试</h1><p>&emsp;&emsp;定位到开发包路径。编译OK，远程编译环境搭建完成。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201101224719504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1789/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1777/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

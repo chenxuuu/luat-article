@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air302自定义编译ec固件教程 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air302自定义编译ec固件教程</h1>
+<article class="post markdown-style">
+  <h1 id="Air302自定义编译ec固件教程"><a href="#Air302自定义编译ec固件教程" class="headerlink" title="Air302自定义编译ec固件教程"></a>Air302自定义编译ec固件教程</h1><h3 id="一、前述"><a href="#一、前述" class="headerlink" title="一、前述"></a>一、前述</h3><p>编译使用的是官方提供的SDK，但这个SDK不是C-SDK，只是可以自定义LuatOS的固件，不要搞混了！！！</p>
+<p>如果你想精简或增加底层固件功能，才会需要这个教程，一般正常使用不需要自行编译，直接使用官方release出的正式固件即可。</p>
+<h3 id="二、编译环境配置"><a href="#二、编译环境配置" class="headerlink" title="二、编译环境配置"></a>二、编译环境配置</h3><p>1、Keil5（版本不限吧，我用的5.29，只是用keil5的armcc工具）</p>
+<p>2、windows系统 要64位 win7 win10都行</p>
+<p>3、硬盘剩余空间大于2G</p>
+<p>4、安装python3.7</p>
+<h3 id="三、开始编译"><a href="#三、开始编译" class="headerlink" title="三、开始编译"></a>三、开始编译</h3><h4 id="1、下载LuatOS源码"><a href="#1、下载LuatOS源码" class="headerlink" title="1、下载LuatOS源码"></a>1、下载LuatOS源码</h4><p>首先保证你的电脑上有git，当然，下载zip文件解压也可以（就是很麻烦咯）。</p>
+<p>在git命令窗口里面输入 git clone <a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS.git">https://gitee.com/openLuat/LuatOS.git</a></p>
+<p>运行完是这样的</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205606906_git.png" alt="git" title="git"></p>
+<h4 id="2、下载release的sdk"><a href="#2、下载release的sdk" class="headerlink" title="2、下载release的sdk"></a>2、下载release的sdk</h4><p>这里以最新的V0004固件为例</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/releases/v0004_air302">链接直达</a></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205620507_release.png" alt="release" title="release"></p>
+<p>这两个都下载下来（V0004固件是为了要里面的FlashToolCLI，SDK是要进行编译的文件）</p>
+<h4 id="3、解压文件"><a href="#3、解压文件" class="headerlink" title="3、解压文件"></a>3、解压文件</h4><p>先进入源码路径  LuatOS/bsp/air302</p>
+<p>把SDK和FlashToolCLI解压到这个文件夹中</p>
+<p>解压完应该是这样的</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205640489_mulu.png" alt="mulu" title="mulu"></p>
+<p>最后确定一下，目录结构</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205652676_mulu2.png" alt="mulu2" title="mulu2"></p>
+<h4 id="4、修改配置文件"><a href="#4、修改配置文件" class="headerlink" title="4、修改配置文件"></a>4、修改配置文件</h4><p>1、在air302目录下新建local.ini文件</p>
+<p>输入以下字样</p>
+<p><code>[air302] PLAT_ROOT = air302_sdk\PLAT\</code></p>
+<p>2、进入PLAT目录里面找到<code>KeilBuild.bat</code>，用你习惯的软件打开</p>
+<p>修改第10行的keil目录为你的安装目录</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205730033_keil5.png" alt="keil5" title="keil5"></p>
+<p>3、修改Makefile（在上面的结构图里能找到位置）</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205741061_Makefile%E4%BF%AE%E6%94%B9.png" alt="Makefile" title="Makefile"></p>
+<p>第一个LUATOS_SRC为你下载到本地的仓库的地址</p>
+<p>第二个LUATOS_XSRC为本地仓库的上层目录</p>
+<p>截图为我的目录，仅供参考。</p>
+<h4 id="5、执行编译操作"><a href="#5、执行编译操作" class="headerlink" title="5、执行编译操作"></a>5、执行编译操作</h4><p>回到air302目录下，按住shift右键，打开powershell或者cmd</p>
+<p>输入指令<code>python air302.py build pkg</code></p>
+<p>然后就会开始自动编译，成功后会显示pass</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205800733_%E7%BC%96%E8%AF%91%E5%AE%8C%E6%88%90.png" alt="undefined" title="undefined"></p>
+<p>这样默认配置的编译就完成了，编译好的量产文件在air302目录下的量产文件目录里面，是个zip文件</p>
+<p>打开是这样的</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205810591_ec.png" alt="undefined" title="undefined"></p>
+<p>如果你想看编译直接出来的bin文件进入到<code>air302_sdk\PLAT\out\ec616_0h00\air302</code>目录就可以看到了</p>
+<p>（PS：ec固件其实就是一个zip压缩文件，解压后会看见bin文件，至于为什么改成ec，应该是为了刷写工具好识别而为）</p>
+<h3 id="四、自定义部分"><a href="#四、自定义部分" class="headerlink" title="四、自定义部分"></a>四、自定义部分</h3><p>打开air302目录下面的src文件夹，里面有一个<code>luat_air302_base.c</code>文件</p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205818587_c.png" alt="undefined" title="undefined"></p>
+<p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20201212205825581_c2.png" alt="undefined" title="undefined"></p>
+<p>这些就是可以自己改的部分，可以选择精简或者增加模块</p>
+<p>修改完之后在进行编译皆可获得自定义的固件了。</p>
+<hr>
+<p>这期教程到此结束了，本人能力有限，如有错误请在文章下面提出来，谢谢大家。</p>
+<hr>
+<p>作者：梦程MI</p>
+<p><a target="_blank" rel="noopener" href="https://www.dreamcstudio.cn/">个人博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/88809897">B站</a></p>
+<p>2020.12.12</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2052/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2033/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>4、RDA8910(4GCAT1)CSDK二次开发：期待已久的ADC采集 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">4、RDA8910(4GCAT1)CSDK二次开发：期待已久的ADC采集</h1>
+<article class="post markdown-style">
+  <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所述资料<code>均来自合宙官方</code>，并不是本人原创（只有博客是自己写的），csdk只是得到了<code>口头的允许公开授权</code>。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，<code>没有为自己谋取私利的想法</code>。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<p>&emsp;&emsp;本系列博客基于紫光展锐的<code>RDA8910  LTE Cat 1</code> bis芯片平台开发。理论上适用于合宙的Air720U、Air724U、广和通L610以及安信可的cat-01模块。</p>
+<p>&emsp;&emsp;各个厂家的部分配置文件可能不一样，也许会导致设备出现奇怪的问题，其他的模块我也不确定能不能用，自行测试。但是有一点<code>编译下载和监视流程基本一样</code>，可供参考。</p>
+<p>&emsp;&emsp;先不管支不支持，如果你用的模块是是紫光展锐的RDA8910，那都不妨一试，也许会有意外收获（<code>也有可能变砖，慎重！！！</code>）。</p>
+<p>&emsp;&emsp;我使用的是<code>Air724UG</code>开发板，如果在其他模块上不能用，那也不要强怼，也许是开发包不兼容吧。这里的代码是没有问题的。例程仅供参考！</p>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;在很长的一个时间内。我的rda8910二次开发系列的的文章中第四小节是处于<code>暂时没有</code>的情况。有的人可能会很纳闷，没有就没有，你别写呗。没事把位置占着干嘛。搞得大家都很好奇，这里到底会是个什么东西呢，竟然搞了几个月都没有搞出来。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020081319302954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;本来这一篇文章应该要在5月份发布的，当时准备写一篇adc的教程。查了下硬件手册。看到模组只有adc2和adc3，分别引出到了63和64引脚。知道adc的编号后就可以开始写测试程序了。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813195854320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;写完测试程序后编译一看发现ADC例程编译不过，提示找不到函数。这我暂时也就没办法了，就一直没写放在那里没有发。后来大概在7月初的时候我又试了一下adc可以编译通过了。当我准备再次尝试一波的时候，我找了半天都没有找到adc2和adc3的插针，后来拿到原理图一看，发现这两个引脚，只是在外围焊了几个电阻。没有引出到插针上。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813193936491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;我们如果想在开发板上测试一波adc，那就只能自己飞线了。我一看，乖乖这线不好焊啊，焊不好的话开发板就报废了。当时就怂了，果断收起开发板，于是这事又被搁置了一个月。</p>
+<p>&emsp;&emsp;看到前一段时间合宙新出的开发板自带mic和sd卡，正好想买个新的开发板玩玩。想着坏就坏了吧，旧的不去新的不来，今天下定决心。拿起我的电烙铁，上来就干。（别学下图妹子拿烙铁，否则ʘᴗʘ）</p>
+<p><img src="https://img-blog.csdnimg.cn/2020081319472949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;下午废了九牛二虎之力，终于把这两个线焊上去了。焊的过程中，差点把焊盘都给怼掉。这玩意实在不好焊。靠的太紧了，容易连锡。最重要的是这锡哪里都沾（旁边的焊盘沾一堆），就是不沾线，怎么搞都焊不上，当时给我气的（我承认是我菜）。这玩意确实有点不好焊，没弄过的热建议不要轻易去尝试！！！</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813195257445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;硬件准备好后，我们可以一起来看看测试程序怎么写。</p>
+<h1 id="二、相关的库函数"><a href="#二、相关的库函数" class="headerlink" title="二、相关的库函数"></a>二、相关的库函数</h1><p>&emsp;&emsp;官方提供的adc库函数有两个。分别是初始化adc通道和读取adc通道的数据。只要传入需要操作的adc通道就可以得到相应的运行结果。</p>
+<blockquote>
+<p>/*<em>ADC初始化<br>*@param        channel:        adc通道<br>*@param     mode:       adc模式<br>*@return    TRUE:         成功<br>&emsp;&emsp;&emsp;&emsp;FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>BOOL <code>iot_adc_init</code>(channel，mode);</li>
+</ul>
+<blockquote>
+<p>/*<em>读取ADC数据<br>*@note ADC值，可以为空, 电压值，可以为空<br>*@param        channel:        adc通道<br>*@param        adcValue:    ADC值，可以为空<br>*@param        voltage:    电压值，可以为空<br>*@return    TRUE:         成功<br>&emsp;&emsp;&emsp;&emsp;FALSE:      失败<br>*</em>/</p>
+</blockquote>
+<ul>
+<li>BOOL <code>iot_adc_read</code>(channel，adcValue，voltage);</li>
+</ul>
+<h1 id="三、编写程序"><a href="#三、编写程序" class="headerlink" title="三、编写程序"></a>三、编写程序</h1><h2 id="3-1、编写adc2测试程序"><a href="#3-1、编写adc2测试程序" class="headerlink" title="3.1、编写adc2测试程序"></a>3.1、编写adc2测试程序</h2><p>&emsp;&emsp;测试程序的逻辑很简单。我们在主函数创建了一个测试任务，任务开始时首先初始化adc的通道。</p>
+<p>&emsp;&emsp;如果初始化返回false（也就是说初始化失败）。那我们就没必要继续执行下去了。这时候可以直接删除任务。但是！这里是测试，如果直接删除了，我们自己可能什么都看不到，所以我选择循环打印初始化失败的消息。</p>
+<p>&emsp;&emsp;如果初始化成功就进入另一个死循环，每隔1s读取一下adc2的数值。读取成功就打印读取到的adc数据，读取失败就打印失败信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ADC2</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL err = iot_adc_init(OPENAT_ADC_2, OPENAT_ADC_MODE_MAX);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC2 Init FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	UINT32 adcValue = <span class="number">0</span>, voltage = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		err = iot_adc_read(OPENAT_ADC_2, &amp;adcValue, &amp;voltage);</span><br><span class="line">		<span class="keyword">while</span> (!err)</span><br><span class="line">		&#123;</span><br><span class="line">			iot_debug_print(<span class="string">&quot;ADC2 read FALSE&quot;</span>);</span><br><span class="line">			osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC2 read adcValue:%d,voltage:%d&quot;</span>, adcValue, voltage);</span><br><span class="line">		<span class="comment">//线程休眠500ms</span></span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2、编写adc3测试程序"><a href="#3-2、编写adc3测试程序" class="headerlink" title="3.2、编写adc3测试程序"></a>3.2、编写adc3测试程序</h2><p>&emsp;&emsp;模组上一共有两个adc的引脚，那么干脆我们就把两个引脚一起都测试了。反正测试程序的逻辑是一样的，也就改个编号的事情。没有什么太大的区别。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ADC3</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL err = iot_adc_init(OPENAT_ADC_3, OPENAT_ADC_MODE_MAX);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC3 Init FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	UINT32 adcValue = <span class="number">0</span>, voltage = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		err = iot_adc_read(OPENAT_ADC_3, &amp;adcValue, &amp;voltage);</span><br><span class="line">		<span class="keyword">while</span> (!err)</span><br><span class="line">		&#123;</span><br><span class="line">			iot_debug_print(<span class="string">&quot;ADC3 read FALSE&quot;</span>);</span><br><span class="line">			osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC3 read adcValue:%d,voltage:%d&quot;</span>, adcValue, voltage);</span><br><span class="line">		<span class="comment">//线程休眠500ms</span></span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	osiThreadExit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2、完整程序"><a href="#3-2、完整程序" class="headerlink" title="3.2、完整程序"></a>3.2、完整程序</h2><p>&emsp;&emsp;完整的demo在这里，可以复制直接用。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * @Author: your name</span></span><br><span class="line"><span class="comment"> * @Date: 2020-05-19 14:05:32</span></span><br><span class="line"><span class="comment"> * @LastEditTime: 2020-05-20 15:38:37</span></span><br><span class="line"><span class="comment"> * @LastEditors: Please set LastEditors</span></span><br><span class="line"><span class="comment"> * @Description: In User Settings Edit</span></span><br><span class="line"><span class="comment"> * @FilePath: \RDA8910_CSDK\USER\user_main.c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;string.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;cs_types.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_log.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;osi_api.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_uart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_os.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_gpio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_pmd.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iot_adc.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ADC2</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL err = iot_adc_init(OPENAT_ADC_2, OPENAT_ADC_MODE_MAX);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC2 Init FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	UINT32 adcValue = <span class="number">0</span>, voltage = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		err = iot_adc_read(OPENAT_ADC_2, &amp;adcValue, &amp;voltage);</span><br><span class="line">		<span class="keyword">while</span> (!err)</span><br><span class="line">		&#123;</span><br><span class="line">			iot_debug_print(<span class="string">&quot;ADC2 read FALSE&quot;</span>);</span><br><span class="line">			osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC2 read adcValue:%d,voltage:%d&quot;</span>, adcValue, voltage);</span><br><span class="line">		<span class="comment">//线程休眠500ms</span></span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ADC3</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL err = iot_adc_init(OPENAT_ADC_3, OPENAT_ADC_MODE_MAX);</span><br><span class="line">	<span class="keyword">while</span> (!err)</span><br><span class="line">	&#123;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC3 Init FALSE&quot;</span>);</span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	UINT32 adcValue = <span class="number">0</span>, voltage = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		err = iot_adc_read(OPENAT_ADC_3, &amp;adcValue, &amp;voltage);</span><br><span class="line">		<span class="keyword">while</span> (!err)</span><br><span class="line">		&#123;</span><br><span class="line">			iot_debug_print(<span class="string">&quot;ADC3 read FALSE&quot;</span>);</span><br><span class="line">			osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		iot_debug_print(<span class="string">&quot;ADC3 read adcValue:%d,voltage:%d&quot;</span>, adcValue, voltage);</span><br><span class="line">		<span class="comment">//线程休眠500ms</span></span><br><span class="line">		osiThreadSleep(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	osiThreadExit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">appimg_enter</span><span class="params">(<span class="keyword">void</span> *param)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	osiThreadCreate(<span class="string">&quot;ADC2&quot;</span>, ADC2, <span class="literal">NULL</span>, OSI_PRIORITY_NORMAL, <span class="number">2048</span>, <span class="number">0</span>);</span><br><span class="line">	osiThreadCreate(<span class="string">&quot;ADC3&quot;</span>, ADC3, <span class="literal">NULL</span>, OSI_PRIORITY_NORMAL, <span class="number">2048</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//退出提示</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">appimg_exit</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	OSI_LOGI(<span class="number">0</span>, <span class="string">&quot;application image exit&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="四、下载测试"><a href="#四、下载测试" class="headerlink" title="四、下载测试"></a>四、下载测试</h1><p>&emsp;&emsp;分别把adc2和adc3的飞线，接到0v、1.8v和VBAT(3.8v)。查看打印结果。数据走向是正确的，逐渐递增。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813203343658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200813202916897.png#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;这一看好像就1.8v误差大了点。但是我的直觉告诉我，不应该误差这么大，都干到了2.2V了。于是拿来了万用表测试了一下，好像输出的就是2.2V。那说明模块测试的结果还是挺准的。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813203935213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;就是这里测试adc2的时候要<code>注意下</code>，之前我测试的时候没有仔细看原理图。发现adc2无论接什么电压，它量出来的都是3.8V。接0v的话就直接断电了。后来看了下原理图，发现adc2的引脚通过了一个<code>0</code>欧的电阻直接拉到了<code>VBAT（3.8V）</code>。这样的话adc2那就不能被比3.8V低的电平有效的拉低。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813204310343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;我不太清楚这个电阻有什么其他的作用。为了测试，我就直接把它卸掉了。让adc2浮空，这样测试就正常了，电阻就在这。我这里还是建议大家最好不要卸掉这个电阻，别到时候板子出问题了，跑过来找我。我没钱赔ʘᴗʘ。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200813204815887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>不会下载的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里</a>，进去查看我的<code>RDA8910 CSDK二次开发入门教程</code>专题第一篇博文<code>1、RDA8910CSDK二次开发：环境搭建</code>里面讲了怎么下载<br>这里只是我的学习笔记，拿出来给大家分享，欢迎大家批评指正，本篇教程到此结束</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1352/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1349/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

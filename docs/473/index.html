@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Linux服务器安装Apache服务器和PHP环境教程 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Linux服务器安装Apache服务器和PHP环境教程</h1>
+<article class="post markdown-style">
+  <p style="word-wrap: break-word; margin-bottom: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun; line-height: 30px; text-indent: 2em;"><font size="5" style="word-wrap: break-word;">在物联网的应用中，单片机需要将采集到的一些数据存储到服务器中的数据库中，例如Mysql数据库，那么我们如何去方便的查看数据库中存储的数据呢？为了解决这个问题，我们可以为服务器安装phpMyAdmin，又由于phpMyAdmin的运行必须基于PHP环境，因此就必须要先让服务器具备PHP环境。因此，在这个例子中，我将分享在我服务器中安装Apache服务器并安装PHP运行环境的方法。</font></p><p><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">在安装本教程进行操作前，我先说一下我的服务器环境：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">) U3 Z! n. T2 ~</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">我服务器操作系统为64位的Centos。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( Q; R3 Z1 X6 i; O; y, J</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">接下来是步骤：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、使用putty软件远程登录服务器。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、执行命令 yum install httpd -y 安装Apache</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6 I: `1 U- {1 M, b! o- e9 X</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">正常的话，在执行上面命令后，服务器会自动开始安装，正常安装界面如下图所示:</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1431" aid="1431" src="http://bbs.qdclab.com/data/attachment/forum/201512/03/084234il99c3lx0ls7z0ea.jpg" zoomfile="data/attachment/forum/201512/03/084234il99c3lx0ls7z0ea.jpg" file="data/attachment/forum/201512/03/084234il99c3lx0ls7z0ea.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2 n&nbsp;&nbsp;b, ^" ^) X' Z</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">8 M9 s, J+ M# e; S, p% D. Z. I3 l</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">3、执行命令 rpm -Uvh&nbsp;<a href="http://mirror.webtatic.com/yum/el6/latest.rpm" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">http://mirror.webtatic.com/yum/el6/latest.rpm</a>来安装最新的PHP镜像包。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">! Y7 q% w' a5 ^- L" Z</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">正常情况下返回数据如下图所示：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1432" aid="1432" src="http://bbs.qdclab.com/data/attachment/forum/201512/03/084445z2p3qvjbwkovmx73.jpg" zoomfile="data/attachment/forum/201512/03/084445z2p3qvjbwkovmx73.jpg" file="data/attachment/forum/201512/03/084445z2p3qvjbwkovmx73.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">8 v1 Y&nbsp;&nbsp;`7 W8 [</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4、执行命令 yum install php55w&nbsp;&nbsp;php55w-bcmath php55w-cli php55w-common&nbsp;&nbsp;php55w-devel php55w-fpm&nbsp; &nbsp; php55w-gd php55w-imap&nbsp;&nbsp;php55w-ldap php55w-mbstring php55w-mcrypt php55w-mysql&nbsp; &nbsp;php55w-odbc&nbsp; &nbsp;php55w-pdo&nbsp; &nbsp;php55w-pear&nbsp;&nbsp;php55w-pecl-igbinary&nbsp;&nbsp;php55w-xml php55w-xmlrpc php55w-opcache php55w-intl php55w-pecl-memcache&nbsp;&nbsp;开始安装PHP环境，在安装过程中会出现提示是否安装的Y/n的提示，输入y确定。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">正常情况下最后提示安装完成，如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5 _) }0 ~" x/ W1 a&amp; \&nbsp;&nbsp;V" ^</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1433" aid="1433" src="http://bbs.qdclab.com/data/attachment/forum/201512/03/084808amntz0ijxntupzm3.jpg" zoomfile="data/attachment/forum/201512/03/084808amntz0ijxntupzm3.jpg" file="data/attachment/forum/201512/03/084808amntz0ijxntupzm3.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">$ f' J% U( F6 J' {+ W+ a</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5、执行命令&nbsp;&nbsp;chkconfig --level 235 httpd on 配置Apache随系统自动启动。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">为了确保Apache是否配置随系统自动启动，我们运行命令&nbsp;&nbsp;chkconfig --list ，返回数据截图如下所示:</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( ~! i&nbsp;&nbsp;F7 i7 N. S1 x3 S! Z6 t4 q</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1434" aid="1434" src="http://bbs.qdclab.com/data/attachment/forum/201512/03/085158rb0srqo5wl5orvue.jpg" zoomfile="data/attachment/forum/201512/03/085158rb0srqo5wl5orvue.jpg" file="data/attachment/forum/201512/03/085158rb0srqo5wl5orvue.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">0 i) f&nbsp;&nbsp;~8 {, l0 G+ K</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">我们查看上图中httpd后面对应的数据，第2、3、5项为on，其余为off，就对了。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"># x; g7 J6 ]2 i" x( Q</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6、执行命令 service httpd restart 来让apache服务器重启，如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">. ?+ s7 |8 y6 ~: J* j</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1435" aid="1435" src="http://bbs.qdclab.com/data/attachment/forum/201512/03/085512ym0xtzgkssky5i58.jpg" zoomfile="data/attachment/forum/201512/03/085512ym0xtzgkssky5i58.jpg" file="data/attachment/forum/201512/03/085512ym0xtzgkssky5i58.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">9 b5 Q5 r! n/ T7 X</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/ S9 }4 f! p8 w3 j1 w5 @</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">到这里，apache服务器下安装PHP运行环境就结束了，之后我们的服务器就可以支持PHP代码了。</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">接下来，就可以在浏览器中输入我服务器所绑定的域名进行查看了，我的域名是<a href="http://www.58check.com/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com</a>，由于这个域名刚刚申请还未备案所以无法正常使用，所以可以在浏览器地址栏输入服务器的公网IP地址，可以看到页面如下所示:</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1436" aid="1436" src="http://bbs.qdclab.com/data/attachment/forum/201512/03/095016y0nlaw4jws9ffvl4.jpg" zoomfile="data/attachment/forum/201512/03/095016y0nlaw4jws9ffvl4.jpg" file="data/attachment/forum/201512/03/095016y0nlaw4jws9ffvl4.jpg" class="zoom" width="600" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">当我们看到上面这个界面后，就说明我们的Apache服务器搞好了。</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">截至到这里，虽然</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">Apache服务器能用了，但是还不能确定是否能够支持PHP，所以，接下来我们来测试一下：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1、首先，来设置一下网站对应的目录。也就是说，在浏览器地址栏输入网站域名，例如输入<a href="http://www.58check.com/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com</a>后，所打开的网站默认目录是哪里，这个我们可以设置一下。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">. O&amp; O6 x9 T8 e' x# @4 x3 z</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">首先，我先创建网站的目录，相对服务器根目录的话就是: /web/eoair/www，因此我需要到/web/eoair目录下，使用mkdir来创建www目录。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">步骤是，先使用putty软件远程连接到服务器，运行命令 cd /web/eoair 进入目录eoair目录，然后运行命令 mkdir www，创建www目录，如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6 R/ }# s+ V5 v&nbsp;&nbsp;^" c* |* D&amp; \# {</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1443" aid="1443" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/090555ou6mrmrtn6pk1b6z.jpg" zoomfile="data/attachment/forum/201512/06/090555ou6mrmrtn6pk1b6z.jpg" file="data/attachment/forum/201512/06/090555ou6mrmrtn6pk1b6z.jpg" class="zoom" width="425" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4 o4 B3 r4 _" c5 G0 o</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2、接下来，我们需要来修改一下httpd.conf文件。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">运行命令 cd /etc/httpd/conf 进入apache服务器的conf目录，运行命令 ll 可以显示出该目录下的文件如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">' U- Y, z# B4 N% a+ O4 k</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1444" aid="1444" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/092935jmwpo99v82zy4gto.jpg" zoomfile="data/attachment/forum/201512/06/092935jmwpo99v82zy4gto.jpg" file="data/attachment/forum/201512/06/092935jmwpo99v82zy4gto.jpg" class="zoom" width="453" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">运行命令 vim httpd.conf 打开这个配置文件，检查一下 LoadModule rewrite_modulemodules/mod_rewrite.so 这行，若前边有“#”号，就将“#”删除。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">在该文件中查找所有的&nbsp;<font style="word-wrap: break-word; color: rgb(51, 51, 51);"><font face="微软雅黑" style="word-wrap: break-word;">AllowOverride None ，并将其修改为&nbsp;</font></font><font style="word-wrap: break-word; color: rgb(51, 51, 51);"><font face="微软雅黑" style="word-wrap: break-word;">AllowOverride All 。</font></font></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&amp; ^6 Z1 c( B0 V; L% w</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">在该文件的最后，输入一下内容：</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">( O( p3 X; d&amp; q&amp; _+ H% l</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">RewriteEngine on<br style="word-wrap: break-word;">RewriteMap lowercase int:tolower<br style="word-wrap: break-word;">RewriteMap vhost txt:/etc/httpd/vhost.map<br style="word-wrap: break-word;">RewriteCond ${lowercase:%{SERVER_NAME} } ^(.+)$<br style="word-wrap: break-word;">RewriteCond ${vhost:%1} ^(/.*)$<br style="word-wrap: break-word;">RewriteRule ^/(.*)$ %1/$1</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><br style="word-wrap: break-word;"></font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">输入完之后，保存并关闭该配置文件。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/ s% \, L. a' W/ Q# X7 P' @</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">3、运行命令 vim /etc/httpd/vhost.map 创建一个vhost.map文件，并在里面输入一下内容：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">0 s8 T# K# W7 W! }* J</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">www.58check.com&nbsp;&nbsp;/web/eoair/www ,之后保存并关闭该文件。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">上面这一行代码的意思是，当用户在浏览器输入域名</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">www.58check.com后，网站的目录将会指向</font><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">/web/eoair/www 。当然，这个可以根据自己的需要进行修改。修改好后，运行命令 service httpd restart 来重启apache服务器。</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">4、在自己电脑上创建一个 test.txt 文件，并输入一段简单的php代码如下：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></p><div class="blockcode" style="word-wrap: break-word; overflow: hidden; margin: 10px 0px; padding: 10px 0px 5px 10px; background: url(&quot;http://bbs.qdclab.com/static/image/common/codebg.gif&quot;) 0px 0px repeat-y rgb(247, 247, 247); color: rgb(102, 102, 102); zoom: 1; border: 1px solid rgb(204, 204, 204); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><div id="code_eNP" style="word-wrap: break-word;"><ol style="word-wrap: break-word; margin-right: 0px !important; margin-bottom: 0px !important; margin-left: 10px !important; padding: 0px !important;"><li style="word-wrap: break-word; margin: 0px 0px 0px 2em; padding: 0px 0px 0px 10px; list-style-type: decimal-leading-zero; font-family: Monaco, Consolas, &quot;Lucida Console&quot;, &quot;Courier New&quot;, serif; font-size: 12px; line-height: 1.8em;">&lt;?php<br style="word-wrap: break-word;"></li><li style="word-wrap: break-word; margin: 0px 0px 0px 2em; padding: 0px 0px 0px 10px; list-style-type: decimal-leading-zero; font-family: Monaco, Consolas, &quot;Lucida Console&quot;, &quot;Courier New&quot;, serif; font-size: 12px; line-height: 1.8em;">&nbsp;&nbsp;phpinfo();<br style="word-wrap: break-word;"></li><li style="word-wrap: break-word; margin: 0px 0px 0px 2em; padding: 0px 0px 0px 10px; list-style-type: decimal-leading-zero; font-family: Monaco, Consolas, &quot;Lucida Console&quot;, &quot;Courier New&quot;, serif; font-size: 12px; line-height: 1.8em;">?&gt;</li></ol></div><span style="word-wrap: break-word; margin-left: 43px; font-size: 12px; cursor: pointer; color: rgb(51, 102, 153) !important;">复制代码</span></div><p><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">然后将该文件另存为test.php，然后使用ftp工具将该文件上传到服务器 /web/eoair/www目录下。如果上传的时候提示不能上传，那么有可能是/web/eoair/www的权限问题，</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">&amp; M$ ]# v3 i. M3 q3 K( D# p</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">那么可以可以运行命令 chown “你的ftp用户名”&nbsp;&nbsp;/web/eoair/www ，这样赋予权限就可以了。具体详情可以参考帖子：<a href="http://www.qdclab.com/thread-217-1-1.html" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">Linux服务器安装vsftpd并创建FTP账号</a></font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">5、为了方便出错时查看错误原因，我们可以运行命令 vim /etc/php.ini 打开php的初始话文件，将其中的 display_errors = off 修改为on</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">- x# X' ?; n2 N# V</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">如下图所示：</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">1 z' h, V8 h) }/ @9 `8 u7 @</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1445" aid="1445" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/095439nzx1u5pzksc2xris.jpg" zoomfile="data/attachment/forum/201512/06/095439nzx1u5pzksc2xris.jpg" file="data/attachment/forum/201512/06/095439nzx1u5pzksc2xris.jpg" class="zoom" width="281" inpost="1" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">这样当php代码出现问题时就可以显示出错误位置，避免你过多纠结。我就是因为这里没有开放，浪费了好几天时间精力来检查一个问题。</font><font class="jammer" style="word-wrap: break-word; font-size: 10px; color: rgb(255, 255, 255); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">2 L- P) k' t0 ]* D</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">6、接下来，在浏览器地址栏输入服务器绑定的域名和被访问的php文件，例如我的服务器绑定域名为<a href="http://www.58check.com/" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.com</a>，那么我可以输入<a href="http://www.58check.con/test.php" target="_blank" style="word-wrap: break-word; color: rgb(51, 102, 153); text-decoration-line: underline;">www.58check.con/test.php</a>&nbsp;，那么会显示如下页面：</font><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><ignore_js_op style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><img id="aimg_1446" aid="1446" src="http://bbs.qdclab.com/data/attachment/forum/201512/06/095742m9hf1c33fpc2hop0.jpg" zoomfile="data/attachment/forum/201512/06/095742m9hf1c33fpc2hop0.jpg" file="data/attachment/forum/201512/06/095742m9hf1c33fpc2hop0.jpg" class="zoom" width="600" inpost="1" initialized="true" style="word-wrap: break-word; cursor: pointer;">&nbsp;</ignore_js_op><span style="color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"></span><br style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;"><font size="5" style="word-wrap: break-word; color: rgb(68, 68, 68); font-family: Tahoma, &quot;Microsoft Yahei&quot;, Simsun;">这就说明我们的php环境是可以用的。因为上面这个页面，就是我们执行test.php文件后向我们反馈的页面。</font><br></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/474/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/472/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>LUAT 烧录单片机，MCU程序升级脚本（stm8s003） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">LUAT 烧录单片机，MCU程序升级脚本（stm8s003）</h1>
+<article class="post markdown-style">
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;luat对较为严格的IO口时序问题目前只能依靠单片机解决，比如之前项目用到了编码器，我就为AIR202外挂了一片STM8S003。用stm8专用的编码器引脚IO捕捉信号。stm8的确便宜，才1块钱，小应性能也还可以。还省去了外置看门狗，让003做看门狗，串口喂狗。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;剩下的问题就是远程升级了，怎么能没有远程升级功能囊。于是乎我做了针对STM8S003的程序烧录脚本。并写了个相适配的单片机的BOOTLOADER程序。（额，其实是烧录脚本适配BOOTLOADER,因为单片机flash只有8k，我们要让引导程序尽量的小）最终引导程序做到了600多字节，并且带有中断向量表，是全功能的。APP部分程序可以从0x8300地址开始烧录，详细后面说。先上脚本代码：</p><p>连接：<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163800204_F47cNn2R5e01ab7bed8ed_boot.bin">McuUpdata.lua</a></p><p>原文：</p><div style="color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: Consolas, &quot;Courier New&quot;, monospace; line-height: 19px; white-space: pre;"><div><span style="color: #6a9955;">---&nbsp;模块功能：STM8S003串口升级</span></div><div><span style="color: #6a9955;">--&nbsp;@author&nbsp;dingzaiquan</span></div><div><span style="color: #6a9955;">--&nbsp;@module&nbsp;MCUupdata</span></div><div><span style="color: #6a9955;">--&nbsp;@license&nbsp;MIT</span></div><div><span style="color: #6a9955;">--&nbsp;@release&nbsp;2019.09.27&nbsp;V1.0</span></div><br><div><span style="color: #dcdcaa;">module</span>(<span style="color: #569cd6;">...</span>,package.<span style="color: #9cdcfe;">seeall</span>)</div><br><div><span style="color: #6a9955;">--[[</span></div><div><span style="color: #6a9955;">如果项目使用了STM8S003单片机</span></div><div><span style="color: #6a9955;">--加载单片机升级功能模块</span></div><div><span style="color: #6a9955;">require&nbsp;"McuUpData"</span></div><div><span style="color: #6a9955;">McuUpData.McuFlashLoader()</span></div><br><div><span style="color: #6a9955;">在串口接收中断函数适当位置加入</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;。。。</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;McuUpdata.isDownloading()&nbsp;then</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.publish("UART_RXD",data)</span></div><div><span style="color: #6a9955;">&nbsp;&nbsp;&nbsp;&nbsp;。。。</span></div><div><span style="color: #6a9955;">]]</span></div><div><span style="color: #dcdcaa;">require</span>&nbsp;<span style="color: #ce9178;">"pins"</span></div><div><span style="color: #6a9955;">--&nbsp;单片机程序保存路径（通过烧写软件烧写默认路径）</span></div><div><span style="color: #c586c0;">local</span>&nbsp;STM8_FILE_PATH&nbsp;=&nbsp;<span style="color: #ce9178;">"/ldata/app.bin"</span></div><div><span style="color: #c586c0;">local</span>&nbsp;UART_ID&nbsp;=&nbsp;<span style="color: #b5cea8;">1</span></div><br><div><span style="color: #c586c0;">local</span>&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">false</span></div><div><span style="color: #6a9955;">--[[函数名：UpData</span></div><div><span style="color: #6a9955;">功能&nbsp;&nbsp;：STM8S003程序烧写</span></div><div><span style="color: #6a9955;">]]</span></div><div><span style="color: #569cd6;">local&nbsp;</span><span style="color: #c586c0;">function</span><span style="color: #dcdcaa;">&nbsp;UpData</span>()</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">true</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;err_dog&nbsp;=&nbsp;<span style="color: #b5cea8;">0</span><span style="color: #6a9955;">--错误计数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"start"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--复位单片机//可以操作单片机复位引脚，也可以通过APP程序中加入串口复位指令复位单片机这里使用的是拉单片机复位引脚</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;pins.<span style="color: #dcdcaa;">setup</span>(pio.<span style="color: #9cdcfe;">P0_2</span>,<span style="color: #b5cea8;">0</span>)&nbsp;<span style="color: #6a9955;">--初始化单片机复位引脚底电平</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">wait</span>(<span style="color: #b5cea8;">100</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;pins.<span style="color: #dcdcaa;">setup</span>(pio.<span style="color: #9cdcfe;">P0_2</span>,<span style="color: #569cd6;">nil</span>,pio.<span style="color: #9cdcfe;">PULLUP</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">wait</span>(<span style="color: #b5cea8;">10</span>)</div><br><div>&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,<span style="color: #b5cea8;">0xa5</span>)<span style="color: #6a9955;">--发送烧录识别：a5</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;result,&nbsp;data&nbsp;=&nbsp;sys.<span style="color: #dcdcaa;">waitUntil</span>(<span style="color: #ce9178;">"UART_RXD"</span>,&nbsp;<span style="color: #b5cea8;">1000</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;data&nbsp;==&nbsp;<span style="color: #ce9178;">"R"</span>&nbsp;<span style="color: #c586c0;">then</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--是否收到准备接收应答</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--开始准备工作</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;fileSize&nbsp;=&nbsp;io.<span style="color: #dcdcaa;">fileSize</span>(STM8_FILE_PATH)&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--取出程序文件字节数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;body&nbsp;=&nbsp;io.<span style="color: #dcdcaa;">readFile</span>(STM8_FILE_PATH)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--读取文件并返回文件的内容</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;fileSize%<span style="color: #b5cea8;">64</span>&gt;<span style="color: #b5cea8;">0</span>&nbsp;<span style="color: #c586c0;">then</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--补足字节数到64的倍数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;replenish&nbsp;=<span style="color: #ce9178;">""</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">for</span>&nbsp;n=<span style="color: #b5cea8;">1</span>,<span style="color: #b5cea8;">64</span>-(fileSize%<span style="color: #b5cea8;">64</span>)&nbsp;<span style="color: #c586c0;">do</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replenish=&nbsp;replenish..<span style="color: #dcdcaa;">string.char</span>(<span style="color: #b5cea8;">0x00</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body=body..replenish</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileSize&nbsp;=&nbsp;<span style="color: #dcdcaa;">string.len</span>(body)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"fileSize："</span>,fileSize)&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--打印烧录字节总数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">wait</span>(<span style="color: #b5cea8;">10</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;i=<span style="color: #b5cea8;">0</span>&nbsp;<span style="color: #6a9955;">--计数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--开始烧写工作</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">while</span>&nbsp;i&nbsp;&lt;&nbsp;fileSize&nbsp;<span style="color: #c586c0;">do</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,i/<span style="color: #b5cea8;">64</span>)<span style="color: #6a9955;">--发送包地址</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">local</span>&nbsp;verify=<span style="color: #b5cea8;">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--校验和</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">for</span>&nbsp;j=i+<span style="color: #b5cea8;">1</span>,i+<span style="color: #b5cea8;">64</span>&nbsp;<span style="color: #c586c0;">do</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--计算校验和</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verify&nbsp;=&nbsp;verify&nbsp;+&nbsp;<span style="color: #dcdcaa;">string.byte</span>(body,j)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--log.info("STM8_UpData","checksum：",string.toHex(string.char(verify%256)))--打印十六进制校验和</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,<span style="color: #dcdcaa;">string.byte</span>(body,i+<span style="color: #b5cea8;">1</span>,i+<span style="color: #b5cea8;">64</span>))<span style="color: #6a9955;">--发送64字节数据</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--等待收到效验数据</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result,&nbsp;data&nbsp;=&nbsp;sys.<span style="color: #dcdcaa;">waitUntil</span>(<span style="color: #ce9178;">"UART_RXD"</span>,&nbsp;<span style="color: #b5cea8;">1000</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;result&nbsp;==&nbsp;<span style="color: #569cd6;">true</span>&nbsp;<span style="color: #c586c0;">then</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;data&nbsp;==&nbsp;<span style="color: #dcdcaa;">string.char</span>(verify%<span style="color: #b5cea8;">256</span>)&nbsp;<span style="color: #c586c0;">then</span>&nbsp;<span style="color: #6a9955;">--校验正确</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i=i+<span style="color: #b5cea8;">64</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"Done："</span>,i)<span style="color: #6a9955;">--打印已完成烧录字节数</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">else</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err_dog&nbsp;=&nbsp;err_dog&nbsp;+&nbsp;<span style="color: #b5cea8;">1</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;err_dog&nbsp;&gt;=<span style="color: #b5cea8;">10</span>&nbsp;<span style="color: #c586c0;">then</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;err_dog&nbsp;=<span style="color: #b5cea8;">0</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"error"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">break</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">else</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"mcu&nbsp;no&nbsp;reply"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">break</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;">--烧录结束</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uart.<span style="color: #dcdcaa;">write</span>(UART_ID,<span style="color: #b5cea8;">0x88</span>)<span style="color: #6a9955;">--发送0x88地址示意让单片机退出烧录</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result,&nbsp;data&nbsp;=&nbsp;sys.<span style="color: #dcdcaa;">waitUntil</span>(<span style="color: #ce9178;">"UART_RXD"</span>,&nbsp;<span style="color: #b5cea8;">1000</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">if</span>&nbsp;data&nbsp;==&nbsp;<span style="color: #ce9178;">"F"</span>&nbsp;<span style="color: #c586c0;">then</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"finish"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">false</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">return</span>&nbsp;<span style="color: #569cd6;">true</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">end</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;log.<span style="color: #dcdcaa;">info</span>(<span style="color: #ce9178;">"STM8_UpData"</span>,<span style="color: #ce9178;">"defeated"</span>)</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sDownloading&nbsp;=&nbsp;<span style="color: #569cd6;">false</span></div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">return</span>&nbsp;<span style="color: #569cd6;">false</span></div><div><span style="color: #c586c0;">end</span></div><br><div><span style="color: #c586c0;">function</span><span style="color: #dcdcaa;">&nbsp;McuFlashLoader</span>()</div><div>&nbsp;&nbsp;&nbsp;&nbsp;sys.<span style="color: #dcdcaa;">taskInit</span>(UpData)</div><div><span style="color: #c586c0;">end</span></div><br><div><span style="color: #c586c0;">function</span><span style="color: #dcdcaa;">&nbsp;isDownloading</span>()</div><div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">return</span>&nbsp;sDownloading</div><div><span style="color: #c586c0;">end</span></div><br></div><p><br></p><p>我觉得注释写的很详细了，就不多废话了。</p><p>自制的boot：<a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200609163800204_F47cNn2R5e01ab7bed8ed_boot.bin">boot.bin</a></p><p>app程序从0x8300地址开始写入，对了很重要的波特率：115200。</p><p>也没仔细捣鼓，可能还有许多可以再继续优化的地方，欢迎指正。如果有需求就拿去用吧，希望能帮助到大家。</p><p><br></p><p><br></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/666/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/664/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

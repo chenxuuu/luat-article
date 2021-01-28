@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（下） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（下）</h1>
+<article class="post markdown-style">
+  <p>##本文内容</p>
+<p>在本篇文章的上部分中我们用Air202实现了一个串口屏，在本文的下部分中我们将尝试把做好的串口屏和Air720SL开发板连接，使Air720SL可以用屏幕输出文本信息。</p>
+<p>##连接方法</p>
+<p>Air720SL，本身有两个硬件串口，在Demo板上通过CH340转换成USB接口，供连接到电脑上调试。 由于Air720SL采用的UART为1.8V电平，在开发板中通过三极管和二极管构成的电平转换电路转换成3.3V电平，可惜这部分电路已经和CH340在线连接起来，无法单独使用，因此我用一块小板作了电平转换电路，并和DEMO板上的UART引出管脚相连接。</p>
+<p> 刚好DEMO板上有一个UART1&lt;-&gt;UART2切换开关，可以将其中一路UART口与其他电路板载电路断开连接。 我们这里把开关拨到UART2上，这样UART1就可以外接电平转换电路和Air202串口屏相连了。 下面是连接示意图<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_45984.jpg"><br>##电平转换板的制作</p>
+<p>因为手头没有电平转换板，所以参考Air720SL的电路自己DIY了一个，原件并不多，一共只有5个，其中TX一路采用一个三极管两个电阻，RX一路采用一个电阻和一个二极管即可。 原理图如下：</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_83038.jpg"></p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_74016.jpg"></p>
+<p>我用了一块2cmX6cm的面包板，按照以上电路简单焊接了一下就完成了。 然后我们把以下几个部件用杜邦线连接起来</p>
+<p>Air202串口屏</p>
+<p>Air720SL开发板</p>
+<p>电平转换小板</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_87648.jpg"></p>
+<p>连接好后，通电测试。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89622.jpg"></p>
+<p>##编写代码</p>
+<p>下面我结合上一篇文章的IO口电平检测Demo，实现了对GPIO_32电平发生变化的检测，并显示在Air202串口屏幕上，代码如下：</p>
+<p>demo.lua</p>
+<pre><code>--- 模块功能：串口屏 测试 DEMO.
+-- @author openLuat
+-- @module gpio.testUARTDISPLAY
+-- @license MIT
+-- @copyright openLuat
+-- @release 2020.01.17
+
+require &quot;utils&quot;
+require &quot;pm&quot;
+require &quot;pins&quot;
+require &quot;common&quot;
+
+module(..., package.seeall)
+
+local uartsetup=0
+
+function gpioIntFnc(msg)
+
+    if (uartsetup==1) then
+        if msg==cpu.INT_GPIO_POSEDGE then
+        --上升沿中断     
+        uart.write(1,common.utf8ToGb2312(&quot;检测到上升沿\n\r&quot;))
+        else
+        --下降沿中断
+        uart.write(1,common.utf8ToGb2312(&quot;检测到下降沿\n\r&quot;))
+        end
+    end
+end
+
+--------------------------------------------GPIO初始化---------------------------------------------
+pio32 = pins.setup(32, gpioIntFnc)
+
+-------------------------------------------- 配置串口 --------------------------------------------
+-- 串口ID,串口读缓冲区
+local UART_ID, sendQueue, writeBuff, writeBusy = 1, &#123;&#125;, &#123; &#123;&#125;, &#123;&#125; &#125;, false
+-- 串口超时，串口准备好后发布的消息
+local uartimeout, recvReady = 25, &quot;UART_RECV_ID&quot;
+--保持系统处于唤醒状态，不会休眠
+pm.wake(&quot;mcuart&quot;)
+uart.setup(UART_ID, 115200, 8, uart.PAR_NONE, uart.STOP_1, nil, 1)
+
+uart.on(UART_ID, &quot;receive&quot;, function(uid)
+    table.insert(sendQueue, uart.read(uid, 8192))
+    sys.timerStart(sys.publish, uartimeout, recvReady)
+end)
+
+uartsetup=1
+</code></pre>
+<p>main.lua</p>
+<pre><code>--必须在这个位置定义PROJECT和VERSION变量
+--PROJECT：ascii string类型，可以随便定义，只要不使用,就行
+--VERSION：ascii string类型，如果使用Luat物联云平台固件升级的功能，必须按照&quot;X.X.X&quot;定义，X表示1位数字；否则可随便定义
+PROJECT = &quot;testUARTDISPLAY&quot;
+VERSION = &quot;1.0.0&quot;
+
+--加载日志功能模块，并且设置日志输出等级
+--如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
+require &quot;log&quot;
+LOG_LEVEL = log.LOGLEVEL_TRACE
+
+
+require &quot;net&quot;
+--每1分钟查询一次GSM信号强度
+--每1分钟查询一次基站信息
+net.startQueryAll(60000, 60000)
+
+
+require &quot;errDump&quot;
+errDump.request(&quot;udp://ota.airm2m.com:9072&quot;)
+
+
+require &quot;demo&quot;
+
+--启动系统框架
+sys.init(0, 0)
+sys.run()
+</code></pre>
+<p>##联机测试</p>
+<p>将lua代码通过Luatools烧写到Air720SL上，然后连接GND与GPIO32，可以看到串口屏打印出了相应的响应信息，实验成功。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_34463.jpg"></p>
+<p>##总结</p>
+<p>至此，我们完成了Air720SL模块连接Air202串口屏的整个原型电路，终于可以在Air720SL上轻松地显示调试信息了。如果您有兴趣也快来试试吧，多加20块钱立即让您的4G产品具有显示功能。 这个项目在Github上已经建立了目录，并上传了本文所述的Lua脚本代码和硬件连线图。 如果您有兴趣和我一起完善他，就快来关注吧。 也欢迎您加我 QQ：64034373 共同探讨 。</p>
+<p>##开源项目地址</p>
+<p>UART_DISPLAY 开源项目地址：<a target="_blank" rel="noopener" href="https://github.com/miuser00/202uartdisplay">https://github.com/miuser00/202uartdisplay</a></p>
+<p>LLCCom 开源项目地址：<a target="_blank" rel="noopener" href="https://github.com/chenxuuu/llcom">https://github.com/chenxuuu/llcom</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/681/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/679/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

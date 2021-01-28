@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>玩转天猫精灵（一） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">玩转天猫精灵（一）</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;诈尸更新，最近在玩天猫精灵，记录一下如何将我们自己的硬件接入天猫精灵并通过它控制设备，可以用在智能家居开发。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20190804190959515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; style=&quot;width: 25%;&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(77, 77, 77); font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px;&quot;&gt;整体业务流程如图，当我们发出一条语音指令，天猫精灵会在本地进行识别并将结果上传到天猫精灵后台，天猫精灵后台会根据语音数据库对消息内容进行匹配，如果是匹配好的控制设备的指令，天猫精灵后台会推送消息到阿里云物联平台，平台推送指令到设备。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;找到阿里云物联网，行业服务，智能生活开放平台&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;240&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141237558.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;554&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in; width: 50%;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;智能生活开发平台，新建项目&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;228&quot; src=&quot;https://img-blog.csdnimg.cn/2019080514141534.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;390&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;创建产品&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;436&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;707&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;选择分类为灯&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;355&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415126.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;346&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;创建完成，点击创建的产品&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;194&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;435&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;默认功能即可&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;377&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;547&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;选合宙模组202&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;288&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;596&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;添加设备&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;255&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415214.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;634&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;Imei做设备名&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;261&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;481&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;记录三元组&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;399&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415233.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;587&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;激活公版app按钮&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;91&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415234.png&quot; width=&quot;694&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;337&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;647&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;配置面板&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;238&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;220&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;选最简单的就可以&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;296&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415258.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;373&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;分享方式默认&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;271&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415276.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;625&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;点进语言管理&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;111&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415272.png&quot; width=&quot;855&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;设置中文即可，其他不用管&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;359&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;646&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;可以看到天猫精灵已经支持这么多类设备&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;75&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415292.png&quot; width=&quot;673&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;273&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415369.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;521&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;选配网二维码（2G不需要配网，但是需要设备在线然后扫码绑定）&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;118&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415324.png&quot; width=&quot;206&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;复制链接&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;268&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;322&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;末尾根据提示替换成设备名，我用了imei&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;&lt;img alt=&quot;&quot; class=&quot;has&quot; height=&quot;342&quot; src=&quot;https://img-blog.csdnimg.cn/20190805141415370.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Jvb3R1c2VyZXM=,size_16,color_FFFFFF,t_70&quot; width=&quot;626&quot; style=&quot;outline: 0px; max-width: 100%; overflow-wrap: break-word; cursor: zoom-in;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; margin-left: 0cm; font-family: &amp;quot;Microsoft YaHei&amp;quot;, &amp;quot;SF Pro Display&amp;quot;, Roboto, Noto, Arial, &amp;quot;PingFang SC&amp;quot;, sans-serif; font-size: 16px; color: rgb(77, 77, 77); line-height: 26px; overflow-x: auto; overflow-wrap: break-word;&quot;&gt;云平台操作结束&lt;/p&gt;
+                    
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/605/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/603/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

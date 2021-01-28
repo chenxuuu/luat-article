@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air系列模块Lua版本nvm功能汇总 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air系列模块Lua版本nvm功能汇总</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;div style=&quot;border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;&quot;&gt;
+</code></pre>
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><a name="下载安装"></a><b><span style="font-size:14.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">一、概述</span></b><b><span lang="EN-US" style="font-size:
+14.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">nvm</span><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">是利用文件实现的一种非易失性参数存储管理模块，掉电后参数不会丢失，典型的应用场景为：小数据量的简单键值对参数。不适合大容量数据的存储管理，如果数据量超过<span lang="EN-US">10K</span>，建议直接使用<span lang="EN-US">io</span>接口操作文件来管理<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:14.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">nvm</span><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">功能模块中，涉及到两个文件和一个表<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">两个文件包括“默认配置文件”和“实时参数文件”，下文用<span lang="EN-US">config.lua</span>来表示默认配置文件，<span lang="EN-US">para.lua</span>来表示实时参数文件：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;color:#333333;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp; </span></span><!--[endif]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">config.lua</span><span style="font-size:
+9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">：本地烧录程序时，烧录进模块的一个用户自定义文件，定义了默认的键值对参数结构和内容，例如下图<span lang="EN-US"><o:p></o:p></span></span></p><table class="MsoTableGrid" border="1" cellspacing="0" cellpadding="0" style="margin-left: 26.7pt; background: rgb(242, 242, 242); border: none;">
+ <tbody><tr>
+  <td width="666" valign="top" style="width:399.4pt;border:solid black 1.0pt;
+  mso-border-themecolor:text1;mso-border-alt:solid black .5pt;mso-border-themecolor:
+  text1;padding:0cm 5.4pt 0cm 5.4pt">
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">module(...)<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p>&nbsp;</o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">strPara = "str1"<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">numPara = 1<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">boolPara = false<o:p></o:p></span></span></p>
+  <p class="MsoNormal" align="left" style="word-break: break-all;"><span class="pln"><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;">tablePara =
+  {"item1-1","item1-2","item1-3"}</span></span><span lang="EN-US" style="font-size: 7.5pt; font-family: Consolas; border: 1pt none windowtext; padding: 0cm;"><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;color:#333333;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp; </span></span><!--[endif]--><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">para.lua</span><span style="font-size:
+9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">：每次开机初始化时，如果<span lang="EN-US">para.lua</span>不存在，则从<span lang="EN-US">config.lua</span>复制出一个文件，重命名为<span lang="EN-US">para.lua</span>，在程序运行过程中，写参数都是操作这个<span lang="EN-US">para.lua<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">一个表指的是：<span lang="EN-US">para.lua</span>的内存加载表，下文用<span lang="EN-US">para_ram_table</span>来表示这个表，每次开机初始化时，会把<span lang="EN-US">para.lua</span>文件中的内容加载到<span lang="EN-US">para_ram_table</span>，在程序运行过程中，读参数都是直接读取<span lang="EN-US">para_ram_table<o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:18.0pt">二、接口实现原理</span></b><span lang="EN-US" style="font-size:
+9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:red;
+mso-font-kerning:0pt"><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.1</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、初始化</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:6.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">调用<span lang="EN-US">nvm.init("config.lua")</span>，执行的流程图如下：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-qyVjlgob5d5ab83ccb151.png" class="img-responsive" style="width: 573px;"><br></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.2</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、读参数</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">调用<span lang="EN-US">nvm.get(...)</span>或者<span lang="EN-US">nvm.gett(...)</span>，直接返回<span lang="EN-US">para_ram_table</span>中的参数值<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.3</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、写参数</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">调用<span lang="EN-US">nvm.set(...)</span>或者<span lang="EN-US">nvm.sett(...)</span>，执行的流程图如下：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-SC2QIPMl5d5ab8481c064.png" class="img-responsive" style="width: 581px;"><br></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.4</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、恢复出厂设置</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">调用<span lang="EN-US">nvm.restore()</span>，执行的流程如下：<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">、删除<span lang="EN-US">para.lua<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">、复制<span lang="EN-US">config.lua</span>，重命名为<span lang="EN-US">para.lua<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">、<span lang="EN-US">para.lua</span>文件中的内容加载到内存<span lang="EN-US">para_ram_table</span>中<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">2.5</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、删除参数文件</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span style="font-size:9.0pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">调用<span lang="EN-US">nvm.remove()</span>，会删除<span lang="EN-US">para.lua</span>， 然后用户自行控制重启，重启后自动执行初始化流程<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span style="font-size:14.5pt;
+font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;mso-hansi-font-family:
+inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt">三、常见问题</span></b><b><span lang="EN-US" style="font-size:14.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.1</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">api</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">文档和</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;
+color:#333333;mso-font-kerning:0pt">demo</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">在哪里</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;
+color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; api</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">文档详见脚本发布包中：<span lang="EN-US">script_LuaTask\doc\lib\index.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; modules---&gt;nvm<o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; demo</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">参考脚本发布包中：<span lang="EN-US">script_LuaTask\demo\nvm<o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.2</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">nvm</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">适用于什么场景</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;
+color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span lang="EN-US" style="font-size: 9pt; font-family: 微软雅黑, sans-serif; color: rgb(51, 51, 51);">nvm</span><span style="font-size: 9pt; font-family: 微软雅黑, sans-serif; color: rgb(51, 51, 51);">每次更新参数，保存到参数文件中时，会把所有参数拼接在一起，然后执行一次全量写文件的动作；此拼接操作消耗内存较多，如果数据量很大，需要的内存就很大，在系统可用内存紧张的情况下，很容易出现内存不足，从而导致参数更新失败，严重情况下还会造成系统重启</span></p>
+
+<p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">所以说：<span lang="EN-US">nvm</span>仅适用于小数据量的简单键值对参数；不适用于大容量数据的存储管理，如果数据量超过<span lang="EN-US">10KB</span>【仅仅为经验值，实际能够存储的数据量和系统运行过程中的动态可用内存有关：可用内存越小，允许存储的数据量就越少；可用内存越大，允许存储的数据量就越多，但是也不建议超过<span lang="EN-US">10KB</span>】，建议参考<span lang="EN-US">fs</span>的<span lang="EN-US">demo</span>直接使用<span lang="EN-US">io</span>接口操作文件来管理<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.3</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、远程升级后，</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">para.lua</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">会被自动删除吗</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">不会自动删除<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">如果需要删除，在升级包下载成功，软件重启之前，主动调用<span lang="EN-US">nvm.remove()</span>接口来删除<span lang="EN-US">para.lua</span>，重启应用新版本后，<span lang="EN-US">para.lua</span>就是新版本<span lang="EN-US">config.lua</span>的复制文件了<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.4</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、本地烧录后，</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">para.lua</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">会被自动删除吗</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">本地烧录程序，会格式化文件系统，<span lang="EN-US">para.lua</span>属于文件系统中的一个文件，所以会被自动删除<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">如果参数需要不受本地烧录的影响，可以保存到模块的<span lang="EN-US">sn</span>区，<span lang="EN-US">sn</span>区最多可存储<span lang="EN-US">64</span>字节的数据，在脚本中使用<span lang="EN-US">misc.getSn()</span>和<span lang="EN-US">misc.setSn(...)</span>可以读写<span lang="EN-US">sn</span>区域的数据<span lang="EN-US"><o:p></o:p></span></span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.5</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">2G</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">模块使用远程升级时，</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">config.lua</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">的注意事项</span></b><b><span lang="EN-US" style="font-size:
+11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt">不要删除旧版本的任何参数<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt">不同版本中，同名参数的参数值数据类型要保持一致<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoListParagraph" align="left" style="margin: 0cm 0cm 7.4pt 42pt; text-indent: -21pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><!--[if !supportLists]--><span lang="EN-US" style="font-size:9.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-font-kerning:0pt">Ø<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp; </span></span><!--[endif]--><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt">如果有必要，增加新的参数用于新的功能<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt">这样做的原因是：<span lang="EN-US">2G</span>远程升级后，存在版本回退的概率（参考），但是版本回退并不会自动删除<span lang="EN-US">para.lua</span>，回退到旧版本后，如果参数数值类型发生了改变，或者参数不见了（实际上也是数值类型变成了<span lang="EN-US">nil</span>），旧版本的代码如果写的不够健壮，很容易引发代码运行异常。例如：<span lang="EN-US"><o:p></o:p></span></span></p><p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0.0</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt">版本的<span lang="EN-US">para.lua</span>中有一个<span lang="EN-US">keyPara = 1</span>，远程升级到<span lang="EN-US">1.0.1</span>版本后，<span lang="EN-US">keyPara</span>的数据类型被定义成了<span lang="EN-US">string</span>类型，<span lang="EN-US">1.0.1</span>版本运行出错，导致版本自动回退到<span lang="EN-US">1.0.0</span>，<span lang="EN-US">1.0.0</span>的脚本直接对<span lang="EN-US">keyPara</span>的值进行数学运算，就会导致运行异常</span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.6</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">nvm</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">操作过程中，掉电会丢失数据吗</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt"><o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;">
+
+</p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvm</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">有备份机制，如果掉电时正在写<span lang="EN-US">nvm</span>，可能会造成正在写入的参数数据不生效，但是会恢复为上次写入的数据，不会导致数据内容出错。如果掉电时正在读<span lang="EN-US">nvm</span>，不会对参数数据造成任何影响</span></p><div style="border-top: none; border-right: none; border-left: none; border-image: initial; border-bottom: 1pt solid rgb(238, 238, 238); padding: 0cm 0cm 4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">
+
+<p class="MsoNormal" align="left" style="margin: 12pt 0cm 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all; border: none; padding: 0cm;"><b><span lang="EN-US" style="font-size:11.5pt;font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:
+微软雅黑;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:0pt">3.7</span></b><b><span style="font-size:11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:
+inherit;mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;
+mso-font-kerning:0pt">、</span></b><b><span lang="EN-US" style="font-size:11.5pt;
+font-family:&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">nvm</span></b><b><span style="font-size:
+11.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-ascii-font-family:inherit;
+mso-hansi-font-family:inherit;mso-bidi-font-family:宋体;color:#333333;mso-font-kerning:
+0pt">可以操作多少次</span></b><b><span lang="EN-US" style="font-size:11.5pt;font-family:
+&quot;inherit&quot;,&quot;serif&quot;;mso-fareast-font-family:微软雅黑;mso-bidi-font-family:宋体;
+color:#333333;mso-font-kerning:0pt">flash<o:p></o:p></span></b></p>
+
+</div><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvm</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">通过文件接口写<span lang="EN-US">flash</span>，具有擦写均衡机制<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2G</span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">模块和<span lang="EN-US">4G</span>模的<span lang="EN-US">flash</span>可以完全擦写<span lang="EN-US">10</span>万次<span lang="EN-US"><o:p></o:p></span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;">
+
+
+
+
+
+</p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:
+宋体;color:#333333;mso-font-kerning:0pt">假设通过<span lang="EN-US">rtos.get_fs_free_size()</span>获取到的文件系统剩余空间为<span lang="EN-US">512K</span>字节，<span lang="EN-US">nvm</span>参数文件总大小为<span lang="EN-US">1K</span>字节，则写<span lang="EN-US">512</span>次可以完全擦写一次文件系统剩余空间。总得允许擦写次数理论值就是<span lang="EN-US">512*10</span>万次<span lang="EN-US"><o:p></o:p></span></span></p>
+                        
+                        
+                        
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/615/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/613/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

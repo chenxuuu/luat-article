@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MIT 6.S081 操作系统课程系列2 System calls [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">MIT 6.S081 操作系统课程系列2 System calls</h1>
+<article class="post markdown-style">
+  <h1 id="MIT-6-S081-操作系统课程系列2-System-calls"><a href="#MIT-6-S081-操作系统课程系列2-System-calls" class="headerlink" title="MIT 6.S081 操作系统课程系列2 System calls"></a>MIT 6.S081 操作系统课程系列2 System calls</h1><hr>
+<p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/labs/syscall.html">https://pdos.csail.mit.edu/6.828/2020/labs/syscall.html</a><br>本次实验需要读xv6手册第二章、4.3、4.4。看相关kernel代码。<br>理解system call的流程并实现一些system call。</p>
+<hr>
+<h3 id="物理资源的抽象"><a href="#物理资源的抽象" class="headerlink" title="物理资源的抽象"></a>物理资源的抽象</h3><ul>
+<li>为什么要有system call。因为为了安全等因素，需要有一层隔离，不能让应用程序直接访问敏感资源。</li>
+<li>为一些关键资源做一系列system call，供应用程序使用，是比较好的办法，既安全又分层化方便开发。比如文件的open/read/write等等。<br>比如exec，会做一系列内存操作，不需要应用程序自己处理。</li>
+</ul>
+<hr>
+<h3 id="user模式和supervisor模式"><a href="#user模式和supervisor模式" class="headerlink" title="user模式和supervisor模式"></a>user模式和supervisor模式</h3><ul>
+<li>应用程序与内核是“隔离”的，应用程序的崩溃绝不能影响内核的正常运行。所以不允许一个应用程序访问内核本身的数据和内存等。<br>而且应用程序之间也不允许相互访问内存。</li>
+<li>cpu对这种隔离有硬件上的支持。比如risc-v有三种模式：machine mode/supervisor mode/user mode。<br>machine模式下执行的指令有所有权限，通常是机器启动时配置各种资源时使用。<br>xv6在machine模式下执行少数代码后会切换到supervisor模式。</li>
+<li>supervisor模式下cpu可以执行一些需要权限的指令。比如中断的开关，读写寄存器等等。<br>如果在user模式下执行这些指令，cpu会忽略。<br>普通应用程序只能运行在user模式下，所谓的user space。<br>supervisor模式下运行的程序在所谓的kernel space里。</li>
+<li>应用程序想调用system call时必须转到kernel模式。cpu会提供指令从user模式转到supervisor模式。<br>收到system call后，kernel会检查其参数。没有问题才运行。</li>
+</ul>
+<hr>
+<h3 id="kernel的规划"><a href="#kernel的规划" class="headerlink" title="kernel的规划"></a>kernel的规划</h3><ul>
+<li>一个大问题是操作系统的哪些部分要运行在supervisor模式。</li>
+<li>一种方法是整个操作系统都放进去，即monolithic kernel。<br>这样的好处是好实现，少费脑筋，可共用资源比如各种buff。<br>一个坏处是各个模块之间的接口会过于复杂，开发人员容易犯错。<br>monolithic kernel里的错误是致命的，因为supervisor模式下的错误通常会造成整个kernel崩溃。</li>
+<li>为了缓解这个问题，可尽量减少运行在supervisor模式下的代码，而转到user模式下执行。成为micro kernel微内核。</li>
+<li>例如用户程序想访问文件，操作系统会在user空间跑一个文件服务器，用户程序还是向kernel请求system call，kernel把请求再发给user空间的文件服务器。这样内核实际跑的代码就很少，只是转发了一下命令。</li>
+<li>xv6是monolithic kernel，体积小，功能少。</li>
+</ul>
+<hr>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><ul>
+<li>xv6中隔离的粒度是进程。进程间无法相互访问各自内存、cpu信息、文件等资源。<br>进程也不能访问kernel的资源。</li>
+<li>kernel代码必须很小心地实现，防止用户程序的各种恶意操作。<br>进程有自己的地址空间，仿佛自己占用是一套独立完整的机器资源。</li>
+<li>xv6用分页表(硬件实现)实现每个进程的地址空间。<br>risc-v分页表会把虚拟地址转换成实际的物理内存地址。</li>
+</ul>
+<p>进程的虚拟地址空间示意:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">_____________   </span><br><span class="line">| trampoline |  &lt;- maxva</span><br><span class="line">|____________|</span><br><span class="line">| trapframe  |</span><br><span class="line">|____________|</span><br><span class="line">|            |</span><br><span class="line">|            |</span><br><span class="line">|            |</span><br><span class="line">|            |</span><br><span class="line">|   heap     |</span><br><span class="line">|            |</span><br><span class="line">|            |</span><br><span class="line">|            |</span><br><span class="line">|            |</span><br><span class="line">|____________|</span><br><span class="line">| user stack |</span><br><span class="line">|____________|</span><br><span class="line">|            |</span><br><span class="line">| user text  |</span><br><span class="line">| user data  |</span><br><span class="line">|____________|  &lt;- 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>riscv的指针为64bit。会用低39位来查分页表中的地址。xv6又会用其中的38位，所以寻址空间就是pow(2, 38)-1=0x3fffffffff（kernel/riscv.h里又定义)。</li>
+<li>每个进程有user和kernel两个stack。程序在user空间时就用user栈，进入kernel是就用kernel栈。</li>
+<li>进程调用system call时先发送rsicv的ecall指令，获取硬件权限然后把程序接到kernel指定的入口，在入口处会转换到kernel栈然后执行system call的代码。<br>当system call执行完，发送sret指令取消硬件权限，切换回user栈和user空间。</li>
+</ul>
+<hr>
+<h3 id="xv6的启动流程"><a href="#xv6的启动流程" class="headerlink" title="xv6的启动流程"></a>xv6的启动流程</h3><ol>
+<li>上电。bootloader加载kernel进内存。地址为0x80000000。因为0x0到0x80000000包含io设备，所以放到0x80000000。</li>
+<li>machine模式。cpu执行entry.S里的_entry。此时硬件分页关闭，虚拟地址直接映射到物理地址。</li>
+<li>_entry起一个stack0让xv6能够跑c代码。sp指针指向stack0+4096。开始跑start.c里的start()函数。</li>
+<li>start()做一些machine模式特许的操作。</li>
+<li>切换到supervisor模式。写main函数(kernel/main.c)的地址到mepc，直接返回到main函数。</li>
+<li>main()初始化各种设备和子系统。调用userinit()创建第一个进程。执行user/initcode.S。</li>
+<li>initcode.S执行exec(system call)，启动init程序(user/init.c)。进入shell等待用户输入。</li>
+</ol>
+<hr>
+<h3 id="system-call的c代码解析"><a href="#system-call的c代码解析" class="headerlink" title="system call的c代码解析"></a>system call的c代码解析</h3><ul>
+<li>exec为例，用户程序代码会把参数放进a0和a1寄存器，exec的代码7(syscall.h)放进a7。</li>
+<li>见syscall()函数，从a7取出代号调用相应的system call函数。</li>
+<li>system call函数里需要从寄存器取参数(使用argaddr/argint/argfd等等)。<br>返回值存入a0。</li>
+<li>结束后exec就会返回a0里的值。</li>
+<li>有时需要返回较多的数据，需要用copyout从kernel复制数据到用户地址。</li>
+</ul>
+<hr>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="trace"><a href="#trace" class="headerlink" title="trace"></a>trace</h3><ul>
+<li>做一个trace程序(system call)，供user层的trace调用。</li>
+<li>第一个参数是一个bit设置，对应syscall.h里的定义。比如传32，就是1&lt;&lt;5，5对应的就是SYS_read。可以同时打开多项。</li>
+<li>调用system call后，检查对应的bit是否打开，打开的话就打印信息。</li>
+</ul>
+<ol>
+<li>makefile里UPROGS加入trace</li>
+<li>user/user.h里加入trace的定义</li>
+<li>user/usys.pl里加入trace的定义</li>
+<li>kernel/syscall.h里加入trace新号</li>
+<li>kernel/proc.h的进程结构体里添加int类型trace_flag</li>
+<li>kernel/sysproc.c里加入sys_trace()<br>sys_trace这个system call。获取参数用argint。给myproc()的trace_flag赋值即可。</li>
+<li>修改fork函数。把parent的trace_flag传给child。</li>
+<li>初始化进程的地方把trace_flag置0。</li>
+<li>修改kernel/syscall.c。调用syscall后判断num和trace_flag，如果bit被打开，打印相关信息。</li>
+</ol>
+<hr>
+<h3 id="sysinfo"><a href="#sysinfo" class="headerlink" title="sysinfo"></a>sysinfo</h3><ul>
+<li>做一个sysinfo程序(system call)。打印系统信息。<br>测试程序为user/sysinfotest.c</li>
+</ul>
+<ol>
+<li>修改makefile</li>
+<li>user/user.h里加入sysinfo的定义(参照sysinfotest.c的使用方法)</li>
+<li>参照trace的实现，添加其他定义。</li>
+<li>实现sysinfo函数。</li>
+</ol>
+<ul>
+<li><p>参考sysfile.c里的sys_fstat。会接收一个指针，要用copyout把kernel模式下的内存数据copy到这个指针的地址。<br>要获取系统可用内存和当前进程总数这两个数据。</p>
+</li>
+<li><p>如何获取系统的空闲内存？需要看一下内存操作的实现。<br>memlayout.h里定义了KERNBASE和PHYSTOP，从0x80000000L开始的128M字节为可用内存。<br>riscv.h里定义了页的大小PGSIZE为4字节。</p>
+</li>
+<li><p>看一下kalloc.c里对内存的操作<br>有一个run结构类型包含一个指向同类型结构的指针，就是一个简单的list。<br>有一个kmem结构实体包含一个run的指针freelist，和一个spinlock。对kmem操作时都要锁这个spinlock。</p>
+</li>
+<li><p>先看kfree如何释放或初始化内存。<br>kfree接收一个指针pa，pa的值是要释放的内存的地址比如0x80000008L，往0x80000008L开始填4字节垃圾(也可以不管)，然后把pa插到freelist头部。<br>kalloc先检查freelist头部，如果不是0就往头部填充一些垃圾返回(这里没有硬性规定，所以分配内存后一般需要memset置零。)，把freelist往后挪。</p>
+</li>
+<li><p>这样就很清晰了，freelist实际就是个可用内存的链表。每次free一个页就把这个地址做成指针插到头部，每次alloc一个页就拿出头部，之前的第二项变成新的新的头部。</p>
+</li>
+<li><p>懂了内存分配的原理，获取可用内存就非常简单，遍历一下freelist并计数即可。</p>
+</li>
+<li><p>统计当前进程总数，遍历proc数组，统计不为UNUSED的数量即可。</p>
+</li>
+</ul>
+<hr>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2234/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2180/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

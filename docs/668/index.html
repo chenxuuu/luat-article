@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>如何用java操作Air202-S6的UART串口？（二） [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">如何用java操作Air202-S6的UART串口？（二）</h1>
+<article class="post markdown-style">
+  <h3 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h3><p>上一篇文章简单介绍了如何在Air202-S6开发环境中用java编写Helloworld，大家对开发环境都已经有了一个了解；今天我们就继续探究一下Air202模块的标准UART接口，看看如何把它利用起来；<br>UART作为一个标准接口用途是十分广泛的，有时候我们做一些数据通讯，控制外设运行状态比其它一些接口（SPI/I2C）更加方便快捷；所以说熟练掌握编写串口通信的业务代码对后续工作有很大的帮助； </p>
+<h3 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h3><p>1）    UART Demo实例设计与编写<br>2）    Demo运行效果展示</p>
+<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><p>1）    下载Air202模块支持java的ROM刷新到模块即可；【<a target="_blank" rel="noopener" href="https://github.com/iotinjava/Air202S6" title="下载传送门">下载传送门</a>】<br>2）    下载应用编写的SDK开发环境；【<a target="_blank" rel="noopener" href="https://file.joshvm.com/resource/studio/JoshVM_win32-1.1.10.v20191212.zip" title="下载传送门">下载传送门</a>】<br>3）    编写应用Uart Demo，加载到模块执行；</p>
+<h3 id="硬件环境："><a href="#硬件环境：" class="headerlink" title="硬件环境："></a>硬件环境：</h3><p>1）    S6核心开发板-AT版 ：数量 1<br>2）    USB2COM，usb转串口： 数量2<br>3）    电源适配器转接头【 输入：220v/50Hz ；输出：5V/2A】 ：数量1<br>4）    按键开关（控制S6开发板上电/断电）：数量1<br>5）    接插线 若干</p>
+<p>原理图：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94014.png" alt="图1" title="图1"></p>
+<p>从PC侧看串口：<br>COM53：连接开发板上的UART2端口，在PC端开启串口工具和模块进行交互；<br>COM61：连接开发板上的UART1端口，下载应用jar到模块，输出应用log；</p>
+<p>从模块侧看串口：<br>UART1：在java内映射成COM0，供应用下载与log输出；<br>UART2：在java内映射成COM1，供java应用使用，与外部设备进行数据通讯交互。</p>
+<p>实际连接图：<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_21646.png" alt="图2" title="图2"></p>
+<p>准备好上述所需资源后，下面让我们开始实战操练：</p>
+<p>一：SDK的开发环境；<br>a）    建立工程Air202S6Demo01Uart工程，编写Air202S6Demo01Uart.java代码</p>
+<p>在java中，COM端口被看作流设备，可以使用StreamConnection类来连接；对COM端口的读和写操作分别被输入类(InputStream)和输出类(OutputStream)封装；</p>
+<p>定义使用串口名称和波特率：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String com = <span class="string">&quot;COM1&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> baudrate = <span class="number">115200</span>;</span><br></pre></td></tr></table></figure>
+<p>串口连接变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> StreamConnection sc;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> InputStream in;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> OutputStream out;</span><br></pre></td></tr></table></figure>
+<p>打开串口以及关联输入&amp;输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String host = <span class="string">&quot;comm:&quot;</span> + com + <span class="string">&quot;;baudrate=&quot;</span> + baudrate;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	sc = (StreamConnection) Connector.open(host);</span><br><span class="line">	in = sc.openInputStream();</span><br><span class="line">	out = sc.openOutputStream();</span><br><span class="line">	……..</span><br></pre></td></tr></table></figure>
+
+<p>串口数据读取在while循环中，将读到的数据显示打印，判断如果是quit，则退出应用；然后将收到的数据回显到PC发送端；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ((len = in.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">	String str = <span class="keyword">new</span> String(buffer,<span class="number">0</span>,len);</span><br><span class="line">	System.out.println(<span class="string">&quot;len:&quot;</span> + len + <span class="string">&quot;; str:&quot;</span>+str);</span><br><span class="line">	<span class="keyword">if</span>(EXIT_CMD.equals(str))</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	out.write(str.getBytes());</span><br><span class="line">	out.write(<span class="string">&quot;\r\n&quot;</span>.getBytes());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>串口Read读取模式为block模式，如果没有读到数据的话，就处于阻塞状态，直到有数据输入，才继续执行下面的代码；</p>
+<p>当程序结束退出时候，在finally模块中关闭已经打开串口资源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (in != <span class="keyword">null</span>)</span><br><span class="line">			in.close();</span><br><span class="line">		<span class="keyword">if</span> (out != <span class="keyword">null</span>) </span><br><span class="line">			out.close();</span><br><span class="line">		<span class="keyword">if</span> (sc != <span class="keyword">null</span>) </span><br><span class="line">			sc.close();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>b）    File-&gt;Export-&gt;选择Josh Standalone中的Export MIDlet package -&gt; Next -&gt; Export配置界面<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_51366.png" alt="图3" title="图3"></p>
+<p>c）    按Finish按键，生成Air202S6Demo01Uart.jar<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56144.png" alt="图4" title="图4"></p>
+<p>二：下载应用app到模块；<br>应用jar下载到模块中的功能由SDK\bin\joshConsole.exe完成;<br>1，    给S6开发板断电；<br>2，    输入下载应用命令：</p>
+<blockquote>
+<p><strong>C:\JoshVM_win32-1.1.3.v20190531\JoshVM\SDK\bin&gt;JoshConsole.exe \.\COM61 -d Air202S6Demo01Uart.jar</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97477.png" alt="图5" title="图5"></p>
+</blockquote>
+<p>3，    给S6开发板上电；<br>4，    等待下载应用jar完成；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33141.png" alt="图6" title="图6"></p>
+<p>三：运行应用app并检查执行结果；<br>1，    给S6开发板断电；<br>2，    输入运行应用jar命令；</p>
+<blockquote>
+<p><strong>C:\JoshVM_win32-1.1.3.v20190531\JoshVM\SDK\bin&gt;JoshConsole.exe \.\COM61 -r Air202S6Demo01Uart.jar Air202S6Demo01Uart</strong></p>
+</blockquote>
+<p>-r:运行已经下载到模块中的应用jar，没有下载到模块jar无法直接运行；后接文件名 类名；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_29653.png" alt="图7" title="图7"></p>
+<p>3，    给S6开发板上电；<br>4，    等待运行应用jar运行；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67276.png" alt="图8" title="图8"></p>
+<p>上电后，我们可以看到Jar应用的输出log，我们在PC上用串口工具打开COM53，发送数据给Air202模块中的jar应用；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_24798.png" alt="图9" title="图9"></p>
+<p>然后点击 串口工具上的 发送 按钮；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12958.png" alt="图10" title="图10"><br>当测试完成，可以在PC端的串口程序上输入“quit”命令，控制Air202模块上的退出串口测试程序；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93299.png" alt="图11" title="图11"></p>
+<p>到此为止，Air202模块上用java操控Uart串口试验可以告一段落，各位同学后续在实际业务中的串口操作可以根据具体业务流程来重新规划；</p>
+<p>一点说明：<br>Air202-S6的开发板上面有一个开机键，正常模块启动是在上电后 按一下那个pwk键，模块才可以启动；翻看产品规格书后发现，只要将开机键旁边的2个触点短接后，就可以做到上电自动开机；<br>所以就将焊盘短接后通过外接一个开关键控制上电开机；<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_97978.png" alt="图12" title="图12"></p>
+<h3 id="相关资源获取：https-github-com-iotinjava-Air202S6"><a href="#相关资源获取：https-github-com-iotinjava-Air202S6" class="headerlink" title="相关资源获取：https://github.com/iotinjava/Air202S6"></a>相关资源获取：<a target="_blank" rel="noopener" href="https://github.com/iotinjava/Air202S6">https://github.com/iotinjava/Air202S6</a></h3>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/669/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/667/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

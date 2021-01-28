@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>手把手教你用Air724UG做一个Weather APP [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">手把手教你用Air724UG做一个Weather APP</h1>
+<article class="post markdown-style">
+  <h2 id="首先来看一下效果展示"><a href="#首先来看一下效果展示" class="headerlink" title="首先来看一下效果展示"></a>首先来看一下效果展示</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609173824830_view.JPG" alt="view" title="view"><br><strong>相关的代码可在文后找到</strong></p>
+<h2 id="0-准备工作"><a href="#0-准备工作" class="headerlink" title="0.准备工作"></a>0.准备工作</h2><ul>
+<li>相关硬件：</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609174211994_%E5%87%86%E5%A4%87%E7%A1%AC%E4%BB%B6.JPG"></li>
+<li>一块合宙商城购买的Air724UG开发板</li>
+<li>一块LCD屏幕，驱动为gc9106l或st7735或其他</li>
+<li>一个speaker（扬声器）</li>
+<li>软件环境：</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609174346817_software.png"></li>
+<li>Core版本：Luat_V0014_RDA8910_TTS</li>
+<li>Lib版本：script_LuaTask_V2.3.2</li>
+<li>功能设计：</li>
+<li>从墨迹天气API获取实况天气</li>
+<li>将实况天气通过屏幕显示</li>
+<li>将实况天气通过语音的方式进行播报</li>
+<li>分析可知应该分别使用http，disp，audio这三个模块来实现这三个功能</li>
+<li>首先创建一个空文件夹作为工程目录，放入屏幕驱动文件（color_lcd_spi_gc9106l.lua/color_lcd_spi_st7735.lua）</li>
+<li>创建两个文件，一个名字为main.lua用来放置一些基本代码，内容如下</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607180912988_code.png" alt="main.lua" title="main.lua"></li>
+<li>还有一个文件名字可以自定义，我这里叫getWeatherAndDisplay.lua，在这个文件的开头写下面这一行代码，用来使得文件中的函数在何处都可调用。</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607180958561_code.png" alt="seeanywhere" title="seeanywhere"></li>
+</ul>
+<h2 id="1-获取天气信息"><a href="#1-获取天气信息" class="headerlink" title="1.获取天气信息"></a>1.获取天气信息</h2><ul>
+<li>天气信息的获取这里我使用阿里云市场中免费的墨迹天气API。</li>
+<li>获取天气可以通过lbs基站定位得到经纬度再使用墨迹天气经纬度版本进行天气查询。</li>
+<li>但是为了简单，这里我使用对应cityID（城市ID)的方式来获取天气情况。:point_right:<a target="_blank" rel="noopener" href="https://market.aliyun.com/products/57096001/cmapi023656.html?spm=5176.2020520132.101.7.43247218rReOAl#sku=yuncode1765600000" title="购买地址戳我">获取地址戳我</a>，购买之后在阿里云的控制台中的云市场中就可以找到我们购买的天气API</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604141807422_moji.png"></li>
+<li>由于我做的是实况天气的获取，所以通过阅读API的使用说明，可以得知以下API信息：</li>
+<li>请求方式：Post</li>
+<li>请求地址：<a target="_blank" rel="noopener" href="http://freecityid.market.alicloudapi.com/whapi/json/alicityweather/briefcondition">http://freecityid.market.alicloudapi.com/whapi/json/alicityweather/briefcondition</a></li>
+<li>返回类型：JSON</li>
+<li>请求参数：<img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200604142447075_param.png"></li>
+<li>返回示例：</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200612115105117_code.png" alt="返回示例" title="返回示例"></li>
+<li>掌握了这些信息之后开始写Lua代码中的http部分，通过模块查询天气状况。</li>
+<li>根据公众号文章学习http.request接口的使用方法:point_right:<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIwNjgzNDQ5NA==&mid=2247486377&idx=1&sn=6242c7e155cd6ce0208704e416ecd3a7&chksm=971ad5f8a06d5cee2057674d80f6c3d08c0341e460c19f9993133bb0e79dddbb659050c6a4b3&mpshare=1&scene=23&srcid=&sharer_sharetime=1590995320443&sharer_shareid=ba901ed241b377ec02413986add87bda#rd" title="必看｜如何正确使用http.request接口？">必看｜如何正确使用http.request接口？</a></li>
+<li>现在，通过上面了解到的内容来拼接http请求。</li>
+<li>由于我们提交参数的方式为表单提交（x-www-form-urlencoded），此种格式的body参数，需要对http.request的head和body参数进行填充，head参数需要添加[“Content-Type”]=”application/x-www-form-urlencoded”，body参数可使用如下接口httpRequestFormData接口来生成：</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607182934138_code.png"></li>
+<li>通过上面的接口对请求body的封装，拼接出的http请求代码为：<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607183354691_code.png"></li>
+<li>设计http回调函数来处理http请求返回的结果。这里需要用json模块来将json字符串解析为lua中的table数据结构。</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607184140342_code.png"></li>
+<li>因为天气信息是实时变化的，所以我们将http请求天气的函数放入循环计时器，每五分钟执行一次。</li>
+<li><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607184411723_code.png"></li>
+</ul>
+<h2 id="2-在屏幕上显示天气信息"><a href="#2-在屏幕上显示天气信息" class="headerlink" title="2.在屏幕上显示天气信息"></a>2.在屏幕上显示天气信息</h2><ul>
+<li><p>我这里使用的是驱动为gc9106l的屏幕，所以在main.lua中require了相关的屏幕驱动代码，如果使用其他屏幕可以require相应的驱动文件，文后的代码中提供了相应的下载。</p>
+</li>
+<li><p>查阅wiki.openluat.com得知需要使用disp相关的API来进行屏幕内容的显示。</p>
+</li>
+<li><p>相关API为disp.puttext(str,x,y)</p>
+</li>
+<li><p>创建一个任务用来每分钟更新屏幕显示内容，屏幕显示的天气状况为全局变量WeatherInfo中储存的天气信息。</p>
+</li>
+<li><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609175905017_code.png"></p>
+<h2 id="3-通过TTS播放天气信息"><a href="#3-通过TTS播放天气信息" class="headerlink" title="3.通过TTS播放天气信息"></a>3.通过TTS播放天气信息</h2></li>
+<li><p>首先要连接一个扬声器到相关引脚上，在开发板上speaker的两个引脚名字为PAOUTP和PAOUTN。</p>
+</li>
+<li><p>播放TTS需要使用audio模块，查询wiki得知API相关的用法为：</p>
+</li>
+<li><p>audio.play(priority, type, path, vol, cbFnc, dup, dupInterval)</p>
+</li>
+<li><p>根据我们的需求编写TTS代码，播放内容传入到函数中，音量为最大7，不需要回调函数。</p>
+</li>
+<li><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200607190155018_code.png"></p>
+</li>
+<li><p>由于我们需要需要在每五分钟http获取到天气信息的时候通过tts播放获取到的天气信息，所以在http回调函数中添加播放内容的代码，正好可以调用上面写好的playTts函数。</p>
+</li>
+<li><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200609180144995_code.png"></p>
+</li>
+</ul>
+<h2 id="4-经验总结，参考资料以及代码下载"><a href="#4-经验总结，参考资料以及代码下载" class="headerlink" title="4.经验总结，参考资料以及代码下载"></a>4.经验总结，参考资料以及代码下载</h2><ul>
+<li>经验总结</li>
+<li>通过对公众号历史优质文章的学习，轻松的实现各种http的请求方式，接口设计简单，功能强大。</li>
+<li>这里只是最基本的disp的使用方法，通过一些界面设计可以实现更加美观的界面。</li>
+<li>由于这个weather APP功能还算简单，只用到了LuaTask众多模块中的几个模块，但是LuaTask还有非常丰富的模块功能以及众多的玩法有待大家研究。</li>
+<li>依靠合宙较为丰富的资料文档可以顺利的找到相关需求的实现方法。</li>
+<li>参考资料</li>
+<li><a href="wiki.openluat.com">合宙Wiki教程</a></li>
+<li>Luat公众号文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIwNjgzNDQ5NA==&mid=2247486377&idx=1&sn=6242c7e155cd6ce0208704e416ecd3a7&chksm=971ad5f8a06d5cee2057674d80f6c3d08c0341e460c19f9993133bb0e79dddbb659050c6a4b3&mpshare=1&scene=23&srcid=&sharer_sharetime=1590995320443&sharer_shareid=ba901ed241b377ec02413986add87bda#rd">《必看｜如何正确使用http.request接口？》</a></li>
+<li>代码下载</li>
+<li><a target="_blank" rel="noopener" href="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/attachment/20200612144159052_LuatWeatherApp.7z">LuatWeatherApp.7z</a></li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/792/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/789/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

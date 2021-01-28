@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>docker远程访问和证书配置 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">docker远程访问和证书配置</h1>
+<article class="post markdown-style">
+  <p>#dockerd远程访问和证书配置</p>
+<p>systemd现在广泛被使用，假设docker服务是通过systemd启动的。</p>
+<p>docker的systemd配置在：</p>
+<pre><code>/lib/systemd/system/docker.socket
+/lib/systemd/system/docker.service
+</code></pre>
+<ol>
+<li><p>把<code>ExecStart=/usr/bin/dockerd</code>这一行替换为<code>ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://xxx.xxx.xxx:xxx</code><br>填上自己的ip和端口</p>
+</li>
+<li><p>sytemd重启docker（注意容器都会停止）</p>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl restart docker.service
+</code></pre>
+</li>
+</ol>
+<p>这样已经可以通过ip端口来远程访问了<br>例如</p>
+<pre><code>docker -H tcp://xxx.xxx.xxx:xxx images
+curl http://xxx.xxx.xxx:xxx/version
+</code></pre>
+<hr>
+<h3 id="裸连不安全。需要验证客户端。"><a href="#裸连不安全。需要验证客户端。" class="headerlink" title="裸连不安全。需要验证客户端。"></a>裸连不安全。需要验证客户端。</h3><p>参考官网<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/security/https/">https://docs.docker.com/engine/security/https/</a></p>
+<p>生成证书和key的步骤：</p>
+<ol>
+<li><p><code>openssl genrsa -aes256 -out ca-key.pem 4096</code><br>生成ca的key。输入密码。得到ca-key.pem</p>
+</li>
+<li><p><code>openssl req -new -x509 -days 2000 -key ca-key.pem -sha256 -out ca.pem -subj &quot;/CN=hz&quot;</code><br>创建自签署ca证书。输入刚才的密码。得到ca.pem</p>
+</li>
+<li><p>创建server用的cert和key<br>(如果只需认证客户端的合法性，可以跳过server端cert和key的创建，从8开始)<br><code>openssl genrsa -out server-key.pem 4096</code><br>生成server的key</p>
+</li>
+<li><p><code>openssl req -sha256 -new -key server-key.pem -out server.csr -subj &quot;/CN=hz&quot;</code><br>创建证书签名请求文件csr。得到server.csr</p>
+</li>
+<li><p><code>echo subjectAltName = IP:0.0.0.0 &gt; extfile.cnf</code></p>
+</li>
+<li><p><code>echo extendedKeyUsage = serverAuth &gt;&gt; extfile.cnf</code><br>Set the Docker daemon key’s extended usage attributes to be used only for server authentication:</p>
+</li>
+<li><p><code>openssl x509 -req -days 2000 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf</code><br>签名。输密码。得到server-cert.pem</p>
+</li>
+<li><p>创建client用的cert和key（请求时交给服务器进行验证。只有服务器签名的合法证书才能通过验证）<br><code>openssl genrsa -out client-key.pem 4096</code></p>
+</li>
+<li><p><code>openssl req -subj &#39;/CN=hz&#39; -new -key client-key.pem -out client.csr</code></p>
+</li>
+<li><p><code>echo subjectAltName = IP:0.0.0.0 &gt; extfile-client.cnf</code></p>
+</li>
+<li><p><code>echo extendedKeyUsage = clientAuth &gt; extfile-client.cnf</code></p>
+</li>
+<li><p><code>openssl x509 -req -days 2000 -sha256 -in client.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out client-cert.pem -extfile extfile-client.cnf</code></p>
+</li>
+<li><p>修改systemd配置并重启docker<br>配置生成的ca、客户端的cert和key<br><code>ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://xxx.xxx.xxx:xxx --tlsverify --tlscacert=/xxx/docker_cert/ca.pem --tlscert=/xxx/docker_cert/client-cert.pem --tlskey=/xxx/docker_cert/client-key.pem</code></p>
+</li>
+</ol>
+<hr>
+<p>开启–tls后</p>
+<pre><code>docker -H tcp://xxx.xxx.xxx:xxx images
+</code></pre>
+<p>已无法连接，必须要传证书进行验证：</p>
+<pre><code>docker --tlsverify --tlscacert=./ca.pem --tlscert=./client-cert.pem --tlskey=./client-key.pem -H tcp://xxx.xxx.xxx:xxx images
+</code></pre>
+<p>http要改为https并传证书：</p>
+<p>例如：python的requests</p>
+<pre><code>requests.get(dockerd.address + &#39;:%d/info&#39; % int(dockerd.port), verify = False, cert = (config.DOCKER_CERT_PATH + dockerd.client_cert, config.DOCKER_CERT_PATH + dockerd.client_key))
+</code></pre>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/1334/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/1265/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

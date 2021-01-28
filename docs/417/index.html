@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>SIM卡的前世今生，以及不得不说的vSIM(纯软虚拟卡) [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">SIM卡的前世今生，以及不得不说的vSIM(纯软虚拟卡)</h1>
+<article class="post markdown-style">
+  <p></p>
+
+<p><span style="font-family:'宋体';">在很多</span><span>80</span><span style="font-family:'宋体';">、</span><span>90</span><span style="font-family:'宋体';">后的记忆中，一张小小的</span><span>SIM</span><span style="font-family:'宋体';">卡，有着难以割舍的情怀——和女友羞涩的情话短信，第一份工资的到账通知，和爸妈的一次次同话记录，给</span><span>BAT</span><span style="font-family:'宋体';">缴纳的“智商税”，一次次刷新快递详情的等待……甚至不敢想象，没有了它，生活会变成怎样。</span></p>
+
+<p><span style="font-family:'宋体';">不过，用了那么久的</span><span>SIM</span><span style="font-family:'宋体';">卡，你真的懂它吗？今天咱们就来说说</span><span>SIM</span><span style="font-family:'宋体';">卡的那点事儿。</span></p>
+
+<h2><span style="font-family:'黑体';">什么是</span><span>SIM</span><span style="font-family:'黑体';">卡？</span></h2>
+
+<p></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">简单来说，</span><span>SIM</span><span style="font-family:'宋体';">卡就是一个遵循</span><span>gsm 11.11</span><span style="font-family:'宋体';">协议的、加密存储<b>固定数据</b>、<b>业务数据</b>和<b>用户数据</b>，具备运算能力，可输出结果的芯片。当用户把</span><span>SIM</span><span style="font-family:'宋体';">卡插入移动设备后，设备根据</span><span>SIM</span><span style="font-family:'宋体';">卡的信息上报数据，运营商对信息进行鉴权，从而提供相应服务。</span></p>
+
+<p></p>
+
+<p><img style="width:300px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-IFTMJ2FM5b887d7be85f2.jpg" class="img-responsive" alt="attachments-2018-08-IFTMJ2FM5b887d7be85f2.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">那么，</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡内部是什么样子的呢？咱们来一探究竟。</span></p>
+
+<p><img style="width:320px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-0dyntp2p5b887d9241e97.jpg" class="img-responsive" alt="attachments-2018-08-0dyntp2p5b887d9241e97.jpg" /><span style="font-size:10.5pt;font-family:'宋体';">（用打火机灼烧一下，去掉塑料卡片）</span><img style="width:320px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-7M8hOBqy5b887db437a9e.JPEG" class="img-responsive" alt="attachments-2018-08-7M8hOBqy5b887db437a9e.JPEG" /></p>
+
+<p><span style="font-family:'宋体';">（扣掉保护层）</span></p>
+
+<p></p>
+
+<p><img style="width:320px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-DSFt6DTi5b887dd76e907.JPEG" class="img-responsive" alt="attachments-2018-08-DSFt6DTi5b887dd76e907.JPEG" /></p>
+
+<p><span style="font-family:'宋体';">（</span><span>SIM</span><span style="font-family:'宋体';">卡的真身，第一次展露在世人面前）</span></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">如图所示，</span><span>SIM</span><span style="font-family:'宋体';">卡内部有</span><span>5</span><span style="font-family:'宋体';">个模块：</span><span>CPU</span><span style="font-family:'宋体';">（</span><span>8</span><span style="font-family:'宋体';">位，负责运算）、</span><span>ROM</span><span style="font-family:'宋体';">（</span><span>6~16k bit</span><span style="font-family:'宋体';">程序存储）、</span><span>RAM</span><span style="font-family:'宋体';">（</span><span>6~16k bit</span><span style="font-family:'宋体';">内存）、</span><span>EEPROM</span><span style="font-family:'宋体';">（</span><span>16~256k bit</span><span style="font-family:'宋体';">，数据存储）、通信单元。每一个模块各司其职，为设备的可靠通信提供保障。</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';">那么，</span><span>SIM</span><span style="font-family:'宋体';">卡都储存了什么数据呢？一起来了解一下：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span style="font-family:'宋体';">数据类型</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">名称</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">位数</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">用途</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">唯一性</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">加密</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">存储上限</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">可读取</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">可更改</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>IMSI</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">移动用户识别码</span></p>
+  </td>
+  <td>
+  <p><span>15</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">区别用户的标志</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>ICCID</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">集成电路卡识别码</span></p>
+  </td>
+  <td>
+  <p><span>20</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">区别</span><span>SIM</span><span style="font-family:'宋体';">卡的标志</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>KI</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">加密数据传递的密钥</span></p>
+  </td>
+  <td>
+  <p><span>128</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">加密传输数据</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>MSISDN</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">移动台国际用户识别码，即“<b>手机号</b>”</span></p>
+  </td>
+  <td>
+  <p><span>11</span></p>
+  <p><span>/</span></p>
+  <p><span>13</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">在公共电话网交换网络编号计划中，唯一能识别移动用户的号码</span></p>
+  <p><span style="font-family:'宋体';">（国内通常为空值）</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>PIN</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">个人识别密码</span></p>
+  </td>
+  <td>
+  <p><span>4</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">用户锁定</span><span>/</span><span style="font-family:'宋体';">解锁</span><span>SIM</span><span style="font-family:'宋体';">卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>PUK</span></p>
+  </td>
+  <td>
+  <p><span>PIN</span><span style="font-family:'宋体';">解锁码</span></p>
+  </td>
+  <td>
+  <p><span>8</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">多次输入</span><span>PIN</span><span style="font-family:'宋体';">错误，</span><span>SIM</span><span style="font-family:'宋体';">锁定后使用该码解锁</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span>-</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">通讯录</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">存储用户的通讯录</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">视</span><span>SIM</span><span style="font-family:'宋体';">卡容量而定</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">短信</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">存储用户短信</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">视</span><span>SIM</span><span style="font-family:'宋体';">卡容量而定</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">其他数据</span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">存储其他用户数据</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">视</span><span>SIM</span><span style="font-family:'宋体';">卡容量而定</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';">读表之后，可能有的童鞋还是不太理解</span><span>IMSI</span><span style="font-family:'宋体';">和</span><span>ICCID</span><span style="font-family:'宋体';">的区别，我来举个栗子：</span></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><b><i><span style="font-family:'宋体';">“</span><span>IMEI</span></i></b><b><i><span style="font-family:'宋体';">”</span></i></b><i><span style="font-family:'宋体';">是你的身份证号，<b>“</b></span><b><span>IMSI</span></b></i><b><i><span style="font-family:'宋体';">”</span></i></b><i><span style="font-family:'宋体';">是你的学号，<b>“</b></span><b><span>ICCID</span></b></i><b><i><span style="font-family:'宋体';">”</span></i></b><i><span style="font-family:'宋体';">是你的门禁卡卡号，<b>“</b></span><b><span>MISDN</span></b></i><b><i><span style="font-family:'宋体';">”</span></i></b><i><span style="font-family:'宋体';">是你的代号（</span><span>9527</span></i><i><span style="font-family:'宋体';">是你的终生代号</span><span>~</span></i><i><span style="font-family:'宋体';">）。</span></i></p>
+
+<p><i><span style="font-family:'宋体';">入学时，教务系统会给你分配一个唯一的代号（</span><span>MSISDN</span></i><i><span style="font-family:'宋体';">）、学号（</span><span>IMSI</span></i><i><span style="font-family:'宋体';">），门禁卡卡号（</span><span>ICCID</span></i><i><span style="font-family:'宋体';">），三者互相绑定。</span></i></p>
+
+<p><i><span style="font-family:'宋体';">你在任何地方的刷卡行为，教务系统都能根据卡号（</span><span>ICCID</span></i><i><span style="font-family:'宋体';">）反查找到你；其他不熟悉的你老师也可以根据你校服上的代号（</span><span>MSISDN</span></i><i><span style="font-family:'宋体';">）快速找到你（所以不要没事儿去撩秋香哦）。</span></i></p>
+
+<p><i><span style="font-family:'宋体';">如果某天你的门禁卡丢失了，去教务处补卡。你的学号（</span><span>IMSI</span></i><i><span style="font-family:'宋体';">）不变，但是门禁卡卡号（</span><span>ICCID</span></i><i><span style="font-family:'宋体';">）会变（因为更换了新卡，而每个卡的</span><span>ID</span></i><i><span style="font-family:'宋体';">都是不同的）。教务系统中，重新绑定你的学号（</span><span>IMSI</span></i><i><span style="font-family:'宋体';">）和门禁卡卡号（</span><span>ICCID</span></i><i><span style="font-family:'宋体';">），新的门禁卡生效，旧卡失效。</span></i></p>
+
+<p><i><span style="font-family:'宋体';">毕业后，你的学号（</span><span>IMSI</span></i><i><span style="font-family:'宋体';">）、学号短号（</span><span>MSISDN</span></i><i><span style="font-family:'宋体';">）、门禁卡卡号（</span><span>ICCID</span></i><i><span style="font-family:'宋体';">）作废。此过程中，你的身份证号（</span><span>IMEI</span></i><i><span style="font-family:'宋体';">）都是始终不变的，伴随终生。</span></i></p>
+
+<p>通过这个例子，相信大家对IMSI和ICCID等的关系有了一个较为清晰的了解。不过实际通信的场景，要比例子复杂得多。</p>
+
+<p>通常情况下，只有用户在开卡时，才会使用到ICCID，其他场景不再使用该数据；通信时，设备使用KI加密后主动并上报IMSI等数据进行身份鉴权，鉴权成功后，ISP提供对应服务；补卡的时候，IMSI也会产生变化——不然会出现冲突，把另一个相同IMSI的设备踢下线。</p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：我要进行设备身份鉴定，使用</span><span>IMEI/ICCID/IMSI</span><span style="font-family:'宋体';">哪个比较适合呢？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：</span><span>IMEI</span><span style="font-family:'宋体';">是设备固有的属性，不会因为</span><span>SIM</span><span style="font-family:'宋体';">卡的变化而变化。<b>可用作设备身份鉴定等使用</b>；</span><span>IMSI</span><span style="font-family:'宋体';">、</span><span>ICCID</span><span style="font-family:'宋体';">是和</span><span>SIM</span><span style="font-family:'宋体';">卡固有的属性，如果更换卡片，则对设备而言该数据会改变，<b>不适合作为设备身份鉴定使用</b>。</span></p>
+
+<p><span> </span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：为什么我买的物联卡没有</span><span>MSISDN</span><span style="font-family:'宋体';">？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：因为</span><span>MSISDN</span><span style="font-family:'宋体';">不是通信的必须的数据。</span></p>
+
+<p><span> </span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：有的手机可以自动获取“本机号码”，我能用这样的手机去取得物联卡的</span><span>MSISDN</span><span style="font-family:'宋体';">吗？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：部分智能机可以自动获取“本机号码”，不是什么高科技——它只是在后台发了个短信，或者打了个电话，手机操作系统的服务器再把</span><span>SIM</span><span style="font-family:'宋体';">卡</span><span>MSISDN</span><span style="font-family:'宋体';">返回给手机。流量卡没有语音和短信功能，所以这个方法也无法获取“本机号码”。</span></p>
+
+<p><span style="font-family:'宋体';">（除非是某些智能机——如</span><span>iPhone</span><span style="font-family:'宋体';">主动上报</span><span>ICCID</span><span style="font-family:'宋体';">，否则不能提供</span><span>ICCID</span><span style="font-family:'宋体';">反查</span><span>IMEI</span><span style="font-family:'宋体';">、</span><span>IMSI</span><span style="font-family:'宋体';">这样的服务）</span></p>
+
+<p><span> </span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：是不是所有的</span><span>MSISDN</span><span style="font-family:'宋体';">都是固定位数？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：不是所有的</span><span>MSISDN</span><span style="font-family:'宋体';">都是固定的</span><span>11</span><span style="font-family:'宋体';">位，物联网卡就是</span><span>13</span><span style="font-family:'宋体';">位哦；</span></p>
+
+<p><span> </span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：既然没有</span><span>MSISDN</span><span style="font-family:'宋体';">，那么怎么进行充值</span><span>/</span><span style="font-family:'宋体';">充流量呢？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：直接联系淘宝客服或尝试联系</span><span>ISP</span><span style="font-family:'宋体';">电话客服寻求帮助。</span></p>
+
+<p><span> </span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：如果破解了</span><span>KI</span><span style="font-family:'宋体';">，是不是能实现一号多机？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：过去的“小灵通”由于资费低（语音包月制），便携性强，从而衍生了灰色产业链——破解</span><span>KI</span><span style="font-family:'宋体';">实现一号多机；当然，也就会产生串号的情况了。</span></p>
+
+<p><span style="font-family:'宋体';">现在的部分</span><span>SIM</span><span style="font-family:'宋体';">卡也能使用</span><span>MagicSIM</span><span style="font-family:'宋体';">破解；</span></p>
+
+<p><span> </span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span>Q</span><span style="font-family:'宋体';">：为什么没有</span><span>SIM</span><span style="font-family:'宋体';">卡也能拨打</span><span>112</span><span style="font-family:'宋体';">？</span></b></span></p>
+
+<p><span>A</span><span style="font-family:'宋体';">：如果设备没有</span><span>SIM</span><span style="font-family:'宋体';">卡，则设备会搜索附近所有基站（所以信号不为</span><span>0</span><span style="font-family:'宋体';">），尝试并拨号，如果号码在白名单中（如</span><span>112, 911, 118, 119, 000, 110, 999</span><span style="font-family:'宋体';">等），基站会提供语音服务。</span></p>
+
+<p><span>参考资料：https://www.quora.com/How-do-Emergency-call-works-without-any-sim-card</span></p>
+
+<p><span> </span></p>
+
+<h2><span style="font-family:'黑体';">为什么</span><span>SIM</span><span style="font-family:'黑体';">卡有那么规格？</span></h2>
+
+<p><span><br /></span></p>
+
+<p><span>N</span><span style="font-family:'宋体';">年前，</span><span>iPhone4</span><span style="font-family:'宋体';">首次使用</span><span>MicroSIM</span><span style="font-family:'宋体';">，惊艳四座，大家才发现原来</span><span>SIM</span><span style="font-family:'宋体';">卡可以变得那么小。为了能用上</span><span>iPhone4</span><span style="font-family:'宋体';">，很多人还练就了一手剪卡绝技。</span></p>
+
+<p><span style="font-family:'宋体';">而两代后的</span><span>iPhone5</span><span style="font-family:'宋体';">，使用了“更激进”的</span><span>NanoSIM</span><span style="font-family:'宋体';">，更是让大家“惊叹不已”。然而，由于卡片太小，剪卡已经行不通了。还好恰逢</span><span>4G</span><span style="font-family:'宋体';">时代，运营商免费给用户换卡，所以就都直接去营业厅换成</span><span>NanoSIM</span><span style="font-family:'宋体';">啦。</span><span style="font-family:'宋体';">不久的未来，</span><span>iPhone Xs</span><span style="font-family:'宋体';">可能采用</span><span>eSIM</span><span style="font-family:'宋体';">，连实体卡都没有了呢。</span></p>
+
+<p><img style="width:375px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-ktPcP32O5b887ef44cbad.jpg" class="img-responsive" alt="attachments-2018-08-ktPcP32O5b887ef44cbad.jpg" /></p>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">为什么看似普普通通的SIM</span><span style="font-size:10.5pt;font-family:'宋体';">卡还有那么多规格？剪卡到底是怎么回事？且听我慢慢说来。</span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p></p>
+
+<p><img style="width:640px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-YixaJrvg5b887f112eefd.jpg" class="img-responsive" alt="attachments-2018-08-YixaJrvg5b887f112eefd.jpg" /></p>
+
+<p><br /></p>
+
+<p>通常情况下，大家以为的“普通SIM卡”，实际上是mini-SIM。真正的标准全尺寸SIM卡是酱紫滴：</p>
+
+<p><img style="width:666.5px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-IWeS1Im65b887f31a28b7.jpg" class="img-responsive" alt="attachments-2018-08-IWeS1Im65b887f31a28b7.jpg" /></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';">有的童鞋可能会问，这种卡怎么用啊啊啊啊啊……</span><span>90</span><span style="font-family:'宋体';">年代的大学生，也许会对宿舍的插卡电话还有比较深刻的印象：</span></p>
+
+<p><img style="width:250px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-DV9pAOLO5b887f4b3d352.jpg" class="img-responsive" alt="attachments-2018-08-DV9pAOLO5b887f4b3d352.jpg" /></p>
+
+<p>没错，就是这种电话用的卡。很不可思议吧……<br /></p>
+
+<p><br />随着移动设备产品更新换代的需求，这种大体积的卡明显不能满足，所以才出现了体型更小的，更更小的，更更更小的SIM卡：<br /></p>
+
+<p><img style="width:213px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-ORpiY5Yd5b887f7503681.jpeg" class="img-responsive" alt="attachments-2018-08-ORpiY5Yd5b887f7503681.jpeg" /></p>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">各种规格的</span><span>SIM</span><span style="font-family:'宋体';">卡三围如下：</span></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">高</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">宽</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">厚</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>Full-size</span></p>
+  </td>
+  <td>
+  <p><span>85.6mm</span></p>
+  </td>
+  <td>
+  <p><span>54mm</span></p>
+  </td>
+  <td>
+  <p><span>0.8mm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>Mini-SIM</span></p>
+  </td>
+  <td>
+  <p><span>25mm</span></p>
+  </td>
+  <td>
+  <p><span>15mm</span></p>
+  </td>
+  <td>
+  <p><span>0.8mm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>Micro-SIM</span></p>
+  </td>
+  <td>
+  <p><span>15mm</span></p>
+  </td>
+  <td>
+  <p><span>12mm</span></p>
+  </td>
+  <td>
+  <p><span>0.8mm</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>Nano-SIM</span></p>
+  </td>
+  <td>
+  <p><span>12.3mm</span></p>
+  </td>
+  <td>
+  <p><span>8.8mm</span></p>
+  </td>
+  <td>
+  <p><span>0.8mm</span></p>
+  </td>
+ </tr></table>
+
+<p><br /></p>
+
+<p><span style="font-family:'宋体';">数据来源：</span><a target="_blank" rel="noopener" href="https://socialcompare.com/en/comparison/sim-card-format-and-size-comparison">https://socialcompare.com/en/comparison/sim-card-format-and-size-comparison</a></p>
+
+<p><span style="font-family:'宋体';">因为</span><span>Mini-SIM</span><span style="font-family:'宋体';">的“留白”比较多，可以手工剪卡，使之成为</span><span>Micro-SIM</span><span style="font-family:'宋体';">。但是</span><span>Nano-SIM</span><span style="font-family:'宋体';">的体积很小，极容易误伤，导致设备不识别</span><span>SIM</span><span style="font-family:'宋体';">卡。故此，不建议剪卡。</span></p>
+
+<p><span style="font-family:'宋体';">那么，什么是</span><span>e-SIM</span><span style="font-family:'宋体';">呢？实际上就是把卡体的塑料部分去掉，直接把</span><span>SIM</span><span style="font-family:'宋体';">卡的芯片焊到</span><span>PCB</span><span style="font-family:'宋体';">板子上，从而实现通信的一种方式。因为</span><span>e-SIM</span><span style="font-family:'宋体';">焊在板子上了，所以需要到运营商处“写号”（写入</span><span>IMSI</span><span style="font-family:'宋体';">、</span><span>KI</span><span style="font-family:'宋体';">等数据）才能使用。</span></p>
+
+<p><span style="font-family:'宋体';">华为</span><span>watch</span><span style="font-family:'宋体';">，</span><span> Apple Watch II</span><span style="font-family:'宋体';">、</span><span>ticWatch</span><span style="font-family:'宋体';">等产品内置了</span><span>e-SIM</span><span style="font-family:'宋体';">，所以可以实现自主通信，或者使用中国移动提供的服务，自助实现一号多机。</span></p>
+
+<p><span style="font-family:'宋体';">参考资料：《中国移动</span>
+<span style="font-family:'宋体';">“一号双终端”业务启动</span><span> SIM</span><span style="font-family:'宋体';">卡会消失吗？》</span><a target="_blank" rel="noopener" href="https://www.cnbeta.com/articles/tech/732481.htm">https://www.cnbeta.com/articles/tech/732481.htm</a></p>
+
+<p><span><br /></span></p>
+
+<h2><span style="font-family:'黑体';">为什么</span><span>3G</span><span style="font-family:'黑体';">升</span><span>4G</span><span style="font-family:'黑体';">要换卡？日后</span><span>4G</span><span style="font-family:'黑体';">升</span><span>5G</span><span style="font-family:'黑体';">是不是也要换卡？</span></h2>
+
+<p>为什么网络升级了，反而还需要用户换卡呢？毕竟换卡也是挺麻烦的一件事。实际上，这是LTE的鉴权方式变更造成的。</p>
+
+<p>不过呢，各个运营商的网络制式不同，OTA卡、USIM卡的发卡情况也不同，所以有的运营商需要更换4G卡，有的不需要。不过为了KPI，所以基本上所有的运营商都让用户换卡了。<br /></p>
+
+<p><span> </span></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span style="font-family:'宋体';">运营商</span></p>
+  </td>
+  <td>
+  <p><span>2G</span><span style="font-family:'宋体';">→</span><span>3G</span><span style="font-family:'宋体';">需换卡</span></p>
+  </td>
+  <td>
+  <p><span>3G</span><span style="font-family:'宋体';">→</span><span>4G</span><span style="font-family:'宋体';">需换卡</span></p>
+  </td>
+  <td>
+  <p><span>4G</span><span style="font-family:'宋体';">→</span><span>5G</span><span style="font-family:'宋体';">需换卡</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">移动</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">联通</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">电信</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">√</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">×</span></p>
+  </td>
+ </tr></table>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p>移动是2G GMS到3G TD-SCDMA，3G兼容2G的鉴权方式，不需要换卡；但是LTE不在兼容GSM的鉴权方式，所以必须换卡；</p>
+
+<p>联通早在2012年就停止发OTA卡。因为3G WCDMA使用了新的鉴权流程，所以2G到3G必须换卡；3G WCDMA到4G LTE，乃至4G LTE到5G NR是不需要换卡的；</p>
+
+<p>电信情况较为特殊，因为高通放弃了CDMA的4G演进，本质上CDMA只有3G EVDO。所以4G时代也只能选择LTE，故此需要换卡。5G基本上也和其他运营商一样，LTE演进到NR，这样就都没什么区别了。</p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<h2><span style="font-family:'黑体';">为什么我的物联网开发板插了卡却不检卡</span><span> / </span><span style="font-family:'黑体';">无法联网呢？</span></h2>
+
+<p><span> </span>很多开发者在开发过程中，可能会遇到各种各样的问题。但是不论任何问题，都可以通过远程升级的方式解决。不过，如果是SIM卡问题造成的设备离线，远程升级也没有了用武之地。鉴于开发者经常会遇到因为SIM卡导致的各类问题，接下来咱们就详细说一说造成这些异常状况的原因和解决方法。</p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span style="font-family:'宋体';">插卡不检卡</span></b></span></p>
+
+<p> “明明已经把SIM卡插到板子上，怎么就没办法检测到卡呢？卡放到手机里都是好好的啊……”——对于这种情况，开发者应该认真阅读开发板的使用手册，根据开发板的说明正确用卡。通常，无法检测到卡大概率是因为把卡插反了；小概率是使用了物联网模块不支持的卡（如电信卡）造成的。</p>
+
+<p></p>
+
+<p>如果是偶发性的无法检测到卡，很有可能是接触不良导致的；此时应该认真检查卡体是否有形变，金属触点是否有锈痕，是否使用了不合适的卡托等。<br /></p>
+
+<p>为了方便大家排除故障，特列表格如下，方便大家有针对性地解决此类问题：</p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span style="font-family:'宋体';">卡类型</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">病因</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">解决方案</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">等待时间过短</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">上电开机后要等待一段时间才能检卡</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">电压不匹配</span></p>
+  </td>
+  <td>
+  <p><span>SIM_VDD</span><span style="font-family:'宋体';">输出电压不匹配，应重新设计电路</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">间歇性不检卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">供电问题，或者接触不良</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡插反</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">根据硬件使用手册的相关说明，正确插卡</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">不支持的卡片</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">根据硬件使用手册的相关说明，使用支持的</span><span>SIM</span><span style="font-family:'宋体';">卡</span></p>
+  <p><span style="font-family:'宋体';">（如只支持移动</span><span>/</span><span style="font-family:'宋体';">联通，插入电信卡是不能工作的）</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡面污损</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">使用橡皮擦除污痕</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡生锈</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">使用细砂纸打磨后，再用橡皮擦除污痕。如果无效应换新卡</span></p>
+  <p><span style="font-family:'宋体';">（如工作环境恶劣，应使用防水胶）</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡变形</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡背贴几层胶带，使之可以和弹针接触</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">不合适的卡托</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">更换匹配的卡托</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡已损坏</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">卡芯片异常等原因导致卡片损坏，应换新卡</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">实体卡</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">剪卡失误</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">剪卡失误造成卡片不被识别，应换新卡</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>eSIM</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">贴反</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">根据硬件设计手册重新贴片</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span>eSIM</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">电压不匹配</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">重新设计</span></p>
+  </td>
+ </tr></table>
+
+<p><span> </span><img style="width:273px;" src="http://oldask.openluat.com/image/show/attachments-2018-08-ktKwAYC55b88807cbed5e.jpg" class="img-responsive" alt="attachments-2018-08-ktKwAYC55b88807cbed5e.jpg" /></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span style="font-family:'宋体';"><br /></span></b></span></p>
+
+<p><span style="background-color:rgb(255,255,0);"><b><span style="font-family:'宋体';">检测到卡，附着失败</span></b></span></p>
+
+<p>“可以检测到卡，但是附着失败是怎么回事呢？”——对于这种情况，请从以下这几个方面排除：</p>
+
+<p><span><br /></span></p>
+
+<table class="MsoTableGrid" width="567"><tr><td>
+  <p><span style="font-family:'宋体';">病因</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">解决方案</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">卡欠费</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">充值</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">流量用光</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">充值，或等次月恢复额度</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">卡片不含流量</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">开通流量服务</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">信号差</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">信号差导致附着失败，应调整天线，改善信号强度</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">基站故障</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">报修</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">不支持的网络</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">如联通已经停止</span><span>2G</span><span style="font-family:'宋体';">服务，应更换为移动卡</span></p>
+  <p><span style="font-family:'宋体';">（某些国家的</span><span>ISP</span><span style="font-family:'宋体';">也停止了</span><span>2G</span><span style="font-family:'宋体';">支持，所以将出现此类问题）</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">供电问题</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">供电较差导致电压跌落，模块自动重启</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">不在服务区</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">应更换测试地点</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">错误的</span><span>APN</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">填写错误的</span><span>APN</span><span style="font-family:'宋体';">将无法正常通信</span></p>
+  </td>
+ </tr></table>
+
+<p><span> </span></p>
+
+<h2><span style="background-color:inherit;"><span> </span><span style="font-family:'黑体';">精确的流量统计</span></span></h2>
+
+<p><span style="font-family:'宋体';">对于物联网应用而言，流量是相当“金贵”的。哪怕是一个设备每天多几百</span><span>k</span><span style="font-family:'宋体';">的流量，几万个设备的小型应用，一个月也要多付出很多流量成本。那么开发者应该如何精确统计流量使用情况，将流量成本压缩到最低呢？</span></p>
+
+<p><span style="font-family:'宋体';">很多人都会，计算流量谁不会啊，用公式就行了：</span></p>
+
+<p style="text-align:center;"><span style="font-family:'宋体';">单次流量</span><span> * </span><span style="font-family:'宋体';">间隔时间</span><span> * </span><span style="font-family:'宋体';">天</span><span> = </span><span style="font-family:'宋体';">月流量</span></p>
+
+<p><span style="font-family:'宋体';">这个公式看起来很正确。但是，正是看起来的正确，才让很多人都陷入了误区——你无法精确计算每次握手的流量值，更无法预判在实际场景的流量消耗。设备的联网情况也是各异的，无法简单的套用公式求得精确解。</span></p>
+
+<p><span style="font-family:'宋体';">举例：某粒子第一纳秒以亚光速运动，其后收到碰撞静止，直到半衰期。那么此时不能说它半衰期前的平均速度是</span><span>c/2</span><span style="font-family:'宋体';">，而是应该用宏观角度的“位移</span><span>/</span><span style="font-family:'宋体';">时间”这种方式计算平均速度。</span></p>
+
+<p><span style="font-family:'宋体';">同理，计算流量，应该在多种场景计算平均值，而不是单纯的计算单次用量（计算用电量也是如此，而且还要考虑温度等多种因素）。譬如统计各种情况下的日、周流量，再扩大对应倍数，算得月流量（估）。</span></p>
+
+<p><span style="font-family:'宋体';">举个例子说明一下：</span><span style="font-family:'宋体';"><br /></span></p>
+
+<p></p>
+
+<table class="MsoTableGrid" width="568"><tr><td>
+  <p><span style="font-family:'宋体';">场景</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">日流量</span><span>(M)</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">周流量</span><span>(M)</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">信号强</span></p>
+  </td>
+  <td>
+  <p><span>0.95</span></p>
+  </td>
+  <td>
+  <p><span>6.73</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">信号弱</span></p>
+  </td>
+  <td>
+  <p><span>1.21</span></p>
+  </td>
+  <td>
+  <p><span>8.56</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">信号强</span><span>-</span><span style="font-family:'宋体';">服务器间歇性停机</span></p>
+  </td>
+  <td>
+  <p><span>1.03</span></p>
+  </td>
+  <td>
+  <p><span>7.14</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span style="font-family:'宋体';">信号弱</span><span>-</span><span style="font-family:'宋体';">服务器间歇性停机</span></p>
+  </td>
+  <td>
+  <p><span>1.52</span></p>
+  </td>
+  <td>
+  <p><span>10.24</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">平均值：</span><span>1.178</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">平均值：</span><span>8.168</span></p>
+  </td>
+ </tr><tr><td>
+  <p><span> </span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">月（估）：</span><span>35.34</span></p>
+  </td>
+  <td>
+  <p><span style="font-family:'宋体';">月（估）：</span><span>35.005</span></p>
+  </td>
+ </tr></table>
+
+<p></p>
+
+<p><span style="font-family:'宋体';">（示例中仅考虑了信号强弱和服务器停机情况对流量造成的影响。实际场景中还要考虑更多因素，譬如自动售卖机的日均客流变化、远程升级、新消息推送等）</span></p>
+
+<p><span style="font-family:'宋体';">的流量，才能维持稳定通信。</span><span>35 * 1.05 = 36.8M</span><span style="font-family:'宋体';">从这个示例中可以看出，以不同情况下的日均值、周均值推算月流量近似。也就是说在这个情况下，每个月至少要保证单台设备有</span><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';">有的童鞋可能会问，怎样才能减少流量消耗呢？改善信号（最大限度避免重连）、优化流程（减少不必要的通信）、动态调整心跳包间隔（根据实际场景代码自动调整心跳包间隔，而不是固定间隔心跳包）、压缩通信数据（删除不必要的通信信息，压缩数据），可以有效地减少流量消耗。</span></p>
+
+<p><span> </span></p>
+
+<h2><span style="font-family:'黑体';">妈妈说，最重要的要放在最后压轴——</span><span>v-SIM </span><span style="font-family:'黑体';">虚拟</span><span>SIM</span><span style="font-family:'黑体';">卡</span></h2>
+
+<p><span style="font-family:'宋体';">上文说了那么多因为</span><span>SIM</span><span style="font-family:'宋体';">卡问题导致不检卡、无法附着的情况。那么有没有办法一劳永逸的解决这些问题呢？</span></p>
+
+<p style="text-align:center;"><span style="font-family:'宋体';">接下来，让我们以热烈的掌声，请出主角</span><span>~~~</span></p>
+
+<p style="text-align:center;"><span>Duang~duang~duang~</span></p>
+
+<p style="text-align:center;"><b><span>v-SIM</span></b><span style="font-family:'宋体';">闪！亮！登！场！</span></p>
+
+<p style="text-align:center;"><span style="font-family:'宋体';">掌声欢迎</span><span>~</span></p>
+
+<p><span>v-SIM</span><span style="font-family:'宋体';">，即</span><span>virtual-SIM</span><span style="font-family:'宋体';">，虚拟</span><span>SIM</span><span style="font-family:'宋体';">卡技术。特指没有实体</span><span>SIM</span><span style="font-family:'宋体';">卡，完全靠通信模块自身软硬件实现通信的方式。</span></p>
+
+<p><span style="font-family:'宋体';">拥有</span><span>v-SIM</span><span style="font-family:'宋体';">功能的通信模块，配合为</span><span>v-SIM</span><span style="font-family:'宋体';">特殊定制的底层软件，实现了内置加密存储数据（</span><span>IMSI</span><span style="font-family:'宋体';">、</span><span>KI</span><span style="font-family:'宋体';">等）。在登陆网络、鉴权、通信时，自动处理相应的逻辑，从而实现不需要实体</span><span>SIM</span><span style="font-family:'宋体';">卡也能提供稳定的</span><span>2G</span><span style="font-family:'宋体';">通信体验。</span></p>
+
+<p><span style="font-family:'宋体';">因为</span><span>v-SIM</span><span style="font-family:'宋体';">是使用了软件方式代替实体</span><span>SIM</span><span style="font-family:'宋体';">卡，所以资费上，</span><span>v-SIM</span><span style="font-family:'宋体';">和实体</span><span>SIM</span><span style="font-family:'宋体';">卡是完全相同的。随着提速降费的推进，我们有理由相信，未来的流量费会更低。</span></p>
+
+<p><span style="font-family:'宋体';">因为不存在实体</span><span>SIM</span><span style="font-family:'宋体';">卡，所以硬件上，也省去了卡座、卡托等成本，更方便布局，对于量产化是极大的优势。使用</span><span>v-SIM</span><span style="font-family:'宋体';">，开发者可以更专注于程序的编写。再也不用分心处理用户把</span><span>SIM</span><span style="font-family:'宋体';">卡插反，接触不良等原因导致的通信异常问题啦。</span></p>
+
+<p><span style="font-family:'宋体';">可能很多小伙伴对</span><span>v-SIM</span><span style="font-family:'宋体';">并不了解，所以还是不太放心——毕竟</span><span>SIM</span><span style="font-family:'宋体';">卡责任重大，如果</span><span>v-SIM</span><span style="font-family:'宋体';">出现问题导致设备频繁断联，甚至离线，这个锅可是背不起的。那么，</span><span>v-SIM</span><span style="font-family:'宋体';">体验是否和实体</span><span>SIM</span><span style="font-family:'宋体';">卡一致？上层代码是否需要修改等等？在此小编可以负责任的告诉大家，各位童鞋的请放心，</span><span>v-SIM</span><span style="font-family:'宋体';">的信号、通信体验和实体卡完全一样，甚至会更好；上层代码也不需要进行任何修改，既可体验</span><span>v-SIM</span><span style="font-family:'宋体';">。</span></p>
+
+<p><span style="font-family:'宋体';">也就是说，实体</span><span>SIM</span><span style="font-family:'宋体';">卡能给你的体验，</span><span>v-SIM</span><span style="font-family:'宋体';">都有；而</span><span>v-SIM</span><span style="font-family:'宋体';">能带给你的便利，实体</span><span>SIM</span><span style="font-family:'宋体';">卡永远做不到。</span></p>
+
+<p><span style="font-family:'宋体';">既然</span><span>v-SIM</span><span style="font-family:'宋体';">那么给力，哪里能体验到呢？上海合宙通信科技有限公司的</span><span>Air2xx</span><span style="font-family:'宋体';">和</span><span>Air8xx</span><span style="font-family:'宋体';">系列模块。这些模块都已经实现了</span><span>v-SIM</span><span style="font-family:'宋体';">的支持（登录</span><span>www.openluat.com/Product</span><span style="font-family:'宋体';">产品中心查看详情），亦可登陆</span><span>openluat.taobao.com</span><span style="font-family:'宋体';">购买体验。还在犹豫什么，赶快行动吧！</span></p>
+
+<p>更多关于vSIM的教程，请看这里：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/KWJsHft5kLD91k2gIX3Z9A">https://mp.weixin.qq.com/s/KWJsHft5kLD91k2gIX3Z9A</a><span style="font-family:'宋体';"><br /></span></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/418/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/416/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

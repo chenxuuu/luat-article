@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>3、Linux常用技巧：解决Linux下USB设备节点ttyUSB名不固定的问题，生成固定USB转串口设备节点 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">3、Linux常用技巧：解决Linux下USB设备节点ttyUSB名不固定的问题，生成固定USB转串口设备节点</h1>
+<article class="post markdown-style">
+  <p>转载：<br>原文链接：<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_8b58097f0102wxm3.html">http://blog.sina.com.cn/s/blog_8b58097f0102wxm3.html</a></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44570083/article/details/104285283">点击这里查看所有博文</a></p>
+<p>&emsp;&emsp;本系列博客所述资料<code>均来自网络</code>，并不是本人原创（只有博客是自己写的）。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。若出现侵权现象，请告知本人，本人会立即停止更新，并删除相应的文章和代码。</p>
+<h2 id="1-Linux下USB设备节点名不固定问题经常会遇到"><a href="#1-Linux下USB设备节点名不固定问题经常会遇到" class="headerlink" title="1. Linux下USB设备节点名不固定问题经常会遇到"></a>1. Linux下USB设备节点名不固定问题经常会遇到</h2><p>&emsp;&emsp;以USB转串口设备为例，通常设备节点名为ttyUSBx（x为0~n）,Linux内核会根据设备插入的先后顺序进行编号的分配，比如第一个插入的设备编号为ttyUSB0，然后依此加1，变为ttyUSB1，ttyUSB2……</p>
+<p>&emsp;&emsp;如果仅仅以设备节点ttyUSBx来区别具体是哪个设备，因为末位的编号是随时会变的，所以就会造成混乱。无法保证A设备就是ttyUSB0，B设备就是ttyUSB1。</p>
+<p>&emsp;&emsp;Linux在设备文件/dev目录下并没有提供固定显示ttyUSB的方法，但是，其实，每个USB端口都有唯一的端口号，相当于每个门店的门牌号。只要我们依据端口号来进行设备的区分，那么问题就迎刃而解了。简单点来说就是找到端口号，然后根据端口号找到挂载在这个端口号上面的USB设备是ttyUSB0还是 ttyUSB1….(这个是变化的，前面讲到了)。</p>
+<h2 id="2-关于端口号的查看方法"><a href="#2-关于端口号的查看方法" class="headerlink" title="2. 关于端口号的查看方法"></a>2. 关于端口号的查看方法</h2><p>&emsp;&emsp;连接好两个USB转串口设备之后执行命令：<code>ls -l /sys/class/tty/ttyUSB*</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[smart@localhost multiTesting]$ ls -l /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB</span>*</span></span><br><span class="line"><span class="class"><span class="title">lrwxrwxrwx</span> 1 <span class="title">root</span> <span class="title">root</span> 0 <span class="title">Dec</span> 17 18:</span><span class="number">39</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB0</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.3</span>/<span class="number">1</span><span class="number">-1.3</span>:<span class="number">1.0</span>/ttyUSB0/tty/ttyUSB0</span><br><span class="line">lrwxrwxrwx <span class="number">1</span> root root <span class="number">0</span> Dec <span class="number">17</span> <span class="number">18</span>:<span class="number">39</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB1</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.1</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>:<span class="number">1.2</span>/ttyUSB1/tty/ttyUSB1</span><br><span class="line">lrwxrwxrwx <span class="number">1</span> root root <span class="number">0</span> Dec <span class="number">17</span> <span class="number">18</span>:<span class="number">39</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB2</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.1</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>:<span class="number">1.3</span>/ttyUSB2/tty/ttyUSB2</span><br><span class="line">lrwxrwxrwx <span class="number">1</span> root root <span class="number">0</span> Dec <span class="number">17</span> <span class="number">18</span>:<span class="number">39</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB3</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.1</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>:<span class="number">1.4</span>/ttyUSB3/tty/ttyUSB3</span><br><span class="line">[smart@localhost multiTesting]$ ls -l /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB</span>*</span></span><br><span class="line"><span class="class"><span class="title">lrwxrwxrwx</span> 1 <span class="title">root</span> <span class="title">root</span> 0 <span class="title">Dec</span> 17 18:</span><span class="number">41</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB0</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.1</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>:<span class="number">1.2</span>/ttyUSB0/tty/ttyUSB0</span><br><span class="line">lrwxrwxrwx <span class="number">1</span> root root <span class="number">0</span> Dec <span class="number">17</span> <span class="number">18</span>:<span class="number">41</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB1</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.1</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>:<span class="number">1.3</span>/ttyUSB1/tty/ttyUSB1</span><br><span class="line">lrwxrwxrwx <span class="number">1</span> root root <span class="number">0</span> Dec <span class="number">17</span> <span class="number">18</span>:<span class="number">41</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB2</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.1</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>/<span class="number">1</span><span class="number">-1.1</span><span class="number">.2</span>:<span class="number">1.4</span>/ttyUSB2/tty/ttyUSB2</span><br><span class="line">lrwxrwxrwx <span class="number">1</span> root root <span class="number">0</span> Dec <span class="number">17</span> <span class="number">18</span>:<span class="number">41</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB3</span> -&gt;</span> ../../devices/platform/soc/<span class="number">3f</span>980000.usb/usb1/<span class="number">1</span><span class="number">-1</span>/<span class="number">1</span><span class="number">-1.3</span>/<span class="number">1</span><span class="number">-1.3</span>:<span class="number">1.0</span>/ttyUSB3/tty/ttyUSB3</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;我这里分别进行了两次测试<br>&emsp;&emsp;第1次先插入CH340(ttyUSB0)，后插入4G模组(虚拟出来的ttyUSB1、ttyUSB2、ttyUSB3)。<br>&emsp;&emsp;第2次先插入4G模组(虚拟出来的ttyUSB0、ttyUSB1、ttyUSB2)，后插入CH340(ttyUSB3)。</p>
+<p>&emsp;&emsp;由上面的日志可知：不管先后插入的顺序如何，CH340对应的USB端口都是1-1.3:1.0。知道端口后我们该如何确定设备对应的ttyUSBx设备节点呢。</p>
+<h2 id="3-实际问题，实际解决"><a href="#3-实际问题，实际解决" class="headerlink" title="3. 实际问题，实际解决"></a>3. 实际问题，实际解决</h2><p>&emsp;&emsp;实际工程中，碰到的一个问题是：硬件上连接有两个USB转串口设备，硬件只要一上电，两个USB设备几乎是同时上电的，这将导致ttyUSB0或者ttyUSB1无法每次固定的对应到上一次的那个相同端口，上层软件需要通过串口设备节点/dev/ttyUSBx来打开一个串口，并从串口获取数据，但是这个ttyUSBx设备并不是一直都指向固定的一个usb端口号，这直接导致我们无法往下操作了。<br><code>解决办法：</code><br>&emsp;&emsp;这里使用bash语言加Python正则表达式的相关知识解决这个问题：解决问题的思路是：</p>
+<ol>
+<li>第一次上电的时候，我们需要确定哪个端口上的数据是我们所需要的：<br>ls -l /sys/class/tty/ttyUSB*<br>假设是3-1.1这个端口是我们的data端口。</li>
+<li>以后每次上电，我们要找到3-1.1这个端口后面挂载的ttyUSB设备是ttyUSB0还是ttyUSB1，并建立一个软链接将当时获取到的ttyUSBx生成一个软链接，名字固定为ttydata,那么以后每次打开/dev/ttydata就能找到正确3-1.1这个端口，并获取数据了。</li>
+<li>建立一个文件夹getUSB，该文件夹下面包含：</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20201217200844283.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU3MDA4Mw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;其中cmd.sh是利用bash脚本获取/sys/class/tty/ttyUSB*的一些信息保存在device_usb.txt中。<br>cmd.sh如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">declare <span class="literal">-i</span> a=<span class="number">0</span></span><br><span class="line">declare <span class="literal">-i</span> b=<span class="number">0</span> </span><br><span class="line"><span class="keyword">while</span> [[ ! -<span class="type">e</span> <span class="string">&quot;/sys/class/tty/ttyUSB0&quot;</span> ]]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">sudo <span class="built_in">sleep</span> <span class="number">0.01</span>s</span><br><span class="line">a=a+<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> -<span class="type">eq</span> <span class="number">300</span> ];then  <span class="comment">#等待一段时间没有检测ttyUSB0设备到会自动跳出while</span></span><br><span class="line"><span class="keyword">break</span></span><br><span class="line">fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> [[ ! -<span class="type">e</span> <span class="string">&quot;/sys/class/tty/ttyUSB1&quot;</span> ]]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">sudo <span class="built_in">sleep</span> <span class="number">0.01</span>s</span><br><span class="line">b=b+<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$b</span> -<span class="type">eq</span> <span class="number">300</span>||<span class="variable">$a</span> -<span class="type">ne</span> <span class="number">0</span> ]];then  <span class="comment">#if USB0 been detected ,also get out of while</span></span><br><span class="line"><span class="keyword">break</span></span><br><span class="line">fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ ! -<span class="type">e</span> /<span class="type">sys</span>/<span class="type">class</span>/<span class="type">tty</span>/<span class="type">ttyUSB0</span>&amp;&amp;! -<span class="type">e</span> /<span class="type">sys</span>/<span class="type">class</span>/<span class="type">tty</span>/<span class="type">ttyUSB1</span> ]]; then <span class="comment">#如果不存在ttyUSB设备</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Not have ttyUSB0 or not have ttyUSB1&quot;</span></span><br><span class="line"><span class="keyword">else</span>                             <span class="comment">#如果完美检测到了两个ttyUSB设备，则将信息log到device_usb.txt当中</span></span><br><span class="line">tty1=<span class="variable">$</span>(<span class="built_in">ls</span> <span class="literal">-l</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB0</span>) </span></span><br><span class="line"><span class="class"><span class="title">tty2</span>=$(<span class="title">ls</span> -<span class="title">l</span> /<span class="title">sys</span>/<span class="title">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB1</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">sudo</span> <span class="title">ls</span> -<span class="title">l</span> /<span class="title">sys</span>/<span class="title">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB0</span> /<span class="title">sys</span>/<span class="title">class</span>/<span class="title">tty</span>/<span class="title">ttyUSB1</span> &gt; ./<span class="title">device_usb</span>.<span class="title">txt</span></span></span><br><span class="line"><span class="class"><span class="title">fi</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">if</span> [ ! -<span class="title">n</span> &quot;$<span class="title">tty1</span>&quot; ] ;<span class="title">then</span>   # &quot;! -<span class="title">n</span>&quot; <span class="title">shows</span> <span class="title">blank</span> <span class="title">var</span>  #非空检测</span></span><br><span class="line"><span class="class"><span class="title">echo</span> &quot;<span class="title">tty1</span> <span class="title">is</span> <span class="title">empty</span>&quot;</span></span><br><span class="line"><span class="class"><span class="title">fi</span></span></span><br><span class="line"><span class="class">#<span class="title">delay</span> 0.01<span class="title">s</span> <span class="title">to</span> <span class="title">make</span> <span class="title">sure</span> <span class="title">the</span> <span class="title">device_usb</span>.<span class="title">txt</span> <span class="title">complete</span></span></span><br><span class="line"><span class="class"><span class="title">sudo</span> <span class="title">sleep</span> 0.01<span class="title">s</span></span></span><br><span class="line"><span class="class">#<span class="title">remove</span> <span class="title">the</span> <span class="title">old</span> <span class="title">USB</span> <span class="title">device</span> <span class="title">shortcut</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">if</span> [ ! -<span class="title">e</span> &quot;/<span class="title">dev</span>/<span class="title">ttydata</span>&quot; ] ;<span class="title">then</span> # 如果/<span class="title">dev</span>/<span class="title">ttydata</span>本身不存在</span></span><br><span class="line"><span class="class"><span class="title">echo</span> &quot;-------------/<span class="title">dev</span>/<span class="title">ttydata</span> <span class="title">not</span> <span class="title">found</span>&quot;</span></span><br><span class="line"><span class="class"><span class="title">else</span>                               #如果存在，则需删除之，然后重新创建之</span></span><br><span class="line"><span class="class"><span class="title">echo</span> &quot;/<span class="title">dev</span>/<span class="title">ttydata</span> <span class="title">is</span> <span class="title">exist</span>&quot;</span></span><br><span class="line"><span class="class"><span class="title">sudo</span> <span class="title">rm</span> /<span class="title">dev</span>/<span class="title">ttydata</span></span></span><br><span class="line"><span class="class"><span class="title">fi</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">#<span class="title">exct</span> <span class="title">Python</span> <span class="title">language</span> <span class="title">to</span> <span class="title">get</span> <span class="title">the</span> <span class="title">rignt</span> <span class="title">USB</span> <span class="title">interface</span></span></span><br><span class="line"><span class="class">./<span class="title">getUSB</span>.<span class="title">py</span>   #调用当前路径下的<span class="title">getUSB</span>.<span class="title">py</span>这个<span class="title">Python</span>语言，明确此次是哪个,<span class="title">ttyUSB0</span>,或者<span class="title">ttyUSB1</span>挂载在端口3-1.1上</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">usbdev</span>=$(<span class="title">cat</span> ./<span class="title">usbdev</span>) #获取到这个设备</span></span><br><span class="line"><span class="class"><span class="title">echo</span> &quot;<span class="title">the</span> <span class="title">device</span> <span class="title">is</span> : &quot;</span></span><br><span class="line"><span class="class"><span class="title">echo</span> $<span class="title">usbdev</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">sudo</span> <span class="title">ln</span> -<span class="title">s</span> /<span class="title">dev</span>/$<span class="title">usbdev</span> /<span class="title">dev</span>/<span class="title">ttydata</span> #将这个设备软连接到/<span class="title">dev</span>/<span class="title">ttydata</span>以后每次打开这个<span class="title">ttydata</span>即可</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;getUSB.py是通过device_usb.txt中的信息，获取到当前挂着在端口3-1.1上的是ttyUSB0还是ttyUSB1并保存在usbdev 中。</p>
+<p>getUSB.py如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> re  <span class="comment">#正在表达式</span></span><br><span class="line">sss = <span class="built_in">open</span>(<span class="string">&quot;./device_usb.txt&quot;</span>,<span class="string">&quot;rb&quot;</span>) <span class="comment">#打开device_usb.txt设备，并读取内容</span></span><br><span class="line">www = <span class="built_in">open</span>(<span class="string">&quot;./usbdev&quot;</span>,<span class="string">&quot;wb&quot;</span>)  <span class="comment">#当前路径下创建usbdev文件，后续会写入内容</span></span><br><span class="line">s_read = sss.read()  usb3/<span class="number">3</span>-<span class="number">1</span>/<span class="number">3</span>-<span class="number">1.1</span>/</span><br><span class="line">r = <span class="string">r&quot;usb3/3-1/3-1\.1.+(ttyUSB[0-9])&quot;</span></span><br><span class="line"><span class="comment">#正则中“.”需要转义，所以使用“\.”表示“.”</span></span><br><span class="line"><span class="comment">#这个规则是找到usb3/3-1/3-1.1/这个字符串后面紧跟的是此次上电生成的ttyUSB0或者ttyUSB1</span></span><br><span class="line">output = re.findall(r,s_read)</span><br><span class="line">www.write(output[<span class="number">0</span>]) <span class="comment">#将结果写到usbdev中</span></span><br><span class="line">www.close()</span><br><span class="line">sss.close()</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;完成之后设置开机项目，将文件夹当道一个位置，然后设置开机启动cmd.sh（在/etc/rc.local中设置）则每次开机之后，会从/dev/ttydata获取到固定端口的数据。</p>
+<h2 id="4-udev"><a href="#4-udev" class="headerlink" title="4. udev"></a>4. udev</h2><p>&emsp;&emsp;这两天在ubuntu中开发跟串口有关程序时，发现来回拔插串口线或者插多个串口线时总是出现串口号ttyUSB*不固定的问题，给应用程序带来不少麻烦，遂google解决。</p>
+<p>&emsp;&emsp;linux中设备号一般按先后顺序一次向后增大，udev规则文件可以解决这个蛋疼的问题。udev是一种Linux2.6内核采用的/dev 目录的管理系统（可以把它认为是windows中的设备管理器），它通过从sysfs获得的信息，可以提供对特定设备的固定的设备名。sysfs是linux 2.6内核的一种新型文件系统，它提供了当前设备的基本信息。</p>
+<p>&emsp;&emsp;udev的重要功能就是为为设备提供固定的设备名， 根据Wirting udev rules的详细介绍， udev有如下功能：</p>
+<blockquote>
+<p>Rename a device node from the default name to something else Provide<br>an alternative/persistent name for a device node by creating a<br>symbolic link to the default device node Name a device node based on<br>the output of a program Change permissions and ownership of a device<br>node Launch a script when a device node is created or deleted<br>(typically when a device is attached or unplugged) Rename network<br>interfaces</p>
+</blockquote>
+<p>&emsp;&emsp;简单阅读之后创建文件/etc/udev/rules.d/10-local.rule, 内容如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">KERNEL==<span class="string">&quot;ttyUSB*&quot;</span>, ATTRS&#123;idVendor&#125;==<span class="string">&quot;067b&quot;</span>, ATTRS&#123;idProduct&#125;==<span class="string">&quot;2303&quot;</span>, MODE:=<span class="string">&quot;0777&quot;</span>, SYMLINK+=<span class="string">&quot;user_uart&quot;</span></span><br><span class="line">KERNEL==<span class="string">&quot;ttyUSB*&quot;</span>, ATTRS&#123;idVendor&#125;==<span class="string">&quot;1a86&quot;</span>, ATTRS&#123;idProduct&#125;==<span class="string">&quot;7523&quot;</span>, MODE:=<span class="string">&quot;0777&quot;</span>, SYMLINK+=<span class="string">&quot;mcu_uart&quot;</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;意思就是匹配sys中内核名为ttyUSB*的设备，属性匹配依据生产商编号idVendor和产品号idProduct, 设定读写权限为0777。<br>符号链接名为：<br>1、user_uart—–PL2303串口转USB，<br>2、mcu_uart—-CH340串口转USB。</p>
+<p>&emsp;&emsp;idVendor和idProduct由 lsusb  -vvv 命令查看。</p>
+<p>&emsp;&emsp;保存退出后udev规则就生效了，重新拔插两个串口设备，就可以看到/dev/user_uart指向/dev/ttyUSB0, /dev/mcu_uart指向/dev/ttyUSB1. 这样以来，我只要在程序里打开/dev/user_uart或/dev/mcu_uart就可以一直准确的打开指定的串口设备了。</p>
+<p><code>PS：如果您的两个串口用的都是PL2303或者都是CH340/CP2102,那就真的无能为力了。。。</code></p>
+<p>常用的匹配类型：</p>
+<ul>
+<li><p>BUS：匹配总路类型，比如PCI USB等  </p>
+<ul>
+<li>KERNEL：- 匹配Kernel设备名，比如hda hdb. </li>
+</ul>
+</li>
+<li><p>DRIVER ：- 匹配Kernel的驱动程序名   </p>
+</li>
+<li><p>SUBSYSTEM： - 匹配子系统名。   </p>
+</li>
+<li><p>ID ：- 匹配总路系统的ID （e.g. PCI bus ID）。</p>
+</li>
+<li><p>PLACE ：- 匹配物理位置 （对USB很有用）</p>
+</li>
+</ul>
+<p>资料链接：</p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/ynxf/p/6379449.html">http://www.cnblogs.com/ynxf/p/6379449.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://biancheng.dnbcw.net/linux/295328.html">http://biancheng.dnbcw.net/linux/295328.html</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2081/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2059/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

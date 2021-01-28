@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air302 二次开发详细资料 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air302 二次开发详细资料</h1>
+<article class="post markdown-style">
+  <h2 id="Air302是什么"><a href="#Air302是什么" class="headerlink" title="Air302是什么?"></a>Air302是什么?</h2><p>合宙Air302, 是基于移芯EC616的NB-IOT模块, 封装尺寸兼容合宙Air202,功能管脚基本上一一对应.</p>
+<h2 id="LuatOS为它提供哪些功能"><a href="#LuatOS为它提供哪些功能" class="headerlink" title="LuatOS为它提供哪些功能"></a>LuatOS为它提供哪些功能</h2><ul>
+<li>192kb的系统内存, 可用内存约40kb</li>
+<li>64kb的Lua专属内存,可用内存约40kb</li>
+<li>文件系统大小332kb,格式littlefs 2.1,可用空间约200kb</li>
+<li>基于Lua 5.3.5, 提供95%的原生库支持</li>
+<li>适配LuaTask,提供极为友好的<code>sys.lua</code></li>
+<li><code>gpio</code>库提供GPIO管脚控制功能(映射表后面有提供)</li>
+<li><code>uart</code>库提供串口输入输出功能,支持uart1(调试/刷机)/uart2(用户可用)/uart0(芯片日志)</li>
+<li><code>i2c</code>库提供iic总线master功能</li>
+<li><code>disp</code>库提供基于i2c的显示屏支持,当前支持SSD1306</li>
+<li><code>nbiot</code>库提供与nbiot相关的支持</li>
+<li><code>json</code>库,提供lua对象与json字符串的双向转换</li>
+<li><code>socket</code>库,提供异步Socket接口,用于与服务器的通信</li>
+<li><code>log</code>库提供简洁的日志功能</li>
+<li><code>libcoap</code>库提供coap消息处理所需方法</li>
+<li><code>mqtt</code>库提供连接到mqtt服务器的功能,结合<code>crypto</code>加密库,可连接到阿里云</li>
+<li><code>pwm</code>库提供多个PWM输出管脚,存在复用关系</li>
+<li><code>adc</code>库提供外部电平检测,内部温度检测,供电电压检测</li>
+<li><code>ctiot</code>库提供连接到电信CTWING平台的能力</li>
+<li><code>libgnss</code>库提供解析GPS报文的能力</li>
+</ul>
+<p>LuatOS大QQ群: 1061642968</p>
+<h2 id="常用链接"><a href="#常用链接" class="headerlink" title="常用链接"></a>常用链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.openluat.com/">合宙官方</a></li>
+<li><a target="_blank" rel="noopener" href="https://m.openluat.com/">合宙商城</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/releases">新手包(含刷机固件,文档,demo)</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/blob/master/docs/api/lua/README.md">API文档</a></li>
+<li><a href="https://doc.luatos.wiki/977">刷机说明@doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/blob/master/bsp/air302/userdoc/burn_guide.md">刷机说明@gitee</a></li>
+<li><a href="https://doc.luatos.wiki/978">硬件资源说明@doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/blob/master/bsp/air302/userdoc/hw_resources.md">硬件资源说明@gitee</a></li>
+<li><a href="https://doc.luatos.wiki/979">已知限制@doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/blob/master/bsp/air302/userdoc/limits.md">已知限制@gitee</a></li>
+<li><a target="_blank" rel="noopener" href="https://m.openluat.com/">开发板购买@合宙商城</a></li>
+<li><a target="_blank" rel="noopener" href="https://item.taobao.com/item.htm?id=621910075534">开发板购买@骑士智能</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS">LuatOS源码@gitee</a> 期待你的小星星</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openLuat/LuatOS">LuatOS源码@github</a> 期待你的小星星</li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/openLuat/LuatOS/tree/master/bsp/air302/demo">demo,长期更新</a></li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/977/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/966/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

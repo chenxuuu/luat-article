@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>上海合宙Luat Air720SL模块 入门指南（3）-GPIO下篇 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">上海合宙Luat Air720SL模块 入门指南（3）-GPIO下篇</h1>
+<article class="post markdown-style">
+  <h4 id="Air720SL-是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。-模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率-150Mbps-和最大上行速率50Mbps。EVB-Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。"><a href="#Air720SL-是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。-模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率-150Mbps-和最大上行速率50Mbps。EVB-Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。" class="headerlink" title="Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。"></a>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO口的使用继续进行介绍，本文重点介绍利用IO口作为输入的情况。</h4><h2 id="本文要介绍的内容"><a href="#本文要介绍的内容" class="headerlink" title="本文要介绍的内容"></a>本文要介绍的内容</h2><p><a href="#1">1） Air720SL GPIO口介绍</a></p>
+<p><a href="#2">2） 编写代码，通过串口调试助手控制IO口输入状态</a></p>
+<p><a href="#2">3） 测试Air720SL 上电IO口初始状态及输入电平检测功能</a></p>
+<p><span id="1"></span></p>
+<h2 id="Air720-GPIO介绍"><a href="#Air720-GPIO介绍" class="headerlink" title="Air720 GPIO介绍"></a>Air720 GPIO介绍</h2><p>720SL 共有GPIO接口37个，电平均为1.8V 最大输出电流约2mA。 其中下侧引出GPIO口18个，上侧引出GPIO口为17个, 共35个，除被I2C2端口复用的GPIO49,50从右侧引脚单独引出外，上下两侧排针包括了模块所有GPIO，分布如下图</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_95823.jpg"><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_36028.png"></p>
+<h2 id="编写代码，通过串口调试助手控制IO口输入状态"><a href="#编写代码，通过串口调试助手控制IO口输入状态" class="headerlink" title="编写代码，通过串口调试助手控制IO口输入状态"></a>编写代码，通过串口调试助手控制IO口输入状态</h2><p>Air720系列最常见的接口为UART串口，其中Air720SL支持两个硬件串口和三个软串口，其中名为 “ASR Modem Device 3 AT” 可以映射到Luat编程环境，Lua环境下虚拟串口ID为129，波特率自适应。<br>GPIO口当作为输入状态下使用时可以通过软件配置成弱上拉，弱下拉，和无拉状态，可以弱电流输出，输出电流约5uA<br>下面我们定义一个简单的小指令来控制上下拉状态电平：</p>
+<pre><code>GPIO,&lt;port#&gt;,&lt;status&gt;
+</code></pre>
+<p>GPIO是关键字，port#是GPIO的序号，status为9代表无拉，status为8代表下拉低电平，status为7代表上拉高电平</p>
+<p><span id="2"></span><br>然后编写如下代码，进行GPIO输出测试</p>
+<p>DEMO.lua</p>
+<pre><code>require &quot;utils&quot;
+require &quot;pm&quot;
+require &quot;pins&quot;
+module(..., package.seeall)
+
+--IO口状态发生改变时的IO中断响应函数
+function gpioIntFnc(msg)
+
+    --按照demo板对应的引脚排列打印IO口状态
+    local J2_Status_UP=pio11()..&quot;|&quot;..pio28()..&quot;|&quot;..pio26()..&quot;|&quot;..pio18()..&quot;|&quot;..&quot;G&quot;..&quot;|&quot;..&quot;A&quot;..&quot;|&quot;..pio64()..&quot;|&quot;..pio17()..&quot;|&quot;..&quot;U&quot;..&quot;|&quot;..pio20()..&quot;|&quot;..pio62()
+    local J2_Status_DN=pio10()..&quot;|&quot;..pio27()..&quot;|&quot;..pio25()..&quot;|&quot;..&quot;B&quot;..&quot;|&quot;..&quot;G&quot;..&quot;|&quot;..&quot;A&quot;..&quot;|&quot;..pio65()..&quot;|&quot;..&quot;U&quot;..&quot;|&quot;..pio23()..&quot;|&quot;..&quot;U&quot;..&quot;|&quot;..pio24()
+    local J1_Status_UP=pio38()..&quot;|&quot;..pio41()..&quot;|&quot;..pio40()..&quot;|&quot;..pio39()..&quot;|&quot;..pio52()..&quot;|&quot;..pio34()..&quot;|&quot;..pio33()..&quot;|&quot;..pio31()..&quot;|&quot;..pio32()..&quot;|&quot;..pio29()
+    local J1_Status_DN=&quot;V&quot;..&quot;|&quot;..pio37()..&quot;|&quot;..pio32()..&quot;|&quot;..pio51()..&quot;|&quot;..pio36()..&quot;|&quot;..pio35()..&quot;|&quot;..pio61()..&quot;|&quot;..&quot;G&quot;..&quot;|&quot;..pio30()..&quot;|&quot;..pio63()
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
+    log.info(&quot;J1&quot;,&quot;--------------------------------------------------&quot;)
+    log.info(&quot;J2_UP&quot;,J2_Status_UP)
+    log.info(&quot;J2_DN&quot;,J2_Status_DN)
+    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
+    log.info(&quot;J1_UP&quot;,J1_Status_UP)
+    log.info(&quot;J1_DN&quot;,J1_Status_DN)
+    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
+    log.info(&quot;-&quot;,&quot;--------------------------------------------------&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    log.info(&quot;-&quot;,&quot;&quot;)
+    if msg==cpu.INT_GPIO_POSEDGE then
+    --上升沿中断     
+    else
+    --下降沿中断
+    end
+end
+
+--初始化IO口状态
+--------------------------------------------GPIO初始化---------------------------------------------
+pio11 = pins.setup(11, gpioIntFnc)
+pio10 = pins.setup(10, gpioIntFnc)
+pio28 = pins.setup(28, gpioIntFnc)
+pio27 = pins.setup(27, gpioIntFnc)
+pio26 = pins.setup(26, gpioIntFnc)
+pio25 = pins.setup(25, gpioIntFnc)
+pio18 = pins.setup(18, gpioIntFnc)
+pio64 = pins.setup(64, gpioIntFnc)
+pio65 = pins.setup(65, gpioIntFnc)
+
+pio17 = pins.setup(17, gpioIntFnc)
+--pio22 = pins.setup(22, gpioIntFnc)
+--pio66 = pins.setup(66, gpioIntFnc)
+pio23 = pins.setup(23, gpioIntFnc)
+pio20 = pins.setup(20, gpioIntFnc)
+
+--pio21 = pins.setup(21, gpioIntFnc)
+
+pio62 = pins.setup(62, gpioIntFnc)
+pio24 = pins.setup(24, gpioIntFnc)
+
+pio38 = pins.setup(38, gpioIntFnc)
+pio41 = pins.setup(41, gpioIntFnc)
+pio37 = pins.setup(37, gpioIntFnc)
+pio40 = pins.setup(40, gpioIntFnc)
+pio42 = pins.setup(42, gpioIntFnc)
+pio39 = pins.setup(39, gpioIntFnc)
+
+pio51 = pins.setup(51, gpioIntFnc)
+pio52 = pins.setup(52, gpioIntFnc)
+pio36 = pins.setup(36, gpioIntFnc)
+pio34 = pins.setup(34, gpioIntFnc)
+pio35 = pins.setup(35, gpioIntFnc)
+pio33 = pins.setup(33, gpioIntFnc)
+pio61 = pins.setup(61, gpioIntFnc)
+pio31 = pins.setup(31, gpioIntFnc)
+pio32 = pins.setup(32, gpioIntFnc)
+pio30 = pins.setup(30, gpioIntFnc)
+pio29 = pins.setup(29, gpioIntFnc)
+pio63 = pins.setup(63, gpioIntFnc)
+
+pio49 = pins.setup(49, gpioIntFnc)
+pio50 = pins.setup(50, gpioIntFnc)
+
+-------------------------------------------- 配置串口 --------------------------------------------
+-- 串口ID,串口读缓冲区
+local UART_ID, sendQueue, writeBuff, writeBusy = 129, &#123;&#125;, &#123; &#123;&#125;, &#123;&#125; &#125;, false
+-- 串口超时，串口准备好后发布的消息
+local uartimeout, recvReady = 25, &quot;UART_RECV_ID&quot;
+--保持系统处于唤醒状态，不会休眠
+pm.wake(&quot;mcuart&quot;)
+uart.setup(UART_ID, 912600, 8, uart.PAR_NONE, uart.STOP_1, nil, 1)
+
+uart.on(UART_ID, &quot;receive&quot;, function(uid)
+    table.insert(sendQueue, uart.read(uid, 8192))
+    sys.timerStart(sys.publish, uartimeout, recvReady)
+end)
+
+
+
+function write(uid, str)
+    uart.write(uid, str)
+end
+
+-- 向串口发送收到的字符串
+sys.subscribe(recvReady, function()
+    local str = table.concat(sendQueue)
+    -- 串口的数据读完后清空缓冲区
+
+    if (string.sub(str,1,4)==&quot;GPIO&quot;) then
+        --分割命令
+        local splitlist = &#123;&#125;
+        string.gsub(str, &#39;[^,]+&#39;, function(w) table.insert(splitlist, w) end)
+        --lua下标从1开始
+        local s_GPIO=splitlist[2]
+        local s_STATUS=splitlist[3]
+
+        local i_GPIO=tonumber(s_GPIO)
+        local i_STATUS=tonumber(s_STATUS)
+
+        --设置GPIO 上拉下拉无拉
+        pio.pin.setpull(i_STATUS,i_GPIO)
+        
+    end
+    sendQueue = &#123;&#125;
+    log.info(&quot;uart read length:&quot;, #str,&quot;Port&quot;..UART_ID)
+    write(UART_ID, str..&quot;-&gt;OK&quot;)
+end)
+</code></pre>
+<p>main.lua</p>
+<pre><code>PROJECT = &quot;UART_GPIO_OUTPUT_TEST&quot;
+VERSION = &quot;1.0.0&quot;
+
+--加载日志功能模块，并且设置日志输出等级
+--如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
+require &quot;log&quot;
+LOG_LEVEL = log.LOGLEVEL_TRACE
+
+
+require &quot;net&quot;
+--每1分钟查询一次GSM信号强度
+--每1分钟查询一次基站信息
+net.startQueryAll(60000, 60000)
+
+
+require &quot;errDump&quot;
+errDump.request(&quot;udp://ota.airm2m.com:9072&quot;)
+
+
+require &quot;demo&quot;
+
+--启动系统框架
+sys.init(0, 0)
+sys.run()
+</code></pre>
+<p>通过Luatools烧写脚本，并自动重启，然后打开LLC串口调试助手,输入指令</p>
+<pre><code>GPIO,28,7
+</code></pre>
+<p>即可将GPIO28，设置为上拉高电平</p>
+<p>输入指令</p>
+<pre><code>GPIO,28,8
+</code></pre>
+<p>即可将GPIO28,设置为下拉低电平</p>
+<p>输入指令</p>
+<pre><code>GPIO,28,9
+</code></pre>
+<p>即可将GPIO28,设置为无拉状态（高阻）</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_92015.jpg"></p>
+<p><span id="3"></span></p>
+<p>##测试Air720SL 上电IO口初始状态及输入电平检测功能</p>
+<p>我们利用板载的GND（低电位）和VG引脚（1.8V高电平）改变IO口输入电平，通过软件读取IO口状态变化。 外部通过电流表进行端口带负载测试得到驱动电流。 下图中得到的0为低电平，1为高电平。位置与DEMO板的J2，J1相对应。</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_56376.jpg"></p>
+<p>重复对所有的IO口进行上电及高低电平控制可以得到下表</p>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16885.jpg"></p>
+<p>DEMO板上测试结果输入可配置可采集的全功能引脚为22个，输入不可配置高低电平，但能作为输入采集信号的4个，上下拉可配置，但不能检测输入电平变化的引脚6个。</p>
+<p>总结一下：</p>
+<p>可以检测输入电平变化，并配置内部上拉下拉电路的输入端口共有22个，其中开机为下拉低电平15个，上拉高电平的为7个，驱动电流约为5微安</p>
+<p>至此Air720SL的GPIO输入状态介绍完毕，谢谢您的阅读。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/675/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/673/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

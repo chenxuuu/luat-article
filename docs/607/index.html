@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>玩转天猫精灵（一）dtu配置 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">玩转天猫精灵（一）dtu配置</h1>
+<article class="post markdown-style">
+  <p class="MsoNormal">设备刷<span lang="EN-US">dtu</span>固件<span lang="EN-US"><o:p></o:p></span></p><p>
+
+</p><p class="MsoNormal">一机一密，根据复制的信息填写好</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-kxuo3GnP5d517fd384053.png" style="width: 557.5px;" class="img-responsive"><span lang="EN-US"><o:p><br></o:p></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-sBAgI9dW5d517fe844985.png" style="width: 364.5px;" class="img-responsive"><span lang="EN-US"><o:p>topic直接复制粘贴过来，注意订阅发布位置不要错了</o:p></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-zq71txq05d5180280260b.png" style="width: 557px;" class="img-responsive"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-ATsjBoFL5d518045ba3ed.png" style="width: 219.5px;" class="img-responsive">数据绑定串口1，启用串口1</p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-0I23mIzm5d51809a67651.png" style="width: 307px;" class="img-responsive"><br></p><p class="MsoNormal"><span lang="EN-US"><o:p>硬件连接串口1打开串口助手，我们在云平台在线调试发送一条控制指令</o:p></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-tFPbABaq5d5181306e867.png" style="width: 276.5px;" class="img-responsive"><span lang="EN-US"><o:p>我们就可以接受到消息，根据消息内容：</o:p></span></p><p class="MsoNormal"><span lang="EN-US"><o:p>{"id":"1","version":"1.0","method":"thing.event.property.post","params":{"LightSwitch":0} }</o:p></span></p><p class="MsoNormal"><span lang="EN-US"><o:p>我们可以知道LightSwitch的值就是我们需要获取的指令，我们只需要处理数据即可。</o:p></span></p><p class="MsoNormal"><span lang="EN-US"><o:p>按照这个思路，打开数据流，添加处理脚本</o:p></span></p><p class="MsoNormal"><img src="http://oldask.openluat.com/image/show/attachments-2019-08-SID2QngD5d5181ccd0242.png" style="width: 277px;" class="img-responsive"><span lang="EN-US"><o:p><br></o:p></span></p><pre><span lang="EN-US"><o:p>function 
+    local str = ...
+   led = pins.setup(pio.P0_29,1)
+    log.info("------阿里云收到数据-------")
+    log.info("数据为:",str)
+    if  string.find(str,"LightSwitch") then  
+        log.info("------数据为控制指令-------")                
+        JSData=json.decode(str)
+        log.info("------解析数据成功了-------")
+        Cmd=JSData["params"]["LightSwitch"]
+        log.info("------执行动作-------")
+        if Cmd==0 then led(0) log.info("------关闭开关-------") end
+        if Cmd==1 then led(1) log.info("------打开开关-------") end
+    end
+    return "OK"
+end<br></o:p></span></pre><p class="MsoNormal"><span lang="EN-US"><o:p>重启设备获取参数，我们在下发指令就可以看到luatools打印出了我们的指令，我用的S9开发板，板载蓝色灯可以根据控制实现开关。</o:p></span></p><p class="MsoNormal"><span lang="EN-US"><o:p>设备端开发完成</o:p></span></p><p class="MsoNormal"><span lang="EN-US"><o:p><br></o:p></span></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/609/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/606/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

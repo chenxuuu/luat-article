@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Luat GPRS模块TCPIP应用指导V1.1 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Luat GPRS模块TCPIP应用指导V1.1</h1>
+<article class="post markdown-style">
+  <p><b><span style="font-family:'宋体';font-size:16pt;"><font>第</font>1<font>章 架构</font></span></b></p>
+
+
+
+<p><span style="font-family:'宋体';font-size:11pt;">Luat GPRS</span><span style="font-family:Calibri;font-size:11pt;"><font>模块的</font> TCP/IP应用有两种连接模式，可以通过命令AT+CIPMUX=&lt;n&gt;来设置。当AT+CIPMUX=0时，是单链路模式；当AT+CIPMUX=1时，是多链路模式。默认设置是单链路模式。</span></p>
+
+<p><span style="font-family:Calibri;font-size:11pt;"><font>当在单链路模式下，</font></span><span style="font-family:'宋体';font-size:11pt;">Luat GPRS</span><span style="font-family:Calibri;font-size:11pt;"><font>模块可以工作在透传模式和非透传模式。在</font></span><span style="font-family:'宋体';font-size:11pt;"><font>单链接</font></span><span style="font-family:Calibri;font-size:11pt;"><font>模式下，模块作为一个</font></span><span style="font-family:Calibri;font-size:11pt;">TCP/UDP</span><span style="font-family:Calibri;font-size:11pt;"><font>连接的客户端</font></span><span style="font-family:'宋体';font-size:11pt;"><font>。</font></span></p>
+
+<p><span style="font-family:Calibri;font-size:11pt;"><font>当在多链路模式下，</font></span><span style="font-family:'宋体';font-size:11pt;">Luat GPRS</span><span style="font-family:Calibri;font-size:11pt;"><font>模块只工作在非透传模式。在</font></span><span style="font-family:'宋体';font-size:11pt;"><font>多链接</font></span><span style="font-family:Calibri;font-size:11pt;"><font>模式下，模块作为一个</font></span><span style="font-family:Calibri;font-size:11pt;">TCP/UDP</span><span style="font-family:Calibri;font-size:11pt;"><font>连接的客户端，它总共可以建立</font></span><span style="font-family:'宋体';font-size:11pt;">8</span><span style="font-family:Calibri;font-size:11pt;"><font>路连接</font></span><span style="font-family:'宋体';font-size:11pt;"><font>。</font></span></p>
+
+<p><span style="font-family:'宋体';font-size:11pt;"><font><br /></font></span></p>
+
+<p><span style="font-weight:bold;"><span style="font-family:'宋体';">图表</span><span>1</span><span style="font-family:'宋体';">：</span><span>Luat GPRS </span><span style="font-family:'宋体';">模块</span><span>TCP/IP </span><span style="font-family:'宋体';">结构图</span></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-XjwwH0rf5b922f4f7aa30.png" class="img-responsive" alt="attachments-2018-09-XjwwH0rf5b922f4f7aa30.png" /></p>
+
+<h2><span style="font-weight:bold;"><span style="font-family:'宋体';"><br /></span></span></h2>
+
+<h3><span style="font-weight:bold;"><span style="font-family:'宋体';">第</span><span>2</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">状态机</span></span></h3>
+
+<p><span> </span></p>
+
+<p>当输入<span>TCPIP</span>相关命令以后，模块的状态也会发生相应的迁移。查询状态的命令是<span>AT+CIPSTATUS</span>。</p>
+
+
+
+
+
+<p><span style="font-weight:bold;"><span> </span>图表<span>2</span>：<span style="font-family:'宋体';">单链接时的状态机</span></span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-R8xgsbfK5b922fa2240e4.png" class="img-responsive" alt="attachments-2018-09-R8xgsbfK5b922fa2240e4.png" /></p>
+
+<p><span style="font-size:10.5pt;">关于单连接状态机的几点说明：</span></p>
+
+<p><span style="font-size:10.5pt;"> </span></p>
+
+<p style="text-align:justify;"><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;">输入<span>AT+CIICR</span>，会马上进入<span>IP CONFIG</span>状态，当返回<span>OK</span>后，会进入到<span>IP GPRSACT</span>状态；</span></p>
+
+<p style="text-align:justify;"><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;">输入AT+CIPSTART后，会立马进入IP/UDP
+CONNECTING状态，如果后续模块上报CONNECT OK这个URC，表明连接服务器成功，此时进入CONNECT OK状态；</span></p>
+
+<p><span style="text-align:justify;font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="text-align:justify;font-size:10.5pt;">输入AT+CIPCLOSE后，立马进入TCP/UDP
+CLOSING状态，此时如果模块上报CLOSE OK，则表明关闭与服务器的连接成功，此时模块进入TCP/UDP CLOSED状态；</span></p>
+
+<p style="text-align:justify;"><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;">如果模块上报+PDP DEACT这个URC，则标志着模块释放PDP上下文，并进入了PDP DEACT状态；</span></p>
+
+<p><span style="text-align:justify;font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="text-align:justify;font-size:10.5pt;">在IP
+GPRSACT，IP STATUS，CONNECT OK以及TCP/UDP CLOSED状态下，输入AT+CGATT=0，则也可以使模块释放上下文，进入PDP
+DEACT状态；</span></p>
+
+<p style="text-align:justify;"><span style="font-size:10.5pt;font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span style="font-size:10.5pt;">模块进入PDP
+DEACT状态，仍需要输入AT+CIPSHUT，进入IP INITIAL状态；</span></p>
+
+<p style="text-align:justify;"><span style="font-family:Wingdings;">l</span><span style="font-size:7pt;font-family:'Times New Roman';"> </span><span style="font-family:Calibri, sans-serif;font-size:10.5pt;">模块在各个状态下均可以输入AT+CIPSHUT，进入IP
+INITIAL状态。</span></p>
+
+<p style="text-align:justify;"><span style="font-family:Calibri, sans-serif;font-size:10.5pt;"><br /></span></p>
+
+<p><b>图表<span>3</span>：<span style="font-family:'宋体';">多链接时的状态机</span></b></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-LLjraruD5b92304756ab0.png" class="img-responsive" alt="attachments-2018-09-LLjraruD5b92304756ab0.png" /><b><span style="font-family:'宋体';"><br /></span></b></p>
+
+
+
+<h3><b><span style="font-family:'宋体';"><br /></span></b></h3>
+
+<h3><b><span style="font-family:'宋体';">第</span><span>3</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">模块上电初始化以及</span><span>TCPIP</span><span style="font-family:'宋体';">流程</span></b></h3>
+
+<h4><img src="http://oldask.openluat.com/image/show/attachments-2018-09-9kdn4lPo5b92308d93719.jpg" class="img-responsive" style="width:826.5px;" alt="attachments-2018-09-9kdn4lPo5b92308d93719.jpg" /></h4>
+
+<h3><b><span style="font-family:'宋体';"><br /></span></b></h3>
+
+<h3><b><span style="font-family:'宋体';">第</span><span>4</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">单链接模式</span></b></h3>
+
+<p><span>AT+CIPMUX=0</span><span style="font-family:'宋体';">，可以将模块设置为单链接模式。在单链接模式下，只能同时存在一个</span><span>TCP</span><span style="font-family:'宋体';">或</span><span>UDP</span><span style="font-family:'宋体';">链接。</span><span>CIPMUX</span><span style="font-family:'宋体';">缺省值就是</span><span>0</span><span style="font-family:'宋体';">。</span></p>
+
+
+
+<p><span style="font-family:'宋体';">单链接模式下</span><span>Luat GPRS</span>模块可以工作在<span style="color:#190DB3;">透传模式</span>和<span style="color:#190DB3;">非透传模式</span>。可以通过命令<span>AT+CIPMODE=&lt;n&gt;</span>用来设置，当<span>AT+CIPMODE=0</span>时，是非透传模式<span> (</span>普通模式<span>)</span>；当<span>AT+CIPMODE=1</span>时，是透传模式。默认设置是非透传模式<span style="font-family:'宋体';">，</span></p>
+
+
+
+<p><span style="font-family:'宋体';">即</span><span>CIPMODE</span><span style="font-family:'宋体';">缺省值为</span><span>0</span><span style="font-family:'宋体';">。</span></p>
+
+
+
+<p><span> </span></p>
+
+<h2><b><span style="font-size:14pt;">4.1 </span><span style="font-size:14pt;font-family:'宋体';">非透传模式</span></b></h2>
+
+<p><span style="font-family:'宋体';">非透传模式下，模块可以作为</span><span>TCP</span><span style="font-family:'宋体';">客户端或</span><span>UDP</span><span style="font-family:'宋体';">客户端与服务器建立链接。</span></p>
+
+
+
+<p><span> </span></p>
+
+<h3><b><span style="font-size:14pt;">4.1.1</span><span style="font-size:14pt;font-family:'宋体';">如何建立一个</span><span style="font-size:14pt;">TCP/UDP</span><span style="font-size:14pt;font-family:'宋体';">链接</span></b></h3>
+
+<p><span style="font-family:'宋体';">使用</span><span>TCIPIP</span><span style="font-family:'宋体';">命令之前，需要进行一些必要的查询，确定模块是否注册网络。以下命令示例中，黑色的是输入的命令，蓝色的是命令的返回信息。</span></p>
+
+
+
+<p><span> </span><img src="http://oldask.openluat.com/image/show/attachments-2018-09-DqUlVrYc5b9231a49adf1.jpg" class="img-responsive" style="width:707px;" alt="attachments-2018-09-DqUlVrYc5b9231a49adf1.jpg" /></p>
+
+<p><span style="font-family:'宋体';">如果</span><span>GPRS</span><span style="font-family:'宋体';">附着状态为</span><span>1</span><span style="font-family:'宋体';">，则可以继续往下进行</span><span>APN</span><span style="font-family:'宋体';">的设置，</span><span>PDP</span><span style="font-family:'宋体';">的激活，以及建立一个</span><span>TCP</span><span style="font-family:'宋体';">或</span><span>UDP</span><span style="font-family:'宋体';">链接。</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-gg9ktmMy5b9231bb4eb14.jpg" class="img-responsive" style="width:710.5px;" alt="attachments-2018-09-gg9ktmMy5b9231bb4eb14.jpg" /></p>
+
+<h3><b><span style="font-size:14pt;"><br /></span></b></h3>
+
+<h2><b><span style="font-size:14pt;">4.2 </span><span style="font-size:14pt;font-family:'宋体';">透传模式</span></b></h2>
+
+<h3><b><span style="font-size:14pt;">4.</span><span style="font-size:14pt;">2</span><span style="font-size:14pt;">.1</span><span style="font-size:14pt;">  </span><span style="font-size:14pt;font-family:'宋体';">什么是透传模式</span></b></h3>
+
+<p>透传模式是一种建立在<span>TCP/IP</span>应用任务下的特殊的数据<span style="font-family:'宋体';">传输</span>模式，用来接收和发送数据。<span style="font-family:'宋体';">在</span>透传模式下<span style="font-family:'宋体';">，一旦</span>链接被建立，模块就处于数据模式，所有从<span style="font-family:'宋体';">串口输入输出的字符皆被认为是有效数据。</span></p>
+
+<p>透传模式下，所有<span>AT</span>命令不可用。我们提供了在命令模式和透传模式间切换的方法。一旦切换到了命令模式，所有的<span>AT</span>命令又可以被使用了。</p>
+
+<p><b><span style="font-family:'宋体';">需要注意的是：</span></b><b><span style="font-family:'宋体';">只有单链接模式下，才可以使用透传模式。</span></b></p>
+
+
+
+<h3><b><span style="font-size:14pt;">4.</span><span style="font-size:14pt;">2</span><span style="font-size:14pt;">.</span><span style="font-size:14pt;">2  </span><span style="font-size:14pt;font-family:'宋体';">如何配置透传模式</span></b></h3>
+
+<p><span>AT+CIPMODE=1 </span><span style="font-family:'宋体';">开启透传模式。</span></p>
+
+<p><span> </span></p>
+
+<p><span style="font-family:'宋体';">在输入</span><span>CIPMODE</span><span style="font-family:'宋体';">命令之前可以用</span><span>AT+CIPCCFG
+</span>用来配置透传模式<span style="font-family:'宋体';">的相关参数：</span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span>NmRetry </span>用来设置一个<span>IP</span>包的重传次数。缺省值是<span>5</span>。</p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span>WaitTm </span>发送数据的时间间隔，单位是<span>200ms</span>。<span style="font-family:'宋体';">缺省值是</span><span>2</span><span style="font-family:'宋体';">。</span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span> SendSz </span>每次发送数据的字节数。<span>1~1460</span>，缺省值是<span>1024</span>。</p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span> Esc </span>是否开启转义序列，默认开启。</p>
+
+<p><span> </span></p>
+
+<p><span style="font-family:'宋体';">一般的应用情况下，这个</span><span>CIPCCFG</span><span style="font-family:'宋体';">命令不需要修改参数。</span></p>
+
+<p><span> </span></p>
+
+<h3><b><span style="font-size:14pt;">4.2.3  </span><span style="font-size:14pt;font-family:'宋体';">透传模式的使用方法</span></b></h3>
+
+<p><span style="font-family:'宋体';">透传模式下，</span>只能在单路链接下建立，在透传模式下，<span>Luat GPRS</span><span style="font-family:'宋体';">模块</span>也能工作在<span>2</span>种模式：<span> TCP</span>客户端，<span> UDP </span>客户端。一旦链路建立，串口会上报<span> “CONNECT” </span>，模块处于数据模式，同时，<span>DCD </span>被拉低<span style="font-family:'宋体';">。</span></p>
+
+<p><span> </span></p>
+
+
+
+
+
+<p><span style="font-family:'宋体';">以下是</span><span>TCP</span><span style="font-family:'宋体';">客户端透传应用的例子：</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-GCmgAmp45b9232702ba24.jpg" class="img-responsive" style="width:710.5px;" alt="attachments-2018-09-GCmgAmp45b9232702ba24.jpg" /></p>
+
+<h3><b><span style="font-size:14pt;"><br /></span></b></h3>
+
+<h3><b><span style="font-size:14pt;">4.2.4  </span><span style="font-size:14pt;font-family:'宋体';">如何在透传模式和命令模式间切换</span></b></h3>
+
+<p>通过下面的方法可以在透传模式和命令模式间自由切换<span style="font-family:'宋体';">：</span></p>
+
+<p><br /></p>
+
+<p><span>(1)<span style="font-size:7pt;font-family:'Times New Roman';">   
+</span></span>如果<span>AT+CIPCCFG </span>的第四个参数是<span>1</span><span style="font-family:'宋体';">（默认值就是</span><span>1</span><span style="font-family:'宋体';">）</span>，那么支持通过转义序列退出透传模式。默认的转义序列是<span> +++</span>，为避免<span>+++ </span>被错误的识别为数据，需要遵循以下步骤：</p>
+
+<p><span> </span></p>
+
+<p><span><br /></span><span>1. </span><span style="font-family:'宋体';">“</span><span>+++</span><span style="font-family:'宋体';">”</span>输入前<span>1</span>秒内无字符输入。</p>
+
+<p><span>2.</span>在<span> 0.5 </span>秒内连续输入<span style="font-family:'宋体';">“</span><span>+++</span><span style="font-family:'宋体';">”</span>，中间不能有其他字符。</p>
+
+<p><span>3. </span><span style="font-family:'宋体';">“</span><span>+++</span><span style="font-family:'宋体';">”</span>输入后<span> 0.5 </span>秒内无字符输入。</p>
+
+<p><span> </span></p>
+
+<p><span>(2)<span style="font-size:7pt;font-family:'Times New Roman';">   
+</span></span><span>+++</span><span style="font-family:'宋体';">退出透传模式后，</span>如果当前链接是激活的，<span>ATO </span>命令可以从命令模式切换回数据模式，字符串<span> “CONNECT”</span>会再次上报。</p>
+
+<p><span>(3)<span style="font-size:7pt;font-family:'Times New Roman';">   
+</span></span><span>可以使用串口的</span><span>DTR </span><span>脚。设置</span><span>AT&amp;D1</span><span style="font-family:'宋体';">（默认值就是</span><span>1</span><span style="font-family:'宋体';">）</span><span>，</span><span> DTR </span><span>脚至少接地</span><span> 1 </span><span>秒然后拉高。这个方法可以从数据模式切换到命令模式。上报字串</span><span>“OK” </span><span>表示模块当前处于命令模式。</span></p>
+
+<p><span>(4)<span style="font-size:7pt;font-family:'Times New Roman';">   
+</span></span><span>对于</span><span>TCP</span><span>客户端链接，如果远端服务器断开了链接，模块会自动切换到命令模式。</span></p>
+
+<p><span>(5)<span style="font-size:7pt;font-family:'Times New Roman';">   
+</span></span>在数据传输中，如果模块的<span>PDP</span>场景被去激活<span>(+PDP DEACT) </span>，模块也会自动切换到命令模式。</p>
+
+<p><span> </span></p>
+
+<h3><b><span style="font-size:14pt;">4.2.5  </span><span style="font-size:14pt;font-family:'宋体';">数据模式下如何处理来电和短信</span></b></h3>
+
+<p>数据模式下，如果有来电，串口的<span>RING</span>脚会一直拉低，直到挂断或者接通电话；而来短信的时候，<span>RING</span>脚会有<span>120ms</span>长的低电平。<span style="font-family:'宋体';">这个</span><span>RI</span><span style="font-family:'宋体';">低电平可以给唤醒</span><span>MCU</span><span style="font-family:'宋体';">并给</span><span>MCU</span><span style="font-family:'宋体';">提示，有电话或短信到来了。</span></p>
+
+<p><span> </span></p>
+
+
+
+<p><span style="font-size:11pt;font-family:Calibri, sans-serif;">要处理来电或者短信，</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">MCU</span><span style="font-size:11pt;font-family:'宋体';">那边</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">首先要</span><span style="font-size:11pt;font-family:'宋体';">使模块</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">进入命令模式</span><span style="font-size:11pt;font-family:Calibri, sans-serif;"> (</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">用</span><span style="font-size:11pt;font-family:Calibri, sans-serif;"> DTR </span><span style="font-size:11pt;font-family:Calibri, sans-serif;">或者</span><span style="font-size:11pt;font-family:Calibri, sans-serif;"> +++)</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">，然后模块会得到正常的</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">URC</span><span style="font-size:11pt;font-family:Calibri, sans-serif;">上报。</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-v6oWudq75b923388976a8.jpg" class="img-responsive" style="width:568.5px;" alt="attachments-2018-09-v6oWudq75b923388976a8.jpg" /></p>
+
+<p><span> </span>这时候就可以处理电话或者读短信了。</p>
+
+<p><span> </span></p>
+
+<h3><b><span style="font-family:'宋体';">第</span><span>5</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">多链接模式</span></b></h3>
+
+<p><span> </span></p>
+
+<p><span style="font-family:'宋体';">多链接模式下，</span><span> Luat GPRS</span>模块仅支持非透传模式。因此，在多链路模式下，命令<span>AT+CIPMODE
+</span>是无效的。</p>
+
+<p>多链路模式下，模块可以作为<span> TCP/UDP </span>客户端 <span style="font-family:'宋体';">使用。可以有</span><span>8</span><span style="font-family:'宋体';">路链接（</span><span>id = 0-7</span><span style="font-family:'宋体';">）同时共存，每一路链接可以是</span><span>TCP</span><span style="font-family:'宋体';">或</span><span>UDP</span><span style="font-family:'宋体';">类型。</span></p>
+
+<p><span> </span><span style="font-family:'宋体';">下面是一个多链接应用示例：</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-5cFPeTSj5b9233bb5dc17.jpg" class="img-responsive" style="width:711px;" alt="attachments-2018-09-5cFPeTSj5b9233bb5dc17.jpg" /><span style="font-family:'宋体';"><br /></span></p>
+
+<h3><b><span style="font-family:'宋体';"><br /></span></b></h3>
+
+<h3><b><span style="font-family:'宋体';">第</span><span>6</span><span style="font-family:'宋体';">章</span><span> DNS</span><span style="font-family:'宋体';">域名自动解析</span></b></h3>
+
+<p><span> </span></p>
+
+<p><span> Luat GPRS</span>系列模块支持<span>DNS</span>域名自动解析，<span style="font-family:'宋体';">除了使用</span><span>AT+CIPSTART=&lt;mode&gt;,&lt;</span><span>ip_addr</span><span>&gt;,&lt;port&gt;</span><span style="font-family:'宋体';">连接服务器</span><span>IP</span><span style="font-family:'宋体';">地址以外，还</span>可以使用<span>AT+CIPSTART=&lt;mode&gt;,&lt;domain
+name&gt;,&lt;port&gt;</span>跟远端服务器<span style="font-family:'宋体';">域名地址</span>建立连接<span style="font-family:'宋体';">。</span></p>
+
+<p><span> </span></p>
+
+<p><span>用户也可以使用命令</span><span> AT+CDNSGIP=&lt;domain
+name &gt;</span><span>来查询所给域名的</span><span>IP</span><span>地址</span><span>。</span></p>
+
+<p><span> </span></p>
+
+<p><span style="font-family:'宋体';">以下是域名解析的应用示例：</span></p>
+
+
+
+<p><span style="font-size:11pt;font-family:'宋体';">下面是一个多链接应用示例：</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-6DPFTgp75b923461be2d1.jpg" class="img-responsive" style="width:707.5px;" alt="attachments-2018-09-6DPFTgp75b923461be2d1.jpg" /><span style="font-size:11pt;font-family:'宋体';"><br /></span></p>
+
+<h2><b><span style="font-family:'宋体';"><br /></span></b></h2>
+
+<h2><b><span style="font-family:'宋体';">第</span><span>7</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">数据发送</span></b></h2>
+
+<p><span>Luat
+GPRS</span>系列模块有三种方法来发送数据：变长数据的发送，定长数据的发送和定时发送。用户可以通过命令<span>AT+CIPACK</span>用来查询当前链接的数据传送状态。</p>
+
+<p><span> </span></p>
+
+<h2><b><span style="font-size:14pt;">7.1 </span><span style="font-size:14pt;font-family:'宋体';">固定长度数据发送</span></b></h2>
+
+<p><span style="font-family:'宋体';">在单链接模式下，</span>通过命令<span>”</span><span>AT+CIPSEND=&lt;length&gt;</span><span>”</span>可以进行固定长度的数据发送，发送长度是<span>&lt;length&gt;</span>。输入数据达到<span>&lt;length&gt;</span>个字节，不用发送<span>&lt;CTRL-Z&gt;</span>（即<span>0x1A</span>），数据会自动发送出去。</p>
+
+<p><span>在多链接模式下，该命令的格式是：</span><span>AT+CIPSEND=&lt;</span><span>id</span><span>&gt;,</span><span>&lt;length&gt;</span><span>。</span><span>&lt;</span><span>id</span><span>&gt;</span><span style="font-family:'宋体';">是链接</span><span>id</span><span style="font-family:'宋体';">，</span><span>&lt;length&gt;</span><span style="font-family:'宋体';">是发送长度。</span><br /></p>
+
+<h2><b><span style="font-size:14pt;">7.2 </span><span style="font-size:14pt;font-family:'宋体';">不定长度数据发送</span></b></h2>
+
+<p><span style="font-family:'宋体';">用</span>
+<span>“AT+CIPSEND”</span><span style="font-family:'宋体';">直接发送即是不定长度的发送方式。输入</span><span>“AT+CIPSEND”</span><span style="font-family:'宋体';">（如果是多链接模式，则是</span><span>“AT+CIPSEND=&lt;id&gt;”</span><span style="font-family:'宋体';">），出现</span><span>&gt;</span><span style="font-family:'宋体';">后即进入数据输入模式，输入数据，然后发送</span><span>CRTL-Z</span><span style="font-family:'宋体';">（即</span><span>0X1A</span><span style="font-family:'宋体';">）即可发送数据。</span></p>
+
+<p><span style="font-family:'宋体';">不定长度的发送方式有以下情况，需要注意：</span></p>
+
+<p><span style="font-family:'宋体';">当数据中含有</span><span>0X1A</span><span style="font-family:'宋体';">时，会将</span><span>0X1A</span><span style="font-family:'宋体';">当做发送标识，并数据直接发送出去；当数据中含有</span><span>0X1B</span><span style="font-family:'宋体';">时，会将</span><span>0X1B</span><span style="font-family:'宋体';">认定为发送终止符，退出数据发送模式，回到</span><span>AT</span><span style="font-family:'宋体';">命令状态。遇到含有</span><span>0X1A</span><span style="font-family:'宋体';">或</span><span>0X1B</span><span style="font-family:'宋体';">的数据，请用户自己转义。</span></p>
+
+<p><span style="font-family:'宋体';">固定长度发送和不定长度发送两种数据发送方式的示例，请参考</span><span>: 
+</span><span><span><a>4.1.1 <span style="font-family:'宋体';"><span>如何建立一个</span></span>TCP/UDP<span style="font-family:'宋体';"><span>链接</span></span></a></span></span></p>
+
+<h2><b><span style="font-size:14pt;">7.3 </span><span style="font-size:14pt;font-family:'宋体';">定时发送</span></b></h2>
+
+<p><span style="font-family:'宋体';">还有第三种数据发送的方式：定时发送。</span>首先，通过命令<span>“AT+CIPATS=&lt;mode&gt;,&lt;time&gt;”</span>设置自动发送时间。<span>&lt;mode&gt;</span><span style="font-family:'宋体';">设置为</span><span>1</span><span style="font-family:'宋体';">，打开超时自动发送。</span><span>&lt;time&gt;</span><span style="font-family:'宋体';">是自动发送的超时时间，以秒为单位，取值范围为</span><span>1~100</span><span style="font-family:'宋体';">。</span></p>
+
+<p><span style="font-family:'宋体';">不管多链接还是单链接，设置了超时自动发送功能为开，发送数据的时候，时间到了就会自动发送数据，不管数据个数有多少。</span><br /></p>
+
+<p><span> </span><span style="font-family:'宋体';font-size:11pt;">示例如下：</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-WIgdXdLZ5b92358cd411e.jpg" class="img-responsive" style="width:711px;" alt="attachments-2018-09-WIgdXdLZ5b92358cd411e.jpg" /></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<h2><b><span style="font-family:'宋体';"><br /></span></b></h2>
+
+<h2><b><span style="font-family:'宋体';">第</span><span>8</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">数据接收</span></b></h2>
+
+<p><span> </span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span>AT+CIPHEAD=1”</span><span>在数据前加</span><span>IP</span><span>头，格式：</span><span>“+IPD </span><span>,&lt;</span><span>data length</span><span>&gt;</span><span>: payload”</span><span>。</span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span>AT+CIPSHOWTP”</span><span>在</span><span>IP</span><span>头里显示</span><span style="font-family:'宋体';">协议类型</span><span>(TCP/UDP)</span><span>，这只有在</span><span>CIPHEAD=1</span><span>时有效。</span></p>
+
+<p><span style="font-family:'宋体';">实例示意如下：</span></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-PNuMjbfp5b9235d51ec9b.jpg" class="img-responsive" style="width:621px;" alt="attachments-2018-09-PNuMjbfp5b9235d51ec9b.jpg" /><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span> </span></p>
+
+<p><span style="font-family:Wingdings;">l<span style="font-size:7pt;font-family:'Times New Roman';">  </span></span><span>AT+CIPSRIP=1”</span><span>显示数据发送方信息，格式：</span><span>“RECV FROM: &lt;IP ADDRESS&gt;:&lt;PORT &gt;”</span><span>。</span> </p>
+
+<p>通过这些信息，用户很容易就可以知道数据帧的源，数据大小，协议。这可以让用户把收到的<span>TCP/UDP</span>数据和<span>AT</span>命令区分开来。</p>
+
+<p><br /></p>
+
+<p> <br /></p>
+
+<h2><b><span style="font-family:'宋体';">第</span><span>9</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">查询数据链路的状态<br /></span></b><span style="font-size:10.5pt;"><b> </b></span></h2>
+
+<p><span style="font-size:10.5pt;font-family:'宋体';">在</span><span style="font-size:10.5pt;">AT</span><span style="font-size:10.5pt;font-family:'宋体';">模式下，可以通过</span><span style="font-size:10.5pt;">AT+CIPSTATUS</span><span style="font-size:10.5pt;font-family:'宋体';">查询当前的</span><span style="font-size:10.5pt;">TCP/UDP</span><span style="font-size:10.5pt;font-family:'宋体';">数据链路状态。</span></p>
+
+<p style="text-align:justify;"><span style="font-size:10.5pt;font-family:'宋体';">透传模式下</span><span style="font-size:10.5pt;font-family:'宋体';">，</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">DCD </span><span style="font-size:10.5pt;font-family:'宋体';">脚用来实现这一功能。如果</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">TCP/UDP </span><span style="font-size:10.5pt;font-family:'宋体';">链接存在，</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">DCD </span><span style="font-size:10.5pt;font-family:'宋体';">脚被置位</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">(</span><span style="font-size:10.5pt;font-family:'宋体';">拉低</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">)</span><span style="font-size:10.5pt;font-family:'宋体';">。一旦链接断开，</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">DCD </span><span style="font-size:10.5pt;font-family:'宋体';">脚会被设无效</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">(</span><span style="font-size:10.5pt;font-family:'宋体';">拉高</span><span style="font-size:10.5pt;font-family:Calibri, sans-serif;">)</span><span style="font-size:10.5pt;font-family:'宋体';">。</span></p>
+
+<p style="text-align:justify;"><img src="http://oldask.openluat.com/image/show/attachments-2018-09-c299kfdA5b92364d2efcd.jpg" class="img-responsive" style="width:710.5px;" alt="attachments-2018-09-c299kfdA5b92364d2efcd.jpg" /><span style="font-size:10.5pt;font-family:'宋体';"><br /></span></p>
+
+<h2><b><span style="font-family:'宋体';"><br /></span></b></h2>
+
+<h2><b><span style="font-family:'宋体';">第</span><span>10</span><span style="font-family:'宋体';">章</span> <span style="font-family:'宋体';">关闭链接</span></b></h2>
+
+<p><span style="font-family:'宋体';">单链接下</span>用户可以使用命令<span> AT+CIPCLOSE</span>来关闭<span> TCP </span>或者<span> UDP </span>链接。</p>
+
+<p><span> </span></p>
+
+<p>当上报<span>CLOSE OK</span>表示链接关闭成功。</p>
+
+<p>在多链路模式下，链路序号<span>&lt;n&gt;</span>要使用<span>AT+CIPCLOSE=&lt;n&gt;</span>关闭链接。</p>
+
+<p><span> </span></p>
+
+<p><b>注意：</b>命令<span>AT+CIPCLOSE </span>仅关闭当前<span>TCP/UDP</span>链接，但<span>PDP</span>场景仍然激活<span style="font-family:'宋体';">，此时可以直接</span><span>AT+CIPSTART</span><span style="font-family:'宋体';">重新建立连接</span>。当然，用户也可以用<span>AT+CIPSHUT</span>来关闭，这时候<span>PDP </span>上下文会被去激活。<span style="font-family:'宋体';">如果想重新建立连接，需要</span><span>+CSTT,+CIICR,+CIFSR</span><span style="font-family:'宋体';">重新发一遍来激活</span><span>PDP</span><span style="font-family:'宋体';">。</span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+
+<p><span style="font-family:'宋体';"><br /></span></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/437/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/435/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

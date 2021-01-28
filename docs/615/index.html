@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air720模块认证须知 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air720模块认证须知</h1>
+<article class="post markdown-style">
+  <p><strong>测试条件：</strong><br>1、建议使用<strong>合宙AT版本</strong>测试，LUA版本需关掉一切上层应用，特别是导致模块重启的逻辑代码（包括软件重启和硬件重启）。<br>2、送认证测试的机器，客户大板一定要去掉<strong>硬件开门狗</strong>。</p>
+<p><strong>注意事项：</strong><br>1、    驱动安装说明，参考：<a target="_blank" rel="noopener" href="http://oldask.openluat.com/article/92">http://oldask.openluat.com/article/92</a><br>2、    装好了，设备管理器会出来ASR Modem Device（COMXX），此口用于AT通信。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_67409.png"><br>3、    使用sscom5.12.1工具，选择COM口进行AT通信。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_16696.png"><br>4、    强制注册设置方法如下：<br>AT<em>BAND=0   强制设备仅工作在GSM网络，发送后立即生效，重启后恢复默认设置LTE优先。<br>AT</em>BAND=1   强制设备仅工作在UMTS网络，发送后立即生效，重启后恢复默认设置LTE优先。<br>AT*BAND=5   强制设备仅工作在LTE网络，发送后立即生效，重启后恢复默认设置LTE优先。</p>
+<p>5、    测试时网卡需要禁用<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_28534.png"><br>6、    关闭自动拨号功能<br>通过AT命令设置手动拨号，重启后生效。<br>AT+DIALMODE=1  //关闭自动拨号<br>AT+AUTOAPN=0 </p>
+<p>7、    设置PDN<br>通过AT命令：AT*CGDFLT=1,”IPV4V6”  //设置iptype为PDN_IP_V4_V6</p>
+<p>8、    关闭高层业务（关闭应用层发起的TCP/IP数据业务）<br>AT*NTP=0<br>AT+UPGRADE=”AUTO”,0</p>
+<p>9、    AT开启语音自动接听<br>ATS0=1;&W;+CFUN=1,1</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/616/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/614/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

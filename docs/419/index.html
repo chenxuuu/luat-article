@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Air720模块Linux USB驱动以及PPP拨号说明 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Air720模块Linux USB驱动以及PPP拨号说明</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;本文章介绍了在linux系统下，如何修改usb驱动支持合宙 Air720模块，以及使用Air720进行ppp拨号上网流程&lt;/p&gt;
+</code></pre>
+<p><br></p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Air720正常启动后，通过USB连接到linux设备上，驱动正常加载后会产生如下设备：</p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2019-10-CmRohRb55daebe315bc70.jpg" class="img-responsive" width="962" height="141"><br><br></p>
+
+<h2><b>一、修改驱动</b></h2>
+
+<h5>&nbsp;&nbsp;&nbsp;</h5>
+
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:14px;">首先需要对Linux内核驱动做一定的修改，使操作系统能够支持Air720<b>。</b></span></h5>
+
+<h5><span style="font-size:14px;"><b><br></b></span></h5>
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;<b>1.Add VID add PID</b></h4>
+
+
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:14px;"><font color="#ff0000"><b>File: [KERNEL]/drivers/usb/serial/option.c</b></font></span></h4>
+
+<pre>static const struct usb_device_id option_ids[] = {<br>&nbsp; &nbsp; //+add by airm2m for Air72x<br>&nbsp; &nbsp; { USB_DEVICE(0x1286, 0x4e3d) },<br>&nbsp; &nbsp; &nbsp;//-add by airm2m for Air72x<br>&nbsp; &nbsp;{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_COLT) },<br>&nbsp; &nbsp; { USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA) },<br>&nbsp; &nbsp; { USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_LIGHT) },<br>&nbsp; &nbsp; { USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_QUAD) },<br>&nbsp; &nbsp; { USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_QUAD_LIGHT) },&nbsp; &nbsp;</pre>
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;<b>2. Add the Zero Packet Mechanism&nbsp;&nbsp;&nbsp;</b></h4>
+
+
+
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;<b>⦁For linux Kernel Version newer than 2.6.34：</b></h5>
+
+<h5>&nbsp; &nbsp; &nbsp;<b><font color="#ff0000">File: [KERNEL]/drivers/usb/serial/usb_wwan.c</font></b></h5>
+
+<pre>static struct urb *usb_wwan_setup_urb(struct usb_serial_port *port,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int endpoint,&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int dir, void *ctx, char *buf, int len,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; void (*callback) (struct urb *))<br>{<br>&nbsp; &nbsp; struct usb_serial *serial = port-&gt;serial;<br>&nbsp; &nbsp; struct urb *urb;<br>&nbsp; &nbsp; urb = usb_alloc_urb(0, GFP_KERNEL); /* No ISO */<br>&nbsp; &nbsp; if (!urb)<br>&nbsp; &nbsp; &nbsp; &nbsp; return NULL;<br>&nbsp; &nbsp; usb_fill_bulk_urb(urb, serial-&gt;dev,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; usb_sndbulkpipe(serial-&gt;dev, endpoint) | dir,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; buf, len, callback, ctx);<br>&nbsp; &nbsp; //+add by airm2m for Air72x<br>&nbsp; &nbsp; if(dir == USB_DIR_OUT){<br>&nbsp; &nbsp; &nbsp; &nbsp; struct usb_device_descriptor *desc = &amp;serial-&gt;dev-&gt;descriptor;<br>&nbsp; &nbsp; &nbsp; &nbsp; if(desc-&gt;idVendor == cpu_to_le16(0x1286) &amp;&amp; desc-&gt;idProduct == cpu_to_le16(0x4e3d))<br>&nbsp; &nbsp; &nbsp; &nbsp; {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; urb-&gt;transfer_flags |= URB_ZERO_PACKET;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; }<br>&nbsp; &nbsp; //-add by airm2m for Air72x<br>&nbsp; &nbsp; return urb;<br>}</pre>
+
+<div><b><br></b></div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<b>⦁For linux Kernel Version older than 2.6.35：</b><br></div>
+
+<h4>&nbsp;&nbsp;&nbsp;<font color="#ff0000">&nbsp;<span style="font-size:14px;"><b>File: [KERNEL]/drivers/usb/serial/option.c</b></span></font></h4>
+
+<pre>static struct urb *option_setup_urb(struct usb_serial *serial, int endpoint,<br>int dir, void *ctx, char *buf, int len,<br>void (*callback)(struct urb *))<br>{<br>......<br>/* Fill URB using supplied data. */<br>usb_fill_bulk_urb(urb, serial-&gt;dev,<br>&nbsp; &nbsp; &nbsp; usb_sndbulkpipe(serial-&gt;dev, endpoint) | dir,<br>&nbsp; &nbsp; &nbsp; buf, len, callback, ctx);<br>//+add by airm2m for Air72x<br>if(dir == USB_DIR_OUT)<br>{<br>&nbsp; &nbsp; &nbsp; &nbsp; struct usb_device_descriptor *desc = &amp;serial-&gt;dev-&gt;descriptor;<br>&nbsp; &nbsp; &nbsp; &nbsp; if(desc-&gt;idVendor == cpu_to_le16(0x1286) &amp;&amp; desc-&gt;idProduct == cpu_to_le16(0x4e3d))<br>&nbsp; &nbsp; &nbsp; &nbsp; {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; urb-&gt;transfer_flags |= URB_ZERO_PACKET;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>}<br>//-add by airm2m for Air72x<br>return urb;<br>}</pre>
+
+<div><br></div>
+
+<h4>&nbsp; &nbsp; &nbsp;<b>3. Add Reset Resume</b></h4>
+
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;<b>⦁For linux Kernel Version newer than 3.4：</b></h5>
+
+<h5>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><font color="#ff0000">File: [KERNEL]/drivers/usb/serial/option.c</font></b></h5>
+
+<pre>static struct usb_serial_driver option_1port_device = {<br>&nbsp; &nbsp; .driver = {&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; .owner =&nbsp; &nbsp; THIS_MODULE,<br>&nbsp; &nbsp; &nbsp; &nbsp; .name =&nbsp; &nbsp; &nbsp;"option1",<br>&nbsp; &nbsp; },&nbsp; &nbsp;<br>&nbsp; &nbsp; ....<br>#ifdef CONFIG_PM<br>&nbsp; &nbsp; .suspend&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;= usb_wwan_suspend,<br>&nbsp; &nbsp; .resume&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = usb_wwan_resume,
+<pre style="line-height: 1.42857;">&nbsp; &nbsp; //+add by airm2m for Air720<br>&nbsp; &nbsp; .reset_resume&nbsp; &nbsp; &nbsp; = usb_wwan_resume,<br>&nbsp; &nbsp; //-add by airm2m for Air720</pre>#endif<br><br>};</pre>
+
+<h5><br></h5>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<b>⦁For linux Kernel Version older than 3.5：</b><br></div>
+
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff0000"><b>File: [kernel]/drivers/usb/serial/usb-serial.c</b></font></h5>
+
+<pre>/* Driver structure we register with the USB core */<br>static struct usb_driver usb_serial_driver = {<br>.name ="usbserial",<br>.probe =usb_serial_probe,<br>.disconnect =usb_serial_disconnect,<br>.suspend =usb_serial_suspend,<br>.resume =usb_serial_resume,<br> //+add by airm2m for Air72x<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .reset_resume&nbsp; &nbsp; &nbsp; = usb_serial_resume,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //-add by airm2m for Air72x<br>.no_dynamic_id = 1,<br>};</pre>
+
+<div><br></div>
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;<b>4. Modify Kernel Configuration</b></h4>
+
+<h5>&nbsp; <b><font color="#ff0000">&nbsp; Step 1：</font></b></h5>
+
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;cd &lt;your kernel directory&gt;</pre>
+
+<div><b><font color="#ff0000">&nbsp; &nbsp; Step 2：</font></b><br></div>
+
+<pre>&nbsp;&nbsp;&nbsp;&nbsp;make menuconfig</pre>
+
+<div>&nbsp; <font color="#ff0000">&nbsp; <b>Step 3：</b><span style="font-size:14px;"><b>Enable CONFIG_USB_SERIAL_OPTION</b></span></font></div>
+
+<pre>[*] Device Drivers →<br>　　[*] USB Support →<br>　　　　[*] USB Serial Converter support →<br>　　　　　　[*] USB driver for GSM and CDMA modems</pre>
+
+<div><br></div>
+
+<h4><img src="http://oldask.openluat.com/image/show/attachments-2018-09-UvLI6qjo5b8b7c3fabe04.png" class="img-responsive" style="height:644px;width:799.448px;" alt="attachments-2018-09-UvLI6qjo5b8b7c3fabe04.png"><font color="#ff0000"><span style="font-size:14px;"><b><br></b></span></font></h4>
+
+<h5>&nbsp; &nbsp; <font color="#ff0000"><b>Step 4：</b><span style="font-size:14px;"><b>Configure Kernel to Support PPP</b></span></font></h5>
+
+<pre>[*] Device Drivers →<br>　　[*] Network device support →<br>　　　　[*] PPP (point-to-point protocol) support</pre>
+
+<div><br></div>
+
+<div><img src="http://oldask.openluat.com/image/show/attachments-2018-09-0MkDlKPS5b8b7cde500a3.png" class="img-responsive" style="height:614.815px;width:800px;" alt="attachments-2018-09-0MkDlKPS5b8b7cde500a3.png"></div>
+
+<h4><font color="#ff0000"><span style="font-size:14px;"><b><br></b></span></font></h4>
+
+<h4>&nbsp; &nbsp;<b>5.编译内核</b></h4>
+
+<pre>&nbsp; &nbsp; make&nbsp;&nbsp;&nbsp;&nbsp;</pre>
+
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;将编译好的内核下载到开发板。</h5>
+
+<h4>&nbsp; &nbsp;&nbsp;</h4>
+
+<p><b>&nbsp;二、模块测试</b><br></p>
+
+<h5>&nbsp;&nbsp;&nbsp;&nbsp;将重新编译好的内核下载到开发板之后，待系统重新启动，如果是带RNDIS网卡的驱动，在/dev/目录下会出现如下设备节点：</h5>
+
+<h4><img src="http://oldask.openluat.com/image/show/attachments-2018-11-lQNpAg605bf24e973ad6f.png" class="img-responsive" style="width: 792.207px; height: 113.519px;"><br><font color="#ff0000"><span style="font-size:14px;"><b><br></b></span></font></h4>
+
+<h5><span style="font-size:14px;">Air720的AT端口是/dev/ttyUSB2，现在你可以使用UART端口工具如“minicom”或“busybox microcom”测试AT功能，结果如下：</span></h5>
+
+<div><img src="http://oldask.openluat.com/image/show/attachments-2018-09-VciAwk855b8b81601e624.png" class="img-responsive" style="width:800px;height:691.831px;" alt="attachments-2018-09-VciAwk855b8b81601e624.png"></div>
+
+<div><br></div>
+
+<div><br></div>
+
+<div><br></div>
+
+<div><h2><b>三、PPP拨号</b></h2><h5>&nbsp;&nbsp;&nbsp;&nbsp;通过几个不同的配置文件，在拨号的时候选择相应的配置文件，现将配置文件列举如下：</h5><h1><b style="background-color: rgb(255, 255, 0);">下面的拨号脚本ttyUSB3 有可能要改成 ttyUSB2&nbsp; 请注意 按照上方表格修改！！！！</b></h1><h5>&nbsp;</h5></div>
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;<b><font color="#ff0000">/etc/ppp/peers/air-ppp</font></b></h4>
+
+<pre>debug
+nodetach
+dump
+/dev/ttyUSB1
+115200
+nolock
+nocrtscts
+modem
+hide-password
+novj
+novjccomp
+ipcp-accept-local
+ipcp-accept-remote
+noipdefault
+usepeerdns
+noccp
+connect 'chat -s -v -f /etc/ppp/peers/air-chat-connect'
+disconnect 'chat -s -v -f /etc/ppp/peers/air-chat-disconnect'</pre>
+
+<div><br></div>
+
+<div>&nbsp; &nbsp;&nbsp;<span style="color:rgb(255,0,0);font-weight:700;font-size:18px;">/etc/ppp/peers/air-</span><font color="#ff0000"><span style="font-size:18px;"><b>chat-connect</b></span></font></div>
+
+<pre>ABORT "NO CARRIER"
+ABORT "NO DIALTONE"
+ABORT "NO ANSWER"
+ABORT "BUSY"
+ABORT "Username/Password Incorrect"
+""      AT
+OK-+++-OK ATH0
+OK      AT+CREG?
+OK      AT+CPIN?
+OK      AT+CESQ
+OK      ATD*99#
+CONNECT ""
+</pre><div><br></div>
+
+<div><br></div>
+
+<div>&nbsp; &nbsp;&nbsp;<span style="color:rgb(255,0,0);font-weight:700;font-size:18px;">/etc/ppp/peers/air-</span><font color="#ff0000"><span style="font-size:18px;"><b>chat-disconnect</b></span></font><span style="background-color:rgb(245,245,245);color:rgb(51,51,51);font-family:Menlo, Monaco, Consolas, 'Courier New', monospace;font-size:13px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></div>
+
+<pre>ABORT "ERROR"
+ABORT "NO DIALTONE"
+SAY "\nSending break to the modem\n"
+"" "\K"
+"" "+++ATH0"
+SAY "\nGood bay\n"<br></pre>
+
+<div><br></div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;编辑好这几个文件之后，便可以通过pppd进行拨号：</div>
+
+<pre>&nbsp; &nbsp; # pppd call air-ppp &amp;</pre>
+
+<h5>&nbsp;&nbsp;&nbsp;如果拨号成功会有以下信息打印出来：</h5>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-IlJCjHPz5b8b8a394bfdf.png" class="img-responsive" style="width:800px;height:667.742px;" alt="attachments-2018-09-IlJCjHPz5b8b8a394bfdf.png"></p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-fFu9jAXX5b8b8a7160164.png" class="img-responsive" style="width:800px;height:634.353px;" alt="attachments-2018-09-fFu9jAXX5b8b8a7160164.png"></p>
+
+<p>此时通过ifconfig命令查看网卡就有一个ppp0网卡出现，这时可以禁用其他网卡，就可以用Air720模块连接到互联网了。</p>
+
+<p><img src="http://oldask.openluat.com/image/show/attachments-2018-09-GGlDY8xC5b8b8aa468bb5.png" class="img-responsive" style="width:800px;height:545.553px;" alt="attachments-2018-09-GGlDY8xC5b8b8aa468bb5.png"></p>
+
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff0000"><span style="font-size:14px;"><b><br></b></span></font></h4>
+
+
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/420/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/418/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

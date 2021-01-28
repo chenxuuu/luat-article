@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>promise浅析 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">promise浅析</h1>
+<article class="post markdown-style">
+  <h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a> 是一个 javascript 对象，它代表了一个异步操作的最终完成或者失败。常用于控制异步操作的执行顺序，而且可以让异步方法像同步方法那样返回值。它不能立即取得异步方法的返回值，但是它可以代理这个值，一旦异步操作完成，就会以及将值传递给相应的处理方法。</p>
+<blockquote>
+<p>ES6 的<code>Promise</code>对象是一个代理对象，被代理的值在<code>Promise</code>对象创建时可能是未知的，另外它允许你为异步操作的成功和失败分别绑定相应的处理方法。</p>
+</blockquote>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>1、主要用于异步计算<br>2、可以将异步操作队列化，按照期望的顺序执行，返回符合预期的结果</p>
+<blockquote>
+<p>3、可以在对象之间传递和操作promise，帮助我们处理队列 </p>
+</blockquote>
+<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><ul>
+<li><code>pending</code>: 初始状态，既不是成功，也不是失败状态。</li>
+<li><code>fulfilled</code>: 意味着操作成功完成。</li>
+<li><code>rejected</code>: 意味着操作失败。</li>
+</ul>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li><p>resolve</p>
+</li>
+<li><p>reject</p>
+<blockquote>
+<p>触发promise状态的改变</p>
+</blockquote>
+</li>
+<li><p>then</p>
+</li>
+<li><p>catch</p>
+<blockquote>
+<p><code>两者都会返回一个</code>  <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Promise"><code>Promise</code></a>。then最多需要有两个参数：Promise 的成功和失败情况的回调函数.</p>
+<p>catch 只会返回失败的情况.</p>
+</blockquote>
+</li>
+<li><p>all</p>
+<blockquote>
+<p><code>Promise.all()</code> 方法返回一个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>, 在可迭代(<code>iterable</code>)参数中所有的 promises 都已经解决了或者当<code>iterable</code>参数不包含 promise 时, 返回解决。或者返回拒绝, 当传递的 promise 包含一个拒绝(reject)时。</p>
+</blockquote>
+</li>
+<li><p>race</p>
+<blockquote>
+<p><code>Promise.race()</code>方法返回一个 <strong>promise</strong>，并伴随着 promise对象解决的返回值或拒绝的错误原因, 只要 <code>iterable</code> 中有一个 promise 对象”解决(resolve)”或”拒绝(reject)”。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><ul>
+<li>mysql连接池</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; dbConfig &#125; = <span class="built_in">require</span>(<span class="string">&#x27;../config.js&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> pool  = mysql.createPool(dbConfig);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> db = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">db.q = <span class="function"><span class="keyword">function</span> (<span class="params">sql,params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 取出链接</span></span><br><span class="line">    pool.getConnection(<span class="function"><span class="keyword">function</span>(<span class="params">err, connection</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      connection.query(sql,params, <span class="function"><span class="keyword">function</span> (<span class="params">error, results</span>) </span>&#123;</span><br><span class="line">             <span class="comment">// 释放连接</span></span><br><span class="line">            connection.release();</span><br><span class="line">            <span class="keyword">if</span>(error) &#123;</span><br><span class="line">              reject(err);</span><br><span class="line">              <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            resolve(<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(results)));  </span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导出对象</span></span><br><span class="line"><span class="built_in">module</span>.exports = db;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>模拟axios</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> URL_ERR = <span class="string">&quot;地址错误&quot;</span></span><br><span class="line"><span class="keyword">const</span> METHOD_GET = <span class="string">&quot;GET&quot;</span></span><br><span class="line"><span class="keyword">const</span> DEFAULT_CONTENT_TYPE = <span class="string">&quot;application/json;charset=utf-8&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myaxios = <span class="function">(<span class="params">url, ...arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> options = arg[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 参数检测</span></span><br><span class="line">        <span class="keyword">let</span> err = vaildContent(url, options)</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 参数解析</span></span><br><span class="line">        <span class="keyword">let</span> type = (options &amp;&amp; options.method) ? options.method : METHOD_GET</span><br><span class="line">        <span class="keyword">let</span> contentType = (options &amp;&amp; options.header) ? options.header : DEFAULT_CONTENT_TYPE</span><br><span class="line">            <span class="comment">//  application/x-www-form-urlencoded</span></span><br><span class="line">            <span class="comment">//  application/json</span></span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">let</span> params = setParams(contentType, options)</span><br><span class="line">        <span class="keyword">let</span> sUrl = setUrl(url, options)</span><br><span class="line">            <span class="comment">// 请求</span></span><br><span class="line">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">        <span class="built_in">console</span>.log(type, sUrl, contentType);</span><br><span class="line"></span><br><span class="line">        xhr.open(type, sUrl, <span class="literal">true</span>);</span><br><span class="line">        xhr.setRequestHeader(<span class="string">&quot;Content-Type&quot;</span>, contentType);</span><br><span class="line">        xhr.send(params);</span><br><span class="line">        xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(xhr.readyState);</span><br><span class="line">            <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">                    resolve(<span class="built_in">JSON</span>.parse(xhr.responseText))</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// console.log(xhr);</span></span><br><span class="line">                    <span class="keyword">let</span> errObj = &#123; <span class="attr">status</span>: xhr.status, <span class="attr">errText</span>: xhr.statusText &#125;</span><br><span class="line">                    <span class="keyword">if</span> (xhr.responseText) errObj.errObj = errObj</span><br><span class="line">                    reject(errObj)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> vaildContent = <span class="function">(<span class="params">url, opt</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!url) &#123;</span><br><span class="line">        <span class="keyword">return</span> URL_ERR</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// TODO</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> setParams = <span class="function">(<span class="params">contentType, opts</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// contentType 对应不同的编码格式；这里默认JSON</span></span><br><span class="line">    <span class="keyword">return</span> opts.data ? <span class="built_in">JSON</span>.stringify(opts.data) : <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> setUrl = <span class="function">(<span class="params">url, opts</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> params = opts.params</span><br><span class="line">    <span class="keyword">if</span> (!params) <span class="keyword">return</span> url</span><br><span class="line">        <span class="comment">// json</span></span><br><span class="line">    <span class="keyword">if</span> (opts.method.toUpperCase() == <span class="string">&quot;GET&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> key = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> params) &#123;</span><br><span class="line">            key += <span class="string">`&amp;<span class="subst">$&#123;i&#125;</span>=<span class="subst">$&#123;params[i]&#125;</span>`</span></span><br><span class="line">        &#125;</span><br><span class="line">        key = <span class="string">&quot;?&quot;</span> + key.slice(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> url + key</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2415/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2396/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

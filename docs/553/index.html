@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>阿里云物联网平台mqtt测试工具 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">阿里云物联网平台mqtt测试工具</h1>
+<article class="post markdown-style">
+  <p>使用阿里云物联网平台mqtt连接需要计算user和password等参数比较麻烦，而且容易出错，所以今天分享一个自己写的小工具，可以用于计算连接参数</p><p>测试mqtt用的<span style="color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">MQTT.fx</span></p><p><span style="color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">1，下载并安装MQTT.fx软件。</span></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">Windows系统：&nbsp;<a title="" target="_blank" rel="noopener" href="http://mqtt-fx.software.informer.com/download/" data-spm-anchor-id="a2c4g.11186623.2.17" style="padding: 0px; margin: 0px; transition: color 0.2s ease 0s; color: rgb(0, 183, 211); background-image: initial; background-position: 0px 0px; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; outline: none;">http://mqtt-fx.software.informer.com/download/</a></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">Mac系统：&nbsp;<a target="_blank" rel="noopener" href="http://macdownload.informer.com/mqtt-fx/">http://macdownload.informer.com/mqtt-fx/</a><a title="" target="_blank" rel="noopener" href="http://macdownload.informer.com/mqtt-fx/" data-spm-anchor-id="a2c4g.11186623.2.18" style="padding: 0px; margin: 0px; transition: color 0.2s ease 0s; color: rgb(0, 183, 211); background-image: initial; background-position: 0px 0px; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; outline: none;"></a></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">2，在阿里云添加设备。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">这部分以前说过就不写了，如果新添加的可以选一键复制，我小工具支持一键解析</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">3，计算参数。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">我做了一个在线版本<a target="_blank" rel="noopener" href="http://mqtt.lovemcu.cn/">http://mqtt.lovemcu.cn/</a><a target="_blank" rel="noopener" href="http://mqtt.lovemcu.cn/"></a></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">主要两部分，上半部分是参数输入，下半部分是生成的参数</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-we0rwOtU5c74d3a3c32ab.png" style="width: 512.5px;" class="img-responsive"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-d1GTyDCT5c74d3b29af21.png" style="width: 313.5px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">把一键复制的参数粘贴到输入框里，一键生成即可。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">如果是提前创建的设备也可以复制相应参数粘贴，最后一键生成</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">4，连接。</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">点击这里新建连接<br><img src="http://oldask.openluat.com/image/show/attachments-2019-02-KsHx7EhB5c74d4de1f8e1.png" style="width: 504px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-C23wgDP05c74d50fd7863.png" style="width: 512px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">填入参数</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-MUFyUX5Q5c74d5a70e7c7.png" style="width: 353.5px;" class="img-responsive">点击ok</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">点击连接即可</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-Liqk25Vr5c74d649cef04.png" style="width: 504px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">订阅</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><img src="http://oldask.openluat.com/image/show/attachments-2019-02-fEOzgx5U5c74d674408f3.png" style="width: 504px;" class="img-responsive"></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;">由于工具临时写的，代码写的很烂就不发出来丢人了，有需要源码的可以私信我</p><p class="p" style="padding: 0px; margin-bottom: 0px; line-height: 24px; color: rgb(51, 51, 51); font-family: PingFangSC, &quot;helvetica neue&quot;, &quot;hiragino sans gb&quot;, arial, &quot;microsoft yahei ui&quot;, &quot;microsoft yahei&quot;, simsun, sans-serif;"><br></p>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/554/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/551/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

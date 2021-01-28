@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>安卓7 安卓8 出现三角符号，但是可以上网 解决方案 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">安卓7 安卓8 出现三角符号，但是可以上网 解决方案</h1>
+<article class="post markdown-style">
+  <pre><code>                        &lt;p&gt;&lt;span style=&quot;color: rgb(77, 77, 77); font-family: &amp;quot;Microsoft YaHei&amp;quot;; font-size: 12pt;&quot;&gt;现象：机器开机4G显示三角空框，但是可以正常上网。重启模块后显示正常&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&amp;quot;Microsoft YaHei&amp;quot;;
+</code></pre>
+<p>font-size:12.0pt;color:#4D4D4D”&gt;原因:模块注册状态广播后，安卓上层没有监听到</p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D">解决方法:</p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D"><b>一.<span style="font-size: 12pt;">Android7</span></b></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 12pt;">方案1：</span><span style="font-size: 16px;">diff –git a/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java b/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">index 34a03bf..962a773 100644</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">— a/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">+++ b/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">@@ -323,7 +323,7 @@ public class MobileSignalController extends SignalController&lt;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return false;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;case ServiceState.STATE_OUT_OF_SERVICE:</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;case ServiceState.STATE_EMERGENCY_ONLY:</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return mServiceState.getDataRegState() == ServiceState.STATE_IN_SERVICE;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //return mServiceState.getDataRegState() == ServiceState.STATE_IN_SERVICE;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default:</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return true;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">方案2</span></font></p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">diff –git<br>a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java<br>b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">index<br>03c46e8b37..694599206e 100644</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">—<br>a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+++<br>b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">@@ -316,8 +316,16 @@<br>public class MobileSignalController extends SignalController&lt;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if<br>(action.equals(TelephonyIntents.ACTION_DEFAULT_DATA_SUBSCRIPTION_CHANGED)) {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; updateDataSim();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notifyListenersIfNecessary();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">-&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }else<br>if(action.equals(TelephonyIntents.ACTION_SERVICE_STATE_CHANGED)){</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServiceState<br>mLastServiceState = ServiceState.newFromBundle(intent.getExtras());</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(mLastServiceState !=<br>null &amp;&amp; (mServiceState == null || mServiceState.getVoiceRegState() !=<br>mLastServiceState.getVoiceRegState())){</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>//Log.v(TAG,”handleBroadcast<br>mLastServiceState:”+mLastServiceState.getVoiceRegState());</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mServiceState =<br>mLastServiceState;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>updateTelephony();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp; private void updateDataSim() {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int defaultDataSub =<br>mDefaults.getDefaultDataSubId();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">diff –git<br>a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java<br>b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">index<br>622595f765..2fd0cce8ed 100644</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">—<br>a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+++<br>b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">@@ -396,6 +396,11 @@<br>public class NetworkControllerImpl extends BroadcastReceiver</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // emergency state.</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recalculateEmergency();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for<br>(MobileSignalController controller : mMobileSignalControllers.values()) {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>controller.handleBroadcast(intent);</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int subId =<br>intent.getIntExtra(PhoneConstants.SUBSCRIPTION_KEY,</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>SubscriptionManager.INVALID_SUBSCRIPTION_ID);</p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"></p>
+</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;</p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D"><br></p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D"><b>二，安卓八</b></p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D">方案1.</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">diff --git
+a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java
+b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">index
+03c46e8b37..694599206e 100644</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">---
+a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+++
+b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">@@ -316,8 +316,16 @@
+public class MobileSignalController extends SignalController&lt;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if
+(action.equals(TelephonyIntents.ACTION_DEFAULT_DATA_SUBSCRIPTION_CHANGED)) {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; updateDataSim();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notifyListenersIfNecessary();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">-&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }else
+if(action.equals(TelephonyIntents.ACTION_SERVICE_STATE_CHANGED)){</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServiceState
+mLastServiceState = ServiceState.newFromBundle(intent.getExtras());</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(mLastServiceState !=
+null &amp;&amp; (mServiceState == null || mServiceState.getVoiceRegState() !=
+mLastServiceState.getVoiceRegState())){</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//Log.v(TAG,"handleBroadcast
+mLastServiceState:"+mLastServiceState.getVoiceRegState());</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mServiceState =
+mLastServiceState;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+updateTelephony();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp; private void updateDataSim() {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int defaultDataSub =
+mDefaults.getDefaultDataSubId();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">diff --git
+a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java
+b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">index
+622595f765..2fd0cce8ed 100644</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">---
+a/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+++
+b/frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkControllerImpl.java</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">@@ -396,6 +396,11 @@
+public class NetworkControllerImpl extends BroadcastReceiver</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // emergency state.</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; recalculateEmergency();</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for
+(MobileSignalController controller : mMobileSignalControllers.values()) {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+controller.handleBroadcast(intent);</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">+</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int subId =
+intent.getIntExtra(PhoneConstants.SUBSCRIPTION_KEY,</p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p style="margin:0in;font-family:Calibri;font-size:11.0pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SubscriptionManager.INVALID_SUBSCRIPTION_ID);</p><p style="margin-top:0pt;margin-bottom:12pt;line-height:19pt;font-family:&quot;Microsoft YaHei&quot;;
+font-size:12.0pt;color:#4D4D4D">.方案2：</p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java b/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">index 34a03bf..962a773 100644</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">--- a/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">+++ b/packages/SystemUI/src/com/android/systemui/statusbar/policy/MobileSignalController.java</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">@@ -323,7 +323,7 @@ public class MobileSignalController extends SignalController&lt;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return false;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;case ServiceState.STATE_OUT_OF_SERVICE:</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;case ServiceState.STATE_EMERGENCY_ONLY:</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return mServiceState.getDataRegState() == ServiceState.STATE_IN_SERVICE;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //return mServiceState.getDataRegState() == ServiceState.STATE_IN_SERVICE;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default:</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return true;</span></font></p><p style="margin-top: 0pt; margin-bottom: 12pt; line-height: 19pt;"><font color="#4d4d4d" face="Microsoft YaHei"><span style="font-size: 16px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</span></font></p>
+                        
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/624/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/622/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

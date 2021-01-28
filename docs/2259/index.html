@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>ESD原理和ESD防护注意事项 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">ESD原理和ESD防护注意事项</h1>
+<article class="post markdown-style">
+  <p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210109205227214_2.png" alt="undefined" title="undefined"></p>
+<h3 id="什么是ESD"><a href="#什么是ESD" class="headerlink" title="什么是ESD"></a><strong>什么是ESD</strong></h3><p>ESD全称是Electro-Static discharge，其中文意思是“静电放电”。是指具有不同静电荷电位的物体相互靠近或直接接触引起的电荷转移。简单说就是电荷瞬间从一个物体移到另一个物体上，形成一个电荷转移的过程的现象，即具有不同静电电势（电位差）的物体或表面之间的静电电荷转移，就是静电放电。在EMC领域我们习惯上称之为静电放电抗扰度试验，具体可参阅国际标准IEC-61000-4-2/GBT 17626.2。其中分接触放电和电磁场击穿介质放电。</p>
+<h3 id="ESD产生原理："><a href="#ESD产生原理：" class="headerlink" title="ESD产生原理："></a><strong>ESD产生原理：</strong></h3><p>具有不同静电荷电位的物体由于直接接触或静电感应所引起的物体之间静电电荷的转移。通常指在静电场的能量达到一定程度之后，击穿其间介质而进行放电的现象。</p>
+<h3 id="静电的产生："><a href="#静电的产生：" class="headerlink" title="静电的产生："></a><strong>静电的产生：</strong></h3><p>静电是一种静止的电荷，是电子不均匀分布的结果，静电产生的两种途径主要是摩擦起电与感应起电。</p>
+<h2 id="1-摩擦起电"><a href="#1-摩擦起电" class="headerlink" title="1. 摩擦起电"></a><strong>1. 摩擦起电</strong></h2><ul>
+<li><p>当两种不同性质的材料（至少其中一个为绝缘体)接触和分离，电荷从一种材料转移到另一种材料。</p>
+</li>
+<li><p>得到电荷的材料呈负电性，反之亦然。</p>
+</li>
+<li><p>产生电荷的类型与两种材料的相对位置有关。</p>
+</li>
+<li><p>任何两种材料摩擦后电极性都是可以判断的，在摩擦起电过程中，两者的距离越远，则各自产生的电荷越多。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110103209087_3.png" alt="undefined" title="undefined"><br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110103146389_4.png" alt="undefined" title="undefined"></p>
+</li>
+</ul>
+<h2 id="2-感应起电"><a href="#2-感应起电" class="headerlink" title="2. 感应起电"></a><strong>2. 感应起电</strong></h2><ul>
+<li><p>非接触的方法</p>
+</li>
+<li><p>当导电材料充分接近时,来源于某静电源的静电场将引起该导电材料表面的电荷分离。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110103607349_5.png" alt="undefined" title="undefined"></p>
+</li>
+</ul>
+<h2 id="静电的特点"><a href="#静电的特点" class="headerlink" title="静电的特点"></a>静电的特点</h2><ul>
+<li>高电位：可达数万至数十万伏，操作时常达数百至数千伏（人通常对于3KV以下静电不易感觉到）</li>
+<li>低电量：静电流多为微安级</li>
+<li>作用时间短：微秒级</li>
+<li>受环境影响大：特别是湿度，湿度上升则静电积累减少，静电压下降；反之越干燥，静电压越高；</li>
+</ul>
+<h2 id="材料的电特性"><a href="#材料的电特性" class="headerlink" title="材料的电特性"></a>材料的电特性</h2><ol>
+<li>绝缘体</li>
+</ol>
+<ul>
+<li>很大的体电阻，体电阻大于1X10^11 欧姆</li>
+<li>很少有电子在物体中移动，在同一种物体上的不同地方可以保持正电荷和负电荷</li>
+<li>绝缘体的静电耗散只能通过环境，不能通过自己的表面接地耗散<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110113019505_7.png" alt="undefined" title="undefined"></li>
+</ul>
+<ol start="2">
+<li>导体</li>
+</ol>
+<ul>
+<li>体电阻小于1X10^4 欧姆</li>
+<li>电子能在导体表面和体内自由流动</li>
+<li>如果被接地，电荷能迅速被中和<br>常见的铜、锡、钢、铝 等金属材料都是导体；</li>
+</ul>
+<ol start="3">
+<li>静电释放材料（静电耗散材料）</li>
+</ol>
+<ul>
+<li>体电阻大于1X10^4 欧姆，小于1X10^11 欧姆</li>
+<li>电子在材料的表面可以自由移动，但移动的速率由于电阻而受到控制</li>
+<li>如果被接地，电荷将被缓慢的释放掉<br>防静电材料都是用静电耗散材料制作的，如防静电屏蔽袋，防静电工作服等等。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110114749711_9.png" alt="undefined" title="undefined"></li>
+</ul>
+<h2 id="人体活动产生典型的静电电压"><a href="#人体活动产生典型的静电电压" class="headerlink" title="人体活动产生典型的静电电压"></a>人体活动产生典型的静电电压</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110113344459_8.png" alt="undefined" title="undefined"></p>
+<table>
+<thead>
+<tr>
+<th>人体活动</th>
+<th>静电势（空气相对湿度10%-20%）</th>
+<th>静电势（空气相对湿度65%-90%）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在地毯上走动</td>
+<td>35000</td>
+<td>1500</td>
+</tr>
+<tr>
+<td>在聚乙烯地板上走动</td>
+<td>12000</td>
+<td>250</td>
+</tr>
+<tr>
+<td>在工作台走动</td>
+<td>6000</td>
+<td>100</td>
+</tr>
+<tr>
+<td>拿聚乙烯纤维包</td>
+<td>7000</td>
+<td>600</td>
+</tr>
+<tr>
+<td>从工作台拿起聚乙烯衬垫</td>
+<td>20000</td>
+<td>1200</td>
+</tr>
+<tr>
+<td>坐在填有聚氟脂泡膜的椅子上</td>
+<td>18000</td>
+<td>15000</td>
+</tr>
+<tr>
+<td><strong>从数据上可以明显看到在干燥的环境中产生的静电压更高，所以实际生活中在干燥的秋冬季节更易出现ESD问题</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="各种常用器件的静电敏感性"><a href="#各种常用器件的静电敏感性" class="headerlink" title="各种常用器件的静电敏感性"></a>各种常用器件的静电敏感性</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110111404901_6.png" alt="undefined" title="undefined"></p>
+<h2 id="模块的防静电能力"><a href="#模块的防静电能力" class="headerlink" title="模块的防静电能力"></a>模块的防静电能力</h2><p>下表是合宙Air724UG模块的ESD防护能力：</p>
+<table>
+<thead>
+<tr>
+<th>管脚名</th>
+<th>接触放电</th>
+<th>空气放电</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VBAT,GND</td>
+<td>±5KV</td>
+<td>±10KV</td>
+</tr>
+<tr>
+<td>ANT_MAIN</td>
+<td>±5KV</td>
+<td>±10KV</td>
+</tr>
+<tr>
+<td>Others</td>
+<td>±0.5KV</td>
+<td>±1KV</td>
+</tr>
+</tbody></table>
+<p>从表中可以看到除了VBAT管脚和天线管脚的防静电能力可以达到空气放电10KV以外，其他管脚的防静电能力都很弱鸡，只能到空气放电1KV，从前面的资料我们可以看到人体放电很轻松就能达到10KV，这样的话模块不是很容易就被打坏了吗？合宙为什么不把所有管脚的防静电能力都做到10KV呢？模块的所有管脚都加好ESD防护器件会有哪些问题呢？</p>
+<ul>
+<li>成本会大幅增加，而绝大多数客户并不会用到模块的所有管脚，这势必会造成极大的浪费；</li>
+<li>增加了这么多的ESD防护器件后，会占用大量的空间，必然会大幅增加模块的尺寸，这不符合模块小型化的趋势；</li>
+<li>ESD防护器件要放置在靠近连接器的地方才能起到最好的防护效果，如果放置在模块内部，防护性能会大打折扣；</li>
+</ul>
+<p>既然ESD防护绝大部分的工作需要靠终端来实现，那么我们在使用模块的时候要具体要采用哪些防护措施呢？</p>
+<h2 id="ESD防护措施"><a href="#ESD防护措施" class="headerlink" title="ESD防护措施"></a>ESD防护措施</h2><p>我们该如何来保护我们的电子产品呢？</p>
+<ol>
+<li>生产环节</li>
+</ol>
+<ul>
+<li>接地 接地就是将静电通过一条线的连接放入大地，这是防静电措施中最直接最有效的。导体常用的接地方法有：带防静电手腕及工作表面接地等。<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210110122944683_10.png" alt="undefined" title="undefined">　</li>
+<li>静电屏蔽 静电敏感元件在储存或运输过程中会暴露于有静电的区域中，用静电屏蔽的方法可削弱外界静电对电子元件的影响。最通常的方法是用静电屏蔽袋作为保护。　</li>
+<li>离子中和 绝缘体往往是易产生静电的，对绝缘体静电的消除，用接地方法是无效的，通常采用的方法是离子中和， 即在工作环境中使用离子风机，离子气枪。</li>
+</ul>
+<p>人体静电防护系统主要有防静电手腕带、脚腕带、脚跟带、工作服、鞋袜、帽、手套或指套等组成，具有静电泄放，中和与屏蔽等功能。<br>静电防护工作是一项长期的系统工程，任何环节的失误或疏漏，都将导致静电防护工作的失败。<br>2. 产品设计环节</p>
+<p>产品到了消费者手上后，就会暴露在静电放电的风险中，我们必须在产品设计的环节中就设计好ESD防护：<br>整机ESD 性能主要决定于：结构屏蔽性， ESD器件防护 和 PCB Layout 防护。</p>
+<ol>
+<li><p>结构屏蔽性<br>所有的结构缝隙都是潜在的ESD泄漏路径，有可能会损坏我们的产品，所以我们必须尽可能的用外壳密封起来。</p>
+</li>
+<li><p>ESD防护器件<br>对于USB连接器，SIM卡座，天线 等接口，无法通过结构来密封，我们可以通过增加ESD防护器件来增加产品的抗静电能力。<br>常见的ESD防护器件有TVS管和MLV压敏电阻</p>
+</li>
+</ol>
+<p>TVS 管箝位时间短、 结间电容小，用于高速信号防护，而 MLV价格便宜用于低速信号的防护</p>
+<p>选择防护器件时的几个关键参数：</p>
+<ul>
+<li>反向工作电压VRWM：这个电压要高于保护网络端的正常工作电压</li>
+<li>反向漏电流 IR：反向电流过大不仅增大系统功耗，而且可能影响信号功能，尤其在高速、低驱动能力 的信号上更明显； </li>
+<li> Clamping Voltage 和 Peak Pulse Power<br>TVS 管不损坏 的前提下，Peak Pulse Power 值越大、TVS 体积越大，则 TVS 反向击穿阻抗越小，钳位电压 Clamping Voltage 也就越小，后端器件越安全； </li>
+<li>结间电容CJ：结间电容太大将影响高速信号完整性；<br>我们建议 USB、SDIO 信号使用结间电容小于 0.5pf 的 TVS 管进行防护。另外天线也必须使用结间电容小于 0.5pf 的 TVS 管。基于成本考虑，中低速信号如 SIM, I2C,SPI，LCD_RST，LCD_FMARK，SIM_DET，HP_R，HP_L，HPMIC_IN_DET，KEYPAD 这些信号可以使用结容较大的TVS 或者 MLV 进行防护。 </li>
+</ul>
+<ol start="3">
+<li>PCB Layout 防护<br> 不管选择怎样的TVS器件，它们在电路板上的布局非常重要。TVS布局前的导线长度应该减到最小，因为快速(0.7ns)ESD脉冲可能产生导致TVS保护能力下降的额外电压。另外，快速ESD脉冲可能在电路板上相邻(平行)导线间产生感应电压，感应电压路径将成为另一条让浪涌到达IC的路径。因此，被保护的输入线不应该被放置在其它单独、未受保护的走线旁边。</li>
+</ol>
+<p>推荐的ESD抑制器件PCB布局方案应该是：</p>
+<ul>
+<li>放置在被保护的IC之前，但尽量与连接器/触点PCB侧尽量近； </li>
+<li>放置在与信号线串联任何电阻之前； </li>
+<li>放置在包含保险丝在内的过滤或调节器件之前； </li>
+<li>放置在IC之前的其他可能有ESD的地方。</li>
+<li>TVS管的接地端到主地的泄放回路要尽可能的小；</li>
+</ul>
+<h2 id="附-ESD静电放电测试模型："><a href="#附-ESD静电放电测试模型：" class="headerlink" title="附 ESD静电放电测试模型："></a><strong>附 ESD静电放电测试模型：</strong></h2><p>(1)HBM 人体放电模型(Human-Body Model, HBM)</p>
+<p>人体模型（Human Body Model - HBM），HMB是ESD模型中建立最早和最主要的模型之一。</p>
+<p>HBM是传统的测试模式，定义在工业标准 (MIL-STD-883x)中。人体上带电，特别在干燥的冬天，常会接触如门把手时便会有被电到的感觉。这是人体活动的结果，静电荷积聚在人体上，当我们去接触芯片时，人体上的静电就经由IC的pin脚进入芯片内部，然后经由IC放电到地。(不只在接触PIN时才会发生，因为封装IC的表面就存在静电荷，接触包装表面也会发生。)放电过程在瞬间发生，大概几纳秒内将IC组件烧毁。</p>
+<p>(2)MM 机器放电模型 (Machine Model, MM)</p>
+<p>机器放电模式，也就是将人体换成了机器设备，主体部分的改变，使得测试模式的改变。在这情况下，指静电电荷积累在机器设备上，当接触到IC进对芯片放电，并因此毁坏了电路。机器放电模式，工业标准EIAJ-IC-121 method20。MM测试电路与HBM相似，数值改变如，电容值为200pf,充电电压500V,充电电阻100Mohms，放电部分加&gt;500nH电感(电感量与电流无关，感抗XL=2πfL，f为频率)。因为绝大部分机器是金属的，等效电阻极小，导致瞬时放电电流巨大(几安培)。机器模型因在日本得到广泛应用，也叫日本模型。与家具模型不同的是它主要由200pf电容串非常低的电阻（&lt;10Ω）代替通常串联的电阻构成。机器模型的典型代表如带电绝缘的机器人手臂、车辆、绝缘导体等。机器模型放电的波形与预料的家具模型波形相似，不同的是带电电容较大。典型的机器模型对小电阻（＜10Ω）放电的波形, 峰值电流可达几百安培，持续时间（决定于放电通路的电感）为几百纳。</p>
+<p>(3)CDM 组件充电模式 (Charged-Device Model, CDM)</p>
+<p>这种模式下，电荷积聚在IC本身，可能是因为与PIN摩擦，或者是接触到其他物体的静电电荷，使本身带电。再通过直接接地或间接接地进行放电，而形成的一种放电现象。此类现象的模拟十分困难，是因为导致放电的组件差异所造成的。这种现象表明IC可能在生产过程中受损，比如IC在传输过程中带电，在安装到电路板上时接地而损坏。有时也可能在测试过程中受到损坏。CDM等效电路因情况的不同而多种多样。因为封装很小，所以电容和电感值都很小，大约5pf和10nH。CDM的放电时间很短，电流能在1ns时间内冲到15安培的高峰，因此这种现象更容易对IC造成损伤。CDM与HBM没有相互关连性，成功的CDM测试不能预示器件用HBM会发生什么情况!</p>
+<p>(4)其它FIM/IEC/E-Gun 电磁场感应模式 (Field-Induced Model, FIM)</p>
+<p>此类模式与CDM相似，只是IC带电方式不同。这种模式是IC在电场环境中，因感应而使本身带电，放电模式与CDM类拟。这种模式工业标准(JESD22-C101)，详情请阅读相关标准。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2293/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/2255/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

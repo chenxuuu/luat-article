@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Windows使用RNDIS（usb无线网卡）模式上网 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Windows使用RNDIS（usb无线网卡）模式上网</h1>
+<article class="post markdown-style">
+  <p>首先，下载 <a target="_blank" rel="noopener" href="http://www.openluat.com/Product/4g">驱动程序和LuaTools</a>。然后解压，运行DrvInstaller_x64.exe（32位系统请运行DrvInstaller.exe），点击“Update Driver”安装驱动程序：</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_33907.png"></p>
+</blockquote>
+<p>（请注意，安装驱动程序，需要<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/624e74594dbc8d34e8ba5aa6.html">禁止Windows的驱动签名认证</a>）；安装驱动过程中，可能会有多次如下的弹窗提示：</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_49238.png"></p>
+</blockquote>
+<p>请点击“始终安装”。</p>
+<p>驱动安装成功后，使用USB线连接Air720和电脑（仅Air720的USB接口，支持RNDIS模式，），长按开机按钮（或者PWRKEY接地）打开Windows的设备管理器将出现如下设备：</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_94663.png"></p>
+</blockquote>
+<p>表明驱动安装成功。</p>
+<p>然后，打开LuaTools，切换到4G模式。然后关机后重新开机，观察状态栏输出，当前模块是否为AT底层。如果不是，点击AT菜单，将之刷为AT底层。</p>
+<p>此时，通过设备管理器，可以看到“网络适配器”将出现“Remote NDIS”设备，并已经自动安装驱动（win7、win8、win10均可自动安装驱动）。</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_25400.png"></p>
+</blockquote>
+<p>然后，打开网络和共享中心（win7、win8可从控制面板打开；win10点击“所有设置”—“网络和Internet”—“网络和共享中心”），点击“更改适配器设置”：</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_39169.png"></p>
+</blockquote>
+<p>在这里可以看到所有网络连接：</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_84714.png"></p>
+</blockquote>
+<p>如图所示，Remote NDIS设备。启用Remote NDIS，需要禁用掉其他的网络连接。在需要禁用的设备上右键，点击禁用：</p>
+<blockquote>
+<p><img src="http://doc.openluat.com/api/static/editormd/uploads/5_12126.png"></p>
+</blockquote>
+<p>最后，仅留Remote NIDS一个可用的连接即可。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/459/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/457/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

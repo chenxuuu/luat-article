@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>GPS信噪比测试方法 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">GPS信噪比测试方法</h1>
+<article class="post markdown-style">
+  <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不少用户在使用GPS或者GPS+GSM模块时会遇到无法定位或者定位困难的问题，如何定位问题？如何判断是否是GPS信号的接收不到造成的问题？下文提供了一个通过GPS调试工具去监控模块GPS部分的接收信噪比的方法。</p>
+<hr>
+<h3 id="硬件连接"><a href="#硬件连接" class="headerlink" title="硬件连接"></a>硬件连接</h3><p>首先需要找到模块的GPS信号的输出管脚，合宙模块部分模块的GPS_TX管脚如下：</p>
+<p><strong>AIR800</strong>:<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_93140.png"></p>
+<p><strong>AIR801</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_68932.png"></p>
+<p><strong>AIR868</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_82105.png"></p>
+<p>GPS_TXD，用TTL转USB串口线（逻辑电平3.3V）连接到模块的GPS_TXD管脚。并且连接到PC上</p>
+<pre><code> 注意：只需要TTL串口线的RX与GPS_TXD连接以及地线连接即可，TTL的TX不需要连接。避免串口线对GPS数据串口正常数据传输的干扰。
+</code></pre>
+<h3 id="软件工具安装"><a href="#软件工具安装" class="headerlink" title="软件工具安装"></a>软件工具安装</h3><p>下载<a target="_blank" rel="noopener" href="http://www.openluat.com/Product/file/800/GK9501-doc.rar">GPS调试工具</a><br>运行软件</p>
+<blockquote>
+<p>注意：要在管理员模式下运行</p>
+</blockquote>
+<p>选择对应串口，波特率设置为115200，点击连接。<br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_89032.png"></p>
+<p>然后设备开机运行，GPS打开后工具界面上就会显示GPS的相关信息。signal区域的柱状条纹即表示GPS的接收信噪比。<strong>通常最大信噪比大于40的卫星有2颗以上算是比较好，如果明显低于这个信噪比就要考虑优化了。</strong><br><img src="http://doc.openluat.com/api/static/editormd/uploads/5_96977.png"></p>
+<h3 id="如何提高信噪比"><a href="#如何提高信噪比" class="headerlink" title="如何提高信噪比"></a>如何提高信噪比</h3><p>导致信噪比低的因素有很多，比如天线方面，环境方面，但是常见的原因是主板或者外部的干扰。</p>
+<p>** 电源干扰：**<br>通常主板上的开关电源由于频率高，能量大很容易对GPS的信噪比造成干扰。主要是通过排除法去定位这样的问题。通过开关电源工作时测试的信噪比和开关电源工关闭时外接干净直流电源时的信噪比对比可以定位是否时电源由于。如果定位到时开关电源导致信噪比降低，可以做如下措施进行优化：</p>
+<ol>
+<li>调整开关电源的开关频率。不同的DCDC开关频率落在GPS频段内的高频分量能量不同通过尝试去找到一个相对干扰较小的频率。</li>
+<li>调整PCB，天线远离开关电源区域，中间用地铜箔保护。</li>
+</ol>
+<p>** 天线走线太长：**<br>如果天线走线太长，而且没有做PCB主控控制，会导致GPS信号衰减过大。改善方法：</p>
+<ol>
+<li> PCB主控控制，且尽量缩短走线长度。</li>
+<li>增加GPS低噪声放大电路。</li>
+</ol>
+<p><strong>（未完待续）</strong></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/637/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/635/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

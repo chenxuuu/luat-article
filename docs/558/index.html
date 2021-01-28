@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>dtu阿里云自定义透传 [ Luat doc 社区文章静态页面镜像 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/about">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">dtu阿里云自定义透传</h1>
+<article class="post markdown-style">
+  <p>由于控制dtu的单片机可能是非常便宜功能很弱，所以对json这种格式解析可能比较费劲，所以阿里云在高级版中为客户提供了自定义格式的数据透传解析服务。用户可以方便的使用十六进制等数据格式上传，由于我们的dtu可以方便的实现对阿里云的透传，所以开发起来也很简单。</p><p>1，阿里云新建产品</p><p>为了和以前的功能统一这次还是用的自定义，大家可以根据需要自己选择，重要的是数据格式一定要选择自定义透传。</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-E4MWBEkQ5c7d171f5fe4f.png" style="width: 305px;" class="img-responsive"></p><p>添加功能</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-eamDN1KV5c7d2353cb889.png" style="width: 555.5px;" class="img-responsive">编写解析脚本</p><pre>var COMMAND_REPORT = 0x00;
+var COMMAND_SET = 0x01;
+var ALINK_PROP_REPORT_METHOD = 'thing.event.property.post'; //标准ALink JSON格式topic， 设备 上传属性数据到 云端
+var ALINK_PROP_SET_METHOD = 'thing.service.property.set'; //标准ALink JSON格式topic， 云端 下发属性控制指令 到设备端
+   
+   
+    function rawDataToProtocol(bytes) {
+        var uint8Array = new Uint8Array(bytes.length);
+        for (var i = 0; i &lt; bytes.length; i++) {
+            uint8Array[i] = bytes[i] &amp; 0xff;
+        }
+        var dataView = new DataView(uint8Array.buffer, 0);
+        var jsonMap = new Object();
+        var fHead = uint8Array[0];
+        if (fHead == COMMAND_REPORT) {
+            jsonMap['method'] = ALINK_PROP_REPORT_METHOD;
+            jsonMap['version'] = '1.0';
+            jsonMap['id'] = '' + dataView.getInt32(1);
+            var params = {};
+            params['LightVolt'] = dataView.getInt32(5);
+            params['PowerSwitch'] = uint8Array[9];
+            jsonMap['params'] = params;
+        }
+        return jsonMap;
+    }
+
+<p>function protocolToRawData(json) {<br>        var method = json[‘method’];<br>        var id = json[‘id’];<br>        var version = json[‘version’];<br>        var payloadArray = [];<br>        if (method == ALINK_PROP_SET_METHOD)<br>        {<br>            var params = json[‘params’];<br>            var prop_int32 = params[‘LightVolt’];<br>            var prop_bool = params[‘PowerSwitch’];<br>            //按照自定义协议格式拼接 rawdata<br>            payloadArray = payloadArray.concat(buffer_uint8(COMMAND_SET));<br>            payloadArray = payloadArray.concat(buffer_int32(parseInt(id)));<br>            payloadArray = payloadArray.concat(buffer_int32(parseInt(prop_int32)));<br>            payloadArray = payloadArray.concat(buffer_uint8(prop_bool));<br>        }<br>        return payloadArray;<br>    }</p>
+<p>//以下是部分辅助函数<br>function buffer_uint8(value) {<br>    var uint8Array = new Uint8Array(1);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setUint8(0, value);<br>    return [].slice.call(uint8Array);<br>}<br>function buffer_int16(value) {<br>    var uint8Array = new Uint8Array(2);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setInt16(0, value);<br>    return [].slice.call(uint8Array);<br>}<br>function buffer_int32(value) {<br>    var uint8Array = new Uint8Array(4);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setInt32(0, value);<br>    return [].slice.call(uint8Array);<br>}<br>function buffer_float32(value) {<br>    var uint8Array = new Uint8Array(4);<br>    var dv = new DataView(uint8Array.buffer, 0);<br>    dv.setFloat32(0, value);<br>    return [].slice.call(uint8Array);<br>}</pre><p>脚本是根据功能编写的，具体方法可以看<a href="https://help.aliyun.com/document_detail/68702.html?spm=5176.11485173.0.0.7f6759afVdQ5Gi" target="_blank">传送门</a>，脚本有不明白或需要帮助可以私信我，也可以在dtu群里问我（dtu群名片和在这里的网名一样）。</p><p>2，配置dtu</p><p>这次我们用到的topic和以前不同，上面给出的链接中有具体说明，看我们的产品，我们需要的是这两个topic</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-sq7NmytU5c7d24af5d0d0.png" style="width: 542px;" class="img-responsive">和以前配置方法一样，修改参数保存即可</p><p>3，测试上传</p><p>先发一个初始数据000320f2e30000000001（注意使用十六进制发送）</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-vWIQdB4w5c7d25254f84d.png" style="width: 351px;" class="img-responsive"></p><p>阿里云状态变更</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-wggcYLBT5c7d2761db893.png" style="width: 318px;" class="img-responsive"></p><p>上报一条新的000320f2e30000000500</p><p>状态立即更新</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-ZFEtqOWB5c7d27ce322ef.png" style="width: 331.5px;" class="img-responsive"></p><p>4，测试下发</p><p>找到运维监控，在线调试，我们模拟下发一条指令</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-wsWNQdYl5c7d28327843f.png" style="width: 646px;" class="img-responsive">设备端（注意：记得选择十六进制显示不然是乱码）</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-W0JOgpeP5c7d2858882c9.png" style="width: 352.5px;" class="img-responsive">设置电源为1，发送</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-0G1mALJj5c7d289ea1875.png" style="width: 225px;" class="img-responsive"></p><p>设备</p><p><img src="http://oldask.openluat.com/image/show/attachments-2019-03-IXzI7pH75c7d28c280c29.png" style="width: 353.5px;" class="img-responsive">5，总结</p><p>自定义透传可以灵活的使用单片机组织报文，通过阿里云脚本进行解析，减小了设备端压力，方便了开发。同时使用16进制报文极大的减小了流量开支，只需要以前十分之一甚至百分之一的流量，降低了成本。</p></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/559/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-01-28</p>
+    
+    
+        <a class="extend next post-next" href="/557/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © chenxuuu 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>
