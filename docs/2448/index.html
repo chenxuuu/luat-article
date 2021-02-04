@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Vue路由 [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Vue路由</h1>
+<article class="post markdown-style">
+  <h2 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h2><ol>
+<li><p>对于普通的网站，所有的超链接都是URL地址，所有的URL地址都对应服务器上对应的资源；</p>
+</li>
+<li><p>对于单页面应用程序来说，主要通过URL中的hash(#号)来实现不同页面之间的切换，同时，hash有一个特点：HTTP请求中不会包含hash相关的内容；所以，单页面程序中的页面跳转主要用hash实现；</p>
+</li>
+<li><p>在单页面应用程序中，这种通过hash改变来切换页面的方式，称作前端路由（区别于后端路由）；</p>
+</li>
+</ol>
+<h2 id="在-vue-中使用-vue-router"><a href="#在-vue-中使用-vue-router" class="headerlink" title="在 vue 中使用 vue-router"></a>在 vue 中使用 vue-router</h2><ol>
+<li>导入 vue-router 组件类库：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 1. 导入 vue-router 组件类库 --&gt;</span><br><span class="line">  &lt;script src&#x3D;&quot;.&#x2F;lib&#x2F;vue-router-2.7.0.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用 router-link 组件来导航<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 2. 使用 router-link 组件来导航 --&gt;</span><br><span class="line">&lt;router-link to&#x3D;&quot;&#x2F;login&quot;&gt;登录&lt;&#x2F;router-link&gt;</span><br><span class="line">&lt;router-link to&#x3D;&quot;&#x2F;register&quot;&gt;注册&lt;&#x2F;router-link&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用 router-view 组件来显示匹配到的组件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 3. 使用 router-view 组件来显示匹配到的组件 --&gt;</span><br><span class="line">&lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br></pre></td></tr></table></figure></li>
+<li>创建使用<code>Vue.extend</code>创建组件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 4.1 使用 Vue.extend 来创建登录组件</span><br><span class="line">var login &#x3D; Vue.extend(&#123;</span><br><span class="line">  template: &#39;&lt;h1&gt;登录组件&lt;&#x2F;h1&gt;&#39;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 4.2 使用 Vue.extend 来创建注册组件</span><br><span class="line">var register &#x3D; Vue.extend(&#123;</span><br><span class="line">  template: &#39;&lt;h1&gt;注册组件&lt;&#x2F;h1&gt;&#39;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>创建一个路由 router 实例，通过 routers 属性来定义路由匹配规则<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 5. 创建一个路由 router 实例，通过 routers 属性来定义路由匹配规则</span><br><span class="line">    var router &#x3D; new VueRouter(&#123;</span><br><span class="line">      routes: [</span><br><span class="line">        &#123; path: &#39;&#x2F;login&#39;, component: login &#125;,</span><br><span class="line">        &#123; path: &#39;&#x2F;register&#39;, component: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></li>
+<li>使用 router 属性来使用路由规则<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 6. 创建 Vue 实例，得到 ViewModel</span><br><span class="line">    var vm &#x3D; new Vue(&#123;</span><br><span class="line">      el: &#39;#app&#39;,</span><br><span class="line">      router: router &#x2F;&#x2F; 使用 router 属性来使用路由规则</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="在路由规则中定义参数"><a href="#在路由规则中定义参数" class="headerlink" title="在路由规则中定义参数"></a>在路由规则中定义参数</h2></li>
+<li>在规则中定义参数：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; path: &#39;&#x2F;register&#x2F;:id&#39;, component: register &#125;</span><br></pre></td></tr></table></figure></li>
+<li>通过 <code>this.$route.params</code>来获取路由中的参数：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var register &#x3D; Vue.extend(&#123;</span><br><span class="line">      template: &#39;&lt;h1&gt;注册组件 --- &#123; &#123;this.$route.params.id&#125; &#125;&lt;&#x2F;h1&gt;&#39;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="使用-children-属性实现路由嵌套"><a href="#使用-children-属性实现路由嵌套" class="headerlink" title="使用 children 属性实现路由嵌套"></a>使用 <code>children</code> 属性实现路由嵌套</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">  &lt;router-link to&#x3D;&quot;&#x2F;account&quot;&gt;Account&lt;&#x2F;router-link&gt;</span><br><span class="line"></span><br><span class="line">  &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  &#x2F;&#x2F; 父路由中的组件</span><br><span class="line">  const account &#x3D; Vue.extend(&#123;</span><br><span class="line">    template: &#96;&lt;div&gt;</span><br><span class="line">      这是account组件</span><br><span class="line">      &lt;router-link to&#x3D;&quot;&#x2F;account&#x2F;login&quot;&gt;login&lt;&#x2F;router-link&gt; | </span><br><span class="line">      &lt;router-link to&#x3D;&quot;&#x2F;account&#x2F;register&quot;&gt;register&lt;&#x2F;router-link&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;&#96;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 子路由中的 login 组件</span><br><span class="line">  const login &#x3D; Vue.extend(&#123;</span><br><span class="line">    template: &#39;&lt;div&gt;登录组件&lt;&#x2F;div&gt;&#39;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 子路由中的 register 组件</span><br><span class="line">  const register &#x3D; Vue.extend(&#123;</span><br><span class="line">    template: &#39;&lt;div&gt;注册组件&lt;&#x2F;div&gt;&#39;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 路由实例</span><br><span class="line">  var router &#x3D; new VueRouter(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">      &#123; path: &#39;&#x2F;&#39;, redirect: &#39;&#x2F;account&#x2F;login&#39; &#125;, &#x2F;&#x2F; 使用 redirect 实现路由重定向</span><br><span class="line">      &#123;</span><br><span class="line">        path: &#39;&#x2F;account&#39;,</span><br><span class="line">        component: account,</span><br><span class="line">        children: [ &#x2F;&#x2F; 通过 children 数组属性，来实现路由的嵌套</span><br><span class="line">          &#123; path: &#39;login&#39;, component: login &#125;, &#x2F;&#x2F; 注意，子路由的开头位置，不要加 &#x2F; 路径符</span><br><span class="line">          &#123; path: &#39;register&#39;, component: register &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建 Vue 实例，得到 ViewModel</span><br><span class="line">  var vm &#x3D; new Vue(&#123;</span><br><span class="line">    el: &#39;#app&#39;,</span><br><span class="line">    data: &#123;&#125;,</span><br><span class="line">    methods: &#123;&#125;,</span><br><span class="line">    components: &#123;</span><br><span class="line">      account</span><br><span class="line">    &#125;,</span><br><span class="line">    router: router</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="命名视图实现经典布局"><a href="#命名视图实现经典布局" class="headerlink" title="命名视图实现经典布局"></a>命名视图实现经典布局</h2></li>
+<li>标签代码结构：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">      &lt;router-view name&#x3D;&quot;a&quot;&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">      &lt;router-view name&#x3D;&quot;b&quot;&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure></li>
+<li>JS代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var header &#x3D; Vue.component(&#39;header&#39;, &#123;</span><br><span class="line">      template: &#39;&lt;div class&#x3D;&quot;header&quot;&gt;header&lt;&#x2F;div&gt;&#39;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    var sidebar &#x3D; Vue.component(&#39;sidebar&#39;, &#123;</span><br><span class="line">      template: &#39;&lt;div class&#x3D;&quot;sidebar&quot;&gt;sidebar&lt;&#x2F;div&gt;&#39;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    var mainbox &#x3D; Vue.component(&#39;mainbox&#39;, &#123;</span><br><span class="line">      template: &#39;&lt;div class&#x3D;&quot;mainbox&quot;&gt;mainbox&lt;&#x2F;div&gt;&#39;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 创建路由对象</span><br><span class="line">    var router &#x3D; new VueRouter(&#123;</span><br><span class="line">      routes: [</span><br><span class="line">        &#123;</span><br><span class="line">          path: &#39;&#x2F;&#39;, components: &#123;</span><br><span class="line">            default: header,</span><br><span class="line">            a: sidebar,</span><br><span class="line">            b: mainbox</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 创建 Vue 实例，得到 ViewModel</span><br><span class="line">    var vm &#x3D; new Vue(&#123;</span><br><span class="line">      el: &#39;#app&#39;,</span><br><span class="line">      data: &#123;&#125;,</span><br><span class="line">      methods: &#123;&#125;,</span><br><span class="line">      router</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></li>
+<li>CSS 样式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .header &#123;</span><br><span class="line">    border: 1px solid red;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .content&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">  &#125;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    flex: 2;</span><br><span class="line">    border: 1px solid green;</span><br><span class="line">    height: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">  .mainbox&#123;</span><br><span class="line">    flex: 8;</span><br><span class="line">    border: 1px solid blue;</span><br><span class="line">    height: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2449/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2442/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

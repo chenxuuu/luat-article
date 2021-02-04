@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,148 +63,22 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/484/">
-            Air720固件分析系列B-WebData.bin分析,分解,精简,重构,代理Web管理界面
+          <a href="/497/">
+            Air720模块自动FOTA升级指南
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>前言上一篇文章, 解析了blf文件的结构, 知道blf是个zip文件, 这次, 我们要非常详细地分析WebData.bin, 即Web管理控制页面的数据文件
-WebData.bin的文件结构分3部分, 头部, 文件区, 尾部, 下面有C结构体的方式描述一下
-123456789101112131415...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-10-20
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/483/">
-            Air720自动测试工具在linux下的使用说明
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>本文章主要介绍了Air720自动测试工具在Linux环境下的使用说明。##一、下载vmware player镜像###可通过百度云下载配置好的vmware player镜像文件。###链接：https://pan.baidu.com/s/1WIPyqzV3kTsvPYV27mbYqw###提取码：g...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-10-19
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/482/">
-            Air720固件分析系列A-结构分析
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>提醒本系列文章为个人分析结果,不代表官方,如有遗漏,非常正常,欢迎指正^_^
-分析材料AT固件 AirM2M_720_V337_LTE_AT.blf位于 data\default_lod\asr1802At\720\AirM2M_720_V337_LTE_AT
-一些准备知识
-Air720的核心asr...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-10-18
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/481/">
-            【扫码支付】平台代理和业务员
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>如果对码夫管理平台没有整体的了解，请先阅读码夫支付管理系统体系及权限说明一、代理商和业务员1，代理商由总代理创建，设备的购买者；总代理从生产厂家处拿到设备，用来出售给其他人（以下称省市县代理）；这种情况下，设备不再属于总代理，而是属于下级的省市县代理或者运营商。设备由省市县代理或是运营商层层往下级出...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-10-18
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/480/">
-            Air202F（64Mb ROM模块）Flash空间划分说明
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>                        &amp;lt;p class=&amp;quot;MsoNormal&amp;quot; align=&amp;quot;left&amp;quot; style=&amp;quot;line-height: 14.4pt; background: rgb(243, 245, 249);&amp;quot...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-10-17
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/479/">
-            阿里云影子文件操作指南
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>不废话,直接上代码吧
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-10-15
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/478/">
-            Luat全系列模块支持免费OTA远程升级，并提供例程将该功能部署到自己服务器上
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>准备姿势, update升级流程先看一眼链接哦, 对升级过程有个认识http://oldask.openluat.com/article/93
-**升级流程
+            <p>
+FOTA(空中升级)作为核心功能被广泛应用于各种产品中，能完美地解决线刷升级的各种麻烦。Air720系列模块一直都带有FOTA功能，但是有一点不方便的地方，就是需要发AT指令触发才能激活FOTA流程，而很多客户确可能忽略这个看似简单，却很重要的AT。有鉴于此：
 
-模块读取自身信息–拼接字符串–get请求服务器–服务器收到请求–处理请求–如果版本号低于最新版–返回200–模块下载升级包–下载成功自动重启...</p>
+Air720系列模块自V422版本...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-10-15
+              2018-11-12
             </span>
           
         </div>
@@ -212,19 +86,20 @@ Air720的核心asr...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/477/">
-            Air720 4G LTE 开发板使用说明
+          <a href="/496/">
+            #【】连接HTTPS，证书问题
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>                        &amp;lt;p class=&amp;quot;MsoNormal&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot;mso-spacerun:&amp;#39;yes&amp;#39;;font-family:微软雅黑;font-size:10.5000pt;mso-...</p>
+            <p>使用http.request()可以发起HTTP请求和HTTPS请求。HTTPS请求要使用到证书
+1http.request(&amp;quot;GET&amp;quot;,&amp;quot;https://www.baidu.com&amp;quot;,&amp;#123;caCert=&amp;quot;ca.crt&amp;quot;&amp;#125;...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-10-14
+              2018-11-12
             </span>
           
         </div>
@@ -232,20 +107,19 @@ Air720的核心asr...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/476/">
-            202F支持高保真TTS，更大存储空间更多玩法
+          <a href="/495/">
+            Air 602 USB 模组部分 Mac os 驱动问题
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>你是不是还在因为MP3、PNG体积过大而焦头烂额呢？你是不是在为v-SIM和TTS不能共存而头痛呢？你是不是还在为可用空间不足而烦恼呢？
-过去，唯一的办法就是 剪裁 + 压缩 + 取舍，v-SIM和TTS二者必有一个舍生取义；MP3只能压了再压，音质简直不堪入耳；PNG更是精简每一个像素，只为多一个...</p>
+            <p>对于window10&amp;nbsp;和部分mac来说，Air602 WiFi&amp;nbsp;开发板是免驱的，插上电脑直接串口可以识别。然而，我们发现部分版本的 mac os&amp;nbsp;无法直接识别到这个开发板，如果无法识别，您检查设备管理器的时候可能会看到如下图所示的结果：如果是这样的话，您也许需要手动安装...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-10-12
+              2018-11-07
             </span>
           
         </div>
@@ -253,19 +127,156 @@ Air720的核心asr...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/475/">
-            为服务器安装phpMyAdmin方便管理mysql服务器
+          <a href="/494/">
+            ILI9341的横竖屏切换，以及ST7735屏幕旋转
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>在Linux操作系统的服务器下来操作和使用mysql对于菜鸟来说，比较费劲，因为操作mysql数据库需要各种各样的指令，我们更希望能够有一种直观的可视化的操作数据库的方法，那么我们可以在服务器上安装phpMyAdmin。phpMyAdmin可以让我们可以通过图形界面的方式来操作mysql数据库，非常...</p>
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;http://oldask.openluat.com/image/show/attachments-2018-11-U8oWIWRM5bfbc527da67b.png&amp;quot; class=&amp;qu...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-10-11
+              2018-11-07
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/493/">
+            记一例Air2xx无法下载的解决方法
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>#前置
+通常，无法下载/下载失败，是由以下原因造成的：
+
+模块没有开机（应测量vddio电压是否为2.8v）；
+串口线波特率不支持921600；
+串口线接线错误（应tx-rx，rx-tx接线）；
+串口线和模块没有共地；
+串口线的驱动存在异常；
+模块供电不稳，导致运行失稳；
+电脑u口带宽不足；
+模块损...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-11-02
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/492/">
+            【AT】MQTT发布JSON出错的应对策略
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>开发者使用AT进行开发时，发布如下的json时，经常会出现ERROR：
+12→ AT+MPUB=&amp;quot;data&amp;quot;,0,0,“&amp;#123;“test”:1&amp;#125;”← ERROR
+那么为什么出现这个问题呢？实际上时因为payload的双引号有误导致的。一般，写代码时，遇到这种情况，...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-10-30
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/491/">
+            那些年，我们用过的2G
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>
+毫无疑问，5G在今天是越来越热了。各种关于它的话题不断飞舞，炒作与实锤接连爆出。
+如果此时我们想要感受一下什么叫“只见新人笑，不见旧人哭”，那最好的办法就是去看看5G的老前辈，差不多我们所有人都朝夕相伴过的2G……
+是不是觉得这个词已经非常遥远？仔细一回忆，什么QQ秀啊、上网冲浪啊之类的词都涌上心...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-10-30
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/490/">
+            说起即将来临的 5G 时代，除了网速更快，你还能想到什么？
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>5G，第五代移动通讯网络，将改变的远不止更快的上网速度。
+5G 第一阶段计划的起点是 2019 年，它将提高智能手机的响应能力。随后，5G 会逐渐渗透到你生活的方方面面，改善你的日常，从汽车安全、娱乐方式，再到虚拟现实。
+智能手机接入 5G 网络后，将以千兆位的速度传输超高清视频，且具有高度稳定性，...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-10-30
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/489/">
+            关于AIR202模块开启飞行模式后电流无法达到1.2ma的原因总结
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>有用户反映说，怎么air202模块开启飞行模式后，消耗电流反而增大，稳定在30mA？此时用户可能怀疑各种原因，甚至怀疑模组是否有问题，在这里结合这个问题我总计一下原因。测试模组：air202_s5开发板1、用户程序很简单，lua代码中，直接开启飞行模式，然后检测电流为稳定的30ma原因：模组启动后还...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-10-29
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/488/">
+            luat模组开启飞行模式后电流变为30mA的问题解决
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>备注：以下测试，基于我的AIR202_S5最小系统板有个luat客户反映说，怎么luat模组开启飞行模式后，消耗电流不减小反而增大了，并且电流恒定在30mA左右，他研究了好久也没找到原因，让我帮他想想办法。今上午我特意拿出一上午时间，来针对这个问题展开测试，并找到答案。开启飞行模式后电流变为30mA...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-10-26
             </span>
           
         </div>
@@ -347,6 +358,13 @@ Air720的核心asr...</p>
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

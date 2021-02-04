@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,25 +63,66 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/658/">
-            合宙Air系列模块配套元件常见用法-二极管,下篇
+          <a href="/671/">
+            批量生产时如何进行GPS生产测试
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>#二极管在模块周边的常见用法
-1 发光二极管LED是所有的物联网设备上使用量非常大却容易被忽略的一款元件，几乎所有设备都离不开。 但因为相对好驱动，接上电就发光，电路简单往往不受重视。但是想用好了其实也有点门道。
+            <p>通常在生产测试时可以用两种方式测试GPS功能，一种是用仪器做GPS的传导测试；另一种为实网下通过读取搜星数和信噪比来判断GPS功能是否正常。
 
-下面我以1款0805贴片封装的绿色LED介绍一下基本参数
+传导测试
+传导测试是通过8960综测仪直接连接主板的GPS天线连接器进行测试。这种方式测试前需要将GPS天线去掉直接连接GPS天线连接器，因此适用于GPS天...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-05
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/670/">
+            稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。在前几篇的文章里，我讲述了如何使用手机客户端和PC客户端通过UPWs服务器向iRTU控制器发送透传指令。 今天这篇文章是上两篇文章的一个实际应用，在本文中，我将介绍...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-04
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/669/">
+            合宙模块简易使用说明
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>###使用说明模块开机：
 
-主要参数1）正向电压
-正...</p>
+给2G/4G模块vbat管脚提供模块工作范围内的直流电压（具体请参考各个模块的规格书种描述的电压范围），推荐用4V电压。主要供电电流能力要达到2A以上，以满足模块在射频工作时的瞬间抽载。
+RESET管脚不能被拉低，保持悬空即可。
+PWRKEY管脚拉低2S以上触发开机，或者...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-11
+              2020-01-03
             </span>
           
         </div>
@@ -89,21 +130,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/657/">
-            Air720系列 GPIO口默认状态
+          <a href="/668/">
+            如何用java操作Air202-S6的UART串口？（二）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>  最近总结了一下Air720系列的各个GPIO口的默认状态以及对应的波形图，具体情况如下表所示：（黄线为电源，绿线为GPIO波形）
-
-|  GPIO口 | 默认状态  |波形|备注|| ———— | ———— || GPIO_63 | 高 |图一||| GPIO_62 | 高 |图一||| GPI...</p>
+            <p>背景：上一篇文章简单介绍了如何在Air202-S6开发环境中用java编写Helloworld，大家对开发环境都已经有了一个了解；今天我们就继续探究一下Air202模块的标准UART接口，看看如何把它利用起来；UART作为一个标准接口用途是十分广泛的，有时候我们做一些数据通讯，控制外设运行状态比其它...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-11
+              2020-01-02
             </span>
           
         </div>
@@ -111,22 +150,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/656/">
-            SmartDTU 透传固件介绍
+          <a href="/667/">
+            用Air800制作一个带显示和按键键盘的简易电话
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>iRTU(SmartDTU 下同)介绍
-SmartDTU 是集成远程物联网控制功能的固件，只需要配置几下就可以实现大部分场景所需要的功能和逻辑，方便传统业务快速联网。手册和固件下载在群文件！
-WEB配置：http://dtu.openluat.com 
-注意：请用chrome或firefox等兼容浏...</p>
+            <p>项目简介合宙的Air800 GPRS+GPS 2G 模块本身就是一个全功能的带有音频编解码器和屏幕显示功能的最小化的电话机核心板，只需要增加非常少的原件，就可以构成一部功能完备的教学用电话机。 前不久，我就利用业余时间就做了这么一款玩具，具有黑白屏幕显示号码，基本接听拨打电话，播放音乐的功能，下面我...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-11
+              2020-01-01
             </span>
           
         </div>
@@ -134,19 +170,22 @@ WEB配置：http://dtu.openluat.com
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/655/">
-            合宙Air系列模块配套元件常见用法 二极管，上篇
+          <a href="/666/">
+            GPS/北斗 导航模块 Air530开发板G1学习日记
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>二极管是什么我们现在所说的二极管，全称是晶体二极管，这是相对于电子二极管说的。因为最早的二极管是电子二极管。 现在用的比较多的是贴片晶体二极管，比如下图的M7的Marking代表1N4007，因为贴片原件往往比较小，所以型号一般印简称，对于常用的二极管，不清楚的可以用芯片上的Marking在淘宝搜一...</p>
+            <p>##目的：
+学习 Air530 G1开发板的使用方法，并尝试和合宙的2G/4G通讯模块组合使用搭建完整的带定位功能的物联网设备开发环境。
+##简介：
+Air530 模块是一款高性能、高集成度的多模卫星定位导航模块。体积小、功耗低，可用于车载导航、智能穿戴、无人机等GNSS 定位的应用中。而且提供了和...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-09
+              2019-12-29
             </span>
           
         </div>
@@ -154,21 +193,19 @@ WEB配置：http://dtu.openluat.com
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/654/">
-            720模块C_SDK版本使用合宙后台进行固件升级指南
+          <a href="/665/">
+            LUAT 烧录单片机，MCU程序升级脚本（stm8s003）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>720模块C_SDK版本使用合宙后台进行固件升级指南
-720模块支持FOTA远程升级，正常AT版本可以使用AT+UPGRADE来手动进行远程升级。720模块C_SDK版本不支持此命令，现在demo是从FTP服务器下载固件来进行升级的。导致无法使用lua物联云平台进行升级。
-本文主要介绍的是720模块...</p>
+            <p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;luat对较为严格的IO口时序问题目前只能依靠单片机解决，比如之前项目用到了编码器，我就为AIR202外挂了一片STM8S003。用stm8专用的编码器引脚IO捕捉信号。stm8的确便宜，才1块钱，小应性能也还可以。还省去了外置看门狗，让003做看门狗...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-05
+              2019-12-24
             </span>
           
         </div>
@@ -176,19 +213,19 @@ WEB配置：http://dtu.openluat.com
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/653/">
-            Luat如何实现64位整数的存储
+          <a href="/664/">
+            如何获得 Altium Design (AD)格式的开发板图纸和模块封装
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>luat的lua是5.1.5版本，默认是32位整数或者32位float的，当整数大于32位的时候是不能被存储的。为了解决这个问题，在luat的core层实现了一个方法，用来存储64位的整数。rtos.toint64(&#34;862991234567890&#34;,&#34;big&#34;)rtos.toint64(&#34;8629...</p>
+            <p>Altium Design (AD)简介AD的前身是Protel，由于进入中国市场较早，在老一辈的电路设计师圈子普及率很高。 Altium Design （简称AD） 作为Protel的升级版本基本上沿用了Protel99Se的各种功能以及用户操作习惯，又新增加了诸如3D建模，所见即所得的开发功能，...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-05
+              2019-12-18
             </span>
           
         </div>
@@ -196,21 +233,20 @@ WEB配置：http://dtu.openluat.com
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/652/">
-            稀饭放姜 iRTU 学习日记 （0）入手iRTU固件的开发板
+          <a href="/663/">
+            合宙Air系列模块配套元件常见用法三极管,下篇
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>合宙iRTU开源模组iRTU 是物联网技术社区专家“稀饭放姜”设计，上海合宙物联网出品的一款功能强大使用极其简单的DTU/RTU开源模组。
-借助不到10条交互指令，就可以实现绝大部分物联网的通讯需求，极大简化用户开发物联网产品的步骤，大幅度减少开发时间。
-IRTU 目前有两个版本 2G版 和 4G版...</p>
+            <p>三极管在模块周边的常见用法目前合宙Air系列模块周边电路能使用到的三极管主要是小功率开关三极管，常用的信号有NPN型的S8050，2N3904,9013，PNP型的S8550,9014等。 用途主要为功率驱动和电平转换，下面我一一做介绍。
+1）三极管用作驱动LED720SL的输出高电平为1.8V，使...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-05
+              2019-12-16
             </span>
           
         </div>
@@ -218,69 +254,19 @@ IRTU 目前有两个版本 2G版 和 4G版...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/651/">
-            合宙Luat Air720SL开发板（EVB_Air720SL）初体验 （2）- 开发板基本操作
+          <a href="/662/">
+            非官方-让Air202支持java开发
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>EVB_Air720SL是上海合宙物联网出品的针对720SL模块设计的开发板。 包含了模块可能涉及的大部分功能，今天我们将从零起步尝试使用这个开发板。
-本文要实现的内容1） 给开发板添加必要的附属器件
-2） 安装开发环境
-3） 编写代码
-4） 烧写固件及脚本
-#设置开发板#
-刚开始，我们收到的开发板...</p>
+            <p>背景：目前在Air202模块支持二次开发的模式有3种，分别是AT/Luat/C_SDK；这三种途径分别有各自的优势和不足；AT方式为传统开发方式，需要外挂MCU；C_SDK方式对从业人员的技能要求比较高；Luat脚本方式在开放系统中不便于保护业务代码；移动互联近些年发展势头迅猛，培养了大批熟悉jav...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-04
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/650/">
-            2G模块如何实现自定义字体
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>下载附件：8955如何实现自定义字体.zip
-
-一、制作自定义字库文件（字体大小必须是偶数，例如14、16、18号字体）
-
-参考附件：lcd图形字模软件/字库生成方式.doc二、修改源码1、下载源码：http://www.openluat.com/Product/file/rda8955/core_...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2019-12-03
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/649/">
-            720模块USB描述符详解
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>@[TOC]#Air720系列模块简介**Air720系列模块是合宙出品的4G LTE模块，拥有丰富功能模块以及完善AT指令，用户可以通过AT指令实现所需的功能，也可以插上PC的USB当作网卡使用，也可以使用PPP拨号等等。这些功能都可以用720的USB设备实现，下面就介绍下Air720系列模块强大...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2019-12-02
+              2019-12-15
             </span>
           
         </div>
@@ -362,6 +348,13 @@ IRTU 目前有两个版本 2G版 和 4G版...</p>
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

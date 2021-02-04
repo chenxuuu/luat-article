@@ -48,7 +48,7 @@ def get(i):
         print(e)
 
 
-items = list(range(0,2421))
+items = list(range(2420,2493))
 pool = ThreadPool(100)
 pool.map(get, items)
 pool.close()

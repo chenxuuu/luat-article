@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,19 +63,21 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/524/">
-            air202luat二次开发设备接入阿里云（二）
+          <a href="/537/">
+            Luat读写SD卡/TF卡,通过fatfs模块
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>记录设备接入阿里云的过程二，上传数据上一篇介绍了如何连接阿里云，物联网设备用到最多的就是数据上传，这次我们用air202上传数据到阿里云1，添加功能由于上一次我们选择的是自定义，所以我们的产品是空的没有任何功能，我们为他添加一个功能用于数据上传由于设备上没有传感器，所以我选择了上传设备的工作电压2，...</p>
+            <p>高能预警当前版本 v0034 还没有内置fatfs的, 这里用的是自定义lod文件
+update: 2019-06-18 更新到0034底层,并提供编译好的lod
+代码预览123456789101112131415pmd.ldoset(6,pmd.LDO_VMMC) -- 必须打开供电--fatfs...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-18
+              2018-12-16
             </span>
           
         </div>
@@ -83,67 +85,22 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/523/">
-            air202luat二次开发设备接入阿里云（一）
+          <a href="/536/">
+            理解Lua 语言中的点、冒号与self
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>                        &amp;lt;p&amp;gt;代码传送门&amp;lt;a href=&amp;quot;https://github.com/chain01/luat_test/blob/master/%E8%AE%BA%E5%9D%9B%E8%BF%9E%E6%8E%A5%E9%98%BF%...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-11-18
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/522/">
-            【Lua】不使用Float LOD如何求绝对值
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>上一篇文章中提到，如果不使用Float LOD，那么是无法使用math库的。那么很多常用的计算都无法解决，不过还好都可以用某些方法变通求得正确解。
-#绝对值求绝对值相对来说很简单，只要应用如下代码即可：
-123function math.abs(num)    return num &amp;gt;= 0 ...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-11-18
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/521/">
-            18-GPRS(Air202)拨打电话
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>https://www.cnblogs.com/yangfengwu/p/9968883.html这个直接用官方给的demo就可以&amp;nbsp;&amp;nbsp;现在说个需求哈，是当初一个人给提出的需求例如存入的号码
-姓名 号码 
-1 10086
-2 10010
-... ....
+            <p>lua编程中，经常遇到函数的定义和调用，有时候用点号调用，有时候用冒号调用，这里简单的说明一下原理。如：点号调用：-- 点号定义和点号调用:
+girl = &amp;#123;money = 200&amp;#125;
 
-例如存入的号码01 05...</p>
+function girl.goToMarket(girl ,someMoney)    gi...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-12-10
             </span>
           
         </div>
@@ -151,19 +108,46 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/520/">
-            17-GPRS(Air202)串口
+          <a href="/535/">
+            Air720搭配Air530实现4G+GPS定位
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>                        &amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;color: rgb(0, 51, 153); font-family: Verdana, Geneva, Arial, Helvet...</p>
+            <p>硬件准备
+Air720H/Air720D开发板一块
+Air530开发板一块
+
+线路连接Air530开发板有5条线, 除PPS外均需要连接到Air720, 具体颜色可能不一样,仅供参考
+
+
+
+Air530
+Air720
+颜色
+
+
+
+VCC
+4V
+黑
+
+
+GND
+GND
+蓝
+
+
+TX
+U2_RXD
+红
+...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-12-09
             </span>
           
         </div>
@@ -171,19 +155,23 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/519/">
-            16-GPRS(Air202)关于多个文件中的变量调用和定时器
+          <a href="/534/">
+            合宙720开发板连接阿里云MQTT
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>https://www.cnblogs.com/yangfengwu/p/9968405.html因为自己看到好多问多个文件调用的，感觉这个应该说一说对了大家有没有知道这个是干什么的  大家有没有看这篇 https://www.cnblogs.com/yangfengwu/p/8965054.htm...</p>
+            <p>
+今天来给大家分享一下720开发板通过AT命令连接阿里云物联网平台的方法，阿里云物联网平台支持很多种连接协议，后台非常强大，可以清楚、直观的了解当前设备的连接状况。本文主要介绍的是连接、发送部分，阿里云物联网平台还可以实现规则引擎、边缘计算、设备影子等非常强大的功能，感兴趣的小伙伴自行研究下。
+
+
+...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-12-08
             </span>
           
         </div>
@@ -191,19 +179,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/518/">
-            15-GPRS(Air202)GPIO控制点亮一个灯
+          <a href="/533/">
+            air202luat二次开发设备接入阿里云（七）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>https://www.cnblogs.com/yangfengwu/p/9967027.html        现在点亮它，说一下哈，都过去好久了，不知道大家都在用哪个版本的库http://www.openluat.com/Product/gprs/Air202.html    我就去官方下载了现...</p>
+            <p>记录设备接入阿里云的过程七，网页控制开关灯有了前面文章积累的代码，通过网页开关灯就比较好实现了，无非是写个网页发送请求，话不多说开干。1，前端页面因为没怎么学过前端之前的网页都太low了-_-! 于是这次决定搞个稍微美观一点的！！！（虽然最后结果是还是很难看‘(*&amp;gt;﹏&amp;lt;*)′&amp;nbsp;...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-12-02
             </span>
           
         </div>
@@ -211,19 +199,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/517/">
-            14-关于系统教程和基础教程后期规划
+          <a href="/532/">
+            air202luat二次开发设备接入阿里云（六）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>https://www.cnblogs.com/yangfengwu/p/9966901.html 系统教程：现在的系统教程已经写完源码，还没配教程，现在买只能给源码哈系统教程初步要做到的就是12节和13节所演示的12节：  https://www.cnblogs.com/yangfengwu/p/...</p>
+            <p>记录设备接入阿里云的过程六，通过自己的服务器控制阿里云的设备之前说过通过阿里云下发指令控制设备，可是下发命令是在控制台里模拟的，这很不方便也不符合实际使用场景，所以就考虑怎么通过别的方式下发命令。1，流程分析，大体流程基本如下2，网页发送指令传递给服务器环境要求：一个公网ip，web开发环境（要求有...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-11-29
             </span>
           
         </div>
@@ -231,19 +219,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/516/">
-            13-系统教程演示(GPRS模块)
+          <a href="/531/">
+            air202luat二次开发设备接入阿里云（五）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>https://www.cnblogs.com/yangfengwu/p/9966702.html下载202的程序参考这个  ：https://www.cnblogs.com/yangfengwu/p/8948935.html  下载项目版最终的源码，全部都要下     这个APP我做成了支持WIF...</p>
+            <p>记录设备接入阿里云的过程五，一型一密前几篇文章写的都是一机一密，但是实际项目中设备往往很多，不可能一一修改代码烧录，所以阿里云提供了一型一密的解决方案一型一密安全认证方式，即为同一产品下所有设备烧录相同固件（固件中写入产品证书，即ProductKey和ProductSecret）。设备发送激活请求时...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-11-29
             </span>
           
         </div>
@@ -251,19 +239,60 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/515/">
-            12-系统教程演示(WIFI模块)
+          <a href="/530/">
+            用于air640（esp8266）lua固件的编译
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p> https://www.cnblogs.com/yangfengwu/p/9955765.html前几节作为基础教程和系统教程的开端，有了前面的基础才更好的学习基础教程和系统教程。 整体的系统教程是STM32采集温湿度数据，通过WIFI或者GPRS模块远程转发给APP曲线动态显示。APP上有一个按...</p>
+            <p>air640使用的是esp8266，但是现在还未像air202之类的GPRS模块一样进行lua的适配，由于nodemcu的助力，越来越多的开发者使用lua进行esp8266的开发，虽然官网可以方便的进行云端编译，但是由于开发过程中的特殊需要总是免不了自己进行固件编译，其中开发环境的搭建让很多人头痛，...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-11-16
+              2018-11-28
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/529/">
+            《柯南》剧场版里的物联网恐怖袭击，能成真吗？
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>摘自：https://www.huxiu.com/article/273115.html?f=wangzhan作为一个20多年的《柯南》老粉，前两天从电影院走出来的时候，不禁热泪盈眶：想不到啊，想不到有一天又跟柯南成同行了。遥想20年前，我只是个小学生，柯南也是个小学生；而今我是个研究IoT的记者，...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-11-24
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/528/">
+            物联网卡十年简史
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>摘自：http://www.tmtpost.com/3605949.html
+ 物联网卡十年简史如果从上帝视角看，互联网是一个喧嚣的世界，数十亿的人节点，通过无数看不见的数据链，交互着自己的生活和工作，信息丰富而多彩，充满着创意和活力、欢乐和哀愁。在这之下，还有一张庞大的暗网。数十亿节点都是没有生命...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-11-23
             </span>
           
         </div>
@@ -345,6 +374,13 @@
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

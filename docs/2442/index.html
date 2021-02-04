@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Vue动画 [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Vue动画</h1>
+<article class="post markdown-style">
+  <h2 id="Vue中的动画"><a href="#Vue中的动画" class="headerlink" title="Vue中的动画"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/transitions.html">Vue中的动画</a></h2><p>为什么要有动画：动画能够提高用户的体验，帮助用户更好的理解页面中的功能；<br>Vue 中也有动画，不过远没有 css3 中的那么炫酷。只能有一些简单的变换，但是却可以配合第三方css动画库完成炫酷的变换。</p>
+<h3 id="使用过渡类名"><a href="#使用过渡类名" class="headerlink" title="使用过渡类名"></a>使用过渡类名</h3><ol>
+<li>HTML结构：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;动起来&quot; @click&#x3D;&quot;myAnimate&quot;&gt;</span><br><span class="line">    &lt;!-- 使用 transition 将需要过渡的元素包裹起来 --&gt;</span><br><span class="line">    &lt;transition name&#x3D;&quot;fade&quot;&gt;</span><br><span class="line">      &lt;div v-show&#x3D;&quot;isshow&quot;&gt;我会动&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;transition&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure></li>
+<li>VM 实例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建 Vue 实例，得到 ViewModel</span><br><span class="line">var vm &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    isshow: false</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    myAnimate() &#123;</span><br><span class="line">      this.isshow &#x3D; !this.isshow;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>定义两组类样式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 定义进入和离开时候的过渡状态 *&#x2F;</span><br><span class="line">    .fade-enter-active,</span><br><span class="line">    .fade-leave-active &#123;</span><br><span class="line">      transition: all 0.2s ease;</span><br><span class="line">      position: absolute;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;* 定义进入过渡的开始状态 和 离开过渡的结束状态 *&#x2F;</span><br><span class="line">    .fade-enter,</span><br><span class="line">    .fade-leave-to &#123;</span><br><span class="line">      opacity: 0;</span><br><span class="line">      transform: translateX(100px);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用第三方-CSS-动画库"><a href="#使用第三方-CSS-动画库" class="headerlink" title="使用第三方 CSS 动画库"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/transitions.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%B8%A1%E7%B1%BB%E5%90%8D">使用第三方 CSS 动画库</a></h3></li>
+<li>导入动画类库：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel&#x3D;&quot;stylesheet&quot; type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;.&#x2F;lib&#x2F;animate.css&quot;&gt;</span><br></pre></td></tr></table></figure></li>
+<li>定义 transition 及属性：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition</span><br><span class="line">	enter-active-class&#x3D;&quot;fadeInRight&quot;</span><br><span class="line">    leave-active-class&#x3D;&quot;fadeOutRight&quot;</span><br><span class="line">    :duration&#x3D;&quot;&#123; enter: 500, leave: 800 &#125;&quot;&gt;</span><br><span class="line">  	&lt;div class&#x3D;&quot;animated&quot; v-show&#x3D;&quot;isshow&quot;&gt;我会动&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;transition&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="使用动画钩子函数"><a href="#使用动画钩子函数" class="headerlink" title="使用动画钩子函数"></a>使用动画钩子函数</h3></li>
+<li>定义 transition 组件以及三个钩子函数：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;切换动画&quot; @click&#x3D;&quot;isshow &#x3D; !isshow&quot;&gt;</span><br><span class="line">    &lt;transition</span><br><span class="line">    @before-enter&#x3D;&quot;beforeEnter&quot;</span><br><span class="line">    @enter&#x3D;&quot;enter&quot;</span><br><span class="line">    @after-enter&#x3D;&quot;afterEnter&quot;&gt;</span><br><span class="line">      &lt;div v-if&#x3D;&quot;isshow&quot; class&#x3D;&quot;show&quot;&gt;OK&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;transition&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure></li>
+<li>定义三个 methods 钩子方法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">        beforeEnter(el) &#123; &#x2F;&#x2F; 动画进入之前的回调</span><br><span class="line">          el.style.transform &#x3D; &#39;translateX(500px)&#39;;</span><br><span class="line">        &#125;,</span><br><span class="line">        enter(el, done) &#123; &#x2F;&#x2F; 动画进入完成时候的回调</span><br><span class="line">          el.offsetWidth;</span><br><span class="line">          el.style.transform &#x3D; &#39;translateX(0px)&#39;;</span><br><span class="line">          done();</span><br><span class="line">        &#125;,</span><br><span class="line">        afterEnter(el) &#123; &#x2F;&#x2F; 动画进入完成之后的回调</span><br><span class="line">          this.isshow &#x3D; !this.isshow;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></li>
+<li>定义动画过渡时长和样式：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.show&#123;</span><br><span class="line">      transition: all 0.4s ease;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2448/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2441/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,19 +63,20 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/434/">
-            Air800_硬件设计手册_V1.75
+          <a href="/447/">
+            如何计算GPS的NMEA校验码
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>1. 绪论本文档定义了Air800模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air800模块于无线应用。 1.1. 相关文档表格1：相关文档 注意：所有文档均可在www.openluat.com下载   2. 综述Air800模块是一...</p>
+            <p>众所周知，GPS芯片输出的格式，是符合NMEA0183标准的。每一个语句的结尾，都要加上一个校验码。
+如果校验码错误，上位机发给GPS芯片的命令，GPS芯片将直接抛弃；而上位机也不会理校验码错误的语句。但是很多开发者并不知道校验码是如何计算的，这对开发造成了一定的影响。所以本文就实操一下，给大家讲解...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-09-07
+              2018-09-18
             </span>
           
         </div>
@@ -83,27 +84,27 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/433/">
-            Air2xx/Air8xx 系列模块的开机、关机和重启
+          <a href="/446/">
+            MQTT主题的通配符
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>Air系列模块以AT的完美兼容性和Luat开发的强大功能享誉物联网圈，不过很多开发者对于它的基础功能还是不很熟悉，所以本文就深入的说一下怎么开机、关机和重启模块。
+            <p>做二次开发时，开发者可能会面临一个窘境：
 
-开机
+设备百千万，识别怎么办？心里很烦乱，后端直哭惨。
 
-模块以超低功耗和超强性能可实现软件开机（闹钟开机）或硬件开机。
+所以，为了区分不同的设备，通常建议开发者对MQTT的发布和订阅的主题做细分，以做到对设备的精确控制。
+###区分设备
 
-硬件开机
-
-不论是AT还是Luat底层，只要模块上电后拉低 ...</p>
+嵌入式开发时，开发者应该将设备的主题规划如下：
+订阅：/sys/device/868...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-09-07
+              2018-09-17
             </span>
           
         </div>
@@ -111,19 +112,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/432/">
-            Air208M模块硬件设计手册V1.01
+          <a href="/445/">
+            我国物联网市场规模跃入“万亿级”
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p> 1. 绪论本文档定义了Air208M模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air208M模块于无线应用。 1.1. 相关文档表格1：相关文档注意：所有文档均可在wiki.openluat.com下载   2. 综述Air208M...</p>
+            <p>[本文内容及图片转自：https://www.cnbeta.com/articles/tech/768365.htm]记者15日从在无锡开幕的2018世界物联网博览会上获悉，我国物联网市场规模已首次突破万亿元。本届物博会由工业和信息化部、科学技术部、江苏省人民政府共同主办，主题为“数字新经济物联新时...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-09-07
+              2018-09-16
             </span>
           
         </div>
@@ -131,191 +132,199 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/431/">
-            [分享]调试信息打印出文件名和行号,建议LAUT 直接加入到底层,更快速定位到项目代码位置.
+          <a href="/444/">
+            为什么开发板不能在室内使用gps定位？
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>调试时候直接打印出具体文件名和行号,大大提高编程效率
+            <p>为什么开发板不能在室内使用gps定位？为什么手机可以定位，模块无法定位呢？这究竟是为什么呢？
+ 
+  
+ 
 
-任意位置加入以下代码,--[[    print 重定向]]_G._print = _G.print_G.print = function(...)    _G._print(&#34;[&#34; .. debug.getinfo(2).short_src ...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-09-06
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/430/">
-            Air208S_硬件设计手册_V1.09
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>1. 绪论本文档定义了Air208S模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air208S模块于无线应用。 1.1. 相关文档表格 1：相关文档    2. 综述Air208S模块是四频段GSM/GPRS模块，它的工作频段是：GSM...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-09-06
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/429/">
-            Air202模块硬件设计手册V1.58
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>1. 绪论
-
-
-
-本文档定义了Air202模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air202模块于无线应用。
-
- 
-
-1.1. 相关文档
-
-
-
-表格1：相关文档
-
- 注意：所有文档均可在wiki.openluat.com下载
-
- ...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-09-05
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/428/">
-            【码夫支付】微信支付宝对接详解
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>                        &amp;lt;p&amp;gt;一、需要的资料&amp;lt;/p&amp;gt;
-
-1，码夫平台总代理账号（买支付板子，找淘宝客服申请）
-
-2，码夫支付板子（测试使用）
-
-2，微信服务号（已认证）
-
-3，微信商户号（通过码夫申请新入网账户）
-
-4，支付宝对公账号（通过码夫申请新入...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-09-05
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/427/">
-            Air268F模块硬件开发手册V1.02
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>1. 
-绪论
-
-本文档定义了Air268F模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air268F模块于无线应用的二次开发。
-
-1.1.      
-相关文档
-
-
-
-注意：所有文档均可在www.openluat.com下载
-
-2.  ...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-09-05
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/426/">
-            Luat的内存那点事
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>很多开发者使用Lua进行二次开发时，由于对Lua理解不够深入，导致写出来的代码风格迥异，变量与众不同，思路古灵精怪，运行效率忽高忽低。所以经常能看到很多风骚的写法。
-
- “一夜风流”过后往往留下的都是遍地狼藉。譬如内存不足，语法错误等等。语法错误比较容易排查，但是内存不足怎么办呢？
-
-Air2xx、...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-09-05
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/425/">
-            合宙Luat WiFi模块AT指令手册及示例（三）
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>2.2.3.13          获取指定的socket状态：AT+SKSTT
-
-l  功能：
-
-获取指定的socket状态，返回值的第一行表示的是用户指定的socket的状态信息，如果该socket类型为TCP服务器，那么从下一行开始每一行表示一个接入的client的socket状态。 
-
-
-
+ 
+  Normal
+  0
+  
+  
+  
+  7.8 磅
+  0
+  2
+  
+  false
+  false
+  false
+  
+  EN-US
+  ZH-CN
+  X-NONE
 ...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-09-05
+              2018-09-16
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/443/">
+            AirM2M_720_V214_LTE_AT_NAND 发布
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>主要修改记录
+恢复AT版本的boot打印
+解决CSQ信号显示较低问题
+添加喂狗时间通过at+log可配置,如果喂狗时间是1s,则发AT+log=57,1000（注：第三个参数是配置喂狗时间）
+解决UDP在双向发送时,服务器端停掉发送后,模块出现数据发出去不返回SEND OK的现象
+设置标志位检测生产...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-09-15
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/442/">
+            使用物联网卡发送短信
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                    &amp;lt;p style=&amp;quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; tex...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-09-15
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/441/">
+            CoolWatcher抓取底层trace
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;color: rgb(51, 51, 51);&amp;quot;&amp;gt;在模块运行过程中，可能出现一些使用LuaTools也无法看出问题的奇怪现象，，这时就需要用到“大杀器” CoolWatcher...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-09-15
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/440/">
+            那些让人看不懂的错误码和解决方法
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>
+ 
+  
+ 
+
+ 
+  Normal
+  0
+  
+  
+  
+  7.8 磅
+  0
+  2
+  
+  false
+  false
+  false
+  
+  EN-US
+  ZH-CN
+  X-NONE
+  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   ...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-09-12
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/439/">
+            Luat Console，调试神器！
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                    &amp;lt;p style=&amp;quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; tex...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-09-09
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/438/">
+            Air800(GPRS+GPS模块)连接OneNet平台
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>                    &amp;lt;h2 id=&amp;quot;air800介绍&amp;quot; style=&amp;quot;outline: 0px; padding: 0px; margin: 8px 0px 16px; font-size: 24px; color: rgb(79, 79, 7...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-09-09
             </span>
           
         </div>
@@ -397,6 +406,13 @@ l  功能：
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,19 +63,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/544/">
-            不敢私藏：Air202, 按键长按重启和特长按回退为出厂版本，感谢 李炜镪
+          <a href="/558/">
+            dtu阿里云自定义透传
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>module(..., package.seeall)require &#39;pins&#39;local btnDown = falselocal st = 0pins.setup(pio.P0_2, function()    if btnDown then        local d = os.time(...</p>
+            <p>由于控制dtu的单片机可能是非常便宜功能很弱，所以对json这种格式解析可能比较费劲，所以阿里云在高级版中为客户提供了自定义格式的数据透传解析服务。用户可以方便的使用十六进制等数据格式上传，由于我们的dtu可以方便的实现对阿里云的透传，所以开发起来也很简单。1，阿里云新建产品为了和以前的功能统一这次...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-01-16
+              2019-03-04
             </span>
           
         </div>
@@ -83,19 +83,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/543/">
-            天蓬一号序章
+          <a href="/557/">
+            dtu连接阿里云发送数据
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>考试结束了，放假回家闲着没事做点小东西玩吧。为啥叫天蓬一号呢，因为国家刚发了个嫦娥四号，而且明年是猪年就叫这个名字吧。主要功能，硬件包含两个部分，一个是电子门铃：当有人来到门前时发出过年好的声音，室内端发出有人来拜年了，当人离开家的时候可以通过手机微信小程序设置成离家模式，门铃会提示访客家里没人，客...</p>
+            <p>                        &amp;lt;p&amp;gt;用dtu固件可以方便的实现快速接入阿里云实现数据透传，稀饭放姜大神已经视频演示了如何使用，我这里根据实际项目演示一下如何上报数据。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;1，首先按照教程刷好dtu固件，并在dtu的网页上添加好设备（当然...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-01-14
+              2019-03-04
             </span>
           
         </div>
@@ -103,31 +103,69 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/542/">
-            windows下通过python进行串口通信
+          <a href="/556/">
+            判断SIM卡所属的运营商
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>SIM卡所属的运营商可通过查询sim卡的ismi前缀来判断
+AT命令使用AT命令AT+CIMI可以得到sim卡的ismi
+lua使用sim.getImsi()接口可以得到sim卡的ismi
+前缀46000,    “CHINA MOBILE”,     “CN”  中国移动46001,    “CH...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-03-04
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/555/">
+            Air720系列AT命令远程升级配置详细步骤
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>升级平台的配置首先打开升级平台：https://iot.openluat.com
+使用购买模块/开发板时使用的手机号作为用户名，密码默认为888888，登陆后台
+注意，如果是官方平台购买的，并且登陆后台后已经有了一个默认720项目，可以直接去执行AT命令，并且无需设置productkey参数
+登陆后...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2019-03-01
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/554/">
+            Air720系列4G模块AT版本专网卡使用说明
           </a>
         </h2>
         <div class="article-item-content">
           
             <p>
-需求描述：
 
+一、如何区分专网卡
 
-平台环境：windows通过串口编程实现自动化任务（基于python）
-
-
-需要用到的工具：
-
-
-python3.7.1（或其他版本）serial（这是一个让python能收发串口消息的模块）sublimetext3（或其他代码编辑器）
-
-一、安装python这里就不详细描述了，p...</p>
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 根据使用的网络类型来分，sim卡可以分为公网卡和专网卡两种&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-01-14
+              2019-02-28
             </span>
           
         </div>
@@ -135,19 +173,19 @@ python3.7.1（或其他版本）serial（这是一个让python能收发串口消
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/541/">
-            新版本DTU连接阿里云
+          <a href="/553/">
+            阿里云物联网平台mqtt测试工具
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>稀饭放姜大神今天更新了dtu固件，支持阿里云自动注册，测试了一下非常6。这里写一下阿里云这部分如何设置。我还是使用的高级版（因为调试比较方便而且支持后续数据流转），产品创建之类的可以参考我以前发的贴子。今天主要说的是RAM平台子用户的创建与权限分配。因为自动注册设备需要用到两个阿里云很重要的参数Ac...</p>
+            <p>使用阿里云物联网平台mqtt连接需要计算user和password等参数比较麻烦，而且容易出错，所以今天分享一个自己写的小工具，可以用于计算连接参数测试mqtt用的MQTT.fx1，下载并安装MQTT.fx软件。Windows系统：&amp;nbsp;http://mqtt-fx.software.info...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-01-07
+              2019-02-26
             </span>
           
         </div>
@@ -155,19 +193,19 @@ python3.7.1（或其他版本）serial（这是一个让python能收发串口消
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/540/">
-            有哪些让人拍案叫绝的智障设计？
+          <a href="/551/">
+            Air720系列-死机dump数据功能使用说明
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>偶然间阅读到了这条，瞬间颇有感触，把自己的一些心得写出来和大家分享。如果开发者的设备使用的是常电，那么没有供电方面的困扰。可是如果使用电池+充电模式，如车载定位器、定位手表等设备，那么就要小心啦。如果像文中一样，很可能出现“充电--开机--低电关机--重启--充电--开机”的死循环情况。长此以往，还...</p>
+            <p>一、下载安装SecureCRT可通过百度云下载SecureCRT软件，并按照文件包中的提示进行安装注册。链接:&amp;nbsp;https://pan.baidu.com/s/13lhILGSYB4Vilxqb9mo8Ng提取码: a3kt二、模块死机时发送AT*EXASSERT=1会让模块不重启，此时设...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-12-31
+              2019-02-15
             </span>
           
         </div>
@@ -175,19 +213,19 @@ python3.7.1（或其他版本）serial（这是一个让python能收发串口消
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/539/">
-            合宙AT指令发送短信
+          <a href="/550/">
+            乐易派 | 基于Luat+OneNet，快速实现物联网产品60天量产
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>如果看过合宙的AT指令手册，我想你会知道合宙的AT发短信的模式：TEXT和PDU两种。首先来说说TEXT模式：这个模式不管是发送还是读取都是最简单的，也是很好理解的。但是它有个缺点就是无法发送中文，只能发送或接收ASCII码的数据。使用步骤很简单：1 、AT发送AT+CMGF=1，设置为TEXT模式...</p>
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;http://oldask.openluat.com/image/show/attachments-2019-02-vvxoVUL85c6541efed098.jpg&amp;quot; class=&amp;qu...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-12-24
+              2019-02-14
             </span>
           
         </div>
@@ -195,19 +233,19 @@ python3.7.1（或其他版本）serial（这是一个让python能收发串口消
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/538/">
-            面世就定价8000元，5G目前恐难以商用
+          <a href="/549/">
+            基于Air720的CPE
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>转自：http://www.tmtpost.com/3655156.html种种利好消息带动了外界对5G的想象，意味着经过长时间技术研发和规模化网络实验，5G终于走到终端应用试验阶段。3G手机2008年进入市场，4G手机2014年进入市场，从3G到4G时代中国用了6年时间，如今我国的4G网络以前所未...</p>
+            <p>                        &amp;lt;p&amp;gt;&amp;lt;b&amp;gt;CPE是什么：&amp;lt;span style=&amp;quot;background-color: rgb(255, 255, 0);&amp;quot;&amp;gt;点击下载&amp;lt;/span&amp;gt;&amp;lt;/b&amp;gt;&amp;lt;a hr...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-12-19
+              2019-02-02
             </span>
           
         </div>
@@ -215,91 +253,20 @@ python3.7.1（或其他版本）serial（这是一个让python能收发串口消
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/537/">
-            Luat读写SD卡/TF卡,通过fatfs模块
+          <a href="/548/">
+            [HTTP] Luat 开发基于OneNET平台HTTP通讯 笔记（测试硬件为Air202）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>高能预警当前版本 v0034 还没有内置fatfs的, 这里用的是自定义lod文件
-update: 2019-06-18 更新到0034底层,并提供编译好的lod
-代码预览123456789101112131415pmd.ldoset(6,pmd.LDO_VMMC) -- 必须打开供电--fatfs...</p>
+            <p>                        &amp;lt;p&amp;gt;详情：&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;https://open.iot.10086.cn/bbs/thread-35465-1-1.html&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;br&amp;gt;&amp;lt;/p&amp;gt;
+    ...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2018-12-16
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/536/">
-            理解Lua 语言中的点、冒号与self
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>lua编程中，经常遇到函数的定义和调用，有时候用点号调用，有时候用冒号调用，这里简单的说明一下原理。如：点号调用：-- 点号定义和点号调用:
-girl = &amp;#123;money = 200&amp;#125;
-
-function girl.goToMarket(girl ,someMoney)    gi...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-12-10
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/535/">
-            Air720搭配Air530实现4G+GPS定位
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>硬件准备
-Air720H/Air720D开发板一块
-Air530开发板一块
-
-线路连接Air530开发板有5条线, 除PPS外均需要连接到Air720, 具体颜色可能不一样,仅供参考
-
-
-
-Air530
-Air720
-颜色
-
-
-
-VCC
-4V
-黑
-
-
-GND
-GND
-蓝
-
-
-TX
-U2_RXD
-红
-...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2018-12-09
+              2019-01-28
             </span>
           
         </div>
@@ -381,6 +348,13 @@ U2_RXD
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

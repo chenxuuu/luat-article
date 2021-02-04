@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,19 +63,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/668/">
-            如何用java操作Air202-S6的UART串口？（二）
+          <a href="/681/">
+            利用luat 一天搞定 天气预报
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>背景：上一篇文章简单介绍了如何在Air202-S6开发环境中用java编写Helloworld，大家对开发环境都已经有了一个了解；今天我们就继续探究一下Air202模块的标准UART接口，看看如何把它利用起来；UART作为一个标准接口用途是十分广泛的，有时候我们做一些数据通讯，控制外设运行状态比其它...</p>
+            <p>目前市面上太多开源的天气预报了，常见的有wifi esp8266 版本，树莓派版本。这些开源的天气预报都是利用wifi 或者以太网 调用第三方天气预报接口来查询当地天气预报。这里存在一个问题就是网络的接入不太方便。本次开源的天气预报利用了gprs恰好解决了这个问题。实现原理：1.利用合宙提供的基站定...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-01-02
+              2020-01-17
             </span>
           
         </div>
@@ -83,19 +83,22 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/667/">
-            用Air800制作一个带显示和按键键盘的简易电话
+          <a href="/680/">
+            合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（下）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>项目简介合宙的Air800 GPRS+GPS 2G 模块本身就是一个全功能的带有音频编解码器和屏幕显示功能的最小化的电话机核心板，只需要增加非常少的原件，就可以构成一部功能完备的教学用电话机。 前不久，我就利用业余时间就做了这么一款玩具，具有黑白屏幕显示号码，基本接听拨打电话，播放音乐的功能，下面我...</p>
+            <p>##本文内容
+在本篇文章的上部分中我们用Air202实现了一个串口屏，在本文的下部分中我们将尝试把做好的串口屏和Air720SL开发板连接，使Air720SL可以用屏幕输出文本信息。
+##连接方法
+Air720SL，本身有两个硬件串口，在Demo板上通过CH340转换成USB接口，供连接到电脑上调试...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-01-01
+              2020-01-17
             </span>
           
         </div>
@@ -103,22 +106,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/666/">
-            GPS/北斗 导航模块 Air530开发板G1学习日记
+          <a href="/679/">
+            【小技巧】关于时间戳和rtos.tick()的一点使用心得
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>##目的：
-学习 Air530 G1开发板的使用方法，并尝试和合宙的2G/4G通讯模块组合使用搭建完整的带定位功能的物联网设备开发环境。
-##简介：
-Air530 模块是一款高性能、高集成度的多模卫星定位导航模块。体积小、功耗低，可用于车载导航、智能穿戴、无人机等GNSS 定位的应用中。而且提供了和...</p>
+            <p>众所周知，os.time()输出的是时间戳，而rtos.tick()是每秒16384个tick。那么这二者有什么用途呢？通常而言，如果是需要严格的时间认证，那么必须使用os.time()，至于说同步时钟的方法有很多，可以参考：http://oldask.openluat.com/article/30...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-29
+              2020-01-16
             </span>
           
         </div>
@@ -126,19 +126,22 @@ Air530 模块是一款高性能、高集成度的多模卫星定位导航模块�
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/665/">
-            LUAT 烧录单片机，MCU程序升级脚本（stm8s003）
+          <a href="/678/">
+            合宙Luat Air720SL开发板（EVB_Air720SL）初体验（3）-实现屏幕显示（上）
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;luat对较为严格的IO口时序问题目前只能依靠单片机解决，比如之前项目用到了编码器，我就为AIR202外挂了一片STM8S003。用stm8专用的编码器引脚IO捕捉信号。stm8的确便宜，才1块钱，小应性能也还可以。还省去了外置看门狗，让003做看门狗...</p>
+            <p>##现有问题
+合宙早期的2G物联网模块都有标准的显示库文件，支持I2C，SPI等接口的多种型号显示屏，使用起来非常的方便，但是对于4G的物联网模块，合宙的底层库并没有提供现成的显示库供用户使用，这在很多场景下不太方便。 怎么能够让4G模块也能简单方便进行显示输出，这是一个问题。
+##现有解决方案
+目...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-24
+              2020-01-16
             </span>
           
         </div>
@@ -146,19 +149,20 @@ Air530 模块是一款高性能、高集成度的多模卫星定位导航模块�
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/664/">
-            如何获得 Altium Design (AD)格式的开发板图纸和模块封装
+          <a href="/677/">
+            合宙2G、4G模块供电、取电杂谈
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>Altium Design (AD)简介AD的前身是Protel，由于进入中国市场较早，在老一辈的电路设计师圈子普及率很高。 Altium Design （简称AD） 作为Protel的升级版本基本上沿用了Protel99Se的各种功能以及用户操作习惯，又新增加了诸如3D建模，所见即所得的开发功能，...</p>
+            <p>##写在最前面
+最近受合宙技术社区管理员Delectate之邀写一篇关于如何正确给合宙模块供电以及如何从模块正常取电的文章。 这的确是合宙物联网模块新手经常遇到的一个头疼问题，甚至很多合宙的大客户在量产后因为物料，生产工艺以及使用环境发生变化时也能遭遇麻烦。所以对于供电问题的深入分析非常有必要。 其...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-18
+              2020-01-14
             </span>
           
         </div>
@@ -166,83 +170,22 @@ Air530 模块是一款高性能、高集成度的多模卫星定位导航模块�
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/663/">
-            合宙Air系列模块配套元件常见用法三极管,下篇
+          <a href="/676/">
+            淘宝夹子报警器上仿冒合宙Air202E模块的研究
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>三极管在模块周边的常见用法目前合宙Air系列模块周边电路能使用到的三极管主要是小功率开关三极管，常用的信号有NPN型的S8050，2N3904,9013，PNP型的S8550,9014等。 用途主要为功率驱动和电平转换，下面我一一做介绍。
-1）三极管用作驱动LED720SL的输出高电平为1.8V，使...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2019-12-16
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/662/">
-            非官方-让Air202支持java开发
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>背景：目前在Air202模块支持二次开发的模式有3种，分别是AT/Luat/C_SDK；这三种途径分别有各自的优势和不足；AT方式为传统开发方式，需要外挂MCU；C_SDK方式对从业人员的技能要求比较高；Luat脚本方式在开放系统中不便于保护业务代码；移动互联近些年发展势头迅猛，培养了大批熟悉jav...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2019-12-15
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/661/">
-            合宙Air系列模块配套元件常见用法-三极管，上篇
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>三极管是什么三极管顾名思义应该有三个极，所以很多人认为三极管一定有3个引脚，其实这是不对的。 最早的三极管是真空电子三极管，有四个引脚，因为多了一根灯丝引脚。 后面的晶体三极管才是真的是三个引脚。 但是并不是所有的三个引脚的晶体管都叫三极管。 三个引脚的还有很多其他器件，比如常用的场效应管，可控硅，...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2019-12-14
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/660/">
-            如何判主板的4G/2G信号接收性能的好坏
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>
-4G/2G模块的csq值是模块驻留小区的信号强度，是可以一定程度上反映设备的接收好坏，但是这个值是与当地实际的网络信号强度有关的，不能简单的就认为模块的csq值低接收性能就一定差；或者认为A的CSQ值比B的低，A的性能就比B的差。下面就介绍一种方式通过查询小区信息来对比手机判读接收性能好坏。
+            <p>##本文由来
+作为一个合宙产品的忠实用户，每天逛QQ群看新闻是必须要做的事情。 昨天在QQ群偶然看到了这样一个图片，引起了我的极大兴趣。
 
-主...</p>
+我看到这个图的第一印象是，Air202怎么长胖了，难道Air202出了假货，跟原厂工程师确认了一下，这个是假货这件事情是真实不虚的。 看来在中国只要是好东西都有...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-12
+              2020-01-11
             </span>
           
         </div>
@@ -250,20 +193,80 @@ Air530 模块是一款高性能、高集成度的多模卫星定位导航模块�
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/659/">
-            【小技巧】如何收到订阅消息(sys.subscribe)后执行任务函数(sys.taskInit)？
+          <a href="/675/">
+            Air720S系列模块AT固件更新说明
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>众所周知，luatask使用的协程机制，所以sys.taskInit支持sys.wait。但是sys.subscribe并不能使用sys.wait，可是很多情况下需要结合使用，那么就要有变通的法子。在此介绍个解决方案：
-123456789--使用sys.taskInit“初始化”，sys.waitU...</p>
+            <p>历代固件更新说明，持续更新：AirM2M_720S_V616_LTE_AT.zip版本说明：1.添加设置防抖接口2.支持 AT^HEARTBEATHEX 指令3.合入usb_vbus_patch_20201201,1802S休眠后唤醒USB不正常4.ssl链接发送接口返回值不正常5.长按开机键开机检...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2019-12-12
+              2020-01-10
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/674/">
+            上海合宙Luat Air720SL模块 入门指南（3）-GPIO下篇
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-09
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/673/">
+            上海合宙Luat Air720SL模块 入门指南（2）-GPIO上篇
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>Air720SL 是上海合宙物联网于2019年11月下旬发布的一款基于ASR1802S芯片组的物联网通讯模块。 模块通讯性能优越，速度充分满足Cat4标准，支持最大下行速率 150Mbps 和最大上行速率50Mbps。EVB_Air720SL是针对720SL模块设计的开发板，本文我将针对开发板的IO...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-07
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/672/">
+            稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>iRTU开源项目是iRTU开源模组的核心部分，它是iRTU硬件产品的灵魂。我们该做的就是怎么把这个开源项目利用好，让他发挥出应有的价值。 上一篇文章中，我尝试使用手机客户端对Modbus继电器进行控制，今天我们换用开源PC端和Modbus 温湿度传感器 进行一次温湿度采集。
+Modbus简介Modb...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-01-06
             </span>
           
         </div>
@@ -345,6 +348,13 @@ Air530 模块是一款高性能、高集成度的多模卫星定位导航模块�
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

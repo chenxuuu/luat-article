@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,104 +63,29 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/736/">
-            2、RDA8910CSDK二次开发：尝试使用CSDK开发控制GPIO输出
+          <a href="/791/">
+            手把手教你用Air724UG做一个Weather APP
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>目录点击这里查看所有博文
-&amp;emsp;&amp;emsp;本系列博客所诉资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-05-19
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/735/">
-            1、RDA8910CSDK二次开发：环境搭建
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>目录点击这里查看所有博文
-&amp;emsp;&amp;emsp;本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-05-19
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/734/">
-            4G模组AT指令连接阿里云
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>                        &amp;lt;p class=&amp;quot;MsoNormal&amp;quot;&amp;gt;本手册适用于合宙的&amp;lt;span lang=&amp;quot;EN-US&amp;quot;&amp;gt;Air72X&amp;lt;/span&amp;gt;系列&amp;lt;span lang=&amp;quot;EN-U...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-05-15
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/733/">
-            724UG 开发板点7735S 彩屏的曲折过程。
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;首先要申明：合宙开发板，点彩屏其实非常简单！官方例子,屏幕接上就亮!&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;但是，我的点亮之路却很曲折，很像“天将降大任于斯人也，必先苦其心志.....”&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;n...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-05-11
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/284/">
-            ari724接入4*4矩阵键盘(随笔)
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>module(..., package.seeall)
+            <p>首先来看一下效果展示相关的代码可在文后找到
+0.准备工作
+相关硬件：
 
-local init = 0
-local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = “3”,  [“05”] = “+”,  [“11”] = “4”,  [“12”] = “5...</p>
+一块合宙商城购买的Air724UG开发板
+一块LCD屏幕，驱动为gc9106l或st7735或其他
+一个speaker（扬声器）
+软件环境：
+
+Core版本：Luat_V0014_RDA8910_TTS
+Lib版本：script...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-05-09
+              2020-06-04
             </span>
           
         </div>
@@ -168,19 +93,22 @@ local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = �
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/732/">
-            Luat Air720S系列模块_CMUX_使用说明
+          <a href="/789/">
+            8910 如何制作差分包
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>                        &amp;lt;pre&amp;gt;&amp;lt;span style=&amp;quot;font-weight: 700;&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot;font-family: 宋体; font-size: 22pt;&amp;quot;&amp;gt;1.&amp;...</p>
+            <p>#实际需求
+8910 支持差分升级，有的客户需要本地升级或者自己搭建服务器升级，需要差分升级方法，我们提供的差分升级方法一般是这么个流程   客户在windows 下生成差分包（需要原始版本和需要升级的版本），生成的差分包，可以通过本地升级或者使用服务器通过url 升级
+#差分包生成
+##命令的格式...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-05-08
+              2020-06-04
             </span>
           
         </div>
@@ -188,22 +116,22 @@ local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = �
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/277/">
-            上海合宙Luat Air724模块 入门指南（2）GPIO
+          <a href="/786/">
+             Luat_IOT_SDK_C 语言用户开发指导手册
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>本文要介绍的内容1） GPIO循环读取输入电平操作
-2） GPIO中断读取输入电平操作
-3） GPIO输出操作
-硬件资源简介Air724 共有标明的GPIO引脚31个，GPIO0-GPIO7 GPIO9-GPIO31，其中初始状态随不同固件可能稍有不同，也有引脚会因为固件不同造成不可用。 所以开发前...</p>
+            <p>@[TOC]
+C_SDK代码git服务器地址git clone http://36.7.87.100:10101/r/iot_csdk_rda8910.git
+
+1 简介本文档主要对 720U系列模块CSDK版本用户程序编程进行指导。此CSDK版本针对合宙模块提供的一套C语言的软件开发环境，让客户像...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-05-08
+              2020-06-04
             </span>
           
         </div>
@@ -211,27 +139,21 @@ local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = �
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/273/">
-            Air724UG LTE Cat.1 通信模块开发应用手册（未完
+          <a href="/751/">
+            Air724 LCD彩屏驱动
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>1. 目录
-1. 目录
-[2. 综述](#2. 综述)
-2.1 [概述](#2.1 概述)
-2.2 [主要特点](#2.2 主要特点)
-2.3 [功能框图](#2.3 功能框图)
-2.4 [管脚描述](#2.4 管脚描述)
-2.5 [机械尺寸](#2.5 机械尺寸)
-2.6 [PCB封装](#2.6...</p>
+            <p>作者：周维华
+AIR724支持SPI 彩屏，目前支持的彩屏种类有:    SPI_ILI9341    GC9106    SPI_HX8347    SPI_ST7735    SPI_ILI9341    SPI_ST7735(支持彩屏分辨率最大 320 x 240 )
+常用彩屏为 ST7735...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-05-07
+              2020-05-31
             </span>
           
         </div>
@@ -239,19 +161,19 @@ local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = �
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/731/">
-            自用库脚本，sht20传感器，参考官方数据手册以及稀饭AM2320demo
+          <a href="/392/">
+            小蛮机器人设备联网说明
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>---&amp;nbsp;SHT系列&amp;nbsp;温湿度传感器驱动--&amp;nbsp;@module&amp;nbsp;sensor_sht--&amp;nbsp;@author&amp;nbsp;DZQ--&amp;nbsp;@license&amp;nbsp;MIT--&amp;nbsp;@copyright&amp;nbsp;openLuat.com--&amp;nbs...</p>
+            <p>小蛮机器人联网方法补充说明：IOS进行Wi-Fi切换时，需到手机设置里面进行更改，第一次选择连接的Wi-Fi是联网Wi-Fi，第二次选择的Wi-Fi为设备Wi-Fi（Wi-Fi名称：Hipanda-xxxx 或 ToyCloud-xxxx）密码统一为：00000000。第一步：扫描二维码进行注册（二...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-05-07
+              2020-05-29
             </span>
           
         </div>
@@ -259,22 +181,110 @@ local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = �
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/730/">
-            11、合宙Air模块Luat开发：通过http协议获取天气信息
+          <a href="/743/">
+            9、RDA8910CSDK二次开发：趁热打铁干脆顺带把UDP通讯也给撸了吧
           </a>
         </h2>
         <div class="article-item-content">
           
             <p>目录点击这里查看所有博文
-&amp;emsp;&amp;emsp;本系列博客，理论上适用于合宙的Air202、Air268、Air720x、Air720S以及最近发布的Air720U（我还没拿到样机，应该也能支持）。
-&amp;emsp;&amp;emsp;先不管支不支持，如果你用的是合宙的模块，那都不妨一试，也许会有意外收获。
-...</p>
+  本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-05-06
+              2020-05-26
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/742/">
+            8、RDA8910CSDK二次开发：以tcp客户端的身份去勾搭服务端
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+  本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-05-26
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/383/">
+            Air724UG_模块硬件设计手册_V2.2
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>@[TOC]
+1. 绪论本文档定义了Air724UG模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air724UG模块于无线应用。
+2.综述2.1 型号信息表格1：模块支持频段列表
+
+
+
+型号
+Air724UG-NFM
+Air724UG-...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-05-26
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/741/">
+            7、RDA8910CSDK二次开发：通过DNS解析迈向互联网的第一步
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>目录点击这里查看所有博文
+  本系列博客所述资料均来自合宙官方，并不是本人原创（只有博客是自己写的），csdk只是得到了口头的允许公开授权。出于热心，本人将自己的所学笔记整理并推出相对应的使用教程，方面其他人学习。为国内的物联网事业发展尽自己的一份绵薄之力，没有为自己谋取私利的想法。若出现侵权现象，...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-05-25
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/740/">
+            720X系列模块 FTP常见用法
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>本教程以720H模块，V1446固件为例，测试FTP常见的3大用法1.模块上电开机后，基本查询如下：[15:56:42.592]发→◇AT+CPIN?              //查询模块SIM卡是否被识别[15:56:42.594]收←◆AT+CPIN?+CPIN: READYOK[15:56:...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-05-25
             </span>
           
         </div>
@@ -356,6 +366,13 @@ local keyName =  {  [“01”] = “1”,  [“02”] = “2”,  [“04”] = �
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

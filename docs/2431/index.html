@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>手把手教你写一个flask项目第二篇——数据库操作 [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">手把手教你写一个flask项目第二篇——数据库操作</h1>
+<article class="post markdown-style">
+  <h2 id="一、通过第三方包操作数据库"><a href="#一、通过第三方包操作数据库" class="headerlink" title="一、通过第三方包操作数据库"></a>一、通过第三方包操作数据库</h2><p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210128143220297_image.png" alt="image.png"><br>第一步，安装第三方包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pymysql</span><br></pre></td></tr></table></figure>
+<p>第二步，建立数据库链接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开数据库连接</span></span><br><span class="line">db = pymysql.connect(host=<span class="string">&#x27;****&#x27;</span>, user=<span class="string">&#x27;root&#x27;</span>, database=<span class="string">&#x27;****&#x27;</span>, password=<span class="string">&#x27;****&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>第三步，创建游标对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 cursor() 方法创建一个游标对象 cursor</span></span><br><span class="line">cursor = db.cursor()</span><br></pre></td></tr></table></figure>
+<p>第四步，执行sql</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 execute()  方法执行 SQL 查询</span></span><br><span class="line">cursor.execute(<span class="string">&quot;SELECT VERSION()&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 fetchone() 方法获取单条数据.</span></span><br><span class="line">data = cursor.fetchone()</span><br></pre></td></tr></table></figure>
+<p>第五步，关闭数据库链接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭数据库连接</span></span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+<p>但是，在flask项目中，我们并不这样做。因为使用第三方包直接操作sql会比较麻烦，还需要书写复杂的sql语句。对于写过sql的朋友都知道，稍微写错一点点，可能需要找很久才能找到错误位置。</p>
+<h2 id="二、通过flask-sqlalchemy操作数据库"><a href="#二、通过flask-sqlalchemy操作数据库" class="headerlink" title="二、通过flask sqlalchemy操作数据库"></a>二、通过flask sqlalchemy操作数据库</h2><p>第一步，通过flask配置mysql数据库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQLALCHEMY_DATABASE_URI=<span class="string">&#x27;mysql://%s:%s@%s/%s&#x27;</span> % (<span class="string">&quot;user&quot;</span>, <span class="string">&quot;password&quot;</span>, <span class="string">&quot;host&quot;</span>, <span class="string">&quot;database&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>第二步，创建数据库模型类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>(<span class="params">db.Model</span>):</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    username = db.Column(db.String(<span class="number">80</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    email = db.Column(db.String(<span class="number">120</span>), unique=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&lt;User %r&gt;&#x27;</span> % self.username</span><br></pre></td></tr></table></figure>
+<p>第三步，增改查</p>
+<p>新增一个用户</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/add_user/&lt;user_name&gt;&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>(<span class="params">user_name</span>):</span></span><br><span class="line">    db.create_all()</span><br><span class="line">    user_obj = User(username=user_name, age=<span class="number">18</span>)</span><br><span class="line">    db.session.add(user_obj)</span><br><span class="line">    db.session.commit()</span><br><span class="line">    <span class="keyword">return</span> make_response(jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;&#x27;</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>查询一个用户</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/query_user/&lt;query_str&gt;&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">query_user</span>(<span class="params">query_str</span>):</span></span><br><span class="line">    user_query_obj = User.query.<span class="built_in">filter</span>(User.username.like(<span class="string">&#x27;%&#x27;</span>+query_str+<span class="string">&#x27;%&#x27;</span>)).<span class="built_in">all</span>()</span><br><span class="line">    data = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> user_query_obj:</span><br><span class="line">        data.append(item.to_dict())</span><br><span class="line">    <span class="keyword">return</span> make_response(jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;data&#x27;</span>: data, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;&#x27;</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>修改一个用户</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/modify_user/&lt;user_id&gt;/&lt;new_name&gt;&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">modify_user</span>(<span class="params">user_id, new_name</span>):</span></span><br><span class="line">    user_query_obj = User.query.filter_by(<span class="built_in">id</span>=user_id).first()</span><br><span class="line">    user_query_obj.username = new_name</span><br><span class="line">    db.session.commit()</span><br><span class="line">    <span class="keyword">return</span> make_response(jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;&#x27;</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>源码<br><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20210128164403694_image.png" alt="image.png"></p>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>一、SQLALchemy 实际上是对数据库的抽象，让开发者不用直接和 SQL 语句打交道，而是通过 Python 对象来操作数据库，在舍弃一些性能开销的同时，换来的是开发效率的较大提升<br>二、解耦，面向不同数据库，使用相同的代码</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2439/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2430/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

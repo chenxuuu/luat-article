@@ -284,7 +284,7 @@ LUAT开发相关接口
 常见问题
 --------
 
-https://doc.luatos.wiki/638/ - SIM卡不识别 1.
+https://doc.luatos.wiki/638/ #### SIM卡不识别 1.
 首先要确认模块SIM引脚是否有硬件损坏，判断标准https://doc.luatos.wiki/634/
 造成硬件损坏的原因大部分是有带电插拔SIM卡的操作导致。务必杜绝带电插拔SIM卡，同时要在线路上加入TVS管保护。
 2.
@@ -293,6 +293,9 @@ AT+CFUN=1或net.switchFly(false) 来退出飞行模式.
 
 -  模块开机了，但是SIM卡VDD没有电压，是不不到卡。
    SIM卡的VDD在初始化SIM卡时会打开，并且进行初始化卡的动作，但是如果识别不到SIM卡，SIMVDD就会关闭，所以就会出现开机了但是SIMVDD没有电压的情况，而不是SIMVDD没有电压导致的不识别SIM卡
+   #### 新的流量卡需要激活吗？
+   一般是上电自动激活；合宙出售的物联网卡为纯流量卡，不支持语音和短信业务，必须去运营商办理实名认证的卡才能使用；合宙物联网卡相关问题可参考以下链接
+   https://doc.luatos.wiki/1477/
 
 .. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162008118_5.png
 .. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162307522_6.png

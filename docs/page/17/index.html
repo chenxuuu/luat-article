@@ -48,7 +48,7 @@
           
           
           
-          <a href="">关于</a>
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
         
       </div>
     </div>
@@ -63,22 +63,21 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1396/">
-            合宙cat1模块如何发送心跳包，看这一篇就够了
+          <a href="/1432/">
+            Erlang学习笔记/快速入门
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>本文适用于AT命令固件版本
-合宙CAT1模块有两种方式实现心跳包的发送：
-第一种：在TCP层实现这种方式是TCP协议层实现的，只适用于TCP链接。也就是说，这种实现方式不会对应用层的数据流产生任何影响，应用层也看不到心跳包的内容。
-这种实现方式叫做TCP保活（TCP Keep-Alive），由+CI...</p>
+            <p>Erlang学习笔记/快速入门Erlang比较神秘，小众。函数式编程。主要适用于服务器端长连接、高并发处理，最初是爱立信针对电信系统专门设计，公认很稳定、容错好，广泛用于通信系统。
+据说很多思想现在看来非常超前并且仍然超前并且不会过时。
+各种原因导致不流行（函数式编程不直观，思维方式跟主流语言有差别...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-21
+              2020-08-28
             </span>
           
         </div>
@@ -86,20 +85,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1392/">
-            iRTU 固件
+          <a href="/1431/">
+            基于Raect和antd的富文本编辑器braft-editor的使用
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>iRTU 固件下载：iRTU固件V1.8.11.zip
-固件说明：命名方式：iRTU_1.8.11_Luat_V0013_RDA8910_FLOAT.xxxiRTU             –&amp;gt; 项目名称1.8.11            –&amp;gt; 固件版本号Luat_V0013_RDA89...</p>
+            <p>123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-20
+              2020-08-28
             </span>
           
         </div>
@@ -107,20 +105,19 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1391/">
-            720UG/720UH/724UG量产烧录教程
+          <a href="/1427/">
+            [RDA8910 CSDK系列]air724ug差分fota之证实-附带ota简要流程分析
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>1.烧录前准备1.1 一拖N量产夹具（带boot键）1.2 直流稳压源1.3 待烧录模块1.4 此处下载量产烧录工具1.5 此处下载固件合成工具luatoolsV21.6 点此处下载usb驱动usb_driver.rar
-2.luatoolsv2合成固件2.1 下载软件工具luatoolsV2，并更...</p>
+            <p>这两天在学习csdk系统，昨晚销售小哥给了一个链接：https://doc.luatos.wiki/1416/&amp;nbsp;其中零妖大佬说了关于cat1 差分升级的事。 本着求实的精神，就很像知道确凿的证据，最好有代码或者数据的依据。所以今天特意准备了下评估板子，看看能不能拿到些直观的线索。第一个想到...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-20
+              2020-08-27
             </span>
           
         </div>
@@ -128,30 +125,86 @@
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1382/">
-            Air722UG_模块硬件设计手册_V1.0
+          <a href="/1425/">
+            antd-Table注意事项
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>@[TOC]
-1. 绪论本文档定义了Air722UG模块及其硬件接口规范，电气特性和机械细节，通过此文档的帮助，结合我们的应用手册和用户指导书，客户可以快速应用Air722UG模块于无线应用。
-2.综述2.1 型号信息
+            <p>使用antd中Table组件时，处理数据实现合并/编辑遇到的问题antd版本 : v4框架：antd pro/其他适用人群：“涉世未深”的小伙伴，初次体验数据合并/拆分展示在对应表格，效果图如下：
+下面就以我遇到的问题和数据作为一个small demo:从后台拿到数据：data
+1234567891...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-08-27
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/1424/">
+            [RDA8910 CSDK系列] 进展，持续更新中
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>2020.11.27中间因为支援其他项目一段时间忙别的去了，进展比较慢，但是还是按照既定计划在进行。目前通过vat架构，搭建了一套自己的exat（extended at）代码架构，vat支持的指令，就直接通过vat直接透传，不支持的自己实现，从而可以实现原有2g主控mcu代码基本不用大动的情况下，在...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-08-27
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/1423/">
+            doc入门手册（未完成）
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1 doc社区是什么...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2020-08-27
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/1422/">
+            CSS学习--选择器
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>CSS选择器要想将CSS样式应用于特定的HTML元素，首先需要找到该目标元素。在CSS中，执行这一任务的样式规则部分被称为选择器（选择符）。
 
-
-型号
-Air722UG-NFM
-Air722UG-NFC
-
-
-
-LTE-FD...</p>
+如上图所以，要把里面的小黄人分为2组，最快的方法怎办？  
+很多， 比如 一只眼睛的一组，剩下的一组  
+这就用到基础选择器组：
+标签选择器（元素选择器）标...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-18
+              2020-08-26
             </span>
           
         </div>
@@ -159,21 +212,19 @@ LTE-FD...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1379/">
-            如何在合宙LTE模块开发板上验证SIM卡热插拔功能
+          <a href="/1416/">
+            AIR724 UG 阿里云 OTA 必须差分升级
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>SIM卡热插拔检测功能是指模块开机后SIM插上或拔去，模块能够检测判断SIM卡是否在位。
-客户使用合宙LTE模块开发的产品如果需要具备热插拔功能，需要在硬件和软件上都具备相应的条件：
-1）在硬件上，需要USIM_CD（USIM Card Detect）这个引脚与SIM卡座的SW（即SWITCH）连接...</p>
+            <p>1，针对老司机写的。首先需要自行学习LUAT开发架构，学会将设备注册到阿里云，并成功收发数据。之前用2G和CAT4模块都是整包升级，CAT仅支持差分升级，这点差异较大。所以分享一下经验，避免其他开发者掉坑。2，代码中需要引入&amp;nbsp;&#34;aLiYunOta&#34; 。强烈建议重命名一下固件版本号，如截图所...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-17
+              2020-08-25
             </span>
           
         </div>
@@ -181,19 +232,19 @@ LTE-FD...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1368/">
-            Air302 NB表计类产品开发指南
+          <a href="/1414/">
+            doc社区的产品定义更新
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>标题：Air302 NB表计类产品开发指南王正伟 13959192997（微信）--------------------------------------------------------------------------------版本更新：V0.1 2020.08.16 周日，说明：本文档...</p>
+            <p>一、专家功能1， 点击专家，可以列出这个专家的所有文章，以及问答；2，按照文章数量，给出专家的排名；3，按照阅读量，给出专家排名。二、常用开发工具1，差分包工具已经启用；2，讨论一下还有什么工具可以启用（阻容计算工具，lua在线模拟）...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-16
+              2020-08-25
             </span>
           
         </div>
@@ -201,80 +252,19 @@ LTE-FD...</p>
     
       <div class="article-item">
         <h2 class="article-item-header">
-          <a href="/1364/">
-            蓝牙需求调查
+          <a href="/1410/">
+            内存泄漏分析工具
           </a>
         </h2>
         <div class="article-item-content">
           
-            <p>未来两个月cat1将会推出蓝牙功能，大家希望通过蓝牙实现哪些功能呢？数据透传蓝牙耳机ibeacon。。。。欢迎大家留言提出自己对蓝牙的需求，我们会广泛听取大家的意见，完善好我们的产品。...</p>
+            <p>内存泄漏分析工具前言:​            长期以来，内存泄漏分析起来是比较痛疼并且耗时。如果不知道程序跑了那些应用，或者程序应用比较复杂，尤其难分析。目前我们分析内存泄漏的方法是通过dump 堆文件，然后从中找出蛛丝马迹，可是这个堆文件打印出来的函数调用有几万次，很难通过对比发现问题，基于这个...</p>
           
         </div>
         <div class="atricle-item-time">
           
             <span>
-              2020-08-15
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/1363/">
-            Air724UG CSDK socket连接前的准备
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>![](http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200815112907421_Air724UG CSDK网络连接流程.png)
-一、通信前的准备1.1，初始化网络跟踪用来设置网络状态主动上报，设置后当网...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-08-15
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/1357/">
-            8910-CAT1音频参数更新方法
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>音频参数下载.rar声明: 此工具可以对CAT1音频参数更新，用于研发调试或者小批量音频参数下载。&amp;nbsp;音频下载工具包括两个部分：&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;AudioCalibrator_V2.3.7 是下载工...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-08-14
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/1354/">
-             LuatOS@Air302 发行版：V0003 预览测试版(202000908)
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-08-14
+              2020-08-24
             </span>
           
         </div>
@@ -356,6 +346,13 @@ LTE-FD...</p>
 		
 			
 		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
 			
 		
 			

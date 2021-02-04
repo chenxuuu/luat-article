@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>MIT 6.S081 操作系统课程系列5 lazy page allocation [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">MIT 6.S081 操作系统课程系列5 lazy page allocation</h1>
+<article class="post markdown-style">
+  <h1 id="MIT-6-S081-操作系统课程系列5-lazy-page-allocation"><a href="#MIT-6-S081-操作系统课程系列5-lazy-page-allocation" class="headerlink" title="MIT 6.S081 操作系统课程系列5 lazy page allocation"></a>MIT 6.S081 操作系统课程系列5 lazy page allocation</h1><hr>
+<p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/labs/lazy.html">https://pdos.csail.mit.edu/6.828/2020/labs/lazy.html</a><br>本次实验需要读xv6手册第4章，主要是4.6缺页异常。看相关kernel代码。<br>实现lazy分配。</p>
+<hr>
+<h2 id="缺页异常"><a href="#缺页异常" class="headerlink" title="缺页异常"></a>缺页异常</h2><ul>
+<li><p>xv6下，如果异常发生在user空间，kernel会kill异常的进程。<br>如果发生在kernel空间，报panic。</p>
+</li>
+<li><p>实用的操作系统通常会有其他操作。很多系统会用缺页异常来实现copy-on-write(COW) fork。<br>fork以后子进程会复制一份父进程的内存数据，如果父子能共享这份内存就会更高效，但是直接共享肯定会造成数据混乱。</p>
+</li>
+<li><p>copy-on-write fork能通过缺页来实现安全的共享内存。<br>当cpu转换虚拟地址到物理地址失败时会产生一个缺页异常。<br>riscv有三种缺页异常：</p>
+<ol>
+<li>加载缺页(加载指令无法转换地址)</li>
+<li>存储缺页(存储指令无法转换地址)</li>
+<li>指令缺页(地址无法转换)</li>
+</ol>
+</li>
+<li><p>异常时scause寄存器存了缺页类型，stval存了无法转换的地址。</p>
+</li>
+</ul>
+<h2 id="COW-fork"><a href="#COW-fork" class="headerlink" title="COW fork"></a>COW fork</h2><ul>
+<li><p>fork时首先父子进程会共享所有物理内存，但是标记为只读。当父或子发起存储操作，会报缺页异常。<br>kernel各复制一份缺页地址的数据(可读可写)到父子进程。<br>更新各自页表，回滚到之前导致缺页的指令，再执行一次并继续。</p>
+</li>
+<li><p>这样的COW对fork是实用的，因为子进程通常在fork后马上调用exec，新起地址空间。子进程只会出少数几次缺页，kernel也不用进行整个复制。<br>而且COW是透明的，应用程序不用做任何修改。</p>
+</li>
+<li><p>页表和缺页还有其他玩法，比如lazy allocation。</p>
+<ol>
+<li>程序调用sbrk时。kernel扩大地址空间，但不实际分配内存和更新页表。</li>
+<li>当这些地址上出缺页异常时，kernel才实际分配内存并更新页表。<br>因为应用程序经常过多地申请内存，所以这样做很实用。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="做题"><a href="#做题" class="headerlink" title="做题"></a>做题</h2><h3 id="本次实验从sbrk开始做一系列修改，最终实现lazy分配。"><a href="#本次实验从sbrk开始做一系列修改，最终实现lazy分配。" class="headerlink" title="本次实验从sbrk开始做一系列修改，最终实现lazy分配。"></a>本次实验从sbrk开始做一系列修改，最终实现lazy分配。</h3><ol>
+<li>如果扩大内存，sbrk的n大于0。去掉growproc，直接更新sz。</li>
+<li>usertrap(trap.c)里r_scause()为13或15时是缺页异常。r_stval()获取缺页的地址。</li>
+<li>缺页时模拟一下growproc的流程，即uvmalloc里，先分配一页内存，再做好映射。</li>
+<li>uvmunmap里PTE无效时直接continue，不再panic。</li>
+</ol>
+<p>到此echo可以正常完成。</p>
+<ol start="5">
+<li>如果缩小内存，sbrk的n小于0。走原始的growproc(n)。</li>
+<li>如果缺页地址大于进程的sz，设为killed。</li>
+<li>缺页分配内存时如果失败，设为killed。</li>
+<li>fork的uvmcopy里如果PTE无效直接continue，不再panic。</li>
+</ol>
+<h2 id="lazytests"><a href="#lazytests" class="headerlink" title="lazytests"></a>lazytests</h2><p>测试程序lazytests有三个函数sparse_memory，sparse_memory_unmap，oom。</p>
+<ul>
+<li><p><strong>sparse_memory</strong><br>先分配1G内存，不实际分配，只改sz。<br>再挑其中一部分地址写数据。<br>再读数据验证是否等于写入的值。</p>
+</li>
+<li><p>执行lazytests会出<strong>panic: uvmunmap: walk</strong><br>用之前做的backtrace定位为lazytests.c里的run fork并运行sparse_memory后，wait-&gt;freeproc-&gt;proc_freepagetable-&gt;uvmfree-&gt;uvmunmap。<br>回收子进程页表时walk转换虚拟地址出错，也就是这个虚拟地址没做映射。<br>回收页表是按p-&gt;sz来的，因为是lazy造成根本没分配内存页没做映射，强行回收就出错了。</p>
+</li>
+<li><p>*<code>把这个panic改成continue。可过sparse_memory。</code>**</p>
+</li>
+<li><p><strong>sparse_memory_unmap</strong><br>出现panic: uvmcopy: page not present<br>sparse_memory_unmap先lazy分配1G内存。<br>再对部分地址写数据。再对每个写数据的地址i起子进程。子进程sbrk减小1G内存，并对i写数据。<br>因为开始分配的1G是假的，所以fork时按sz复制的话，uvmcopy就找不到地址的映射。</p>
+</li>
+<li><p>*<code>把panic改为continue即可。</code>**</p>
+</li>
+</ul>
+<p>此时lazytests可过</p>
+<h2 id="usertests测试"><a href="#usertests测试" class="headerlink" title="usertests测试"></a>usertests测试</h2><ul>
+<li><p>sbrkarg写文件失败<br>sbrkarg先分配一页内存，open一个文件，再往文件写一页数据。<br>跟踪到最后是走了copyin，因为是假的分配，相应的地址没有页表数据，所以copyin的walkaddr返回了0导致整个失败。</p>
+</li>
+<li><p>*<code>walkaddr返回0时分配一下内存，做映射，拿到物理地址即可。</code>**</p>
+</li>
+<li><p>sbrkarg的pipe测试仍然失败。<br>跟踪发现是sys_pipe的copyout失败，跟copyin一样walkaddr失败。</p>
+</li>
+<li><p>*<code>跟copyin一样修改即可。</code>**</p>
+</li>
+<li><p>再运行usertests。copyin失败。<br>copyin/copyout里不能无脑分配，因为确实会有非法地址的情况，至少得有个简单的保护。</p>
+</li>
+<li><p>*<code>可以用p-&gt;sz来做限制。</code>**</p>
+</li>
+<li><p>再运行usertests。argptest失败。<br>panic: freewalk: leaf<br>回收页表时PTE的映射数据没有事先被清除。也就是unmap没做好。</p>
+<p>跟踪代码，fork时uvmcopy复制了17页数据，从0到0x0000000000010000。<br>再从sbrk(0) - 1(0x0000000000010fff)读数据，最后readi里用copyout复制数据。<br>问题出在copyout里实时分配和映射的边界判断。<br>从0x0000000000010fff读超过一页的数据，那么末尾已经超出了进程的sz，这时错误地进行了分配和映射，导致映射了sz以外的地址，那么unmap时就删不掉这个多出来的映射，最后回收页表时就会panic。</p>
+</li>
+<li><p>*<code>copyout/copyin里如果va0 &gt;= p-&gt;sz就返回-1，不要分配了，这样就不会超出sz。之前用的va0 &gt; p-&gt;sz所以出问题。</code>**</p>
+</li>
+<li><p>stacktest: panic: remap<br>stacktest会读sp指针下面一页地址的数据，这个地址在页表里是没有的，这里不能无脑分配并映射，因为sp以下的地址是不合法的。</p>
+</li>
+<li><p>*<code>需要判断一下stack pointer的起始地址(p-&gt;trapframe-&gt;sp)，小于这个地址的缺页是非法的，设置为killed。</code>**<br>这也是课程的最后一个提示。</p>
+</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>lazytests和usertests必须都通过才算完成。</li>
+<li>需要理解内存分配、页表的原理。</li>
+<li>理解原理的基础上仔细看代码调代码。</li>
+<li>看懂测试代码。</li>
+<li>之前实验做的backtrace非常香  (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2020/labs/traps.html">https://pdos.csail.mit.edu/6.828/2020/labs/traps.html</a>)</li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2426/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2420/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

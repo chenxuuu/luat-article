@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>ECMAScript(ES6)基本语法介绍（二） [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">ECMAScript(ES6)基本语法介绍（二）</h1>
+<article class="post markdown-style">
+  <h2 id="3-解构赋值"><a href="#3-解构赋值" class="headerlink" title="3.解构赋值"></a>3.解构赋值</h2><blockquote>
+<p>允许按照一定模式，从数组和对象中提取值，并对变量进行赋值，这被称为解构赋值</p>
+</blockquote>
+<ol>
+<li><p><strong>数组解构赋值</strong></p>
+<blockquote>
+<p>顺序对应</p>
+<p><code>let [a, b, c] = [1, 2, 3];</code></p>
+</blockquote>
+</li>
+<li><p><strong>对象解构赋值</strong></p>
+<blockquote>
+<p>key 值对应</p>
+<p><code>let &#123; foo, bar &#125; = &#123; foo: &quot;aaa&quot;, bar: &quot;bbb&quot; &#125;</code></p>
+</blockquote>
+</li>
+<li><p><strong>解构赋值——别名</strong></p>
+<blockquote>
+<p>foo: 原始名称</p>
+<p>f：别名</p>
+<p><code>let &#123; foo: f, bar: b &#125; = &#123; foo: &quot;aaa&quot;, bar: &quot;bbb&quot; &#125;</code></p>
+</blockquote>
+</li>
+<li><p><strong>多重解构</strong></p>
+<blockquote>
+<p><code>let &#123; foo: [a, b] &#125; = &#123; foo: [10,20], bar: &quot;bbb&quot; &#125;</code></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="4-扩展运算符"><a href="#4-扩展运算符" class="headerlink" title="4.扩展运算符"></a>4.扩展运算符</h2><blockquote>
+<p>把数组/对象转成参数序列（使用逗号分隔的序列）</p>
+<p><code>[&#39;a,&#39;b&#39;,&#39;c&#39;] =&gt; &#39;a&#39;,&#39;b&#39;,&#39;c&#39;</code>相当于去除数组的中括号</p>
+<p><code>&#123;left:100, top:200&#125; =&gt; left: 100, top: 200</code>相当于去除大括号</p>
+</blockquote>
+<ul>
+<li><p>案例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 合并数组</span><br><span class="line">var arr1 &#x3D; [1,7,3,6,2];</span><br><span class="line">   var arr2 &#x3D; [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;];</span><br><span class="line">   console.log( [...arr1, &#39;maiov&#39;, ...arr2] );  </span><br><span class="line">  </span><br><span class="line">&#x2F;&#x2F; 合并对象</span><br><span class="line">    let obj1 &#x3D; &#123;left:100, top: 200&#125;;</span><br><span class="line">    let obj2 &#x3D; &#123;width: 200, height: 200&#125;;</span><br><span class="line">  </span><br><span class="line">    let obj3&#x3D; &#123;</span><br><span class="line">      ...obj1,</span><br><span class="line">      ...obj2</span><br><span class="line">     &#125;;</span><br><span class="line">  console.log(obj3);</span><br></pre></td></tr></table></figure>
+<h2 id="5-迭代"><a href="#5-迭代" class="headerlink" title="5.迭代"></a>5.迭代</h2></li>
+</ul>
+<ol>
+<li><p>迭代协议</p>
+<ul>
+<li><p>规定了迭代与实现的逻辑</p>
+</li>
+<li><p><strong>基本结构</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;&#x2F; 迭代协议</span><br><span class="line">obj[Symbol.iterator] &#x3D; function () &#123;</span><br><span class="line">     return &#123;</span><br><span class="line">       next: function () &#123; &#x2F;&#x2F; 迭代函数必须的</span><br><span class="line">         return &#123;</span><br><span class="line">           value: &#39;&#39; &#x2F;&#x2F; 迭代输出值</span><br><span class="line">           done: true | faslse  &#x2F;&#x2F; 是否结束迭代</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>迭代器</p>
+<ul>
+<li><p>具体的迭代实现逻辑,即 [Symbol.iterator]方法</p>
+<blockquote>
+<p><strong>输出结果</strong>：left 100</p>
+<p> top 200</p>
+</blockquote>
+</li>
+<li><p><strong>实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">    * 迭代对象</span><br><span class="line">    *   实现了迭代器的对象</span><br><span class="line">    *   迭代器：方法 [Symbol.iterator]</span><br><span class="line">    *&#x2F;</span><br><span class="line"></span><br><span class="line">    var obj &#x3D; &#123;</span><br><span class="line">      left: 100,</span><br><span class="line">      top: 200</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 迭代协议</span><br><span class="line">    &#x2F;&#x2F; 自定义迭代条件，以及返回值</span><br><span class="line">    obj[Symbol.iterator] &#x3D; function () &#123;</span><br><span class="line">      let keys &#x3D; Object.keys(obj); &#x2F;&#x2F; 获取对象的key值，返回一个数组</span><br><span class="line">      let len &#x3D; keys.length;</span><br><span class="line">      let n &#x3D; 0;</span><br><span class="line">      return &#123;</span><br><span class="line">        next: function () &#123; &#x2F;&#x2F; 迭代函数必须的</span><br><span class="line">          if (n &lt; len) &#123; &#x2F;&#x2F; 迭代条件</span><br><span class="line">            return &#123;</span><br><span class="line">              value: &#123; k: keys[n], v: obj[keys[n++]] &#125;,&#x2F;&#x2F; 迭代输出的值，此处的n++的含义是先输出obj[keys[n]]的值，然后在n++</span><br><span class="line">              done: false &#x2F;&#x2F; false代表还需继续迭代</span><br><span class="line">            &#125;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            return &#123;</span><br><span class="line">              done: true</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; obj[Symbol.iterator]().next() &#x3D;&gt; &#123;done: true&#125;</span><br><span class="line">    for (var &#123; k, v &#125; of obj) &#123; &#x2F;&#x2F;of 是一个可迭代的对象</span><br><span class="line">      console.log(k, v);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>迭代对象</p>
+<ul>
+<li>可被迭代的对象，含有 [Symbol.iterator]方法的对像</li>
+</ul>
+</li>
+<li><p>迭代语句</p>
+<ul>
+<li><p>for…in：以原始插入的顺序迭代对象的可枚举属性</p>
+<blockquote>
+<p>输出结果：0， 1， 2</p>
+</blockquote>
+</li>
+<li><p><strong>实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var arry &#x3D; [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;];</span><br><span class="line">    for(var attr i arry)&#123;</span><br><span class="line">      console.log(attr);</span><br><span class="line">    &#125;</span><br><span class="line"> &lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>for…of：根据迭代对象的迭代器具体实现迭代对象数据</p>
+<blockquote>
+<p>输出结果：a， b， c</p>
+</blockquote>
+</li>
+<li><p><strong>实例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var arry &#x3D; [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;];</span><br><span class="line">    for(var attr of arry)&#123;</span><br><span class="line">      console.log(attr);</span><br><span class="line">    &#125;</span><br><span class="line"> &lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2457/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2449/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

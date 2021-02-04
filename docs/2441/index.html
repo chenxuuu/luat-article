@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>一行代码js [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">一行代码js</h1>
+<article class="post markdown-style">
+  <p>1.创建一个长度为n的数组，默认值均为0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; new Array(n).fill(0)&#x2F;&#x2F;不赋值的话均为undefined</span><br></pre></td></tr></table></figure>
+<p>2.反转字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const reverse &#x3D; str &#x3D;&gt; str.split(&#39;&#39;).reverse().join(&#39;&#39;);</span><br><span class="line">reverse(&#39;hello luat&#39;); &#x2F;&#x2F; taul olleh</span><br></pre></td></tr></table></figure>
+<p>3.保留小数点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const toFixed &#x3D; (number, slice) &#x3D;&gt; ~~(Math.pow(10, slice) * number) &#x2F; Math.pow(10, slice);</span><br><span class="line">        console.log(toFixed(623.56848612, 1))&#x2F;&#x2F;623.5</span><br><span class="line">        console.log(toFixed(623.56848612, 3))&#x2F;&#x2F;623.568</span><br></pre></td></tr></table></figure>
+<p>4.获取所有参数平均值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const average &#x3D; (...args) &#x3D;&gt; args.reduce((a, b) &#x3D;&gt; a + b) &#x2F; args.length;</span><br><span class="line">        console.log(average(1, 2, 3, 4, 8)); &#x2F;&#x2F;3.6</span><br><span class="line">                  &#x2F;*reduce这个函数需要好好看看*&#x2F;</span><br></pre></td></tr></table></figure>
+<p>5.获取一个随机布尔值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const randomBoolean &#x3D; () &#x3D;&gt; Math.random() &gt;&#x3D; 0.5;</span><br><span class="line">console.log(randomBoolean());</span><br></pre></td></tr></table></figure>
+<p>6.获取页面的所有元素，并使用随机的颜色向其应用1 px的轮廓，<a target="_blank" rel="noopener" href="http://arqex.com/939/learning-much-javascript-one-line-code" title="原文地址">原文地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[].forEach.call($$(&quot;*&quot;),function(a)&#123;</span><br><span class="line">  a.style.outline&#x3D;&quot;1px solid #&quot;+(~~(Math.random()*(1&lt;&lt;24))).toString(16)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>by the way,看见一行很变态的代码，想要深究一下的朋友点击<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lvdabao/p/4280518.html" title="这里">这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(!(~+[])+&#123;&#125;)[--[~+&quot;&quot;][+[]]*[~+[]] + ~~!+[]]+(&#123;&#125;+[])[[~!+[]]*~+[]]</span><br></pre></td></tr></table></figure>
+<p>注：以上部分代码来源网络。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2442/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2439/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

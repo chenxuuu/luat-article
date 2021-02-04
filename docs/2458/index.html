@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>TypeScript之配置文件(tsconfig.json) [ Luat doc 社区文章静态页面 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="https://iot.openluat.com/assets/img/logo.jpg"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">首页</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">归档</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="https://doc.luatos.wiki/wiki/">关于</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">TypeScript之配置文件(tsconfig.json)</h1>
+<article class="post markdown-style">
+  <h2 id="再续前缘"><a href="#再续前缘" class="headerlink" title="再续前缘"></a>再续前缘</h2><p>之前已经对ts进行了一个基础的认识，ta的基本类型以及声明方式，同时也对接口这个概念进行了一个简单的说明。那和用其他语言进行项目开发的时候，也是存在进行文件编译配置的。</p>
+<h2 id="初识tsconfig-json文件"><a href="#初识tsconfig-json文件" class="headerlink" title="初识tsconfig.json文件"></a>初识tsconfig.json文件</h2><p>以自己当前实际项目为例，你可以通过命令行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --init   &#x2F;&#x2F;初始化一个编译配置文件</span><br></pre></td></tr></table></figure>
+<p>运行完成之后，就能看到一个tsconfig.json文件，这个用于编译配置。简单看一下(下面看一下我现在的编译配置)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x2F;&#x2F; &quot;files&quot;: [&quot;demo.ts&quot;],</span><br><span class="line">  &#x2F;&#x2F; &quot;exclude&quot;: [&quot;demo.ts&quot;],</span><br><span class="line">  &#x2F;&#x2F; &quot;include&quot;: [&quot;demo.ts&quot;],</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    &#x2F;* Visit https:&#x2F;&#x2F;aka.ms&#x2F;tsconfig.json to read more about this file *&#x2F;</span><br><span class="line">    </span><br><span class="line">    &#x2F;* Basic Options *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;incremental&quot;: true,                   &#x2F;* Enable incremental compilation *&#x2F;</span><br><span class="line">    &quot;target&quot;: &quot;es5&quot;,                          &#x2F;* Specify ECMAScript target version: &#39;ES3&#39; (default), &#39;ES5&#39;, &#39;ES2015&#39;, &#39;ES2016&#39;, &#39;ES2017&#39;, &#39;ES2018&#39;, &#39;ES2019&#39;, &#39;ES2020&#39;, or &#39;ESNEXT&#39;. *&#x2F;</span><br><span class="line">    &quot;module&quot;: &quot;commonjs&quot;,                     &#x2F;* Specify module code generation: &#39;none&#39;, &#39;commonjs&#39;, &#39;amd&#39;, &#39;system&#39;, &#39;umd&#39;, &#39;es2015&#39;, &#39;es2020&#39;, or &#39;ESNext&#39;. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;lib&quot;: [],                             &#x2F;* Specify library files to be included in the compilation. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;allowJs&quot;: true,                       &#x2F;* Allow javascript files to be compiled. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;checkJs&quot;: true,                       &#x2F;* Report errors in .js files. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;jsx&quot;: &quot;preserve&quot;,                     &#x2F;* Specify JSX code generation: &#39;preserve&#39;, &#39;react-native&#39;, or &#39;react&#39;. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;declaration&quot;: true,                   &#x2F;* Generates corresponding &#39;.d.ts&#39; file. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;declarationMap&quot;: true,                &#x2F;* Generates a sourcemap for each corresponding &#39;.d.ts&#39; file. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;sourceMap&quot;: true,                     &#x2F;* Generates corresponding &#39;.map&#39; file. *&#x2F;</span><br><span class="line">    &quot;rootDir&quot;:&quot;.&#x2F;src&quot;,   &#x2F;&#x2F;ts文件</span><br><span class="line">    &quot;outDir&quot;:&quot;.&#x2F;build&quot;, &#x2F;&#x2F;编译后的文件</span><br><span class="line">    &#x2F;&#x2F; &quot;outFile&quot;: &quot;.&#x2F;&quot;,                       &#x2F;* Concatenate and emit output to single file. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;outDir&quot;: &quot;.&#x2F;&quot;,                        &#x2F;* Redirect output structure to the directory. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;rootDir&quot;: &quot;.&#x2F;&quot;,                       &#x2F;* Specify the root directory of input files. Use to control the output directory structure with --outDir. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;composite&quot;: true,                     &#x2F;* Enable project compilation *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;tsBuildInfoFile&quot;: &quot;.&#x2F;&quot;,               &#x2F;* Specify file to store incremental compilation information *&#x2F;</span><br><span class="line">    &quot;removeComments&quot;: true,                &#x2F;* Do not emit comments to output. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noEmit&quot;: true,                        &#x2F;* Do not emit outputs. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;importHelpers&quot;: true,                 &#x2F;* Import emit helpers from &#39;tslib&#39;. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;downlevelIteration&quot;: true,            &#x2F;* Provide full support for iterables in &#39;for-of&#39;, spread, and destructuring when targeting &#39;ES5&#39; or &#39;ES3&#39;. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;isolatedModules&quot;: true,               &#x2F;* Transpile each file as a separate module (similar to &#39;ts.transpileModule&#39;). *&#x2F;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Strict Type-Checking Options *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;strict&quot;: true,                           &#x2F;* Enable all strict type-checking options. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noImplicitAny&quot;: true,                 &#x2F;* Raise error on expressions and declarations with an implied &#39;any&#39; type. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;strictNullChecks&quot;: true,              &#x2F;* Enable strict null checks. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;strictFunctionTypes&quot;: true,           &#x2F;* Enable strict checking of function types. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;strictBindCallApply&quot;: true,           &#x2F;* Enable strict &#39;bind&#39;, &#39;call&#39;, and &#39;apply&#39; methods on functions. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;strictPropertyInitialization&quot;: true,  &#x2F;* Enable strict checking of property initialization in classes. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noImplicitThis&quot;: true,                &#x2F;* Raise error on &#39;this&#39; expressions with an implied &#39;any&#39; type. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;alwaysStrict&quot;: true,                  &#x2F;* Parse in strict mode and emit &quot;use strict&quot; for each source file. *&#x2F;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Additional Checks *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noUnusedLocals&quot;: true,                &#x2F;* Report errors on unused locals. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noUnusedParameters&quot;: true,            &#x2F;* Report errors on unused parameters. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noImplicitReturns&quot;: true,             &#x2F;* Report error when not all code paths in function return a value. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noFallthroughCasesInSwitch&quot;: true,    &#x2F;* Report errors for fallthrough cases in switch statement. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;noUncheckedIndexedAccess&quot;: true,      &#x2F;* Include &#39;undefined&#39; in index signature results *&#x2F;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Module Resolution Options *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;moduleResolution&quot;: &quot;node&quot;,            &#x2F;* Specify module resolution strategy: &#39;node&#39; (Node.js) or &#39;classic&#39; (TypeScript pre-1.6). *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;baseUrl&quot;: &quot;.&#x2F;&quot;,                       &#x2F;* Base directory to resolve non-absolute module names. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;paths&quot;: &#123;&#125;,                           &#x2F;* A series of entries which re-map imports to lookup locations relative to the &#39;baseUrl&#39;. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;rootDirs&quot;: [],                        &#x2F;* List of root folders whose combined content represents the structure of the project at runtime. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;typeRoots&quot;: [],                       &#x2F;* List of folders to include type definitions from. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;types&quot;: [],                           &#x2F;* Type declaration files to be included in compilation. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;allowSyntheticDefaultImports&quot;: true,  &#x2F;* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. *&#x2F;</span><br><span class="line">    &quot;esModuleInterop&quot;: true,                  &#x2F;* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies &#39;allowSyntheticDefaultImports&#39;. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;preserveSymlinks&quot;: true,              &#x2F;* Do not resolve the real path of symlinks. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;allowUmdGlobalAccess&quot;: true,          &#x2F;* Allow accessing UMD globals from modules. *&#x2F;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Source Map Options *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;sourceRoot&quot;: &quot;&quot;,                      &#x2F;* Specify the location where debugger should locate TypeScript files instead of source locations. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;mapRoot&quot;: &quot;&quot;,                         &#x2F;* Specify the location where debugger should locate map files instead of generated locations. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;inlineSourceMap&quot;: true,               &#x2F;* Emit a single file with source maps instead of having a separate file. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;inlineSources&quot;: true,                 &#x2F;* Emit the source alongside the sourcemaps within a single file; requires &#39;--inlineSourceMap&#39; or &#39;--sourceMap&#39; to be set. *&#x2F;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Experimental Options *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;experimentalDecorators&quot;: true,        &#x2F;* Enables experimental support for ES7 decorators. *&#x2F;</span><br><span class="line">    &#x2F;&#x2F; &quot;emitDecoratorMetadata&quot;: true,         &#x2F;* Enables experimental support for emitting type metadata for decorators. *&#x2F;</span><br><span class="line"></span><br><span class="line">    &#x2F;* Advanced Options *&#x2F;</span><br><span class="line">    &quot;skipLibCheck&quot;: true,                     &#x2F;* Skip type checking of declaration files. *&#x2F;</span><br><span class="line">    &quot;forceConsistentCasingInFileNames&quot;: true  &#x2F;* Disallow inconsistently-cased references to the same file. *&#x2F;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是初始化的ts配置文件，可以看到有很多的相关配置，说一下初级阶段常用的有哪些呢?</p>
+<h3 id="json最外层属性"><a href="#json最外层属性" class="headerlink" title=".json最外层属性"></a>.json最外层属性</h3><h4 id="include"><a href="#include" class="headerlink" title="include"></a>include</h4><p>项目目录下哪些文件是需要进行编译的，路径表示：<br><code>[&quot;./项目自定义文件夹/**/*&quot;]</code>  </p>
+<ul>
+<li>**：表示目标文件夹</li>
+<li>*：表示目标文件夹下的所有文件</li>
+</ul>
+<p>ps：这里只是对ts文件进行编译o</p>
+<h4 id="exclude"><a href="#exclude" class="headerlink" title="exclude"></a>exclude</h4><p>项目目录下哪些文件是需要进行编译的，路径表示：<br><code>[&quot;./项目自定义文件夹/**/*&quot;]</code>  和include相似，功能相反；<br>“exclude”默认情况下会排除node_modules，bower_components，jspm_packages和<outDir>目录。等还有很多，不需要进行编译的文件</p>
+<h4 id="compilerOptions"><a href="#compilerOptions" class="headerlink" title="compilerOptions"></a>compilerOptions</h4><p>该属性为编译器选项，<strong>重要的是ta下的子属性</strong>是你编译时所需要进行配置的；可以看到初始化文件下是存在很多的，简单说明一下：</p>
+<ul>
+<li><p>target: “es2015”        //ts编译成的js版本  如果你灭有进行配置* 默认值为：”es3”</p>
+</li>
+<li><p>module: “”                 //模块化规范设置  默认es2015,一般也不修改</p>
+</li>
+<li><p>outDir: “./dist”           //输出目录  设置编译后的文件所在的目录</p>
+</li>
+<li><p>rootDir:””                  //目标文件目录</p>
+</li>
+<li><p>outFile:”./dist/xxx”   //设置将所有编译后文件合并</p>
+</li>
+<li><p>lib: “”                       //项目所需使用的库  通常不设置，使用默认值</p>
+</li>
+<li><p>“allowJs”:true           //是否允许对写入js文件进行编译</p>
+</li>
+<li><p>“checkJs”:true          //检查js文件是否符合模块化规范</p>
+</li>
+<li><p>“removeComments” :true  //编译后的文件是否移除注释</p>
+</li>
+<li><p>“noEmit”:true          //不生成编译后的文件，默认为false</p>
+</li>
+<li><p>“noEmitOnError”:true //报错后不生成编译文件</p>
+</li>
+<li><p>“strict”: true            //是否启用严格  建议设置为true</p>
+</li>
+<li><p>“alwaysStrict”:false   //编译文件是否使用严格模式</p>
+</li>
+<li><p>“noImplicitAny”:true   //不允许隐式类型any</p>
+</li>
+<li><p>“noImplicitThis”:false //不允许不明确类型的this</p>
+</li>
+<li><p>“strictNullChecks”:false  //严格是否为空</p>
+</li>
+</ul>
+<p>详细请去<a target="_blank" rel="noopener" href="https://www.tslang.cn/docs/handbook/compiler-options.html" title="官网编译选项">官网编译选项</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2492/">上一篇</a>
+    
+
+    
+    <p>上次更新 2021-02-04</p>
+    
+    
+        <a class="extend next post-next" href="/2457/">下一篇</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<i class="fa fa-stack-overflow"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/openluat" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 仅供搜索引擎收录使用 2017 - 2021
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>
