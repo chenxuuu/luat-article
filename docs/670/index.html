@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>稀饭放姜 iRTU 学习日记 （4）：Websokcet手机客户端通过iRTU控制Modbus继电器 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -109,7 +109,7 @@ function
         ret= string.fromHex(&quot;01 05 00 02 FF 00 6D FB&quot;)
     elseif (dat:sub(1,8)==&quot;relay4on&quot;) then
         ret= string.fromHex(&quot;01 05 00 03 FF 00 3C 3B&quot;)
-    
+
     elseif (dat:sub(1,9)==&quot;relay1off&quot;) then
         --Modbus地址 01，命令：控制继电器 05，第一个继电器 0000，动作：关闭 0000 ，校验和 CDCA
         ret= string.fromHex(&quot;01 05 00 00 00 00 CD CA&quot;)
@@ -119,7 +119,7 @@ function
         ret= string.fromHex(&quot;01 05 00 02 00 00 6C 0A&quot;)
     elseif (dat:sub(1,9)==&quot;relay2on&quot;) then
         ret= string.fromHex(&quot;01 05 00 03 00 00 3D CA&quot;)
-    else 
+    else
         ret =dat
     end
 
@@ -129,7 +129,7 @@ end
 </code></pre>
 <p>上行数据流模板(Modbus继电器-&gt;DTU)，该模板用于将Modbus继电器返回的报文翻译成手机的回报信息。</p>
 <pre><code>--Upload stream
-function 
+function
 
 local a=...
 
@@ -137,15 +137,15 @@ local ret=&quot;&quot;
 local str=&quot;&quot;
 
 --判断报文是否为继电器状态返回
-if (a:sub(1,2)==string.fromHex(&quot;01 05&quot;)) then 
+if (a:sub(1,2)==string.fromHex(&quot;01 05&quot;)) then
     --第4位是继电器编号
-    local relayNO=a:sub(4,4):byte()     
+    local relayNO=a:sub(4,4):byte()
     --第5位是继电器状态，0为关闭 255是打开
     local relayStatus=a:sub(5,5):byte()
     local no=tostring(relayNO,10)
     local stat
-    if (relayStatus==255) then stat=&quot;ON&quot; else stat=&quot;OFF&quot; end        
-    str=&quot;Relay NO.:&quot;..no..&quot; Status is:&quot;..stat          
+    if (relayStatus==255) then stat=&quot;ON&quot; else stat=&quot;OFF&quot; end
+    str=&quot;Relay NO.:&quot;..no..&quot; Status is:&quot;..stat
 else
     str=string.toHex(a, &quot; &quot;)
 end
@@ -188,17 +188,17 @@ end
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/671/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/671/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/669/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -206,58 +206,58 @@ end
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -310,7 +310,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Air720模块在OpenWrt设备上的RNDIS网卡使用 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,25 +58,25 @@
         <h1 class="post-title">Air720模块在OpenWrt设备上的RNDIS网卡使用</h1>
 <article class="post markdown-style">
   <pre><code>                        &lt;p&gt;&lt;b&gt;1.&amp;nbsp; &lt;/b&gt;&lt;a href=&quot;http://oldask.openluat.com/article/79&quot;&gt;先看 http://oldask.openluat.com/article/79&lt;/a&gt;&lt;b&gt;&lt;a href=&quot;http://oldask.openluat.com/article/79&quot;&gt; &amp;nbsp;&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 介绍的是Air720在Linux上通过RNDIS驱动进行使用&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; 说明：如果是用PC x86 Linux&amp;nbsp;&amp;nbsp; 3.1x以上的 kernel,不需要编译内核，只需要 modeprobe usbnet 就能自动挂载720 rndis驱动&lt;br&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;2.本篇介始的是Air720在OpenWrt Linux上通过RNDIS驱动使用&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/b&gt; 2.1 配置 OpenWrt Linux RNDIS 驱动&lt;/p&gt;&lt;p&gt;&amp;nbsp;&amp;nbsp; 配置菜单为: make menuconfig-&amp;gt;Kenrel modules -&amp;gt; USB Support&lt;/p&gt;&lt;p&gt;&amp;nbsp;&amp;nbsp; 配置选项只有两个: kmod-usb-net, kmod-usb-net-rndis&lt;/p&gt;&lt;p&gt;&amp;nbsp;&amp;nbsp; 配置选项如下图:&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-hCrlx6KN5baefc37d4cfa.png&quot; class=&quot;img-responsive&quot; width=&quot;959&quot; height=&quot;607&quot;&gt;&lt;/p&gt;&lt;p&gt;2.2 编译好OpenWrt Linux固件下载到硬件&lt;/p&gt;&lt;p&gt;系统运行后，查看Air720硬件连接信息,usb pid 为 1286:4e3d &lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-V56ehbPq5baefcf29c26b.png&quot; class=&quot;img-responsive&quot; width=&quot;955&quot; height=&quot;75&quot;&gt;&lt;/p&gt;&lt;p&gt;2.3 查看Air720 rndis 网络接口,下图中eth1为Air720 &lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-xVGfV0Jj5baefd633c043.png&quot; class=&quot;img-responsive&quot; width=&quot;952&quot; height=&quot;547&quot;&gt;&lt;/p&gt;&lt;p&gt;通过Luci(OpenWrt Linux上的lua配置接口) 查看Air720 为 4G eth1,处于WAN ZONE,此时系统可以上网，接LAN和WIFI的设备，都会通过Air720上网&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-xedYp93o5baefddd60d5a.png&quot; class=&quot;img-responsive&quot; width=&quot;964&quot; height=&quot;652&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt; &lt;b&gt;&lt;br&gt; &lt;/b&gt;&lt;br&gt;&lt;/p&gt;
-                    
-                    
-                    
+
+
+
 </code></pre>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/457/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/457/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/455/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -84,58 +84,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -188,7 +188,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

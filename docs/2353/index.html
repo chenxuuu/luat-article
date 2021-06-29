@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Luat训练营-第2天 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,7 +58,7 @@
         <h1 class="post-title">Luat训练营-第2天</h1>
 <article class="post markdown-style">
   <p>@<a href="Luat%E8%AE%AD%E7%BB%83%E8%90%A5-%E7%AC%AC2%E5%A4%A9">TOC</a></p>
-<h2 id="第1天内容复习"><a href="#第1天内容复习" class="headerlink" title="第1天内容复习"></a>第1天内容复习</h2><p><a href="https://doc.luatos.wiki/2351/">第一天内容</a></p>
+<h2 id="第1天内容复习"><a href="#第1天内容复习" class="headerlink" title="第1天内容复习"></a>第1天内容复习</h2><p><a href="https://luatdoc.papapoi.com/2351/">第一天内容</a></p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 单行内容注释</span></span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">多行内容注释</span></span><br><span class="line"><span class="comment">]]</span></span><br><span class="line">a = <span class="number">1</span> <span class="comment">-- 变量赋值</span></span><br><span class="line">b = <span class="number">2</span> <span class="comment">-- 变量赋值</span></span><br><span class="line">s,d,f = <span class="number">11</span>,<span class="string">&quot;123fghf&quot;</span>,<span class="number">213</span><span class="comment">-- 多变量赋值</span></span><br><span class="line">c = <span class="literal">nil</span> <span class="comment">-- nil类型</span></span><br><span class="line"><span class="built_in">print</span>(a,b,s,d,f,c)<span class="comment">-- 打印</span></span><br></pre></td></tr></table></figure>
 <h2 id="第2天内容"><a href="#第2天内容" class="headerlink" title="第2天内容"></a>第2天内容</h2><h3 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h3><p><img src="https://img-blog.csdnimg.cn/20210119160520483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0ODU3NzAw,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <h3 id="加减乘除取余乘方"><a href="#加减乘除取余乘方" class="headerlink" title="加减乘除取余乘方"></a>加减乘除取余乘方</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 加法</span></span><br><span class="line">a = <span class="number">22</span></span><br><span class="line">b = <span class="number">56</span></span><br><span class="line">c = a + b</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print(a+b)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 减法</span></span><br><span class="line">c = a - b</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print( a-b)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 乘法</span></span><br><span class="line">c = a * b</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print(a*b)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--除法</span></span><br><span class="line">c = a / b <span class="comment">--注意不是反斜杠</span></span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print(a/b)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--取余</span></span><br><span class="line">c = b % a</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print(b%a)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--乘方</span></span><br><span class="line">c = a ^ b</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print(a^b)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--四则运算</span></span><br><span class="line">c = (a+b)*a</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">-- print((a+b)*a)</span></span><br></pre></td></tr></table></figure>
@@ -85,22 +85,22 @@
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> a = <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(a)<span class="comment">-- 打印</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">--函数调用</span></span><br><span class="line"><span class="built_in">print</span>(a) <span class="comment">-- 函数外打印</span></span><br><span class="line">hello() <span class="comment">--</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/20210119160536238.png#pic_center" alt="在这里插入图片描述"></p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(num1,num2,num3)</span></span></span><br><span class="line">   <span class="keyword">local</span> a  = num1+ num2 +num3 <span class="comment">-- 全加</span></span><br><span class="line">   <span class="keyword">local</span> b  = num1* num2  <span class="comment">-- 乘法</span></span><br><span class="line">   <span class="keyword">return</span> a,b,num3  <span class="comment">--多变量返回</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">x1,x2,x3 = add(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>( x1,x2,x3) <span class="comment">-- 打印</span></span><br></pre></td></tr></table></figure>
-<h2 id="第3天"><a href="#第3天" class="headerlink" title="第3天"></a>第3天</h2><p><a href="https://doc.luatos.wiki/2360/">第3天</a></p>
+<h2 id="第3天"><a href="#第3天" class="headerlink" title="第3天"></a>第3天</h2><p><a href="https://luatdoc.papapoi.com/2360/">第3天</a></p>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/2354/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/2354/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/2351/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -108,58 +108,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -212,7 +212,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

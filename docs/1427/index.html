@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>[RDA8910 CSDK系列]air724ug差分fota之证实-附带ota简要流程分析 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -57,22 +57,22 @@
     <div class="container">
         <h1 class="post-title">[RDA8910 CSDK系列]air724ug差分fota之证实-附带ota简要流程分析</h1>
 <article class="post markdown-style">
-  <p>这两天在学习csdk系统，昨晚销售小哥给了一个链接：<a href="https://doc.luatos.wiki/1416/" target="_blank">https://doc.luatos.wiki/1416/</a>&nbsp;其中零妖大佬说了关于cat1 差分升级的事。 </p><p>本着求实的精神，就很像知道确凿的证据，最好有代码或者数据的依据。</p><p>所以今天特意准备了下评估板子，看看能不能拿到些直观的线索。</p><p>第一个想到的就是通过coolwatcher追查系统的日志。这里有个开发板和我的usb uart小板电平不匹配的小插曲，定位此问题又额外浪费了点时间，暂不展开，如果有人想细究再补充，先说结论：想稳定看coolwatcher的日志，你需要使用host log的串口方式，而不是用usb方式。</p><p>测试使用的是官方的ota平台：&nbsp;<a href="https://iot.openluat.com/" target="_blank">iot.openluat.com</a>&nbsp;,<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">设备</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">初始代码是自己编译的测试包， ota包使用同样的代码，只是改了下版本号，因为主要是验证流程，所以不用关注功能逻辑。</span></p><p>fota包的下载使用的是http，注意是http，不是https，主要原因就是简单，https是趋势。</p><p>第一步：</p><p>通过http获取到文件大小，这里对应是的是<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">Content-Length</span></p><p>[ota] HTTPClientFindFirstHeader 21,Content-Length: 48330</p><p>[ota]GetSize fsz: 48330</p><p><b><font color="#ff0000">6M左右的原始bin档，实际的下载大小只有48K左右，这就说明下载的是差分，而不是全量包。</font></b></p><p>第二步：</p><p>ota_parse otaProcess file size 48320, type 1</p><p>从<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">48330 变成了</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">48320&nbsp; 说明有10byte可能是控制描述数据，不细表。</span></p><p><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">第三步：</span></p><p>[ota] HTTPClientReadData readSize 511<br></p><p>[ota] HTTPClientReadData readTotalLen 1022, 48330</p><p>每次下载511个字节，一包一包开始下载</p><p>第四步：</p><p>中间重复无数包，通过总包大小控制下载次数，直到最后一包下载完成</p><p>[ota]--HTTPIntrnConnectionClose--</p><p>ota_parse otaDownloadDone appState 3 CoreState 1</p><p>[ota_parse] <span style="white-space:pre">    </span>FILE:<span style="white-space:pre">    </span>app<span style="white-space:pre">    </span>48320<span style="white-space:pre">    </span>0</p><p>app应该是文件名，48320是大小，0 是属性或者权限之类的吧。</p><p>第五步：校验</p><p>ota_app crc (f7ddf30f,f7ddf30f)</p><p>ota openat_newApp appImageIsVaild ok</p><p>使用的应该是crc32 的校验的多包累加和，纯瞎猜，不求证</p><p>第六步：更新ota的标志</p><p>ota check 1,0</p><p>ota check 1,1<br></p><p>ota OPENAT_newOtaFlagSet 102</p><p>这个102应该就是告诉bootloader这个是刚ota完成，第一次需要做些特殊的工作。</p><p>第七步：下载完成</p><p>ota_parse _otaDownloadDone ok</p><p>[ota]fota end 0</p><p>看日志，整个升级48k大小的样子，花了6s完成，基本无感知，所以如果你用usb方式看日志，可能coolwatch还没连接上，升级就完成了</p><p><br></p><p>就这样了，新人，刚入坑合宙一周，欢迎各位大佬指点和交流</p>
+  <p>这两天在学习csdk系统，昨晚销售小哥给了一个链接：<a href="https://luatdoc.papapoi.com/1416/" target="_blank">https://luatdoc.papapoi.com/1416/</a>&nbsp;其中零妖大佬说了关于cat1 差分升级的事。 </p><p>本着求实的精神，就很像知道确凿的证据，最好有代码或者数据的依据。</p><p>所以今天特意准备了下评估板子，看看能不能拿到些直观的线索。</p><p>第一个想到的就是通过coolwatcher追查系统的日志。这里有个开发板和我的usb uart小板电平不匹配的小插曲，定位此问题又额外浪费了点时间，暂不展开，如果有人想细究再补充，先说结论：想稳定看coolwatcher的日志，你需要使用host log的串口方式，而不是用usb方式。</p><p>测试使用的是官方的ota平台：&nbsp;<a href="https://iot.openluat.com/" target="_blank">iot.openluat.com</a>&nbsp;,<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">设备</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">初始代码是自己编译的测试包， ota包使用同样的代码，只是改了下版本号，因为主要是验证流程，所以不用关注功能逻辑。</span></p><p>fota包的下载使用的是http，注意是http，不是https，主要原因就是简单，https是趋势。</p><p>第一步：</p><p>通过http获取到文件大小，这里对应是的是<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">Content-Length</span></p><p>[ota] HTTPClientFindFirstHeader 21,Content-Length: 48330</p><p>[ota]GetSize fsz: 48330</p><p><b><font color="#ff0000">6M左右的原始bin档，实际的下载大小只有48K左右，这就说明下载的是差分，而不是全量包。</font></b></p><p>第二步：</p><p>ota_parse otaProcess file size 48320, type 1</p><p>从<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">48330 变成了</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">48320&nbsp; 说明有10byte可能是控制描述数据，不细表。</span></p><p><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;">第三步：</span></p><p>[ota] HTTPClientReadData readSize 511<br></p><p>[ota] HTTPClientReadData readTotalLen 1022, 48330</p><p>每次下载511个字节，一包一包开始下载</p><p>第四步：</p><p>中间重复无数包，通过总包大小控制下载次数，直到最后一包下载完成</p><p>[ota]--HTTPIntrnConnectionClose--</p><p>ota_parse otaDownloadDone appState 3 CoreState 1</p><p>[ota_parse] <span style="white-space:pre">    </span>FILE:<span style="white-space:pre">    </span>app<span style="white-space:pre">    </span>48320<span style="white-space:pre">    </span>0</p><p>app应该是文件名，48320是大小，0 是属性或者权限之类的吧。</p><p>第五步：校验</p><p>ota_app crc (f7ddf30f,f7ddf30f)</p><p>ota openat_newApp appImageIsVaild ok</p><p>使用的应该是crc32 的校验的多包累加和，纯瞎猜，不求证</p><p>第六步：更新ota的标志</p><p>ota check 1,0</p><p>ota check 1,1<br></p><p>ota OPENAT_newOtaFlagSet 102</p><p>这个102应该就是告诉bootloader这个是刚ota完成，第一次需要做些特殊的工作。</p><p>第七步：下载完成</p><p>ota_parse _otaDownloadDone ok</p><p>[ota]fota end 0</p><p>看日志，整个升级48k大小的样子，花了6s完成，基本无感知，所以如果你用usb方式看日志，可能coolwatch还没连接上，升级就完成了</p><p><br></p><p>就这样了，新人，刚入坑合宙一周，欢迎各位大佬指点和交流</p>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/1431/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/1431/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/1425/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -80,58 +80,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -184,7 +184,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

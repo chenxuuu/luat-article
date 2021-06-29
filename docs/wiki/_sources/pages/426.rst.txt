@@ -23,14 +23,14 @@ client，可以实现http请求组包，结果处理的等功能。有AT，LUAT�
 语法规则：
 
 ======== ================= ================== =============
-命令类型 语法              返回               
+命令类型 语法              返回
 ======== ================= ================== =============
-设置命令 AT+HTTPSSL=       OK                 
-读取命令 AT+HTTPSSL?       + HTTPSSL: OK      
-测试命令 AT+HTTPSSL=?      +HTTPSSL: (0-1) OK 
+设置命令 AT+HTTPSSL=       OK
+读取命令 AT+HTTPSSL?       + HTTPSSL: OK
+测试命令 AT+HTTPSSL=?      +HTTPSSL: (0-1) OK
 参数     定义              取值               对取值的说明
 \        HTTP SSL 功能开关 0                  关闭 SSL 功能
-1        开启 SSL 功能                        
+1        开启 SSL 功能
 ======== ================= ================== =============
 
 设置 HTTP 参数值：AT+HTTPPARA
@@ -295,48 +295,48 @@ HTTP 方式激活：AT+HTTPACTION
 +------+--------------------------+------+------------------+
 
 === =============================================================
-204 无内容(No Content)                                             
+204 无内容(No Content)
 === =============================================================
-205 重置内容(Reset Content)                                        
-206 部分内容(Partial Content)                                      
-300 多重选择(Multiple Choices)                                     
-301 永久删除(Moved Permanently)                                    
-302 找到(Found )                                                   
-303 参考其他(See Other)                                            
-304 未修改(Not Modified)                                           
-305 使用代理服务器(Use Proxy)                                      
-307 临时重定向(Temporary Redirect )                                
-400 错误请求(Bad Request)                                          
-401 未授权(Unauthorized)                                           
-402 付费请求(Payment Required)                                     
-403 禁止(Forbidden)                                                
-404 找不到(Not Found)                                              
-405 方法不被允许(Method not Allowed)                               
-406 不可接受(Not Acceptable)                                       
-407 要 求 进 行 代 理 身 份 认 证 (Proxy AuthenticationRequired)   
-408 请求超时 (Request Time-out)                                    
-409 冲突(Conflict)                                                 
-410 所请求资源不在服务器上有效，且不知道转发地址(Gone)             
-411 需要输入长度(Length Required)                                  
-412 前提条件失败 (Precondition Failed)                             
-413 请求实体太大(Request Entity Too Large)                         
-414 请求URI太长(Request-URI Too Large)                             
-415 媒体类型不支持(Unsupported Media Type)                         
-416 所 请 求 的 范 围 无 法 满 足(Requested range notsatisfiable)  
-417 执行失败(Expectation Failed)                                   
-500 内部服务器错误(Internal Server Error)                          
-501 未执行 (Not Implemented)                                       
-502 网关错误(Bad Gateway)                                          
-503 服务不可用(Service Unavailable)                                
-504 网关超时(Gateway Time-out)                                     
-505 HTTP 版本不支持(HTTP Version not supported)                    
-600 非 HTTP PDU 格式(Not HTTP PDU)                                 
-601 网络错误(Network Error)                                        
-602 内存不足(No memory)                                            
-603 DNS 错误(DNS Error)                                            
-604 栈忙(Stack Busy)                                               
-605 SSL建立通道失败                                                
-606 SSL通讯警告错误                                                
+205 重置内容(Reset Content)
+206 部分内容(Partial Content)
+300 多重选择(Multiple Choices)
+301 永久删除(Moved Permanently)
+302 找到(Found )
+303 参考其他(See Other)
+304 未修改(Not Modified)
+305 使用代理服务器(Use Proxy)
+307 临时重定向(Temporary Redirect )
+400 错误请求(Bad Request)
+401 未授权(Unauthorized)
+402 付费请求(Payment Required)
+403 禁止(Forbidden)
+404 找不到(Not Found)
+405 方法不被允许(Method not Allowed)
+406 不可接受(Not Acceptable)
+407 要 求 进 行 代 理 身 份 认 证 (Proxy AuthenticationRequired)
+408 请求超时 (Request Time-out)
+409 冲突(Conflict)
+410 所请求资源不在服务器上有效，且不知道转发地址(Gone)
+411 需要输入长度(Length Required)
+412 前提条件失败 (Precondition Failed)
+413 请求实体太大(Request Entity Too Large)
+414 请求URI太长(Request-URI Too Large)
+415 媒体类型不支持(Unsupported Media Type)
+416 所 请 求 的 范 围 无 法 满 足(Requested range notsatisfiable)
+417 执行失败(Expectation Failed)
+500 内部服务器错误(Internal Server Error)
+501 未执行 (Not Implemented)
+502 网关错误(Bad Gateway)
+503 服务不可用(Service Unavailable)
+504 网关超时(Gateway Time-out)
+505 HTTP 版本不支持(HTTP Version not supported)
+600 非 HTTP PDU 格式(Not HTTP PDU)
+601 网络错误(Network Error)
+602 内存不足(No memory)
+603 DNS 错误(DNS Error)
+604 栈忙(Stack Busy)
+605 SSL建立通道失败
+606 SSL通讯警告错误
 === =============================================================
 
 查询 HTTP 服务响应：AT+HTTPREAD
@@ -372,8 +372,8 @@ HTTP 方式激活：AT+HTTPACTION
 ==== =========================================== ======== ============
 参数 定义                                        取值     对取值的说明
 ==== =========================================== ======== ============
-\    实际输出数据长度                                     
-\    HTTP 服务器对AT+HTTPACTION=0命令 的响应数据          
+\    实际输出数据长度
+\    HTTP 服务器对AT+HTTPACTION=0命令 的响应数据
 \    输出数据的起点                              0~319488 单位:字节
 \    输出数据的长度                              1~319488 单位:字节
 ==== =========================================== ======== ============
@@ -395,8 +395,8 @@ HTTP 方式激活：AT+HTTPACTION
 ==== ================ ==== ============
 参数 定义             取值 对取值的说明
 ==== ================ ==== ============
-\    头信息的实际长度      
-\    头信息                
+\    头信息的实际长度
+\    头信息
 ==== ================ ==== ============
 
 保存 HTTP 应用上下文：AT+HTTPSCONT
@@ -424,7 +424,7 @@ HTTP 方式激活：AT+HTTPACTION
 参数 定义                取值 对取值的说明
 ==== =================== ==== ==================
 \    HTTP 上下文保存模式 0    保存，值取自 NVRAM
-1    未保存，值取自 RAM       
+1    未保存，值取自 RAM
 ==== =================== ==== ==================
 
 终止 HTTP 任务：AT+HTTPTERM
@@ -469,5 +469,5 @@ HTTP 错误码会以 ERROR:形式上报。
 CSDK模式
 --------
 
-https://doc.luatos.wiki/888/ ## DTU模式
+https://luatdoc.papapoi.com/888/ ## DTU模式
 https://www.bilibili.com/video/BV1ot411h7LJ?p=29

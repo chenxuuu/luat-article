@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>1小时完成简单的测试用&#34;车载定位器&#34;（使用air800开发板与阿里云物联网平台） [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -57,22 +57,22 @@
     <div class="container">
         <h1 class="post-title">1小时完成简单的测试用&#34;车载定位器&#34;（使用air800开发板与阿里云物联网平台）</h1>
 <article class="post markdown-style">
-  <p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><h4><span style="font-weight: bold;"><font color="#333333">看到淘宝上有很多便宜的车载定位器，也想试试！<br></font><font color="#333333">正好手里有一块</font><span style="color: rgb(51, 51, 51);">Air800<br></span><span style="color: rgb(51, 51, 51);">众所周知，Air800 模块 M4 是一款支持 GPRS+GPS 的开发版</span></span></h4><h4><span style="font-weight: bold;"><span style="color: rgb(51, 51, 51);"><br></span></span></h4><h4><span style="font-weight: bold;"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">功能：</span></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 14pt; font-family: 楷体;">电子围栏、历史轨迹、短信告警、热力图、3D模型</span></h3><p><span style="color: rgb(51, 51, 51);"><br></span></p><p></p><h4><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><b style="">首先：</b></span></h4><p></p><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"></h3><h3></h3><h3><span style="font-size: 14pt; font-family: 楷体;">准备air800开发板</span></h3><h4><span style="font-size: 14pt; font-family: 楷体;">开通阿里云物联网平台</span><span style="font-family: 楷体; font-size: 18.6667px;">打开连接阿里云物联网平台的luat程序（参考：</span><a href="https://doc.luatos.wiki/438/" style="background-color: rgb(255, 255, 255); font-family: inherit; text-indent: -21pt;">https://doc.luatos.wiki/438/</a><span style="color: inherit; text-indent: -21pt; font-family: 楷体; font-size: 18.6667px;">）</span></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><br></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><span style="font-weight: 700;">其次：</span></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">登陆阿里云，进入物联网平台</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">创建产品、设备</h3><p style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-vCmHgw5T5e3bb876f4063.png" class="img-responsive" style="width: 763px;"><br></p><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">编辑功能定义</h3><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-fNiXjGHW5e3bb8e2228f7.png" class="img-responsive" style="width: 629.5px;"><span style="color: inherit; font-family: 楷体; font-size: 18.6667px; text-indent: -21pt;"><br></span></h4><h3 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">改写阿里云程序（设备三元组、功能定义标识符、获取gps/基站程序）</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">参考<a href="https://doc.luatos.wiki/438/" style="font-size: 14px; font-weight: bold;">https://doc.luatos.wiki/438/</a></h3><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-W8wgKoZV5e3bb963a2b34.png" class="img-responsive" style="width: 321.5px;"><span style="color: inherit; text-indent: -21pt; font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">下载好程序后，进入物联网平台的数据分析</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">进入空间数据可视化，二维数据可视化，点击创建场景</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-hbplVm8F5e3bbb25dd385.png" class="img-responsive" style="width: 515px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">选择之前创建的产品下的设备，开始设置</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">此时地图中出现设备的图标</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-fiE5y3im5e3bbc6068a1a.png" class="img-responsive" style="width: 759px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">点击绘制围栏，上图的浅蓝色圆圈就是围栏了</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">如果设备的地理位置超出围栏，会有短信告警</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-Kfouf7e35e3bbcef15838.png" class="img-responsive" style="width: 319.5px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">点击历史轨迹，产看定位器的轨迹线</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-uZy6tYaC5e3bbdda29aac.png" class="img-responsive" style="width: 706.5px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><span style="font-weight: 700;">最后：</span></span></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><span style="font-weight: 700;"><br></span></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">超简单的车载air800开发板的定位器，完成</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">开车去测试！</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><br></h4><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><br></h4>
+  <p><span style="color: rgb(51, 51, 51);"><br></span></p><p><span style="color: rgb(51, 51, 51);"><br></span></p><h4><span style="font-weight: bold;"><font color="#333333">看到淘宝上有很多便宜的车载定位器，也想试试！<br></font><font color="#333333">正好手里有一块</font><span style="color: rgb(51, 51, 51);">Air800<br></span><span style="color: rgb(51, 51, 51);">众所周知，Air800 模块 M4 是一款支持 GPRS+GPS 的开发版</span></span></h4><h4><span style="font-weight: bold;"><span style="color: rgb(51, 51, 51);"><br></span></span></h4><h4><span style="font-weight: bold;"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">功能：</span></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="font-size: 14pt; font-family: 楷体;">电子围栏、历史轨迹、短信告警、热力图、3D模型</span></h3><p><span style="color: rgb(51, 51, 51);"><br></span></p><p></p><h4><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><b style="">首先：</b></span></h4><p></p><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"></h3><h3></h3><h3><span style="font-size: 14pt; font-family: 楷体;">准备air800开发板</span></h3><h4><span style="font-size: 14pt; font-family: 楷体;">开通阿里云物联网平台</span><span style="font-family: 楷体; font-size: 18.6667px;">打开连接阿里云物联网平台的luat程序（参考：</span><a href="https://luatdoc.papapoi.com/438/" style="background-color: rgb(255, 255, 255); font-family: inherit; text-indent: -21pt;">https://luatdoc.papapoi.com/438/</a><span style="color: inherit; text-indent: -21pt; font-family: 楷体; font-size: 18.6667px;">）</span></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><br></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><span style="font-weight: 700;">其次：</span></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">登陆阿里云，进入物联网平台</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">创建产品、设备</h3><p style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-vCmHgw5T5e3bb876f4063.png" class="img-responsive" style="width: 763px;"><br></p><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">编辑功能定义</h3><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-fNiXjGHW5e3bb8e2228f7.png" class="img-responsive" style="width: 629.5px;"><span style="color: inherit; font-family: 楷体; font-size: 18.6667px; text-indent: -21pt;"><br></span></h4><h3 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">改写阿里云程序（设备三元组、功能定义标识符、获取gps/基站程序）</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">参考<a href="https://luatdoc.papapoi.com/438/" style="font-size: 14px; font-weight: bold;">https://luatdoc.papapoi.com/438/</a></h3><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-W8wgKoZV5e3bb963a2b34.png" class="img-responsive" style="width: 321.5px;"><span style="color: inherit; text-indent: -21pt; font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">下载好程序后，进入物联网平台的数据分析</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">进入空间数据可视化，二维数据可视化，点击创建场景</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-hbplVm8F5e3bbb25dd385.png" class="img-responsive" style="width: 515px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">选择之前创建的产品下的设备，开始设置</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">此时地图中出现设备的图标</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-fiE5y3im5e3bbc6068a1a.png" class="img-responsive" style="width: 759px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">点击绘制围栏，上图的浅蓝色圆圈就是围栏了</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">如果设备的地理位置超出围栏，会有短信告警</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-Kfouf7e35e3bbcef15838.png" class="img-responsive" style="width: 319.5px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">点击历史轨迹，产看定位器的轨迹线</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><img src="https://oldask.openluat.com/image/show/attachments-2020-02-uZy6tYaC5e3bbdda29aac.png" class="img-responsive" style="width: 706.5px;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><span style="font-family: 楷体; font-size: 18.6667px;"><br></span></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><span style="font-weight: 700;">最后：</span></span></h4><h4 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0);"><span style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);"><span style="font-weight: 700;"><br></span></span></h4><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">超简单的车载air800开发板的定位器，完成</h3><h3 style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Microsoft Yahei&quot;, sans-serif; color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;">开车去测试！</h3><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><br></h4><h4 style="color: rgb(0, 0, 0); margin-left: 21pt; text-indent: -21pt;"><br></h4>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/20/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/20/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/14/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -80,58 +80,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -184,7 +184,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

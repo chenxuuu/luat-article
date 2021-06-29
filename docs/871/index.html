@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Air530 GPS/北斗定位模块_设计指导手册_V1.9 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -291,9 +291,9 @@
 </table>
 <p><strong>Command</strong>：     表示发送的命令号，具体的值参考下文。<br><strong>Arguments</strong>：     表示发送命令需要的参数，参数可以是多个，不同的命令对应不同的数据，具体值参考下文。<br>*<strong>**：                 数据结束的标志<br>**CheckSum</strong>：    整条命令的校验数据<br><strong>CR，LF</strong>：        包结束标志</p>
 <p><strong>样例数据</strong>：$PGKC030,3,1*2E <CR><LF></p>
-<h3 id="9-2-2-GKC命令"><a href="#9-2-2-GKC命令" class="headerlink" title="9.2.2 GKC命令"></a>9.2.2 GKC命令</h3><pre><code>1、Command: 001      
+<h3 id="9-2-2-GKC命令"><a href="#9-2-2-GKC命令" class="headerlink" title="9.2.2 GKC命令"></a>9.2.2 GKC命令</h3><pre><code>1、Command: 001
                  应答消息，回应对方发送的消息处理结果
-    Arguments: 
+    Arguments:
        Arg1:    该消息所应答消息的command。
        Arg2:     “1”，不支持接收到的消息
                  “2”，有效消息，但执行不正确
@@ -303,9 +303,9 @@ Example:
 Example:
              $PGKC001,101,3*2D&lt;CR&gt;&lt;LF&gt;
 
-2、Command: 030    
+2、Command: 030
              系统重启命令
-Arguments: 
+Arguments:
 Arg1:  “1”，热启动
        “2”，温启动
        “3”，冷启动
@@ -313,33 +313,33 @@ Arg2:      “1”, 软件重启
         Example:
              $PGKC030,1,1*2C&lt;CR&gt;&lt;LF&gt;
 
-3、Command: 040      
+3、Command: 040
 擦除flash中的辅助定位数据
-Arguments: 
+Arguments:
 无
         Example:
             $PGKC040*2B&lt;CR&gt;&lt;LF&gt;
-       
+
 
 7、Command: 113
              开启或关闭QZSS NMEA格式输出
-Arguments: 
-    Arg1:    “0”，关闭 
+Arguments:
+    Arg1:    “0”，关闭
             “1”，开启
 Example:
     $PGKC113,1*31&lt;CR&gt;&lt;LF&gt;
 
 8、Command: 114
              开启或关闭QZSS 功能
-Arguments: 
-Arg1:    “0”，开启 
+Arguments:
+Arg1:    “0”，开启
 “1”，关闭
 Example:
             $PGKC114,0*37&lt;CR&gt;&lt;LF&gt;
 
 9、Command: 115
              设置搜星模式
-Arguments: 
+Arguments:
    Arg1:  “1”，GPS on
           “0”，GPS off
    Arg2:  “1”，Glonass on
@@ -352,14 +352,14 @@ Example:
             $PGKC115,1,0,0,0*2B&lt;CR&gt;&lt;LF&gt;
 10、Command: 147
              设置NMEA输出波特率
-Arguments: 
+Arguments:
    Arg1:  9600，19200，38400，57600，115200……921600.
 Example:
             $PGKC147,115200*06&lt;CR&gt;&lt;LF&gt;
 
 11、Command: 149
        设置NMEA串口参数
-Arguments: 
+Arguments:
    Arg1:     “0”，NMEA数据
              “1”，Binary数据
    Arg2:  9600，19200，38400，57600，115200……921600.
@@ -368,7 +368,7 @@ Example:
 
 12、Command: 161
              PPS设置
-Arguments: 
+Arguments:
      Arg1: “0”，关闭PPS输出
            “1”，第一次fix
            “2”，3D fix
@@ -383,36 +383,36 @@ Example:
 
 13、Command: 201
              查询NMEA消息的间隔
-Arguments: 
+Arguments:
          无
 Example:
             $PGKC201*2C&lt;CR&gt;&lt;LF&gt;
 
 14、Command: 202
              返回NMEA消息的间隔（应答201命令）
-Arguments: 
+Arguments:
      无
 Example:
             $PGKC202,1000,0,0,0,0*02&lt;CR&gt;&lt;LF&gt;
 
 15、Command: 239
              开启或关闭SBAS 功能
-    Arguments: 
-       Arg1: “0”，开启 
+    Arguments:
+       Arg1: “0”，开启
              “1”，关闭
     Example:
             $PGKC239,1*3A&lt;CR&gt;&lt;LF&gt;
 
 16、Command: 240
              查询SBAS是否使能
-   Arguments: 
+   Arguments:
          无
    Example:
             $PGKC240*29&lt;CR&gt;&lt;LF&gt;
 
 17、Command: 241
              返回SBAS是否使能（应答240命令）
-Arguments: 
+Arguments:
 Arg1:     “0”，关闭
          “1”，打开
 Example:
@@ -420,7 +420,7 @@ Example:
 
 18、Command: 242
              设置NMEA语句输出使能
-Arguments: 
+Arguments:
    Arg1:     GLL     “0”，关闭； “1”，打开
    Arg2:     RMC     “0”，关闭； “1”，打开
    Arg3:     VTG     “0”，关闭； “1”，打开
@@ -435,21 +435,21 @@ Example:
 
 19、Command: 243
              查询NMEA语句输出频率
-   Arguments: 
+   Arguments:
          无
    Example:
        $PGKC243*2A&lt;CR&gt;&lt;LF&gt;
 
 20、Command: 244
              返回NMEA语句输出频率（应答243命令）
-    Arguments: 
+    Arguments:
         Args:     参考242命令
     Example:
         $PGKC244,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0*31&lt;CR&gt;&lt;LF&gt;
 
 21、Command: 278
              设置RTC时间
-   Arguments: 
+   Arguments:
       Arg1:     年
       Arg2:     月，1~12
       Arg3:     日，1~31
@@ -461,55 +461,55 @@ Example:
 
 22、Command: 279
          查询RTC时间
-    Arguments: 
+    Arguments:
          无
     Example:
         $PGKC279*23&lt;CR&gt;&lt;LF&gt;
 
 23、Command: 280
              返回NMEA语句输出频率（应答243命令）
-    Arguments: 
+    Arguments:
     Args:     参考278命令
     Example:
             $PGKC280,2017,3,15,12,0,0*15&lt;CR&gt;&lt;LF&gt;
 
 24、Command: 284
              设置速度门限，速度低于门限值时，输出速度为0
-Arguments: 
+Arguments:
 Arg1:     门限值
 Example:
             $PGKC284,0.5*26&lt;CR&gt;&lt;LF&gt;
 25、Command: 356
       设置HDOP门限，实际HDOP大于门限值时，不定位
-    Arguments: 
+    Arguments:
        Arg1: 门限值
 Example:
       $PGKC356,0.7*2A&lt;CR&gt;&lt;LF&gt;
 
 26、Command: 357
        获取HDOP门限
-    Arguments: 
+    Arguments:
       无
     Example:
         $PGKC357*2E&lt;CR&gt;&lt;LF&gt;
 
 27、Command: 462
              查询当前软件的版本号
-    Arguments: 
+    Arguments:
          无
     Example:
             $PGKC462*2F&lt;CR&gt;&lt;LF&gt;
 
 28、Command: 463
              返回当前软件的版本号（应答462命令）
-   Arguments: 
+   Arguments:
          无
    Example:
             $PGKC463,GOKE9501_1.3_17101100*22&lt;CR&gt;&lt;LF&gt;
 
 29、Command: 639
              设置大概的位置信息和时间信息，以加快定位速度
-    Arguments: 
+    Arguments:
        Arg1:  纬度, 例如：28.166450
        Arg2:  经度, 例如：120.389700
        Arg3:  高度, 例如：0
@@ -1106,17 +1106,17 @@ Example:
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/887/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/887/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/846/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -1124,58 +1124,58 @@ Example:
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -1228,7 +1228,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

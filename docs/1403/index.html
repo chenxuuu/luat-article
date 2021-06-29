@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Air724菜鸟学习日记（连载） [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
   <p>1 序言</p>
 <p>Air724是上海合宙物联网出品的Cat1通讯模组，目前在商城售价为36元，价格基本上是业界最低。 同时支持AT、Luat、CSDK三种开发方式供不同层次的用户选择使用。 目前正值2G/4G系统性升级换代的关键节，Air724获得了芯片组、模块制造商、方案开发商、系统集成商、周边元件商的全情投入，注定会成为合宙继Air202以后的一代传奇产品。 </p>
 <p>作为合宙社区的一份子，我很荣幸见证这个产品从出生到成长的每一步，也希望有这个荣幸一起见证他的辉煌。 虽然我本身有一定的Luat开发基础，基于Luat技术开发Cat1模块受重视度也非常高，大量现成的DEMO代码也把学习曲线的陡峭程度降低到了我能承受的水平。但与群里众技术大佬不同，我这个人比较笨，脑子也不好，基本属于过目就忘那种，所以我必须把我学会的东西记录下来才不至于白学，也可以作为未来项目参考只用。 积跬步可至千里，希望用这个学习日记把我每天对Air724模组的学习内容记录下来，也欢迎您愿意督促我做好这个事，先谢谢您的支持！</p>
-<pre><code>Day 1 
+<pre><code>Day 1
 </code></pre>
 <p>今天主要是开个头，偷个懒总结下我知道的关于Air724模组的消息</p>
 <p>1）开始之前，您需要一块趁手的学习板，可以购买合宙商城里的官方开发板，原价199元，现在正在搞促销,只需要69元拿到手。 购买链接是：<br><a target="_blank" rel="noopener" href="http://m.openluat.com/product/1264">http://m.openluat.com/product/1264</a></p>
@@ -112,7 +112,7 @@ local highTick_DC,highInterval_DC=0,0
 local lowTick_DC,lowInterval_DC=0,0
 
 function gpio9IntFnc(msg)
-    if isDetecting==1 then 
+    if isDetecting==1 then
         --log.info(&quot;testGpioSingle.gpio15IntFnc&quot;,msg,getGpio9Fnc())
         if msg==cpu.INT_GPIO_POSEDGE then
             --上升沿中断
@@ -253,7 +253,7 @@ sys.subscribe(&quot;ON_HOOK&quot;, clrcallingnum)
 <p>9 (<em>^__^</em>) (838368932)    全局变量要怎么定义？</p>
 <p>合宙的luat用的版本是比较早期的lua版本，一般我都是在main里面使用_G. 前缀修饰变量，然后在模块里就可以直接用了，但是一般不建议这么来，用luat的消息机制传递数据更好些，这样模块之间的耦合度比较低</p>
 <p>今天的答疑就到这里，我发现很多小伙伴们都有点耐不住性子，容易焦虑。 学习技术不容易，我是学了两年还在学，希望您也和我一样有点耐心吧，谢谢：）</p>
-<pre><code>Day5 
+<pre><code>Day5
 </code></pre>
 <p>今天是周二，我长了阻生齿，牙很疼。</p>
 <p>今天在群里看到各商家的Air724产品陆陆续续的都出来了，飞思创、全球鹰电子的设计都非常的不错，定位于DTU 核心板，布局合理，设计精美，飞思创更打出了核心板 39.9元不限量包邮销售的惊人价格。 想想看，一片模块按大批量优惠价格也得40块钱，这个核心板PCB+BOM成本毛算也得三块钱，还要打板，测试、考虑到正常的耗损和次品率，起码要卖到50块钱才可能不赔钱，这40块钱只有两种可能 1）从特殊渠道拿到了更廉价的模块 2）飞思创为了做渠道赔钱卖，无论是那种，作为”合宙核心生态企业”飞思创的实力看来也都是响当当的。 全球鹰电子卖的就比较务实一些，75块钱一片， 实话实话这个价格才是合理价格，有正常的商业利润。</p>
@@ -370,17 +370,17 @@ sys.subscribe(&quot;ON_HOOK&quot;, clrcallingnum)
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/1405/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/1405/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/1402/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -388,58 +388,58 @@ sys.subscribe(&quot;ON_HOOK&quot;, clrcallingnum)
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -492,7 +492,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

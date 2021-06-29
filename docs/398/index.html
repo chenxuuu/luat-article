@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Luat系列教程：2、控制LED小灯 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -68,7 +68,7 @@
 <blockquote>
 <p>如果你已经可以熟练掌握了某一个代码编辑器，那么你可以直接跳过这一章，直接看代码编写。如果你想试试我推荐的编辑器，那么也可以看下去</p>
 </blockquote>
-<h3 id="详细的安装和配置，请参考这篇文章vscode-lua开发推荐配置"><a href="#详细的安装和配置，请参考这篇文章vscode-lua开发推荐配置" class="headerlink" title="详细的安装和配置，请参考这篇文章vscode lua开发推荐配置"></a>详细的安装和配置，请参考这篇文章<a href="https://doc.luatos.wiki/594/">vscode lua开发推荐配置</a></h3><h1 id="新建一个最基本的工程"><a href="#新建一个最基本的工程" class="headerlink" title="新建一个最基本的工程"></a>新建一个最基本的工程</h1><p>在你觉得适当的位置，新建一个文件夹，名为<code>LUAT-LED</code>，使用你的代码编辑器打开该文件夹，vscode如下图所示操作：<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/image/show/attachments-2018-08-j0k4s1nt5b800abd3c5ba.png"><img src="http://oldask.openluat.com/image/show/attachments-2018-08-j0k4s1nt5b800abd3c5ba.png"></a></p>
+<h3 id="详细的安装和配置，请参考这篇文章vscode-lua开发推荐配置"><a href="#详细的安装和配置，请参考这篇文章vscode-lua开发推荐配置" class="headerlink" title="详细的安装和配置，请参考这篇文章vscode lua开发推荐配置"></a>详细的安装和配置，请参考这篇文章<a href="https://luatdoc.papapoi.com/594/">vscode lua开发推荐配置</a></h3><h1 id="新建一个最基本的工程"><a href="#新建一个最基本的工程" class="headerlink" title="新建一个最基本的工程"></a>新建一个最基本的工程</h1><p>在你觉得适当的位置，新建一个文件夹，名为<code>LUAT-LED</code>，使用你的代码编辑器打开该文件夹，vscode如下图所示操作：<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/image/show/attachments-2018-08-j0k4s1nt5b800abd3c5ba.png"><img src="http://oldask.openluat.com/image/show/attachments-2018-08-j0k4s1nt5b800abd3c5ba.png"></a></p>
 <p>打开后，在编辑器左侧的文件夹中，右击空白处，新建文件，输入文件名<code>main.lua</code>，回车键保存：<br><a target="_blank" rel="noopener" href="http://oldask.openluat.com/image/show/attachments-2018-08-SRWSpjPq5b800ad3d0255.png"><img src="http://oldask.openluat.com/image/show/attachments-2018-08-SRWSpjPq5b800ad3d0255.png"></a></p>
 <p>接着，在新建的文件夹中添加如下代码，完成最主要的<code>main.lua</code>文件的编写：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--必须在这个位置定义PROJECT和VERSION变量</span></span><br><span class="line"><span class="comment">--PROJECT：ascii string类型，可以随便定义，只要不使用,就行</span></span><br><span class="line"><span class="comment">--VERSION：ascii string类型，如果使用Luat物联云平台固件升级的功能，必须按照&quot;X.X.X&quot;定义，X表示1位数字；否则可随便定义</span></span><br><span class="line">PROJECT = <span class="string">&quot;LED-TEST&quot;</span></span><br><span class="line">VERSION = <span class="string">&quot;0.0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--根据固件判断模块类型</span></span><br><span class="line">moduleType = <span class="built_in">string</span>.<span class="built_in">find</span>(rtos.get_version(),<span class="string">&quot;8955&quot;</span>) <span class="keyword">and</span> <span class="number">2</span> <span class="keyword">or</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载日志功能模块，并且设置日志输出等级</span></span><br><span class="line"><span class="comment">--如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;log&quot;</span></span><br><span class="line">LOG_LEVEL = <span class="built_in">log</span>.LOGLEVEL_TRACE</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;sys&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;net&quot;</span></span><br><span class="line"><span class="comment">--每1分钟查询一次GSM信号强度</span></span><br><span class="line"><span class="comment">--每1分钟查询一次基站信息</span></span><br><span class="line">net.startQueryAll(<span class="number">60000</span>, <span class="number">60000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--加载硬件看门狗功能模块</span></span><br><span class="line"><span class="comment">--根据自己的硬件配置决定：1、是否加载此功能模块；2、配置Luat模块复位单片机引脚和互相喂狗引脚</span></span><br><span class="line"><span class="comment">--合宙官方出售的Air201开发板上有硬件看门狗，所以使用官方Air201开发板时，必须加载此功能模块</span></span><br><span class="line"><span class="comment">--如果用的是720 4g模块，请注释掉这两行</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;wdt&quot;</span></span><br><span class="line">wdt.setup(pio.P0_30, pio.P0_31)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载网络指示灯功能模块</span></span><br><span class="line"><span class="comment">--根据自己的项目需求和硬件配置决定：1、是否加载此功能模块；2、配置指示灯引脚</span></span><br><span class="line"><span class="comment">--合宙官方出售的Air800和Air801开发板上的指示灯引脚为pio.P0_28，其他开发板上的指示灯引脚为pio.P1_1</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;netLed&quot;</span></span><br><span class="line">netLed.setup(<span class="literal">true</span>,moduleType == <span class="number">2</span> <span class="keyword">and</span> pio.P1_1 <span class="keyword">or</span> pio.P2_0,moduleType == <span class="number">2</span> <span class="keyword">and</span> <span class="literal">nil</span> <span class="keyword">or</span> pio.P2_1)<span class="comment">--自动判断2/4g默认网络灯引脚配置</span></span><br><span class="line"><span class="comment">--网络指示灯功能模块中，默认配置了各种工作状态下指示灯的闪烁规律，参考netLed.lua中ledBlinkTime配置的默认值</span></span><br><span class="line"><span class="comment">--如果默认值满足不了需求，此处调用netLed.updateBlinkTime去配置闪烁时长</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--加载错误日志管理功能模块【强烈建议打开此功能】</span></span><br><span class="line"><span class="comment">--如下2行代码，只是简单的演示如何使用errDump功能，详情参考errDump的api</span></span><br><span class="line"><span class="built_in">require</span> <span class="string">&quot;errDump&quot;</span></span><br><span class="line">errDump.request(<span class="string">&quot;udp://ota.airm2m.com:9072&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--加载远程升级功能模块【强烈建议打开此功能】</span></span><br><span class="line"><span class="comment">--如下3行代码，只是简单的演示如何使用update功能，详情参考update的api以及demo/update</span></span><br><span class="line"><span class="comment">-- PRODUCT_KEY = &quot;xxxxxx&quot;</span></span><br><span class="line"><span class="comment">-- require &quot;update&quot;</span></span><br><span class="line"><span class="comment">-- update.request()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">--启动系统框架</span></span><br><span class="line">sys.init(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">sys.run()</span><br></pre></td></tr></table></figure>
@@ -129,17 +129,17 @@
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/399/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/399/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/397/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -147,58 +147,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -251,7 +251,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

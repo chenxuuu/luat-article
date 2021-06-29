@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>稀饭放姜 iRTU 学习日记 （5）：用电脑采集Modbus温湿度传感器数据 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -101,7 +101,7 @@ function
     local ret=&quot;&quot;
     if (dat:sub(1,4)==&quot;temp&quot;) then
         ret= string.fromHex(&quot;01 03 02 00 00 03 04 73&quot;)
-    else 
+    else
         ret =dat
     end
     return ret
@@ -109,19 +109,19 @@ end
 </code></pre>
 <p>上行数据流模板(Modbus传感器-&gt;DTU)，该模板用于将Modbus传感器采集到的数据翻译成MTCP报文，发送给PC端。</p>
 <pre><code>--Upload stream
-function 
+function
 
     local a=...
 
     local ret=&quot;&quot;
     local str=&quot;&quot;
 
-    if (a:sub(1,2)==string.fromHex(&quot;01 03&quot;)) then 
-        local num1=(a:sub(4,4):byte()*255+a:sub(5,5):byte())/10       
-        local num2=(a:sub(6,6):byte()*255+a:sub(7,7):byte())/10       
+    if (a:sub(1,2)==string.fromHex(&quot;01 03&quot;)) then
+        local num1=(a:sub(4,4):byte()*255+a:sub(5,5):byte())/10
+        local num2=(a:sub(6,6):byte()*255+a:sub(7,7):byte())/10
         local temp=tostring(num1,10)
-        local  humd=tostring(num2,10)        
-        str=&quot;Temperature:&quot;..temp..&quot; Humedity:&quot;..humd          
+        local  humd=tostring(num2,10)
+        str=&quot;Temperature:&quot;..temp..&quot; Humedity:&quot;..humd
     else
         str=string.toHex(a, &quot; &quot;)
     end
@@ -130,7 +130,7 @@ function
     local ret=string.format(&quot;%04d&quot;,totallen)..&quot;01&quot;..&quot;C&quot;..&quot;01&quot;..&quot;0000000001&quot;..&quot;0000000000000001&quot;..&quot;1234&quot;..str..&quot;05&quot;
 
 return ret
-end 
+end
 </code></pre>
 <p>第三步：配置iRTU</p>
 <p>将编写好的上下行数据流模板和Upws服务器参数通过串口工具配置到DTU</p>
@@ -161,17 +161,17 @@ end
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/673/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/673/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/671/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -179,58 +179,58 @@ end
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -283,7 +283,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

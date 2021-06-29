@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>MIT 6.824 Distributed Systems 分布式系统课程系列1 Lab1-MapReduce [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -272,7 +272,7 @@ func (m *Master) ReportTask(result *TaskResult, reply *ExampleReply) error &#123
     &#125; else &#123;
         reply.ServerStatus = 0
     &#125;
-    
+
     return nil
 &#125;
 
@@ -306,7 +306,7 @@ func (m *Master) Done() bool &#123;
 
     if m.server_status == 1&#123;
         ret = true
-    &#125; 
+    &#125;
 
     return ret
 &#125;
@@ -497,7 +497,7 @@ func Worker(mapf func(string, string) []KeyValue,
             task_result.Result = true
             task_result.TaskType = task.TaskType
             task_result.TaskID = task.TaskID
-            //task_result.Data = 
+            //task_result.Data =
 
             // send the RPC request, wait for the reply.
             call(&quot;Master.ReportTask&quot;, &amp;task_result, &amp;reply)
@@ -583,7 +583,7 @@ func Worker(mapf func(string, string) []KeyValue,
             task_result.Result = true
             task_result.TaskType = task.TaskType
             task_result.TaskID = task.TaskID
-            //task_result.Data = 
+            //task_result.Data =
 
             // send the RPC request, wait for the reply.
             call(&quot;Master.ReportTask&quot;, &amp;task_result, &amp;reply)
@@ -665,17 +665,17 @@ func call(rpcname string, args interface&#123;&#125;, reply interface&#123;&#125
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/1759/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/1759/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/1732/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -683,58 +683,58 @@ func call(rpcname string, args interface&#123;&#125;, reply interface&#123;&#125
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -787,7 +787,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>如何排查linux使用RNDIS无法上网的问题 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,25 +58,25 @@
         <h1 class="post-title">如何排查linux使用RNDIS无法上网的问题</h1>
 <article class="post markdown-style">
   <pre><code>                        &lt;p&gt;&lt;b&gt;一， 通过RNDIS 上网&lt;/b&gt;&lt;/p&gt;&lt;p&gt;一般情况下，不是特别精简的linux 已经支持rndis 功能，如果插上合宙的4G 模块，但是不能上网的话，需要注意以下几点&lt;br&gt;&lt;/p&gt;&lt;p&gt;1,能否检测到rndis 设备&lt;/p&gt;&lt;p&gt;    在命令行中输入 dmesg ,如此出现  rndis_host 1-1:1.0 eth1 这样的打印，则证明已经识别到了，(如果没有，可能是硬件问题，也可能是linux 真的不支持rndis &lt;a href=&quot;http://oldask.openluat.com/article/79&quot;&gt;http://oldask.openluat.com/article/79&lt;/a&gt;)&lt;/p&gt;&lt;p&gt;    此时查看ifconfig ,如果没有出现    rndis_host 1-1:1.0 eth1 中的 eth1 ，则发送ifconfig -a ,此时发现有eth1 但是 没有ip 地址，发送 udhcpc -i eh1  出现地址后，即可使用此网卡进行上网&lt;/p&gt;&lt;p&gt;2，出现设备网卡，但是无法上网&lt;/p&gt;&lt;p&gt;    这可能是由于模块没有注册上网络，请看通过tcp 和模块进行通信&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;二 ， 通过 tcp 和 模块进行通信&lt;/b&gt;&lt;/p&gt;&lt;p&gt;当你的linux系统直接使用合宙的4G 模块（通过rndis功能上网），想知道一些模块的信息，但是由于没有识别到模块的tty设备（想要识别模块 请看&lt;a href=&quot;http://oldask.openluat.com/article/37&quot;&gt;http://oldask.openluat.com/article/37&lt;/a&gt; ），可以通过rndis 和模块进行通信，&lt;/p&gt;&lt;p&gt;通过 在linux 上命令行 发送     telnet 192.168.0.1 4321 就可和模块 进行AT 通信&lt;/p&gt;&lt;p&gt;常用 AT :&lt;/p&gt;&lt;p&gt;AT+CPIN?  查看卡是否在位&lt;/p&gt;&lt;p&gt;AT+CEREG?  查看是否注册上网络&lt;/p&gt;&lt;p&gt;AT+CESQ    查看信号值&lt;/p&gt;&lt;p&gt;ATI  查看版本号&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-                    
-                    
-                    
+
+
+
 </code></pre>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/596/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/596/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/594/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -84,58 +84,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -188,7 +188,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

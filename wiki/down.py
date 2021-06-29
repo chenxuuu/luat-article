@@ -24,10 +24,10 @@ def down(info):
             text = "\n"+j["data"]["content"]
             text = text.replace("\n# ","\n## ")
             text = re.sub('http://doc.openluat.com/article/(\\d+)/0',
-                lambda x: "https://doc.luatos.wiki/{}/".format(x.group(1)),
+                lambda x: "https://luatdoc.papapoi.com/{}/".format(x.group(1)),
                 text)
             text = re.sub('http://doc.openluat.com/wiki/6\\?wiki_page_id=(\\d+)',
-                lambda x: "https://doc.luatos.wiki/wiki/pages/{}.html".format(x.group(1)),
+                lambda x: "https://luatdoc.papapoi.com/wiki/pages/{}.html".format(x.group(1)),
                 text)
             text = re.sub('\n(# +.+)',
                 lambda x: "\n\n{}\n".format(x.group(1)),

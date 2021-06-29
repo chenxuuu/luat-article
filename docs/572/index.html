@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>合宙4G DTU+国网dlt645-2007协议抄表 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,23 +58,23 @@
         <h1 class="post-title">合宙4G DTU+国网dlt645-2007协议抄表</h1>
 <article class="post markdown-style">
   <pre><code>                        &lt;p&gt;工作中有的客户有这种需求,以前用的是安徽或者南京某公司产品,用起来还可以,就是太贵大于1000块,性价比很低&lt;/p&gt;&lt;p&gt;前一阵接触到合宙的dtu,准备用mqtt协议自己做套抄表系统,这样也方便平时上班&lt;/p&gt;&lt;p&gt;表是从淘宝上买的库存表一块25块包邮的.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;思路:合宙dtu-发送到中国移动平台(mqtt协议)-用c#写个mqtt协议接收程序-解析dlt645-2007协议&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;-------2019-04-07 23:08更新---------------&lt;/p&gt;&lt;p&gt;645-2007协议报文&lt;/p&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;读当前正向有功总电量（假设表号为&lt;span t=&quot;7&quot; data=&quot;12345678&quot; style=&quot;border-bottom: 1px dashed rgb(204, 204, 204); z-index: 1;&quot;&gt;12345678&lt;/span&gt;）&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;FEFEFEFE6878563412000068110433333433C616&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;前导字节(固定)FEFEFEFE&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;起始符(固定)68&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;地址(根据读出的结果)&lt;span t=&quot;7&quot; data=&quot;785634120000&quot; style=&quot;border-bottom: 1px dashed rgb(204, 204, 204); z-index: 1;&quot;&gt;785634120000&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;结束符(固定)68&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;控制码()11&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;数据长度()04&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;数据内容()&lt;span t=&quot;7&quot; data=&quot;33333433&quot; style=&quot;border-bottom: 1px dashed rgb(204, 204, 204); z-index: 1;&quot;&gt;33333433&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;校验和()C6&lt;/div&gt;&lt;div style=&quot;font-family: &amp;quot;lucida Grande&amp;quot;, Verdana, &amp;quot;Microsoft YaHei&amp;quot;;&quot;&gt;结束符16&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;这个最近正在做,有进展下面会更新的.&lt;/p&gt;
-                    
+
 </code></pre>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/573/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/573/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/571/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -82,58 +82,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -186,7 +186,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

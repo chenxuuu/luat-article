@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>记录720S系列使用阿里云升级过程中遇到的坑 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,23 +58,23 @@
         <h1 class="post-title">记录720S系列使用阿里云升级过程中遇到的坑</h1>
 <article class="post markdown-style">
   <pre><code>                        &lt;p&gt;最近用720SL在调试阿里云的一个项目，用到远程升级的时候遇到了一个坑，记录一下，有遇到的可以避免再次踩坑。&lt;/p&gt;&lt;p&gt;问题的经过比较简单，之前用的是202的模块通过阿里云远程升级是没问题的，可是用同样的方法对720SL升级却一直失败，升级文件下载的也没问题，就是重启以后不升级。使用合宙的IOT平台用同样的文件却可以成功。和大佬交流以后才知道原来720S系列的升级文件与以往不同。使用luatools生成远程升级文件后，对生成的远程升级文件进行解压可以得到两个文件。&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://oldask.openluat.com/image/show/attachments-2020-04-qzOREbdP5e8d70d504827.png&quot; style=&quot;width: 100%;&quot; class=&quot;img-responsive&quot;&gt;使用luatools查看我们所使用的硬件的固件版本号&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://oldask.openluat.com/image/show/attachments-2020-04-oZUfzkS05e8d7111a8d13.png&quot; style=&quot;width: 273px;&quot; class=&quot;img-responsive&quot;&gt;可以看到后缀有859C，解压出来的文件也是一个有859C后缀一个是858后缀。我们只需要根据自己的硬件版本选择对应的固件上传到阿里云就可以了。在升级配置的时候可以配置两个版本分别升级。自建的升级平台应该也需要这样处理。&lt;/p&gt;&lt;p&gt;简单记录，防止更多人踩坑&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-                    
+
 </code></pre>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/114/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/114/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/103/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -82,58 +82,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -186,7 +186,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

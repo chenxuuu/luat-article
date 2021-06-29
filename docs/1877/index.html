@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>AudioCalibrator_V2.3.7 的使用及音频文件处理方法 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,7 +58,7 @@
         <h1 class="post-title">AudioCalibrator_V2.3.7 的使用及音频文件处理方法</h1>
 <article class="post markdown-style">
   <p>作者：周维华<br>前言：<br>在AudioCalibrator_V2.3.7的readme 目录就有《音频实时校准工具用户指南_V1.2.pdf》<br>这是RDA 官方的文档（后面简称：“RDA文档”）。即使仔细阅读，也是步步艰难。 几次想认真研究下这个工具到底怎么用，奈何悟性不够，以至疲于各种ERROR 提示；得益于金总和国良的指点，总算能让工具正常的跑起来， 此音频工具能调节的参数非常多，我这里就挑重点讲解下如何成功的读取和设置参数到模块，作为抛砖引玉，让大家能顺利的使用此工具（工具在下面的“音频工具包”中能下载）。</p>
-<h2 id="一．使用工具的目的"><a href="#一．使用工具的目的" class="headerlink" title="一．使用工具的目的"></a>一．使用工具的目的</h2><pre><code>目前合宙的AT指令对音量控制的，只有这两个指令 
+<h2 id="一．使用工具的目的"><a href="#一．使用工具的目的" class="headerlink" title="一．使用工具的目的"></a>一．使用工具的目的</h2><pre><code>目前合宙的AT指令对音量控制的，只有这两个指令
 </code></pre>
 <p>通话音量控制：AT+CLVL<br>本地音频播放音量控制：AT+CRSL<br>实际和声音相关的参数非常多如校准，滤波，均衡，动态，回音等等，客户的产品有涉及到语音的大概率需要调节这些参数（也有不少默认的就满足客户要求，这跟产品的设计结构电路也有关系），所以这里就是要告诉大家怎么来使用这个工具，远离工具异常提示。</p>
 <h2 id="二．工具运行所需环境"><a href="#二．工具运行所需环境" class="headerlink" title="二．工具运行所需环境"></a>二．工具运行所需环境</h2><p>有几个前提条件：</p>
@@ -98,7 +98,7 @@
 <p>然后在应用代码中增加如下：</p>
 <p>#include “am_openat.h”<br>#include “am_openat_fs.h”<br>#include “am_openat_system.h”<br>#include “am_openat_drv.h”<br>#include “string.h”<br>#include “iot_debug.h”</p>
 <p>BOOL dir_create(char * dir)<br>{<br>    return iot_fs_make_dir(dir, E_FS_ATTR_DEFAULT)&gt;=0?TRUE:FALSE;<br>}<br>BOOL file_exist(char* file)<br>{<br>    INT32 fd;<br>    fd = iot_fs_open_file(file, FS_O_RDONLY);</p>
-<pre><code>if (fd &gt;= 0) 
+<pre><code>if (fd &gt;= 0)
 &#123;
     iot_fs_close_file(fd);
     return TRUE;
@@ -109,13 +109,13 @@ return FALSE;
 <p>BOOL file_write(char* file, unsigned char * write_buff, int length)<br>{<br>    INT32 fd;<br>    INT32 write_len;<br>    fd = iot_fs_open_file(file, FS_O_WRONLY|FS_O_CREAT);<br>    if (fd &lt; 0)<br>        return FALSE ;<br>    write_len = iot_fs_write_file(fd, write_buff, length);<br>    if (write_len &lt; 0)<br>        return FALSE;<br>    iot_fs_close_file(fd);<br>    return TRUE;<br>}</p>
 <p> void check_user_calib(char * pcalib,int length)<br> {<br>     char * USERNVM_PATH =”/usernvm”;<br>     char * USERNVM_AUDIOCALIB_FILE_PATH =”/usernvm/user_audio_calib.bin”;<br>     char * USERNVM_AUDIOCALIB_SET_FILE_PATH =”/usernvm/user_audio_calib_flag.bin”;<br>     if(dir_create(USERNVM_PATH))<br>     {<br>          if(file_exist(USERNVM_AUDIOCALIB_SET_FILE_PATH))<br>          {<br>               if(file_exist(USERNVM_AUDIOCALIB_FILE_PATH))<br>               {<br>                   iot_debug_print(“audioParam USERNVM_AUDIOCALIB_FILE_PATH error,=%s”, USERNVM_AUDIOCALIB_FILE_PATH);<br>               } else<br>               {<br>                   iot_debug_print(“audioParam success”);<br>               }<br>          } else<br>          {<br>               file_delete(USERNVM_AUDIOCALIB_FILE_PATH);<br>               char * pbuf = malloc(length +4);<br>               memset(pbuf,0, length +4);</p>
 <pre><code>           // &#39;&lt;&#39; 小字节序，最低有效字节优先，更低的字节有效位占据着更低地址的内存空间。
-      
+
            pbuf[0]= (unsigned char)((length &amp; 0x000000FF)&gt;&gt;0);
-           pbuf[1]= (unsigned char)((length &amp; 0x0000FF00)&gt;&gt;8); 
+           pbuf[1]= (unsigned char)((length &amp; 0x0000FF00)&gt;&gt;8);
            pbuf[2]= (unsigned char)((length &amp; 0x00FF0000)&gt;&gt;16);
            pbuf[3]= (unsigned char)((length &amp; 0xFF000000)&gt;&gt;24);
            memcpy(&amp;pbuf[4],pcalib,length);
-           
+
            if(file_write(USERNVM_AUDIOCALIB_FILE_PATH, pbuf, length+4))
            &#123;
                 pbuf[0]=1;
@@ -151,17 +151,17 @@ return FALSE;
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/1889/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/1889/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/1872/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -169,58 +169,58 @@ return FALSE;
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -273,7 +273,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>合宙Air系列模块外部总线接口常见用法-SPI总线，下 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -73,7 +73,7 @@
 <p>主程序</p>
 <pre><code>-- Example 1: nrf24 transmitter
 -- Features: fixed payload length
-    
+
 r = require(&quot;nrf24&quot;)
 
 r.nrf24_hw_init()
@@ -89,8 +89,8 @@ i=0
 --发送Demo
 r.nrf24_power_up()
 sys.timerLoopStart(function()
-    r.nrf24_reset()    
-    
+    r.nrf24_reset()
+
     local s_send=&quot;ABC&quot;..i
     log.info(&quot;nrf24l01&quot;,&quot;xmit packet...&quot;, table.concat(string.utf8ToTable(s_send)))
     r.nrf24_send_packet(string.utf8ToTable(s_send))
@@ -100,7 +100,7 @@ end,1000)
 
 
 function gpio61IntFnc(msg)
-    
+
 end
 
 --GPIO61配置为中断，可通过getGpio61Fnc()获取输入电平，产生中断时，自动执行gpio61IntFnc函数
@@ -209,7 +209,7 @@ end
 function M.nrf24_hw_init()
 
     --打开SPI引脚的供电
-    pmd.ldoset(6,pmd.LDO_VMMC) 
+    pmd.ldoset(6,pmd.LDO_VMMC)
     spi.setup(0,0,0,8,110000,1)
     pins.setup(CE_PIN,1)
     pins.setup(CS_PIN,1)
@@ -254,7 +254,7 @@ function M.nrf24_msend_cmd(cmd, values)
     nrf24_csn(0)
     local ret=spi.send_recv(0,string.char(cmd)..table.concat(values))
     nrf24_csn(1)
-    
+
     return string.byte(ret:sub(1,1))
 end
 
@@ -506,17 +506,17 @@ return M
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/689/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/689/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/21/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -524,58 +524,58 @@ return M
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -628,7 +628,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

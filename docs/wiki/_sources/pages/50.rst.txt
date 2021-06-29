@@ -137,7 +137,7 @@ AT版本相关控制指令
 查询指令 AT+CTTS?                                    +CTTS:
 \                                                    OK
 测试命令 AT+CTTSPARAM=?                              OK
-URC      当 TTS 播放完毕，会有以下 URC 上报：+CTTS:0 
+URC      当 TTS 播放完毕，会有以下 URC 上报：+CTTS:0
 ======== =========================================== ======
 
 **参数定义**
@@ -612,10 +612,10 @@ CSDK开发相关接口
 
 ::
 
-   BOOL iot_audio_play_tone(                                         
-                           E_AMOPENAT_TONE_TYPE toneType,      
-                           UINT16 duration,                   
-                           E_AMOPENAT_SPEAKER_GAIN volume     
+   BOOL iot_audio_play_tone(
+                           E_AMOPENAT_TONE_TYPE toneType,
+                           UINT16 duration,
+                           E_AMOPENAT_SPEAKER_GAIN volume
                     );
 
 -  参数
@@ -636,7 +636,7 @@ volume   播放音量
 
 ::
 
-   BOOL iot_audio_stop_tone(                                         
+   BOOL iot_audio_stop_tone(
                            VOID
                     );
 
@@ -650,10 +650,10 @@ volume   播放音量
 
 ::
 
-   BOOL iot_audio_play_dtmf(                                        
-                           E_AMOPENAT_DTMF_TYPE dtmfType,     
-                           UINT16 duration,                   
-                           E_AMOPENAT_SPEAKER_GAIN volume     
+   BOOL iot_audio_play_dtmf(
+                           E_AMOPENAT_DTMF_TYPE dtmfType,
+                           UINT16 duration,
+                           E_AMOPENAT_SPEAKER_GAIN volume
                     );
 
 -  参数
@@ -672,7 +672,7 @@ volume   播放音量
 
 ::
 
-   BOOL iot_audio_stop_dtmf(                                          
+   BOOL iot_audio_stop_dtmf(
                            VOID
                     );
 
@@ -704,7 +704,7 @@ playParam 播放参数
 
 ::
 
-   BOOL iot_audio_stop_music(                                       
+   BOOL iot_audio_stop_music(
                            VOID
                      );
 
@@ -718,7 +718,7 @@ playParam 播放参数
 
 ::
 
-   BOOL iot_audio_pause_music(                                       
+   BOOL iot_audio_pause_music(
                            VOID
                       );
 
@@ -730,7 +730,7 @@ playParam 播放参数
 
 ::
 
-   BOOL iot_audio_resume_music(                                     
+   BOOL iot_audio_resume_music(
                            VOID
                        );
 
@@ -744,7 +744,7 @@ playParam 播放参数
 
 ::
 
-   BOOL iot_audio_mute_speaker(                                       
+   BOOL iot_audio_mute_speaker(
                            VOID
                        );
 
@@ -758,7 +758,7 @@ playParam 播放参数
 
 ::
 
-   BOOL iot_audio_unmute_speaker(                                    
+   BOOL iot_audio_unmute_speaker(
                            VOID
                          );
 
@@ -770,8 +770,8 @@ playParam 播放参数
 
 ::
 
-   BOOL iot_audio_set_speaker_vol(                                   
-                           UINT32 vol 
+   BOOL iot_audio_set_speaker_vol(
+                           UINT32 vol
                            );
 
 -  参数
@@ -790,7 +790,7 @@ vol  设置扬声器音量值
 
 ::
 
-   BOOL iot_audio_get_speaker_vol(                                       
+   BOOL iot_audio_get_speaker_vol(
                            VOID
                        );
 
@@ -802,8 +802,8 @@ vol  设置扬声器音量值
 
 ::
 
-   BOOL iot_audio_set_sph_vol(                                   
-                           UINT32 vol 
+   BOOL iot_audio_set_sph_vol(
+                           UINT32 vol
                            );
 
 -  参数
@@ -822,7 +822,7 @@ vol  设置通话音量值
 
 ::
 
-   BOOL iot_audio_get_sph_vol(                                       
+   BOOL iot_audio_get_sph_vol(
                            VOID
                        );
 
@@ -834,8 +834,8 @@ vol  设置通话音量值
 
 ::
 
-   BOOL iot_audio_set_channel(                                        
-                           E_AMOPENAT_AUDIO_CHANNEL channel   
+   BOOL iot_audio_set_channel(
+                           E_AMOPENAT_AUDIO_CHANNEL channel
                       );
 
 -  参数
@@ -852,7 +852,7 @@ channel 音频通道
 
 ::
 
-   E_AMOPENAT_AUDIO_CHANNEL iot_audio_get_current_channel(            
+   E_AMOPENAT_AUDIO_CHANNEL iot_audio_get_current_channel(
                            VOID
                                                   );
 
@@ -915,13 +915,13 @@ len        数据流长度
 
 相关开发板购买链接
 `Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
-开发板使用说明 <https://doc.luatos.wiki/103/>`__
-`相关软件资料下载 <https://doc.luatos.wiki/wiki/pages/227.html>`__
+开发板使用说明 <https://luatdoc.papapoi.com/103/>`__
+`相关软件资料下载 <https://luatdoc.papapoi.com/wiki/pages/227.html>`__
 
 常见问题
 --------
 
-https://doc.luatos.wiki/638/ \* Q: spk的输出类型是什么？
+https://luatdoc.papapoi.com/638/ \* Q: spk的输出类型是什么？
 A：spk为差分输出，内部经过一个classD类功放 \* Q: spk通道外接功放有噪音？
 A：spk通道默认是classD的输出，
 如果用SPK通道外接功放需要切换成classAB的输出方式：lua（V22版本以及以以后的版本）：audiocore.setpa(audiocore.CLASS_AB)

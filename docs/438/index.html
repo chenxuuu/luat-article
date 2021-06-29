@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Air800(GPRS+GPS模块)连接OneNet平台 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
   <pre><code>                    &lt;h2 id=&quot;air800介绍&quot; style=&quot;outline: 0px; padding: 0px; margin: 8px 0px 16px; font-size: 24px; color: rgb(79, 79, 79); font-weight: 700; line-height: 32px; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;OneNet平台介绍&lt;br&gt;&lt;/h2&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;OneNET作为中国移动通信集团推出的一个专业物联网开放云平台，提供了丰富的智能硬件开发工具和可靠的服务，助力各类终端设备迅速接入网络，实现数据传输、数据存储、数据管理等完整的交互流程。&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;支持公开协议包括EDP、MODBUS、MQTT以及HTTP等多种协议。详细资料参见：&lt;a href=&quot;https://open.iot.10086.cn/doc&quot; rel=&quot;nofollow&quot; target=&quot;_blank&quot; style=&quot;outline: 0px; color: rgb(103, 149, 181); cursor: pointer; word-break: break-all;&quot;&gt;https://open.iot.10086.cn/doc&lt;/a&gt;&lt;/p&gt;&lt;h2 id=&quot;所需api&quot; style=&quot;outline: 0px; padding: 0px; margin: 8px 0px 16px; font-size: 24px; color: rgb(79, 79, 79); font-weight: 700; line-height: 32px; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;a name=&quot;t2&quot; style=&quot;outline: 0px; color: rgb(78, 161, 219); cursor: pointer; word-break: break-all;&quot;&gt;&lt;/a&gt;所需API&lt;/h2&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;Luat封装了很多的实用API，所以在实现一些功能的时候就无需自己造轮子，直接调用其API即可&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;a href=&quot;http://wiki.openluat.com/doc/luatApi/#mqtt&quot; rel=&quot;nofollow&quot; target=&quot;_blank&quot; style=&quot;outline: 0px; color: rgb(103, 149, 181); cursor: pointer; word-break: break-all;&quot;&gt;mqtt&lt;/a&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;a href=&quot;http://wiki.openluat.com/doc/luatApi/#pack&quot; rel=&quot;nofollow&quot; target=&quot;_blank&quot; style=&quot;outline: 0px; color: rgb(103, 149, 181); cursor: pointer; word-break: break-all;&quot;&gt;pack&lt;/a&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;a href=&quot;http://wiki.openluat.com/doc/luatApi/#gps&quot; rel=&quot;nofollow&quot; target=&quot;_blank&quot; style=&quot;outline: 0px; color: rgb(103, 149, 181); cursor: pointer; word-break: break-all;&quot;&gt;gps&lt;/a&gt;&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;lbs&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;a href=&quot;http://wiki.openluat.com/doc/luatApi/#json&quot; target=&quot;_blank&quot;&gt;json&lt;/a&gt;&lt;/p&gt;&lt;h2 id=&quot;实现思路&quot; style=&quot;outline: 0px; padding: 0px; margin: 8px 0px 16px; font-size: 24px; color: rgb(79, 79, 79); font-weight: 700; line-height: 32px; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;a name=&quot;t3&quot; style=&quot;outline: 0px; color: rgb(78, 161, 219); cursor: pointer; word-break: break-all;&quot;&gt;&lt;/a&gt;实现思路&lt;/h2&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;本例通过MQTT将Air800获取到的GPS坐标发送到OneNET平台并显示。&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;MQTT协议是一个面向物联网应用的即时通信协议，使用TCP/IP提供网络连接，能够对负载内容实现消息屏蔽传输，开销小，可以有效降低网络流量。OneNET平台采用的是标准MQTT协议，所以使用合宙提供的MQTT API就能很方便的连上。只需要在OneNET上生成一个应用方可得到MQTT鉴权&lt;/p&gt;&lt;pre class=&quot;prettyprint&quot; name=&quot;code&quot; style=&quot;outline: 0px; padding: 8px 16px 6px 56px; margin-bottom: 24px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; position: relative; overflow-y: hidden; line-height: 22px; color: rgb(0, 0, 0); background-color: rgb(246, 248, 250); border-width: initial; border-style: none; border-color: initial; font-variant-ligatures: common-ligatures;&quot;&gt;&lt;code class=&quot;hljs  has-numbering&quot; style=&quot;outline: 0px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; display: block; padding: 0.5em; color: rgb(0, 0, 0); line-height: 22px; background-color: rgb(246, 248, 250); border-radius: 4px; overflow-x: auto; white-space: pre; word-wrap: normal; text-size-adjust: none; word-break: break-all;&quot;&gt;Q1：MQTT连接鉴权时,Payload中ClientIdentifier;UserName;UserPassword分别填写什么？
 </code></pre>
 <p>A： ClientIdentifier: 创建设备时得到的设备ID，为数字字串；     </p>
-<pre><code>   UserName: 注册产品时，平台分配的产品ID，为数字字串； 
+<pre><code>   UserName: 注册产品时，平台分配的产品ID，为数字字串；
 
    UserPassword: 为设备的鉴权信息（即唯一设备编号，SN），或者为apiKey，为字符串。&lt;/code&gt;&lt;ul class=&quot;pre-numbering&quot; style=&quot;outline: 0px; padding-top: 8px; padding-bottom: 8px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; font-size: inherit; word-break: break-all; position: absolute; width: 48px; background-color: rgb(238, 240, 244); top: 0px; left: 0px; text-align: right;&quot;&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;1&lt;/li&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;2&lt;/li&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;3&lt;/li&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;4&lt;/li&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;5&lt;/li&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;6&lt;/li&gt;&lt;li style=&quot;outline: 0px; padding: 0px 8px; margin: 0px; font-size: inherit; list-style: none; word-break: break-all; color: rgb(153, 153, 153);&quot;&gt;7&lt;/li&gt;&lt;/ul&gt;&lt;/pre&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;OneNET平台优势之一可以利用数据点快速生成应用&lt;/p&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-MvPFGaTu5b9c730355901.png&quot; class=&quot;img-responsive&quot; style=&quot;color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 865.5px;&quot;&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-09-5bFg4QYI5b9c7307e3436.png&quot; class=&quot;img-responsive&quot; style=&quot;color: rgb(0, 0, 0); font-size: 14px; text-align: start; width: 709.5px;&quot;&gt;&lt;/p&gt;&lt;div&gt;&lt;br&gt;要想让数据在OneNET平台上以数据点形式展现出来就得按照OneNET协议上传数据，使用OneNET平台的mqtt协议调试工具可以看到payload以json格式发送，并在json前面加0x01,0x00,0x20(这个字节为json长度),payload格式发送。&lt;/div&gt;&lt;p style=&quot;outline: 0px; padding: 0px; margin-bottom: 16px; font-size: 16px; color: rgb(79, 79, 79); line-height: 26px; text-align: justify; word-break: break-all; font-family: -apple-system, &quot; sf=&quot;&quot; ui=&quot;&quot; text&quot;,=&quot;&quot; arial,=&quot;&quot; &quot;pingfang=&quot;&quot; sc&quot;,=&quot;&quot; &quot;hiragino=&quot;&quot; sans=&quot;&quot; gb&quot;,=&quot;&quot; &quot;microsoft=&quot;&quot; yahei&quot;,=&quot;&quot; &quot;wenquanyi=&quot;&quot; micro=&quot;&quot; hei&quot;,=&quot;&quot; sans-serif;=&quot;&quot; font-variant-ligatures:=&quot;&quot; common-ligatures;&quot;=&quot;&quot;&gt;json格式如下&lt;/p&gt;&lt;pre class=&quot;prettyprint&quot; name=&quot;code&quot; style=&quot;outline: 0px; padding: 8px 16px 6px 56px; margin-bottom: 24px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; position: relative; overflow-y: hidden; line-height: 22px; color: rgb(0, 0, 0); background-color: rgb(246, 248, 250); border-width: initial; border-style: none; border-color: initial; font-variant-ligatures: common-ligatures;&quot;&gt;&lt;code class=&quot;language-json hljs  has-numbering&quot; style=&quot;outline: 0px; font-family: Consolas, Inconsolata, Courier, monospace; font-size: 14px; display: block; padding: 0.5em; color: rgb(0, 0, 0); line-height: 22px; background-color: rgb(246, 248, 250); border-radius: 4px; overflow-x: auto; white-space: pre; word-wrap: normal; text-size-adjust: none; word-break: break-all;&quot;&gt;&#123;
 &quot;&lt;span class=&quot;hljs-attribute&quot; style=&quot;outline: 0px; font-size: inherit; word-break: break-all;&quot;&gt;datastreams&lt;/span&gt;&quot;: &lt;span class=&quot;hljs-value&quot; style=&quot;outline: 0px; font-size: inherit; word-break: break-all;&quot;&gt;[
@@ -87,17 +87,17 @@
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/439/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/439/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/437/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -105,58 +105,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -209,7 +209,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

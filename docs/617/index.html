@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Air系列模块Lua版本应用运行框架概述 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -269,21 +269,21 @@ font-family:"inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font
 </p><p class="MsoNormal" align="left" style="margin-bottom: 7.4pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; word-break: break-all;"><span lang="EN-US" style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
 宋体;color:#333333;mso-font-kerning:0pt">         </span><span style="font-size:9.0pt;font-family:"微软雅黑","sans-serif";mso-bidi-font-family:
 宋体;color:#333333;mso-font-kerning:0pt">例如：首先产生了一个定时器消息，定时器消息的处理动作（新建一个文件，写<span lang="EN-US">500K</span>数据）比较耗时，在写文件的过程中，<span lang="EN-US">core</span>中的串口<span lang="EN-US">task</span>产生了一个串口接收数据通知消息，虽然可以插入到<span lang="EN-US">Lua</span>主<span lang="EN-US">task</span>的外部消息队列中，但是由于<span lang="EN-US">Lua</span>主<span lang="EN-US">task</span>还在执行写文件的动作，所以串口消息只能等待，问题就表现为“我明明已经向模块串口发送了数据，为什么脚本在<span lang="EN-US">3</span>秒后才开始处理串口数据呢？”<span lang="EN-US"><o:p></o:p></span></span></p></div>
-                        
+
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/618/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/618/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/616/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -291,58 +291,58 @@ font-family:"inherit","serif";mso-fareast-font-family:微软雅黑;mso-bidi-font
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -395,7 +395,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Mongodb分片(sharding)配置 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -70,16 +70,16 @@
 <hr>
 <h2 id="分片配置"><a href="#分片配置" class="headerlink" title="分片配置"></a>分片配置</h2><p>部署步骤参考文档 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/">https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/</a></p>
 <p>以两台机器为例</p>
-<pre><code>db1  1.1.1.1              
+<pre><code>db1  1.1.1.1
 db2  2.2.2.2
 </code></pre>
 <p>程序结构</p>
 <pre><code>    [db1]                       [db2]
-    
+
                              mongos:27017
-                                   
+
 config_server:27019          config_server:27019
- 
+
 shard:27018                  shard:27018
 </code></pre>
 <p>一共要起1个mongos，4个mongod(2个config。2个shard)。</p>
@@ -99,7 +99,7 @@ shard:27018                  shard:27018
 │   │       ├── data
 │   │       └── log
 │   └── temp
-   
+
 </code></pre>
 <h3 id="1-启动config-server"><a href="#1-启动config-server" class="headerlink" title="1.启动config server"></a>1.启动config server</h3><p>config server是当作一个replica set副本集的，用mongod启动。<br>与正常副本集的区别是clusterRole设置为configsvr。</p>
 <pre><code>sudo mongod --config /airm2m_data/airm2m/database/mongodb/config/config_server.conf
@@ -175,11 +175,11 @@ chmod 400 mongodb_key
 <h3 id="3-添加各app小号"><a href="#3-添加各app小号" class="headerlink" title="3.添加各app小号"></a>3.添加各app小号</h3><p>mongos和shard里都添加一下。</p>
 <pre><code>use admin
 db.auth(&#39;admin&#39;, &#39;123456&#39;)
-db.createUser(  
-  &#123;  
-    user: &quot;bsgps_worker&quot;,  
-    pwd: &quot;123456&quot;,  
-    roles: [ &#123; role: &quot;readWrite&quot;, db: &quot;bsgps&quot; &#125; ]  
+db.createUser(
+  &#123;
+    user: &quot;bsgps_worker&quot;,
+    pwd: &quot;123456&quot;,
+    roles: [ &#123; role: &quot;readWrite&quot;, db: &quot;bsgps&quot; &#125; ]
 &#125;)
 </code></pre>
 <p>要use admin后添加用户，这样能添加到admin表里。修改权限时也在admin里操作。<br>如果把用户添加到实际数据库比如bsgps，python程序貌似权限转换有点问题。(需要authSource指定默认数据库，而且直接读别的数据库会报权限错误。)</p>
@@ -205,17 +205,17 @@ db.grantRolesToUser( &quot;bsgps_worker&quot;, [ &#123; role: &quot;readWrite&qu
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/720/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/720/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/718/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -223,58 +223,58 @@ db.grantRolesToUser( &quot;bsgps_worker&quot;, [ &#123; role: &quot;readWrite&qu
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -327,7 +327,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

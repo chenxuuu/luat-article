@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>Erlang学习笔记/快速入门 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -113,9 +113,9 @@
 <h5 id="run的配置"><a href="#run的配置" class="headerlink" title="run的配置"></a>run的配置</h5><p>打开Edit Configuration，可修改运行配置。<br>可以看到Module and function 默认生成了test gg。<br>即运行test模块的gg函数。<br>以后要运行多个模块多个函数的话需要自行添加和修改这个config。</p>
 <h5 id="函数的例子1："><a href="#函数的例子1：" class="headerlink" title="函数的例子1："></a>函数的例子1：</h5><pre><code>-module(geometry).
 -export([area/1]).
-area(&#123;rectangle, Width, Height&#125;) -&gt; 
+area(&#123;rectangle, Width, Height&#125;) -&gt;
     Width * Height;
-area(&#123;square, Side&#125;) -&gt; 
+area(&#123;square, Side&#125;) -&gt;
     Side * Side.
 </code></pre>
 <p>同样的函数名area有两个，参数的匹配模式不一样，可以共存。注意中间是用;分隔的。</p>
@@ -135,7 +135,7 @@ for(I, Max, F) -&gt; [F(I)|for(I+1, Max, F)].
 </code></pre>
 <p>从第二个函数开始。对I调用F，作为list的第一个元素，再把I+1，再次调for，把返回接到list后面。<br>如果I增加到与Max相同，则匹配到第一个for，返回F(I)。<br>这样实现了对I到Max都调用F，把结果组成一个list。</p>
 <h5 id="函数的例子3："><a href="#函数的例子3：" class="headerlink" title="函数的例子3："></a>函数的例子3：</h5><pre><code>sum([H|T]) -&gt; H + sum(T);
-sum([]) -&gt; 0. 
+sum([]) -&gt; 0.
 </code></pre>
 <p>非空list匹配第一个sum，取出第一个元素H，对于list后续部分调用sum，最后返回两者的和。<br>到最后T为空时，返回0，全过程结束。<br>这样实现了求list的和。</p>
 <h5 id="函数的例子4："><a href="#函数的例子4：" class="headerlink" title="函数的例子4："></a>函数的例子4：</h5><p>list可以做这样的变换</p>
@@ -302,17 +302,17 @@ bounce ! hello.
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/1444/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/1444/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/1431/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -320,58 +320,58 @@ bounce ! hello.
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -424,7 +424,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

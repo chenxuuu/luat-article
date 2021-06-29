@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>MySql8主从复制介绍 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -75,13 +75,13 @@
     ...
     volumes:     # 数据目录映射到我们指定的位置
                 - &quot;/airm2m_data/airm2m/database/mysql_8/data:/var/lib/mysql&quot;
-                
+
     environment: # 环境变量     默认root密码
                 MYSQL_ROOT_PASSWORD: xxxxxxx
-                
+
     command:     # 主从复制会用到server-id，所有节点id必须全局唯一。
                 --server-id=1
-        
+
 </code></pre>
 <p>主从复制需要开启binlog。mysql8默认开启，和数据存在同个目录。不用管了。</p>
 <pre><code>docker-compose up -d mysql_8
@@ -99,7 +99,7 @@ MASTER_HOST=&#39;xxxxxxx&#39;,
 MASTER_PORT=3307
 </code></pre>
 <p>启动复制，用刚才创建的slave账号。</p>
-<pre><code>START SLAVE USER=&#39;xxx&#39; PASSWORD=&#39;xxx&#39;    
+<pre><code>START SLAVE USER=&#39;xxx&#39; PASSWORD=&#39;xxx&#39;
 </code></pre>
 <p>这时在master上创建数据就会同步到slave了。</p>
 <p>在slave上可以查看slave同步的重要数据</p>
@@ -132,7 +132,7 @@ START SLAVE USER=&#39;xxx&#39; PASSWORD=&#39;xxx&#39; // 启动。完成。
 <p>老版本客户端连8.0会报错，因为密码策略更新了。先升级客户端。（网上解法都是修改服务器默认密码策略，很难受。）<br><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/">https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/</a></p>
 <p>ubuntu14.04会出错，16.04可以。<br>先sudo apt-cache search mysql-client。尝试安装的话，都是5的版本。</p>
 <pre><code>wget https://dev.mysql.com/get/mysql-apt-config_0.8.15-1_all.deb
-sudo dpkg -i mysql-apt-config_0.8.15-1_all.deb 
+sudo dpkg -i mysql-apt-config_0.8.15-1_all.deb
 </code></pre>
 <p>server选8.0</p>
 <pre><code>sudo apt-get update
@@ -212,7 +212,7 @@ mysql_8:
 <p>启动后show variables，可看到都为ON。</p>
 <h4 id="1-完全重做数据库。"><a href="#1-完全重做数据库。" class="headerlink" title="1. 完全重做数据库。"></a>1. 完全重做数据库。</h4><p>起一个干净的mysql作为master。创建slave账号。<br>起一个干净的mysql作为slave。slave要加个skip-slave-start=off，不在启动时自动同步，而是手动启动同步。</p>
 <p>slave启动后开始同步</p>
-<pre><code>change master to 
+<pre><code>change master to
 master_host=&#39;xxxxx&#39;,
 master_user=&#39;xxx&#39;,
 MASTER_AUTO_POSITION = 1;
@@ -225,7 +225,7 @@ MASTER_AUTO_POSITION = 1;
 <pre><code>mysqldump -uroot -pxxxx --host xxxx --port xxxx --single-transaction --master-data=1 --set-gtid-purged=on --databases test &gt; master_test.sql
 </code></pre>
 <p>3.导入slave。因为都是带GTID的，所以不会重复导入。导入后可以看到数据全了。</p>
-<pre><code>mysql -uroot -pxxxxx --host 127.0.0.1 --port xxxx 
+<pre><code>mysql -uroot -pxxxxx --host 127.0.0.1 --port xxxx
 source master_all.sql
 </code></pre>
 <p>4.slave启动复制。回到正常状态。</p>
@@ -235,17 +235,17 @@ source master_all.sql
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/711/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/711/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/710/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -253,58 +253,58 @@ source master_all.sql
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -357,7 +357,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

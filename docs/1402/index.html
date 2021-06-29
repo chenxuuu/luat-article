@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>菜鸟学写Cat1 Demo集（连载） [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -4197,7 +4197,7 @@ end
 <p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200901000200653_oled.jpg"></p>
 <p>但是电话核心板这块是没有做电平转换的，也就是所高电平只有1.8V，为了满足高于2/3工作电压的要求，我把OLED显示屏的工作电压降到了2.5V，效果还可以。 当然这种方法并不推荐，设计一款好的电路的基本方法应该是严格按照设计来做，不应该随意妥协的设计，这种习惯很不好，我这样做是不对的。 如果您还要单独再接一个大彩屏，比如SST7735这种，那就最好接个LDO给OLED单独供电。 特别要注意的是，OLED对供电要求比较高，如果您自己画电路要小心，我画的这块板，用的是模块的VLCD，加了22uF的退耦电容，目前看稳定性挺凑合的。</p>
 <p>驱动部分，我使用了陈夏同学无私分享的OLED代码，需要指出，他原来的代码支持更为常见的128X64分辨率的OLED，我把他改为了128X32分辨率，如果您需要128X64的代码，请参考陈夏的文章，原文链接如下</p>
-<p><a href="https://doc.luatos.wiki/701/">https://doc.luatos.wiki/701/</a></p>
+<p><a href="https://luatdoc.papapoi.com/701/">https://luatdoc.papapoi.com/701/</a></p>
 <p>不过这个代码还是有问题的，只能显示两行英文字母，且密度也比较低，我觉得起码要4行才行，8X6的字模应该可以。 但是目前的驱动是16X8的，所以得改。 中文就不支持了，显示ASCII编码就得了。 主要是为了省内存。 当然，我说的这些都放在以后去做，今天一如既往的偷懒，把代码扔出来，愉快的去睡觉了。</p>
 <p><img src="http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200901000247489_old.jpg"></p>
 <h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><pre><code>--- 模块功能：SSD 1306驱动芯片 I2C屏幕显示测试
@@ -5265,17 +5265,17 @@ PUBLISH /Mytopic
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/1403/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/1403/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/1396/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -5283,58 +5283,58 @@ PUBLISH /Mytopic
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -5387,7 +5387,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

@@ -8,20 +8,20 @@
       <link rel="stylesheet" href="../_static/styles/furo.css?digest=33d2fc4f3f180ec1ffc6524e273e21d7d58cbe49">
     <link rel="stylesheet" href="../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
-    
+
 
 
 <style>
   :root {
     --color-code-background: #ffffff;
   --color-code-foreground: black;
-  
+
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
-  
+
     }
   }
 
@@ -29,12 +29,12 @@
   .override-light {
     --color-code-background: #ffffff;
   --color-code-foreground: black;
-  
+
   }
   .override-dark {
     --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
-  
+
   }
 </style><link rel="stylesheet" href="../_static/styles/furo-extensions.css?digest=26485485040e7aaf717c13fd0188a5ad2c2deb60">
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -44,7 +44,7 @@
     <script defer="defer" src="../_static/translations.js"></script>
     <script defer src="../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></head>
   <body dir="">
-    
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -101,11 +101,11 @@
   </header>
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
-      
+
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
-  
-  
+
+
+
 </a><form class="sidebar-search-container" method="get" action="../search.html">
   <input class="sidebar-search" placeholder=搜索 name="q">
   <input type="hidden" name="check_keywords" value="yes">
@@ -694,7 +694,7 @@
 </div>
 </div>
       </div>
-      
+
     </div>
   </aside>
   <main class="main">
@@ -870,7 +870,7 @@ SIM卡座与模块距离摆件不能太远，越近越好，尽量保证SIM卡�
 •
 为了保证良好的ESD保护，建议加TVS管，并靠近SIM卡座摆放。选择的ESD器件寄生电容不大于50pF。在模块和SIM卡之间也可以串联22欧姆的电阻用以抑制杂散EMI，增强ESD防护。SIM卡的外围电路必须尽量靠近SIM卡座。</p>
 <p>SIM卡热插拔检测功能是指模块开机后SIM插上或拔去，模块能够检测判断SIM卡是否在位。</p>
-<p>参考：<a class="reference external" href="https://doc.luatos.wiki/wiki/pages/521.html">https://doc.luatos.wiki/wiki/pages/521.html</a>
+<p>参考：<a class="reference external" href="https://luatdoc.papapoi.com/wiki/pages/521.html">https://luatdoc.papapoi.com/wiki/pages/521.html</a>
 rtos.notify_sim_detect()接口说明</p>
 <p>客户使用合宙LTE模块开发的产品如果需要具备热插拔功能，需要在硬件和软件上都具备相应的条件：</p>
 <p>1）在硬件上，需要USIM_CD（USIM Card
@@ -1176,13 +1176,13 @@ DY表示开机PIN码：OFF</p></td>
 <div class="section" id="id4">
 <h2>相关资料以及购买链接<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>相关开发板购买链接
-<a class="reference external" href="http://m.openluat.com/product/1264">Air724UG开发板</a> <a class="reference external" href="https://doc.luatos.wiki/103/">Air724
+<a class="reference external" href="http://m.openluat.com/product/1264">Air724UG开发板</a> <a class="reference external" href="https://luatdoc.papapoi.com/103/">Air724
 开发板使用说明</a></p>
 </div>
 <div class="section" id="id5">
 <h2>常见问题<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
-<p><a class="reference external" href="https://doc.luatos.wiki/638/">https://doc.luatos.wiki/638/</a> #### SIM卡不识别 1.
-首先要确认模块SIM引脚是否有硬件损坏，判断标准https://doc.luatos.wiki/634/
+<p><a class="reference external" href="https://luatdoc.papapoi.com/638/">https://luatdoc.papapoi.com/638/</a> #### SIM卡不识别 1.
+首先要确认模块SIM引脚是否有硬件损坏，判断标准https://luatdoc.papapoi.com/634/
 造成硬件损坏的原因大部分是有带电插拔SIM卡的操作导致。务必杜绝带电插拔SIM卡，同时要在线路上加入TVS管保护。
 2.
 软件方面：确认模块是否进入飞行模式，模块在进入飞行模式后会出现无法识别卡的情况，AT+CFUN=0命令或Luat版本执行net.switchFly(true)接口都会进入飞行模式，通过
@@ -1192,14 +1192,14 @@ AT+CFUN=1或net.switchFly(false) 来退出飞行模式.</p>
 SIM卡的VDD在初始化SIM卡时会打开，并且进行初始化卡的动作，但是如果识别不到SIM卡，SIMVDD就会关闭，所以就会出现开机了但是SIMVDD没有电压的情况，而不是SIMVDD没有电压导致的不识别SIM卡
 #### 新的流量卡需要激活吗？
 一般是上电自动激活；合宙出售的物联网卡为纯流量卡，不支持语音和短信业务，必须去运营商办理实名认证的卡才能使用；合宙物联网卡相关问题可参考以下链接
-<a class="reference external" href="https://doc.luatos.wiki/1477/">https://doc.luatos.wiki/1477/</a></p></li>
+<a class="reference external" href="https://luatdoc.papapoi.com/1477/">https://luatdoc.papapoi.com/1477/</a></p></li>
 </ul>
 </div>
 </div>
 
       </article>
       <footer>
-        
+
         <div class="related-pages">
           <a class="next-page" href="49.html">
               <div class="page-info">
@@ -1216,9 +1216,9 @@ SIM卡的VDD在初始化SIM卡时会打开，并且进行初始化卡的动作�
                 <div class="context">
                   <span>Previous</span>
                 </div>
-                
+
                 <div class="title">USB接口</div>
-                
+
               </div>
             </a>
         </div>
@@ -1231,12 +1231,12 @@ SIM卡的VDD在初始化SIM卡时会打开，并且进行初始化卡的动作�
               显示源代码
             </a>
         </div>
-        
+
       </footer>
     </div>
     <aside class="toc-drawer">
-      
-      
+
+
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
@@ -1264,8 +1264,8 @@ SIM卡的VDD在初始化SIM卡时会打开，并且进行初始化卡的动作�
           </div>
         </div>
       </div>
-      
-      
+
+
     </aside>
   </main>
 </div>

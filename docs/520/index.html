@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
+
   <title>17-GPRS(Air202)串口 [ Luat doc 社区文章静态页面 ]</title>
-  
+
     <!-- stylesheets list from config.yml -->
-    
+
       <link rel="stylesheet" href="/css/iLiKE.css">
-    
-  
-  
-  
+
+
+
+
 <meta name="generator" content="Hexo 5.3.0"></head>
 <body>
     <div class="header">
@@ -25,31 +25,31 @@
         </a>
       </div>
       <div class="menu-right">
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/">首页</a>
-        
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
           <a href="/archives">归档</a>
-        
-          
-          
-          
-          
-          
-          
-          <a href="https://doc.luatos.wiki/wiki/">关于</a>
-        
+
+
+
+
+
+
+
+          <a href="https://luatdoc.papapoi.com/wiki/">关于</a>
+
       </div>
     </div>
 </div>
@@ -58,23 +58,23 @@
         <h1 class="post-title">17-GPRS(Air202)串口</h1>
 <article class="post markdown-style">
   <pre><code>                        &lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(0, 51, 153); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 24px;&quot;&gt;https://www.cnblogs.com/yangfengwu/p/9968716.html&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116131947813-1415257617.png&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-pz90jTnG5bfd4fabb2e9a.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 205.5px;&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 24px;&quot;&gt;现在看一下官方给的demo&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116132358055-268363375.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-vkgnMIS45bfd4fe602857.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 565.5px;&quot;&gt;&lt;span style=&quot;font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 18pt;&quot;&gt;其实只要有两个就好说了&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;module(...,package.seeall)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--[[&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;函数名：print&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;功能&amp;nbsp; ：打印接口，此文件中的所有打印都会加上test前缀&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;参数&amp;nbsp; ：无&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;返回值：无&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;]]&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local function print(...)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; _G.print(&quot;test&quot;,...)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--串口配置&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local UART_ID = 1 --uart1&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local uartReadData = &quot;&quot;;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local uartReadDataCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--定时器空闲中断检测(串口空闲接收数据)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local UartTimerCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local function UartTimer()&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; if&amp;nbsp; uartReadDataCnt ~= 0 then&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; UartTimerCnt = UartTimerCnt+1;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if&amp;nbsp; UartTimerCnt &amp;gt;= 20 then&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; UartTimerCnt=0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadDataCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uart.write(UART_ID,uartReadData);&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadData = &quot;&quot;;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;sys.timer_loop_start(UartTimer,10)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--读取串口接收到的数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local uartdata = &quot;&quot;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local function read()&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; uartdata = &quot;&quot;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; while true do&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartdata = uart.read(UART_ID,&quot;*l&quot;,0)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if not uartdata or string.len(uartdata) == 0 then break end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadData = uartReadData..uartdata;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadDataCnt = uartReadDataCnt +1&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; UartTimerCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--注册串口的数据接收函数，串口收到数据后，会以中断方式，调用read接口读取数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;sys.reguart(UART_ID,read)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--配置并且打开串口&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;uart.setup(UART_ID,115200,8,uart.PAR_NONE,uart.STOP_1)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116133226470-216854604.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-WKJLYgiS5bfd50154909d.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 464.5px;&quot;&gt;&lt;span style=&quot;font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 24px;&quot;&gt;现在下载测试，就是发送给串口1什么就回什么&lt;/span&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 18pt;&quot;&gt;&lt;/span&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116133525216-811594740.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-MD9UsVdb5bfd50236f072.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 130px;&quot;&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116133550649-342845156.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-t1bj9PcF5bfd5028d5384.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 352.5px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;可以了，现在发指令控制GPIO5&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;指令就用&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&#123;data:switch,bit:1,status:0&#125; &amp;nbsp; 控制GPIO5输出低电平&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&#123;data:switch,bit:1,status:1&#125; &amp;nbsp; 控制GPIO5输出高电平&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;有可能会问，搞这么复杂的指令干嘛。。。。为了后期统一，而且现在物联网通信json格式用的很多，所以。。。。&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;module(...,package.seeall)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--[[&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;函数名：print&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;功能&amp;nbsp; ：打印接口，此文件中的所有打印都会加上test前缀&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;参数&amp;nbsp; ：无&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;返回值：无&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;]]&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local function print(...)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; _G.print(&quot;test&quot;,...)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--串口配置&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local UART_ID = 1 --uart1&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local uartReadData = &quot;&quot;;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local uartReadDataCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;pio.pin.setdir(pio.OUTPUT,pio.P0_5)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;pio.pin.setval(0,pio.P0_5)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--定时器空闲中断检测(串口空闲接收数据)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local UartTimerCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local function UartTimer()&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; if&amp;nbsp; uartReadDataCnt ~= 0 then&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; UartTimerCnt = UartTimerCnt+1;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if&amp;nbsp; UartTimerCnt &amp;gt;= 20 then--有200ms不进去中断接受数据了，就认为收完了一条数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; UartTimerCnt=0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadDataCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if&amp;nbsp; uartReadData==&quot;&#123;data:switch,bit:1,status:0&#125;&quot; then&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; pio.pin.setval(0,pio.P0_5)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uart.write(UART_ID,uartReadData);--返回数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; elseif&amp;nbsp; uartReadData==&quot;&#123;data:switch,bit:1,status:1&#125;&quot; then&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; pio.pin.setval(1,pio.P0_5)&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uart.write(UART_ID,uartReadData);--返回数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadData = &quot;&quot;;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;sys.timer_loop_start(UartTimer,10)--10MS的循环定时器&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--读取串口接收到的数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local uartdata = &quot;&quot;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;local function read()&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; uartdata = &quot;&quot;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; while true do&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartdata = uart.read(UART_ID,&quot;*l&quot;,0)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; if not uartdata or string.len(uartdata) == 0 then break end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadData = uartReadData..uartdata;--接收数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; uartReadDataCnt = uartReadDataCnt +1&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; UartTimerCnt = 0;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&amp;nbsp; &amp;nbsp; end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;end&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--注册串口的数据接收函数，串口收到数据后，会以中断方式，调用read接口读取数据&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;sys.reguart(UART_ID,read)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;--配置并且打开串口&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;uart.setup(UART_ID,115200,8,uart.PAR_NONE,uart.STOP_1)&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto;&quot;&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116134116019-911542960.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-zpJFA5kV5bfd5041aeec8.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 414.5px;&quot;&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116134318496-789635055.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-5kkvDAeM5bfd504a7b496.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 591.5px;&quot;&gt;&lt;img src=&quot;https://img2018.cnblogs.com/blog/819239/201811/819239-20181116134350403-574224359.png&quot;&gt;&lt;img src=&quot;http://oldask.openluat.com/image/show/attachments-2018-11-x5J9hvmM5bfd5052dbbba.png&quot; class=&quot;img-responsive&quot; style=&quot;width: 583.5px;&quot;&gt;&lt;font face=&quot;Verdana, Geneva, Arial, Helvetica, sans-serif&quot;&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;资料源码链接&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;链接：&lt;a href=&quot;https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw&quot; target=&quot;_blank&quot; style=&quot;color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);&quot;&gt;https://pan.baidu.com/s/1-SRfsKGQ7rZVvFmp1ObHWw&lt;/a&gt;&amp;nbsp;密码：p9qs&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;基础教程源码链接如果失效,请在淘宝介绍中下载,由于链接还是失效,请联系卖家,谢谢&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;a href=&quot;https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&amp;amp;id=569295486025&quot; target=&quot;_blank&quot; style=&quot;color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);&quot;&gt;https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18540610442.6.36a74814ZSaRsu&amp;amp;id=569295486025&lt;/a&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-top: 10px; margin-right: auto; margin-left: auto; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 16px;&quot;&gt;&lt;a href=&quot;https://www.cnblogs.com/yangfengwu/p/9969179.html&quot; target=&quot;_blank&quot; style=&quot;color: rgb(0, 51, 153); padding-bottom: 2px; border-bottom: 1px dashed rgb(0, 51, 153);&quot;&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;https://www.cnblogs.com/yangfengwu/p/9969179.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-                    
+
 </code></pre>
 
 </article>
 
     <div class="pagenator post-pagenator">
-    
-    
-        <a class="extend prev post-prev" href="/521/">上一篇</a>
-    
 
-    
+
+        <a class="extend prev post-prev" href="/521/">上一篇</a>
+
+
+
     <p>上次更新 2021-01-28</p>
-    
-    
+
+
         <a class="extend next post-next" href="/519/">下一篇</a>
-    
+
     </div>
 
     </div>
@@ -82,58 +82,58 @@
         <div class="container">
     <div class="social">
 	<ul class="social-list">
-		
-			
-		
-			
-				
+
+
+
+
+
 				<li>
-					<a href="https://doc.luatos.wiki/wiki/" title="stack-overflow" target="_self">
+					<a href="https://luatdoc.papapoi.com/wiki/" title="stack-overflow" target="_self">
 					<i class="fa fa-stack-overflow"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-				
+
+
+
+
+
+
+
+
+
+
+
+
 				<li>
 					<a href="https://github.com/openluat" title="github" target="_self">
 					<i class="fa fa-github"></i>
 					</a>
 				</li>
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
-			
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ul>
 </div>
     <div class="copyright">
         <span>
-            
-            
-            
+
+
+
                 © 仅供搜索引擎收录使用 2017 - 2021
-            
+
         </span>
     </div>
     <div class="power">
@@ -186,7 +186,7 @@ $(function() {
     var query=new AV.Query(Counter);
     query.descending("time");
     // the sum of popular posts
-    query.limit(10); 
+    query.limit(10);
     query.find({
         success: function(results) {
                 for(var i=0;i<results.length;i++) {

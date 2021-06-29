@@ -114,7 +114,7 @@ SIM卡热插拔检测功能是指模块开机后SIM插上或拔去，模块能�
 Luat版本
 ''''''''
 
-参考：https://doc.luatos.wiki/wiki/pages/521.html
+参考：https://luatdoc.papapoi.com/wiki/pages/521.html
 rtos.notify_sim_detect()接口说明
 
 AT版本
@@ -246,7 +246,7 @@ SIM_CD手动拉高接地的具体方法就是拿一根下图中的线，一端�
 设置命令 AT+SIMCROSS=                   OK
 查询命令 AT+SIMCROSS?                   +SIMCROSS: OK
 测试命令 AT+SIMCROSS=?                  +SIMCROSS:(取值范围) OK
-注意事项 本命令关机保存，但是需重启生效 
+注意事项 本命令关机保存，但是需重启生效
 ======== ============================== =======================
 
   参数定义:
@@ -279,13 +279,13 @@ LUAT开发相关接口
 
 相关开发板购买链接
 `Air724UG开发板 <http://m.openluat.com/product/1264>`__ `Air724
-开发板使用说明 <https://doc.luatos.wiki/103/>`__
+开发板使用说明 <https://luatdoc.papapoi.com/103/>`__
 
 常见问题
 --------
 
-https://doc.luatos.wiki/638/ #### SIM卡不识别 1.
-首先要确认模块SIM引脚是否有硬件损坏，判断标准https://doc.luatos.wiki/634/
+https://luatdoc.papapoi.com/638/ #### SIM卡不识别 1.
+首先要确认模块SIM引脚是否有硬件损坏，判断标准https://luatdoc.papapoi.com/634/
 造成硬件损坏的原因大部分是有带电插拔SIM卡的操作导致。务必杜绝带电插拔SIM卡，同时要在线路上加入TVS管保护。
 2.
 软件方面：确认模块是否进入飞行模式，模块在进入飞行模式后会出现无法识别卡的情况，AT+CFUN=0命令或Luat版本执行net.switchFly(true)接口都会进入飞行模式，通过
@@ -295,7 +295,7 @@ AT+CFUN=1或net.switchFly(false) 来退出飞行模式.
    SIM卡的VDD在初始化SIM卡时会打开，并且进行初始化卡的动作，但是如果识别不到SIM卡，SIMVDD就会关闭，所以就会出现开机了但是SIMVDD没有电压的情况，而不是SIMVDD没有电压导致的不识别SIM卡
    #### 新的流量卡需要激活吗？
    一般是上电自动激活；合宙出售的物联网卡为纯流量卡，不支持语音和短信业务，必须去运营商办理实名认证的卡才能使用；合宙物联网卡相关问题可参考以下链接
-   https://doc.luatos.wiki/1477/
+   https://luatdoc.papapoi.com/1477/
 
 .. |image1| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162008118_5.png
 .. |image2| image:: http://openluat-luatcommunity.oss-cn-hangzhou.aliyuncs.com/images/20200521162307522_6.png
